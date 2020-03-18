@@ -221,6 +221,9 @@ body {
      * as the animation. Same applies for the ending styles.
      */
     animation-fill-mode: both;
+
+    line-height: 0;
+    font-size: 1.5em;
 }
 
 .saving span:nth-child(2) {
