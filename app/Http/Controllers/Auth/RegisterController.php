@@ -49,16 +49,31 @@ class RegisterController extends Controller
      * Get a validator for an incoming registration request.
      *
      * @param  array  $data
+     * @param  string  $type
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
+    protected function validator(array $data, $type)
     {
-        return Validator::make($data, [
-            'first_name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:members'],
-            'password' => ['required', 'string', 'min:4', 'confirmed'],
-        ]);
+        switch ($type) {
+            case 'member':
+                return Validator::make($data, [
+                    'first_name' => ['required', 'string', 'max:255'],
+                    'last_name' => ['required', 'string', 'max:255'],
+                    'email' => ['required', 'string', 'email', 'max:255', 'unique:members'],
+                    'phone' => ['required', 'string', 'min:10'],
+                    'password' => ['required', 'string', 'min:4', 'confirmed'],
+                ]);
+                break;
+            case 'user':
+                return Validator::make($data, [
+                    'first_name' => ['required', 'string', 'max:255'],
+                    'last_name' => ['required', 'string', 'max:255'],
+                    'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                    'password' => ['required', 'string', 'min:4', 'confirmed'],
+                    'role' => ['required', 'string'],
+                ]);
+                break;
+        }
     }
 
     /**
@@ -103,11 +118,13 @@ class RegisterController extends Controller
      */
     protected function createUser(Request $request)
     {
-        $this->validator($request->all())->validate();
+        $this->validator($request->all(), 'user')->validate();
         $user = User::create([
-            'name' => $request['name'],
+            'first_name' => strtolower($request['first_name']),
+            'last_name' => strtolower($request['last_name']),
             'email' => $request['email'],
             'password' => Hash::make($request['password']),
+            'role' => 'super_admin',
         ]);
         return redirect()->intended('login/admin');
     }
@@ -118,7 +135,7 @@ class RegisterController extends Controller
      */
     protected function createMember(Request $request)
     {
-        $this->validator($request->all())->validate();
+        $this->validator($request->all(), 'member')->validate();
         $member = Member::create([
             'first_name' => $request['first_name'],
             'last_name' => $request['last_name'],

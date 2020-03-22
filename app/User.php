@@ -20,7 +20,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'first_name', 'last_name', 'email', 'password', 'role',
     ];
 
     /**
@@ -40,4 +40,44 @@ class User extends Authenticatable
     /* protected $casts = [
         'email_verified_at' => 'datetime',
     ]; */
+
+    /**
+     * Custom function.
+     *
+     */
+    public static function formFields() {
+        return [
+            [
+                'name' => 'first_name',
+                'type' => 'text',
+                'label' => 'Prénom',
+                'value' => 'Some Value'
+            ],
+            [
+                'name' => 'last_name',
+                'type' => 'text',
+                'label' => 'Nom de famille',
+                'value' => 'Some Value'
+            ],
+            [
+                'name' => 'email',
+                'type' => 'email',
+                'label' => 'Email',
+                'value' => 'Some Value'
+            ],
+            [
+                'name' => 'password',
+                'type' => 'password',
+                'label' => 'Mot de passe',
+                'value' => 'Some Value'
+            ],
+            [
+                'name' => 'role',
+                'type' => 'select',
+                'label' => 'Role',
+                'options' => ['Super Administrateur', 'Administrateur'],
+                'value' => 'Some Value'
+            ],
+        ];
+    }
 }

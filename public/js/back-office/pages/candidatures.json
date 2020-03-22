@@ -1,0 +1,12 @@
+[
+    {
+        "CandidatureID": 1,
+        "Lien": "candidature-unique.html",
+        "Titre": "Titre du projet",
+        "Categorie": "Agriculture",
+        "Porteur": "Ahmed Mounim",
+        "Date": "2/12/2018",
+        "Status": 3,
+        "Actions": null
+    }
+]

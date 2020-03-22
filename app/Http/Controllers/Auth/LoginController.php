@@ -61,7 +61,7 @@ class LoginController extends Controller
     {
         $this->validate($request, [
             'email'   => 'required|email',
-            'password' => 'required|min:6'
+            'password' => 'required|min:4'
         ]);
 
         if (Auth::guard('user')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
@@ -98,5 +98,20 @@ class LoginController extends Controller
             return redirect()->intended('/member');
         }
         return back()->withInput($request->only('email', 'remember'));
+    }
+
+    /**
+     * Custom function.
+     *
+     * @return void
+     */
+    public function logout(Request $request)
+    {
+        Auth::guard('user')->logout();
+        Auth::guard('member')->logout();
+        Auth::guard('web')->logout();
+        $request->session()->flush();
+        $request->session()->regenerate();
+        return redirect('/');
     }
 }
