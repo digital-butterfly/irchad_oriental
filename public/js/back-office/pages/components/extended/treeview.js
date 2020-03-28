@@ -17,11 +17,11 @@ var KTTreeview = function () {
                     "icon" : "fa fa-file"
                 }
             },
-            "plugins": ["types"]
+            "plugins": ["types", "contextmenu"]
         });
     }
 
-    var demo2 = function () {
+    /* var demo2 = function () {
         $('#kt_tree_2').jstree({
             "core" : {
                 "themes" : {
@@ -257,17 +257,17 @@ var KTTreeview = function () {
             "state" : { "key" : "demo3" },
             "plugins" : [ "dnd", "state", "types" ]
         });
-    }
+    } */
 
     return {
         //main function to initiate the module
         init: function () {
             demo1();
-            demo2();
-            demo3();
-            demo4();
-            demo5();
-            demo6();
+            // demo2();
+            // demo3();
+            // demo4();
+            // demo5();
+            // demo6();
         }
     };
 }();

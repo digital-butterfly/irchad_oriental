@@ -58,8 +58,9 @@
                     <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
                         <ul class="kt-menu__subnav">
                             <li class="kt-menu__item  kt-menu__item--parent" aria-haspopup="true"><span class="kt-menu__link"><span class="kt-menu__link-text">Banque de projets</span></span></li>
-                            <li class="kt-menu__item " aria-haspopup="true"><a href="projets.html" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Projets</span></a></li>
-                            <li class="kt-menu__item " aria-haspopup="true"><a href="categories.html" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Catégories</span></a></li>
+                            <li class="kt-menu__item " aria-haspopup="true"><a href="admin/fiches-projets" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Fiches de projets</span></a></li>
+                            <li class="kt-menu__item " aria-haspopup="true"><a href="admin/projects-categories" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Catégories</span></a></li>
+                            <li class="kt-menu__item " aria-haspopup="true"><a href="admin/communes" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Communes</span></a></li>
                         </ul>
                     </div>
                 </li>

@@ -15,7 +15,7 @@
 			<div class="kt-portlet__head">
 				<div class="kt-portlet__head-label">
 					<h3 class="kt-portlet__head-title">
-						Créer nouveau compte
+						Ajouter une catégorie
 					</h3>
 				</div>
 			</div>
@@ -29,7 +29,7 @@
 				</ul>
 			</div><br />
 			@endif
-			<form class="kt-form" method="POST" action="{{ route('users.store') }}">
+			<form class="kt-form" method="POST" action="{{ route('projects-categories.store') }}">
 				<div class="kt-portlet__body">
 					<div class="kt-section kt-section--first">
                         @foreach($fields as $field)
@@ -51,7 +51,7 @@
 	            </div>
 	            <div class="kt-portlet__foot">
 					<div class="kt-form__actions">
-						<button type="submit" class="btn btn-primary">Créer</button>
+						<button type="submit" class="btn btn-primary">Ajouter</button>
 						<button type="reset" class="btn btn-secondary">Retour</button>
 					</div>
 				</div>

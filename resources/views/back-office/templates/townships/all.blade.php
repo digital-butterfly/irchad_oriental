@@ -11,9 +11,9 @@
 
 @section('page_content')
     <div class="kt-container  kt-grid__item kt-grid__item--fluid">
-        @component('back-office.components.portlets.table', ['types' => ['Super Administrateur', 'Administrateur', 'Consultant'], 'add_link' => 'admin/users/create'])
+        @component('back-office.components.portlets.table', ['add_link' => 'admin/communes/create'])
             @slot('title')
-                Administrateurs
+                Communes
             @endslot
         @endcomponent
     </div>
@@ -40,7 +40,7 @@
                         type: 'remote',
                         source: {
                             read: {
-                                url: 'admin/list/users',
+                                url: 'admin/list/communes',
                                 headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content},
                                 map: function(raw) {
                                     // sample data mapping
@@ -86,31 +86,12 @@
                             type: 'number',
                             selector: false,
                             textAlign: 'center',
-                        }, {
-                            field: 'name',
+                        },
+                        {
+                            field: 'title',
                             title: 'Nom',
-                            template: function(row) {
-                                return row.first_name + ' ' + row.last_name;
-                            },
-                        }, {
-                            field: 'email',
-                            title: 'Email',
-                        }, {
-                            field: 'role',
-                            title: 'Role',
-                            autoHide: false,
-                            // callback function support for column rendering
-                            template: function(row) {
-                                var status = {
-                                    'Super Administrateur': {'title': 'Retail', 'state': 'primary'},
-                                    'Administrateur': {'title': 'Direct', 'state': 'success'},
-                                    'super_admin': {'title': 'Online', 'state': 'danger'},
-                                    'Fake User': {'title': 'Fake', 'state': 'primary'},
-                                };
-                                return '<span class="kt-badge kt-badge--' + status[row.role].state + ' kt-badge--dot"></span>&nbsp;<span class="kt-font-bold kt-font-' + status[row.role].state + '">' +
-                                        row.role + '</span>';
-                            },
-                        }, {
+                        }, 
+                        {
                             field: 'Actions',
                             title: 'Actions',
                             sortable: false,
@@ -119,7 +100,7 @@
                             autoHide: false,
                             template: function(row) {
                                 return '\
-                                <a href="admin/users/' + row.id + '/edit" class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="Edit details">\
+                                <a href="admin/communes/' + row.id + '/edit" class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="Edit details">\
                                     <i class="flaticon2-gear"></i>\
                                 </a>\
                                 <a href="javascript:;" class="btn btn-sm btn-clean btn-icon btn-icon-sm" data-toggle="modal" data-target="#kt_modal_1" title="Delete">\
@@ -127,8 +108,8 @@
                                 </a>\
                             ';
                             },
-                        }],
-
+                        }
+                    ],
                 });
 
             $('#kt_form_status').on('change', function() {
@@ -160,13 +141,13 @@
 
                 id = $(this).closest('tr').find('td[data-field="id"] span').html();
 
-                name = $(this).closest('tr').find('td[data-field="name"] span').html();
+                name = $(this).closest('tr').find('td[data-field="title"] span').html();
 
-                $('#kt_modal_1 .modal-body p span').html('le compte de ' + name);
+                $('#kt_modal_1 .modal-body p span').html('la commune de ' + name);
 
                 $('#kt_modal_1 button.delete').click(function() {
                     $.ajax({
-                        url: 'admin/users/' + id,
+                        url: 'admin/communes/' + id,
                         headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content},
                         type: 'DELETE',
                         success: function(result) {

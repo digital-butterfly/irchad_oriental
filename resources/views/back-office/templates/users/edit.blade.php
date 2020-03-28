@@ -15,7 +15,7 @@
 			<div class="kt-portlet__head">
 				<div class="kt-portlet__head-label">
 					<h3 class="kt-portlet__head-title">
-						Créer nouveau compte
+						Modifier utilisateur
 					</h3>
 				</div>
 			</div>
@@ -29,12 +29,13 @@
 				</ul>
 			</div><br />
 			@endif
-			<form class="kt-form" method="POST" action="{{ route('users.store') }}">
+            <form class="kt-form" method="POST" action="{{ route('users.update', $data->id) }}">
+                {{ method_field('PUT') }}
 				<div class="kt-portlet__body">
 					<div class="kt-section kt-section--first">
                         @foreach($fields as $field)
                             <div class="form-group">
-                                @include(sprintf('back-office.components.form.fields.%s', $field['type']), $field)
+                                @include(sprintf('back-office.components.form.fields.%s', $field['type']), [$field, $data])
 							</div>
 							@if ($field['type'] == 'password')
 								<div class="form-group">
@@ -51,7 +52,7 @@
 	            </div>
 	            <div class="kt-portlet__foot">
 					<div class="kt-form__actions">
-						<button type="submit" class="btn btn-primary">Créer</button>
+						<button type="submit" class="btn btn-primary">Appliquer</button>
 						<button type="reset" class="btn btn-secondary">Retour</button>
 					</div>
 				</div>
