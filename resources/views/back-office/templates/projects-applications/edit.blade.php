@@ -15,7 +15,7 @@
 			<div class="kt-portlet__head">
 				<div class="kt-portlet__head-label">
 					<h3 class="kt-portlet__head-title">
-						Modifier utilisateur
+						Modifier adhérent
 					</h3>
 				</div>
 			</div>
@@ -29,18 +29,22 @@
 				</ul>
 			</div><br />
 			@endif
-            <form class="kt-form" method="POST" action="{{ route('users.update', $data->id) }}">
+            <form class="kt-form" method="POST" action="{{ route('members.update', $data->id) }}">
                 {{ method_field('PUT') }}
 				<div class="kt-portlet__body">
 					<div class="kt-section kt-section--first">
-                        @foreach($fields as $field)
+						@foreach($fields as $field)
+							@php
+								$field['config']['hotizontalRows'] = true;
+							@endphp
                             @include(sprintf('back-office.components.form.fields.%s', $field['type']), [$field, $data])
 							@if ($field['type'] == 'password')
 								@include(sprintf('back-office.components.form.fields.password'),
 								$field = [
 									'name' => 'password_confirmation',
 									'type' => 'password',
-									'label' => 'Retapez mot de passe'
+									'label' => 'Retapez mot de passe',
+									'config' =>['hotizontalRows' => true]
 								])
 							@endif
                         @endforeach		
@@ -63,5 +67,55 @@
 
 
 @section('specific_js')
+	<script>
+		// Class definition
+		var KTFormRepeater = function() {
 
+			// Private functions
+			var demo1 = function() {
+				var repeater_strengths = $('.kt_repeater_degrees').repeater({
+					initEmpty: false,
+				
+					defaultValues: {
+						'text-input': 'foo'
+					},
+					
+					show: function () {
+						$(this).slideDown();
+					},
+
+					hide: function (deleteElement) {
+						$(this).slideUp(deleteElement);                 
+					}   
+				});
+
+				var repeater_weaknesses = $('.kt_repeater_professional_experience').repeater({
+					initEmpty: false,
+				
+					defaultValues: {
+						'text-input': 'foo'
+					},
+					
+					show: function () {
+						$(this).slideDown();
+					},
+
+					hide: function (deleteElement) {
+						$(this).slideUp(deleteElement);                 
+					}   
+				});
+			}
+
+			return {
+				// public functions
+				init: function() {
+					demo1();
+				}
+			};
+		}();
+
+		jQuery(document).ready(function() {
+			KTFormRepeater.init();
+		});
+	</script>
 @endsection

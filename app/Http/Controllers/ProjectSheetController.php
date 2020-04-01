@@ -19,7 +19,11 @@ class ProjectSheetController extends Controller
     protected function validator(array $data, $type)
     {
         return Validator::make($data, [
-            'title' => ['required', 'string', 'max:255'],
+            'surface' => ['required', 'int'], 
+            'production_value' => ['required', 'int'],  
+            'turnover' => ['required', 'int'], 
+            'total_jobs' => ['required', 'int'], 
+            'total_investment' => ['required', 'int']
         ]);
     }
 
@@ -28,17 +32,29 @@ class ProjectSheetController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //return view('back-office/templates/projects-sheets/all');
-        return '<a href="fiches-projets/create">Ajouter</a>' ;
+        // return $request;
+        $projects = new ProjectSheetCollection(ProjectSheet::
+            where(function ($q) {
+                $q->where('id', 'LIKE', '%%');
+            })->
+            paginate(
+                $perPage = 10,
+                $columns = ['*'],
+                $pageName = 'p',
+                $page = $request->pagination['page']
+            )
+        );
+        // return $projects;
+        return view('back-office/templates/projects-sheets/all', compact('projects', 'request'));
     }
     
     /**
      * Custom function.
      *
      */
-    public function ajaxList(Request $request)
+    /* public function ajaxList(Request $request)
     {
         $query = $request->get('query');
         
@@ -62,7 +78,7 @@ class ProjectSheetController extends Controller
                 $page = $request->pagination['page']
             )
         );
-    }
+    } */
 
     /**
      * Add new resource.
@@ -84,11 +100,19 @@ class ProjectSheetController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validator($request->all(), 'project')->validate();
-        $project = ProjectSheet::create([
-            'title' => $request['title'],
-        ]);
-        return redirect()->intended('admin/communes');
+        $data = $request->all();
+
+        $this->validator($data, 'projectSheet')->validate();
+
+        foreach ($data as $key => $value) {
+            if (is_array($value)) {
+                $data[$key] = json_encode($value);
+            }
+        }
+
+        $project = ProjectSheet::create($data);
+
+        return redirect()->intended('admin/fiches-projets');
     }
 
     /**
@@ -100,7 +124,8 @@ class ProjectSheetController extends Controller
     public function show($id)
     {
         $project = ProjectSheet::find($id);
-        return $project;
+        // return $project;
+        return view('back-office/templates/projects-sheets/single', compact('project'));
     }
 
     /**
@@ -112,7 +137,7 @@ class ProjectSheetController extends Controller
     {
         $data = ProjectSheet::find($id);
         $fields = ProjectSheet::formFields();
-        return view('back-office/templates/projects/edit', compact('fields', 'data'));
+        return view('back-office/templates/projects-sheets/edit', compact('fields', 'data'));
     }
 
     /**
@@ -124,11 +149,19 @@ class ProjectSheetController extends Controller
      */
     public function update(Request $request, $id)
     {
-        ProjectSheet::find($id)->update([
-            'title' => $request['title'],
-        ]);
+        $data = $request->all();
 
-        return redirect()->intended('admin/communes');
+        $this->validator($data, 'projectSheet')->validate();
+
+        foreach ($data as $key => $value) {
+            if (is_array($value)) {
+                $data[$key] = json_encode($value);
+            }
+        }
+
+        ProjectSheet::find($id)->update($data);
+
+        return redirect()->intended('admin/fiches-projets');
     }
 
     /**

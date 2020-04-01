@@ -47,7 +47,13 @@ Route::group(['middleware' => 'auth:user'], function () {
     Route::post('/admin/list/communes', 'TownshipController@ajaxList');
 
     Route::resource('admin/fiches-projets', 'ProjectSheetController');
-    //Route::post('/admin/list/communes', 'TownshipController@ajaxList');
+    //Route::post('/admin/list/fiches-projets', 'ProjectSheetController@ajaxList');
+
+    Route::resource('admin/members', 'MemberController');
+    Route::post('/admin/list/members', 'MemberController@ajaxList');
+
+    Route::resource('admin/candidatures', 'ProjectApplicationController');
+    Route::post('/admin/list/candidatures', 'ProjectApplicationController@ajaxList');
 
     Route::resource('admin/projects-categories', 'ProjectCategoryController');
 

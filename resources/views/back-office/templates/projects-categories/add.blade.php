@@ -33,19 +33,7 @@
 				<div class="kt-portlet__body">
 					<div class="kt-section kt-section--first">
                         @foreach($fields as $field)
-                            <div class="form-group">
-                                @include(sprintf('back-office.components.form.fields.%s', $field['type']), $field)
-							</div>
-							@if ($field['type'] == 'password')
-								<div class="form-group">
-									@include(sprintf('back-office.components.form.fields.password'),
-									$field = [
-										'name' => 'password_confirmation',
-										'type' => 'password',
-										'label' => 'Retapez mot de passe'
-									])
-								</div>
-							@endif
+                            @include(sprintf('back-office.components.form.fields.%s', $field['type']), $field)
                         @endforeach		
 		            </div>
 	            </div>

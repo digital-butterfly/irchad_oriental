@@ -33,9 +33,7 @@
 				<div class="kt-portlet__body">
 					<div class="kt-section kt-section--first">
                         @foreach($fields as $field)
-                            <div class="form-group">
-                                @include(sprintf('back-office.components.form.fields.%s', $field['type']), $field)
-							</div>
+                            @include(sprintf('back-office.components.form.fields.%s', $field['type']), $field)
                         @endforeach		
 		            </div>
 	            </div>

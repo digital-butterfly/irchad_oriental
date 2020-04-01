@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProjectSheet extends Model
 {
+    protected $table = 'projects_sheets';
+
     public $timestamps = false;
 
     protected $guard = 'user';
@@ -35,7 +37,7 @@ class ProjectSheet extends Model
         'strengths', 
         'weaknesses', 
         'financing_modes', 
-        'financing_program', 
+        'investment_program', 
         'partnerships', 
         'contacts'
     ];
@@ -167,27 +169,29 @@ class ProjectSheet extends Model
             ],
             [
                 'name' => 'strengths',
-                'type' => 'text',
+                'type' => 'repeater',
                 'label' => 'Points forts',
                 'group' => 'Points Forts & Faibles'
             ],
             [
                 'name' => 'weaknesses',
-                'type' => 'text',
+                'type' => 'repeater',
                 'label' => 'Points faibles',
                 'group' => 'Points Forts & Faibles'
             ],
             [
                 'name' => 'investment_program',
-                'type' => 'text',
-                'label' => 'Points faibles',
-                'group' => 'Programe d\'investissement'
+                'type' => 'repeater',
+                'label' => 'Programme d\'Investissement',
+                'group' => 'Programe d\'investissement',
+                'config' => ['doubleRepeater' => true]
             ],
             [
                 'name' => 'financing_modes',
-                'type' => 'text',
-                'label' => 'Points faibles',
-                'group' => 'Données Financières'
+                'type' => 'repeater',
+                'label' => 'Données Financières',
+                'group' => 'Données Financières',
+                'config' => ['doubleRepeater' => true]
             ],
             [
                 'name' => 'partnerships',

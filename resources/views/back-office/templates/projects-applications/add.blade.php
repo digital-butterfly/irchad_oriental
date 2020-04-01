@@ -15,7 +15,7 @@
 			<div class="kt-portlet__head">
 				<div class="kt-portlet__head-label">
 					<h3 class="kt-portlet__head-title">
-						Ajouter une nouvelle fiche de projet
+						Ajouter un nouvelle candidature
 					</h3>
 				</div>
 			</div>
@@ -24,12 +24,12 @@
 				<div class="alert alert-danger">
 					<ul>
 						@foreach ($errors->all() as $error)
-							<li>{{ $error }}</li>
+						<li>{{ $error }}</li>
 						@endforeach
 					</ul>
 				</div><br />
 			@endif
-			<form class="kt-form" method="POST" action="{{ route('fiches-projets.store') }}">
+			<form class="kt-form" method="POST" action="{{ route('candidatures.store') }}">
 				<div class="kt-portlet__body">
 					<div class="kt-section kt-section--first">
 						@php
@@ -46,12 +46,24 @@
 									<div class="kt-section__body">
 										@foreach($fields as $child)
 											@if (isset($child['group']) && $child['group'] == $parent['group'])
-												@if (!(in_array($child['name'], $done_fields)))
-													@php
-														$done_fields[] = $child['name'];
-														$child['config']['hotizontalRows'] = true;
-													@endphp
-													@include(sprintf('back-office.components.form.fields.%s', $child['type']), $field = $child)
+												@if (!isset($child['sub_fields']))
+													@if (!(in_array($child['name'], $done_fields)))
+														@php
+															$done_fields[] = $child['name'];
+															$child['config']['hotizontalRows'] = true;
+														@endphp
+														@include(sprintf('back-office.components.form.fields.%s', $child['type']), $field = $child)
+													@endif
+												@else
+													@foreach($child['sub_fields'] as $subchild)
+														@if (!(in_array($subchild['name'], $done_fields)))
+															@php
+																$done_fields[] = $subchild['name'];
+																$subchild['config']['hotizontalRows'] = true;
+															@endphp
+															@include(sprintf('back-office.components.form.fields.%s', $subchild['type']), $field = $subchild)
+														@endif
+													@endforeach
 												@endif
 											@endif
 										@endforeach
@@ -63,7 +75,7 @@
 	            </div>
 	            <div class="kt-portlet__foot">
 					<div class="kt-form__actions">
-						<button type="submit" class="btn btn-primary">Créer</button>
+						<button type="submit" class="btn btn-primary">Ajouter</button>
 						<button type="reset" class="btn btn-secondary">Retour</button>
 					</div>
 				</div>
@@ -84,7 +96,7 @@
 
 			// Private functions
 			var demo1 = function() {
-				var repeater_strengths = $('.kt_repeater_strengths').repeater({
+				var repeater_strengths = $('.kt_repeater_degrees').repeater({
 					initEmpty: false,
 				
 					defaultValues: {
@@ -100,39 +112,7 @@
 					}   
 				});
 
-				var repeater_weaknesses = $('.kt_repeater_weaknesses').repeater({
-					initEmpty: false,
-				
-					defaultValues: {
-						'text-input': 'foo'
-					},
-					
-					show: function () {
-						$(this).slideDown();
-					},
-
-					hide: function (deleteElement) {
-						$(this).slideUp(deleteElement);                 
-					}   
-				});
-
-				var repeater_investment_program = $('.kt_repeater_investment_program').repeater({
-					initEmpty: false,
-				
-					defaultValues: {
-						'text-input': 'foo'
-					},
-					
-					show: function () {
-						$(this).slideDown();
-					},
-
-					hide: function (deleteElement) {
-						$(this).slideUp(deleteElement);                 
-					}   
-				});
-
-				var repeater_financing_modes = $('.kt_repeater_financing_modes').repeater({
+				var repeater_weaknesses = $('.kt_repeater_professional_experience').repeater({
 					initEmpty: false,
 				
 					defaultValues: {
