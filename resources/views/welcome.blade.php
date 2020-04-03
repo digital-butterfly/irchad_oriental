@@ -261,7 +261,7 @@ body {
     </div>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Se connecter</button>
     {{-- <p class="mt-5 mb-3 text-muted">© IRCHAD 2020</p> --}}
-    <p class="mt-5 mb-3 text-muted saving">Système en cours de préparation, veuillez patienter pendant que nous finalisons la configuration <span>.</span><span>.</span><span>.</span> </p>
+    {{-- <p class="mt-5 mb-3 text-muted saving">Système en cours de préparation, veuillez patienter pendant que nous finalisons la configuration <span>.</span><span>.</span><span>.</span> </p> --}}
 </form>
 
 @endsection
