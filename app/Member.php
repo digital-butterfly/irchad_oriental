@@ -54,6 +54,8 @@ class Member extends Authenticatable
         'birth_date' => 'date:d-m-Y',
     ];
 
+    
+
     /**
      * Custom function.
      *

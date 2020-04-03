@@ -103,7 +103,7 @@ class MemberController extends Controller
             'phone' => $request['phone'],
             'status' => $request['status'],
             'gender' => $request['gender'],
-            'birth_date' => $request['birth_date']->format('Y-m-d'),
+            'birth_date' => $request['birth_date'],
             'address' => $request['address'],
             'township_id' => $request['township_id'],
             'degrees' => json_encode($request['degrees']),
