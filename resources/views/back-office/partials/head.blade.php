@@ -1,7 +1,7 @@
 <head>
     <base href="/">
     <meta charset="utf-8" />
-    <title>IRCHAD | Empty Page</title>
+    <title>IRCHAD | Incubation DRIOUCH</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- CSRF Token -->
