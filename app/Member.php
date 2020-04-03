@@ -103,7 +103,7 @@ class Member extends Authenticatable
                 'name' => 'status',
                 'type' => 'select',
                 'label' => 'Statut du compte',
-                'options' => ['Examen en attente', 'Validé', 'Rejeté']
+                'options' => ['En cours d\'examen', 'Validé', 'Rejeté']
             ],
             [
                 'name' => 'gender',
