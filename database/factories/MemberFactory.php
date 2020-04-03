@@ -31,7 +31,7 @@ $factory->define(Member::class, function (Faker $faker) {
         'birth_date' => $faker->date($format = 'Y-m-d', $max = 'now'),
         'address' => $faker->address,
         'township_id' => $faker->randomElement($array = array (5,9,10,13)),
-        'degrees' => fakeJson(NULL, 0, 3, true),
-        'professional_experience' => fakeJson(NULL, 1, 4, true),
+        'degrees' => fakeJson(NULL, 0, 3, 'double'),
+        'professional_experience' => fakeJson(NULL, 1, 4, 'double'),
     ];
 });

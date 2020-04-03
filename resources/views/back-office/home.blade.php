@@ -25,7 +25,7 @@
 
 		<!--Begin::Row-->
 		<div class="row">
-			<div class="col-lg-6 col-xl-4 order-lg-1 order-xl-1">
+			<div class="col-lg-6 col-xl-6 order-lg-1 order-xl-1">
 				<!--begin:: Widgets/Activity-->
 				<div class="kt-portlet kt-portlet--fit kt-portlet--head-lg kt-portlet--head-overlay kt-portlet--skin-solid kt-portlet--height-fluid">
 					<div class="kt-portlet__head kt-portlet__head--noborder kt-portlet__space-x">
@@ -34,7 +34,7 @@
 								Activité
 							</h3>
 						</div>
-						<div class="kt-portlet__head-toolbar">
+						{{-- <div class="kt-portlet__head-toolbar">
 							<a href="#" class="btn btn-label-light btn-sm btn-bold dropdown-toggle" data-toggle="dropdown">
 								Export
 							</a>
@@ -78,7 +78,7 @@
 									</li>
 								</ul>
 							</div>
-						</div>
+						</div> --}}
 					</div>
 					<div class="kt-portlet__body kt-portlet__body--fit">
 						<div class="kt-widget17">
@@ -99,10 +99,10 @@
 												</g>
 											</svg> </span>
 										<span class="kt-widget17__subtitle">
-											Delivered
+											Nouveau
 										</span>
 										<span class="kt-widget17__desc">
-											15 New Paskages
+											15 Nouveaux Projets
 										</span>
 									</div>
 									<div class="kt-widget17__item">
@@ -115,10 +115,10 @@
 												</g>
 											</svg> </span>
 										<span class="kt-widget17__subtitle">
-											Ordered
+											Accepté
 										</span>
 										<span class="kt-widget17__desc">
-											72 New Items
+											72 Candidatures Validées
 										</span>
 									</div>
 								</div>
@@ -133,10 +133,10 @@
 												</g>
 											</svg> </span>
 										<span class="kt-widget17__subtitle">
-											Reported
+											Incubé
 										</span>
 										<span class="kt-widget17__desc">
-											72 Support Cases
+											72 Adhérents Incubés
 										</span>
 									</div>
 									<div class="kt-widget17__item">
@@ -149,7 +149,7 @@
 												</g>
 											</svg> </span>
 										<span class="kt-widget17__subtitle">
-											Arrived
+											Refusé
 										</span>
 										<span class="kt-widget17__desc">
 											34 Upgraded Boxes
@@ -162,7 +162,7 @@
 				</div>
 				<!--end:: Widgets/Activity-->
 			</div>
-			<div class="col-lg-6 col-xl-4 order-lg-1 order-xl-1">
+			<div class="col-lg-6 col-xl-6 order-lg-1 order-xl-1">
 
 				<!--begin:: Widgets/Inbound Bandwidth-->
 				<div class="kt-portlet kt-portlet--fit kt-portlet--head-noborder kt-portlet--height-fluid-half">
@@ -172,7 +172,7 @@
 								Dossiers en attente
 							</h3>
 						</div>
-						<div class="kt-portlet__head-toolbar">
+						{{-- <div class="kt-portlet__head-toolbar">
 							<a href="#" class="btn btn-label-success btn-sm btn-bold dropdown-toggle" data-toggle="dropdown">
 								Export
 							</a>
@@ -210,13 +210,13 @@
 									</li>
 								</ul>
 							</div>
-						</div>
+						</div> --}}
 					</div>
 					<div class="kt-portlet__body kt-portlet__body--fluid">
 						<div class="kt-widget20">
 							<div class="kt-widget20__content kt-portlet__space-x">
-								<span class="kt-widget20__number kt-font-brand">670+</span>
-								<span class="kt-widget20__desc">Successful transactions</span>
+								<span class="kt-widget20__number kt-font-brand">67+</span>
+								<span class="kt-widget20__desc">Dossiers en attente</span>
 							</div>
 							<div class="kt-widget20__chart" style="height:130px;">
 								<canvas id="kt_chart_bandwidth1"></canvas>
@@ -236,7 +236,7 @@
 								Incubations
 							</h3>
 						</div>
-						<div class="kt-portlet__head-toolbar">
+						{{-- <div class="kt-portlet__head-toolbar">
 							<a href="#" class="btn btn-label-warning btn-sm  btn-bold dropdown-toggle" data-toggle="dropdown">
 								Download
 							</a>
@@ -274,13 +274,13 @@
 									</li>
 								</ul>
 							</div>
-						</div>
+						</div> --}}
 					</div>
 					<div class="kt-portlet__body kt-portlet__body--fluid">
 						<div class="kt-widget20">
 							<div class="kt-widget20__content kt-portlet__space-x">
-								<span class="kt-widget20__number kt-font-danger">1340+</span>
-								<span class="kt-widget20__desc">Completed orders</span>
+								<span class="kt-widget20__number kt-font-danger">134+</span>
+								<span class="kt-widget20__desc">Dossiers Incubés</span>
 							</div>
 							<div class="kt-widget20__chart" style="height:130px;">
 								<canvas id="kt_chart_bandwidth2"></canvas>
@@ -290,8 +290,7 @@
 				</div>
 				<!--end:: Widgets/Outbound Bandwidth-->
 			</div>
-			<div class="col-lg-6 col-xl-4 order-lg-1 order-xl-1">
-
+			{{-- <div class="col-lg-6 col-xl-4 order-lg-1 order-xl-1">
 				<!--Begin::Portlet-->
 				<div class="kt-portlet kt-portlet--height-fluid">
 					<div class="kt-portlet__head">
@@ -451,7 +450,7 @@
 				</div>
 
 				<!--End::Portlet-->
-			</div>
+			</div> --}}
 		</div>
 		<!--End::Row-->
 

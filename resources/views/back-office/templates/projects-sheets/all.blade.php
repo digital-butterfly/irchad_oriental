@@ -145,9 +145,9 @@
                                 <a href="admin/fiches-projets/{{ $project->id }}" class="kt-widget__username">
                                         {{ $project->title }} <i class="flaticon2-correct kt-font-success"></i>
                                     </a>
-                                    <div class="kt-widget__action">
+                                    {{-- <div class="kt-widget__action">
                                         <button type="button" class="btn btn-label-success btn-sm btn-upper">jumeler</button>
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <div class="kt-widget__subhead">
                                     <a href="#"><i class="flaticon2-new-email"></i>{{ $project->category_id }}</a>

@@ -246,16 +246,17 @@ body {
 </style>
 
 {{-- <a href="/" class="close"></a> --}}
-<form class="form-signin text-center">
+<form class="form-signin text-center" method="POST" action='{{ url("login/admin") }}'>
+    @csrf
     <img class="mb-2" src="images/front-office/logo-icon-colorful.svg" alt="" width="144" height="144">
     <h1 class="h3 mb-3 font-weight-normal">Connectez vous</h1>
     <label for="inputEmail" class="sr-only">Adresse email</label>
-    <input type="email" id="inputEmail" class="form-control" placeholder="Adresse email" required="" autofocus="">
+    <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Adresse email" required="" autofocus="">
     <label for="inputPassword" class="sr-only">Mot de passe</label>
-    <input type="password" id="inputPassword" class="form-control" placeholder="Mot de passe" required="">
+    <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Mot de passe" required="">
     <div class="checkbox mb-3">
         <label>
-            <input type="checkbox" value="remember-me"> Rester connecté
+            <input type="checkbox" value="remember-me" name="remember"> Rester connecté
         </label>
     </div>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Se connecter</button>

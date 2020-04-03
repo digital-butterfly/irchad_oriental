@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\ProjectApplication;
+use App\Member;
+use App\ProjectCategory;
+use App\Township;
 use App\Http\Resources\ProjectApplicationCollection;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
@@ -23,7 +26,6 @@ class ProjectApplicationController extends Controller
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:applications'],
-            'password' => ['required', 'string', 'min:4', 'confirmed'],
         ]);
     }
 
@@ -61,7 +63,7 @@ class ProjectApplicationController extends Controller
                 $role_filter ? $q->whereRaw('LOWER(status) = ?', [$role_filter]) : NULL;
             })->
             orderBy(
-                $request->sort['field'] != 'name' ? $request->sort['field'] : 'first_name',
+                $request->sort['field'],
                 $request->sort['sort']
             )->
             paginate(
@@ -92,22 +94,37 @@ class ProjectApplicationController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validator($request->all(), 'application')->validate();
         $application = ProjectApplication::create([
-            'first_name' => strtolower($request['first_name']),
-            'last_name' => strtolower($request['last_name']),
-            'email' => $request['email'],
-            'password' => Hash::make($request['password']),
-            'identity_number' => $request['identity_number'],
-            'phone' => $request['phone'],
-            'status' => $request['status'],
-            'gender' => $request['gender'],
-            'birth_date' => $request['birth_date']->format('Y-m-d'),
-            'address' => $request['address'],
-            'township_id' => $request['township_id'],
-            'degrees' => json_encode($request['degrees']),
-            'professional_experience' => json_encode($request['professional_experience']),
-            'reduced_mobility' => $request['reduced_mobility'],
+            'member_id' => $request['member_id'], 
+            'category_id' => $request['category_id'], 
+            'township_id' => $request['township_id'], 
+            'sheet_id' => $request['sheet_id'], 
+            'title' => $request['title'], 
+            'description' => $request['description'], 
+            'business_model' => json_encode([
+                'core_business' => $request['core_business'],
+                'key_ressources' => $request['key_ressources'],
+                'primary_target' => $request['primary_target'],
+                'cost_structure' => $request['cost_structure'],
+                'income' => $request['income'],
+            ]), 
+            'financial_data' => json_encode([
+                'financial_plan' => $request['financial_plan'],
+                'startup_needs' => $request['startup_needs'],
+                'overheads' => $request['overheads'],
+                'human_ressources' => $request['human_ressources'],
+                'services_turnover_forecast' => $request['services_turnover_forecast'],
+                'products_turnover_forecast' => $request['products_turnover_forecast'],
+                'profit_margin_rate' => $request['profit_margin_rate'],
+                'evolution_rate' => $request['evolution_rate'],
+            ]), 
+            'company' => json_encode([
+                'legal_form' => $request['legal_form'],
+                'is_created' => $request['is_created'],
+                'creation_date' => $request['creation_date'],
+                'corporate_name' => $request['corporate_name'],
+            ]),
+            'status' => $request['status']
         ]);
         return redirect()->intended('admin/candidatures');
     }
@@ -121,7 +138,35 @@ class ProjectApplicationController extends Controller
     public function show($id)
     {
         $application = ProjectApplication::find($id);
-        return $application;
+
+        $member = Member::find($application->member_id);
+
+        $category = ProjectCategory::find($application->category_id);
+
+        $township = Township::find($application->township_id);
+
+        $application->member_name = $member->first_name . ' ' . $member->last_name;
+
+        $application->category_title = $category->title;
+
+        $application->township_name = $township->title;
+
+        $data = json_decode(ProjectApplication::find($id), true);
+
+        foreach ($data as $key => $item){
+            json_decode($item) ? $data[$key] = json_decode($item) : NULL;
+            if (is_object($data[$key])) {
+                foreach ($data[$key] as $sub_key => $sub_item) {
+                    is_object($sub_item) ? $data[$key]->$sub_key = json_decode($sub_item) : NULL;
+                }
+            } 
+        }
+
+        $data = (object)$data;
+
+        $fields = ProjectApplication::formFields();
+
+        return view('back-office/templates/projects-applications/single', compact('application', 'data', 'fields'));
     }
 
     /**
@@ -129,11 +174,20 @@ class ProjectApplicationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit(ProjectApplication $application)
+    public function edit($id)
     {
-        $data = $application;
+        $data = json_decode(ProjectApplication::find($id), true);
+        foreach ($data as $key => $item){
+            json_decode($item) ? $data[$key] = json_decode($item) : NULL;
+            if (is_object($data[$key])) {
+                foreach ($data[$key] as $sub_key => $sub_item) {
+                    is_object($sub_item) ? $data[$key]->$sub_key = json_decode($sub_item) : NULL;
+                }
+            } 
+        }
+        $data = (object)$data;
         $fields = ProjectApplication::formFields();
-        return view('back-office/templates/candidatures/edit', compact('fields', 'data'));
+        return view('back-office/templates/projects-applications/edit', compact('fields', 'data'));
     }
 
     /**
@@ -155,12 +209,6 @@ class ProjectApplicationController extends Controller
             'address' => $request['address'],
             'township_id' => $request['township_id'],
         ]);
-
-        if ($request['password']) {
-            $application->update([
-                'password' => Hash::make($request['password']),
-            ]);
-        }
 
         if ($request['role']) {
             $application->update([

@@ -27,7 +27,7 @@
                                         <div class="kt-widget__action">
                                             <button type="button" class="btn btn-danger btn-sm btn-upper" data-toggle="modal" data-target="#kt_modal_1" title="Delete">Supprimer</button>
                                             <button type="button" class="btn btn-brand btn-sm btn-upper" onclick="location.href='admin/fiches-projets/{{ $project->id }}/edit';">Modifier</button>
-                                            <button type="button" class="btn btn-label-success btn-sm btn-upper">jumeler</button>
+                                            {{-- <button type="button" class="btn btn-label-success btn-sm btn-upper">jumeler</button> --}}
                                         </div>
                                     </div>
                                     <div class="kt-widget__subhead">

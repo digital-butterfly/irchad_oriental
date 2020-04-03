@@ -96,7 +96,8 @@
 
 			// Private functions
 			var demo1 = function() {
-				var repeater_strengths = $('.kt_repeater_degrees').repeater({
+				
+				var financial_plan = $('.kt_repeater_financial_plan').repeater({
 					initEmpty: false,
 				
 					defaultValues: {
@@ -112,7 +113,39 @@
 					}   
 				});
 
-				var repeater_weaknesses = $('.kt_repeater_professional_experience').repeater({
+				var startup_needs = $('.kt_repeater_startup_needs').repeater({
+					initEmpty: false,
+				
+					defaultValues: {
+						'text-input': 'foo'
+					},
+					
+					show: function () {
+						$(this).slideDown();
+					},
+
+					hide: function (deleteElement) {
+						$(this).slideUp(deleteElement);                 
+					}   
+				});
+
+				var overheads = $('.kt_repeater_overheads').repeater({
+					initEmpty: false,
+				
+					defaultValues: {
+						'text-input': 'foo'
+					},
+					
+					show: function () {
+						$(this).slideDown();
+					},
+
+					hide: function (deleteElement) {
+						$(this).slideUp(deleteElement);                 
+					}   
+				});
+				
+				var human_ressources = $('.kt_repeater_human_ressources').repeater({
 					initEmpty: false,
 				
 					defaultValues: {

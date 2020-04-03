@@ -29,23 +29,48 @@
 				</ul>
 			</div><br />
 			@endif
-            <form class="kt-form" method="POST" action="{{ route('members.update', $data->id) }}">
+            <form class="kt-form" method="POST" action="{{ route('candidatures.update', $data->id) }}">
                 {{ method_field('PUT') }}
 				<div class="kt-portlet__body">
 					<div class="kt-section kt-section--first">
-						@foreach($fields as $field)
-							@php
-								$field['config']['hotizontalRows'] = true;
-							@endphp
-                            @include(sprintf('back-office.components.form.fields.%s', $field['type']), [$field, $data])
-							@if ($field['type'] == 'password')
-								@include(sprintf('back-office.components.form.fields.password'),
-								$field = [
-									'name' => 'password_confirmation',
-									'type' => 'password',
-									'label' => 'Retapez mot de passe',
-									'config' =>['hotizontalRows' => true]
-								])
+						@php
+							$done_groups = [];
+						@endphp
+						@foreach($fields as $parent)
+							@if (isset($parent['group']))
+								@if (!(in_array($parent['group'], $done_groups)))
+									@php
+										$done_groups[] = $parent['group'];
+										$done_fields[] = [];
+									@endphp
+									<h3 class="kt-section__title">{{ $parent['group'] }}</h3>
+									<div class="kt-section__body">
+										@foreach($fields as $child)
+											@if (isset($child['group']) && $child['group'] == $parent['group'])
+												@if (!isset($child['sub_fields']))
+													@if (!(in_array($child['name'], $done_fields)))
+														@php
+															$done_fields[] = $child['name'];
+															$child['config']['hotizontalRows'] = true;
+														@endphp
+														@include(sprintf('back-office.components.form.fields.%s', $child['type']), $field = $child)
+													@endif
+												@else
+													@foreach($child['sub_fields'] as $subchild)
+														@if (!(in_array($subchild['name'], $done_fields)))
+															@php
+																$done_fields[] = $subchild['name'];
+																$subchild['config']['hotizontalRows'] = true;
+																$subchild['parent_name'] = $child['name'];
+															@endphp
+															@include(sprintf('back-office.components.form.fields.%s', $subchild['type']), $field = $subchild)
+														@endif
+													@endforeach
+												@endif
+											@endif
+										@endforeach
+									</div>
+								@endif
 							@endif
                         @endforeach		
 		            </div>
@@ -73,7 +98,8 @@
 
 			// Private functions
 			var demo1 = function() {
-				var repeater_strengths = $('.kt_repeater_degrees').repeater({
+				
+				var financial_plan = $('.kt_repeater_financial_plan').repeater({
 					initEmpty: false,
 				
 					defaultValues: {
@@ -89,7 +115,39 @@
 					}   
 				});
 
-				var repeater_weaknesses = $('.kt_repeater_professional_experience').repeater({
+				var startup_needs = $('.kt_repeater_startup_needs').repeater({
+					initEmpty: false,
+				
+					defaultValues: {
+						'text-input': 'foo'
+					},
+					
+					show: function () {
+						$(this).slideDown();
+					},
+
+					hide: function (deleteElement) {
+						$(this).slideUp(deleteElement);                 
+					}   
+				});
+
+				var overheads = $('.kt_repeater_overheads').repeater({
+					initEmpty: false,
+				
+					defaultValues: {
+						'text-input': 'foo'
+					},
+					
+					show: function () {
+						$(this).slideDown();
+					},
+
+					hide: function (deleteElement) {
+						$(this).slideUp(deleteElement);                 
+					}   
+				});
+				
+				var human_ressources = $('.kt_repeater_human_ressources').repeater({
 					initEmpty: false,
 				
 					defaultValues: {

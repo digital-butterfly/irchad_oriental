@@ -146,7 +146,7 @@ class Member extends Authenticatable
                 'name' => 'reduced_mobility',
                 'type' => 'select',
                 'label' => 'Mobilité réduite',
-                'options' => ['Mob1', 'Mob2', 'Mob3']
+                'options' => ['Malentendant', 'Malvoyant', 'Déficience Motrice', 'Déficience Mentale']
             ],
         ];
     }

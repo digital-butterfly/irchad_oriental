@@ -31,6 +31,15 @@ class ProjectApplication extends Model
     ];
 
     /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'created_at' => 'datetime:d-m-Y',
+    ];
+
+    /**
      * Custom function.
      *
      */
@@ -111,12 +120,84 @@ class ProjectApplication extends Model
                 'name' => 'business_model',
                 'type' => 'text',
                 'label' => 'Business Model',
+                'sub_fields' => [
+                    [
+                        'name' => 'core_business',
+                        'type' => 'textarea',
+                        'label' => 'Activité principale'
+                    ],
+                    [
+                        'name' => 'key_ressources',
+                        'type' => 'textarea',
+                        'label' => 'Ressources clés'
+                    ],
+                    [
+                        'name' => 'primary_target',
+                        'type' => 'textarea',
+                        'label' => 'Principaux clients'
+                    ],
+                    [
+                        'name' => 'cost_structure',
+                        'type' => 'textarea',
+                        'label' => 'Structure des coûts'
+                    ],
+                    [
+                        'name' => 'income',
+                        'type' => 'textarea',
+                        'label' => 'Revenus'
+                    ],
+                ],
                 'group' => 'Business Model'
             ],
             [
                 'name' => 'financial_data',
-                'type' => 'text',
-                'label' => 'Données Financières',
+                'type' => 'section',
+                'sub_fields' => [
+                    [
+                        'name' => 'financial_plan',
+                        'type' => 'repeater',
+                        'label' => 'Plan de financement',
+                        'config' => ['doubleRepeater' => true]
+                    ],
+                    [
+                        'name' => 'startup_needs',
+                        'type' => 'repeater',
+                        'label' => 'Besoins de démarrage',
+                        'config' => ['doubleRepeater' => true]
+                    ],
+                    [
+                        'name' => 'overheads',
+                        'type' => 'repeater',
+                        'label' => 'Charges fixes annuelles',
+                        'config' => ['doubleRepeater' => true]
+                    ],
+                    [
+                        'name' => 'human_ressources',
+                        'type' => 'repeater',
+                        'label' => 'Ressources humaines',
+                        'config' => ['tripleRepeater' => true]
+                    ],
+                    [
+                        'name' => 'services_turnover_forecast',
+                        'type' => 'text',
+                        'label' => 'CA prévisionnel - Services'
+                    ],
+                    [
+                        'name' => 'products_turnover_forecast',
+                        'type' => 'text',
+                        'label' => 'CA prévisionnel - Produits'
+                    ],
+                    [
+                        'name' => 'profit_margin_rate',
+                        'type' => 'text',
+                        'label' => 'Taux de marge bénéficiaire'
+                    ],
+                    [
+                        'name' => 'evolution_rate',
+                        'type' => 'text',
+                        'label' => 'Taux d\'évolution annuelle'
+                    ],
+                ],
                 'group' => 'Données Financières'
             ],
             [
@@ -152,7 +233,7 @@ class ProjectApplication extends Model
                 'name' => 'status',
                 'type' => 'select',
                 'label' => 'Status',
-                'options' => ['Nouveau', 'Validé', 'Rejeté', 'Incubé'],
+                'options' => ['Nouveau', 'Accepté', 'Rejeté', 'Incubé'],
                 'group' => 'Données Générales'
             ],
         ];

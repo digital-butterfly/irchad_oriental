@@ -11,7 +11,7 @@
 
 @section('page_content')
     <div class="kt-container  kt-grid__item kt-grid__item--fluid">
-        @component('back-office.components.portlets.table', ['types' => ['Nouveau', 'Validé', 'Rejeté', 'Incubé'], 'add_link' => 'admin/candidatures/create'])
+        @component('back-office.components.portlets.table', ['types' => ['Nouveau', 'Accepté', 'Rejeté', 'Incubé'], 'add_link' => 'admin/candidatures/create'])
             @slot('title')
                 Candidatures
             @endslot
@@ -89,9 +89,6 @@
                         }, {
                             field: 'title',
                             title: 'Titre',
-                            template: function(row) {
-                                return row.first_name + ' ' + row.last_name;
-                            },
                         }, {
                             field: 'created_at',
                             title: 'Date',
@@ -103,7 +100,7 @@
                             template: function(row) {
                                 var states = {
                                     'Nouveau': {'title': 'Retail', 'state': 'warning'},
-                                    'Validé': {'title': 'Direct', 'state': 'success'},
+                                    'Accepté': {'title': 'Direct', 'state': 'success'},
                                     'Rejeté': {'title': 'Online', 'state': 'danger'},
                                     'Incubé': {'title': 'Online', 'state': 'primary'}
                                 };
@@ -120,7 +117,10 @@
                             autoHide: false,
                             template: function(row) {
                                 return '\
-                                <a href="admin/members/' + row.id + '/edit" class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="Edit details">\
+                                <a href="admin/candidatures/' + row.id + '" class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="Show details">\
+                                    <i class="flaticon2-browser-2"></i>\
+                                </a>\
+                                <a href="admin/candidatures/' + row.id + '/edit" class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="Edit details">\
                                     <i class="flaticon2-gear"></i>\
                                 </a>\
                                 <a href="javascript:;" class="btn btn-sm btn-clean btn-icon btn-icon-sm" data-toggle="modal" data-target="#kt_modal_1" title="Delete">\
@@ -163,11 +163,11 @@
 
                 name = $(this).closest('tr').find('td[data-field="name"] span').html();
 
-                $('#kt_modal_1 .modal-body p span').html('le compte de ' + name);
+                $('#kt_modal_1 .modal-body p span').html('la candidature intitulée ' + name);
 
                 $('#kt_modal_1 button.delete').click(function() {
                     $.ajax({
-                        url: 'admin/members/' + id,
+                        url: 'admin/candidatures/' + id,
                         headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content},
                         type: 'DELETE',
                         success: function(result) {

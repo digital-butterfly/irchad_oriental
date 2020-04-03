@@ -17,7 +17,7 @@ use Illuminate\Support\Str;
 |
 */
 
-function fakeJson($label, $min, $max, $is_double) {
+function fakeJson($label, $min, $max, $repeater_type) {
 
     $faker = \Faker\Factory::create();
 
@@ -25,10 +25,20 @@ function fakeJson($label, $min, $max, $is_double) {
 
     $count = rand($min,$max);
 
-    if (!$is_double) {
+    if (!($repeater_type = 'double') && !($repeater_type = 'triple')){
         for ($i = 1; $i <= $count; $i++) {
             array_push($result, (object)[
                 $label => $faker->text($maxNbChars = 100),
+            ]);
+        }
+    }
+
+    elseif ($repeater_type = 'triple'){
+        for ($i = 1; $i <= $count; $i++) {
+            array_push($result, (object)[
+                'label' => $faker->jobTitle,
+                'count' => $faker->numberBetween($min = 1, $max = 20),
+                'value' => $faker->numberBetween($min = 3000, $max = 7000),
             ]);
         }
     }
@@ -61,10 +71,10 @@ $factory->define(ProjectSheet::class, function (Faker $faker) {
         'turnover' => $faker->numberBetween($min = 500000, $max = 2000000), 
         'total_jobs' => $faker->numberBetween($min = 10, $max = 1000), 
         'total_investment' => $faker->numberBetween($min = 100000, $max = 2000000), 
-        'strengths' => fakeJson('strengths', 1, 4, false), 
-        'weaknesses' => fakeJson('weaknesses', 0, 4, false), 
-        'financing_modes' => fakeJson(NULL, 0, 4, true), 
-        'investment_program' => fakeJson(NULL, 0, 6, true), 
+        'strengths' => fakeJson('strengths', 1, 4), 
+        'weaknesses' => fakeJson('weaknesses', 0, 4), 
+        'financing_modes' => fakeJson(NULL, 0, 4, 'double'), 
+        'investment_program' => fakeJson(NULL, 0, 6, 'double'), 
         'partnerships' => $faker->text($maxNbChars = 100), 
         'contacts' => $faker->text($maxNbChars = 100),
     ];

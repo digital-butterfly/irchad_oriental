@@ -6,7 +6,7 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class ProjectApplicationCollection extends ResourceCollection
 {
-    /* private $pagination;
+    private $pagination;
 
     public function __construct($resource)
     {
@@ -15,16 +15,16 @@ class ProjectApplicationCollection extends ResourceCollection
             'pages' => $resource->lastPage(),
             'perpage' => $resource->perPage(),
             'total' => $resource->total(),
-            'sort' => 'asc',
+            'sort' => 'desc',
             'field' => 'id',
         ];
 
         $resource = $resource->getCollection();
 
         parent::__construct($resource);
-    } */
+    }
 
-    
+
     /**
      * Transform the resource collection into an array.
      *
@@ -35,6 +35,7 @@ class ProjectApplicationCollection extends ResourceCollection
     {
         return [
             'data' => $this->collection,
+            'meta' => $this->pagination
         ];
     }
     

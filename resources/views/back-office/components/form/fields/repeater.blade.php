@@ -6,6 +6,7 @@
 </div> --}}
 @php
     $ref = $field['name'];
+    isset($field['parent_name']) ? $parent_ref = $field['parent_name'] : NULL;
 @endphp
 
 <div class="kt_repeater_{{ $field['name'] }}">
@@ -14,7 +15,7 @@
         <label for="{{ $field['name'] }}" class="{{ (isset($field['config']) && isset($field['config']['hotizontalRows']) && $field['config']['hotizontalRows']) ? 'col-lg-3 col-form-label' : '' }}">{{ $field['label'] }}:</label>
         <div data-repeater-list="{{ $field['name'] }}" class="col-lg-9">
             <div data-repeater-item="" class="form-group row align-items-center">
-                @if (!(isset($field['config']['doubleRepeater'])))
+                @if (!(isset($field['config']['doubleRepeater'])) && !(isset($field['config']['tripleRepeater'])))
                     <div class="col-md-8">
                         <div class="kt-form__group--inline">
                             <div class="kt-form__control">
@@ -33,6 +34,81 @@
                                             '{{ $field['name'] }}' :  '{{ $item->$ref }}',
                                         },
                                     @endforeach
+                                ]);
+                            });
+                        </script>
+                    @endif
+                @elseif (isset($field['config']['tripleRepeater']))
+                    <div class="col-md-4">
+                        <div class="kt-form__group--inline">
+                            <div class="kt-form__label">
+                                <label>Désignation:</label>
+                            </div>
+                            <div class="kt-form__control">
+                                <input type="text" name="label" class="form-control" placeholder=""> 
+                            </div>
+                        </div>
+                        <div class="d-md-none kt-margin-b-10"></div>
+                    </div>
+                    <div class="col-md-1">
+                        <div class="kt-form__group--inline">
+                            <div class="kt-form__label">
+                                <label>Quantité:</label>
+                            </div>
+                            <div class="kt-form__control">
+                                <input type="text" name="count" class="form-control" placeholder=""> 
+                            </div>
+                        </div>
+                        <div class="d-md-none kt-margin-b-10"></div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="kt-form__group--inline">
+                            <div class="kt-form__label">
+                                <label class="kt-label m-label--single">Valeur:</label>
+                            </div>
+                            <div class="kt-form__control">
+                                <input type="text" name="value" class="form-control" placeholder="">   
+                            </div>
+                        </div>
+                        <div class="d-md-none kt-margin-b-10"></div>
+                    </div>
+                    @if (isset($data) && isset($data->$ref) && $data->$ref != NULL)
+                        <script>
+                            window.addEventListener('load', function() {
+                                var $repeater = $('.kt_repeater_{{ $field['name'] }}').repeater();
+                                $repeater.setList([
+                                    @foreach (json_decode($data->$ref) as $item)
+                                        {
+                                            'label' :  '{{ $item->label }}',
+                                            'count' :  '{{ $item->count }}',
+                                            'value' :  '{{ $item->value }}',
+                                        },
+                                    @endforeach
+                                ]);
+                            });
+                        </script>
+                    @elseif (isset($data) && isset($data->$parent_ref) && isset($data->$parent_ref->$ref) && $data->$parent_ref->$ref != NULL)
+                        <script>
+                            window.addEventListener('load', function() {
+                                var $repeater = $('.kt_repeater_{{ $field['name'] }}').repeater();
+                                $repeater.setList([
+                                    @if (!is_array($data->$parent_ref->$ref))
+                                        @foreach (json_decode($data->$parent_ref->$ref) as $item)
+                                            {
+                                                'label' :  '{{ $item->label }}',
+                                                'count' :  '{{ $item->count }}',
+                                                'value' :  '{{ $item->value }}',
+                                            },
+                                        @endforeach
+                                    @else
+                                        @foreach ($data->$parent_ref->$ref as $item)
+                                            {
+                                                'label' :  '{{ $item->label }}',
+                                                'count' :  '{{ $item->count }}',
+                                                'value' :  '{{ $item->value }}',
+                                            },
+                                        @endforeach
+                                    @endif
                                 ]);
                             });
                         </script>
@@ -60,7 +136,7 @@
                         </div>
                         <div class="d-md-none kt-margin-b-10"></div>
                     </div>
-                    @if (isset($data) && $data->$ref != NULL)
+                    @if (isset($data) && isset($data->$ref) && $data->$ref != NULL)
                         <script>
                             window.addEventListener('load', function() {
                                 var $repeater = $('.kt_repeater_{{ $field['name'] }}').repeater();
@@ -71,6 +147,29 @@
                                             'value' :  '{{ $item->value }}',
                                         },
                                     @endforeach
+                                ]);
+                            });
+                        </script>
+                     @elseif (isset($data) && isset($data->$parent_ref) && isset($data->$parent_ref->$ref) && $data->$parent_ref->$ref != NULL)
+                        <script>
+                            window.addEventListener('load', function() {
+                                var $repeater = $('.kt_repeater_{{ $field['name'] }}').repeater();
+                                $repeater.setList([
+                                    @if (!is_array($data->$parent_ref->$ref))
+                                        @foreach (json_decode($data->$parent_ref->$ref) as $item)
+                                            {
+                                                'label' :  '{{ $item->label }}',
+                                                'value' :  '{{ $item->value }}',
+                                            },
+                                        @endforeach
+                                    @else
+                                        @foreach ($data->$parent_ref->$ref as $item)
+                                            {
+                                                'label' :  '{{ $item->label }}',
+                                                'value' :  '{{ $item->value }}',
+                                            },
+                                        @endforeach
+                                    @endif
                                 ]);
                             });
                         </script>
