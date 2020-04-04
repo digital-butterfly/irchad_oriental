@@ -106,8 +106,8 @@ class MemberController extends Controller
             'birth_date' => $request['birth_date'],
             'address' => $request['address'],
             'township_id' => $request['township_id'],
-            'degrees' => json_encode($request['degrees']),
-            'professional_experience' => json_encode($request['professional_experience']),
+            'degrees' => json_decode(json_encode($request['degrees'])),
+            'professional_experience' => json_decode(json_encode($request['professional_experience'])),
             'reduced_mobility' => $request['reduced_mobility'],
         ]);
         return redirect()->intended('admin/members');
@@ -166,6 +166,12 @@ class MemberController extends Controller
         if ($request['role']) {
             $member->update([
                 'role' => $request['role'],
+            ]);
+        }
+
+        if ($request['status']) {
+            $member->update([
+                'status' => $request['status'],
             ]);
         }
 

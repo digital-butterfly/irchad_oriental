@@ -37,6 +37,9 @@ class ProjectApplication extends Model
      */
     protected $casts = [
         'created_at' => 'datetime:d-m-Y',
+        'business_model'=> 'object',
+        'financial_data'=> 'object',
+        'company'=> 'object',
     ];
 
     /**
@@ -162,7 +165,7 @@ class ProjectApplication extends Model
                     [
                         'name' => 'startup_needs',
                         'type' => 'repeater',
-                        'label' => 'Besoins de démarrage',
+                        'label' => 'Programme d\'investissement',
                         'config' => ['doubleRepeater' => true]
                     ],
                     [

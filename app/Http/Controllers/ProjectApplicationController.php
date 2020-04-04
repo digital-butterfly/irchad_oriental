@@ -101,14 +101,14 @@ class ProjectApplicationController extends Controller
             'sheet_id' => $request['sheet_id'], 
             'title' => $request['title'], 
             'description' => $request['description'], 
-            'business_model' => json_encode([
+            'business_model' => json_decode(json_encode([
                 'core_business' => $request['core_business'],
                 'key_ressources' => $request['key_ressources'],
                 'primary_target' => $request['primary_target'],
                 'cost_structure' => $request['cost_structure'],
                 'income' => $request['income'],
-            ]), 
-            'financial_data' => json_encode([
+            ])), 
+            'financial_data' => json_decode(json_encode([
                 'financial_plan' => $request['financial_plan'],
                 'startup_needs' => $request['startup_needs'],
                 'overheads' => $request['overheads'],
@@ -117,13 +117,13 @@ class ProjectApplicationController extends Controller
                 'products_turnover_forecast' => $request['products_turnover_forecast'],
                 'profit_margin_rate' => $request['profit_margin_rate'],
                 'evolution_rate' => $request['evolution_rate'],
-            ]), 
-            'company' => json_encode([
+            ])), 
+            'company' => json_decode(json_encode([
                 'legal_form' => $request['legal_form'],
                 'is_created' => $request['is_created'],
                 'creation_date' => $request['creation_date'],
                 'corporate_name' => $request['corporate_name'],
-            ]),
+            ])),
             'status' => $request['status']
         ]);
         return redirect()->intended('admin/candidatures');
@@ -145,13 +145,13 @@ class ProjectApplicationController extends Controller
 
         $township = Township::find($application->township_id);
 
-        $application->member_name = $member->first_name . ' ' . $member->last_name;
+        $application->member = $member;
 
         $application->category_title = $category->title;
 
         $application->township_name = $township->title;
 
-        $data = json_decode(ProjectApplication::find($id), true);
+        $data = ProjectApplication::find($id);
 
         foreach ($data as $key => $item){
             json_decode($item) ? $data[$key] = json_decode($item) : NULL;
@@ -176,16 +176,7 @@ class ProjectApplicationController extends Controller
      */
     public function edit($id)
     {
-        $data = json_decode(ProjectApplication::find($id), true);
-        foreach ($data as $key => $item){
-            json_decode($item) ? $data[$key] = json_decode($item) : NULL;
-            if (is_object($data[$key])) {
-                foreach ($data[$key] as $sub_key => $sub_item) {
-                    is_object($sub_item) ? $data[$key]->$sub_key = json_decode($sub_item) : NULL;
-                }
-            } 
-        }
-        $data = (object)$data;
+        $data = ProjectApplication::find($id);
         $fields = ProjectApplication::formFields();
         return view('back-office/templates/projects-applications/edit', compact('fields', 'data'));
     }

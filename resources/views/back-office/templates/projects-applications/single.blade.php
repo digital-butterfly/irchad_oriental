@@ -88,7 +88,7 @@
                                         </div>
                                         <div class="kt-widget__progress">
                                             <div class="kt-widget__text">
-                                                <i class="flaticon2-calendar-3"></i> {{ $application->member_name }}
+                                                <i class="flaticon2-calendar-3"></i> {{ $application->member->first_name . ' ' . $application->member->first_name  }}
                                             </div>
                                         </div>
                                     </div>

@@ -29,7 +29,7 @@
                             window.addEventListener('load', function() {
                                 var $repeater = $('.kt_repeater_{{ $field['name'] }}').repeater();
                                 $repeater.setList([
-                                    @foreach (json_decode($data->$ref) as $item)
+                                    @foreach ($data->$ref as $item)
                                         {
                                             '{{ $field['name'] }}' :  '{{ $item->$ref }}',
                                         },
@@ -77,7 +77,7 @@
                             window.addEventListener('load', function() {
                                 var $repeater = $('.kt_repeater_{{ $field['name'] }}').repeater();
                                 $repeater.setList([
-                                    @foreach (json_decode($data->$ref) as $item)
+                                    @foreach ($data->$ref as $item)
                                         {
                                             'label' :  '{{ $item->label }}',
                                             'count' :  '{{ $item->count }}',
@@ -93,7 +93,7 @@
                                 var $repeater = $('.kt_repeater_{{ $field['name'] }}').repeater();
                                 $repeater.setList([
                                     @if (!is_array($data->$parent_ref->$ref))
-                                        @foreach (json_decode($data->$parent_ref->$ref) as $item)
+                                        @foreach ($data->$parent_ref->$ref as $item)
                                             {
                                                 'label' :  '{{ $item->label }}',
                                                 'count' :  '{{ $item->count }}',
@@ -141,7 +141,7 @@
                             window.addEventListener('load', function() {
                                 var $repeater = $('.kt_repeater_{{ $field['name'] }}').repeater();
                                 $repeater.setList([
-                                    @foreach (json_decode($data->$ref) as $item)
+                                    @foreach ($data->$ref as $item)
                                         {
                                             'label' :  '{{ $item->label }}',
                                             'value' :  '{{ $item->value }}',
@@ -150,7 +150,7 @@
                                 ]);
                             });
                         </script>
-                     @elseif (isset($data) && isset($data->$parent_ref) && isset($data->$parent_ref->$ref) && $data->$parent_ref->$ref != NULL)
+                     @elseif (isset($data) && isset($parent_ref) && isset($data->$parent_ref) && isset($data->$parent_ref->$ref) && $data->$parent_ref->$ref != NULL)
                         <script>
                             window.addEventListener('load', function() {
                                 var $repeater = $('.kt_repeater_{{ $field['name'] }}').repeater();

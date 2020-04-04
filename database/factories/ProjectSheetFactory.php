@@ -25,17 +25,17 @@ function fakeJson($label, $min, $max, $repeater_type) {
 
     $count = rand($min,$max);
 
-    if (!($repeater_type = 'double') && !($repeater_type = 'triple')){
+    if (!($repeater_type == 'double') && !($repeater_type == 'triple')){
         for ($i = 1; $i <= $count; $i++) {
-            array_push($result, (object)[
+            array_push($result, [
                 $label => $faker->text($maxNbChars = 100),
             ]);
         }
     }
 
-    elseif ($repeater_type = 'triple'){
+    elseif ($repeater_type == 'triple'){
         for ($i = 1; $i <= $count; $i++) {
-            array_push($result, (object)[
+            array_push($result, [
                 'label' => $faker->jobTitle,
                 'count' => $faker->numberBetween($min = 1, $max = 20),
                 'value' => $faker->numberBetween($min = 3000, $max = 7000),
@@ -45,7 +45,7 @@ function fakeJson($label, $min, $max, $repeater_type) {
 
     else {
         for ($i = 1; $i <= $count; $i++) {
-            array_push($result, (object)[
+            array_push($result, [
                 'label' => $faker->word,
                 'value' => $faker->numberBetween($min = 200, $max = 90000),
             ]);
@@ -61,7 +61,7 @@ $factory->define(ProjectSheet::class, function (Faker $faker) {
         'township_id' => $faker->randomElement($array = array (5,9,10,13)), 
         'title' => $faker->catchPhrase, 
         'description' => $faker->text($maxNbChars = 300), 
-        'market_type' => $faker->randomElement($array = array ('Marché Nationale','Marché Nationale et Export','Marché International')), 
+        'market_type' => $faker->randomElement($array = array ('Marché National','Marché National et Export','Marché International')), 
         'holder_profile' => $faker->jobTitle, 
         'surface' => $faker->numberBetween($min = 200, $max = 90000), 
         'equipment' => $faker->text($maxNbChars = 200), 
@@ -71,8 +71,8 @@ $factory->define(ProjectSheet::class, function (Faker $faker) {
         'turnover' => $faker->numberBetween($min = 500000, $max = 2000000), 
         'total_jobs' => $faker->numberBetween($min = 10, $max = 1000), 
         'total_investment' => $faker->numberBetween($min = 100000, $max = 2000000), 
-        'strengths' => fakeJson('strengths', 1, 4), 
-        'weaknesses' => fakeJson('weaknesses', 0, 4), 
+        'strengths' => fakeJson('strengths', 1, 4, NULL), 
+        'weaknesses' => fakeJson('weaknesses', 0, 4, NULL), 
         'financing_modes' => fakeJson(NULL, 0, 4, 'double'), 
         'investment_program' => fakeJson(NULL, 0, 6, 'double'), 
         'partnerships' => $faker->text($maxNbChars = 100), 

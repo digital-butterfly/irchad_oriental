@@ -22,7 +22,7 @@ $factory->define(ProjectApplication::class, function (Faker $faker) {
         'member_id' => $faker->randomElement($array = array (8,10,12,14,15,18,19,20,21,23,24,25,26)), 
         'category_id' => $faker->randomElement($array = array (12,13,14,17,18)), 
         'township_id' => $faker->randomElement($array = array (5,9,10,13)), 
-        'sheet_id' => $faker->randomElement($array = array (20,21,22,23,24,25,26,27,28,29,30)), 
+        'sheet_id' => NULL, 
         'title' => $faker->catchPhrase, 
         'description' => $faker->text($maxNbChars = 100), 
         'business_model' => json_encode([
@@ -33,10 +33,10 @@ $factory->define(ProjectApplication::class, function (Faker $faker) {
             'income' => $faker->text($maxNbChars = 100),
         ]), 
         'financial_data' => json_encode([
-            'financial_plan' => fakeJson(NULL, 2, 6, 'double'),
-            'startup_needs' => fakeJson(NULL, 2, 6, 'double'),
-            'overheads' => fakeJson(NULL, 2, 6, 'double'),
-            'human_ressources' => fakeJson(NULL, 2, 6, 'triple'),
+            'financial_plan' => json_decode(fakeJson(NULL, 2, 6, 'double')),
+            'startup_needs' => json_decode(fakeJson(NULL, 2, 6, 'double')),
+            'overheads' => json_decode(fakeJson(NULL, 2, 6, 'double')),
+            'human_ressources' => json_decode(fakeJson(NULL, 2, 6, 'triple')),
             'services_turnover_forecast' => $faker->numberBetween($min = 200000, $max = 5000000),
             'products_turnover_forecast' => $faker->numberBetween($min = 200000, $max = 5000000),
             'profit_margin_rate' => $faker->numberBetween($min = 1, $max = 300),

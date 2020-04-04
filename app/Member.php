@@ -52,6 +52,8 @@ class Member extends Authenticatable
      */
     protected $casts = [
         'birth_date' => 'date:d-m-Y',
+        'degrees' => 'object',
+        'professional_experience' => 'object',
     ];
 
     
