@@ -52,9 +52,9 @@
     $bp_human_ressources_social_fees_total = $bp_human_ressources_total * 0.2109;
 
     // Gross Surplus
-    $gross_surplus_first_year = $bp_turnover_first_year - $bp_overheads_first_year - $bp_human_ressources_total - $bp_human_ressources_social_fees_total;
-    $gross_surplus_second_year = $bp_turnover_second_year - $bp_overheads_second_year - $bp_human_ressources_total - $bp_human_ressources_social_fees_total;
-    $gross_surplus_third_year = $bp_turnover_third_year - $bp_overheads_third_year - $bp_human_ressources_total - $bp_human_ressources_social_fees_total;
+    $gross_surplus_first_year = $bp_added_value_first_year - $bp_overheads_first_year - $bp_human_ressources_total - $bp_human_ressources_social_fees_total;
+    $gross_surplus_second_year = $bp_added_value_second_year - $bp_overheads_second_year - $bp_human_ressources_total - $bp_human_ressources_social_fees_total;
+    $gross_surplus_third_year = $bp_added_value_third_year - $bp_overheads_third_year - $bp_human_ressources_total - $bp_human_ressources_social_fees_total;
 
     // Amortization
     $bp_amortization_total = 0;
