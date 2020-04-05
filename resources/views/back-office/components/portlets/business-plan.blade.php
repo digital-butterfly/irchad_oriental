@@ -25,9 +25,9 @@
     $bp_purchase_third_year = $bp_purchase_second_year / (1 + ($bp_profit_margin_rate / 100));
 
     // Gross Margin
-    $bp_gross_margin_first_year = $bp_turnover_first_year - ($bp_purchase_first_year / (1 + ($bp_profit_margin_rate / 100)));
-    $bp_gross_margin_second_year = $bp_turnover_second_year - ($bp_purchase_second_year / (1 + ($bp_profit_margin_rate / 100)));
-    $bp_gross_margin_third_year = $bp_turnover_third_year - ($bp_purchase_third_year / (1 + ($bp_profit_margin_rate / 100)));
+    $bp_gross_margin_first_year = $bp_turnover_first_year - $bp_purchase_first_year;
+    $bp_gross_margin_second_year = $bp_turnover_second_year - $bp_purchase_second_year;
+    $bp_gross_margin_third_year = $bp_turnover_third_year - $bp_purchase_third_year;
 
     // Overheads
     $bp_overheads_first_year =  0;
