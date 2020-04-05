@@ -40,9 +40,9 @@
     }
 
     // Added Value
-    $bp_added_value_first_year = $bp_gross_margin_first_year - $bp_purchase_first_year ;
-    $bp_added_value_second_year = $bp_gross_margin_second_year - $bp_purchase_second_year ;
-    $bp_added_value_third_year = $bp_gross_margin_third_year - $bp_purchase_third_year ;
+    $bp_added_value_first_year = $bp_gross_margin_first_year - $bp_overheads_first_year ;
+    $bp_added_value_second_year = $bp_gross_margin_second_year - $bp_overheads_second_year ;
+    $bp_added_value_third_year = $bp_gross_margin_third_year - $bp_overheads_third_year ;
 
     // Human Ressources
     $bp_human_ressources_total = 0;
