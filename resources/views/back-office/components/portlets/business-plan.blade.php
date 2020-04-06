@@ -62,8 +62,10 @@
 
     // Human Ressources
     $bp_human_ressources_total = 0;
+    $bp_human_ressources_rows = 0;
     foreach ($application->financial_data->human_ressources as $item) {
         $bp_human_ressources_total += ($item->value * $item->count);
+        $bp_human_ressources_rows++;
     }
     $bp_human_ressources_social_fees_total = $bp_human_ressources_total * 0.2109;
 
@@ -278,8 +280,14 @@
                         <div class="kt-invoice__item">
                             <span class="kt-invoice__subtitle">Ressources humaines:</span>
                             <span class="kt-invoice__text">Le personnel du projet est composé de
-                                @foreach ($application->financial_data->human_ressources as $item)
-                                    {{ $item->count . ' ' . $item->label . ', ' }}
+                                @foreach ($application->financial_data->human_ressources as $key => $item)
+                                    @if ($key == $bp_human_ressources_rows - 2)
+                                        {{ $item->count . ' ' . $item->label . ' et' }}
+                                    @elseif ($key == $bp_human_ressources_rows - 1)
+                                        {{ $item->count . ' ' . $item->label . ' ' }}
+                                    @else
+                                        {{ $item->count . ' ' . $item->label . ', ' }}
+                                    @endif
                                 @endforeach
                                 en plus du porteur de projet.
                             </span>
