@@ -363,7 +363,7 @@
                                 @endforeach
                                 <tr class="kt-font-bolder">
                                     <td>TOTAL</td>
-                                    <td>{{ number_format($bp_financial_plan_total, 0, ',', ' ') }} MAD</td>
+                                    <td>{{ number_format($bp_investment_program_total, 0, ',', ' ') }} MAD</td>
                                 </tr>
                             </tbody>
                         </table>
