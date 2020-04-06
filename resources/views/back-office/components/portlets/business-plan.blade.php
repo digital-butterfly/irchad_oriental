@@ -242,7 +242,7 @@
                         <h3 style="color:#ffffff;">Projet</h3>
                     </div>
                     <div class="kt-invoice__brand">
-                        <h1 class="kt-invoice__title">{{ $application->title }}</h1>
+                        <h1 class="kt-invoice__title" style="max-width: 75%">{{ $application->title }}</h1>
                         <div href="#" class="kt-invoice__logo">
                             <span class="kt-invoice__desc">
                                 <span>{{ $application->company->legal_form }}</span>
