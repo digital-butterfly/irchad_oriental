@@ -435,12 +435,14 @@
                                     </tr>
                                 @endforeach
                                 @foreach ($application->financial_data->overheads_scalable as $item) 
-                                    <tr>
-                                        <td>{{ $item->label }}</td>
-                                        <td>{{ number_format($item->value, 0, ',', ' ') }} MAD</td>
-                                        <td>{{ number_format(($item->value) + ($item->value * $bp_evolution_rate / 100), 0, ',', ' ') }} MAD</td>
-                                        <td>{{ number_format((($item->value) + ($item->value * $bp_evolution_rate / 100)) + (($item->value) + ($item->value * $bp_evolution_rate / 100) * $bp_evolution_rate / 100), 0, ',', ' ') }} MAD</td>
-                                    </tr>
+                                    @if ($item->label != NULL)
+                                        <tr>
+                                            <td>{{ $item->label }}</td>
+                                            <td>{{ number_format($item->value, 0, ',', ' ') }} MAD</td>
+                                            <td>{{ number_format(($item->value) + ($item->value * $bp_evolution_rate / 100), 0, ',', ' ') }} MAD</td>
+                                            <td>{{ number_format((($item->value) + ($item->value * $bp_evolution_rate / 100)) + (($item->value) + ($item->value * $bp_evolution_rate / 100) * $bp_evolution_rate / 100), 0, ',', ' ') }} MAD</td>
+                                        </tr>
+                                    @endif
                                 @endforeach
                                 <tr class="kt-font-bolder">
                                     <td>VALEUR AJOUTÉE</td>
