@@ -110,47 +110,47 @@
     $bp_income_before_taxes_third_year = $bp_current_result_third_year;
 
     // Corporate Taxe
-    $bp_corporate_taxe_first_year = 0;
+    $bp_corporate_tax_first_year = 0;
         switch (true) {
-            case ($bp_income_before_taxes_first_year <= 300000):
-                $bp_corporate_taxe_first_year = $bp_income_before_taxes_first_year * 10 / 100;
+            case ($bp_income_before_taxes_first_year > 0 && $bp_income_before_taxes_first_year <= 300000):
+                $bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 10 / 100;
                 break;
             case ($bp_income_before_taxes_first_year > 300000 && $bp_income_before_taxes_first_year <= 1000000):
-                $bp_corporate_taxe_first_year = $bp_income_before_taxes_first_year * 17.5 / 100;
+                $bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 17.5 / 100;
                 break;
             case ($bp_income_before_taxes_first_year > 1000000):
-                $bp_corporate_taxe_first_year = $bp_income_before_taxes_first_year * 31 / 100;
+                $bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 31 / 100;
                 break;
         }
-    $bp_corporate_taxe_second_year = 0;
+    $bp_corporate_tax_second_year = 0;
         switch (true) {
             case ($bp_income_before_taxes_second_year <= 300000):
-                $bp_corporate_taxe_second_year = $bp_income_before_taxes_second_year * 10 / 100;
+                $bp_corporate_tax_second_year = $bp_income_before_taxes_second_year * 10 / 100;
                 break;
             case ($bp_income_before_taxes_second_year > 300000 && $bp_income_before_taxes_second_year <= 1000000):
-                $bp_corporate_taxe_second_year = $bp_income_before_taxes_second_year * 17.5 / 100;
+                $bp_corporate_tax_second_year = $bp_income_before_taxes_second_year * 17.5 / 100;
                 break;
             case ($bp_income_before_taxes_second_year > 1000000):
-                $bp_corporate_taxe_second_year = $bp_income_before_taxes_second_year * 31 / 100;
+                $bp_corporate_tax_second_year = $bp_income_before_taxes_second_year * 31 / 100;
                 break;
         }
-    $bp_corporate_taxe_third_year = 0;
+    $bp_corporate_tax_third_year = 0;
         switch (true) {
             case ($bp_income_before_taxes_third_year <= 300000):
-                $bp_corporate_taxe_third_year = $bp_income_before_taxes_third_year * 10 / 100;
+                $bp_corporate_tax_third_year = $bp_income_before_taxes_third_year * 10 / 100;
                 break;
             case ($bp_income_before_taxes_third_year > 300000 && $bp_income_before_taxes_third_year <= 1000000):
-                $bp_corporate_taxe_third_year = $bp_income_before_taxes_third_year * 17.5 / 100;
+                $bp_corporate_tax_third_year = $bp_income_before_taxes_third_year * 17.5 / 100;
                 break;
             case ($bp_income_before_taxes_third_year > 1000000):
-                $bp_corporate_taxe_third_year = $bp_income_before_taxes_third_year * 31 / 100;
+                $bp_corporate_tax_third_year = $bp_income_before_taxes_third_year * 31 / 100;
                 break;
         }
 
     // Net Profit
-    $bp_net_profit_first_year = $bp_income_before_taxes_first_year - $bp_corporate_taxe_first_year;
-    $bp_net_profit_second_year = $bp_income_before_taxes_second_year - $bp_corporate_taxe_second_year;
-    $bp_net_profit_third_year = $bp_income_before_taxes_third_year - $bp_corporate_taxe_third_year;
+    $bp_net_profit_first_year = $bp_income_before_taxes_first_year - $bp_corporate_tax_first_year;
+    $bp_net_profit_second_year = $bp_income_before_taxes_second_year - $bp_corporate_tax_second_year;
+    $bp_net_profit_third_year = $bp_income_before_taxes_third_year - $bp_corporate_tax_third_year;
 
     // Cash Flow
     $bp_cash_flow_first_year = $bp_net_profit_first_year + $bp_amortization_yearly;
@@ -539,9 +539,9 @@
                                 </tr>
                                 <tr>
                                     <td>Impôts sur les sociétés</td>
-                                    <td>{{ number_format($bp_corporate_taxe_first_year, 0, ',', ' ') }}</td>
-                                    <td>{{ number_format($bp_corporate_taxe_second_year, 0, ',', ' ') }}</td>
-                                    <td>{{ number_format($bp_corporate_taxe_third_year, 0, ',', ' ') }}</td>
+                                    <td>{{ number_format($bp_corporate_tax_first_year, 0, ',', ' ') }}</td>
+                                    <td>{{ number_format($bp_corporate_tax_second_year, 0, ',', ' ') }}</td>
+                                    <td>{{ number_format($bp_corporate_tax_third_year, 0, ',', ' ') }}</td>
                                 </tr>
                                 <tr class="kt-font-bolder">
                                     <td>RÉSULTAT NET</td>
