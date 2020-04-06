@@ -61,9 +61,9 @@
 @section('page_content')
     <div class="kt-container  kt-grid__item kt-grid__item--fluid">
         <div class="row">
-            <div class="col-xl-12">
+            <div class="col-xl-8">
                 <!--begin:: Portlet-->
-                <div class="kt-portlet">
+                <div class="kt-portlet kt-portlet--height-fluid">
                     <div class="kt-portlet__body">
                         <div class="kt-widget kt-widget--user-profile-3">
                             <div class="kt-widget__top">
@@ -88,7 +88,7 @@
                                         </div>
                                         <div class="kt-widget__progress">
                                             <div class="kt-widget__text">
-                                                <i class="flaticon2-calendar-3"></i> {{ $application->member->first_name . ' ' . $application->member->first_name  }}
+                                                <i class="flaticon2-calendar-3"></i> {{ $application->member->first_name . ' ' . $application->member->last_name  }}
                                             </div>
                                         </div>
                                     </div>
@@ -99,6 +99,66 @@
                 </div>
                 <!--end:: Portlet-->
             </div>
+
+            <div class="col-xl-4">
+                <!--begin:: Portlet-->
+                <div class="kt-portlet kt-portlet--height-fluid">
+                    <div class="kt-portlet__head">
+                        <div class="kt-portlet__head-label">
+                            <h3 class="kt-portlet__head-title">
+                            Historique
+                            </h3>
+                        </div>
+                    </div>
+                    <div class="kt-portlet__body" data-scroll="true" data-scrollbar-shown="true">
+                        <!--begin::Timeline 1-->
+                        <div class="kt-list-timeline">
+                            <div class="kt-list-timeline__items">
+                                <div class="kt-list-timeline__item">
+                                    <span class="kt-list-timeline__badge kt-list-timeline__badge--success"></span>
+                                    <span class="kt-list-timeline__text">Candidature créée - <a class="kt-link">{{ $application->creator }}</a></span>
+                                    <span class="kt-list-timeline__time">{{ $application->created_at->format('d/m/Y H:i') }}</span>
+                                </div>
+                                @if ($application->updated_by != NULL)
+                                    <div class="kt-list-timeline__item">
+                                        <span class="kt-list-timeline__badge kt-list-timeline__badge--primary"></span>
+                                        <span class="kt-list-timeline__text">Candidature modifiée - <a class="kt-link">{{ $application->updator }}</a></span>
+                                        <span class="kt-list-timeline__time">{{ $application->updated_at->format('d/m/Y H:i') }}</span>
+                                    </div>
+                                @endif
+                                {{-- <div class="kt-list-timeline__item">
+                                    <span class="kt-list-timeline__badge kt-list-timeline__badge--danger"></span>
+                                    <span class="kt-list-timeline__text">Scheduled system reboot completed <span class="kt-badge kt-badge--success kt-badge--inline">completed</span></span>
+                                    <span class="kt-list-timeline__time">14 mins</span>
+                                </div>
+                                <div class="kt-list-timeline__item">
+                                    <span class="kt-list-timeline__badge kt-list-timeline__badge--warning"></span>
+                                    <span class="kt-list-timeline__text">New order has been planced and pending for processing</span>
+                                    <span class="kt-list-timeline__time">20 mins</span>
+                                </div>
+                                <div class="kt-list-timeline__item">
+                                    <span class="kt-list-timeline__badge kt-list-timeline__badge--primary"></span>
+                                    <span class="kt-list-timeline__text">Database server overloaded 80% and requires quick reboot <span class="kt-badge kt-badge--info kt-badge--inline">settled</span></span>
+                                    <span class="kt-list-timeline__time">1 hr</span>
+                                </div>
+                                <div class="kt-list-timeline__item">
+                                    <span class="kt-list-timeline__badge kt-list-timeline__badge--brand"></span>
+                                    <span class="kt-list-timeline__text">System error occured and hard drive has been shutdown - <a href="#" class="kt-link">Check</a></span>
+                                    <span class="kt-list-timeline__time">2 hrs</span>
+                                </div>
+                                <div class="kt-list-timeline__item">
+                                    <span class="kt-list-timeline__badge kt-list-timeline__badge--success"></span>
+                                    <span class="kt-list-timeline__text">Production server is rebooting...</span>
+                                    <span class="kt-list-timeline__time">3 hrs</span>
+                                </div> --}}
+                            </div>
+                        </div>
+                        <!--end::Timeline 1-->
+                    </div>
+                </div>
+                <!--end:: Portlet-->
+            </div>
+
 
             <div class="col-xl-12">
                 <div class="kt-wizard-v4" id="kt_wizard_v4" data-ktwizard-state="step-first">

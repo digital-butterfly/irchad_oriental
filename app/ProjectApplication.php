@@ -24,10 +24,13 @@ class ProjectApplication extends Model
         'sheet_id', 
         'title', 
         'description', 
+        'market_type', 
         'business_model', 
         'financial_data', 
         'company',
-        'status'
+        'status',
+        'created_by',
+        'updated_by'
     ];
 
     /**
@@ -37,6 +40,7 @@ class ProjectApplication extends Model
      */
     protected $casts = [
         'created_at' => 'datetime:d-m-Y',
+        'updated_at' => 'datetime:d-m-Y',
         'business_model'=> 'object',
         'financial_data'=> 'object',
         'company'=> 'object',
@@ -120,6 +124,12 @@ class ProjectApplication extends Model
                 'group' => 'Données Générales'
             ],
             [
+                'name' => 'market_type',
+                'type' => 'text',
+                'label' => 'Type du marché',
+                'group' => 'Données Générales'
+            ],
+            [
                 'name' => 'business_model',
                 'type' => 'text',
                 'label' => 'Business Model',
@@ -127,12 +137,7 @@ class ProjectApplication extends Model
                     [
                         'name' => 'core_business',
                         'type' => 'textarea',
-                        'label' => 'Activité principale'
-                    ],
-                    [
-                        'name' => 'key_ressources',
-                        'type' => 'textarea',
-                        'label' => 'Ressources clés'
+                        'label' => 'Produits et services'
                     ],
                     [
                         'name' => 'primary_target',
@@ -140,14 +145,29 @@ class ProjectApplication extends Model
                         'label' => 'Principaux clients'
                     ],
                     [
-                        'name' => 'cost_structure',
+                        'name' => 'suppliers',
                         'type' => 'textarea',
-                        'label' => 'Structure des coûts'
+                        'label' => 'Principaux fournisseurs'
                     ],
                     [
-                        'name' => 'income',
+                        'name' => 'competition',
                         'type' => 'textarea',
-                        'label' => 'Revenus'
+                        'label' => 'Principaux concurrents'
+                    ],
+                    [
+                        'name' => 'advertising',
+                        'type' => 'textarea',
+                        'label' => 'Marketing et publicité'
+                    ],
+                    [
+                        'name' => 'pricing_strategy',
+                        'type' => 'textarea',
+                        'label' => 'Stratégie de prix'
+                    ],
+                    [
+                        'name' => 'distribution_strategy',
+                        'type' => 'textarea',
+                        'label' => 'Stratégie de distribution'
                     ],
                 ],
                 'group' => 'Business Model'
@@ -169,9 +189,15 @@ class ProjectApplication extends Model
                         'config' => ['doubleRepeater' => true]
                     ],
                     [
-                        'name' => 'overheads',
+                        'name' => 'overheads_fixed',
                         'type' => 'repeater',
-                        'label' => 'Charges fixes annuelles',
+                        'label' => 'Charges annuelles constantes',
+                        'config' => ['doubleRepeater' => true]
+                    ],
+                    [
+                        'name' => 'overheads_scalable',
+                        'type' => 'repeater',
+                        'label' => 'Charges annuelles évolutives',
                         'config' => ['doubleRepeater' => true]
                     ],
                     [

@@ -129,7 +129,23 @@
 					}   
 				});
 
-				var overheads = $('.kt_repeater_overheads').repeater({
+				var overheads_fixed = $('.kt_repeater_overheads_fixed').repeater({
+					initEmpty: false,
+				
+					defaultValues: {
+						'text-input': 'foo'
+					},
+					
+					show: function () {
+						$(this).slideDown();
+					},
+
+					hide: function (deleteElement) {
+						$(this).slideUp(deleteElement);                 
+					}   
+				});
+
+				var overheads_fixed = $('.kt_repeater_overheads_scalable').repeater({
 					initEmpty: false,
 				
 					defaultValues: {

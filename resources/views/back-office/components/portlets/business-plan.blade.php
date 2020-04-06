@@ -29,20 +29,30 @@
     $bp_gross_margin_second_year = $bp_turnover_second_year - $bp_purchase_second_year;
     $bp_gross_margin_third_year = $bp_turnover_third_year - $bp_purchase_third_year;
 
-    // Overheads
-    $bp_overheads_first_year =  0;
-    $bp_overheads_second_year =  0;
-    $bp_overheads_third_year =  0;
-    foreach ($application->financial_data->overheads as $item) {
-        $bp_overheads_first_year += $item->value;
-        $bp_overheads_second_year += $item->value;
-        $bp_overheads_third_year += $item->value;
+    // Overheads Fixed
+    $bp_overheads_fixed_first_year =  0;
+    $bp_overheads_fixed_second_year =  0;
+    $bp_overheads_fixed_third_year =  0;
+    foreach ($application->financial_data->overheads_fixed as $item) {
+        $bp_overheads_fixed_first_year += $item->value;
+        $bp_overheads_fixed_second_year += $item->value;
+        $bp_overheads_fixed_third_year += $item->value;
+    }
+
+    // Overheads Scalable
+    $bp_overheads_scalable_first_year =  0;
+    $bp_overheads_scalable_second_year =  0;
+    $bp_overheads_scalable_third_year =  0;
+    foreach ($application->financial_data->overheads_scalable as $item) {
+        $bp_overheads_scalable_first_year += $item->value;
+        $bp_overheads_scalable_second_year += ($item->value) + ($item->value * $bp_evolution_rate / 100);
+        $bp_overheads_scalable_third_year += (($item->value) + ($item->value * $bp_evolution_rate / 100)) + (($item->value) + ($item->value * $bp_evolution_rate / 100) * $bp_evolution_rate / 100);
     }
 
     // Added Value
-    $bp_added_value_first_year = $bp_gross_margin_first_year - $bp_overheads_first_year ;
-    $bp_added_value_second_year = $bp_gross_margin_second_year - $bp_overheads_second_year ;
-    $bp_added_value_third_year = $bp_gross_margin_third_year - $bp_overheads_third_year ;
+    $bp_added_value_first_year = $bp_gross_margin_first_year - $bp_overheads_fixed_first_year -  $bp_overheads_scalable_first_year;
+    $bp_added_value_second_year = $bp_gross_margin_second_year - $bp_overheads_fixed_second_year - $bp_overheads_scalable_second_year;
+    $bp_added_value_third_year = $bp_gross_margin_third_year - $bp_overheads_fixed_third_year - $bp_overheads_scalable_third_year;
 
     // Human Ressources
     $bp_human_ressources_total = 0;
@@ -52,9 +62,9 @@
     $bp_human_ressources_social_fees_total = $bp_human_ressources_total * 0.2109;
 
     // Gross Surplus
-    $gross_surplus_first_year = $bp_added_value_first_year - $bp_overheads_first_year - $bp_human_ressources_total - $bp_human_ressources_social_fees_total;
-    $gross_surplus_second_year = $bp_added_value_second_year - $bp_overheads_second_year - $bp_human_ressources_total - $bp_human_ressources_social_fees_total;
-    $gross_surplus_third_year = $bp_added_value_third_year - $bp_overheads_third_year - $bp_human_ressources_total - $bp_human_ressources_social_fees_total;
+    $gross_surplus_first_year = $bp_added_value_first_year - $bp_overheads_fixed_first_year - $bp_human_ressources_total - $bp_human_ressources_social_fees_total;
+    $gross_surplus_second_year = $bp_added_value_second_year - $bp_overheads_fixed_second_year - $bp_human_ressources_total - $bp_human_ressources_social_fees_total;
+    $gross_surplus_third_year = $bp_added_value_third_year - $bp_overheads_fixed_third_year - $bp_human_ressources_total - $bp_human_ressources_social_fees_total;
 
     // Amortization
     $bp_amortization_total = 0;
@@ -63,10 +73,35 @@
     }
     $bp_amortization_yearly = $bp_amortization_total / 5;
 
+    // Gross Income
+    $bp_gross_income_first_year = $gross_surplus_first_year - $bp_amortization_yearly ;
+    $bp_gross_income_second_year = $gross_surplus_second_year - $bp_amortization_yearly ;
+    $bp_gross_income_third_year = $gross_surplus_third_year - $bp_amortization_yearly ;
+
+    // Financial Products
+    $bp_financial_products_first_year = 0;
+    $bp_financial_products_second_year = 0;
+    $bp_financial_products_third_year = 0;
+    
+    // Financial Expenses
+    $bp_financial_expenses_first_year = 0;
+    $bp_financial_expenses_second_year = 0;
+    $bp_financial_expenses_third_year = 0;
+
+    // Financial Result
+    $bp_financial_result_first_year = $bp_financial_products_first_year - $bp_financial_expenses_first_year;
+    $bp_financial_result_second_year = $bp_financial_products_second_year - $bp_financial_expenses_second_year;
+    $bp_financial_result_third_year = $bp_financial_products_third_year - $bp_financial_expenses_third_year;
+
+    // Current Result
+    $bp_current_result_first_year = $bp_gross_income_first_year + $bp_financial_result_first_year;
+    $bp_current_result_second_year = $bp_gross_income_second_year + $bp_financial_result_second_year;
+    $bp_current_result_third_year = $bp_gross_income_third_year + $bp_financial_result_third_year;
+
     // Income Before Taxes
-    $bp_income_before_taxes_first_year = $gross_surplus_first_year;
-    $bp_income_before_taxes_second_year = $gross_surplus_second_year;
-    $bp_income_before_taxes_third_year = $gross_surplus_third_year;
+    $bp_income_before_taxes_first_year = $bp_current_result_first_year;
+    $bp_income_before_taxes_second_year = $bp_current_result_second_year;
+    $bp_income_before_taxes_third_year = $bp_current_result_third_year;
 
     // Corporate Taxe
     $bp_corporate_taxe_first_year = 0;
@@ -111,7 +146,7 @@
     $bp_net_profit_second_year = $bp_income_before_taxes_second_year - $bp_corporate_taxe_second_year;
     $bp_net_profit_third_year = $bp_income_before_taxes_third_year - $bp_corporate_taxe_third_year;
 
-    // Tax Flow
+    // Cash Flow
     $bp_cash_flow_first_year = $bp_net_profit_first_year + $bp_amortization_yearly;
     $bp_cash_flow_second_year = $bp_net_profit_second_year + $bp_amortization_yearly;
     $bp_cash_flow_third_year = $bp_net_profit_third_year + $bp_amortization_yearly;
@@ -203,8 +238,14 @@
                         <div href="#" class="kt-invoice__logo">
                             <span class="kt-invoice__desc">
                                 <span>{{ $application->company->legal_form }}</span>
-                                <span>{{ $application->member->first_name . ' ' . $application->member->last_name  }}</span>
+                                <span>{{ $application->market_type }}</span>
                             </span>
+                        </div>
+                    </div>
+                    <div class="kt-invoice__items">
+                        <div class="kt-invoice__item">
+                            <span class="kt-invoice__subtitle">Déscription:</span>
+                            <span class="kt-invoice__text">{{ $application->description }}</span>
                         </div>
                     </div>
                     <div class="kt-invoice__items">
@@ -223,32 +264,44 @@
                     </div>
                     <div class="kt-invoice__items">
                         <div class="kt-invoice__item">
-                            <span class="kt-invoice__subtitle">Activité principale:</span>
+                            <span class="kt-invoice__subtitle">Produits et services:</span>
                             <span class="kt-invoice__text">{{ $application->business_model->core_business }}</span>
                         </div>
                     </div>
                     <div class="kt-invoice__items">
                         <div class="kt-invoice__item">
-                            <span class="kt-invoice__subtitle">Ressources clés:</span>
+                            <span class="kt-invoice__subtitle">Principaux clients:</span>
                             <span class="kt-invoice__text">{{ $application->business_model->primary_target }}</span>
                         </div>
                     </div>
                     <div class="kt-invoice__items">
                         <div class="kt-invoice__item">
-                            <span class="kt-invoice__subtitle">Principaux clients:</span>
-                            <span class="kt-invoice__text">{{ $application->business_model->key_ressources }}</span>
+                            <span class="kt-invoice__subtitle">Principaux fournisseurs:</span>
+                            <span class="kt-invoice__text">{{ $application->business_model->suppliers }}</span>
                         </div>
                     </div>
                     <div class="kt-invoice__items">
                         <div class="kt-invoice__item">
-                            <span class="kt-invoice__subtitle">Structure des coûts:</span>
-                            <span class="kt-invoice__text">{{ $application->business_model->cost_structure }}</span>
+                            <span class="kt-invoice__subtitle">Principaux concurrents:</span>
+                            <span class="kt-invoice__text">{{ $application->business_model->competition }}</span>
                         </div>
                     </div>
                     <div class="kt-invoice__items">
                         <div class="kt-invoice__item">
-                            <span class="kt-invoice__subtitle">Revenus:</span>
-                            <span class="kt-invoice__text">{{ $application->business_model->income }}</span>
+                            <span class="kt-invoice__subtitle">Marketing et publicité:</span>
+                            <span class="kt-invoice__text">{{ $application->business_model->advertising }}</span>
+                        </div>
+                    </div>
+                    <div class="kt-invoice__items">
+                        <div class="kt-invoice__item">
+                            <span class="kt-invoice__subtitle">Stratégie de prix:</span>
+                            <span class="kt-invoice__text">{{ $application->business_model->pricing_strategy }}</span>
+                        </div>
+                    </div>
+                    <div class="kt-invoice__items">
+                        <div class="kt-invoice__item">
+                            <span class="kt-invoice__subtitle">Stratégie de distribution:</span>
+                            <span class="kt-invoice__text">{{ $application->business_model->distribution_strategy }}</span>
                         </div>
                     </div>
                     {{-- <div class="kt-invoice__items">
@@ -282,7 +335,7 @@
                                         <td>{{ number_format($item->value, 0, ',', ' ') }} MAD</td>
                                     </tr>
                                 @endforeach
-                                <tr>
+                                <tr class="kt-font-bolder">
                                     <td>TOTAL</td>
                                     <td>{{ number_format($bp_financial_plan_total, 0, ',', ' ') }} MAD</td>
                                 </tr>
@@ -291,7 +344,27 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>DÉSIGNATION</th>
+                                    <th>PROGRAMME D'INVESTISSEMENT</th>
+                                    <th> </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($application->financial_data->startup_needs as $item)
+                                    <tr>
+                                        <td>{{ $item->label }}</td>
+                                        <td>{{ number_format($item->value, 0, ',', ' ') }} MAD</td>
+                                    </tr>
+                                @endforeach
+                                <tr class="kt-font-bolder">
+                                    <td>TOTAL</td>
+                                    <td>{{ number_format($bp_financial_plan_total, 0, ',', ' ') }} MAD</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>CPC PRÉVISIONNEL</th>
                                     <th>Année 1</th>
                                     <th>Année 2</th>
                                     <th>Année 3</th>
@@ -310,7 +383,7 @@
                                     <td>{{ number_format($bp_purchase_second_year, 0, ',', ' ') }} MAD</td>
                                     <td>{{ number_format($bp_purchase_third_year, 0, ',', ' ') }} MAD</td>
                                 </tr>
-                                <tr>
+                                <tr class="kt-font-bolder">
                                     <td>MARGE BRUTE</td>
                                     <td>{{ number_format($bp_gross_margin_first_year, 0, ',', ' ') }} MAD</td>
                                     <td>{{ number_format($bp_gross_margin_second_year, 0, ',', ' ') }} MAD</td>
@@ -328,7 +401,15 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($application->financial_data->overheads as $item) 
+                                @foreach ($application->financial_data->overheads_fixed as $item) 
+                                    <tr>
+                                        <td>{{ $item->label }}</td>
+                                        <td>{{ number_format($item->value, 0, ',', ' ') }} MAD</td>
+                                        <td>{{ number_format($item->value, 0, ',', ' ') }} MAD</td>
+                                        <td>{{ number_format($item->value, 0, ',', ' ') }} MAD</td>
+                                    </tr>
+                                @endforeach
+                                @foreach ($application->financial_data->overheads_scalable as $item) 
                                     <tr>
                                         <td>{{ $item->label }}</td>
                                         <td>{{ number_format($item->value, 0, ',', ' ') }} MAD</td>
@@ -336,7 +417,7 @@
                                         <td>{{ number_format((($item->value) + ($item->value * $bp_evolution_rate / 100)) + (($item->value) + ($item->value * $bp_evolution_rate / 100) * $bp_evolution_rate / 100), 0, ',', ' ') }} MAD</td>
                                     </tr>
                                 @endforeach
-                                <tr>
+                                <tr class="kt-font-bolder">
                                     <td>VALEUR AJOUTÉE</td>
                                     <td>{{ number_format($bp_added_value_first_year, 0, ',', ' ') }} MAD</td>
                                     <td>{{ number_format($bp_added_value_second_year, 0, ',', ' ') }} MAD</td>
@@ -366,8 +447,8 @@
                                     <td>{{ number_format($bp_human_ressources_social_fees_total, 0, ',', ' ') }} MAD</td>
                                     <td>{{ number_format($bp_human_ressources_social_fees_total, 0, ',', ' ') }} MAD</td>
                                 </tr>
-                                <tr>
-                                    <td>EXCÉDENT BRUT</td>
+                                <tr class="kt-font-bolder">
+                                    <td>EXCÉDENT BRUT D'EXPLOITATION</td>
                                     <td>{{ number_format($gross_surplus_first_year, 0, ',', ' ') }} MAD</td>
                                     <td>{{ number_format($gross_surplus_second_year, 0, ',', ' ') }} MAD</td>
                                     <td>{{ number_format($gross_surplus_third_year, 0, ',', ' ') }} MAD</td>
@@ -390,12 +471,18 @@
                                     <td>{{ number_format($bp_amortization_yearly, 0, ',', ' ') }} MAD</td>
                                     <td>{{ number_format($bp_amortization_yearly, 0, ',', ' ') }} MAD</td>
                                 </tr>
+                                <tr class="kt-font-bolder">
+                                    <td>RÉSULTAT BRUT D'EXPLOITATION</td>
+                                    <td>{{ number_format($bp_gross_income_first_year, 0, ',', ' ') }} MAD</td>
+                                    <td>{{ number_format($bp_gross_income_second_year, 0, ',', ' ') }} MAD</td>
+                                    <td>{{ number_format($bp_gross_income_third_year, 0, ',', ' ') }} MAD</td>
+                                </tr>
                             </tbody>
                         </table>
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>RÉSULTATS</th>
+                                    <th>RÉSULTAT FINANCIER</th>
                                     <th> </th>
                                     <th> </th>
                                     <th> </th>
@@ -403,7 +490,43 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>RÉSULTAT AVANT IMPÔTS</td>
+                                    <td>Produits financiers</td>
+                                    <td>0 MAD</td>
+                                    <td>0 MAD</td>
+                                    <td>0 MAD</td>
+                                </tr>
+                                <tr>
+                                    <td>Charges financières</td>
+                                    <td>{{ number_format($bp_financial_expenses_first_year, 0, ',', ' ') }} MAD</td>
+                                    <td>{{ number_format($bp_financial_expenses_second_year, 0, ',', ' ') }} MAD</td>
+                                    <td>{{ number_format($bp_financial_expenses_third_year, 0, ',', ' ') }} MAD</td>
+                                </tr>
+                                {{-- <tr class="kt-font-bolder">
+                                    <td>RÉSULTAT FINANCIER</td>
+                                    <td>{{ number_format($bp_financial_result_first_year, 0, ',', ' ') }} MAD</td>
+                                    <td>{{ number_format($bp_financial_result_second_year, 0, ',', ' ') }} MAD</td>
+                                    <td>{{ number_format($bp_financial_result_third_year, 0, ',', ' ') }} MAD</td>
+                                </tr> --}}
+                                <tr class="kt-font-bolder">
+                                    <td>RÉSULTAT COURANT</td>
+                                    <td>{{ number_format($bp_current_result_first_year, 0, ',', ' ') }} MAD</td>
+                                    <td>{{ number_format($bp_current_result_second_year, 0, ',', ' ') }} MAD</td>
+                                    <td>{{ number_format($bp_current_result_third_year, 0, ',', ' ') }} MAD</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>IMPÔTS</th>
+                                    <th> </th>
+                                    <th> </th>
+                                    <th> </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Résultat avant impôts</td>
                                     <td>{{ number_format($bp_income_before_taxes_first_year, 0, ',', ' ') }}</td>
                                     <td>{{ number_format($bp_income_before_taxes_second_year, 0, ',', ' ') }}</td>
                                     <td>{{ number_format($bp_income_before_taxes_third_year, 0, ',', ' ') }}</td>
@@ -414,13 +537,13 @@
                                     <td>{{ number_format($bp_corporate_taxe_second_year, 0, ',', ' ') }}</td>
                                     <td>{{ number_format($bp_corporate_taxe_third_year, 0, ',', ' ') }}</td>
                                 </tr>
-                                <tr>
+                                <tr class="kt-font-bolder">
                                     <td>RÉSULTAT NET</td>
                                     <td>{{ number_format($bp_net_profit_first_year, 0, ',', ' ') }}</td>
                                     <td>{{ number_format($bp_net_profit_second_year, 0, ',', ' ') }}</td>
                                     <td>{{ number_format($bp_net_profit_third_year, 0, ',', ' ') }}</td>
                                 </tr>
-                                <tr>
+                                <tr class="kt-font-bolder">
                                     <td>CAPACITÉ D'AUTOFINANCEMENT</td>
                                     <td>{{ number_format($bp_cash_flow_first_year, 0, ',', ' ') }}</td>
                                     <td>{{ number_format($bp_cash_flow_second_year, 0, ',', ' ') }}</td>

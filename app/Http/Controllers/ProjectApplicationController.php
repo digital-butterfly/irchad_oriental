@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\ProjectApplication;
+use App\User;
 use App\Member;
 use App\ProjectCategory;
 use App\Township;
@@ -101,17 +103,21 @@ class ProjectApplicationController extends Controller
             'sheet_id' => $request['sheet_id'], 
             'title' => $request['title'], 
             'description' => $request['description'], 
+            'market_type' => $request['market_type'], 
             'business_model' => json_decode(json_encode([
                 'core_business' => $request['core_business'],
-                'key_ressources' => $request['key_ressources'],
                 'primary_target' => $request['primary_target'],
-                'cost_structure' => $request['cost_structure'],
-                'income' => $request['income'],
+                'suppliers' => $request['suppliers'],
+                'competition' => $request['competition'],
+                'advertising' => $request['advertising'],
+                'pricing_strategy' => $request['pricing_strategy'],
+                'distribution_strategy' => $request['distribution_strategy'],
             ])), 
             'financial_data' => json_decode(json_encode([
                 'financial_plan' => $request['financial_plan'],
                 'startup_needs' => $request['startup_needs'],
-                'overheads' => $request['overheads'],
+                'overheads_fixed' => $request['overheads_fixed'],
+                'overheads_scalable' => $request['overheads_scalable'],
                 'human_ressources' => $request['human_ressources'],
                 'services_turnover_forecast' => $request['services_turnover_forecast'],
                 'products_turnover_forecast' => $request['products_turnover_forecast'],
@@ -124,7 +130,8 @@ class ProjectApplicationController extends Controller
                 'creation_date' => $request['creation_date'],
                 'corporate_name' => $request['corporate_name'],
             ])),
-            'status' => $request['status']
+            'status' => $request['status'],
+            'created_by' => Auth::id()
         ]);
         return redirect()->intended('admin/candidatures');
     }
@@ -145,11 +152,21 @@ class ProjectApplicationController extends Controller
 
         $township = Township::find($application->township_id);
 
+        $creator = User::find($application->created_by);
+
+        $updator = User::find($application->updated_by);
+
         $application->member = $member;
 
         $application->category_title = $category->title;
 
         $application->township_name = $township->title;
+
+        $application->creator = $creator->first_name . ' ' . $creator->last_name;
+
+        $updator != NULL ? ($application->updator = $updator->first_name . ' ' . $updator->last_name) : NULL;
+
+
 
         $data = ProjectApplication::find($id);
 
@@ -188,24 +205,45 @@ class ProjectApplicationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ProjectApplication $application)
+    public function update(Request $request, $id)
     {
-        $application->update([
-            'first_name' => strtolower($request['first_name']),
-            'last_name' => strtolower($request['last_name']),
-            'email' => $request['email'],
-            'identity_number' => $request['identity_number'],
-            'phone' => $request['phone'],
-            'birth_date' => $request['birth_date'],
-            'address' => $request['address'],
-            'township_id' => $request['township_id'],
+        ProjectApplication::find($id)->update([
+            'member_id' => $request['member_id'], 
+            'category_id' => $request['category_id'], 
+            'township_id' => $request['township_id'], 
+            'sheet_id' => $request['sheet_id'], 
+            'title' => $request['title'], 
+            'description' => $request['description'], 
+            'market_type' => $request['market_type'], 
+            'business_model' => json_decode(json_encode([
+                'core_business' => $request['core_business'],
+                'primary_target' => $request['primary_target'],
+                'suppliers' => $request['suppliers'],
+                'competition' => $request['competition'],
+                'advertising' => $request['advertising'],
+                'pricing_strategy' => $request['pricing_strategy'],
+                'distribution_strategy' => $request['distribution_strategy'],
+            ])), 
+            'financial_data' => json_decode(json_encode([
+                'financial_plan' => $request['financial_plan'],
+                'startup_needs' => $request['startup_needs'],
+                'overheads_fixed' => $request['overheads_fixed'],
+                'overheads_scalable' => $request['overheads_scalable'],
+                'human_ressources' => $request['human_ressources'],
+                'services_turnover_forecast' => $request['services_turnover_forecast'],
+                'products_turnover_forecast' => $request['products_turnover_forecast'],
+                'profit_margin_rate' => $request['profit_margin_rate'],
+                'evolution_rate' => $request['evolution_rate'],
+            ])), 
+            'company' => json_decode(json_encode([
+                'legal_form' => $request['legal_form'],
+                'is_created' => $request['is_created'],
+                'creation_date' => $request['creation_date'],
+                'corporate_name' => $request['corporate_name'],
+            ])),
+            'status' => $request['status'],
+            'updated_by' => Auth::id()
         ]);
-
-        if ($request['role']) {
-            $application->update([
-                'role' => $request['role'],
-            ]);
-        }
 
         return redirect()->intended('admin/candidatures');
     }
