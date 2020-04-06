@@ -8,6 +8,12 @@
         $bp_financial_plan_total += $item->value;
     }
 
+    // Investment Program
+    $bp_investment_program_total = 0;
+    foreach ($application->financial_data->startup_needs as $item) {
+        $bp_investment_program_total += $item->value;
+    }
+
     // Parameters
     $bp_turnover_products_total = $application->financial_data->products_turnover_forecast ;
     $bp_turnover_services_total = $application->financial_data->services_turnover_forecast ;
