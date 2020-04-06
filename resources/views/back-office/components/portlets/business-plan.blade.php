@@ -276,6 +276,17 @@
                     </div>
                     <div class="kt-invoice__items">
                         <div class="kt-invoice__item">
+                            <span class="kt-invoice__subtitle">Ressources humaines:</span>
+                            <span class="kt-invoice__text">Le personnel du projet est composé de
+                                @foreach ($application->financial_data->human_ressources as $item)
+                                    {{ $item->count . ' ' . $item->label . ', ' }}
+                                @endforeach
+                                en plus du porteur de projet.
+                            </span>
+                        </div>
+                    </div>
+                    <div class="kt-invoice__items">
+                        <div class="kt-invoice__item">
                             <span class="kt-invoice__subtitle">Principaux clients:</span>
                             <span class="kt-invoice__text">{{ $application->business_model->primary_target }}</span>
                         </div>
@@ -330,26 +341,6 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>PLAN DE FINANCEMENT</th>
-                                    <th> </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($application->financial_data->financial_plan as $item)
-                                    <tr>
-                                        <td>{{ $item->label }}</td>
-                                        <td>{{ number_format($item->value, 0, ',', ' ') }} MAD</td>
-                                    </tr>
-                                @endforeach
-                                <tr class="kt-font-bolder">
-                                    <td>TOTAL</td>
-                                    <td>{{ number_format($bp_financial_plan_total, 0, ',', ' ') }} MAD</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <table class="table">
-                            <thead>
-                                <tr>
                                     <th>PROGRAMME D'INVESTISSEMENT</th>
                                     <th> </th>
                                 </tr>
@@ -364,6 +355,26 @@
                                 <tr class="kt-font-bolder">
                                     <td>TOTAL</td>
                                     <td>{{ number_format($bp_investment_program_total, 0, ',', ' ') }} MAD</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>PLAN DE FINANCEMENT</th>
+                                    <th> </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($application->financial_data->financial_plan as $item)
+                                    <tr>
+                                        <td>{{ $item->label }}</td>
+                                        <td>{{ number_format($item->value, 0, ',', ' ') }} MAD</td>
+                                    </tr>
+                                @endforeach
+                                <tr class="kt-font-bolder">
+                                    <td>TOTAL</td>
+                                    <td>{{ number_format($bp_financial_plan_total, 0, ',', ' ') }} MAD</td>
                                 </tr>
                             </tbody>
                         </table>

@@ -46,8 +46,8 @@
                     <h4 class="kt-menu__section-text">Management</h4>
                     <i class="kt-menu__section-icon flaticon-more-v2"></i>
                 </li>
-                <li class="kt-menu__item " aria-haspopup="true"><a href="admin/candidatures" class="kt-menu__link "><i class="kt-menu__link-icon flaticon-home"></i><span class="kt-menu__link-text">Candidatures</span></a></li>
                 <li class="kt-menu__item " aria-haspopup="true"><a href="admin/members" class="kt-menu__link "><i class="kt-menu__link-icon flaticon-home"></i><span class="kt-menu__link-text">Adhérents</span></a></li>
+                <li class="kt-menu__item " aria-haspopup="true"><a href="admin/candidatures" class="kt-menu__link "><i class="kt-menu__link-icon flaticon-home"></i><span class="kt-menu__link-text">Candidatures</span></a></li>
                 
                 <li class="kt-menu__section ">
                     <h4 class="kt-menu__section-text">Configration</h4>

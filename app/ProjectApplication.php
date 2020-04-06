@@ -177,15 +177,15 @@ class ProjectApplication extends Model
                 'type' => 'section',
                 'sub_fields' => [
                     [
-                        'name' => 'financial_plan',
-                        'type' => 'repeater',
-                        'label' => 'Plan de financement',
-                        'config' => ['doubleRepeater' => true]
-                    ],
-                    [
                         'name' => 'startup_needs',
                         'type' => 'repeater',
                         'label' => 'Programme d\'investissement',
+                        'config' => ['doubleRepeater' => true]
+                    ],
+                    [
+                        'name' => 'financial_plan',
+                        'type' => 'repeater',
+                        'label' => 'Plan de financement',
                         'config' => ['doubleRepeater' => true]
                     ],
                     [
