@@ -126,7 +126,7 @@
         }
     $bp_corporate_tax_second_year = 0;
         switch (true) {
-            case ($bp_income_before_taxes_second_year <= 300000):
+            case ($bp_income_before_taxes_first_year > 0 && $bp_income_before_taxes_first_year <= 300000):
                 $bp_corporate_tax_second_year = $bp_income_before_taxes_second_year * 10 / 100;
                 break;
             case ($bp_income_before_taxes_second_year > 300000 && $bp_income_before_taxes_second_year <= 1000000):
@@ -138,7 +138,7 @@
         }
     $bp_corporate_tax_third_year = 0;
         switch (true) {
-            case ($bp_income_before_taxes_third_year <= 300000):
+            case ($bp_income_before_taxes_first_year > 0 && $bp_income_before_taxes_first_year <= 300000):
                 $bp_corporate_tax_third_year = $bp_income_before_taxes_third_year * 10 / 100;
                 break;
             case ($bp_income_before_taxes_third_year > 300000 && $bp_income_before_taxes_third_year <= 1000000):
