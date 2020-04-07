@@ -92,6 +92,35 @@ class ProjectApplication extends Model
 
         return [
             [
+                'name' => 'company',
+                'type' => 'section',
+                'label' => 'Données Entreprise',
+                "sub_fields" => [
+                    [
+                        'name' => 'legal_form',
+                        'type' => 'text',
+                        'label' => 'Forme juridique'
+                    ],
+                    [
+                        'name' => 'is_created',
+                        'type' => 'select',
+                        'label' => 'Déja créée',
+                        'options' => ['Oui', 'Non'],
+                    ],
+                    [
+                        'name' => 'creation_date',
+                        'type' => 'date',
+                        'label' => 'Date de création'
+                    ],
+                    [
+                        'name' => 'corporate_name',
+                        'type' => 'text',
+                        'label' => 'Dénomination sociale'
+                    ],
+                ],
+                'group' => 'Données Entreprise'
+            ],
+            [
                 'name' => 'member_id',
                 'type' => 'text',
                 'label' => 'ID Adhérent',
@@ -228,35 +257,6 @@ class ProjectApplication extends Model
                     ],
                 ],
                 'group' => 'Données Financières'
-            ],
-            [
-                'name' => 'company',
-                'type' => 'section',
-                'label' => 'Données Entreprise',
-                "sub_fields" => [
-                    [
-                        'name' => 'legal_form',
-                        'type' => 'text',
-                        'label' => 'Forme juridique'
-                    ],
-                    [
-                        'name' => 'is_created',
-                        'type' => 'select',
-                        'label' => 'Déja créée',
-                        'options' => ['Oui', 'Non'],
-                    ],
-                    [
-                        'name' => 'creation_date',
-                        'type' => 'date',
-                        'label' => 'Date de création'
-                    ],
-                    [
-                        'name' => 'corporate_name',
-                        'type' => 'text',
-                        'label' => 'Dénomination sociale'
-                    ],
-                ],
-                'group' => 'Données Entreprise'
             ],
             [
                 'name' => 'status',
