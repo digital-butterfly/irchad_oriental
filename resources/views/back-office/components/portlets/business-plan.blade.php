@@ -266,7 +266,7 @@
                             <span class="kt-invoice__text">{{ $application->category_title }}</span>
                         </div>
                         <div class="kt-invoice__item">
-                            <span class="kt-invoice__subtitle">CAPITAL</span>
+                            <span class="kt-invoice__subtitle">PROGRAMME D'INVESTISSEMENT</span>
                             <span class="kt-invoice__text">{{ number_format($bp_financial_plan_total, 0, ',', ' ') }} MAD</span>
                         </div>
                     </div>
