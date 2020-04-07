@@ -586,7 +586,7 @@
                     <div class="kt-invoice__bank">
                         <div class="kt-invoice__title">RENTABILIÉ</div>
                         <div class="kt-invoice__item">
-                            <span class="kt-invoice__label">Seuil de Rentabilité:</span>
+                            <span class="kt-invoice__label">Statut de Rentabilité:</span>
                             <span class="kt-invoice__value">{{ $bp_profitability_status }}</span></span>
                         </div>
                         <div class="kt-invoice__item">
@@ -601,7 +601,7 @@
                     <div class="kt-invoice__total">
                         <span class="kt-invoice__title">REVENU NET ANNUEL</span>
                         <span class="kt-invoice__price">{{ number_format($bp_net_profit_first_year, 0, ',', ' ') }} MAD</span>
-                        <span class="kt-invoice__notice">{{ $bp_evolution_rate }}% d'augmentation chaque année</span>
+                        <span class="kt-invoice__notice">{{ $bp_evolution_rate }}% d'augmentation chaque année*</span>
                     </div>
                 </div>
             </div>
