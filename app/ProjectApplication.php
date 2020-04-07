@@ -189,6 +189,26 @@ class ProjectApplication extends Model
                         'config' => ['doubleRepeater' => true]
                     ],
                     [
+                        'name' => 'services_turnover_forecast',
+                        'type' => 'text',
+                        'label' => 'CA prévisionnel - Services'
+                    ],
+                    [
+                        'name' => 'products_turnover_forecast',
+                        'type' => 'text',
+                        'label' => 'CA prévisionnel - Produits'
+                    ],
+                    [
+                        'name' => 'profit_margin_rate',
+                        'type' => 'text',
+                        'label' => 'Taux de marge'
+                    ],
+                    [
+                        'name' => 'evolution_rate',
+                        'type' => 'text',
+                        'label' => 'Taux d\'évolution annuelle'
+                    ],
+                    [
                         'name' => 'overheads_fixed',
                         'type' => 'repeater',
                         'label' => 'Charges annuelles constantes',
@@ -205,26 +225,6 @@ class ProjectApplication extends Model
                         'type' => 'repeater',
                         'label' => 'Ressources humaines',
                         'config' => ['tripleRepeater' => true]
-                    ],
-                    [
-                        'name' => 'services_turnover_forecast',
-                        'type' => 'text',
-                        'label' => 'CA prévisionnel - Services'
-                    ],
-                    [
-                        'name' => 'products_turnover_forecast',
-                        'type' => 'text',
-                        'label' => 'CA prévisionnel - Produits'
-                    ],
-                    [
-                        'name' => 'profit_margin_rate',
-                        'type' => 'text',
-                        'label' => 'Taux de marge bénéficiaire'
-                    ],
-                    [
-                        'name' => 'evolution_rate',
-                        'type' => 'text',
-                        'label' => 'Taux d\'évolution annuelle'
                     ],
                 ],
                 'group' => 'Données Financières'
