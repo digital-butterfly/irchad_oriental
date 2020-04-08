@@ -79,7 +79,7 @@
     foreach ($application->financial_data->startup_needs as $item) {
         $bp_amortization_total += $item->value;
     }
-    $bp_amortization_yearly = $bp_amortization_total / 5;
+    $bp_amortization_yearly = $bp_amortization_total / 5 / 1.2;
 
     // Gross Income
     $bp_gross_income_first_year = $gross_surplus_first_year - $bp_amortization_yearly ;
