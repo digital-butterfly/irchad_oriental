@@ -31,7 +31,31 @@
         $bp_loan_interest_fee = $bp_loan_amount * $bp_loan_periodic_rate / 100;
         $bp_loan_monthly_payments_count = 12 * $item->duration;
         $bp_loan_monthly_payment = $item->value * ($bp_loan_periodic_rate / 100) * ((1 + ($bp_loan_periodic_rate / 100)) ** $bp_loan_monthly_payments_count) / (((1 + ($bp_loan_periodic_rate / 100)) ** $bp_loan_monthly_payments_count) - 1);
-       
+    }
+
+    $bp_loans_first_year_total = 0;
+    $bp_loans_second_year_total = 0;
+    $bp_loans_third_year_total = 0;
+    for ($i = 1; $i <= $bp_loan_monthly_payments_count; $i++) {
+        $i == 1 ? $current_remaining_reimbursment = $bp_loan_amount : $current_remaining_reimbursment = $previous_remaining_reimbursment;
+        /* <tr>
+            <th scope="row">{{ $i }}</th>
+            <td>{{ $current_remaining_reimbursment }}</td>
+            <td>{{ $bp_loan_monthly_payment }}</td>
+            <td>{{ $bp_loan_monthly_payment - ($current_remaining_reimbursment * $bp_loan_periodic_rate / 100) }}</td>
+            <td>{{ $current_remaining_reimbursment * $bp_loan_periodic_rate / 100 }}</td>
+            <td>{{ $current_remaining_reimbursment - ($bp_loan_monthly_payment - ($current_remaining_reimbursment * $bp_loan_periodic_rate / 100)) }}</td>
+        </tr> */
+        $previous_remaining_reimbursment = $current_remaining_reimbursment - ($bp_loan_monthly_payment - ($current_remaining_reimbursment * $bp_loan_periodic_rate / 100));
+        if ($i <= 12) {
+            $bp_loans_first_year_total += ($current_remaining_reimbursment * $bp_loan_periodic_rate / 100);
+        }
+        elseif ($i > 12 && $i <= 24) {
+            $bp_loans_second_year_total += ($current_remaining_reimbursment * $bp_loan_periodic_rate / 100);
+        }
+        elseif ($i > 24 && $i <= 36) {
+            $bp_loans_third_year_total += ($current_remaining_reimbursment * $bp_loan_periodic_rate / 100);
+        }
     }
 
 
@@ -113,9 +137,9 @@
     $bp_financial_products_third_year = 0;
     
     // Financial Expenses
-    $bp_financial_expenses_first_year = 0;
-    $bp_financial_expenses_second_year = 0;
-    $bp_financial_expenses_third_year = 0;
+    $bp_financial_expenses_first_year = $bp_loans_first_year_total;
+    $bp_financial_expenses_second_year = $bp_loans_second_year_total;
+    $bp_financial_expenses_third_year = $bp_loans_third_year_total;
 
     // Financial Result
     $bp_financial_result_first_year = $bp_financial_products_first_year - $bp_financial_expenses_first_year;
@@ -567,9 +591,9 @@
                                 </tr>
                                 <tr>
                                     <td>Charges financières</td>
-                                    <td>{{ number_format($bp_financial_expenses_first_year, 0, ',', ' ') }} MAD</td>
-                                    <td>{{ number_format($bp_financial_expenses_second_year, 0, ',', ' ') }} MAD</td>
-                                    <td>{{ number_format($bp_financial_expenses_third_year, 0, ',', ' ') }} MAD</td>
+                                    <td>{{ number_format($bp_loans_first_year_total, 0, ',', ' ') }} MAD</td>
+                                    <td>{{ number_format($bp_loans_second_year_total, 0, ',', ' ') }} MAD</td>
+                                    <td>{{ number_format($bp_loans_third_year_total, 0, ',', ' ') }} MAD</td>
                                 </tr>
                                 {{-- <tr class="kt-font-bolder">
                                     <td>RÉSULTAT FINANCIER</td>
@@ -655,7 +679,7 @@
                 </div>
             </div>
         </div>
-        <div class="kt-section">
+        {{-- <div class="kt-section">
             <span class="kt-section__info">
                 Tableau d'amortissement des prêts:
             </span>
@@ -710,6 +734,6 @@
             <p>Total interets 1ère année: <strong>{{ $bp_loans_first_year_total }}</strong></p>
             <p>Total interets 2ème année: <strong>{{ $bp_loans_second_year_total }}</strong></p>
             <p>Total interets 3ème année: <strong>{{ $bp_loans_third_year_total }}</strong></p>
-        </div>
+        </div> --}}
     </div>
 </div>
