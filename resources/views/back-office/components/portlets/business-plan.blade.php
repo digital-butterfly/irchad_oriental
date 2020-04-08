@@ -696,7 +696,7 @@
                                 if ($i <= 12) {
                                     $bp_loans_first_year_total += ($current_remaining_reimbursment * $bp_loan_periodic_rate / 100);
                                 }
-                                elseif ($i > 12 && $i < 24) {
+                                elseif ($i > 12 && $i <= 24) {
                                     $bp_loans_second_year_total += ($current_remaining_reimbursment * $bp_loan_periodic_rate / 100);
                                 }
                                 elseif ($i > 24 && $i <= 36) {
