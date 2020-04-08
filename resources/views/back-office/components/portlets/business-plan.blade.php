@@ -693,14 +693,14 @@
                             </tr>
                             @php
                                 $previous_remaining_reimbursment = $current_remaining_reimbursment - ($bp_loan_monthly_payment - ($current_remaining_reimbursment * $bp_loan_periodic_rate / 100));
-                                if ($i < 12) {
-                                    $bp_loans_first_year_total +=  $current_remaining_reimbursment * $bp_loan_periodic_rate / 100;
+                                if ($i <= 12) {
+                                    $bp_loans_first_year_total += ($current_remaining_reimbursment * $bp_loan_periodic_rate / 100);
                                 }
                                 elseif ($i > 12 && $i < 24) {
-                                    $bp_loans_second_year_total +=  $current_remaining_reimbursment * $bp_loan_periodic_rate / 100;
+                                    $bp_loans_second_year_total += ($current_remaining_reimbursment * $bp_loan_periodic_rate / 100);
                                 }
                                 elseif ($i > 24 && $i <= 36) {
-                                    $bp_loans_third_year_total +=  $current_remaining_reimbursment * $bp_loan_periodic_rate / 100;
+                                    $bp_loans_third_year_total += ($current_remaining_reimbursment * $bp_loan_periodic_rate / 100);
                                 }
                             @endphp
                         @endfor
