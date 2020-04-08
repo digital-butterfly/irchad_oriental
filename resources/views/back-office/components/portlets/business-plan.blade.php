@@ -69,10 +69,16 @@
     }
     $bp_human_ressources_social_fees_total = $bp_human_ressources_total * 0.2109;
 
+    // Taxes
+    $bp_taxes_total = 0;
+    foreach ($application->financial_data->taxes as $item) {
+        $bp_taxes_total += $item->value;
+    }
+
     // Gross Surplus
-    $gross_surplus_first_year = $bp_added_value_first_year - $bp_human_ressources_total - $bp_human_ressources_social_fees_total;
-    $gross_surplus_second_year = $bp_added_value_second_year - $bp_human_ressources_total - $bp_human_ressources_social_fees_total;
-    $gross_surplus_third_year = $bp_added_value_third_year - $bp_human_ressources_total - $bp_human_ressources_social_fees_total;
+    $gross_surplus_first_year = $bp_added_value_first_year - $bp_human_ressources_total - $bp_human_ressources_social_fees_total - $bp_taxes_total;
+    $gross_surplus_second_year = $bp_added_value_second_year - $bp_human_ressources_total - $bp_human_ressources_social_fees_total - $bp_taxes_total;
+    $gross_surplus_third_year = $bp_added_value_third_year - $bp_human_ressources_total - $bp_human_ressources_social_fees_total - $bp_taxes_total;
 
     // Amortization
     $bp_amortization_total = 0;
@@ -474,6 +480,28 @@
                                     <td>{{ number_format($bp_human_ressources_social_fees_total, 0, ',', ' ') }} MAD</td>
                                     <td>{{ number_format($bp_human_ressources_social_fees_total, 0, ',', ' ') }} MAD</td>
                                 </tr>
+                            </tbody>
+                        </table>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>TAXES</th>
+                                    <th> </th>
+                                    <th> </th>
+                                    <th> </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (isset($application->financial_data->taxes))
+                                    @foreach ($application->financial_data->taxes as $item)
+                                        <tr>
+                                            <td>{{ $item->label }}</td>
+                                            <td>{{ number_format($item->value, 0, ',', ' ') }} MAD</td>
+                                            <td>{{ number_format($item->value, 0, ',', ' ') }} MAD</td>
+                                            <td>{{ number_format($item->value, 0, ',', ' ') }} MAD</td>
+                                        </tr>
+                                    @endforeach
+                                @endif
                                 <tr class="kt-font-bolder">
                                     <td>EXCÉDENT BRUT D'EXPLOITATION</td>
                                     <td>{{ number_format($gross_surplus_first_year, 0, ',', ' ') }} MAD</td>
@@ -509,7 +537,7 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>RÉSULTAT FINANCIER</th>
+                                    <th>FINANCIER</th>
                                     <th> </th>
                                     <th> </th>
                                     <th> </th>
@@ -545,7 +573,7 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>IMPÔTS</th>
+                                    <th>RÉSULTAT</th>
                                     <th> </th>
                                     <th> </th>
                                     <th> </th>

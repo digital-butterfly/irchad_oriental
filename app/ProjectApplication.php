@@ -108,6 +108,11 @@ class ProjectApplication extends Model
                         'options' => ['Oui', 'Non'],
                     ],
                     [
+                        'name' => 'capital',
+                        'type' => 'text',
+                        'label' => 'Capital social'
+                    ],
+                    [
                         'name' => 'creation_date',
                         'type' => 'date',
                         'label' => 'Date de création'
@@ -254,6 +259,12 @@ class ProjectApplication extends Model
                         'type' => 'repeater',
                         'label' => 'Ressources humaines',
                         'config' => ['tripleRepeater' => true]
+                    ],
+                    [
+                        'name' => 'taxes',
+                        'type' => 'repeater',
+                        'label' => 'Taxes',
+                        'config' => ['doubleRepeater' => true]
                     ],
                 ],
                 'group' => 'Données Financières'

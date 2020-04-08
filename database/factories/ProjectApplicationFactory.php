@@ -41,6 +41,7 @@ $factory->define(ProjectApplication::class, function (Faker $faker) {
             'overheads_fixed' => json_decode(fakeJson(NULL, 2, 6, 'double')),
             'overheads_scalable' => json_decode(fakeJson(NULL, 2, 6, 'double')),
             'human_ressources' => json_decode(fakeJson(NULL, 2, 6, 'triple')),
+            'taxes' => json_decode(fakeJson(NULL, 1, 3, 'double')),
             'services_turnover_forecast' => $faker->numberBetween($min = 200000, $max = 5000000),
             'products_turnover_forecast' => $faker->numberBetween($min = 200000, $max = 5000000),
             'profit_margin_rate' => $faker->numberBetween($min = 1, $max = 300),
@@ -49,9 +50,11 @@ $factory->define(ProjectApplication::class, function (Faker $faker) {
         'company' => json_decode(json_encode([
             'legal_form' => $faker->randomElement($array = array ('Association','Coopérative','SARL')),
             'is_created' => '',
+            'capital' => $faker->optional()->numberBetween($min = 50000, $max = 10000000),
             'creation_date' => $faker->optional()->date($format = 'Y-m-d'),
             'corporate_name' => $faker->optional()->company,
         ])),
-        'status' => $faker->randomElement($array = array ('Nouveau','Accepté','Rejeté','Incubé'))
+        'status' => $faker->randomElement($array = array ('Nouveau','Accepté','Rejeté','Incubé')),
+        'created_by' => $faker->randomElement($array = array (25,26,27,28,29))
     ];
 });

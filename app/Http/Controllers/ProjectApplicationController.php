@@ -119,6 +119,7 @@ class ProjectApplicationController extends Controller
                 'overheads_fixed' => $request['overheads_fixed'],
                 'overheads_scalable' => $request['overheads_scalable'],
                 'human_ressources' => $request['human_ressources'],
+                'taxes' => $request['taxes'],
                 'services_turnover_forecast' => $request['services_turnover_forecast'],
                 'products_turnover_forecast' => $request['products_turnover_forecast'],
                 'profit_margin_rate' => $request['profit_margin_rate'],
@@ -127,6 +128,7 @@ class ProjectApplicationController extends Controller
             'company' => json_decode(json_encode([
                 'legal_form' => $request['legal_form'],
                 'is_created' => $request['is_created'],
+                'capital' => $request['capital'],
                 'creation_date' => $request['creation_date'],
                 'corporate_name' => $request['corporate_name'],
             ])),
@@ -230,6 +232,7 @@ class ProjectApplicationController extends Controller
                 'overheads_fixed' => $request['overheads_fixed'],
                 'overheads_scalable' => $request['overheads_scalable'],
                 'human_ressources' => $request['human_ressources'],
+                'taxes' => $request['taxes'],
                 'services_turnover_forecast' => $request['services_turnover_forecast'],
                 'products_turnover_forecast' => $request['products_turnover_forecast'],
                 'profit_margin_rate' => $request['profit_margin_rate'],
@@ -238,6 +241,7 @@ class ProjectApplicationController extends Controller
             'company' => json_decode(json_encode([
                 'legal_form' => $request['legal_form'],
                 'is_created' => $request['is_created'],
+                'capital' => $request['capital'],
                 'creation_date' => $request['creation_date'],
                 'corporate_name' => $request['corporate_name'],
             ])),
