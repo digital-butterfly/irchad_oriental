@@ -37,6 +37,7 @@ $factory->define(ProjectApplication::class, function (Faker $faker) {
         ])), 
         'financial_data' => json_decode(json_encode([
             'financial_plan' => json_decode(fakeJson(NULL, 2, 6, 'double')),
+            'financial_plan_loans' => json_decode(fakeJson(NULL, 1, 3, 'quadruple')),
             'startup_needs' => json_decode(fakeJson(NULL, 2, 6, 'double')),
             'overheads_fixed' => json_decode(fakeJson(NULL, 2, 6, 'double')),
             'overheads_scalable' => json_decode(fakeJson(NULL, 2, 6, 'double')),

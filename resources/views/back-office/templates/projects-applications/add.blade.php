@@ -113,6 +113,22 @@
 					}   
 				});
 
+				var financial_plan_loans = $('.kt_repeater_financial_plan_loans').repeater({
+					initEmpty: false,
+				
+					defaultValues: {
+						'text-input': 'foo'
+					},
+					
+					show: function () {
+						$(this).slideDown();
+					},
+
+					hide: function (deleteElement) {
+						$(this).slideUp(deleteElement);                 
+					}   
+				});
+
 				var startup_needs = $('.kt_repeater_startup_needs').repeater({
 					initEmpty: false,
 				

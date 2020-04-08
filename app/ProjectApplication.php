@@ -219,8 +219,14 @@ class ProjectApplication extends Model
                     [
                         'name' => 'financial_plan',
                         'type' => 'repeater',
-                        'label' => 'Plan de financement',
+                        'label' => 'Apports au capital',
                         'config' => ['doubleRepeater' => true]
+                    ],
+                    [
+                        'name' => 'financial_plan_loans',
+                        'type' => 'repeater',
+                        'label' => 'Prêts',
+                        'config' => ['quadrupleRepeater' => true]
                     ],
                     [
                         'name' => 'services_turnover_forecast',

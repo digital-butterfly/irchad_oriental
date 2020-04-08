@@ -15,7 +15,7 @@
         <label for="{{ $field['name'] }}" class="{{ (isset($field['config']) && isset($field['config']['hotizontalRows']) && $field['config']['hotizontalRows']) ? 'col-lg-3 col-form-label' : '' }}">{{ $field['label'] }}:</label>
         <div data-repeater-list="{{ $field['name'] }}" class="col-lg-9">
             <div data-repeater-item="" class="form-group row align-items-center">
-                @if (!(isset($field['config']['doubleRepeater'])) && !(isset($field['config']['tripleRepeater'])))
+                @if (!(isset($field['config']['doubleRepeater'])) && !(isset($field['config']['tripleRepeater'])) && !(isset($field['config']['quadrupleRepeater'])))
                     <div class="col-md-8">
                         <div class="kt-form__group--inline">
                             <div class="kt-form__control">
@@ -106,6 +106,95 @@
                                                 'label' :  '{{ $item->label }}',
                                                 'count' :  '{{ $item->count }}',
                                                 'value' :  '{{ $item->value }}',
+                                            },
+                                        @endforeach
+                                    @endif
+                                ]);
+                            });
+                        </script>
+                    @endif
+                @elseif (isset($field['config']['quadrupleRepeater']))
+                    <div class="col-md-4">
+                        <div class="kt-form__group--inline">
+                            <div class="kt-form__label">
+                                <label>Désignation:</label>
+                            </div>
+                            <div class="kt-form__control">
+                                <input type="text" name="label" class="form-control" placeholder=""> 
+                            </div>
+                        </div>
+                        <div class="d-md-none kt-margin-b-10"></div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="kt-form__group--inline">
+                            <div class="kt-form__label">
+                                <label>Valeur:</label>
+                            </div>
+                            <div class="kt-form__control">
+                                <input type="text" name="value" class="form-control" placeholder=""> 
+                            </div>
+                        </div>
+                        <div class="d-md-none kt-margin-b-10"></div>
+                    </div>
+                    <div class="col-md-1">
+                        <div class="kt-form__group--inline">
+                            <div class="kt-form__label">
+                                <label class="kt-label m-label--single">Taux:</label>
+                            </div>
+                            <div class="kt-form__control">
+                                <input type="text" name="rate" class="form-control" placeholder="">   
+                            </div>
+                        </div>
+                        <div class="d-md-none kt-margin-b-10"></div>
+                    </div>
+                    <div class="col-md-1">
+                        <div class="kt-form__group--inline">
+                            <div class="kt-form__label">
+                                <label class="kt-label m-label--single">Années:</label>
+                            </div>
+                            <div class="kt-form__control">
+                                <input type="text" name="duration" class="form-control" placeholder="">   
+                            </div>
+                        </div>
+                        <div class="d-md-none kt-margin-b-10"></div>
+                    </div>
+                    @if (isset($data) && isset($data->$ref) && $data->$ref != NULL)
+                        <script>
+                            window.addEventListener('load', function() {
+                                var $repeater = $('.kt_repeater_{{ $field['name'] }}').repeater();
+                                $repeater.setList([
+                                    @foreach ($data->$ref as $item)
+                                        {
+                                            'label' :  '{{ $item->label }}',
+                                            'value' :  '{{ $item->value }}',
+                                            'rate' :  '{{ $item->rate }}',
+                                            'duration' :  '{{ $item->duration }}',
+                                        },
+                                    @endforeach
+                                ]);
+                            });
+                        </script>
+                    @elseif (isset($data) && isset($data->$parent_ref) && isset($data->$parent_ref->$ref) && $data->$parent_ref->$ref != NULL)
+                        <script>
+                            window.addEventListener('load', function() {
+                                var $repeater = $('.kt_repeater_{{ $field['name'] }}').repeater();
+                                $repeater.setList([
+                                    @if (!is_array($data->$parent_ref->$ref))
+                                        @foreach ($data->$parent_ref->$ref as $item)
+                                            {
+                                                'label' :  '{{ $item->label }}',
+                                                'value' :  '{{ $item->value }}',
+                                                'rate' :  '{{ $item->rate }}',
+                                                'duration' :  '{{ $item->duration }}',
+                                            },
+                                        @endforeach
+                                    @else
+                                        @foreach ($data->$parent_ref->$ref as $item)
+                                            {
+                                                'label' :  '{{ $item->label }}',
+                                                'value' :  '{{ $item->value }}',
+                                                'rate' :  '{{ $item->rate }}',
+                                                'duration' :  '{{ $item->duration }}',
                                             },
                                         @endforeach
                                     @endif

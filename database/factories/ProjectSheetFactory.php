@@ -25,7 +25,7 @@ function fakeJson($label, $min, $max, $repeater_type) {
 
     $count = rand($min,$max);
 
-    if (!($repeater_type == 'double') && !($repeater_type == 'triple')){
+    if (!($repeater_type == 'double') && !($repeater_type == 'triple') && !($repeater_type == 'quadruple')){
         for ($i = 1; $i <= $count; $i++) {
             array_push($result, [
                 $label => $faker->text($maxNbChars = 100),
@@ -39,6 +39,17 @@ function fakeJson($label, $min, $max, $repeater_type) {
                 'label' => $faker->jobTitle,
                 'count' => $faker->numberBetween($min = 1, $max = 20),
                 'value' => $faker->numberBetween($min = 3000, $max = 7000),
+            ]);
+        }
+    }
+
+    elseif ($repeater_type == 'quadruple'){
+        for ($i = 1; $i <= $count; $i++) {
+            array_push($result, [
+                'label' => $faker->jobTitle,
+                'value' => $faker->numberBetween($min = 30000, $max = 70000),
+                'rate' => $faker->numberBetween($min = 1, $max = 20),
+                'duration' => $faker->numberBetween($min = 2, $max = 10),
             ]);
         }
     }
