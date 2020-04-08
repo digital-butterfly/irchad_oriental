@@ -219,7 +219,7 @@ class ProjectApplication extends Model
                     [
                         'name' => 'financial_plan',
                         'type' => 'repeater',
-                        'label' => 'Apports au capital',
+                        'label' => 'Plan de financement hors prêts',
                         'config' => ['doubleRepeater' => true]
                     ],
                     [

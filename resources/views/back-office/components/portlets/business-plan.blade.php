@@ -25,39 +25,29 @@
     $bp_loan_monthly_payment = 0;
     $bp_loan_monthly_payments_count = 0;
     $bp_loan_amount = 0;
+    $bp_loans_first_year_total = 0;
+    $bp_loans_second_year_total = 0;
+    $bp_loans_third_year_total = 0;
     foreach ($application->financial_data->financial_plan_loans as $item) {
         $bp_loan_amount = $item->value;
         $bp_loan_periodic_rate = $item->rate / 12;
         $bp_loan_interest_fee = $bp_loan_amount * $bp_loan_periodic_rate / 100;
         $bp_loan_monthly_payments_count = 12 * $item->duration;
         $bp_loan_monthly_payment = $item->value * ($bp_loan_periodic_rate / 100) * ((1 + ($bp_loan_periodic_rate / 100)) ** $bp_loan_monthly_payments_count) / (((1 + ($bp_loan_periodic_rate / 100)) ** $bp_loan_monthly_payments_count) - 1);
-    }
-
-    $bp_loans_first_year_total = 0;
-    $bp_loans_second_year_total = 0;
-    $bp_loans_third_year_total = 0;
-    for ($i = 1; $i <= $bp_loan_monthly_payments_count; $i++) {
-        $i == 1 ? $current_remaining_reimbursment = $bp_loan_amount : $current_remaining_reimbursment = $previous_remaining_reimbursment;
-        /* <tr>
-            <th scope="row">{{ $i }}</th>
-            <td>{{ $current_remaining_reimbursment }}</td>
-            <td>{{ $bp_loan_monthly_payment }}</td>
-            <td>{{ $bp_loan_monthly_payment - ($current_remaining_reimbursment * $bp_loan_periodic_rate / 100) }}</td>
-            <td>{{ $current_remaining_reimbursment * $bp_loan_periodic_rate / 100 }}</td>
-            <td>{{ $current_remaining_reimbursment - ($bp_loan_monthly_payment - ($current_remaining_reimbursment * $bp_loan_periodic_rate / 100)) }}</td>
-        </tr> */
-        $previous_remaining_reimbursment = $current_remaining_reimbursment - ($bp_loan_monthly_payment - ($current_remaining_reimbursment * $bp_loan_periodic_rate / 100));
-        if ($i <= 12) {
-            $bp_loans_first_year_total += ($current_remaining_reimbursment * $bp_loan_periodic_rate / 100);
-        }
-        elseif ($i > 12 && $i <= 24) {
-            $bp_loans_second_year_total += ($current_remaining_reimbursment * $bp_loan_periodic_rate / 100);
-        }
-        elseif ($i > 24 && $i <= 36) {
-            $bp_loans_third_year_total += ($current_remaining_reimbursment * $bp_loan_periodic_rate / 100);
+        for ($i = 1; $i <= $bp_loan_monthly_payments_count; $i++) {
+            $i == 1 ? $current_remaining_reimbursment = $bp_loan_amount : $current_remaining_reimbursment = $previous_remaining_reimbursment;
+            $previous_remaining_reimbursment = $current_remaining_reimbursment - ($bp_loan_monthly_payment - ($current_remaining_reimbursment * $bp_loan_periodic_rate / 100));
+            if ($i <= 12) {
+                $bp_loans_first_year_total += ($current_remaining_reimbursment * $bp_loan_periodic_rate / 100);
+            }
+            elseif ($i > 12 && $i <= 24) {
+                $bp_loans_second_year_total += ($current_remaining_reimbursment * $bp_loan_periodic_rate / 100);
+            }
+            elseif ($i > 24 && $i <= 36) {
+                $bp_loans_third_year_total += ($current_remaining_reimbursment * $bp_loan_periodic_rate / 100);
+            }
         }
     }
-
 
     // Turnover
     $bp_turnover_first_year = $bp_turnover_products_total + $bp_turnover_services_total;
