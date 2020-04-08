@@ -52,7 +52,7 @@
     foreach ($application->financial_data->overheads_scalable as $item) {
         $bp_overheads_scalable_first_year += $item->value;
         $bp_overheads_scalable_second_year += ($item->value) + ($item->value * $bp_evolution_rate / 100);
-        $bp_overheads_scalable_third_year += (($item->value) + ($item->value * $bp_evolution_rate / 100)) + (($item->value) + ($item->value * $bp_evolution_rate / 100) * $bp_evolution_rate / 100);
+        $bp_overheads_scalable_third_year += (($item->value) + ($item->value * $bp_evolution_rate / 100)) + ((($item->value) + ($item->value * $bp_evolution_rate / 100)) * $bp_evolution_rate / 100);
     }
 
     // Added Value
