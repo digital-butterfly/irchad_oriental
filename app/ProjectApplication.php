@@ -220,7 +220,7 @@ class ProjectApplication extends Model
                         'name' => 'startup_needs_amortizable',
                         'type' => 'repeater',
                         'label' => 'Programme d\'investissement - Amortissable',
-                        'config' => ['tripleRepeater' => true, 'attributes' => [['Désignation',4], ['Valeur',3], ['Taux', 1]]]
+                        'config' => ['tripleRepeater' => true, 'attributes' => [['Désignation',4], ['Valeur',3], ['Taux',1]]]
                     ],
                     [
                         'name' => 'startup_needs',

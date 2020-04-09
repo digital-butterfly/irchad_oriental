@@ -12,7 +12,7 @@
     $bp_investment_program_total = 0;
     if (isset($application->financial_data->startup_needs_amortizable)) {
         foreach ($application->financial_data->startup_needs_amortizable as $item) {
-            $bp_investment_program_total += $item->value;
+            $bp_investment_program_total += $item->count;
         }
     }
     if (isset($application->financial_data->startup_needs)) {
