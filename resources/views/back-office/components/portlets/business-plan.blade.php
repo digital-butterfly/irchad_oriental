@@ -121,7 +121,7 @@
     $bp_amortization_total = 0;
     if (isset($application->financial_data->startup_needs_amortizable)) {
         foreach ($application->financial_data->startup_needs_amortizable as $item) {
-            $item->value != NULL ? $bp_amortization_total += $item->count / $item->value : NULL;
+            $item->value != NULL ? $bp_amortization_total += $item->count * $item->value / 100 : NULL;
         }
     }
     $bp_amortization_yearly = $bp_amortization_total / 1.2;

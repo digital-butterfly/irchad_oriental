@@ -25,9 +25,8 @@ class ProjectApplicationController extends Controller
     protected function validator(array $data, $type)
     {
         return Validator::make($data, [
-            'first_name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:applications'],
+            'member_id' => ['required', 'integer', 'exists:members,id'],
+            'title' => ['required', 'string', 'max:255'],
         ]);
     }
 
@@ -96,6 +95,11 @@ class ProjectApplicationController extends Controller
      */
     public function store(Request $request)
     {
+        $validation = $this->validator($request->all(), 'projectApplication');
+        if($validation->fails())
+        {
+            return redirect()->back()->withInput();
+        }
         $application = ProjectApplication::create([
             'member_id' => $request['member_id'], 
             'category_id' => $request['category_id'], 

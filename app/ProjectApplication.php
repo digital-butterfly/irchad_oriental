@@ -97,15 +97,15 @@ class ProjectApplication extends Model
                 'label' => 'Données Entreprise',
                 "sub_fields" => [
                     [
-                        'name' => 'legal_form',
-                        'type' => 'text',
-                        'label' => 'Forme juridique'
-                    ],
-                    [
                         'name' => 'is_created',
                         'type' => 'select',
                         'label' => 'Déja créée',
                         'options' => ['Oui', 'Non'],
+                    ],
+                    [
+                        'name' => 'legal_form',
+                        'type' => 'text',
+                        'label' => 'Forme juridique'
                     ],
                     [
                         'name' => 'capital',
