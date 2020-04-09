@@ -475,18 +475,22 @@
                             <tbody>
                                 @if (isset($application->financial_data->startup_needs_amortizable))
                                     @foreach ($application->financial_data->startup_needs_amortizable as $item)
-                                        <tr>
-                                            <td>{{ $item->label }}</td>
-                                            <td>{{ number_format($item->count, 0, ',', ' ') }} MAD</td>
-                                        </tr>
+                                        @if ($item->label != '')
+                                            <tr>
+                                                <td>{{ $item->label }}</td>
+                                                <td>{{ number_format($item->count, 0, ',', ' ') }} MAD</td>
+                                            </tr>
+                                        @endif
                                     @endforeach
                                 @endif
                                 @if (isset($application->financial_data->startup_needs))
                                     @foreach ($application->financial_data->startup_needs as $item)
-                                        <tr>
-                                            <td>{{ $item->label }}</td>
-                                            <td>{{ number_format($item->value, 0, ',', ' ') }} MAD</td>
-                                        </tr>
+                                        @if ($item->label != '')
+                                            <tr>
+                                                <td>{{ $item->label }}</td>
+                                                <td>{{ number_format($item->value, 0, ',', ' ') }} MAD</td>
+                                            </tr>
+                                        @endif
                                     @endforeach
                                 @endif
                                 <tr class="kt-font-bolder">
