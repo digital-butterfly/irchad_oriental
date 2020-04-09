@@ -473,7 +473,7 @@
                                         @if ($item->label != '')
                                             <tr>
                                                 <td>{{ $item->label }}</td>
-                                                <td>{{ number_format($item->value, 0, ',', ' ') }} MAD</td>
+                                                <td>{{ number_format($item->count, 0, ',', ' ') }} MAD</td>
                                             </tr>
                                         @endif
                                     @endforeach
