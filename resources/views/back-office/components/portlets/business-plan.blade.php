@@ -150,7 +150,7 @@
     $bp_corporate_tax_first_year = 0;
     $bp_corporate_tax_second_year = 0;
     $bp_corporate_tax_third_year = 0;
-    if ($application->company->applied_tax == 'Impôt sur les sociétés') {
+    if (($application->company->applied_tax ?? '') == 'Impôt sur les sociétés') {
         switch (true) {
             case ($bp_income_before_taxes_first_year > 0 && $bp_income_before_taxes_first_year <= 300000):
                 $bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 10 / 100;
@@ -185,7 +185,7 @@
                 break;
         }
     }
-    elseif ($application->company->applied_tax == 'Impôt sur le revenu') {
+    elseif (($application->company->applied_tax ?? '') == 'Impôt sur le revenu') {
         switch (true) {
             case ($bp_income_before_taxes_first_year > 0 && $bp_income_before_taxes_first_year <= 300000):
                 $bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 0 / 100;
@@ -247,12 +247,12 @@
                 break;
         }
     }
-    elseif ($application->company->applied_tax == 'Auto-entrepreneur activité commerciale, industrielle ou artisanale') {
+    elseif (($application->company->applied_tax ?? '') == 'Auto-entrepreneur activité commerciale, industrielle ou artisanale') {
         $bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 0.5 / 100;
         $bp_corporate_tax_second_year = $bp_income_before_taxes_second_year * 0.5 / 100;
         $bp_corporate_tax_third_year = $bp_income_before_taxes_third_year * 0.5 / 100;
     }
-    elseif ($application->company->applied_tax == 'Auto-entrepreneur prestataire de services') {
+    elseif (($application->company->applied_tax ?? '') == 'Auto-entrepreneur prestataire de services') {
         $bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 1 / 100;
         $bp_corporate_tax_second_year = $bp_income_before_taxes_second_year * 1 / 100;
         $bp_corporate_tax_third_year = $bp_income_before_taxes_third_year * 1 / 100;
@@ -690,7 +690,7 @@
                                     <td>{{ number_format($bp_income_before_taxes_third_year, 0, ',', ' ') }}</td>
                                 </tr>
                                 <tr>
-                                    <td>{{ $application->company->applied_tax }}</td>
+                                    <td>{{ $application->company->applied_tax ?? '' }}</td>
                                     <td>{{ number_format($bp_corporate_tax_first_year, 0, ',', ' ') }}</td>
                                     <td>{{ number_format($bp_corporate_tax_second_year, 0, ',', ' ') }}</td>
                                     <td>{{ number_format($bp_corporate_tax_third_year, 0, ',', ' ') }}</td>
