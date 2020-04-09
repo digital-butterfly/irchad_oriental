@@ -79,9 +79,9 @@
                                 $repeater.setList([
                                     @foreach ($data->$ref as $item)
                                         {
-                                            'label' :  '{{ $item->label }}',
-                                            'count' :  '{{ $item->count }}',
-                                            'value' :  '{{ $item->value }}',
+                                            'label' :  '{{ $item->label && ''}}',
+                                            'count' :  '{{ $item->count && ''}}',
+                                            'value' :  '{{ $item->value && ''}}',
                                         },
                                     @endforeach
                                 ]);
@@ -95,17 +95,17 @@
                                     @if (!is_array($data->$parent_ref->$ref))
                                         @foreach ($data->$parent_ref->$ref as $item)
                                             {
-                                                'label' :  '{{ $item->label }}',
-                                                'count' :  '{{ $item->count }}',
-                                                'value' :  '{{ $item->value }}',
+                                                'label' :  '{{ $item->label ?? ''}}',
+                                                'count' :  '{{ $item->count ?? ''}}',
+                                                'value' :  '{{ $item->value ?? ''}}',
                                             },
                                         @endforeach
                                     @else
                                         @foreach ($data->$parent_ref->$ref as $item)
                                             {
-                                                'label' :  '{{ $item->label }}',
-                                                'count' :  '{{ $item->count }}',
-                                                'value' :  '{{ $item->value }}',
+                                                'label' :  '{{ $item->label ?? ''}}',
+                                                'count' :  '{{ $item->count ?? ''}}',
+                                                'value' :  '{{ $item->value ?? ''}}',
                                             },
                                         @endforeach
                                     @endif

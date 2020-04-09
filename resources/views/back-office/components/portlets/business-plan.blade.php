@@ -10,14 +10,9 @@
 
     // Investment Program
     $bp_investment_program_total = 0;
-    if (isset($application->financial_data->startup_needs_amortizable)) {
-        foreach ($application->financial_data->startup_needs_amortizable as $item) {
-            $bp_investment_program_total += $item->count;
-        }
-    }
     if (isset($application->financial_data->startup_needs)) {
         foreach ($application->financial_data->startup_needs as $item) {
-            $bp_investment_program_total += $item->value;
+            $bp_investment_program_total += $item->count;
         }
     }
     
@@ -119,9 +114,9 @@
 
     // Amortization
     $bp_amortization_total = 0;
-    if (isset($application->financial_data->startup_needs_amortizable)) {
-        foreach ($application->financial_data->startup_needs_amortizable as $item) {
-            $item->value != NULL ? $bp_amortization_total += $item->count * $item->value / 100 : NULL;
+    if (isset($application->financial_data->startup_needs)) {
+        foreach ($application->financial_data->startup_needs as $item) {
+            ($item->value != NULL && $item->value != 0) ? $bp_amortization_total += $item->count * $item->value / 100 : NULL;
         }
     }
     $bp_amortization_yearly = $bp_amortization_total / 1.2;
@@ -473,16 +468,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @if (isset($application->financial_data->startup_needs_amortizable))
-                                    @foreach ($application->financial_data->startup_needs_amortizable as $item)
-                                        @if ($item->label != '')
-                                            <tr>
-                                                <td>{{ $item->label }}</td>
-                                                <td>{{ number_format($item->count, 0, ',', ' ') }} MAD</td>
-                                            </tr>
-                                        @endif
-                                    @endforeach
-                                @endif
                                 @if (isset($application->financial_data->startup_needs))
                                     @foreach ($application->financial_data->startup_needs as $item)
                                         @if ($item->label != '')
