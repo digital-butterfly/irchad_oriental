@@ -470,7 +470,7 @@
                             <tbody>
                                 @if (isset($application->financial_data->startup_needs))
                                     @foreach ($application->financial_data->startup_needs as $item)
-                                        @if ($item->label != '')
+                                        @if ($item->label != '' && isset($item->count))
                                             <tr>
                                                 <td>{{ $item->label }}</td>
                                                 <td>{{ number_format($item->count, 0, ',', ' ') }} MAD</td>
