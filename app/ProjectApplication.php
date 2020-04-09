@@ -217,9 +217,15 @@ class ProjectApplication extends Model
                 'type' => 'section',
                 'sub_fields' => [
                     [
+                        'name' => 'startup_needs_amortizable',
+                        'type' => 'repeater',
+                        'label' => 'Programme d\'investissement - Amortissable',
+                        'config' => ['tripleRepeater' => true, 'attributes' => [['Désignation',4], ['Valeur',3], ['Taux', 1]]]
+                    ],
+                    [
                         'name' => 'startup_needs',
                         'type' => 'repeater',
-                        'label' => 'Programme d\'investissement',
+                        'label' => 'Programme d\'investissement - Non Amortissable',
                         'config' => ['doubleRepeater' => true]
                     ],
                     [

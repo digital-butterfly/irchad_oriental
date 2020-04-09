@@ -39,10 +39,10 @@
                         </script>
                     @endif
                 @elseif (isset($field['config']['tripleRepeater']))
-                    <div class="col-md-4">
+                    <div class="col-md-{{ $field['config']['attributes'][0][1] ?? '4' }}">
                         <div class="kt-form__group--inline">
                             <div class="kt-form__label">
-                                <label>Désignation:</label>
+                                <label>{{ $field['config']['attributes'][0][0] ?? 'Désignation' }}:</label>
                             </div>
                             <div class="kt-form__control">
                                 <input type="text" name="label" class="form-control" placeholder=""> 
@@ -50,10 +50,10 @@
                         </div>
                         <div class="d-md-none kt-margin-b-10"></div>
                     </div>
-                    <div class="col-md-1">
+                    <div class="col-md-{{ $field['config']['attributes'][1][1] ?? '1' }}">
                         <div class="kt-form__group--inline">
                             <div class="kt-form__label">
-                                <label>Quantité:</label>
+                                <label>{{ $field['config']['attributes'][1][0] ?? 'Quantité' }}:</label>
                             </div>
                             <div class="kt-form__control">
                                 <input type="text" name="count" class="form-control" placeholder=""> 
@@ -61,10 +61,10 @@
                         </div>
                         <div class="d-md-none kt-margin-b-10"></div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-{{ $field['config']['attributes'][2][1] ?? '3' }}">
                         <div class="kt-form__group--inline">
                             <div class="kt-form__label">
-                                <label class="kt-label m-label--single">Valeur:</label>
+                                <label class="kt-label m-label--single">{{ $field['config']['attributes'][2][0] ?? 'Valeur' }}:</label>
                             </div>
                             <div class="kt-form__control">
                                 <input type="text" name="value" class="form-control" placeholder="">   

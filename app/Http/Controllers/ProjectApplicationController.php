@@ -116,6 +116,7 @@ class ProjectApplicationController extends Controller
             'financial_data' => json_decode(json_encode([
                 'financial_plan' => $request['financial_plan'],
                 'financial_plan_loans' => $request['financial_plan_loans'],
+                'startup_needs_amortizable' => $request['startup_needs_amortizable'],
                 'startup_needs' => $request['startup_needs'],
                 'overheads_fixed' => $request['overheads_fixed'],
                 'overheads_scalable' => $request['overheads_scalable'],
@@ -231,6 +232,7 @@ class ProjectApplicationController extends Controller
             'financial_data' => json_decode(json_encode([
                 'financial_plan' => $request['financial_plan'],
                 'financial_plan_loans' => $request['financial_plan_loans'],
+                'startup_needs_amortizable' => $request['startup_needs_amortizable'],
                 'startup_needs' => $request['startup_needs'],
                 'overheads_fixed' => $request['overheads_fixed'],
                 'overheads_scalable' => $request['overheads_scalable'],

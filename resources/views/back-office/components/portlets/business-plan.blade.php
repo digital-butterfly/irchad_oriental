@@ -10,9 +10,17 @@
 
     // Investment Program
     $bp_investment_program_total = 0;
-    foreach ($application->financial_data->startup_needs as $item) {
-        $bp_investment_program_total += $item->value;
+    if (isset($application->financial_data->startup_needs_amortizable)) {
+        foreach ($application->financial_data->startup_needs_amortizable as $item) {
+            $bp_investment_program_total += $item->value;
+        }
     }
+    if (isset($application->financial_data->startup_needs)) {
+        foreach ($application->financial_data->startup_needs as $item) {
+            $bp_investment_program_total += $item->value;
+        }
+    }
+    
 
     // Parameters
     $bp_turnover_products_total = $application->financial_data->products_turnover_forecast ;
@@ -111,10 +119,12 @@
 
     // Amortization
     $bp_amortization_total = 0;
-    foreach ($application->financial_data->startup_needs as $item) {
-        $bp_amortization_total += $item->value;
+    if (isset($application->financial_data->startup_needs_amortizable)) {
+        foreach ($application->financial_data->startup_needs_amortizable as $item) {
+            $bp_amortization_total += $item->count / $item->value;
+        }
     }
-    $bp_amortization_yearly = $bp_amortization_total / 5 / 1.2;
+    $bp_amortization_yearly = $bp_amortization_total / 1.2;
 
     // Gross Income
     $bp_gross_income_first_year = $gross_surplus_first_year - $bp_amortization_yearly ;
@@ -463,12 +473,22 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($application->financial_data->startup_needs as $item)
-                                    <tr>
-                                        <td>{{ $item->label }}</td>
-                                        <td>{{ number_format($item->value, 0, ',', ' ') }} MAD</td>
-                                    </tr>
-                                @endforeach
+                                @if (isset($application->financial_data->startup_needs_amortizable))
+                                    @foreach ($application->financial_data->startup_needs_amortizable as $item)
+                                        <tr>
+                                            <td>{{ $item->label }}</td>
+                                            <td>{{ number_format($item->count, 0, ',', ' ') }} MAD</td>
+                                        </tr>
+                                    @endforeach
+                                @endif
+                                @if (isset($application->financial_data->startup_needs))
+                                    @foreach ($application->financial_data->startup_needs as $item)
+                                        <tr>
+                                            <td>{{ $item->label }}</td>
+                                            <td>{{ number_format($item->value, 0, ',', ' ') }} MAD</td>
+                                        </tr>
+                                    @endforeach
+                                @endif
                                 <tr class="kt-font-bolder">
                                     <td>TOTAL</td>
                                     <td>{{ number_format($bp_investment_program_total, 0, ',', ' ') }} MAD</td>
@@ -690,7 +710,7 @@
                                     <td>{{ number_format($bp_income_before_taxes_third_year, 0, ',', ' ') }}</td>
                                 </tr>
                                 <tr>
-                                    <td>{{ $application->company->applied_tax ?? '' }}</td>
+                                    <td>{{ $application->company->applied_tax ?? 'Impôts' }}</td>
                                     <td>{{ number_format($bp_corporate_tax_first_year, 0, ',', ' ') }}</td>
                                     <td>{{ number_format($bp_corporate_tax_second_year, 0, ',', ' ') }}</td>
                                     <td>{{ number_format($bp_corporate_tax_third_year, 0, ',', ' ') }}</td>
