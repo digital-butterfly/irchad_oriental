@@ -7,6 +7,11 @@
     foreach ($application->financial_data->financial_plan as $item) {
         $bp_financial_plan_total += $item->value;
     }
+    if (isset($application->financial_data->financial_plan_loans)) {
+        foreach ($application->financial_data->financial_plan_loans as $item) {
+            $bp_financial_plan_total += $item->value;
+        }
+    }
 
     // Investment Program
     $bp_investment_program_total = 0;
@@ -498,6 +503,14 @@
                                         <td>{{ number_format($item->value, 0, ',', ' ') }} MAD</td>
                                     </tr>
                                 @endforeach
+                                @if (isset($application->financial_data->financial_plan_loans))
+                                    @foreach ($application->financial_data->financial_plan_loans as $item)
+                                        <tr>
+                                            <td>{{ $item->label }}</td>
+                                            <td>{{ number_format($item->value, 0, ',', ' ') }} MAD</td>
+                                        </tr>
+                                    @endforeach
+                                @endif
                                 <tr class="kt-font-bolder">
                                     <td>TOTAL</td>
                                     <td>{{ number_format($bp_financial_plan_total, 0, ',', ' ') }} MAD</td>
