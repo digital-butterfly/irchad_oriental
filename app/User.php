@@ -50,33 +50,28 @@ class User extends Authenticatable
             [
                 'name' => 'first_name',
                 'type' => 'text',
-                'label' => 'Prénom',
-                'value' => 'Some Value'
+                'label' => 'Prénom'
             ],
             [
                 'name' => 'last_name',
                 'type' => 'text',
-                'label' => 'Nom de famille',
-                'value' => 'Some Value'
+                'label' => 'Nom de famille'
             ],
             [
                 'name' => 'email',
                 'type' => 'email',
-                'label' => 'Email',
-                'value' => 'Some Value'
+                'label' => 'Email'
             ],
             [
                 'name' => 'password',
                 'type' => 'password',
-                'label' => 'Mot de passe',
-                'value' => 'Some Value'
+                'label' => 'Mot de passe'
             ],
             [
                 'name' => 'role',
                 'type' => 'select',
                 'label' => 'Role',
-                'options' => ['Super Administrateur', 'Administrateur'],
-                'value' => 'Some Value'
+                'options' => ['Super Administrateur', 'Administrateur']
             ],
         ];
     }

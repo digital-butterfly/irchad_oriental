@@ -9,6 +9,7 @@
     <meta name="description" content="" />
     <meta name="keywords" content="" />
     <meta name="author" content="Digital Butterfly" />
+    <base href="/">
 
     <link rel="shortcut icon" href="images/front-office/favicon.ico">
 

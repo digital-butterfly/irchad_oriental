@@ -122,6 +122,12 @@ class ProjectApplication extends Model
                         'type' => 'text',
                         'label' => 'Dénomination sociale'
                     ],
+                    [
+                        'name' => 'applied_tax',
+                        'type' => 'select',
+                        'label' => 'Type d\'impôt',
+                        'options' => ['Impôt sur les sociétés', 'Impôt sur le revenu', 'Auto-entrepreneur activité commerciale, industrielle ou artisanale', 'Auto-entrepreneur prestataire de services'],
+                    ],
                 ],
                 'group' => 'Données Entreprise'
             ],

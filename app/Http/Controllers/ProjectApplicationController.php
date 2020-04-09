@@ -132,6 +132,7 @@ class ProjectApplicationController extends Controller
                 'capital' => $request['capital'],
                 'creation_date' => $request['creation_date'],
                 'corporate_name' => $request['corporate_name'],
+                'applied_tax' => $request['applied_tax'],
             ])),
             'status' => $request['status'],
             'created_by' => Auth::id()
@@ -246,6 +247,7 @@ class ProjectApplicationController extends Controller
                 'capital' => $request['capital'],
                 'creation_date' => $request['creation_date'],
                 'corporate_name' => $request['corporate_name'],
+                'applied_tax' => $request['applied_tax'],
             ])),
             'status' => $request['status'],
             'updated_by' => Auth::id()

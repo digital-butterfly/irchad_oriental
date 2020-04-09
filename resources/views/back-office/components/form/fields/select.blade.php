@@ -19,21 +19,15 @@
                                         @foreach($option->childs as $option)
                                             <option value="{{ $option->id ?? ($option->title ?? $option) }}"
 
-                                            {{ 
-                                                isset($data->$ref) ? 
-                                                    (
-                                                        (
-                                                            isset($option->id) ? ($data->$ref == $option->id ? 'selected' : '') :   
-                                                            (
-                                                                isset($option->title) ? ($data->$ref == $option->title ? 'selected' : '') : 
-                                                                (
-                                                                    $data->$ref == $option ? 'selected' : ''
-                                                                ) 
-                                                            )
-                                                        )
-                                                    )
-                                                : '' 
-                                            }}
+                                            @if (isset($data->$ref))
+                                                @if (isset($option->id))
+                                                    {{ $data->$ref == $option->id ? 'selected' : '' }}
+                                                @elseif (isset($option->title))
+                                                    {{ $data->$ref == $option->title ? 'selected' : '' }}
+                                                @else 
+                                                    {{ $data->$ref == $option ? 'selected' : '' }}
+                                                @endif
+                                            @endif
                                             
                                             >{{ $option->title ?? $option }}</option> 
                                         @endforeach	 
@@ -42,21 +36,16 @@
                             @else
                                 <option value="{{ $option->id ?? ($option->title ?? $option) }}"
 
-                                {{ 
-                                    isset($data->$ref) ? 
-                                        (
-                                            (
-                                                isset($option->id) ? ($data->$ref == $option->id ? 'selected' : '') :   
-                                                (
-                                                    isset($option->title) ? ($data->$ref == $option->title ? 'selected' : '') : 
-                                                    (
-                                                        $data->$ref == $option ? 'selected' : ''
-                                                    ) 
-                                                )
-                                            )
-                                        )
-                                    : '' 
-                                }}
+                                @if (isset($data->$ref))
+                                    @if (isset($option->id))
+                                        {{ $data->$ref == $option->id ? 'selected' : '' }}
+                                    @elseif (isset($option->title))
+                                        {{ $data->$ref == $option->title ? 'selected' : '' }}
+                                    @else 
+                                        {{ $data->$ref == $option ? 'selected' : '' }}
+                                    @endif
+                                @endif
+
                                 
                                 >{{ $option->title ?? $option }}</option> 
                             @endif
@@ -68,52 +57,52 @@
                             <div class="form-group">
                                 <option value="">---</option>
                                 @foreach($subfield['options'] as $option)
+                                    @php
+                                        $sub_ref = $subfield['name'];
+                                    @endphp
                                     @if (isset($option->childs))
                                         <optgroup label="{{ $option->title }}">
                                             @if (!empty($option->childs))
                                                 @foreach($option->childs as $option)
                                                     <option value="{{ $option->id ?? ($option->title ?? $option) }}"
         
-                                                    {{ 
-                                                        isset($data->$ref) ? 
-                                                            (
-                                                                (
-                                                                    isset($option->id) ? ($data->$ref == $option->id ? 'selected' : '') :   
-                                                                    (
-                                                                        isset($option->title) ? ($data->$ref == $option->title ? 'selected' : '') : 
-                                                                        (
-                                                                            $data->$ref == $option ? 'selected' : ''
-                                                                        ) 
-                                                                    )
-                                                                )
-                                                            )
-                                                        : '' 
-                                                    }}
+                                                    @if (isset($data->$ref))
+                                                        @if (isset($option->id))
+                                                            {{ $data->$ref == $option->id ? 'selected' : '' }}
+                                                        @elseif (isset($option->title))
+                                                            {{ $data->$ref == $option->title ? 'selected' : '' }}
+                                                        @else 
+                                                            {{ $data->$ref == $option ? 'selected' : '' }}
+                                                        @endif
+                                                    @endif
                                                     
                                                     >{{ $option->title ?? $option }}</option> 
                                                 @endforeach	 
                                             @endif
-                                    </optgroup>
+                                        </optgroup>
                                     @else
                                         <option value="{{ $option->id ?? ($option->title ?? $option) }}"
         
-                                        {{ 
-                                            isset($data->$ref) ? 
-                                                (
-                                                    (
-                                                        isset($option->id) ? ($data->$ref == $option->id ? 'selected' : '') :   
-                                                        (
-                                                            isset($option->title) ? ($data->$ref == $option->title ? 'selected' : '') : 
-                                                            (
-                                                                $data->$ref == $option ? 'selected' : ''
-                                                            ) 
-                                                        )
-                                                    )
-                                                )
-                                            : '' 
-                                        }}
+                                        @if (isset($data->$ref->$sub_ref))
+                                            @if (isset($option->id))
+                                                {{ $data->$ref->$sub_ref == $option->id ? 'selected' : '' }}
+                                            @elseif (isset($option->title))
+                                                {{ $data->$ref->$sub_ref == $option->title ? 'selected' : '' }}
+                                            @else 
+                                                {{ $data->$ref->$sub_ref == $option ? 'selected' : '' }}
+                                            @endif
+                                        @elseif (isset($data->$ref))
+                                            @if (isset($option->id))
+                                            {{ $data->$ref == $option->id ? 'selected' : '' }}
+                                            @elseif (isset($option->title))
+                                                {{ $data->$ref == $option->title ? 'selected' : '' }}
+                                            @else 
+                                                {{ $data->$ref == $option ? 'selected' : '' }}
+                                            @endif
+                                        @endif
                                         
-                                        >{{ $option->title ?? $option }}</option> 
+                                        >{{ $option->title ?? $option }}</option>
+
                                     @endif
                                 @endforeach	
                             </div>
