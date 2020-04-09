@@ -26,7 +26,8 @@ class ProjectApplicationController extends Controller
     {
         return Validator::make($data, [
             'member_id' => ['required', 'integer', 'exists:members,id'],
-            'title' => ['required', 'string', 'max:255'],
+            'title' => ['required', 'string', 'max:155'],
+            'description' => ['required', 'string', 'max:455'],
         ]);
     }
 
