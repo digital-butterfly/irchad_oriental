@@ -20,7 +20,6 @@
             $bp_investment_program_total += $item->count ?? 0;
         }
     }
-    
 
     // Parameters
     $bp_turnover_products_total = $application->financial_data->products_turnover_forecast ;
@@ -121,13 +120,12 @@
     $gross_surplus_third_year = $bp_added_value_third_year - $bp_human_ressources_total - $bp_human_ressources_social_fees_total - $bp_taxes_total;
 
     // Amortization
-    $bp_amortization_total = 0;
+    $bp_amortization_yearly = 0;
     if (isset($application->financial_data->startup_needs)) {
         foreach ($application->financial_data->startup_needs as $item) {
-            (isset($item->count) && isset($item->value) && $item->value != 0 && $item->count != NULL ) ? $bp_amortization_total += $item->count * $item->value / 100 : NULL;
+            (isset($item->value) && isset($item->rate) && isset($item->duration)) ? $bp_amortization_yearly += $item->value * ($item->duration / 100) / (1 + ($item->rate / 100)) : NULL;
         }
     }
-    $bp_amortization_yearly = $bp_amortization_total / 1.2;
 
     // Gross Income
     $bp_gross_income_first_year = $gross_surplus_first_year - $bp_amortization_yearly ;

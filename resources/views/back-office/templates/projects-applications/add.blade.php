@@ -208,6 +208,38 @@
 						$(this).slideUp(deleteElement);                 
 					}   
 				});
+
+				var pre_creation_training = $('.kt_repeater_pre_creation_training').repeater({
+					initEmpty: false,
+				
+					defaultValues: {
+						'text-input': 'foo'
+					},
+					
+					show: function () {
+						$(this).slideDown();
+					},
+
+					hide: function (deleteElement) {
+						$(this).slideUp(deleteElement);                 
+					}   
+				});
+
+				var post_creation_training = $('.kt_repeater_post_creation_training').repeater({
+					initEmpty: false,
+				
+					defaultValues: {
+						'text-input': 'foo'
+					},
+					
+					show: function () {
+						$(this).slideDown();
+					},
+
+					hide: function (deleteElement) {
+						$(this).slideUp(deleteElement);                 
+					}   
+				});
 			}
 
 			return {

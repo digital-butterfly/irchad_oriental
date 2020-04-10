@@ -25,9 +25,38 @@ class ProjectApplicationController extends Controller
     protected function validator(array $data, $type)
     {
         return Validator::make($data, [
+            'legal_form' => ['nullable', 'string', 'max:155'],
+            'capital' => ['nullable', 'integer'],
+            'corporate_name' => ['nullable', 'string', 'max:155'],
             'member_id' => ['required', 'integer', 'exists:members,id'],
+            'category_id' => ['nullable', 'integer', 'exists:projects_categories,id'],
+            'township_id' => ['nullable', 'integer', 'exists:townships,id'],
             'title' => ['required', 'string', 'max:155'],
-            'description' => ['required', 'string', 'max:455'],
+            'description' => ['nullable', 'string', 'max:455'],
+            'market_type' => ['nullable', 'string', 'max:155'],
+            'core_business' => ['nullable', 'string', 'max:455'],
+            'primary_target' => ['nullable', 'string', 'max:455'],
+            'suppliers' => ['nullable', 'string', 'max:455'],
+            'competition' => ['nullable', 'string', 'max:455'],
+            'advertising' => ['nullable', 'string', 'max:455'],
+            'pricing_strategy' => ['nullable', 'string', 'max:455'],
+            'distribution_strategy' => ['nullable', 'string', 'max:455'],
+            'startup_needs.*.value' => ['nullable', 'integer'],
+            'startup_needs.*.rate' => ['nullable', 'integer'],
+            'startup_needs.*.duration' => ['nullable', 'integer'],
+            'financial_plan.*.value' => ['nullable', 'integer'],
+            'financial_plan_loans.*.value' => ['nullable', 'integer'],
+            'financial_plan_loans.*.rate' => ['nullable', 'integer'],
+            'financial_plan_loans.*.duration' => ['nullable', 'integer'],
+            'services_turnover_forecast' => ['nullable', 'integer'],
+            'products_turnover_forecast' => ['nullable', 'integer'],
+            'profit_margin_rate' => ['nullable', 'integer'],
+            'evolution_rate' => ['nullable', 'integer'],
+            'overheads_fixed.*.value' => ['nullable', 'integer'],
+            'overheads_scalable.*.value' => ['nullable', 'integer'],
+            'human_ressources.*.count' => ['nullable', 'integer'],
+            'human_ressources.*.value' => ['nullable', 'integer'],
+            'taxes.*.value' => ['nullable', 'integer'],
         ]);
     }
 
@@ -99,7 +128,7 @@ class ProjectApplicationController extends Controller
         $validation = $this->validator($request->all(), 'projectApplication');
         if($validation->fails())
         {
-            return redirect()->back()->withInput();
+            return redirect()->back()->withErrors($validation)->withInput();
         }
         $application = ProjectApplication::create([
             'member_id' => $request['member_id'], 
@@ -138,6 +167,10 @@ class ProjectApplicationController extends Controller
                 'creation_date' => $request['creation_date'],
                 'corporate_name' => $request['corporate_name'],
                 'applied_tax' => $request['applied_tax'],
+            ])),
+            'training_needs' => json_decode(json_encode([
+                'pre_creation_training' => $request['pre_creation_training'],
+                'post_creation_training' => $request['post_creation_training'],
             ])),
             'status' => $request['status'],
             'created_by' => Auth::id()
@@ -216,6 +249,11 @@ class ProjectApplicationController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validation = $this->validator($request->all(), 'projectApplication');
+        if($validation->fails())
+        {
+            return redirect()->back()->withErrors($validation)->withInput();
+        }
         ProjectApplication::find($id)->update([
             'member_id' => $request['member_id'], 
             'category_id' => $request['category_id'], 
@@ -253,6 +291,10 @@ class ProjectApplicationController extends Controller
                 'creation_date' => $request['creation_date'],
                 'corporate_name' => $request['corporate_name'],
                 'applied_tax' => $request['applied_tax'],
+            ])),
+            'training_needs' => json_decode(json_encode([
+                'pre_creation_training' => $request['pre_creation_training'],
+                'post_creation_training' => $request['post_creation_training'],
             ])),
             'status' => $request['status'],
             'updated_by' => Auth::id()

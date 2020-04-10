@@ -19,7 +19,15 @@
                                         @foreach($option->childs as $option)
                                             <option value="{{ $option->id ?? ($option->title ?? $option) }}"
 
-                                            @if (isset($data->$ref))
+                                            @if (old($field['name'])))
+                                                @if (isset($option->id))
+                                                    {{ old($field['name']) == $option->id ? 'selected' : '' }}
+                                                @elseif (isset($option->title))
+                                                    {{ old($field['name']) == $option->title ? 'selected' : '' }}
+                                                @else 
+                                                    {{ old($field['name']) == $option ? 'selected' : '' }}
+                                                @endif
+                                            @elseif (isset($data->$ref))
                                                 @if (isset($option->id))
                                                     {{ $data->$ref == $option->id ? 'selected' : '' }}
                                                 @elseif (isset($option->title))
@@ -32,19 +40,27 @@
                                             >{{ $option->title ?? $option }}</option> 
                                         @endforeach	 
                                     @endif
-                            </optgroup>
+                                </optgroup>
                             @else
                                 <option value="{{ $option->id ?? ($option->title ?? $option) }}"
 
-                                @if (isset($data->$ref))
-                                    @if (isset($option->id))
-                                        {{ $data->$ref == $option->id ? 'selected' : '' }}
-                                    @elseif (isset($option->title))
-                                        {{ $data->$ref == $option->title ? 'selected' : '' }}
-                                    @else 
-                                        {{ $data->$ref == $option ? 'selected' : '' }}
+                                    @if (old($field['name']))
+                                        @if (isset($option->id))
+                                            {{ old($field['name']) == $option->id ? 'selected' : '' }}
+                                        @elseif (isset($option->title))
+                                            {{ old($field['name']) == $option->title ? 'selected' : '' }}
+                                        @else 
+                                            {{ old($field['name']) == $option ? 'selected' : '' }}
+                                        @endif
+                                    @elseif (isset($data->$ref))
+                                        @if (isset($option->id))
+                                            {{ $data->$ref == $option->id ? 'selected' : '' }}
+                                        @elseif (isset($option->title))
+                                            {{ $data->$ref == $option->title ? 'selected' : '' }}
+                                        @else 
+                                            {{ $data->$ref == $option ? 'selected' : '' }}
+                                        @endif
                                     @endif
-                                @endif
 
                                 
                                 >{{ $option->title ?? $option }}</option> 
@@ -66,15 +82,23 @@
                                                 @foreach($option->childs as $option)
                                                     <option value="{{ $option->id ?? ($option->title ?? $option) }}"
         
-                                                    @if (isset($data->$ref))
-                                                        @if (isset($option->id))
-                                                            {{ $data->$ref == $option->id ? 'selected' : '' }}
-                                                        @elseif (isset($option->title))
-                                                            {{ $data->$ref == $option->title ? 'selected' : '' }}
-                                                        @else 
-                                                            {{ $data->$ref == $option ? 'selected' : '' }}
+                                                        @if (old($field['name']))
+                                                            @if (isset($option->id))
+                                                                {{ old($field['name']) == $option->id ? 'selected' : '' }}
+                                                            @elseif (isset($option->title))
+                                                                {{ old($field['name']) == $option->title ? 'selected' : '' }}
+                                                            @else 
+                                                                {{ old($field['name']) == $option ? 'selected' : '' }}
+                                                            @endif
+                                                        @elseif (isset($data->$ref))
+                                                            @if (isset($option->id))
+                                                                {{ $data->$ref == $option->id ? 'selected' : '' }}
+                                                            @elseif (isset($option->title))
+                                                                {{ $data->$ref == $option->title ? 'selected' : '' }}
+                                                            @else 
+                                                                {{ $data->$ref == $option ? 'selected' : '' }}
+                                                            @endif
                                                         @endif
-                                                    @endif
                                                     
                                                     >{{ $option->title ?? $option }}</option> 
                                                 @endforeach	 
@@ -82,8 +106,16 @@
                                         </optgroup>
                                     @else
                                         <option value="{{ $option->id ?? ($option->title ?? $option) }}"
-        
-                                        @if (isset($data->$ref->$sub_ref))
+                                            
+                                        @if (old($field['name']))
+                                            @if (isset($option->id))
+                                                {{ old($field['name']) == $option->id ? 'selected' : '' }}
+                                            @elseif (isset($option->title))
+                                                {{ old($field['name']) == $option->title ? 'selected' : '' }}
+                                            @else 
+                                                {{ old($field['name']) == $option ? 'selected' : '' }}
+                                            @endif
+                                        @elseif (isset($data->$ref->$sub_ref))
                                             @if (isset($option->id))
                                                 {{ $data->$ref->$sub_ref == $option->id ? 'selected' : '' }}
                                             @elseif (isset($option->title))
@@ -93,7 +125,7 @@
                                             @endif
                                         @elseif (isset($data->$ref))
                                             @if (isset($option->id))
-                                            {{ $data->$ref == $option->id ? 'selected' : '' }}
+                                                {{ $data->$ref == $option->id ? 'selected' : '' }}
                                             @elseif (isset($option->title))
                                                 {{ $data->$ref == $option->title ? 'selected' : '' }}
                                             @else 

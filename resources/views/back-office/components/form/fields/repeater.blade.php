@@ -24,16 +24,37 @@
                         </div>
                         <div class="d-md-none kt-margin-b-10"></div>
                     </div>
-                    @if (isset($data) && $data->$ref != NULL)
+                    @if (isset($data) && isset($data->$ref) && $data->$ref != NULL)
                         <script>
                             window.addEventListener('load', function() {
                                 var $repeater = $('.kt_repeater_{{ $field['name'] }}').repeater();
                                 $repeater.setList([
                                     @foreach ($data->$ref as $item)
                                         {
-                                            '{{ $field['name'] }}' :  '{{ $item->$ref }}',
+                                            '{{ $field['name'] }}' :  '{{ $item->$ref ?? '' }}',
                                         },
                                     @endforeach
+                                ]);
+                            });
+                        </script>
+                    @elseif (isset($data) && isset($data->$parent_ref) && isset($data->$parent_ref->$ref) && $data->$parent_ref->$ref != NULL)
+                        <script>
+                            window.addEventListener('load', function() {
+                                var $repeater = $('.kt_repeater_{{ $field['name'] }}').repeater();
+                                $repeater.setList([
+                                    @if (!is_array($data->$parent_ref->$ref))
+                                        @foreach ($data->$parent_ref->$ref as $item)
+                                            {
+                                                '{{ $field['name'] }}' :  '{{ $item->$ref ?? '' }}',
+                                            },
+                                        @endforeach
+                                    @else
+                                        @foreach ($data->$parent_ref->$ref as $item)
+                                            {
+                                                '{{ $field['name'] }}' :  '{{ $item->$ref ?? '' }}',
+                                            },
+                                        @endforeach
+                                    @endif
                                 ]);
                             });
                         </script>
@@ -79,9 +100,9 @@
                                 $repeater.setList([
                                     @foreach ($data->$ref as $item)
                                         {
-                                            'label' :  '{{ $item->label && ''}}',
-                                            'count' :  '{{ $item->count && ''}}',
-                                            'value' :  '{{ $item->value && ''}}',
+                                            'label' :  '{{ $item->label ?? ''}}',
+                                            'count' :  '{{ $item->count ?? ''}}',
+                                            'value' :  '{{ $item->value ?? ''}}',
                                         },
                                     @endforeach
                                 ]);
@@ -114,10 +135,10 @@
                         </script>
                     @endif
                 @elseif (isset($field['config']['quadrupleRepeater']))
-                    <div class="col-md-4">
+                    <div class="col-md-{{ $field['config']['attributes'][0][1] ?? '3' }}">
                         <div class="kt-form__group--inline">
                             <div class="kt-form__label">
-                                <label>Désignation:</label>
+                                <label>{{ $field['config']['attributes'][0][0] ?? 'Désignation' }}:</label>
                             </div>
                             <div class="kt-form__control">
                                 <input type="text" name="label" class="form-control" placeholder=""> 
@@ -125,10 +146,10 @@
                         </div>
                         <div class="d-md-none kt-margin-b-10"></div>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-{{ $field['config']['attributes'][1][1] ?? '3' }}">
                         <div class="kt-form__group--inline">
                             <div class="kt-form__label">
-                                <label>Valeur:</label>
+                                <label>{{ $field['config']['attributes'][1][0] ?? 'Valeur' }}:</label>
                             </div>
                             <div class="kt-form__control">
                                 <input type="text" name="value" class="form-control" placeholder=""> 
@@ -136,10 +157,10 @@
                         </div>
                         <div class="d-md-none kt-margin-b-10"></div>
                     </div>
-                    <div class="col-md-1">
+                    <div class="col-md-{{ $field['config']['attributes'][2][1] ?? '1' }}">
                         <div class="kt-form__group--inline">
                             <div class="kt-form__label">
-                                <label class="kt-label m-label--single">Taux:</label>
+                                <label class="kt-label m-label--single">{{ $field['config']['attributes'][2][0] ?? 'Taux' }}:</label>
                             </div>
                             <div class="kt-form__control">
                                 <input type="text" name="rate" class="form-control" placeholder="">   
@@ -147,10 +168,10 @@
                         </div>
                         <div class="d-md-none kt-margin-b-10"></div>
                     </div>
-                    <div class="col-md-1">
+                    <div class="col-md-{{ $field['config']['attributes'][3][1] ?? '1' }}">
                         <div class="kt-form__group--inline">
                             <div class="kt-form__label">
-                                <label class="kt-label m-label--single">Années:</label>
+                                <label class="kt-label m-label--single">{{ $field['config']['attributes'][3][0] ?? 'Années' }}:</label>
                             </div>
                             <div class="kt-form__control">
                                 <input type="text" name="duration" class="form-control" placeholder="">   
@@ -165,10 +186,10 @@
                                 $repeater.setList([
                                     @foreach ($data->$ref as $item)
                                         {
-                                            'label' :  '{{ $item->label }}',
-                                            'value' :  '{{ $item->value }}',
-                                            'rate' :  '{{ $item->rate }}',
-                                            'duration' :  '{{ $item->duration }}',
+                                            'label' :  '{{ $item->label ?? '' }}',
+                                            'value' :  '{{ $item->value ?? '' }}',
+                                            'rate' :  '{{ $item->rate ?? '' }}',
+                                            'duration' :  '{{ $item->duration ?? '' }}',
                                         },
                                     @endforeach
                                 ]);
@@ -182,19 +203,19 @@
                                     @if (!is_array($data->$parent_ref->$ref))
                                         @foreach ($data->$parent_ref->$ref as $item)
                                             {
-                                                'label' :  '{{ $item->label }}',
-                                                'value' :  '{{ $item->value }}',
-                                                'rate' :  '{{ $item->rate }}',
-                                                'duration' :  '{{ $item->duration }}',
+                                                'label' :  '{{ $item->label ?? '' }}',
+                                                'value' :  '{{ $item->value ?? '' }}',
+                                                'rate' :  '{{ $item->rate ?? '' }}',
+                                                'duration' :  '{{ $item->duration ?? '' }}',
                                             },
                                         @endforeach
                                     @else
                                         @foreach ($data->$parent_ref->$ref as $item)
                                             {
-                                                'label' :  '{{ $item->label }}',
-                                                'value' :  '{{ $item->value }}',
-                                                'rate' :  '{{ $item->rate }}',
-                                                'duration' :  '{{ $item->duration }}',
+                                                'label' :  '{{ $item->label ?? '' }}',
+                                                'value' :  '{{ $item->value ?? '' }}',
+                                                'rate' :  '{{ $item->rate ?? '' }}',
+                                                'duration' :  '{{ $item->duration ?? '' }}',
                                             },
                                         @endforeach
                                     @endif
@@ -225,21 +246,21 @@
                         </div>
                         <div class="d-md-none kt-margin-b-10"></div>
                     </div>
-                    @if (isset($data) && isset($data->$ref) && $data->$ref != NULL)
+                    @if (isset($data) && (is_array($data) || is_object($data)) && isset($data->$ref) && $data->$ref != NULL)
                         <script>
                             window.addEventListener('load', function() {
                                 var $repeater = $('.kt_repeater_{{ $field['name'] }}').repeater();
                                 $repeater.setList([
                                     @foreach ($data->$ref as $item)
                                         {
-                                            'label' :  '{{ $item->label }}',
-                                            'value' :  '{{ $item->value }}',
+                                            'label' :  '{{ $item->label ?? '' }}',
+                                            'value' :  '{{ $item->value ?? '' }}',
                                         },
                                     @endforeach
                                 ]);
                             });
                         </script>
-                     @elseif (isset($data) && isset($parent_ref) && isset($data->$parent_ref) && isset($data->$parent_ref->$ref) && $data->$parent_ref->$ref != NULL)
+                    @elseif (isset($data) && isset($parent_ref) && isset($data->$parent_ref) && isset($data->$parent_ref->$ref) && $data->$parent_ref->$ref != NULL)
                         <script>
                             window.addEventListener('load', function() {
                                 var $repeater = $('.kt_repeater_{{ $field['name'] }}').repeater();
@@ -247,15 +268,15 @@
                                     @if (!is_array($data->$parent_ref->$ref))
                                         @foreach (json_decode($data->$parent_ref->$ref) as $item)
                                             {
-                                                'label' :  '{{ $item->label }}',
-                                                'value' :  '{{ $item->value }}',
+                                                'label' :  '{{ $item->label ?? '' }}',
+                                                'value' :  '{{ $item->value ?? '' }}',
                                             },
                                         @endforeach
                                     @else
                                         @foreach ($data->$parent_ref->$ref as $item)
                                             {
-                                                'label' :  '{{ $item->label }}',
-                                                'value' :  '{{ $item->value }}',
+                                                'label' :  '{{ $item->label ?? '' }}',
+                                                'value' :  '{{ $item->value ?? '' }}',
                                             },
                                         @endforeach
                                     @endif

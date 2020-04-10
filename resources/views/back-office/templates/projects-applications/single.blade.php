@@ -297,17 +297,34 @@
                                         <!--begin: Form Wizard Step 3-->
                                         <div class="kt-wizard-v4__content" data-ktwizard-type="step-content">
                                             <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid printable-bp">
+                                                <div class="kt-portlet kt-callout kt-callout--warning">
+                                                    <div class="kt-portlet__body">
+                                                        <div class="kt-callout__body">
+                                                            <div class="kt-callout__content">
+                                                                <h3 class="kt-callout__title">1. Formation</h3>
+                                                                <p class="kt-callout__desc">
+                                                                    Inscrire le candidat aux formations nécessaires
+                                                                </p>
+                                                            </div>
+                                                            <div class="kt-callout__action">
+                                                                <a href="javascript:;" class="btn btn-custom btn-bold btn-upper btn-font-sm  btn-warning" style="padding: 1rem 1.3rem; font-size: 0.9rem; color: #fff; width:130px;">Mise à niveau</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid printable-bp">
                                                 <div class="kt-portlet kt-callout kt-callout--success">
                                                     <div class="kt-portlet__body">
                                                         <div class="kt-callout__body">
                                                             <div class="kt-callout__content">
-                                                                <h3 class="kt-callout__title">1. Comité technique</h3>
+                                                                <h3 class="kt-callout__title">2. Comité technique</h3>
                                                                 <p class="kt-callout__desc">
                                                                     Soumissionner le projet au commité téchnique
                                                                 </p>
                                                             </div>
                                                             <div class="kt-callout__action">
-                                                                <a href="javascript:;" class="btn btn-custom btn-bold btn-upper btn-font-sm  btn-success">Soumissionner</a>
+                                                                <a href="javascript:;" class="btn btn-custom btn-bold btn-upper btn-font-sm  btn-success" style="width:130px;">Soumissionner</a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -318,13 +335,13 @@
                                                     <div class="kt-portlet__body">
                                                         <div class="kt-callout__body">
                                                             <div class="kt-callout__content">
-                                                                <h3 class="kt-callout__title">2. CPDH</h3>
+                                                                <h3 class="kt-callout__title">3. CPDH</h3>
                                                                 <p class="kt-callout__desc">
                                                                     Soumissionner le projet au CPDH
                                                                 </p>
                                                             </div>
                                                             <div class="kt-callout__action">
-                                                                <a href="javascript:;" class="btn btn-custom btn-bold btn-upper btn-font-sm  btn-brand">Soumissionner</a>
+                                                                <a href="javascript:;" class="btn btn-custom btn-bold btn-upper btn-font-sm  btn-brand"style="width:130px;">Soumissionner</a>
                                                             </div>
                                                         </div>
                                                     </div>

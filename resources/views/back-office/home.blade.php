@@ -290,6 +290,112 @@
 				</div>
 				<!--end:: Widgets/Outbound Bandwidth-->
 			</div>
+			<div class="col-lg-12 col-xl-12 order-lg-1 order-xl-1">
+				<div class="kt-portlet">
+					<div class="kt-portlet__body  kt-portlet__body--fit">
+						<div class="row row-no-padding row-col-separator-xl">
+							<div class="col-xl-4">
+	
+								<!--begin:: Widgets/Daily Sales-->
+								<div class="kt-portlet kt-portlet--height-fluid">
+									<div class="kt-widget14">
+										<div class="kt-widget14__header kt-margin-b-30">
+											<h3 class="kt-widget14__title">
+												Traitement
+											</h3>
+											<span class="kt-widget14__desc">
+												Évolution du délai moyen de traitement
+											</span>
+										</div>
+										<div class="kt-widget14__chart" style="height:120px;">
+											<canvas id="kt_chart_daily_sales"></canvas>
+										</div>
+									</div>
+								</div>
+	
+								<!--end:: Widgets/Daily Sales-->
+							</div>
+							<div class="col-xl-4">
+	
+								<!--begin:: Widgets/Profit Share-->
+								<div class="kt-portlet kt-portlet--height-fluid">
+									<div class="kt-widget14">
+										<div class="kt-widget14__header">
+											<h3 class="kt-widget14__title">
+												Secteurs
+											</h3>
+											<span class="kt-widget14__desc">
+												Statistiques réparties par secteur
+											</span>
+										</div>
+										<div class="kt-widget14__content">
+											<div class="kt-widget14__chart">
+												<div class="kt-widget14__stat">45</div>
+												<canvas id="kt_chart_profit_share" style="height: 140px; width: 140px;"></canvas>
+											</div>
+											<div class="kt-widget14__legends">
+												<div class="kt-widget14__legend">
+													<span class="kt-widget14__bullet kt-bg-success"></span>
+													<span class="kt-widget14__stats">37% Agriculture</span>
+												</div>
+												<div class="kt-widget14__legend">
+													<span class="kt-widget14__bullet kt-bg-warning"></span>
+													<span class="kt-widget14__stats">47% Artisanat</span>
+												</div>
+												<div class="kt-widget14__legend">
+													<span class="kt-widget14__bullet kt-bg-brand"></span>
+													<span class="kt-widget14__stats">19% Industrie</span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+	
+								<!--end:: Widgets/Profit Share-->
+							</div>
+							<div class="col-xl-4">
+	
+								<!--begin:: Widgets/Revenue Change-->
+								<div class="kt-portlet kt-portlet--height-fluid">
+									<div class="kt-widget14">
+										<div class="kt-widget14__header">
+											<h3 class="kt-widget14__title">
+												Communes
+											</h3>
+											<span class="kt-widget14__desc">
+												Statistiques réparties par commune
+											</span>
+										</div>
+										<div class="kt-widget14__content">
+											<div class="kt-widget14__chart">
+												<div id="kt_chart_revenue_change" style="height: 150px; width: 150px;"></div>
+											</div>
+											<div class="kt-widget14__legends">
+												<div class="kt-widget14__legend">
+													<span class="kt-widget14__bullet kt-bg-success"></span>
+													<span class="kt-widget14__stats">+10% Mtalssa</span>
+												</div>
+												<div class="kt-widget14__legend">
+													<span class="kt-widget14__bullet kt-bg-warning"></span>
+													<span class="kt-widget14__stats">-7% Talilit</span>
+												</div>
+												<div class="kt-widget14__legend">
+													<span class="kt-widget14__bullet kt-bg-brand"></span>
+													<span class="kt-widget14__stats">+20% Midar</span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+	
+								<!--end:: Widgets/Revenue Change-->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
 			{{-- <div class="col-lg-6 col-xl-4 order-lg-1 order-xl-1">
 				<!--Begin::Portlet-->
 				<div class="kt-portlet kt-portlet--height-fluid">

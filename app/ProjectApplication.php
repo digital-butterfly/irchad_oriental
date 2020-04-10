@@ -27,6 +27,7 @@ class ProjectApplication extends Model
         'market_type', 
         'business_model', 
         'financial_data', 
+        'training_needs',
         'company',
         'status',
         'created_by',
@@ -43,6 +44,7 @@ class ProjectApplication extends Model
         'updated_at' => 'datetime:d-m-Y',
         'business_model'=> 'object',
         'financial_data'=> 'object',
+        'training_needs'=> 'object',
         'company'=> 'object',
     ];
 
@@ -170,6 +172,13 @@ class ProjectApplication extends Model
                 'group' => 'Données Générales'
             ],
             [
+                'name' => 'status',
+                'type' => 'select',
+                'label' => 'Status',
+                'options' => ['Nouveau', 'Accepté', 'Rejeté', 'Incubé'],
+                'group' => 'Données Générales'
+            ],
+            [
                 'name' => 'business_model',
                 'type' => 'text',
                 'label' => 'Business Model',
@@ -220,7 +229,7 @@ class ProjectApplication extends Model
                         'name' => 'startup_needs',
                         'type' => 'repeater',
                         'label' => 'Programme d\'investissement',
-                        'config' => ['tripleRepeater' => true, 'attributes' => [['Désignation',4], ['Valeur',3], ['Taux',1]]]
+                        'config' => ['quadrupleRepeater' => true, 'attributes' => [['Désignation',3], ['Valeur',3], ['Taux',1], ['TVA',1]]]
                     ],
                     [
                         'name' => 'financial_plan',
@@ -282,11 +291,21 @@ class ProjectApplication extends Model
                 'group' => 'Données Financières'
             ],
             [
-                'name' => 'status',
-                'type' => 'select',
-                'label' => 'Status',
-                'options' => ['Nouveau', 'Accepté', 'Rejeté', 'Incubé'],
-                'group' => 'Données Générales'
+                'name' => 'training_needs',
+                'type' => 'section',
+                'sub_fields' => [
+                    [
+                        'name' => 'pre_creation_training',
+                        'type' => 'repeater',
+                        'label' => 'Besoins en pré-création'
+                    ],
+                    [
+                        'name' => 'post_creation_training',
+                        'type' => 'repeater',
+                        'label' => 'Besoins en post-création'
+                    ],
+                ],
+                'group' => 'Besoins en Formation'
             ],
         ];
     }
