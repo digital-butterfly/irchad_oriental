@@ -200,19 +200,19 @@
     }
     elseif (($application->company->applied_tax ?? '') == 'Impôt sur le revenu') {
         switch (true) {
-            case ($bp_income_before_taxes_first_year > 0 && $bp_income_before_taxes_first_year <= 300000):
+            case ($bp_income_before_taxes_first_year > 0 && $bp_income_before_taxes_first_year <= 30000):
                 $bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 0 / 100;
                 break;
-            case ($bp_income_before_taxes_first_year > 300000 && $bp_income_before_taxes_first_year <= 50000):
+            case ($bp_income_before_taxes_first_year > 30000 && $bp_income_before_taxes_first_year <= 50000):
                 $bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 10 / 100;
                 break;
             case ($bp_income_before_taxes_first_year > 50000 && $bp_income_before_taxes_first_year <= 60000):
                 $bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 20 / 100;
                 break;
-            case ($bp_income_before_taxes_first_year > 600000 && $bp_income_before_taxes_first_year <= 80000):
+            case ($bp_income_before_taxes_first_year > 60000 && $bp_income_before_taxes_first_year <= 80000):
                 $bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 30 / 100;
                 break;
-            case ($bp_income_before_taxes_first_year > 800000 && $bp_income_before_taxes_first_year <= 180000):
+            case ($bp_income_before_taxes_first_year > 80000 && $bp_income_before_taxes_first_year <= 180000):
                 $bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 34 / 100;
                 break;
             case ($bp_income_before_taxes_first_year > 180000):
@@ -220,19 +220,19 @@
                 break;
         }
         switch (true) {
-            case ($bp_income_before_taxes_second_year > 0 && $bp_income_before_taxes_second_year <= 300000):
+            case ($bp_income_before_taxes_second_year > 0 && $bp_income_before_taxes_second_year <= 30000):
                 $bp_corporate_tax_second_year = $bp_income_before_taxes_second_year * 0 / 100;
                 break;
-            case ($bp_income_before_taxes_second_year > 300000 && $bp_income_before_taxes_second_year <= 50000):
+            case ($bp_income_before_taxes_second_year > 30000 && $bp_income_before_taxes_second_year <= 50000):
                 $bp_corporate_tax_second_year = $bp_income_before_taxes_second_year * 10 / 100;
                 break;
             case ($bp_income_before_taxes_second_year > 50000 && $bp_income_before_taxes_second_year <= 60000):
                 $bp_corporate_tax_second_year = $bp_income_before_taxes_second_year * 20 / 100;
                 break;
-            case ($bp_income_before_taxes_second_year > 600000 && $bp_income_before_taxes_second_year <= 80000):
+            case ($bp_income_before_taxes_second_year > 60000 && $bp_income_before_taxes_second_year <= 80000):
                 $bp_corporate_tax_second_year = $bp_income_before_taxes_second_year * 30 / 100;
                 break;
-            case ($bp_income_before_taxes_second_year > 800000 && $bp_income_before_taxes_second_year <= 180000):
+            case ($bp_income_before_taxes_second_year > 80000 && $bp_income_before_taxes_second_year <= 180000):
                 $bp_corporate_tax_second_year = $bp_income_before_taxes_second_year * 34 / 100;
                 break;
             case ($bp_income_before_taxes_second_year > 180000):
@@ -240,19 +240,19 @@
                 break;
         }
         switch (true) {
-            case ($bp_income_before_taxes_third_year > 0 && $bp_income_before_taxes_third_year <= 300000):
+            case ($bp_income_before_taxes_third_year > 0 && $bp_income_before_taxes_third_year <= 30000):
                 $bp_corporate_tax_third_year = $bp_income_before_taxes_third_year * 0 / 100;
                 break;
-            case ($bp_income_before_taxes_third_year > 300000 && $bp_income_before_taxes_third_year <= 50000):
+            case ($bp_income_before_taxes_third_year > 30000 && $bp_income_before_taxes_third_year <= 50000):
                 $bp_corporate_tax_third_year = $bp_income_before_taxes_third_year * 10 / 100;
                 break;
             case ($bp_income_before_taxes_third_year > 50000 && $bp_income_before_taxes_third_year <= 60000):
                 $bp_corporate_tax_third_year = $bp_income_before_taxes_third_year * 20 / 100;
                 break;
-            case ($bp_income_before_taxes_third_year > 600000 && $bp_income_before_taxes_third_year <= 80000):
+            case ($bp_income_before_taxes_third_year > 60000 && $bp_income_before_taxes_third_year <= 80000):
                 $bp_corporate_tax_third_year = $bp_income_before_taxes_third_year * 30 / 100;
                 break;
-            case ($bp_income_before_taxes_third_year > 800000 && $bp_income_before_taxes_third_year <= 180000):
+            case ($bp_income_before_taxes_third_year > 80000 && $bp_income_before_taxes_third_year <= 180000):
                 $bp_corporate_tax_third_year = $bp_income_before_taxes_third_year * 34 / 100;
                 break;
             case ($bp_income_before_taxes_third_year > 180000):
@@ -312,7 +312,7 @@
                         <h1 class="kt-invoice__title">{{ ($application->member->gender == 'Femme'? 'Mme' : 'Mr') . ' ' .  $application->member->first_name . ' ' . $application->member->last_name }}</h1>
                         <div href="#" class="kt-invoice__logo">
                             <span class="kt-invoice__desc">
-                                <span>{{ $application->member->gender . ', né le ' . $application->member->birth_date->format('d/m/Y') }}</span>
+                                <span>{{ $application->member->gender . ', né' . ($application->member->gender == 'Femme'? 'e' : '') . ' le ' . $application->member->birth_date->format('d/m/Y') }}</span>
                             </span>
                         </div>
                     </div>

@@ -50,7 +50,7 @@
                 <li class="kt-menu__item " aria-haspopup="true"><a href="admin/candidatures" class="kt-menu__link "><i class="kt-menu__link-icon flaticon-home"></i><span class="kt-menu__link-text">Candidatures</span></a></li>
                 
                 <li class="kt-menu__section ">
-                    <h4 class="kt-menu__section-text">Configration</h4>
+                    <h4 class="kt-menu__section-text">Configuration</h4>
                     <i class="kt-menu__section-icon flaticon-more-v2"></i>
                 </li>
                 <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon flaticon-web"></i><span class="kt-menu__link-text">Banque de projets</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
