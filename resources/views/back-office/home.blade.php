@@ -2239,7 +2239,7 @@ var KTDashboard = function() {
             daterangepickerInit();
 
             // datatables
-            datatableLatestOrders();
+            //datatableLatestOrders();
 
             // calendar
             calendarInit();
