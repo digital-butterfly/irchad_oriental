@@ -4,7 +4,7 @@
 	@include('back-office.partials.head')
 	{{-- {{ include "head.html" with {specific_css: block('specific_css')} }} --}}
 
-	<body class="kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header-mobile--fixed kt-subheader--enabled kt-subheader--fixed kt-subheader--solid kt-aside--enabled kt-aside--fixed kt-page--loading">
+	<body class="kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header-mobile--fixed {{-- kt-subheader--enabled --}} kt-subheader--fixed kt-subheader--solid kt-aside--enabled kt-aside--fixed kt-page--loading">
 
 		<!-- begin:: Page -->
         @include('back-office.partials.header-mobile')
