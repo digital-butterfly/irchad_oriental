@@ -14,7 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('front-office.candidature');
+});
+
+Route::get('/adherent', function () {
+    return view('adherent');
 });
 
 Route::post('/', 'Auth\LoginController@userLogin');
