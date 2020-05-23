@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('front-office.candidature');
 });
+Route::get('/programme', function () {
+    return view('front-office.programme');
+});
 
 Route::get('/adherent', function () {
     return view('adherent');
