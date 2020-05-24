@@ -12,14 +12,18 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+// Route to la page d'accueil
 Route::get('/', function () {
-    return view('front-office.candidature');
+    return view('front-office.welcome');
 });
+//route vers la page programme 
 Route::get('/programme', function () {
     return view('front-office.programme');
 });
-
+//route vers la page soummisions projet
+Route::get('/project-submission',function(){
+    return view('front-office.candidature');
+});
 Route::get('/adherent', function () {
     return view('adherent');
 });
