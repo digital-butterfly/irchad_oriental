@@ -27,7 +27,8 @@ Route::get('/project-submission',function(){
 Route::get('/adherent', function () {
     return view('adherent');
 });
-
+//route vers ajout de soummision projets
+Route::post("/project-submission",'CandidatureController@create')->name("projectSubmission");
 Route::post('/', 'Auth\LoginController@userLogin');
 
 Auth::routes();

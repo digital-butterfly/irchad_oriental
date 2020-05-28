@@ -64,6 +64,7 @@
     <!-- Magnific Popup -->
     <script src="js/front-office/jquery.magnific-popup.min.js"></script>
     <script src="js/front-office/app.js"></script>
+    <script src="js/front-office/parsely.min.js"></script>
 
     @yield('custom-js')
 
