@@ -96,6 +96,8 @@
     display: none;
 }
 </style>
+<form method="POST" data-route = "{{ route('projectSubmission')}}" id="form-data">
+@csrf
 
 <!-- START CONTACT-HEADER -->
 <section class="bg-pages-title">
@@ -119,7 +121,6 @@
     </div>
 </section>
 <!-- END CONTACT-HEADER -->
-
 <!-- START CONTACT -->
 <section class="section pt-0 bg-light">
     <div class="container">
@@ -127,11 +128,9 @@
             <div class="col-lg-12">
                 <div class="contact-details bg-white p-5 mt-3">
                     <div class="custom-form">
-                        <div id="message"></div>
-                        <form method="post" action="php/contact.php" name="contact-form" id="contact-form">
-
+                        <div id="form-errors"></div>
                             <!-- STEP 1 -->
-                            <fieldset>
+                            <fieldset class="form-section">
                                 <div class="contact-details-header">
                                     <div class="contact-icon">
                                         <i class="pe-7s-id text-custom"></i>
@@ -144,22 +143,22 @@
                                         <div class="form-group">
                                             <select name="civility" id="civility" class="form-control">
                                                 <option value="" selected disabled>Votre civilité...</option>
-                                                <option value="">Mr</option>
-                                                <option value="">Mme</option>
-                                                <option value="">Mlle</option>
+                                                <option value="0">Mr</option>
+                                                <option value="1">Mme</option>
+                                                <option value="2">Mlle</option>
                                             </select>
                                         </div>
                                     </div>
     
                                     <div class="col-lg-5">
                                         <div class="form-group">
-                                            <input name="last name" id="sarname" type="text" class="form-control" placeholder="Votre prénom...">
+                                            <input name="first_name" id="first_name" type="text" class="form-control"  placeholder="Votre prénom..." required="">
                                         </div>
                                     </div>
     
                                     <div class="col-lg-5">
                                         <div class="form-group">
-                                            <input name="last name" id="sarname" type="text" class="form-control" placeholder="Votre nom de famille...">
+                                            <input name="last_name" id="last_name" type="text" class="form-control" required="" placeholder="Votre nom de famille...">
                                         </div>
                                     </div>
                                 </div>
@@ -167,19 +166,19 @@
                                 <div class="row mt-4">
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <input name="email" id="email" type="email" class="form-control" placeholder="Votre numéro de CIN...">
+                                            <input name="identity_number" id="identity_number" type="text" required="" class="form-control" placeholder="Votre numéro de CIN...">
                                         </div>
                                     </div>
     
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <input name="number" id="number" type="date" class="form-control" placeholder="Votre date de naissance...">
+                                            <input name="birth_date" id="birth_date" type="date" class="form-control" required="" placeholder="Votre date de naissance...">
                                         </div>
                                     </div>
     
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <select name="marital-status" id="marital-status" class="form-control">
+                                            <select name="marital-status" id="marital-status" required="" class="form-control">
                                                 <option value="" selected disabled>Votre situation familiale...</option>
                                                 <option value="">Célibataire</option>
                                                 <option value="">Marié(e)</option>
@@ -193,60 +192,19 @@
                                 <div class="row mt-4">
                                     <div class="col-lg-8">
                                         <div class="form-group">
-                                            <input name="email" id="email" type="email" class="form-control" placeholder="Votre adresse...">
+                                            <input name="address" id="address" type="text" required="" class="form-control" placeholder="Votre adresse...">
                                         </div>
                                     </div>
     
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <select name="township" id="township" class="form-control">
+                                            <select name="township_id" id="township_id" class="form-control">
                                                 <option value="" selected disabled>Votre commune...</option>
-                                                <optgroup label="Municipalités">
-                                                    <option value="">Al Hoceïma</option>
-                                                    <option value="">Bni Bouayach</option>
-                                                    <option value="">Imzouren</option>
-                                                    <option value="">Targuist</option>
-                                                    <option value="">Ajdir</option>
-                                                </optgroup>
-                                                <optgroup label="Cercle de Bni Boufrah">
-                                                    <option value="">Bni Boufrah</option>
-                                                    <option value="">Senada</option>
-                                                    <option value="">Bni Gmil Maksouline</option>
-                                                    <option value="">Bni Gmil</option>
-                                                </optgroup>
-                                                <optgroup label="Cercle de Bni Ouriaghel">
-                                                    <option value="">Bni Ouriaghel</option>
-                                                    <option value="">Arbaa Taourirt</option>
-                                                    <option value="">Chakrane</option>
-                                                    <option value="">Nekkour</option>
-                                                    <option value="">Tifarouine</option>
-                                                    <option value="">Bni Hadifa</option>
-                                                    <option value="">Zaouïat Sidi Abdelkader</option>
-                                                    <option value="">Beni Abadallah</option>
-                                                    <option value="">Aït Youssef Ou Ali</option>
-                                                    <option value="">Louta</option>
-                                                    <option value="">Imrabten</option>
-                                                    <option value="">Izzemouren</option>
-                                                    <option value="">Aït Kamra</option>
-                                                    <option value="">Rouadi</option>
-                                                </optgroup>
-                                                <optgroup label="Cercle de Targuist">
-                                                    <option value="">Bni Ammart</option>
-                                                    <option value="">Sidi Bouzineb</option>
-                                                    <option value="">Sidi Boutmim</option>
-                                                    <option value="">Zarkt</option>
-                                                    <option value="">Beni Bchir</option>
-                                                    <option value="">Bni Bounsar</option>
-                                                    <option value="">Bni Ahmed Imoukzan</option>
-                                                </optgroup>
-                                                <optgroup label="Cercle de Ketama">
-                                                    <option value="">Ketama</option>
-                                                    <option value="">Tamsaout</option>
-                                                    <option value="">Issaguen</option>
-                                                    <option value="">Moulay Ahmed Chérif</option>
-                                                    <option value="">Bni Bouchibet</option>
-                                                    <option value="">Abdelghaya Souahel</option>
-                                                </optgroup>
+                                                <option value="14">Driouch</option>
+                                                <option value="13">Midar</option>
+                                                <option value="5">Mtalssa</option>
+                                                <option value="10">Ouardana</option>
+                                                <option value="9">Talilit</option>
                                             </select>
                                         </div>
                                     </div>
@@ -260,7 +218,7 @@
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <input name="email" id="email" type="email" class="form-control" placeholder="Votre téléphone...">
+                                            <input name="phone" id="phone" type="phone" class="form-control" placeholder="Votre téléphone...">
                                         </div>
                                     </div>
                                 </div>
@@ -268,14 +226,14 @@
                                 <div class="row mt-4">
                                     <div class="col-lg-12">
                                         <div class="form-group">
-                                            <select name="reduced-mobility" id="reduced-mobility" class="form-control">
+                                            <select name="reduced_mobility" id="reduced_mobility" class="form-control">
                                                 <option value="" selected disabled>Êtes-vous une personne à mobilité réduite?</option>
-                                                <option value="">Non</option>
-                                                <option value="">Handicap auditif</option>
-                                                <option value="">Handicap vocal</option>
-                                                <option value="">Handicap moteur</option>
-                                                <option value="">Handicap visuel</option>
-                                                <option value="">Handicap mental</option>
+                                                <option value="Non">Non</option>
+                                                <option value="Handicap auditif">Handicap auditif</option>
+                                                <option value="Handicap vocal">Handicap vocal</option>
+                                                <option value="Handicap moteur">Handicap moteur</option>
+                                                <option value="Handicap visuel">Handicap visuel</option>
+                                                <option value="Handicap mental">Handicap mental</option>
                                             </select>
                                         </div>
                                     </div>
@@ -285,7 +243,7 @@
                                     <div class="col-lg-12">
                                         <div class="form-group">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" name="defaultCheck1">
                                                 <label class="form-check-label" for="defaultCheck1">Je certifie l'exactitude des données renseignées et j'accepte les <a href="#">termes et conditions</a>.</label>
                                             </div>
                                         </div>
@@ -301,7 +259,7 @@
                             </fieldset>
 
                             <!-- STEP 2 -->
-                            <fieldset>
+                            <fieldset style="display:none" class="form-section">
                                 <div class="contact-details-header">
                                     <div class="contact-icon">
                                         <i class="pe-7s-study text-custom"></i>
@@ -317,31 +275,31 @@
                                     <div class="row source-field">
                                         <div class="col-lg-2">
                                             <div class="form-group">
-                                                <input name="name" id="name" type="text" class="form-control" placeholder="Type de diplôme...">
+                                                <input name="degrees[0][diplome_type]" id="diplome_type" type="text" class="form-control" placeholder="Type de diplôme...">
                                             </div>
                                         </div>
     
                                         <div class="col-lg-2">
                                             <div class="form-group">
-                                                <input name="name" id="name" type="text" class="form-control" placeholder="Année d'obtention...">
+                                                <input name="degrees[0][annee]" id="annee" type="text" class="form-control" placeholder="Année d'obtention...">
+                                            </div>
+                                        </div>
+        
+                                       {{-- <div class="col-lg-2">
+                                            <div class="form-group">
+                                                <input name="degrees[0][specialite]" id="specialite" type="text" class="form-control" placeholder="Spécialité...">
                                             </div>
                                         </div>
         
                                         <div class="col-lg-2">
                                             <div class="form-group">
-                                                <input name="last name" id="sarname" type="text" class="form-control" placeholder="Spécialité...">
+                                                <input name="degrees[0][option]" id="option" type="text" class="form-control" placeholder="Option...">
                                             </div>
-                                        </div>
-        
-                                        <div class="col-lg-2">
-                                            <div class="form-group">
-                                                <input name="last name" id="sarname" type="text" class="form-control" placeholder="Option...">
-                                            </div>
-                                        </div>
+                                        </div>--}}
     
                                         <div class="col-lg-2">
                                             <div class="form-group">
-                                                <input name="last name" id="sarname" type="text" class="form-control" placeholder="Établissement...">
+                                                <input name="degrees[0][etablissement]" id="etablissement" type="text" class="form-control" placeholder="Établissement...">
                                             </div>
                                         </div>
     
@@ -364,31 +322,31 @@
                                     <div class="row source-field">
                                         <div class="col-lg-2">
                                             <div class="form-group">
-                                                <input name="name" id="name" type="text" class="form-control" placeholder="Du...">
+                                                <input name="professional_experience[0][du]" id="du" type="text" class="form-control" placeholder="Du...">
                                             </div>
                                         </div>
     
                                         <div class="col-lg-2">
                                             <div class="form-group">
-                                                <input name="name" id="name" type="text" class="form-control" placeholder="Au...">
+                                                <input name="professional_experience[0][au]" id="au" type="text" class="form-control" placeholder="Au...">
                                             </div>
                                         </div>
         
                                         <div class="col-lg-2">
                                             <div class="form-group">
-                                                <input name="last name" id="sarname" type="text" class="form-control" placeholder="Poste...">
+                                                <input name="professional_experience[0][poste]" id="poste" type="text" class="form-control" placeholder="Poste...">
                                             </div>
                                         </div>
         
                                         <div class="col-lg-2">
                                             <div class="form-group">
-                                                <input name="last name" id="sarname" type="text" class="form-control" placeholder="Organisme...">
+                                                <input name="professional_experience[0][organisme]" id="organisme" type="text" class="form-control" placeholder="Organisme...">
                                             </div>
                                         </div>
     
                                         <div class="col-lg-2">
                                             <div class="form-group">
-                                                <input name="last name" id="sarname" type="text" class="form-control" placeholder="Mission...">
+                                                <input name="professional_experience[0][mission]" id="mission" type="text" class="form-control" placeholder="Mission...">
                                             </div>
                                         </div>
     
@@ -443,7 +401,7 @@
                             </fieldset>
 
                             <!-- STEP 3 -->
-                            <fieldset>
+                            <fieldset id="last-fieldset" style="display:none" class="form-section">
                                 <div class="contact-details-header">
                                     <div class="contact-icon">
                                         <i class="pe-7s-portfolio text-custom"></i>
@@ -455,13 +413,13 @@
                                 <div class="row">
                                     <div class="col-lg-8">
                                         <div class="form-group">
-                                            <input name="name" id="name" type="text" class="form-control" placeholder="Titre de votre projet...">
+                                            <input name="title" id="title" type="text" class="form-control" placeholder="Titre de votre projet...">
                                         </div>
                                     </div>
     
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <input name="last name" id="sarname" type="text" class="form-control" placeholder="Secteur d'activité...">
+                                            <input name="market_type" id="market_type" type="text" class="form-control" placeholder="Secteur d'activité...">
                                         </div>
                                     </div>
                                 </div>
@@ -469,7 +427,7 @@
                                 <div class="row mt-4">
                                     <div class="col-lg-12">
                                         <div class="form-group">
-                                            <input name="email" id="email" type="email" class="form-control" placeholder="Effectif du projet...">
+                                            <input name="total_jobs" id="total_jobs" type="number" class="form-control" placeholder="Effectif du projet...">
                                         </div>
                                     </div>
                                 </div>
@@ -487,7 +445,7 @@
 
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <input name="email" id="email" type="email" class="form-control" placeholder="Si oui, laquelle?">
+                                            <input name="state-aid-oui" id="state-aid-oui" type="text" class="form-control" placeholder="Si oui, laquelle?">
                                         </div>
                                     </div>
                                 </div>
@@ -495,7 +453,7 @@
                                 <div class="row mt-4">
                                     <div class="col-lg-12">
                                         <div class="form-group">
-                                            <select name="civility" id="civility" class="form-control logical-parent">
+                                            <select name="company[is_created]" id="company_creation" class="form-control logical-parent">
                                                 <option value="" selected disabled>Avez-vous déjà créé une entreprise pour votre projet?</option>
                                                 <option value="1">Oui, j'ai déjà créé une entreprise pour mon projet.</option>
                                                 <option value="0">Non, je n'est pas encore créé une entreprise pour mon projet.</option>
@@ -508,40 +466,19 @@
                                     <div class="row mt-4">
                                         <div class="col-lg-4">
                                             <div class="form-group">
-                                                <input name="email" id="email" type="email" class="form-control" placeholder="Forme de l'entreprise...">
+                                                <input name="company[legal_form]" id="company_forme" type="text" class="form-control" placeholder="Forme de l'entreprise...">
                                             </div>
                                         </div>
 
                                         <div class="col-lg-4">
                                             <div class="form-group">
-                                                <input name="email" id="email" type="email" class="form-control" placeholder="Dénomination de l'entreprise...">
+                                                <input name="company[corporate_name]" id="company_denomination" type="text" class="form-control" placeholder="Dénomination de l'entreprise...">
                                             </div>
                                         </div>
 
                                         <div class="col-lg-4">
                                             <div class="form-group">
-                                                <input name="email" id="email" type="email" class="form-control" placeholder="Date de création de l'entreprise...">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row mt-4">
-                                        <div class="col-lg-12">
-                                            <div class="form-group">
-                                                <input name="email" id="email" type="email" class="form-control" placeholder="Adresse de l'entreprise...">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row mt-4">
-                                        <div class="col-lg-6">
-                                            <div class="form-group">
-                                                <input name="email" id="email" type="email" class="form-control" placeholder="Email de l'entreprise...">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="form-group">
-                                                <input name="email" id="email" type="email" class="form-control" placeholder="Téléphone de l'entreprise...">
+                                                <input name="company[creation_date]" id="company_date" type="date" class="form-control" placeholder="Date de création de l'entreprise...">
                                             </div>
                                         </div>
                                     </div>
@@ -550,13 +487,11 @@
                                 <div class="row mt-4 text-center">
                                     <div class="col-lg-12">
                                         <input type="button" name="previous" class="submitBnt btn btn-custom previous" value="Précédent">
-                                        <input type="submit" id="submit" name="submit" class="submitBnt btn btn-custom" value="Envoyer">
+                                        <input type="submit" id="submit" name="submit" class="submitBnt btn btn-custom " value="Envoyer">
                                         <div id="simple-msg"></div>
                                     </div>
                                 </div>
                             </fieldset>
-
-                        </form>
                     </div>
                 </div>
             </div>
@@ -564,75 +499,16 @@
     </div>
 </section>
 <!-- END CONTACT -->
-
-<!-- START CONTACT-FORM -->
-{{-- <section class="section pt-0 bg-light">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <h3>Formulaire de Contact</h3>
-                <div class="custom-form mt-5">
-                    <div id="message"></div>
-                    <form method="post" action="php/contact.php" name="contact-form" id="contact-form">
-
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <input name="name" id="name" type="text" class="form-control" placeholder="Votre prénom...">
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <input name="last name" id="sarname" type="text" class="form-control" placeholder="Votre nom de famille...">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mt-4">
-
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <input name="email" id="email" type="email" class="form-control" placeholder="Votre email...">
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <input name="number" id="number" type="number" class="form-control" placeholder="Votre téléphone...">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mt-4">
-                            <div class="col-lg-12">
-                                <div class="form-group">
-                                    <textarea name="comments" id="comments" rows="7" class="form-control" placeholder="Votre message..."></textarea>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mt-4">
-                            <div class="col-lg-12">
-                                <input type="submit" id="submit" name="send" class="submitBnt btn btn-custom" value="Envoyer Message">
-                                <div id="simple-msg"></div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section> --}}
-<!-- END CONTACT-FORM -->
-
+</form>
 @endsection
 
 @section('custom-js')
     
 <script>
-
+function curIndex() {
+    // Return the current index by looking at which section has the class 'current'
+    return $('.form-section').index($('.form-section').filter('.active'));
+  }
 //jQuery time
 var current_fs, next_fs, previous_fs; //fieldsets
 /* var left, opacity, scale; */ //fieldset properties which we will animate
@@ -641,16 +517,25 @@ var current_fs, next_fs, previous_fs; //fieldsets
 $(".next").click(function(){
 	/* if(animating) return false;
 	animating = true; */
-	
 	current_fs = $(this).parents().eq(2);
-	next_fs = $(this).parents().eq(2).next();
+    next_fs = $(this).parents().eq(2).next();
+     if(verification($("fieldset").index(current_fs)) == false)
+     {
+        $('html,body').animate({
+            scrollTop: $('#form-errors').offset().top - 100
+        }, 'slow');
+         return false;
+     }
+    //activate next step on progressbar using the index of next_fs
+    $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+    $( '#form-errors' ).html( '' ); //appending errors
+    current_fs.hide();
+    next_fs.show(); 
+    
 	
-	//activate next step on progressbar using the index of next_fs
-	$("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
 	
     //show the next fieldset
-    current_fs.hide();
-	next_fs.show(); 
+    
 	//hide the current fieldset with style
 	/* current_fs.animate({opacity: 0}, {
 		step: function(now, mx) {
@@ -713,10 +598,49 @@ $(".previous").click(function(){
 	}); */
 });
 
-$("#submit").click(function(){
+/*$("#submit").click(function(){
 	return false;
-})
+})*/
+$("#form-data").on('submit',function(event){
+    event.preventDefault();
+    var route = $("#form-data").data('route');
+    var formData = $("#form-data").serialize();
+    if(verification(2)== false)
+    {
+        $('html,body').animate({
+            scrollTop: $('#form-errors').offset().top - 100
+        }, 'slow');
+        return false;
+    }
+    $( '#form-errors' ).html( '' ); 
+    
+    $.ajax({
+        type: 'POST',
+        url: route,
+        data: formData,
+        success: function(response)
+        {
+            var data = response.responseJSON; //this will get the errors response data.
+            msgHtml = '<div class="alert alert-success">Votre demande a été envoyé avec succès</div>';
+            $("#form-data")[0].reset();
+            $( '#form-errors' ).html( msgHtml );
+            $('#last-fieldset').hide();
+        },
+        error : function(jqXhr)
+        {
+            //process validation errors here.
+            var data = jqXhr.responseJSON; //this will get the errors response data.
+            errorsHtml = '<div class="alert alert-danger"><ul>';
+            $.each( data.errors , function( key, value ) {
+                errorsHtml += '<li>' + value[0] + '</li>'; //showing only the first error.
+            });
+            errorsHtml += '</ul></di>';
+                
+            $( '#form-errors' ).html( errorsHtml ); //appending errors
+        }
 
+    });
+});
 //----------------------------
 
 var fsElement, dfElement, dfCounter;
@@ -728,6 +652,9 @@ $('body').on('click', '.add-field', function() {
     dfCounter = dfElement.length;
     if (dfCounter < 5) {
         dfElement.last().clone().appendTo(fsElement.find('.dynamic-fields:first')).find("input[type='text']").val('');
+        dfElement.find('input').each(function(){
+            this.name = this.name.replace(/\[(\d+)\]/,function(str,p1){return '[' + (parseInt(p1,10)+1) + ']'});
+        });
         $(this).removeClass('add-field').addClass('remove-degree').val('-');
         if (dfCounter >= 5) {
             $(this).prop('disabled', true);
@@ -738,7 +665,189 @@ $('body').on('click', '.add-field', function() {
         $(this).prop('disabled', true);
     }
 });
+//verificatoin
+function verification(current_fs)
+{
+    var is_error = false;
+    errorsHtml = '<div class="alert alert-danger"><ul>';
+    if(current_fs == 0)
+    {
+        if($("#civility").val() == null  )
+        {
+            errorsHtml += '<li>Veuillez renseigner votre civilité</li>'; 
+            is_error = true;
+        }
+        if ($("#first_name").val() == '')
+        {
+            errorsHtml += '<li>Veuillez renseigner votre prénom</li>'; 
+            is_error = true;
+        } 
+        if($("#last_name").val() == ''){
+            errorsHtml += '<li>Veuillez renseigner votre nom</li>'; 
+            is_error = true;
+        }
+        if ($("#identity_number").val() == ''){
+            errorsHtml += '<li>Veuillez renseigner votre CIN</li>'; 
+            is_error = true;
+        }
+        if ($("#birth_date").val() == ''){
+            errorsHtml += '<li>Veuillez renseigner votre date de naissance</li>'; 
+            is_error = true;
+        }
+        if ($("#marital-status").val() == null){
+            errorsHtml += '<li>Veuillez renseigner votre situation familliale</li>'; 
+            is_error = true;
+        }
+        if ($("#address").val() == ''){
+            errorsHtml += '<li>Veuillez renseigner votre adresse</li>'; 
+            is_error = true;
+        }
+        if ($("#township_id").val() == null){
+            errorsHtml += '<li>Veuillez renseigner votre commune</li>'; 
+            is_error = true;
+        }
+        if ($("#email").val() == ''){
+            errorsHtml += '<li>Veuillez renseigner votre adresse email</li>'; 
+            is_error = true;
+        }
+        if ($("#phone").val() == ''){
+            errorsHtml += '<li>Veuillez renseigner votre numéro de téléphone</li>'; 
+            is_error = true;
+        }
+        if ($("#reduced_mobility").val() == null){
+            errorsHtml += '<li>Veuillez renseigner votre situation de mobilité</li>'; 
+            is_error = true;
+        }
+        if($('#defaultCheck1').is(":checked") == false)
+        {
+            errorsHtml += '<li>Veuillez certifie l\'exactitude des données renseignées</li>'; 
+            is_error = true;
+        }
+    }else if (current_fs == 1)
+    {
+        $('input[name$="[diplome_type]"]').each(function(){
+            if($(this).val() == "")
+            {
+                errorsHtml += '<li>Veuillez rensigner le(s) type(s) du diplôme</li>'; 
+                is_error = true;
+                return is_error;
+            }
+        });
+        $('input[name$="[annee]"]').each(function(){
+            if($(this).val() == "")
+            {
+                errorsHtml += '<li>Veuillez rensigner le(s) année(s) du diplôme</li>'; 
+                is_error = true;
+                return is_error;
+            }
+        });
+        $('input[name$="[etablissement]"]').each(function(){
+            if($(this).val()== "")
+            {
+                errorsHtml += '<li>Veuillez rensigner le(s) établissement(s)</li>'; 
+                is_error = true;
+                return is_error;
+            }
+            
+        });
+        $('input[name$="[du]"]').each(function(){
+            if($(this).val()== "")
+            {
+                errorsHtml += '<li>Veuillez rensigner la date début de l\'expériance</li>'; 
+                is_error = true;
+                return is_error;
+            }
+            
+        });
+        $('input[name$="[au]"]').each(function(){
+            if($(this).val()== "")
+            {
+                errorsHtml += '<li>Veuillez rensigner la date fin de l\'expériance</li>'; 
+                is_error = true;
+                return is_error;
+            }
+            
+        });
+        $('input[name$="[poste]"]').each(function(){
+            if($(this).val()== "")
+            {
+                errorsHtml += '<li>Veuillez rensigner le(s) poste(s)</li>'; 
+                is_error = true;
+                return is_error;
+            }
+            
+        });
+        $('input[name$="[organisme]"]').each(function(){
+            if($(this).val()== "")
+            {
+                errorsHtml += '<li>Veuillez rensigner le(s) organisme(s)</li>'; 
+                is_error = true;
+                return is_error;
+            }
+            
+        });
+        $('input[name$="[mission]"]').each(function(){
+            if($(this).val()== "")
+            {
+                errorsHtml += '<li>Veuillez rensigner le(s) mission(s)</li>'; 
+                is_error = true;
+                return is_error;
+            }
+            
+        });
+    }else if (current_fs == 2)
+    {
+        if ($("#title").val() == "")
+        {
+            errorsHtml += '<li>Veuillez rensigner le tite du projet</li>'; 
+            is_error = true;
+        }
+        if ($("#market_type").val() == "")
+        {
+            errorsHtml += '<li>Veuillez renseigner le secteur d\'activité</li>'; 
+            is_error = true;
+        }
+        if ($("#total_jobs").val() == "")
+        {
+            errorsHtml += '<li>Veuillez reseigner l\'effectif du projet</li>'; 
+            is_error = true;
+        }
+        if ($("#state-aid").val() == "1")
+        {
+            if ($("#state-aid-oui").val() == "")
+            {
+                errorsHtml += '<li>Veuillez reseigner l\'aide étatique</li>'; 
+                is_error = true;
+            }
+        }
+        if ($("#company_creation").val() == '1')
+        {
+            if ($("#company_forme").val() == "")
+            {
+                errorsHtml += '<li>Veuillez renseigner la forme de l\'entreprise</li>'; 
+                is_error = true;
+            }
+            if ($("#company_denomination").val() == "")
+            {
+                errorsHtml += '<li>Veuillez renseigner la dénomination de l\'entreprise</li>'; 
+                is_error = true;
+            }
+            if ($("#company_date").val() == "")
+            {
+                errorsHtml += '<li>Veuillez renseigner la date de création de l\'entreprise</li>'; 
+                is_error = true;
+            }
+        }
+    }
+    if(is_error == true)
+    {
+        errorsHtml += '</ul></di>';  
+        $( '#form-errors' ).html( errorsHtml ); //appending errors
+        return false
+    }
+    return true;
 
+}
 //Attach functionality to delete buttons
 function attach_delete(){
     $('body').off('click', '.remove-degree');
@@ -761,7 +870,9 @@ $('select.logical-parent').on('change', function() {
 $('select.dynamic-parent').on('change', function() {
     var choice = this.value == 1 ? $(this).closest('.row').find('input').last().show() : $(this).closest('.row').find('input').last().hide();
 });
-
+$('.form-section').each(function(index, section) {
+    $(section).find(':input').attr('data-parsley-group', 'block-' + index);
+  });
 </script>
 
 @endsection
