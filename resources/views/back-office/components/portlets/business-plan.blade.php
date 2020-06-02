@@ -4,9 +4,12 @@
 
     // Financial Plan
     $bp_financial_plan_total = 0;
-    foreach ($application->financial_data->financial_plan as $item) {
+    if(isset($application->financial_data->financial_plan)){
+        foreach ($application->financial_data->financial_plan as $item) {
         $bp_financial_plan_total += $item->value;
+        }
     }
+    
     if (isset($application->financial_data->financial_plan_loans)) {
         foreach ($application->financial_data->financial_plan_loans as $item) {
             $bp_financial_plan_total += $item->value;
@@ -22,10 +25,10 @@
     }
 
     // Parameters
-    $bp_turnover_products_total = $application->financial_data->products_turnover_forecast ;
-    $bp_turnover_services_total = $application->financial_data->services_turnover_forecast ;
-    $bp_profit_margin_rate = $application->financial_data->profit_margin_rate;
-    $bp_evolution_rate = $application->financial_data->evolution_rate;
+    $bp_turnover_products_total = isset($application->financial_data->products_turnover_forecast) ? $application->financial_data->products_turnover_forecast : 0;
+    $bp_turnover_services_total = isset($application->financial_data->services_turnover_forecast) ? $application->financial_data->services_turnover_forecast : 0 ;
+    $bp_profit_margin_rate = isset($application->financial_data->profit_margin_rate) ? $application->financial_data->profit_margin_rate : 0;
+    $bp_evolution_rate = isset($application->financial_data->evolution_rate) ? $application->financial_data->evolution_rate : 0;
 
     // Loans Amortization
     $bp_loan_periodic_rate = 0;
@@ -35,7 +38,9 @@
     $bp_loans_first_year_total = 0;
     $bp_loans_second_year_total = 0;
     $bp_loans_third_year_total = 0;
-    foreach ($application->financial_data->financial_plan_loans as $item) {
+    if(isset($application->financial_data->financial_plan_loans))
+    {
+        foreach ($application->financial_data->financial_plan_loans as $item) {
         $bp_loan_amount = $item->value;
         $bp_loan_periodic_rate = $item->rate / 12;
         $bp_loan_interest_fee = $bp_loan_amount * $bp_loan_periodic_rate / 100;
@@ -55,6 +60,8 @@
             }
         }
     }
+    }
+   
 
     // Turnover
     $bp_turnover_first_year = $bp_turnover_products_total + $bp_turnover_services_total;
@@ -78,21 +85,28 @@
     $bp_overheads_fixed_first_year =  0;
     $bp_overheads_fixed_second_year =  0;
     $bp_overheads_fixed_third_year =  0;
-    foreach ($application->financial_data->overheads_fixed as $item) {
+    if(isset($application->financial_data->overheads_fixed))
+    {
+        foreach ($application->financial_data->overheads_fixed as $item) {
         $bp_overheads_fixed_first_year += $item->value;
         $bp_overheads_fixed_second_year += $item->value;
         $bp_overheads_fixed_third_year += $item->value;
+        }
     }
+    
 
     // Overheads Scalable
     $bp_overheads_scalable_first_year =  0;
     $bp_overheads_scalable_second_year =  0;
     $bp_overheads_scalable_third_year =  0;
-    foreach ($application->financial_data->overheads_scalable as $item) {
+    if(isset($application->financial_data->overheads_scalable)){
+        foreach ($application->financial_data->overheads_scalable as $item) {
         $bp_overheads_scalable_first_year += $item->value;
         $bp_overheads_scalable_second_year += ($item->value) + ($item->value * $bp_evolution_rate / 100);
         $bp_overheads_scalable_third_year += (($item->value) + ($item->value * $bp_evolution_rate / 100)) + ((($item->value) + ($item->value * $bp_evolution_rate / 100)) * $bp_evolution_rate / 100);
+        }
     }
+    
 
     // Added Value
     $bp_added_value_first_year = $bp_gross_margin_first_year - $bp_overheads_fixed_first_year -  $bp_overheads_scalable_first_year;
@@ -102,17 +116,25 @@
     // Human Ressources
     $bp_human_ressources_total = 0;
     $bp_human_ressources_rows = 0;
-    foreach ($application->financial_data->human_ressources as $item) {
+    if(isset($application->financial_data->human_ressources))
+    {
+        foreach ($application->financial_data->human_ressources as $item) {
         $bp_human_ressources_total += ($item->value * $item->count);
         $bp_human_ressources_rows++;
+        }
     }
+    
     $bp_human_ressources_social_fees_total = $bp_human_ressources_total * 0.2109;
 
     // Taxes
     $bp_taxes_total = 0;
-    foreach ($application->financial_data->taxes as $item) {
+    if(isset($application->financial_data->taxes))
+    {
+        foreach ($application->financial_data->taxes as $item) {
         $bp_taxes_total += $item->value;
+        }
     }
+    
 
     // Gross Surplus
     $gross_surplus_first_year = $bp_added_value_first_year - $bp_human_ressources_total - $bp_human_ressources_social_fees_total - $bp_taxes_total;
@@ -331,14 +353,16 @@
                     <div class="kt-invoice__items">
                         <div class="kt-invoice__item">
                             <span class="kt-invoice__subtitle">DIPLÔMES</span>
-                            @foreach ($application->member->degrees as $item)
-                                <span class="kt-invoice__text">{{ $item->value . ' – ' . $item->label }}</span>
+                            
+                            
+                            @foreach (json_decode($application->member->degrees,true) as $item)
+                                <span class="kt-invoice__text">{{ $item['value'] . ' – ' . $item['label'] }}</span>
                             @endforeach
                         </div>
                         <div class="kt-invoice__item">
                             <span class="kt-invoice__subtitle">EXPERIENCE PROFESSIONNELLE</span>
-                            @foreach ($application->member->professional_experience as $item)
-                                <span class="kt-invoice__text">{{ $item->label . ' – ' . $item->value }}</span>
+                            @foreach (json_decode($application->member->professional_experience,true) as $item)
+                                <span class="kt-invoice__text">{{ $item['label'] . ' – ' . $item['value'] }}</span>
                             @endforeach
                         </div>
                     </div>
@@ -393,60 +417,62 @@
                     <div class="kt-invoice__items">
                         <div class="kt-invoice__item">
                             <span class="kt-invoice__subtitle">Produits et services:</span>
-                            <span class="kt-invoice__text">{{ $application->business_model->core_business }}</span>
+                            <span class="kt-invoice__text"> @if(isset($application->business_model->core_business)){{ $application->business_model->core_business }}@endif</span>
                         </div>
                     </div>
                     <div class="kt-invoice__items">
                         <div class="kt-invoice__item">
                             <span class="kt-invoice__subtitle">Ressources humaines:</span>
                             <span class="kt-invoice__text">Le personnel du projet est composé de
-                                @foreach ($application->financial_data->human_ressources as $key => $item)
-                                    @if ($key == $bp_human_ressources_rows - 2)
-                                        {{ $item->count . ' ' . $item->label . ' et' }}
-                                    @elseif ($key == $bp_human_ressources_rows - 1)
-                                        {{ $item->count . ' ' . $item->label . ' ' }}
-                                    @else
-                                        {{ $item->count . ' ' . $item->label . ', ' }}
-                                    @endif
-                                @endforeach
-                                en plus du porteur de projet.
+                                @if(isset($application->financial_data->human_ressources ))
+                                    @foreach ($application->financial_data->human_ressources as $key => $item)
+                                        @if ($key == $bp_human_ressources_rows - 2)
+                                            {{ $item->count . ' ' . $item->label . ' et' }}
+                                        @elseif ($key == $bp_human_ressources_rows - 1)
+                                            {{ $item->count . ' ' . $item->label . ' ' }}
+                                        @else
+                                            {{ $item->count . ' ' . $item->label . ', ' }}
+                                        @endif
+                                    @endforeach
+                                    en plus du porteur de projet.
+                                @endif
                             </span>
                         </div>
                     </div>
                     <div class="kt-invoice__items">
                         <div class="kt-invoice__item">
                             <span class="kt-invoice__subtitle">Principaux clients:</span>
-                            <span class="kt-invoice__text">{{ $application->business_model->primary_target }}</span>
+                            <span class="kt-invoice__text">@if(isset($application->business_model->primary_target)){{ $application->business_model->primary_target }}@endif</span>
                         </div>
                     </div>
                     <div class="kt-invoice__items">
                         <div class="kt-invoice__item">
                             <span class="kt-invoice__subtitle">Principaux fournisseurs:</span>
-                            <span class="kt-invoice__text">{{ $application->business_model->suppliers }}</span>
+                            <span class="kt-invoice__text">@if(isset($application->business_model->suppliers)){{ $application->business_model->suppliers }}@endif</span>
                         </div>
                     </div>
                     <div class="kt-invoice__items">
                         <div class="kt-invoice__item">
                             <span class="kt-invoice__subtitle">Principaux concurrents:</span>
-                            <span class="kt-invoice__text">{{ $application->business_model->competition }}</span>
+                            <span class="kt-invoice__text">@if(isset($application->business_model->competition)){ $application->business_model->competition }}@endif</span>
                         </div>
                     </div>
                     <div class="kt-invoice__items">
                         <div class="kt-invoice__item">
                             <span class="kt-invoice__subtitle">Marketing et publicité:</span>
-                            <span class="kt-invoice__text">{{ $application->business_model->advertising }}</span>
+                            <span class="kt-invoice__text">@if(isset($application->business_model->advertising)){{ $application->business_model->advertising }}@endif</span>
                         </div>
                     </div>
                     <div class="kt-invoice__items">
                         <div class="kt-invoice__item">
                             <span class="kt-invoice__subtitle">Stratégie de prix:</span>
-                            <span class="kt-invoice__text">{{ $application->business_model->pricing_strategy }}</span>
+                            <span class="kt-invoice__text">@if(isset($application->business_model->pricing_strategy)){{ $application->business_model->pricing_strategy }}@endif</span>
                         </div>
                     </div>
                     <div class="kt-invoice__items">
                         <div class="kt-invoice__item">
                             <span class="kt-invoice__subtitle">Stratégie de distribution:</span>
-                            <span class="kt-invoice__text">{{ $application->business_model->distribution_strategy }}</span>
+                            <span class="kt-invoice__text">@if(isset($application->business_model->distribution_strategy)){{ $application->business_model->distribution_strategy }}@endif</span>
                         </div>
                     </div>
                     {{-- <div class="kt-invoice__items">
@@ -498,12 +524,14 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($application->financial_data->financial_plan as $item)
-                                    <tr>
-                                        <td>{{ $item->label }}</td>
-                                        <td>{{ number_format($item->value, 0, ',', ' ') }} MAD</td>
-                                    </tr>
-                                @endforeach
+                                @if(isset($application->financial_data->financial_plan))
+                                    @foreach ($application->financial_data->financial_plan as $item)
+                                        <tr>
+                                            <td>{{ $item->label }}</td>
+                                            <td>{{ number_format($item->value, 0, ',', ' ') }} MAD</td>
+                                        </tr>
+                                    @endforeach
+                                @endif
                                 @if (isset($application->financial_data->financial_plan_loans))
                                     @foreach ($application->financial_data->financial_plan_loans as $item)
                                         <tr>
@@ -558,24 +586,28 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($application->financial_data->overheads_fixed as $item) 
-                                    <tr>
-                                        <td>{{ $item->label }}</td>
-                                        <td>{{ number_format($item->value, 0, ',', ' ') }} MAD</td>
-                                        <td>{{ number_format($item->value, 0, ',', ' ') }} MAD</td>
-                                        <td>{{ number_format($item->value, 0, ',', ' ') }} MAD</td>
-                                    </tr>
-                                @endforeach
-                                @foreach ($application->financial_data->overheads_scalable as $item) 
-                                    @if ($item->label != NULL)
+                                @if(isset($application->financial_data->overheads_fixed))
+                                    @foreach ($application->financial_data->overheads_fixed as $item) 
                                         <tr>
                                             <td>{{ $item->label }}</td>
                                             <td>{{ number_format($item->value, 0, ',', ' ') }} MAD</td>
-                                            <td>{{ number_format(($item->value) + ($item->value * $bp_evolution_rate / 100), 0, ',', ' ') }} MAD</td>
-                                            <td>{{ number_format((($item->value) + ($item->value * $bp_evolution_rate / 100)) + ((($item->value) + ($item->value * $bp_evolution_rate / 100)) * $bp_evolution_rate / 100), 0, ',', ' ') }} MAD</td>
+                                            <td>{{ number_format($item->value, 0, ',', ' ') }} MAD</td>
+                                            <td>{{ number_format($item->value, 0, ',', ' ') }} MAD</td>
                                         </tr>
-                                    @endif
-                                @endforeach
+                                    @endforeach
+                                @endif
+                                @if(isset($application->financial_data->overheads_scalable))
+                                    @foreach ($application->financial_data->overheads_scalable as $item) 
+                                        @if ($item->label != NULL)
+                                            <tr>
+                                                <td>{{ $item->label }}</td>
+                                                <td>{{ number_format($item->value, 0, ',', ' ') }} MAD</td>
+                                                <td>{{ number_format(($item->value) + ($item->value * $bp_evolution_rate / 100), 0, ',', ' ') }} MAD</td>
+                                                <td>{{ number_format((($item->value) + ($item->value * $bp_evolution_rate / 100)) + ((($item->value) + ($item->value * $bp_evolution_rate / 100)) * $bp_evolution_rate / 100), 0, ',', ' ') }} MAD</td>
+                                            </tr>
+                                        @endif
+                                    @endforeach
+                                @endif
                                 <tr class="kt-font-bolder">
                                     <td>VALEUR AJOUTÉE</td>
                                     <td>{{ number_format($bp_added_value_first_year, 0, ',', ' ') }} MAD</td>

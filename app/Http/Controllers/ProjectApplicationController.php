@@ -199,12 +199,12 @@ class ProjectApplicationController extends Controller
         $updator = User::find($application->updated_by);
 
         $application->member = $member;
-
-        $application->category_title = $category->title;
+        
+        $application->category_title = is_object($category) == null ? "" : $category->title;
 
         $application->township_name = $township->title;
 
-        $application->creator = $creator->first_name . ' ' . $creator->last_name;
+        $application->creator = is_object($creator) == null ? "" : $creator->first_name . ' ' . $creator->last_name;
 
         $updator != NULL ? ($application->updator = $updator->first_name . ' ' . $updator->last_name) : NULL;
 
