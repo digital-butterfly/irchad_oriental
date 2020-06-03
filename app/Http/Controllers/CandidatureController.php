@@ -65,7 +65,7 @@ class CandidatureController extends Controller
             //var_dump($degree["'annee'"]);die;
            $degrees [] = array(
             "label" => $degree["diplome_type"].','.$degree["etablissement"],
-            'annee' => $degree["annee"]
+            'value' => $degree["annee"]
            );
         }
         $expericances = array();
@@ -74,7 +74,7 @@ class CandidatureController extends Controller
         
            $expericances [] = array(
             "label" => $exp["du"].'-'.$exp["au"],
-            'annee' => $exp["poste"].' ' .$exp["mission"].' chez '. $exp['organisme']
+            'value' => $exp["poste"].' ' .$exp["mission"].' chez '. $exp['organisme']
            );
         }
         $company = array();

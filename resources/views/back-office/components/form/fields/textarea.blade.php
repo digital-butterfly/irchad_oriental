@@ -2,7 +2,13 @@
     $field_value = '';
     if (isset($data)) {
         if (isset($field['parent_name'])) {
-            $field_value = $data->{$field['parent_name']}->{$field['name']};
+            if(isset($data->{$field['parent_name']}->{$field['name']})){
+                $field_value = $data->{$field['parent_name']}->{$field['name']};
+            }else
+            {
+                $field_value = "";
+            }
+           
         }
         else {
             $field_value = $data->{$field['name']};
