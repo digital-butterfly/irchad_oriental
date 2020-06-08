@@ -60,23 +60,31 @@ class CandidatureController extends Controller
             ), 400); // 400 being the HTTP code for an invalid request.
         }
         $degrees = array();
-        foreach($request['degrees'] as $degree)
+        if(isset($request['degrees']))
         {
-            //var_dump($degree["'annee'"]);die;
-           $degrees [] = array(
-            "label" => $degree["diplome_type"].','.$degree["etablissement"],
-            'value' => $degree["annee"]
-           );
+            foreach($request['degrees'] as $degree)
+            {
+                //var_dump($degree["'annee'"]);die;
+               $degrees [] = array(
+                "label" => $degree["diplome_type"].','.$degree["etablissement"],
+                'value' => $degree["annee"]
+               );
+            }
         }
-        $expericances = array();
-        foreach($request['professional_experience'] as $exp)
-        {
         
-           $expericances [] = array(
-            "label" => $exp["du"].'-'.$exp["au"],
-            'value' => $exp["poste"].' ' .$exp["mission"].' chez '. $exp['organisme']
-           );
+        $expericances = array();
+        if(isset($request['professional_experience']))
+        {
+            foreach($request['professional_experience'] as $exp)
+            {
+            
+               $expericances [] = array(
+                "label" => $exp["du"].'-'.$exp["au"],
+                'value' => $exp["poste"].' ' .$exp["mission"].' chez '. $exp['organisme']
+               );
+            }
         }
+        
         $company = array();
         if(isset($request['company']))
         {

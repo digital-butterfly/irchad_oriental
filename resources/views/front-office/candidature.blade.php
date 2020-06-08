@@ -723,7 +723,7 @@ function verification(current_fs)
             errorsHtml += '<li>Veuillez certifie l\'exactitude des données renseignées</li>'; 
             is_error = true;
         }
-    }else if (current_fs == 1)
+    }/*else if (current_fs == 1)
     {
         $('input[name$="[diplome_type]"]').each(function(){
             if($(this).val() == "")
@@ -795,7 +795,7 @@ function verification(current_fs)
             }
             
         });
-    }else if (current_fs == 2)
+    }*/else if (current_fs == 2)
     {
         if ($("#title").val() == "")
         {
