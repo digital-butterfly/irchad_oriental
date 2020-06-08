@@ -27,6 +27,22 @@ Route::get('/project-submission',function(){
 Route::get('/adherent', function () {
     return view('adherent');
 });
+//route vers la page à propos
+Route::get('/a-propos',function(){
+    return view('front-office.about-us');
+});
+//route vers la page formations
+Route::get('/formations',function(){
+    return view('front-office.formations');
+});
+//route vers la page cantact
+Route::get('/contact',function(){
+    return view('front-office.contact');
+});
+//route vers la page cantact
+Route::get('/faq',function(){
+    return view('front-office.faq');
+});
 //route vers ajout de soummision projets
 Route::post("/project-submission",'CandidatureController@create')->name("projectSubmission");
 Route::post('/', 'Auth\LoginController@userLogin');
