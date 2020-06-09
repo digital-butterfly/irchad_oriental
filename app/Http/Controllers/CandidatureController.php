@@ -114,8 +114,8 @@ class CandidatureController extends Controller
             'birth_date' => $request['birth_date'],
             'address' => $request['address'],
             'township_id' => $request['township_id'],
-            'degrees' => json_encode($degrees),
-            'professional_experience' => json_encode($expericances),
+            'degrees' => json_decode(json_encode($degrees)),
+            'professional_experience' => json_decode(json_encode($expericances)),
             'reduced_mobility' => $request['reduced_mobility'],
         ]);
         $application = ProjectApplication::create([
@@ -124,7 +124,7 @@ class CandidatureController extends Controller
             'title' => $request['title'], 
             'description' => $request['description'], 
             'market_type' => $request['market_type'], 
-            'company' => json_decode(json_encode($company)),
+            'company' =>  json_decode(json_encode($company)),
         ]);
         return response()->json(['message'=> 'Projet submited'],200);
     }
