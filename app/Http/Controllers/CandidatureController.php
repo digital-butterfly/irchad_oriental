@@ -60,23 +60,31 @@ class CandidatureController extends Controller
             ), 400); // 400 being the HTTP code for an invalid request.
         }
         $degrees = array();
-        foreach($request['degrees'] as $degree)
+        if(isset($request['degrees']))
         {
-            //var_dump($degree["'annee'"]);die;
-           $degrees [] = array(
-            "label" => $degree["diplome_type"].','.$degree["etablissement"],
-            'value' => $degree["annee"]
-           );
+            foreach($request['degrees'] as $degree)
+            {
+                //var_dump($degree["'annee'"]);die;
+               $degrees [] = array(
+                "label" => $degree["diplome_type"].','.$degree["etablissement"],
+                'value' => $degree["annee"]
+               );
+            }
         }
-        $expericances = array();
-        foreach($request['professional_experience'] as $exp)
-        {
         
-           $expericances [] = array(
-            "label" => $exp["du"].'-'.$exp["au"],
-            'value' => $exp["poste"].' ' .$exp["mission"].' chez '. $exp['organisme']
-           );
+        $expericances = array();
+        if(isset($request['professional_experience']))
+        {
+            foreach($request['professional_experience'] as $exp)
+            {
+            
+               $expericances [] = array(
+                "label" => $exp["du"].'-'.$exp["au"],
+                'value' => $exp["poste"].' ' .$exp["mission"].' chez '. $exp['organisme']
+               );
+            }
         }
+        
         $company = array();
         if(isset($request['company']))
         {
@@ -106,8 +114,8 @@ class CandidatureController extends Controller
             'birth_date' => $request['birth_date'],
             'address' => $request['address'],
             'township_id' => $request['township_id'],
-            'degrees' => json_encode($degrees),
-            'professional_experience' => json_encode($expericances),
+            'degrees' => json_decode(json_encode($degrees)),
+            'professional_experience' => json_decode(json_encode($expericances)),
             'reduced_mobility' => $request['reduced_mobility'],
         ]);
         $application = ProjectApplication::create([
@@ -116,7 +124,7 @@ class CandidatureController extends Controller
             'title' => $request['title'], 
             'description' => $request['description'], 
             'market_type' => $request['market_type'], 
-            'company' => json_decode(json_encode($company)),
+            'company' =>  json_decode(json_encode($company)),
         ]);
         return response()->json(['message'=> 'Projet submited'],200);
     }

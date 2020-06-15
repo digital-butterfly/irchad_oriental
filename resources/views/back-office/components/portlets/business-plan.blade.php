@@ -355,14 +355,15 @@
                             <span class="kt-invoice__subtitle">DIPLÔMES</span>
                             
                             
-                            @foreach (json_decode($application->member->degrees,true) as $item)
-                                <span class="kt-invoice__text">{{ $item['value'] . ' – ' . $item['label'] }}</span>
+                            @foreach ($application->member->degrees  as $item)
+                                
+                                <span class="kt-invoice__text">{{ $item->value . ' – ' . $item->label }}</span>
                             @endforeach
                         </div>
                         <div class="kt-invoice__item">
                             <span class="kt-invoice__subtitle">EXPERIENCE PROFESSIONNELLE</span>
-                            @foreach (json_decode($application->member->professional_experience,true) as $item)
-                                <span class="kt-invoice__text">{{ $item['label'] . ' – ' . $item['value'] }}</span>
+                            @foreach ($application->member->professional_experience as $item)
+                                <span class="kt-invoice__text">{{ $item->label . ' – ' . $item->value }}</span>
                             @endforeach
                         </div>
                     </div>
