@@ -134,16 +134,14 @@ class CandidatureController extends Controller
 
         $sectors=ProjectCategory::all()->where('parent_id','=',null);
         $subSectors=ProjectCategory::all()->where('parent_id','!=',null);
-//        foreach ($sectors as $sector){
-//
-//            foreach ($subSectors as $subSector){
-//                if ($sector['id']==$subSector['parent_id']){
-//                    //$category['subCategories']->push($category['subCategories']);
-//                    $sectors->$sector[]= $subSector;
-//                }
-//            }
-//        }
-
-        return view('front-office.candidature',compact("sectors", "subSectors"));
+        foreach ($sectors as $sector){
+            $sector->subSectors=collect();
+            foreach ($subSectors as $subSector){
+                if ($sector['id']==$subSector['parent_id']){
+                    $sector->subSectors->push($subSector);
+                }
+            }
+        }
+        return view('front-office.candidature',compact("sectors"));
     }
 }

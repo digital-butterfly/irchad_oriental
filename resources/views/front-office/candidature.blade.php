@@ -418,6 +418,7 @@
                                     </div>
 
                                     <div class="col-lg-4">
+
                                         <div class="form-group">
                                             <select class="form-control bootstrap-select" id="kt_form_type">
                                                 <option value="">Tout</option>
@@ -425,7 +426,7 @@
                                                 @foreach ($sectors as $sector)
 
                                                         <optgroup label="{{$sector->title}}">
-                                                            @foreach($subSectors as $subSector)
+                                                            @foreach($sector['subSectors'] as $subSector)
                                                             @if($subSector->parent_id==$sector->id )
                                                                     <option value="{{$subSector->id}}">{{$subSector->title}}</option>
 
