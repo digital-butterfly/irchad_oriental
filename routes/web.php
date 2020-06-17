@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('front-office.welcome');
 });
-//route vers la page programme 
+//route vers la page programme
 Route::get('/programme', function () {
     return view('front-office.programme');
 });

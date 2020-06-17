@@ -35,12 +35,12 @@ class CandidatureController extends Controller
                 'market_type' => ['nullable', 'string', 'max:155'],
             ]);
         }
-        
+
     }
 
     public function create(Request $request)
     {
-        //validation 
+        //validation
         $validation =  $this->validator($request->all(), 'member');
         if($validation->fails())
         {
@@ -48,7 +48,7 @@ class CandidatureController extends Controller
             return response()->json(array(
                 'success' => false,
                 'errors' => $validation->getMessageBag()->toArray()
-        
+
             ), 400); // 400 being the HTTP code for an invalid request.
         }
         $validation = $this->validator($request->all(), 'projectApplication');
@@ -57,7 +57,7 @@ class CandidatureController extends Controller
             return response()->json(array(
                 'success' => false,
                 'errors' => $validation->getMessageBag()->toArray()
-        
+
             ), 400); // 400 being the HTTP code for an invalid request.
         }
         $degrees = array();
@@ -72,20 +72,20 @@ class CandidatureController extends Controller
                );
             }
         }
-        
+
         $expericances = array();
         if(isset($request['professional_experience']))
         {
             foreach($request['professional_experience'] as $exp)
             {
-            
+
                $expericances [] = array(
                 "label" => $exp["du"].'-'.$exp["au"],
                 'value' => $exp["poste"].' ' .$exp["mission"].' chez '. $exp['organisme']
                );
             }
         }
-        
+
         $company = array();
         if(isset($request['company']))
         {
@@ -100,11 +100,11 @@ class CandidatureController extends Controller
                 "legal_form" => $request['company']["legal_form"],
                 "corporate_name" => $request['company']["corporate_name"],
                 "creation_date" => $request['company']["creation_date"],
-            );  
+            );
         }
-        
+
         $gender = $request['civility'] == 0 ? 'Homme' : 'Femme';
-        
+
         //inserstion Of member
         $member = Member::create([
             'first_name' => strtolower($request['first_name']),
@@ -120,11 +120,11 @@ class CandidatureController extends Controller
             'reduced_mobility' => $request['reduced_mobility'],
         ]);
         $application = ProjectApplication::create([
-            'member_id' => $member->id, 
-            'township_id' => $request['township_id'], 
-            'title' => $request['title'], 
-            'description' => $request['description'], 
-            'market_type' => $request['market_type'], 
+            'member_id' => $member->id,
+            'township_id' => $request['township_id'],
+            'title' => $request['title'],
+            'description' => $request['description'],
+            'market_type' => $request['market_type'],
             'company' =>  json_decode(json_encode($company)),
         ]);
         return response()->json(['message'=> 'Projet submited'],200);
