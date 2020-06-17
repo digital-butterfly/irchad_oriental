@@ -140,8 +140,8 @@
                                 </div>
                                 <div class="row mt-4">
                                     <div class="col-lg-2">
-                                        <div class="form-group">
-                                            <select name="civility" id="civility" class="form-control">
+                                        <div class=" form-group">
+                                            <select name="civility" id="civility" class=" custom-form form-control">
                                                 <option value="" selected disabled>Votre civilité...</option>
                                                 <option value="0">Mr</option>
                                                 <option value="1">Mme</option>
@@ -273,13 +273,13 @@
                                     <h5><small class="text-muted">Renseignez vos diplômes</small></h5>
 
                                     <div class="row source-field">
-                                        <div class="col-lg-2">
+                                        <div class="col-lg-3">
                                             <div class="form-group">
                                                 <input name="degrees[0][diplome_type]" id="diplome_type" type="text" class="form-control" placeholder="Type de diplôme...">
                                             </div>
                                         </div>
 
-                                        <div class="col-lg-2">
+                                        <div class="col-lg-3">
                                             <div class="form-group">
                                                 <input name="degrees[0][annee]" id="annee" type="text" class="form-control" placeholder="Année d'obtention...">
                                             </div>
@@ -297,7 +297,7 @@
                                             </div>
                                         </div>--}}
 
-                                        <div class="col-lg-2">
+                                        <div class="col-lg-4">
                                             <div class="form-group">
                                                 <input name="degrees[0][etablissement]" id="etablissement" type="text" class="form-control" placeholder="Établissement...">
                                             </div>
@@ -418,10 +418,9 @@
                                     </div>
 
                                     <div class="col-lg-4">
-
                                         <div class="form-group">
-                                            <select class="form-control bootstrap-select" id="kt_form_type">
-                                                <option value="">Tout</option>
+                                            <select name="category_id" id="category_id" class="form-control bootstrap-select" id="kt_form_type">
+                                                <option disabled selected>Secteur d'activité...</option>
 
                                                 @foreach ($sectors as $sector)
 
@@ -446,7 +445,7 @@
                                 <div class="row mt-4">
                                     <div class="col-lg-12">
                                         <div class="form-group">
-                                            <input name="total_jobs" id="total_jobs" type="number" class="form-control" placeholder="Effectif du projet...">
+                                            <input name="total_jobs" id="total_jobs" min="0" type="number" class="form-control" placeholder="Effectif du projet...">
                                         </div>
                                     </div>
                                 </div>

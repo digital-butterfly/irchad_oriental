@@ -94,7 +94,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                <button type="button" class="btn btn-primary delete">Supprimer</button>
+                <button type="button" class="btn btn-danger delete">Supprimer</button>
             </div>
         </div>
     </div>

@@ -125,6 +125,9 @@ class CandidatureController extends Controller
             'title' => $request['title'],
             'description' => $request['description'],
             'market_type' => $request['market_type'],
+            'category_id' => $request['category_id'],
+//            'created_by' => 0,
+
             'company' =>  json_decode(json_encode($company)),
         ]);
         return response()->json(['message'=> 'Projet submited'],200);

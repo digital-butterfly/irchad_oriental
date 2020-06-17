@@ -1254,7 +1254,7 @@ textarea.form-control {
 }
 
 .custom-form .form-control, .custom-form #contact-form select.form-control {
-    height: 50px;
+    height: 50px!important;
     z-index: 2;
     border-radius: 0;
     font-size: 14px;
