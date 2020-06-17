@@ -21,9 +21,7 @@ Route::get('/programme', function () {
     return view('front-office.programme');
 });
 //route vers la page soummisions projet
-Route::get('/project-submission',function(){
-    return view('front-office.candidature');
-});
+Route::get('/project-submission','CandidatureController@index');
 Route::get('/adherent', function () {
     return view('adherent');
 });

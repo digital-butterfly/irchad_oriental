@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ProjectCategory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
@@ -127,5 +128,22 @@ class CandidatureController extends Controller
             'company' =>  json_decode(json_encode($company)),
         ]);
         return response()->json(['message'=> 'Projet submited'],200);
+    }
+
+    public function index(){
+
+        $sectors=ProjectCategory::all()->where('parent_id','=',null);
+        $subSectors=ProjectCategory::all()->where('parent_id','!=',null);
+//        foreach ($sectors as $sector){
+//
+//            foreach ($subSectors as $subSector){
+//                if ($sector['id']==$subSector['parent_id']){
+//                    //$category['subCategories']->push($category['subCategories']);
+//                    $sectors->$sector[]= $subSector;
+//                }
+//            }
+//        }
+
+        return view('front-office.candidature',compact("sectors", "subSectors"));
     }
 }

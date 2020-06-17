@@ -278,7 +278,7 @@
                                                 <input name="degrees[0][diplome_type]" id="diplome_type" type="text" class="form-control" placeholder="Type de diplôme...">
                                             </div>
                                         </div>
-    
+
                                         <div class="col-lg-2">
                                             <div class="form-group">
                                                 <input name="degrees[0][annee]" id="annee" type="text" class="form-control" placeholder="Année d'obtention...">
@@ -419,7 +419,25 @@
     
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <input name="market_type" id="market_type" type="text" class="form-control" placeholder="Secteur d'activité...">
+                                            <select class="form-control bootstrap-select" id="kt_form_type">
+                                                <option value="">Tout</option>
+
+                                                @foreach ($sectors as $sector)
+
+                                                        <optgroup label="{{$sector->title}}">
+                                                            @foreach($subSectors as $subSector)
+                                                            @if($subSector->parent_id==$sector->id )
+                                                                    <option value="{{$subSector->id}}">{{$subSector->title}}</option>
+
+                                                                @endif
+
+                                                            @endforeach
+                                                        </optgroup>
+                                                        <p></p>
+                                                @endforeach
+
+                                            </select>
+
                                         </div>
                                     </div>
                                 </div>
@@ -449,7 +467,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="row mt-4">
                                     <div class="col-lg-12">
                                         <div class="form-group">
