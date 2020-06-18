@@ -186,7 +186,14 @@ class MemberController extends Controller
      */
     public function destroy(Member $member)
     {
-        $member->delete();
-        return 'Utilisateur supprimé !';
+        try{
+            $member->delete();
+
+            return response()->json(['message'=>'Utilisateur supprimé !'],200);
+
+        }
+        catch (\Illuminate\Database\QueryException $e){
+            return response()->json(['message'=>'Utilisateur non supprimer veuillez supprimer les entites liées a la Utilisateur'],409);
+        }
     }
 }
