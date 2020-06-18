@@ -54,18 +54,21 @@
         <div id="kt_aside_menu" class="kt-aside-menu " data-ktmenu-vertical="1" data-ktmenu-scroll="1"
              data-ktmenu-dropdown-timeout="500">
             <ul class="kt-menu__nav ">
-                <li class="kt-menu__item " aria-haspopup="true" data-menu-toggle="hover"><a href="admin" class="kt-menu__link "><i
+                <li class="kt-menu__item {{ (request()->is('admin')) ? 'kt-menu__item--active' : '' }} "
+                    aria-haspopup="true" data-menu-toggle="hover"><a href="admin" class="kt-menu__link "><i
                             class="kt-menu__link-icon flaticon-home"></i><span class="kt-menu__link-text">Tableau de bord</span></a>
                 </li>
 
-                <li class="kt-menu__section ">
+                <li class="kt-menu__section  ">
                     <h4 class="kt-menu__section-text">Management</h4>
                     <i class="kt-menu__section-icon flaticon-more-v2"></i>
                 </li>
-                <li class="kt-menu__item " aria-haspopup="true"><a href="admin/members" class="kt-menu__link "><i
+                <li class="kt-menu__item {{ (request()->is('admin/members*')) ? 'kt-menu__item--active' : '' }}"
+                    aria-haspopup="true"><a href="admin/members" class="kt-menu__link "><i
                             class="kt-menu__link-icon flaticon-home"></i><span
                             class="kt-menu__link-text">Adhérents</span></a></li>
-                <li class="kt-menu__item " aria-haspopup="true"><a href="admin/candidatures" class="kt-menu__link "><i
+                <li class="kt-menu__item {{ (request()->is('admin/candidatures*')) ? 'kt-menu__item--active' : '' }}"
+                    aria-haspopup="true"><a href="admin/candidatures" class="kt-menu__link "><i
                             class="kt-menu__link-icon flaticon-home"></i><span
                             class="kt-menu__link-text">Candidatures</span></a></li>
 
@@ -73,45 +76,46 @@
                     <h4 class="kt-menu__section-text">Configuration</h4>
                     <i class="kt-menu__section-icon flaticon-more-v2"></i>
                 </li>
-                <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"
+                <li class="kt-menu__item  kt-menu__item--submenu {{ (request()->is('admin/fiches-projets') || request()->is('admin/projects-categories') || (request()->is('admin/communes')) ) ? 'kt-menu__item--active kt-menu__item--open' : '' }}" aria-haspopup="true"
                     data-ktmenu-submenu-toggle="hover"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i
                             class="kt-menu__link-icon flaticon-web"></i><span class="kt-menu__link-text">Banque de projets</span><i
                             class="kt-menu__ver-arrow la la-angle-right"></i></a>
                     <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
                         <ul class="kt-menu__subnav">
-                            <li class="kt-menu__item  kt-menu__item--parent" aria-haspopup="true"><span
+                            <li class="kt-menu__item  kt-menu__item--parent "
+                                aria-haspopup="true"><span
                                     class="kt-menu__link"><span
                                         class="kt-menu__link-text">Banque de projets</span></span></li>
-                            <li class="kt-menu__item " aria-haspopup="true"><a href="admin/fiches-projets"
+                            <li class="kt-menu__item {{ (request()->is('admin/fiches-projets')) ? 'kt-menu__item--active kt-menu__item--open' : '' }} " aria-haspopup="true"><a href="admin/fiches-projets"
                                                                                class="kt-menu__link "><i
                                         class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span
                                         class="kt-menu__link-text">Fiches de projets</span></a></li>
-                            <li class="kt-menu__item " aria-haspopup="true"><a href="admin/projects-categories"
+                            <li class="kt-menu__item {{ (request()->is('admin/projects-categories')) ? 'kt-menu__item--active kt-menu__item--open' : '' }} " aria-haspopup="true"><a href="admin/projects-categories"
                                                                                class="kt-menu__link "><i
                                         class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span
                                         class="kt-menu__link-text">Catégories</span></a></li>
-                            <li class="kt-menu__item " aria-haspopup="true"><a href="admin/communes"
+                            <li class="kt-menu__item {{ (request()->is('admin/communes')) ? 'kt-menu__item--active kt-menu__item--open' : '' }} " aria-haspopup="true"><a href="admin/communes"
                                                                                class="kt-menu__link "><i
                                         class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span
                                         class="kt-menu__link-text">Communes</span></a></li>
                         </ul>
                     </div>
                 </li>
-                <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"
+                <li class="kt-menu__item  kt-menu__item--submenu {{ (request()->is('admin/users')) || (request()->is('admin/users/create')) ? 'kt-menu__item--active kt-menu__item--open' : '' }}" aria-haspopup="true"
                     data-ktmenu-submenu-toggle="hover"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i
                             class="kt-menu__link-icon flaticon-web"></i><span
                             class="kt-menu__link-text">Utilisateurs</span><i
                             class="kt-menu__ver-arrow la la-angle-right"></i></a>
                     <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
                         <ul class="kt-menu__subnav">
-                            <li class="kt-menu__item  kt-menu__item--parent" aria-haspopup="true"><span
+                            <li class="kt-menu__item  kt-menu__item--parent "  aria-haspopup="true"><span
                                     class="kt-menu__link"><span class="kt-menu__link-text">Utilisateurs</span></span>
                             </li>
-                            <li class="kt-menu__item " aria-haspopup="true"><a href="admin/users"
+                            <li class="kt-menu__item {{ (request()->is('admin/users')) ? 'kt-menu__item--active kt-menu__item--open' : '' }} " aria-haspopup="true"><a href="admin/users"
                                                                                class="kt-menu__link "><i
                                         class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span
                                         class="kt-menu__link-text">Utilisateurs</span></a></li>
-                            <li class="kt-menu__item " aria-haspopup="true"><a href="admin/users/create"
+                            <li class="kt-menu__item {{ (request()->is('admin/users/create')) ? 'kt-menu__item--active kt-menu__item--open' : '' }} " aria-haspopup="true"><a href="admin/users/create"
                                                                                class="kt-menu__link "><i
                                         class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span
                                         class="kt-menu__link-text">Ajouter</span></a></li>

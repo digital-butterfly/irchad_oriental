@@ -73,7 +73,7 @@
     display: none;
 }
 
-.custom-form input:-webkit-calendar-picker-indicator { /* display: none */ }
+.custom-form input::-webkit-calendar-picker-indicator { /* display: none */ }
 
 .custom-form input[type=date]::-webkit-inner-spin-button,
 .custom-form input[type=date]::-webkit-outer-spin-button {
@@ -484,7 +484,19 @@
                                     <div class="row mt-4">
                                         <div class="col-lg-4">
                                             <div class="form-group">
-                                                <input name="company[legal_form]" id="company_forme" type="text" class="form-control" placeholder="Forme de l'entreprise...">
+                                                <select name="company[legal_form]" id="company_forme" class="form-control bootstrap-select" id="kt_form_type">
+                                                    <option disabled selected>Forme de l'entreprise...</option>
+
+                                                    @foreach ($LEGALFORM as $legal)
+
+                                                                    <option value="{{$legal}}">{{$legal}}</option>
+
+                                                        <p></p>
+                                                    @endforeach
+
+                                                </select>
+
+
                                             </div>
                                         </div>
 
