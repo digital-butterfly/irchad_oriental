@@ -70,7 +70,7 @@ class ProjectApplicationController extends Controller
         //$applications = ProjectApplication::all();
         return view('back-office/templates/projects-applications/all');
     }
-    
+
     /**
      * Custom function.
      *
@@ -78,7 +78,7 @@ class ProjectApplicationController extends Controller
     public function ajaxList(Request $request)
     {
         $query = $request->get('query');
-        
+
         $search_term = isset($query['generalSearch']) ? $query['generalSearch'] : '' ;
 
         $role_filter = isset($query['Type']) ? $query['Type'] : '' ;;
@@ -131,13 +131,13 @@ class ProjectApplicationController extends Controller
             return redirect()->back()->withErrors($validation)->withInput();
         }
         $application = ProjectApplication::create([
-            'member_id' => $request['member_id'], 
-            'category_id' => $request['category_id'], 
-            'township_id' => $request['township_id'], 
-            'sheet_id' => $request['sheet_id'], 
-            'title' => $request['title'], 
-            'description' => $request['description'], 
-            'market_type' => $request['market_type'], 
+            'member_id' => $request['member_id'],
+            'category_id' => $request['category_id'],
+            'township_id' => $request['township_id'],
+            'sheet_id' => $request['sheet_id'],
+            'title' => $request['title'],
+            'description' => $request['description'],
+            'market_type' => $request['market_type'],
             'business_model' => json_decode(json_encode([
                 'core_business' => $request['core_business'],
                 'primary_target' => $request['primary_target'],
@@ -146,7 +146,7 @@ class ProjectApplicationController extends Controller
                 'advertising' => $request['advertising'],
                 'pricing_strategy' => $request['pricing_strategy'],
                 'distribution_strategy' => $request['distribution_strategy'],
-            ])), 
+            ])),
             'financial_data' => json_decode(json_encode([
                 'financial_plan' => $request['financial_plan'],
                 'financial_plan_loans' => $request['financial_plan_loans'],
@@ -159,7 +159,7 @@ class ProjectApplicationController extends Controller
                 'products_turnover_forecast' => $request['products_turnover_forecast'],
                 'profit_margin_rate' => $request['profit_margin_rate'],
                 'evolution_rate' => $request['evolution_rate'],
-            ])), 
+            ])),
             'company' => json_decode(json_encode([
                 'legal_form' => $request['legal_form'],
                 'is_created' => $request['is_created'],
@@ -199,7 +199,7 @@ class ProjectApplicationController extends Controller
         $updator = User::find($application->updated_by);
 
         $application->member = $member;
-        
+
         $application->category_title = is_object($category) == null ? "" : $category->title;
 
         $application->township_name = $township->title;
@@ -218,7 +218,7 @@ class ProjectApplicationController extends Controller
                 foreach ($data[$key] as $sub_key => $sub_item) {
                     is_object($sub_item) ? $data[$key]->$sub_key = json_decode($sub_item) : NULL;
                 }
-            } 
+            }
         }
 
         $data = (object)$data;
@@ -255,13 +255,13 @@ class ProjectApplicationController extends Controller
             return redirect()->back()->withErrors($validation)->withInput();
         }
         ProjectApplication::find($id)->update([
-            'member_id' => $request['member_id'], 
-            'category_id' => $request['category_id'], 
-            'township_id' => $request['township_id'], 
-            'sheet_id' => $request['sheet_id'], 
-            'title' => $request['title'], 
-            'description' => $request['description'], 
-            'market_type' => $request['market_type'], 
+            'member_id' => $request['member_id'],
+            'category_id' => $request['category_id'],
+            'township_id' => $request['township_id'],
+            'sheet_id' => $request['sheet_id'],
+            'title' => $request['title'],
+            'description' => $request['description'],
+            'market_type' => $request['market_type'],
             'business_model' => json_decode(json_encode([
                 'core_business' => $request['core_business'],
                 'primary_target' => $request['primary_target'],
@@ -270,7 +270,7 @@ class ProjectApplicationController extends Controller
                 'advertising' => $request['advertising'],
                 'pricing_strategy' => $request['pricing_strategy'],
                 'distribution_strategy' => $request['distribution_strategy'],
-            ])), 
+            ])),
             'financial_data' => json_decode(json_encode([
                 'financial_plan' => $request['financial_plan'],
                 'financial_plan_loans' => $request['financial_plan_loans'],
@@ -283,7 +283,7 @@ class ProjectApplicationController extends Controller
                 'products_turnover_forecast' => $request['products_turnover_forecast'],
                 'profit_margin_rate' => $request['profit_margin_rate'],
                 'evolution_rate' => $request['evolution_rate'],
-            ])), 
+            ])),
             'company' => json_decode(json_encode([
                 'legal_form' => $request['legal_form'],
                 'is_created' => $request['is_created'],

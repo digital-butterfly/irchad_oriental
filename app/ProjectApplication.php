@@ -5,28 +5,31 @@ use App\ProjectCategory;
 use App\Township;
 
 use Illuminate\Database\Eloquent\Model;
+use phpDocumentor\Reflection\Types\This;
 
 class ProjectApplication extends Model
 {
     protected $table = 'projects_applications';
 
     protected $guard = 'user';
-    
+
+    const LEGALFORM=['S.A.R.L','S.A','Coopérative'];
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'member_id', 
-        'category_id', 
-        'township_id', 
-        'sheet_id', 
-        'title', 
-        'description', 
-        'market_type', 
-        'business_model', 
-        'financial_data', 
+        'member_id',
+        'category_id',
+        'township_id',
+        'sheet_id',
+        'title',
+        'description',
+        'market_type',
+        'business_model',
+        'financial_data',
         'training_needs',
         'company',
         'status',
@@ -71,7 +74,7 @@ class ProjectApplication extends Model
                     'title' => $sub_category->title,
                 ]);
             }
-            
+
             array_push($categories_options, (object)[
                 'id' => $category->id,
                 'title' => $category->title,
@@ -106,8 +109,10 @@ class ProjectApplication extends Model
                     ],
                     [
                         'name' => 'legal_form',
-                        'type' => 'text',
-                        'label' => 'Forme juridique'
+                        'type' => 'select',
+                        'label' => 'Forme juridique',
+                        'options' =>self::LEGALFORM
+
                     ],
                     [
                         'name' => 'capital',

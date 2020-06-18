@@ -145,6 +145,7 @@ class CandidatureController extends Controller
                 }
             }
         }
-        return view('front-office.candidature',compact("sectors"));
+        $LEGALFORM=ProjectApplication::LEGALFORM;
+        return view('front-office.candidature',compact("sectors","LEGALFORM"));
     }
 }

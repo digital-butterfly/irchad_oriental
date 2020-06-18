@@ -37,7 +37,7 @@ class MemberController extends Controller
         //$members = Member::all();
         return view('back-office/templates/members/all');
     }
-    
+
     /**
      * Custom function.
      *
@@ -45,7 +45,7 @@ class MemberController extends Controller
     public function ajaxList(Request $request)
     {
         $query = $request->get('query');
-        
+
         $search_term = isset($query['generalSearch']) ? $query['generalSearch'] : '' ;
 
         $role_filter = isset($query['Type']) ? $query['Type'] : '' ;;
@@ -178,8 +178,9 @@ class MemberController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Member $member
+     * @return string
+     * @throws \Exception
      */
     public function destroy(Member $member)
     {
