@@ -3,7 +3,7 @@
 
 
 @section('specific_css')
-    
+
 @endsection
 
 
@@ -59,13 +59,13 @@
 									</div>
 								@endif
 							@endif
-                        @endforeach		
+                        @endforeach
 		            </div>
 	            </div>
 	            <div class="kt-portlet__foot">
 					<div class="kt-form__actions">
 						<button type="submit" class="btn btn-primary">Appliquer</button>
-						<button type="reset" class="btn btn-secondary">Retour</button>
+						<button onclick="history.go(-1);" type="reset" class="btn btn-secondary">Retour</button>
 					</div>
 				</div>
 				@csrf
@@ -87,66 +87,66 @@
 			var demo1 = function() {
 				var repeater_strengths = $('.kt_repeater_strengths').repeater({
 					initEmpty: false,
-				
+
 					defaultValues: {
 						'text-input': 'foo'
 					},
-					
+
 					show: function () {
 						$(this).slideDown();
 					},
 
 					hide: function (deleteElement) {
-						$(this).slideUp(deleteElement);                 
-					}   
+						$(this).slideUp(deleteElement);
+					}
 				});
 
 				var repeater_weaknesses = $('.kt_repeater_weaknesses').repeater({
 					initEmpty: false,
-				
+
 					defaultValues: {
 						'text-input': 'foo'
 					},
-					
+
 					show: function () {
 						$(this).slideDown();
 					},
 
 					hide: function (deleteElement) {
-						$(this).slideUp(deleteElement);                 
-					}   
+						$(this).slideUp(deleteElement);
+					}
 				});
 
 				var repeater_investment_program = $('.kt_repeater_investment_program').repeater({
 					initEmpty: false,
-				
+
 					defaultValues: {
 						'text-input': 'foo'
 					},
-					
+
 					show: function () {
 						$(this).slideDown();
 					},
 
 					hide: function (deleteElement) {
-						$(this).slideUp(deleteElement);                 
-					}   
+						$(this).slideUp(deleteElement);
+					}
 				});
 
 				var repeater_financing_modes = $('.kt_repeater_financing_modes').repeater({
 					initEmpty: false,
-				
+
 					defaultValues: {
 						'text-input': 'foo'
 					},
-					
+
 					show: function () {
 						$(this).slideDown();
 					},
 
 					hide: function (deleteElement) {
-						$(this).slideUp(deleteElement);                 
-					}   
+						$(this).slideUp(deleteElement);
+					}
 				});
 			}
 

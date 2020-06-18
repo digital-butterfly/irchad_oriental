@@ -56,7 +56,7 @@ class Member extends Authenticatable
         'professional_experience' => 'object',
     ];
 
-    
+
 
     /**
      * Custom function.
