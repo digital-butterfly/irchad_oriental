@@ -306,12 +306,18 @@ class ProjectApplicationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param ProjectApplication $application
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
-    public function destroy(ProjectApplication $application)
+    public function destroy(int $id)
     {
-        $application->delete();
-        return 'Utilisateur supprimé !';
+
+        $result=ProjectApplication::destroy($id);
+        if ($result)
+        {
+            return response()->json(['message'=>'Project application supprimé !'],200);
+        }
+        return response()->json(['message'=>'Project application na pas etait supprimer!'],404);
     }
 }

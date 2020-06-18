@@ -133,11 +133,17 @@ class TownshipController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {
-        Township::destroy($id);
-        return 'Commune supprimée !';
+        try{
+            Township::destroy($id);
+            return response()->json(['message'=>'Commune supprimé !'],200);
+
+        }
+        catch (\Illuminate\Database\QueryException $e){
+            return response()->json(['message'=>'Commune non supprimer veuillez supprimer les entites liées a la commune'],409);
+        }
     }
 }
