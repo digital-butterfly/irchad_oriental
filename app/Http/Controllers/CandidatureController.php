@@ -22,6 +22,7 @@ class CandidatureController extends Controller
     {
         if($type == 'member')
         {
+
             return Validator::make($data, [
                 'first_name' => ['required', 'string', 'max:255'],
                 'last_name' => ['required', 'string', 'max:255'],

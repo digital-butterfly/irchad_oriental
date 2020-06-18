@@ -30,7 +30,7 @@ class ProjectApplicationController extends Controller
             'corporate_name' => ['nullable', 'string', 'max:155'],
             'member_id' => ['required', 'integer', 'exists:members,id'],
             'category_id' => ['nullable', 'integer', 'exists:projects_categories,id'],
-            'township_id' => ['nullable', 'integer', 'exists:townships,id'],
+            'township_id' => ['required', 'integer', 'exists:townships,id'],
             'title' => ['required', 'string', 'max:155'],
             'description' => ['nullable', 'string', 'max:455'],
             'market_type' => ['nullable', 'string', 'max:155'],

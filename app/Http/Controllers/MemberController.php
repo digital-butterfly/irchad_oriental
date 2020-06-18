@@ -23,6 +23,8 @@ class MemberController extends Controller
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:members'],
+            'phone' => ['required', 'string', 'max:255'],
+            'identity_number' => ['required', 'string', 'max:255'],
             'password' => ['required', 'string', 'min:4', 'confirmed'],
         ]);
     }

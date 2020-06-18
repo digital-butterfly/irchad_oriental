@@ -76,7 +76,7 @@
                     <h4 class="kt-menu__section-text">Configuration</h4>
                     <i class="kt-menu__section-icon flaticon-more-v2"></i>
                 </li>
-                <li class="kt-menu__item  kt-menu__item--submenu {{ (request()->is('admin/fiches-projets') || request()->is('admin/projects-categories') || (request()->is('admin/communes')) ) ? 'kt-menu__item--active kt-menu__item--open' : '' }}" aria-haspopup="true"
+                <li class="kt-menu__item  kt-menu__item--submenu {{ (request()->is('admin/fiches-projets*') || request()->is('admin/projects-categories*') || (request()->is('admin/communes*')) ) ? 'kt-menu__item--active kt-menu__item--open' : '' }}" aria-haspopup="true"
                     data-ktmenu-submenu-toggle="hover"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i
                             class="kt-menu__link-icon flaticon-web"></i><span class="kt-menu__link-text">Banque de projets</span><i
                             class="kt-menu__ver-arrow la la-angle-right"></i></a>
@@ -86,22 +86,22 @@
                                 aria-haspopup="true"><span
                                     class="kt-menu__link"><span
                                         class="kt-menu__link-text">Banque de projets</span></span></li>
-                            <li class="kt-menu__item {{ (request()->is('admin/fiches-projets')) ? 'kt-menu__item--active kt-menu__item--open' : '' }} " aria-haspopup="true"><a href="admin/fiches-projets"
+                            <li class="kt-menu__item {{ (request()->is('admin/fiches-projets*')) ? 'kt-menu__item--active kt-menu__item--open' : '' }} " aria-haspopup="true"><a href="admin/fiches-projets"
                                                                                class="kt-menu__link "><i
                                         class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span
                                         class="kt-menu__link-text">Fiches de projets</span></a></li>
-                            <li class="kt-menu__item {{ (request()->is('admin/projects-categories')) ? 'kt-menu__item--active kt-menu__item--open' : '' }} " aria-haspopup="true"><a href="admin/projects-categories"
+                            <li class="kt-menu__item {{ (request()->is('admin/projects-categories*')) ? 'kt-menu__item--active kt-menu__item--open' : '' }} " aria-haspopup="true"><a href="admin/projects-categories"
                                                                                class="kt-menu__link "><i
                                         class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span
                                         class="kt-menu__link-text">Catégories</span></a></li>
-                            <li class="kt-menu__item {{ (request()->is('admin/communes')) ? 'kt-menu__item--active kt-menu__item--open' : '' }} " aria-haspopup="true"><a href="admin/communes"
+                            <li class="kt-menu__item {{ (request()->is('admin/communes*')) ? 'kt-menu__item--active kt-menu__item--open' : '' }} " aria-haspopup="true"><a href="admin/communes"
                                                                                class="kt-menu__link "><i
                                         class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span
                                         class="kt-menu__link-text">Communes</span></a></li>
                         </ul>
                     </div>
                 </li>
-                <li class="kt-menu__item  kt-menu__item--submenu {{ (request()->is('admin/users')) || (request()->is('admin/users/create')) ? 'kt-menu__item--active kt-menu__item--open' : '' }}" aria-haspopup="true"
+                <li class="kt-menu__item  kt-menu__item--submenu {{ (request()->is('admin/users*')) ? 'kt-menu__item--active kt-menu__item--open' : '' }}" aria-haspopup="true"
                     data-ktmenu-submenu-toggle="hover"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i
                             class="kt-menu__link-icon flaticon-web"></i><span
                             class="kt-menu__link-text">Utilisateurs</span><i

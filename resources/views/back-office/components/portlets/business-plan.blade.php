@@ -9,7 +9,7 @@
         $bp_financial_plan_total += $item->value;
         }
     }
-    
+
     if (isset($application->financial_data->financial_plan_loans)) {
         foreach ($application->financial_data->financial_plan_loans as $item) {
             $bp_financial_plan_total += $item->value;
@@ -61,7 +61,7 @@
         }
     }
     }
-   
+
 
     // Turnover
     $bp_turnover_first_year = $bp_turnover_products_total + $bp_turnover_services_total;
@@ -93,7 +93,7 @@
         $bp_overheads_fixed_third_year += $item->value;
         }
     }
-    
+
 
     // Overheads Scalable
     $bp_overheads_scalable_first_year =  0;
@@ -106,7 +106,7 @@
         $bp_overheads_scalable_third_year += (($item->value) + ($item->value * $bp_evolution_rate / 100)) + ((($item->value) + ($item->value * $bp_evolution_rate / 100)) * $bp_evolution_rate / 100);
         }
     }
-    
+
 
     // Added Value
     $bp_added_value_first_year = $bp_gross_margin_first_year - $bp_overheads_fixed_first_year -  $bp_overheads_scalable_first_year;
@@ -123,7 +123,7 @@
         $bp_human_ressources_rows++;
         }
     }
-    
+
     $bp_human_ressources_social_fees_total = $bp_human_ressources_total * 0.2109;
 
     // Taxes
@@ -134,7 +134,7 @@
         $bp_taxes_total += $item->value;
         }
     }
-    
+
 
     // Gross Surplus
     $gross_surplus_first_year = $bp_added_value_first_year - $bp_human_ressources_total - $bp_human_ressources_social_fees_total - $bp_taxes_total;
@@ -158,7 +158,7 @@
     $bp_financial_products_first_year = 0;
     $bp_financial_products_second_year = 0;
     $bp_financial_products_third_year = 0;
-    
+
     // Financial Expenses
     $bp_financial_expenses_first_year = $bp_loans_first_year_total;
     $bp_financial_expenses_second_year = $bp_loans_second_year_total;
@@ -318,7 +318,7 @@
         $bp_profitability_status = 'Défavorable';
         $bp_roi_delay = 'Dans plus de 3 ans';
     }
-    
+
 @endphp
 <div class="kt-portlet">
     <div class="kt-portlet__body kt-portlet__body--fit">
@@ -353,10 +353,10 @@
                     <div class="kt-invoice__items">
                         <div class="kt-invoice__item">
                             <span class="kt-invoice__subtitle">DIPLÔMES</span>
-                            
-                            
+
+
                             @foreach ($application->member->degrees  as $item)
-                                
+
                                 <span class="kt-invoice__text">{{ $item->value . ' – ' . $item->label }}</span>
                             @endforeach
                         </div>
@@ -455,7 +455,7 @@
                     <div class="kt-invoice__items">
                         <div class="kt-invoice__item">
                             <span class="kt-invoice__subtitle">Principaux concurrents:</span>
-                            <span class="kt-invoice__text">@if(isset($application->business_model->competition)){ $application->business_model->competition }}@endif</span>
+                            <span class="kt-invoice__text">@if(isset($application->business_model->competition)){{$application->business_model->competition }}@endif</span>
                         </div>
                     </div>
                     <div class="kt-invoice__items">
@@ -588,7 +588,7 @@
                             </thead>
                             <tbody>
                                 @if(isset($application->financial_data->overheads_fixed))
-                                    @foreach ($application->financial_data->overheads_fixed as $item) 
+                                    @foreach ($application->financial_data->overheads_fixed as $item)
                                         <tr>
                                             <td>{{ $item->label }}</td>
                                             <td>{{ number_format($item->value, 0, ',', ' ') }} MAD</td>
@@ -598,7 +598,7 @@
                                     @endforeach
                                 @endif
                                 @if(isset($application->financial_data->overheads_scalable))
-                                    @foreach ($application->financial_data->overheads_scalable as $item) 
+                                    @foreach ($application->financial_data->overheads_scalable as $item)
                                         @if ($item->label != NULL)
                                             <tr>
                                                 <td>{{ $item->label }}</td>

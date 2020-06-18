@@ -19,7 +19,7 @@ class TownshipController extends Controller
     protected function validator(array $data, $type)
     {
         return Validator::make($data, [
-            'title' => ['required', 'string', 'max:255'],
+            'title' => ['required', 'string', 'max:255','unique:townships'],
         ]);
     }
 
@@ -32,7 +32,7 @@ class TownshipController extends Controller
     {
         return view('back-office/templates/townships/all');
     }
-    
+
     /**
      * Custom function.
      *
@@ -40,7 +40,7 @@ class TownshipController extends Controller
     public function ajaxList(Request $request)
     {
         $query = $request->get('query');
-        
+
         $search_term = isset($query['generalSearch']) ? $query['generalSearch'] : '' ;
 
         $role_filter = isset($query['Type']) ? $query['Type'] : '' ;;
