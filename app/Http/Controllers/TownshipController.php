@@ -143,7 +143,7 @@ class TownshipController extends Controller
 
         }
         catch (\Illuminate\Database\QueryException $e){
-            return response()->json(['message'=>'Commune non supprimer veuillez supprimer les entites liées a la commune'],409);
+            return response()->json(['message'=>'Commune non supprimer veuillez supprimer les entites liées a cette commune'],409);
         }
     }
 }

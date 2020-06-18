@@ -8,6 +8,7 @@
                 {{$title}}
             </h3>
         </div>
+
         <div class="kt-portlet__head-toolbar">
             <div class="kt-portlet__head-wrapper">
                 <div class="dropdown dropdown-inline">
@@ -20,6 +21,16 @@
         </div>
     </div>
     <div class="kt-portlet__body">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div><br />
+    @endif
         <!--begin: Search Form -->
         <div class="kt-form kt-form--label-right kt-margin-t-20 kt-margin-b-10">
             <div class="row align-items-center">
@@ -90,6 +101,9 @@
                 </button>
             </div>
             <div class="modal-body">
+                <div style="display: none" class="alert alert-danger error-request" role="alert">
+                    A simple danger alert—check it out!
+                </div>
                 <p>Êtes-vous sûr de vouloir supprimer <span></span> ?</p>
             </div>
             <div class="modal-footer">
