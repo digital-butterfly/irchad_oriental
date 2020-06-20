@@ -14,6 +14,7 @@ class ProjectApplication extends Model
     protected $guard = 'user';
 
     const LEGALFORM=['S.A.R.L','S.A','Coopérative'];
+    const AIDEETAT=['INDH','DPA','Collectivités territoriales', 'Autre'];
 
     /**
      * The attributes that are mass assignable.

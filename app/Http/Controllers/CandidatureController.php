@@ -98,7 +98,7 @@ class CandidatureController extends Controller
             $company = array(
                 'capitale' => "",
                 "is_created" => $is_created,
-                "legal_form" => $request['company']["legal_form"],
+                "legal_form" => isset($request['company']["legal_form"]) ? $request['company']["legal_form"] : NULL,
                 "corporate_name" => $request['company']["corporate_name"],
                 "creation_date" => $request['company']["creation_date"],
             );
@@ -147,6 +147,10 @@ class CandidatureController extends Controller
             }
         }
         $LEGALFORM=ProjectApplication::LEGALFORM;
-        return view('front-office.candidature',compact("sectors","LEGALFORM"));
+        $AIDEETAT=ProjectApplication::AIDEETAT;
+
+        return view('front-office.candidature',compact("sectors","LEGALFORM", 'AIDEETAT'));
+
+
     }
 }
