@@ -82,6 +82,10 @@ class ProjectApplicationController extends Controller
         $search_term = isset($query['generalSearch']) ? $query['generalSearch'] : '' ;
 
         $role_filter = isset($query['Type']) ? $query['Type'] : '' ;;
+        $training_filter = isset($query['Formation']) ? $query['Formation'] : '' ;;
+        $incorporation_filter = isset($query['Création']) ? $query['Création'] : '' ;;
+        $funding_filter = isset($query['Financement']) ? $query['Financement'] : '' ;;
+        $progress_filter = isset($query['progress']) ? $query['progress'] : '' ;;
 
         return new ProjectApplicationCollection(ProjectApplication::
             where(function ($q) use ($search_term) {
@@ -91,7 +95,17 @@ class ProjectApplicationController extends Controller
                     ->orWhere('member_id', 'LIKE', '%' . $search_term . '%');
             })->
             where(function ($q) use ($role_filter) {
-                $role_filter ? $q->whereRaw('LOWER(status) = ?', [$role_filter]) : NULL;
+                $role_filter ? $q->whereRaw('LOWER(status) = ?' , [$role_filter]) : NULL;
+
+            })->where(function ($q) use ($progress_filter) {
+            $progress_filter ? $q->whereRaw('LOWER(progress) = ?', [$progress_filter]) : NULL;
+
+            })->where(function ($q) use ($training_filter) {
+                $training_filter ? $q->whereRaw('LOWER(training) = ?', [$training_filter]) : NULL;
+            })->where(function ($q) use ($funding_filter) {
+                $funding_filter ? $q->whereRaw('LOWER(funding) = ?', [$funding_filter]) : NULL;
+            })->where(function ($q) use ($incorporation_filter) {
+                $incorporation_filter ? $q->whereRaw('LOWER(incorporation) = ?', [$incorporation_filter]) : NULL;
             })->
             orderBy(
                 $request->sort['field'],
@@ -173,6 +187,10 @@ class ProjectApplicationController extends Controller
                 'post_creation_training' => $request['post_creation_training'],
             ])),
             'status' => $request['status'],
+            'progress' => $request['progress'],
+            'training' => $request['training'],
+            'incorporation' => $request['incorporation'],
+            'funding' => $request['funding'],
             'created_by' => Auth::id()
         ]);
         return redirect()->intended('admin/candidatures');
@@ -249,6 +267,7 @@ class ProjectApplicationController extends Controller
      */
     public function update(Request $request, $id)
     {
+//        dd($id);
         $validation = $this->validator($request->all(), 'projectApplication');
         if($validation->fails())
         {
@@ -297,10 +316,14 @@ class ProjectApplicationController extends Controller
                 'post_creation_training' => $request['post_creation_training'],
             ])),
             'status' => $request['status'],
-            'updated_by' => Auth::id()
+             'progress' => $request['progress'],
+            'training' => $request['training'],
+            'incorporation' => $request['incorporation'],
+            'funding' => $request['funding'],
+            'created_by' => Auth::id()
         ]);
 
-        return redirect()->intended('admin/candidatures');
+        return redirect()->intended('admin/candidatures/'.$id);
     }
 
     /**

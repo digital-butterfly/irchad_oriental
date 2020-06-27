@@ -34,6 +34,10 @@ class ProjectApplication extends Model
         'training_needs',
         'company',
         'status',
+        'progress',
+        'training',
+        'incorporation',
+        'funding',
         'created_by',
         'updated_by'
     ];
@@ -181,7 +185,32 @@ class ProjectApplication extends Model
                 'name' => 'status',
                 'type' => 'select',
                 'label' => 'Status',
-                'options' => ['Nouveau', 'Accepté', 'Rejeté', 'Incubé'],
+                'options' => ['Nouveau', 'Accepté','En cours', 'En attente de formation','En attente de financement', 'Rejeté','Business plan achevé', 'Incubé'],
+                'group' => 'Données Générales'
+            ],
+            [
+                'name' => 'progress',
+                'type' => 'select',
+                'label' => 'Progrès',
+                'options' => ['Envoyé au Comité Technique', 'Accepté par le Comité Technique', 'Refusé par le Comité Technique','Envoyé au CPDH','Accepté par le CPDH','Refusé par le CPDH'],
+                'group' => 'Données Générales'
+            ],[
+                'name' => 'training',
+                'type' => 'select',
+                'label' => 'Formation',
+                'options' => ['Envoyé vers formation', 'Formé','Formation annulée'],
+                'group' => 'Données Générales'
+            ],[
+                'name' => 'incorporation',
+                'type' => 'select',
+                'label' => 'Création',
+                'options' => ['Entreprise en cours de création', 'Entreprise créee'],
+                'group' => 'Données Générales'
+            ],[
+                'name' => 'funding',
+                'type' => 'select',
+                'label' => 'Financement',
+                'options' => ['Envoyé au financement', 'Financement accepté','Financement refusé','Financé'],
                 'group' => 'Données Générales'
             ],
             [

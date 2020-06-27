@@ -34,7 +34,7 @@
         <!--begin: Search Form -->
         <div class="kt-form kt-form--label-right kt-margin-t-20 kt-margin-b-10">
             <div class="row align-items-center">
-                <div class="col-xl-8 order-2 order-xl-1">
+                <div class="col-xl-12 order-2 order-xl-1">
                     <div class="row align-items-center">
                         <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
                             <div class="kt-input-icon kt-input-icon--left">
@@ -79,6 +79,105 @@
                                 </div>
                             </div>
                         @endif
+                        @if (isset($progresses))
+                            <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
+                                <div class="kt-form__group kt-form__group--inline">
+                                    <div class="kt-form__label">
+                                        Progrès
+                                    </div>
+                                    <div class="kt-form__control">
+                                        <select class="form-control bootstrap-select" id="kt_form_progress">
+                                            <option value="">Tout</option>
+                                            @foreach ($progresses as $progress)
+                                                <option value="{{$progress}}">{{$progress}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="kt-form kt-form--label-right kt-margin-t-20 kt-margin-b-10">
+            <div class="row align-items-center">
+                <div class="col-xl-12 order-2 order-xl-1">
+{{--                    <span>Procédure parallèle:</span>--}}
+                    <div class="row align-items-center">
+
+                        {{-- <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
+                            <div class="kt-form__group kt-form__group--inline">
+                                <div class="kt-form__label">
+                                    <label>Status:</label>
+                                </div>
+                                <div class="kt-form__control">
+                                    <select class="form-control bootstrap-select" id="kt_form_status">
+                                        <option value="">All</option>
+                                        <option value="1">Pending</option>
+                                        <option value="2">Delivered</option>
+                                        <option value="3">Canceled</option>
+                                        <option value="4">Success</option>
+                                        <option value="5">Info</option>
+                                        <option value="6">Danger</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div> --}}
+
+
+                        @if (isset($trainings))
+                            <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
+                                <div class="kt-form__group kt-form__group--inline">
+                                    <div class="kt-form__label">
+                                        Formation
+                                    </div>
+                                    <div class="kt-form__control">
+                                        <select class="form-control bootstrap-select" id="kt_form_training">
+                                            <option value="">Tout</option>
+                                            @foreach ($trainings as $training)
+                                                <option value="{{$training}}">{{$training}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                        @if (isset($incorporations))
+                            <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
+                                <div class="kt-form__group kt-form__group--inline">
+                                    <div class="kt-form__label">
+                                        Création
+                                    </div>
+                                    <div class="kt-form__control">
+                                        <select class="form-control bootstrap-select" id="kt_form_incorporation">
+                                            <option value="">Tout</option>
+                                            @foreach ($incorporations as $incorporation)
+                                                <option value="{{$incorporation}}">{{$incorporation}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                        @if (isset($fundings))
+                            <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
+                                <div class="kt-form__group kt-form__group--inline">
+                                    <div class="kt-form__label">
+                                        Financement
+                                    </div>
+                                    <div class="kt-form__control">
+                                        <select class="form-control bootstrap-select" id="kt_form_funding">
+                                            <option value="">Tout</option>
+                                            @foreach ($fundings as $funding)
+                                                <option value="{{$funding}}">{{$funding}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+
                     </div>
                 </div>
             </div>

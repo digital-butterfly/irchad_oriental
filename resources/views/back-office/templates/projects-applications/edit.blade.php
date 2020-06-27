@@ -12,14 +12,26 @@
 @section('page_content')
     <div class="kt-container  kt-grid__item kt-grid__item--fluid">
         <div class="kt-portlet">
-			<div class="kt-portlet__head">
-				<div class="kt-portlet__head-label">
-					<h3 class="kt-portlet__head-title">
-						Modifier adhérent
-					</h3>
-				</div>
-			</div>
-			<!--begin::Form-->
+            <!--begin::Form-->
+            <form class="kt-form" method="POST" action="{{ route('candidatures.update', $data->id) }}">
+                <div class="kt-portlet kt-portlet--last kt-portlet--head-lg kt-portlet--responsive-mobile" id="kt_page_portlet">
+                    <div class="kt-portlet__head kt-portlet__head--lg">
+                        <div class="kt-portlet__head-label">
+                            <h3 class="kt-portlet__head-title">
+                                Modifier adhérent
+                            </h3>
+                        </div>
+
+                        <div class="kt-portlet__head-toolbar">
+                            <div class="kt-portlet__head-actions">
+                                <button type="submit" class="btn btn-primary">Appliquer</button>
+                                <button onclick="history.go(-1);" type="reset" class="btn btn-secondary">Retour</button>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
 			@if ($errors->any())
 			<div class="alert alert-danger">
 				<ul>
@@ -29,10 +41,73 @@
 				</ul>
 			</div><br />
 			@endif
-            <form class="kt-form" method="POST" action="{{ route('candidatures.update', $data->id) }}">
+
                 {{ method_field('PUT') }}
 				<div class="kt-portlet__body">
 					<div class="kt-section kt-section--first">
+
+                        <div class="form-group row">
+                            <div class="col-12">
+                                <label class="col-form-label kt-margin-r-100">Status:</label>
+                                <label
+                                    class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input
+                                        type="radio" value="Nouveau"
+                                        name="status">
+                                    Nouveau<span></span></label><label
+                                    class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input
+                                        type="radio" value="Rejeté"
+                                        name="status">
+                                    Rejeté<span></span></label><label
+                                    class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input
+                                        type="radio" value="Accepté"
+                                        name="status">
+                                    Accepté<span></span></label><label
+                                    class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input
+                                        type="radio" value="En cours"
+                                        name="status"> En
+                                    cours<span></span></label>
+                                <label
+                                    class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input
+                                        type="radio"
+                                        value="En attente de formation"
+                                        name="status">Formation<span></span></label><label
+                                    class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input
+                                        type="radio"
+                                        value="En attente de financement"
+                                        name="status">Financement<span></span></label>
+
+                                <label
+                                    class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input
+                                        type="radio"
+                                        value="Business plan achevé"
+                                        name="status"> BP achevé
+                                    <span></span></label><label
+                                    class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input
+                                        type="radio" value="Incubé"
+                                        name="status">
+                                    Incubé<span></span></label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-12">
+                                <label class="col-form-label kt-margin-r-80">Creation:</label>
+
+                                <label class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input
+                                        type="radio"
+                                        value="Entreprise en cours de création"
+                                        name="incorporation"> Entreprise en
+                                    cours de création<span></span></label>
+
+
+                                <label
+                                    class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input
+                                        type="radio" value="Entreprise créee"
+                                        name="incorporation"> Entreprise
+                                    créee<span></span></label>
+
+                            </div>
+                        </div>
+
 						@php
 							$done_groups = [];
 						@endphp
@@ -251,8 +326,39 @@
 				}
 			};
 		}();
+        $('#statusSelect, input[name="status"]').change(updateStatusElements);
+
+        function updateStatusElements(e) {
+            console.log(e,'ee')
+            var valueAttribute = '[value="' + e.target.value + '"]';
+            $('#statusSelect option' + valueAttribute).prop('selected', true);
+            $('input[name="status"]' + valueAttribute).prop('checked', true);
+        }
+        $('#incorporationSelect, input[name="incorporation"]').change(updateElements);
+
+        function updateElements(e) {
+            var valueAttribute = '[value="' + e.target.value + '"]';
+            $('#incorporationSelect option' + valueAttribute).prop('selected', true);
+            $('input[name="incorporation"]' + valueAttribute).prop('checked', true);
+        }
+        function selectTypeElemts(){
+            console.log('hello', )
+            let ss=$( "#statusSelect" ).val();
+            let valueAttribute = '[value="' + ss + '"]';
+            $('input[name="status"]' + valueAttribute).prop('checked', true)
+        }
+        function selectElemts(){
+            console.log('hello', )
+            let ss=$( "#incorporationSelect" ).val();
+            let valueAttribute = '[value="' + ss + '"]';
+            $('input[name="incorporation"]' + valueAttribute).prop('checked', true)
+        }
 
 		jQuery(document).ready(function() {
+            selectTypeElemts();
+            selectElemts()
+
+
 			KTFormRepeater.init();
 		});
 	</script>

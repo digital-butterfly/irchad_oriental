@@ -11,7 +11,7 @@
 
 @section('page_content')
     <div class="kt-container  kt-grid__item kt-grid__item--fluid">
-        @component('back-office.components.portlets.table', ['types' => ['Nouveau', 'Accepté', 'Rejeté', 'Incubé'], 'add_link' => 'admin/candidatures/create'])
+        @component('back-office.components.portlets.table', ['types' => ['Nouveau', 'Accepté', 'Rejeté','Business plan achevé','En attente de formation','En attente de financement', 'Incubé'], 'progresses' => ['Envoyé au Comité Technique', 'Accepté par le Comité Technique', 'Refusé par le Comité Technique','Envoyé au CPDH','Accepté par le CPDH','Refusé par le CPDH'], 'trainings' => ['Envoyé vers formation', 'Formé'], 'incorporations' => ['Entreprise en cours de création', 'Entreprise créee'], 'fundings' => ['Envoyé au financement', 'Financement accepté','Financement refusé','Financé'], 'add_link' => 'admin/candidatures/create'])
             @slot('title')
                 Candidatures
             @endslot
@@ -92,7 +92,7 @@
                         }, {
                             field: 'created_at',
                             title: 'Date',
-                        }, {
+                        },{
                             field: 'status',
                             title: 'Statut du compte',
                             autoHide: false,
@@ -101,7 +101,10 @@
                                 var states = {
                                     'Nouveau': {'title': 'Retail', 'state': 'warning'},
                                     'Accepté': {'title': 'Direct', 'state': 'success'},
-                                    'Rejeté': {'title': 'Online', 'state': 'danger'},
+                                    'Business plan achevé':{'title': 'Direct', 'state': 'success'},
+                                    'En cours':{'title': 'Direct', 'state': 'warning'},
+                                    'En attente de formation':{'title': 'Direct', 'state': 'warning'},
+                                    'En attente de financement':{'title': 'Direct', 'state': 'warning'},
                                     'Incubé': {'title': 'Online', 'state': 'primary'}
                                 };
                                 console.log(states[row.status]);
@@ -140,7 +143,19 @@
             datatable.search($(this).val().toLowerCase(), 'Type');
             });
 
-            $('#kt_form_status,#kt_form_type').selectpicker();
+           $('#kt_form_progress').on('change', function() {
+            datatable.search($(this).val().toLowerCase(), 'progress');
+        });
+           $('#kt_form_training').on('change', function() {
+            datatable.search($(this).val().toLowerCase(), 'Formation');
+        });
+           $('#kt_form_incorporation').on('change', function() {
+            datatable.search($(this).val().toLowerCase(), 'Création');
+        });$('#kt_form_funding').on('change', function() {
+            datatable.search($(this).val().toLowerCase(), 'Financement');
+        });
+
+        $('#kt_form_status,#kt_form_type,#kt_form_progress, #kt_form_training, #kt_form_incorporation,#kt_form_funding ').selectpicker();
 
             };
 
@@ -151,6 +166,7 @@
                 },
             };
         }();
+
 
         jQuery(document).ready(function() {
             KTDatatableRemoteAjaxDemo.init();
