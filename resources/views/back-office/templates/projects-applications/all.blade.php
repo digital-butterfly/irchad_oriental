@@ -103,7 +103,7 @@
                                     'Accepté': {'title': 'Direct', 'state': 'success'},
                                     'Business plan achevé':{'title': 'Direct', 'state': 'success'},
                                     'En cours':{'title': 'Direct', 'state': 'warning'},
-                                    'En attente de formation':{'title': 'Direct', 'state': 'warning'},
+                                    'Rejeté':{'title': 'Direct', 'state': 'danger'},
                                     'En attente de financement':{'title': 'Direct', 'state': 'warning'},
                                     'Incubé': {'title': 'Online', 'state': 'primary'}
                                 };

@@ -66,7 +66,7 @@ Route::view('/home', 'home')->middleware('auth');
 
 Route::group(['middleware' => 'auth:user'], function () {
 
-    Route::view('/admin', 'back-office/home');
+    // Route::view('/admin', 'back-office/home');
 
     Route::resource('admin/users', 'UserController');
     Route::post('/admin/list/users', 'UserController@ajaxList');
@@ -82,6 +82,9 @@ Route::group(['middleware' => 'auth:user'], function () {
 
     Route::resource('admin/candidatures', 'ProjectApplicationController');
     Route::post('/admin/list/candidatures', 'ProjectApplicationController@ajaxList');
+
+    Route::resource('admin/', 'DashboardController');
+    Route::get('/admin', 'DashboardController@ajaxList');
 
     Route::resource('admin/projects-categories', 'ProjectCategoryController');
 

@@ -102,7 +102,7 @@
 											Nouveau
 										</span>
 										<span class="kt-widget17__desc">
-											15 Nouveaux Projets
+											{{$countNew}} Nouveaux Projets
 										</span>
 									</div>
 									<div class="kt-widget17__item">
@@ -118,7 +118,7 @@
 											Accepté
 										</span>
 										<span class="kt-widget17__desc">
-											72 Candidatures Validées
+											{{$countApprouved}} Candidatures Validées
 										</span>
 									</div>
 								</div>
@@ -136,7 +136,7 @@
 											Incubé
 										</span>
 										<span class="kt-widget17__desc">
-											72 Adhérents Incubés
+											{{$countIncube}} Adhérents Incubés
 										</span>
 									</div>
 									<div class="kt-widget17__item">
@@ -152,7 +152,7 @@
 											Refusé
 										</span>
 										<span class="kt-widget17__desc">
-											34 Upgraded Boxes
+										{{$countRejected}}	 Candidatures Refusé
 										</span>
 									</div>
 								</div>
@@ -215,7 +215,7 @@
 					<div class="kt-portlet__body kt-portlet__body--fluid">
 						<div class="kt-widget20">
 							<div class="kt-widget20__content kt-portlet__space-x">
-								<span class="kt-widget20__number kt-font-brand">67+</span>
+								<span class="kt-widget20__number kt-font-brand">{{$countPending}}+</span>
 								<span class="kt-widget20__desc">Dossiers en attente</span>
 							</div>
 							<div class="kt-widget20__chart" style="height:130px;">
@@ -279,7 +279,7 @@
 					<div class="kt-portlet__body kt-portlet__body--fluid">
 						<div class="kt-widget20">
 							<div class="kt-widget20__content kt-portlet__space-x">
-								<span class="kt-widget20__number kt-font-danger">134+</span>
+								<span class="kt-widget20__number kt-font-danger">{{$countIncube}}+</span>
 								<span class="kt-widget20__desc">Dossiers Incubés</span>
 							</div>
 							<div class="kt-widget20__chart" style="height:130px;">
@@ -330,7 +330,8 @@
 										</div>
 										<div class="kt-widget14__content">
 											<div class="kt-widget14__chart">
-												<div class="kt-widget14__stat">45</div>
+{{--                                                {{$countP}}--}}
+												<div class="kt-widget14__stat">{{$countProjet}}</div>
 												<canvas id="kt_chart_profit_share" style="height: 140px; width: 140px;"></canvas>
 											</div>
 											<div class="kt-widget14__legends">
