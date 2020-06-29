@@ -339,7 +339,7 @@
 
                                                     <div class="kt-widget14__legend">
 
-                                                        <span  class="kt-widget14__bullet kt-bg-{{$Sector[2]}} "></span>
+                                                        {{-- <span  class="kt-widget14__bullet kt-bg-{{$Sector[2]}} "></span> --}}
                                                         <span class="kt-widget14__stats">{{round($Sector[1],2)}}% {{$Sector[0]->title}} </span>
                                                     </div>
                                                 @endforeach
@@ -748,9 +748,9 @@ var KTDashboard = function() {
                         @endforeach
                     ],
                     backgroundColor: [
-                        @foreach($Sectors as $Sector)
-                        KTApp.getStateColor('{{$Sector[2]}}'),
-                        @endforeach
+                       
+                        KTApp.getStateColor('success'),
+                     
 
                     ]
                 }],
