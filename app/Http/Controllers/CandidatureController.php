@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ProjectCategory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
@@ -21,6 +22,7 @@ class CandidatureController extends Controller
     {
         if($type == 'member')
         {
+
             return Validator::make($data, [
                 'first_name' => ['required', 'string', 'max:255'],
                 'last_name' => ['required', 'string', 'max:255'],
@@ -34,12 +36,12 @@ class CandidatureController extends Controller
                 'market_type' => ['nullable', 'string', 'max:155'],
             ]);
         }
-        
+
     }
 
     public function create(Request $request)
     {
-        //validation 
+        //validation
         $validation =  $this->validator($request->all(), 'member');
         if($validation->fails())
         {
@@ -47,7 +49,7 @@ class CandidatureController extends Controller
             return response()->json(array(
                 'success' => false,
                 'errors' => $validation->getMessageBag()->toArray()
-        
+
             ), 400); // 400 being the HTTP code for an invalid request.
         }
         $validation = $this->validator($request->all(), 'projectApplication');
@@ -56,7 +58,7 @@ class CandidatureController extends Controller
             return response()->json(array(
                 'success' => false,
                 'errors' => $validation->getMessageBag()->toArray()
-        
+
             ), 400); // 400 being the HTTP code for an invalid request.
         }
         $degrees = array();
@@ -71,20 +73,20 @@ class CandidatureController extends Controller
                );
             }
         }
-        
+
         $expericances = array();
         if(isset($request['professional_experience']))
         {
             foreach($request['professional_experience'] as $exp)
             {
-            
+
                $expericances [] = array(
                 "label" => $exp["du"].'-'.$exp["au"],
                 'value' => $exp["poste"].' ' .$exp["mission"].' chez '. $exp['organisme']
                );
             }
         }
-        
+
         $company = array();
         if(isset($request['company']))
         {
@@ -96,14 +98,14 @@ class CandidatureController extends Controller
             $company = array(
                 'capitale' => "",
                 "is_created" => $is_created,
-                "legal_form" => $request['company']["legal_form"],
+                "legal_form" => isset($request['company']["legal_form"]) ? $request['company']["legal_form"] : NULL,
                 "corporate_name" => $request['company']["corporate_name"],
                 "creation_date" => $request['company']["creation_date"],
-            );  
+            );
         }
-        
+
         $gender = $request['civility'] == 0 ? 'Homme' : 'Femme';
-        
+
         //inserstion Of member
         $member = Member::create([
             'first_name' => strtolower($request['first_name']),
@@ -119,13 +121,36 @@ class CandidatureController extends Controller
             'reduced_mobility' => $request['reduced_mobility'],
         ]);
         $application = ProjectApplication::create([
-            'member_id' => $member->id, 
-            'township_id' => $request['township_id'], 
-            'title' => $request['title'], 
-            'description' => $request['description'], 
-            'market_type' => $request['market_type'], 
+            'member_id' => $member->id,
+            'township_id' => $request['township_id'],
+            'title' => $request['title'],
+            'description' => $request['description'],
+            'market_type' => $request['market_type'],
+            'category_id' => $request['category_id'],
+//            'created_by' => 0,
+
             'company' =>  json_decode(json_encode($company)),
         ]);
         return response()->json(['message'=> 'Projet submited'],200);
+    }
+
+    public function index(){
+
+        $sectors=ProjectCategory::all()->where('parent_id','=',null);
+        $subSectors=ProjectCategory::all()->where('parent_id','!=',null);
+        foreach ($sectors as $sector){
+            $sector->subSectors=collect();
+            foreach ($subSectors as $subSector){
+                if ($sector['id']==$subSector['parent_id']){
+                    $sector->subSectors->push($subSector);
+                }
+            }
+        }
+        $LEGALFORM=ProjectApplication::LEGALFORM;
+        $AIDEETAT=ProjectApplication::AIDEETAT;
+
+        return view('front-office.candidature',compact("sectors","LEGALFORM", 'AIDEETAT'));
+
+
     }
 }

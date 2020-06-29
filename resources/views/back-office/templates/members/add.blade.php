@@ -3,7 +3,7 @@
 
 
 @section('specific_css')
-    
+
 @endsection
 
 
@@ -46,13 +46,13 @@
 									'config' =>['hotizontalRows' => true]
 								])
 							@endif
-                        @endforeach		
+                        @endforeach
 		            </div>
 	            </div>
 	            <div class="kt-portlet__foot">
 					<div class="kt-form__actions">
 						<button type="submit" class="btn btn-primary">Ajouter</button>
-						<button type="reset" class="btn btn-secondary">Retour</button>
+						<button onclick="history.go(-1);" type="reset" class="btn btn-secondary">Retour</button>
 					</div>
 				</div>
 				@csrf
@@ -74,34 +74,34 @@
 			var demo1 = function() {
 				var repeater_strengths = $('.kt_repeater_degrees').repeater({
 					initEmpty: false,
-				
+
 					defaultValues: {
 						'text-input': 'foo'
 					},
-					
+
 					show: function () {
 						$(this).slideDown();
 					},
 
 					hide: function (deleteElement) {
-						$(this).slideUp(deleteElement);                 
-					}   
+						$(this).slideUp(deleteElement);
+					}
 				});
 
 				var repeater_weaknesses = $('.kt_repeater_professional_experience').repeater({
 					initEmpty: false,
-				
+
 					defaultValues: {
 						'text-input': 'foo'
 					},
-					
+
 					show: function () {
 						$(this).slideDown();
 					},
 
 					hide: function (deleteElement) {
-						$(this).slideUp(deleteElement);                 
-					}   
+						$(this).slideUp(deleteElement);
+					}
 				});
 			}
 

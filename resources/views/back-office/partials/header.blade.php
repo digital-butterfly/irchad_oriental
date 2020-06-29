@@ -6,7 +6,7 @@
     <button class="kt-header-menu-wrapper-close" id="kt_header_menu_mobile_close_btn"><i class="la la-close"></i></button>
     -->
     <div class="kt-header-menu-wrapper" id="kt_header_menu_wrapper">
-        
+
     </div>
     <!-- end:: Header Menu -->
 
@@ -40,10 +40,10 @@
                 <div class="kt-header__topbar-user">
                     <span class="kt-header__topbar-welcome kt-hidden-mobile">Bonjour,</span>
                     <span class="kt-header__topbar-username kt-hidden-mobile">{{{ Auth::user()->first_name }}}</span>
-                    <img class="kt-hidden" alt="Pic" src="images/back-office/users/300_25.jpg" />
+{{--                    <img class="kt-hidden" alt="Pic" src="images/back-office/users/300_25.jpg" />--}}
 
                     <!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
-                    <span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold">S</span>
+                    <span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold">{{ucfirst(substr(Auth::user()->first_name , 0, 1))}} </span>
                 </div>
             </div>
             <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-top-unround dropdown-menu-xl">

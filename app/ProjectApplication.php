@@ -5,31 +5,39 @@ use App\ProjectCategory;
 use App\Township;
 
 use Illuminate\Database\Eloquent\Model;
+use phpDocumentor\Reflection\Types\This;
 
 class ProjectApplication extends Model
 {
     protected $table = 'projects_applications';
 
     protected $guard = 'user';
-    
+
+    const LEGALFORM=['S.A.R.L','S.A','Coopérative'];
+    const AIDEETAT=['INDH','DPA','Collectivités territoriales', 'Autre'];
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'member_id', 
-        'category_id', 
-        'township_id', 
-        'sheet_id', 
-        'title', 
-        'description', 
-        'market_type', 
-        'business_model', 
-        'financial_data', 
+        'member_id',
+        'category_id',
+        'township_id',
+        'sheet_id',
+        'title',
+        'description',
+        'market_type',
+        'business_model',
+        'financial_data',
         'training_needs',
         'company',
         'status',
+        'progress',
+        'training',
+        'incorporation',
+        'funding',
         'created_by',
         'updated_by'
     ];
@@ -71,7 +79,7 @@ class ProjectApplication extends Model
                     'title' => $sub_category->title,
                 ]);
             }
-            
+
             array_push($categories_options, (object)[
                 'id' => $category->id,
                 'title' => $category->title,
@@ -106,8 +114,10 @@ class ProjectApplication extends Model
                     ],
                     [
                         'name' => 'legal_form',
-                        'type' => 'text',
-                        'label' => 'Forme juridique'
+                        'type' => 'select',
+                        'label' => 'Forme juridique',
+                        'options' =>self::LEGALFORM
+
                     ],
                     [
                         'name' => 'capital',
@@ -175,7 +185,32 @@ class ProjectApplication extends Model
                 'name' => 'status',
                 'type' => 'select',
                 'label' => 'Status',
-                'options' => ['Nouveau', 'Accepté', 'Rejeté', 'Incubé'],
+                'options' => ['Nouveau', 'Accepté','En cours', 'En attente de formation','En attente de financement', 'Rejeté','Business plan achevé', 'Incubé'],
+                'group' => 'Données Générales'
+            ],
+            [
+                'name' => 'progress',
+                'type' => 'select',
+                'label' => 'Progrès',
+                'options' => ['Envoyé au Comité Technique', 'Accepté par le Comité Technique', 'Refusé par le Comité Technique','Envoyé au CPDH','Accepté par le CPDH','Refusé par le CPDH'],
+                'group' => 'Données Générales'
+            ],[
+                'name' => 'training',
+                'type' => 'select',
+                'label' => 'Formation',
+                'options' => ['Envoyé vers formation', 'Formé','Formation annulée'],
+                'group' => 'Données Générales'
+            ],[
+                'name' => 'incorporation',
+                'type' => 'select',
+                'label' => 'Création',
+                'options' => ['Entreprise en cours de création', 'Entreprise créee'],
+                'group' => 'Données Générales'
+            ],[
+                'name' => 'funding',
+                'type' => 'select',
+                'label' => 'Financement',
+                'options' => ['Envoyé au financement', 'Financement accepté','Financement refusé','Financé'],
                 'group' => 'Données Générales'
             ],
             [

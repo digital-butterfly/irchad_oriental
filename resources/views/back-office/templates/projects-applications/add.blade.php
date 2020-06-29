@@ -3,7 +3,7 @@
 
 
 @section('specific_css')
-    
+
 @endsection
 
 
@@ -70,13 +70,13 @@
 									</div>
 								@endif
 							@endif
-                        @endforeach		
+                        @endforeach
 		            </div>
 	            </div>
 	            <div class="kt-portlet__foot">
 					<div class="kt-form__actions">
 						<button type="submit" class="btn btn-primary">Ajouter</button>
-						<button type="reset" class="btn btn-secondary">Retour</button>
+						<button onclick="history.go(-1);" type="reset" class="btn btn-secondary">Retour</button>
 					</div>
 				</div>
 				@csrf
@@ -96,149 +96,149 @@
 
 			// Private functions
 			var demo1 = function() {
-				
+
 				var financial_plan = $('.kt_repeater_financial_plan').repeater({
 					initEmpty: false,
-				
+
 					defaultValues: {
 						'text-input': 'foo'
 					},
-					
+
 					show: function () {
 						$(this).slideDown();
 					},
 
 					hide: function (deleteElement) {
-						$(this).slideUp(deleteElement);                 
-					}   
+						$(this).slideUp(deleteElement);
+					}
 				});
 
 				var financial_plan_loans = $('.kt_repeater_financial_plan_loans').repeater({
 					initEmpty: false,
-				
+
 					defaultValues: {
 						'text-input': 'foo'
 					},
-					
+
 					show: function () {
 						$(this).slideDown();
 					},
 
 					hide: function (deleteElement) {
-						$(this).slideUp(deleteElement);                 
-					}   
+						$(this).slideUp(deleteElement);
+					}
 				});
 
 				var startup_needs = $('.kt_repeater_startup_needs').repeater({
 					initEmpty: false,
-				
+
 					defaultValues: {
 						'text-input': 'foo'
 					},
-					
+
 					show: function () {
 						$(this).slideDown();
 					},
 
 					hide: function (deleteElement) {
-						$(this).slideUp(deleteElement);                 
-					}   
+						$(this).slideUp(deleteElement);
+					}
 				});
 
 				var overheads_fixed = $('.kt_repeater_overheads_fixed').repeater({
 					initEmpty: false,
-				
+
 					defaultValues: {
 						'text-input': 'foo'
 					},
-					
+
 					show: function () {
 						$(this).slideDown();
 					},
 
 					hide: function (deleteElement) {
-						$(this).slideUp(deleteElement);                 
-					}   
+						$(this).slideUp(deleteElement);
+					}
 				});
 
 				var overheads_fixed = $('.kt_repeater_overheads_scalable').repeater({
 					initEmpty: false,
-				
+
 					defaultValues: {
 						'text-input': 'foo'
 					},
-					
+
 					show: function () {
 						$(this).slideDown();
 					},
 
 					hide: function (deleteElement) {
-						$(this).slideUp(deleteElement);                 
-					}   
+						$(this).slideUp(deleteElement);
+					}
 				});
-				
+
 				var human_ressources = $('.kt_repeater_human_ressources').repeater({
 					initEmpty: false,
-				
+
 					defaultValues: {
 						'text-input': 'foo'
 					},
-					
+
 					show: function () {
 						$(this).slideDown();
 					},
 
 					hide: function (deleteElement) {
-						$(this).slideUp(deleteElement);                 
-					}   
+						$(this).slideUp(deleteElement);
+					}
 				});
 
 				var taxes = $('.kt_repeater_taxes').repeater({
 					initEmpty: false,
-				
+
 					defaultValues: {
 						'text-input': 'foo'
 					},
-					
+
 					show: function () {
 						$(this).slideDown();
 					},
 
 					hide: function (deleteElement) {
-						$(this).slideUp(deleteElement);                 
-					}   
+						$(this).slideUp(deleteElement);
+					}
 				});
 
 				var pre_creation_training = $('.kt_repeater_pre_creation_training').repeater({
 					initEmpty: false,
-				
+
 					defaultValues: {
 						'text-input': 'foo'
 					},
-					
+
 					show: function () {
 						$(this).slideDown();
 					},
 
 					hide: function (deleteElement) {
-						$(this).slideUp(deleteElement);                 
-					}   
+						$(this).slideUp(deleteElement);
+					}
 				});
 
 				var post_creation_training = $('.kt_repeater_post_creation_training').repeater({
 					initEmpty: false,
-				
+
 					defaultValues: {
 						'text-input': 'foo'
 					},
-					
+
 					show: function () {
 						$(this).slideDown();
 					},
 
 					hide: function (deleteElement) {
-						$(this).slideUp(deleteElement);                 
-					}   
+						$(this).slideUp(deleteElement);
+					}
 				});
 			}
 

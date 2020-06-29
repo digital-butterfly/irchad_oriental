@@ -1,7 +1,7 @@
 <!-- begin:: Header Mobile -->
 <div id="kt_header_mobile" class="kt-header-mobile  kt-header-mobile--fixed ">
     <div class="kt-header-mobile__logo">
-        <a href="index.html">
+        <a href="">
             <img alt="Logo" src="images/back-office/logos/logo-light.png" />
         </a>
     </div>

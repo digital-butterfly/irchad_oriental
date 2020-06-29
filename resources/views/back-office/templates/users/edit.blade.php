@@ -3,7 +3,7 @@
 
 
 @section('specific_css')
-    
+
 @endsection
 
 
@@ -43,13 +43,13 @@
 									'label' => 'Retapez mot de passe'
 								])
 							@endif
-                        @endforeach		
+                        @endforeach
 		            </div>
 	            </div>
 	            <div class="kt-portlet__foot">
 					<div class="kt-form__actions">
 						<button type="submit" class="btn btn-primary">Appliquer</button>
-						<button type="reset" class="btn btn-secondary">Retour</button>
+						<button onclick="history.go(-1);" type="reset" class="btn btn-secondary">Retour</button>
 					</div>
 				</div>
 				@csrf

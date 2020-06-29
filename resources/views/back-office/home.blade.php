@@ -102,7 +102,7 @@
 											Nouveau
 										</span>
 										<span class="kt-widget17__desc">
-											15 Nouveaux Projets
+											{{$countNew}} Nouveaux Projets
 										</span>
 									</div>
 									<div class="kt-widget17__item">
@@ -118,7 +118,7 @@
 											Accepté
 										</span>
 										<span class="kt-widget17__desc">
-											72 Candidatures Validées
+											{{$countApprouved}} Candidatures Validées
 										</span>
 									</div>
 								</div>
@@ -136,7 +136,7 @@
 											Incubé
 										</span>
 										<span class="kt-widget17__desc">
-											72 Adhérents Incubés
+											{{$countIncube}} Adhérents Incubés
 										</span>
 									</div>
 									<div class="kt-widget17__item">
@@ -152,7 +152,7 @@
 											Refusé
 										</span>
 										<span class="kt-widget17__desc">
-											34 Upgraded Boxes
+										{{$countRejected}}	 Candidatures Refusé
 										</span>
 									</div>
 								</div>
@@ -215,7 +215,7 @@
 					<div class="kt-portlet__body kt-portlet__body--fluid">
 						<div class="kt-widget20">
 							<div class="kt-widget20__content kt-portlet__space-x">
-								<span class="kt-widget20__number kt-font-brand">67+</span>
+								<span class="kt-widget20__number kt-font-brand">{{$countPending}}+</span>
 								<span class="kt-widget20__desc">Dossiers en attente</span>
 							</div>
 							<div class="kt-widget20__chart" style="height:130px;">
@@ -279,7 +279,7 @@
 					<div class="kt-portlet__body kt-portlet__body--fluid">
 						<div class="kt-widget20">
 							<div class="kt-widget20__content kt-portlet__space-x">
-								<span class="kt-widget20__number kt-font-danger">134+</span>
+								<span class="kt-widget20__number kt-font-danger">{{$countIncube}}+</span>
 								<span class="kt-widget20__desc">Dossiers Incubés</span>
 							</div>
 							<div class="kt-widget20__chart" style="height:130px;">
@@ -295,7 +295,7 @@
 					<div class="kt-portlet__body  kt-portlet__body--fit">
 						<div class="row row-no-padding row-col-separator-xl">
 							<div class="col-xl-4">
-	
+
 								<!--begin:: Widgets/Daily Sales-->
 								<div class="kt-portlet kt-portlet--height-fluid">
 									<div class="kt-widget14">
@@ -312,11 +312,11 @@
 										</div>
 									</div>
 								</div>
-	
+
 								<!--end:: Widgets/Daily Sales-->
 							</div>
 							<div class="col-xl-4">
-	
+
 								<!--begin:: Widgets/Profit Share-->
 								<div class="kt-portlet kt-portlet--height-fluid">
 									<div class="kt-widget14">
@@ -330,31 +330,29 @@
 										</div>
 										<div class="kt-widget14__content">
 											<div class="kt-widget14__chart">
-												<div class="kt-widget14__stat">45</div>
+{{--                                                {{$countP}}--}}
+												<div class="kt-widget14__stat">{{$countProjet}}</div>
 												<canvas id="kt_chart_profit_share" style="height: 140px; width: 140px;"></canvas>
 											</div>
-											<div class="kt-widget14__legends">
-												<div class="kt-widget14__legend">
-													<span class="kt-widget14__bullet kt-bg-success"></span>
-													<span class="kt-widget14__stats">37% Agriculture</span>
-												</div>
-												<div class="kt-widget14__legend">
-													<span class="kt-widget14__bullet kt-bg-warning"></span>
-													<span class="kt-widget14__stats">47% Artisanat</span>
-												</div>
-												<div class="kt-widget14__legend">
-													<span class="kt-widget14__bullet kt-bg-brand"></span>
-													<span class="kt-widget14__stats">19% Industrie</span>
-												</div>
-											</div>
+											<div id="kt-bg" class="kt-widget14__legends">
+                                                @foreach($Sectors as $Sector)
+
+                                                    <div class="kt-widget14__legend">
+
+                                                        <span  class="kt-widget14__bullet kt-bg-{{$Sector[2]}} "></span>
+                                                        <span class="kt-widget14__stats">{{round($Sector[1],2)}}% {{$Sector[0]->title}} </span>
+                                                    </div>
+                                                @endforeach
+
+                                            </div>
 										</div>
 									</div>
 								</div>
-	
+
 								<!--end:: Widgets/Profit Share-->
 							</div>
 							<div class="col-xl-4">
-	
+
 								<!--begin:: Widgets/Revenue Change-->
 								<div class="kt-portlet kt-portlet--height-fluid">
 									<div class="kt-widget14">
@@ -364,30 +362,25 @@
 											</h3>
 											<span class="kt-widget14__desc">
 												Statistiques réparties par commune
-											</span>
+                                                											</span>
 										</div>
 										<div class="kt-widget14__content">
 											<div class="kt-widget14__chart">
 												<div id="kt_chart_revenue_change" style="height: 150px; width: 150px;"></div>
 											</div>
 											<div class="kt-widget14__legends">
+                                                @foreach($townshiparray as $township)
 												<div class="kt-widget14__legend">
 													<span class="kt-widget14__bullet kt-bg-success"></span>
-													<span class="kt-widget14__stats">+10% Mtalssa</span>
-												</div>
-												<div class="kt-widget14__legend">
-													<span class="kt-widget14__bullet kt-bg-warning"></span>
-													<span class="kt-widget14__stats">-7% Talilit</span>
-												</div>
-												<div class="kt-widget14__legend">
-													<span class="kt-widget14__bullet kt-bg-brand"></span>
-													<span class="kt-widget14__stats">+20% Midar</span>
-												</div>
+													<span class="kt-widget14__stats">{{round($township[1],2)}}%
+                                                            {{$township[0]->title}}
+                                                        </span>
+												</div>@endforeach
 											</div>
 										</div>
 									</div>
 								</div>
-	
+
 								<!--end:: Widgets/Revenue Change-->
 							</div>
 						</div>
@@ -572,6 +565,7 @@
 // Class definition
 var KTDashboard = function() {
 
+
     // Sparkline Chart helper function
     var _initSparklineChart = function(src, data, color, border) {
         if (src.length == 0) {
@@ -581,7 +575,7 @@ var KTDashboard = function() {
         var config = {
             type: 'line',
             data: {
-                labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October"],
+                labels: ["January", "February", "March", "April", "May", "June", "August", "September", "October"],
                 datasets: [{
                     label: "",
                     borderColor: color,
@@ -735,7 +729,7 @@ var KTDashboard = function() {
 
     // Profit Share Chart.
     // Based on Chartjs plugin - http://www.chartjs.org/
-    var profitShare = function() {        
+    var profitShare = function() {
         if (!KTUtil.getByID('kt_chart_profit_share')) {
             return;
         }
@@ -749,19 +743,27 @@ var KTDashboard = function() {
             data: {
                 datasets: [{
                     data: [
-                        35, 30, 35
+                        @foreach($Sectors as $Sector)
+                        {{round($Sector[1],2)}},
+                        @endforeach
                     ],
                     backgroundColor: [
-                        KTApp.getStateColor('success'),
-                        KTApp.getStateColor('danger'),
-                        KTApp.getStateColor('brand')
+                        @foreach($Sectors as $Sector)
+                        KTApp.getStateColor('{{$Sector[2]}}'),
+                        @endforeach
+
                     ]
                 }],
+
+
+
                 labels: [
-                    'Angular',
-                    'CSS',
-                    'HTML'
-                ]
+                    @foreach($Sectors as $Sector)
+                        '{{$Sector[0]->title}}',
+                    @endforeach
+                    ]
+
+
             },
             options: {
                 cutoutPercentage: 75,
@@ -785,11 +787,13 @@ var KTDashboard = function() {
                     mode: 'nearest',
                     bodySpacing: 5,
                     yPadding: 10,
-                    xPadding: 10, 
+                    xPadding: 10,
                     caretPadding: 0,
                     displayColors: false,
-                    backgroundColor: KTApp.getStateColor('brand'),
-                    titleFontColor: '#ffffff', 
+                    @foreach($Sectors as $Sector)
+                    backgroundColor:KTApp.getStateColor('{{$Sector[2]}}'),
+                    @endforeach
+                    titleFontColor: '#ffffff',
                     cornerRadius: 4,
                     footerSpacing: 0,
                     titleSpacing: 0
@@ -819,7 +823,7 @@ var KTDashboard = function() {
                     borderColor: KTApp.getStateColor('brand'),
                     borderWidth: 2,
                     //pointBackgroundColor: KTApp.getStateColor('brand'),
-                    backgroundColor: KTApp.getStateColor('brand'),                    
+                    backgroundColor: KTApp.getStateColor('brand'),
                     pointBackgroundColor: Chart.helpers.color('#ffffff').alpha(0).rgbString(),
                     pointBorderColor: Chart.helpers.color('#ffffff').alpha(0).rgbString(),
                     pointHoverBackgroundColor: KTApp.getStateColor('danger'),
@@ -1219,18 +1223,13 @@ var KTDashboard = function() {
 
         Morris.Donut({
             element: 'kt_chart_revenue_change',
-            data: [{
-                    label: "Driouch",
-                    value: 10
-                },
-                {
-                    label: "Mtalssa",
-                    value: 7
-                },
-                {
-                    label: "Midar",
-                    value: 20
-                }
+            data: [@foreach($townshiparray as $township)
+            {
+
+                label:  "{{$township[0]->title}}",
+                value: {{round($township[1],2)}}
+
+                    },@endforeach
             ],
             colors: [
                 KTApp.getStateColor('success'),
@@ -1326,11 +1325,11 @@ var KTDashboard = function() {
                     mode: 'nearest',
                     bodySpacing: 5,
                     yPadding: 10,
-                    xPadding: 10, 
+                    xPadding: 10,
                     caretPadding: 0,
                     displayColors: false,
                     backgroundColor: KTApp.getStateColor('brand'),
-                    titleFontColor: '#ffffff', 
+                    titleFontColor: '#ffffff',
                     cornerRadius: 4,
                     footerSpacing: 0,
                     titleSpacing: 0
@@ -1452,9 +1451,10 @@ var KTDashboard = function() {
         var config = {
             type: 'line',
             data: {
-                labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October"],
+                labels: [@foreach($created_date as $key => $date)
+                    '{{$date->date}}',@endforeach],
                 datasets: [{
-                    label: "Bandwidth Stats",
+                    label: "Dossiers en attente",
                     backgroundColor: gradient,
                     borderColor: KTApp.getStateColor('success'),
 
@@ -1465,7 +1465,8 @@ var KTDashboard = function() {
 
                     //fill: 'start',
                     data: [
-                        10, 14, 12, 16, 9, 11, 13, 9, 13, 15
+                        @foreach($created_date as $key => $date)
+                        {{$date->datecount}},@endforeach
                     ]
                 }]
             },
@@ -1546,9 +1547,10 @@ var KTDashboard = function() {
         var config = {
             type: 'line',
             data: {
-                labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October"],
+                labels: [@foreach($incubationdate as $key => $date)
+                    '{{$date->date}}',@endforeach],
                 datasets: [{
-                    label: "Bandwidth Stats",
+                    label: "Dossiers Incubés",
                     backgroundColor: gradient,
                     borderColor: KTApp.getStateColor('warning'),
                     pointBackgroundColor: Chart.helpers.color('#000000').alpha(0).rgbString(),
@@ -1558,7 +1560,8 @@ var KTDashboard = function() {
 
                     //fill: 'start',
                     data: [
-                        10, 14, 12, 16, 9, 11, 13, 9, 13, 15
+                        @foreach($incubationdate as $key => $date)
+                        {{$date->datecount}},@endforeach
                     ]
                 }]
             },
@@ -1838,7 +1841,7 @@ var KTDashboard = function() {
                     //borderWidth: 0,
                     backgroundColor: color(KTApp.getStateColor('brand')).alpha(0.6).rgbString(),
                     borderColor : color(KTApp.getStateColor('brand')).alpha(0).rgbString(),
-                    
+
                     pointHoverRadius: 4,
                     pointHoverBorderWidth: 12,
                     pointBackgroundColor: Chart.helpers.color('#000000').alpha(0).rgbString(),
@@ -1853,7 +1856,7 @@ var KTDashboard = function() {
                     //borderWidth: 0,
 					backgroundColor : color(KTApp.getStateColor('brand')).alpha(0.2).rgbString(),
                     borderColor : color(KTApp.getStateColor('brand')).alpha(0).rgbString(),
-                    
+
                     pointHoverRadius: 4,
                     pointHoverBorderWidth: 12,
                     pointBackgroundColor: Chart.helpers.color('#000000').alpha(0).rgbString(),
@@ -1911,7 +1914,7 @@ var KTDashboard = function() {
                             zeroLineBorderDash: [3, 4]
                         },
                         ticks: {
-                            max: 70,                            
+                            max: 70,
                             stepSize: 10,
                             display: true,
                             beginAtZero: true,
@@ -1933,11 +1936,11 @@ var KTDashboard = function() {
                     mode: 'nearest',
                     bodySpacing: 5,
                     yPadding: 10,
-                    xPadding: 10, 
+                    xPadding: 10,
                     caretPadding: 0,
                     displayColors: false,
                     backgroundColor: KTApp.getStateColor('brand'),
-                    titleFontColor: '#ffffff', 
+                    titleFontColor: '#ffffff',
                     cornerRadius: 4,
                     footerSpacing: 0,
                     titleSpacing: 0
@@ -2013,7 +2016,7 @@ var KTDashboard = function() {
         if ($('#kt_calendar').length === 0) {
             return;
         }
-        
+
         var todayDate = moment().startOf('day');
         var YM = todayDate.format('YYYY-MM');
         var YESTERDAY = todayDate.clone().subtract(1, 'day').format('YYYY-MM-DD');
@@ -2039,7 +2042,7 @@ var KTDashboard = function() {
                     className: "fc-event-light fc-event-solid-warning"
                 },
                 {
-                    title: 'Conference',                    
+                    title: 'Conference',
                     description: 'Lorem ipsum dolor incid idunt ut labore',
                     start: moment('2017-08-29T13:30:00'),
                     end: moment('2017-08-29T17:30:00'),
@@ -2058,7 +2061,7 @@ var KTDashboard = function() {
                     className: "fc-event-danger fc-event-solid-focus"
                 },
                 {
-                    title: 'Reporting',                    
+                    title: 'Reporting',
                     description: 'Lorem ipsum dolor incid idunt ut labore',
                     start: moment('2017-09-03T13:30:00'),
                     end: moment('2017-09-04T17:30:00'),
@@ -2247,7 +2250,7 @@ var KTDashboard = function() {
             // earnings slide
             earningsSlide();
 
-            
+
             // demo loading
             var loading = new KTDialog({'type': 'loader', 'placement': 'top center', 'message': 'Loading ...'});
             loading.show();

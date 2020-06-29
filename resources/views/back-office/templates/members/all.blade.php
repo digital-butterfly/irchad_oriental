@@ -3,7 +3,7 @@
 
 
 @section('specific_css')
-    
+
 @endsection
 
 
@@ -30,7 +30,7 @@
         var KTDatatableRemoteAjaxDemo = function() {
 
             // Private functions
-            
+
             // basic demo
             var demo = function() {
 

@@ -3,15 +3,16 @@
 
 
 @section('specific_css')
-    
+
 @endsection
 
 
 
 
 @section('page_content')
+
     <div class="kt-container  kt-grid__item kt-grid__item--fluid">
-        @component('back-office.components.portlets.table', ['add_link' => 'admin/communes/create'])
+        @component('back-office.components.portlets.table' ,['add_link' => 'admin/communes/create'])
             @slot('title')
                 Communes
             @endslot
@@ -30,7 +31,7 @@
         var KTDatatableRemoteAjaxDemo = function() {
 
             // Private functions
-            
+
             // basic demo
             var demo = function() {
 
@@ -90,7 +91,7 @@
                         {
                             field: 'title',
                             title: 'Nom',
-                        }, 
+                        },
                         {
                             field: 'Actions',
                             title: 'Actions',
@@ -152,6 +153,10 @@
                         type: 'DELETE',
                         success: function(result) {
                             location.reload();
+                        },
+                        error:function (result) {
+                            $('.error-request').show()
+                            $('.error-request').html(result.responseJSON.message)
                         }
                     });
                 });

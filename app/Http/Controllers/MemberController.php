@@ -23,6 +23,8 @@ class MemberController extends Controller
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:members'],
+            'phone' => ['required', 'string', 'max:255'],
+            'identity_number' => ['required', 'string', 'max:255'],
             'password' => ['required', 'string', 'min:4', 'confirmed'],
         ]);
     }
@@ -37,7 +39,7 @@ class MemberController extends Controller
         //$members = Member::all();
         return view('back-office/templates/members/all');
     }
-    
+
     /**
      * Custom function.
      *
@@ -45,7 +47,7 @@ class MemberController extends Controller
     public function ajaxList(Request $request)
     {
         $query = $request->get('query');
-        
+
         $search_term = isset($query['generalSearch']) ? $query['generalSearch'] : '' ;
 
         $role_filter = isset($query['Type']) ? $query['Type'] : '' ;;
@@ -178,12 +180,20 @@ class MemberController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Member $member
+     * @return string
+     * @throws \Exception
      */
     public function destroy(Member $member)
     {
-        $member->delete();
-        return 'Utilisateur supprimé !';
+        try{
+            $member->delete();
+
+            return response()->json(['message'=>'Utilisateur supprimé !'],200);
+
+        }
+        catch (\Illuminate\Database\QueryException $e){
+            return response()->json(['message'=>'Utilisateur non supprimer veuillez supprimer les entites liées a la Utilisateur'],409);
+        }
     }
 }

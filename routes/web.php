@@ -16,14 +16,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('front-office.welcome');
 });
-//route vers la page programme 
+//route vers la page programme
 Route::get('/programme', function () {
     return view('front-office.programme');
 });
 //route vers la page soummisions projet
-Route::get('/project-submission',function(){
-    return view('front-office.candidature');
-});
+Route::get('/project-submission','CandidatureController@index');
 Route::get('/adherent', function () {
     return view('adherent');
 });
@@ -68,7 +66,7 @@ Route::view('/home', 'home')->middleware('auth');
 
 Route::group(['middleware' => 'auth:user'], function () {
 
-    Route::view('/admin', 'back-office/home');
+    // Route::view('/admin', 'back-office/home');
 
     Route::resource('admin/users', 'UserController');
     Route::post('/admin/list/users', 'UserController@ajaxList');
@@ -84,6 +82,9 @@ Route::group(['middleware' => 'auth:user'], function () {
 
     Route::resource('admin/candidatures', 'ProjectApplicationController');
     Route::post('/admin/list/candidatures', 'ProjectApplicationController@ajaxList');
+
+    Route::resource('admin/', 'DashboardController');
+    Route::get('/admin', 'DashboardController@ajaxList');
 
     Route::resource('admin/projects-categories', 'ProjectCategoryController');
 

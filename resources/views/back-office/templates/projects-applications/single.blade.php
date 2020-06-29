@@ -30,7 +30,7 @@
         .kt-wizard-v4 .kt-wizard-v4__wrapper .kt-form{
             width: 90%;
         }
-        
+
         .kt-wizard-v4 .kt-wizard-v4__nav .kt-wizard-v4__nav-items .kt-wizard-v4__nav-item {
             flex: 0 0 calc(33% - 0.25rem);
             width: calc(33% - 0.25rem);
@@ -78,7 +78,7 @@
                                         </div> --}}
                                     </div>
                                     <div class="kt-widget__subhead">
-                                        <a href="#"><i class="flaticon2-calendar-3"></i>{{ $application->created_at->format('d/m/Y') }}</a>                                        
+                                        <a href="#"><i class="flaticon2-calendar-3"></i>{{ $application->created_at->format('d/m/Y') }}</a>
                                         <a href="#"><i class="flaticon2-new-email"></i>{{ $application->category_title }}</a>
                                         <a href="#"><i class="flaticon2-placeholder"></i> Driouch - {{ $application->township_name }}</a>
                                     </div>
@@ -215,6 +215,9 @@
 
                                     <!--begin: Form Wizard Form-->
                                     <div class="kt-form" id="kt_form">
+                                        <form class="" method="POST" action="{{ route('candidatures.update', $data->id) }}">
+                                        {{ method_field('PUT') }}
+
 
                                         <!--begin: Form Wizard Step 1-->
                                         <div class="kt-wizard-v4__content" data-ktwizard-type="step-content"  data-ktwizard-state="current">
@@ -228,9 +231,75 @@
                                                 </ul>
                                             </div><br />
                                             @endif
-                                            <form class="" method="POST" action="{{ route('candidatures.update', $data->id) }}">
-                                                {{ method_field('PUT') }}
+
+
                                                 <div class="kt-portlet__body">
+                                                    <div class="kt-portlet kt-callout kt-callout--dark">
+                                                        <div class="kt-portlet__body">
+                                                            <div class=".form-group row">
+                                                                <div class="col-12">
+                                                                    <label class="col-form-label kt-margin-r-20">Status:</label>
+                                                                    <label
+                                                                            class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input
+                                                                                type="radio" value="Nouveau"
+                                                                                name="status">
+                                                                            Nouveau<span></span></label><label
+                                                                            class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input
+                                                                                type="radio" value="Rejeté"
+                                                                                name="status">
+                                                                            Rejeté<span></span></label><label
+                                                                            class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input
+                                                                                type="radio" value="Accepté"
+                                                                                name="status">
+                                                                            Accepté<span></span></label><label
+                                                                            class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input
+                                                                                type="radio" value="En cours"
+                                                                                name="status"> En
+                                                                            cours<span></span></label>
+                                                                    <label
+                                                                            class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input
+                                                                                type="radio"
+                                                                                value="En attente de formation"
+                                                                                name="status">Formation<span></span></label><label
+                                                                            class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input
+                                                                                type="radio"
+                                                                                value="En attente de financement"
+                                                                                name="status">Financement<span></span></label>
+
+                                                                    <label
+                                                                            class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input
+                                                                                type="radio"
+                                                                                value="Business plan achevé"
+                                                                                name="status"> BP achevé
+                                                                            <span></span></label><label
+                                                                            class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input
+                                                                                type="radio" value="Incubé"
+                                                                                name="status">
+                                                                            Incubé<span></span></label>
+                                                                </div>
+
+                                                                <div class="col-12">
+                                                                    <label class="col-form-label kt-margin-r-20">Creation:</label>
+
+                                                                        <label class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input
+                                                                                type="radio"
+                                                                                value="Entreprise en cours de création"
+                                                                                name="incorporation"> Entreprise en
+                                                                            cours de création<span></span></label>
+
+
+                                                                        <label
+                                                                            class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input
+                                                                                type="radio" value="Entreprise créee"
+                                                                                name="incorporation"> Entreprise
+                                                                            créee<span></span></label>
+
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
                                                     <div class="kt-section kt-section--first">
                                                         @php
                                                             $done_groups = [];
@@ -271,7 +340,7 @@
                                                                     </div>
                                                                 @endif
                                                             @endif
-                                                        @endforeach		
+                                                        @endforeach
                                                     </div>
                                                 </div>
                                                 <div class="kt-portlet__foot">
@@ -280,7 +349,7 @@
                                                     </div>
                                                 </div>
                                                 @csrf
-                                            </form>
+
                                             <!--end::Form-->
                                         </div>
                                         <!--end: Form Wizard Step 1-->
@@ -288,7 +357,7 @@
                                         <!--begin: Form Wizard Step 2-->
                                         <div class="kt-wizard-v4__content" data-ktwizard-type="step-content">
                                             <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid printable-bp">
-                                                
+
                                                 @include('back-office.components.portlets.business-plan')
                                             </div>
                                         </div>
@@ -306,8 +375,29 @@
                                                                     Inscrire le candidat aux formations nécessaires
                                                                 </p>
                                                             </div>
-                                                            <div class="kt-callout__action">
-                                                                <a href="javascript:;" class="btn btn-custom btn-bold btn-upper btn-font-sm  btn-warning" style="padding: 1rem 1.3rem; font-size: 0.9rem; color: #fff; width:130px;">Mise à niveau</a>
+                                                            <div id="kt_form" class="kt-callout__action">
+
+                                                                <div class="btn-group">
+                                                                    <button type="button" id="formationbutton" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                        <span class="ui-button-text">Mise à niveau</span>
+                                                                    </button>
+                                                                    <div class="dropdown-menu" style="">
+
+                                                                        <div class="kt-form__actions" >
+
+                                                                            <button value="En attente de formation" class="dropdown-item" id="send-training" name="status" >Envoyé vers formation</button>
+                                                                        </div>
+                                                                        <div class="kt-form__actions">
+                                                                            <button value="En attente de formation" name="status" id="trained" class="dropdown-item">Formé</button>
+                                                                        </div>
+                                                                        <div class="kt-form__actions">
+                                                                            <button value="En attente de formation" class="dropdown-item" id="training_canceled" name="status" >Formation annulée</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+
+{{--                                                                <a href="javascript:;" class="btn btn-custom btn-bold btn-upper btn-font-sm  btn-warning" style="padding: 1rem 1.3rem; font-size: 0.9rem; color: #fff; width:130px;"></a>--}}
                                                             </div>
                                                         </div>
                                                     </div>
@@ -324,7 +414,25 @@
                                                                 </p>
                                                             </div>
                                                             <div class="kt-callout__action">
-                                                                <a href="javascript:;" class="btn btn-custom btn-bold btn-upper btn-font-sm  btn-success" style="width:130px;">Soumissionner</a>
+                                                                <div class="btn-group">
+                                                                    <button type="button" id="CTbutton" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                        <span class="ui-button-text">Soumissionner</span>
+                                                                    </button>
+                                                                    <div class="dropdown-menu" style="">
+
+                                                                        <div class="kt-form__actions" >
+
+                                                                            <button value="En attente de financement" class="dropdown-item" id="send-CT" name="status" >Envoyé au Comité Technique</button>
+                                                                        </div>
+                                                                        <div class="kt-form__actions">
+                                                                            <button value="En attente de financement" name="status" id="approuved-CT" class="dropdown-item">Accepté par le Comité Technique</button>
+                                                                        </div>
+                                                                        <div class="kt-form__actions">
+                                                                            <button value="En attente de financement" class="dropdown-item" id="refused_CT" name="status" >Refusé par le Comité Technique</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -341,7 +449,64 @@
                                                                 </p>
                                                             </div>
                                                             <div class="kt-callout__action">
-                                                                <a href="javascript:;" class="btn btn-custom btn-bold btn-upper btn-font-sm  btn-brand"style="width:130px;">Soumissionner</a>
+                                                                <div class="btn-group">
+                                                                    <button type="button" id="CPDHbutton" class="btn btn-brand dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                        <span class="ui-button-text">Soumissionner</span>
+                                                                    </button>
+                                                                    <div class="dropdown-menu" style="">
+
+                                                                        <div class="kt-form__actions" >
+
+                                                                            <button value="En attente de financement" class="dropdown-item" id="send-CPDH" name="status" >Envoyé au CPDH</button>
+                                                                        </div>
+                                                                        <div class="kt-form__actions">
+                                                                            <button value="En attente de financement" name="status" id="approuved-CPDH" class="dropdown-item">Accepté par le CPDH</button>
+                                                                        </div>
+                                                                        <div class="kt-form__actions">
+                                                                            <button value="En attente de financement" class="dropdown-item" id="refused_CPDH" name="status" >Refusé par le CPDH</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid printable-bp">
+                                                <div class="kt-portlet kt-callout kt-bg-light-dark">
+                                                    <div class="kt-portlet__body">
+                                                        <div class="kt-callout__body">
+                                                            <div class="kt-callout__content">
+                                                                <h3 class="kt-callout__title">4. Financement externe </h3>
+                                                                <p class="kt-callout__desc">
+                                                                    Soumissionner a un organisme de financement externe
+                                                                </p>
+                                                            </div>
+                                                            <div class="kt-callout__action">
+                                                                <div class="btn-group">
+                                                                    <button type="button" id="EXFbutton" class="btn btn-brand dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                        <span class="ui-button-text">Soumissionner</span>
+                                                                    </button>
+                                                                    <div class="dropdown-menu" style="">
+
+                                                                        <div class="kt-form__actions" >
+
+                                                                            <button value="En attente de financement" class="dropdown-item" id="send-EXF" name="status" >Envoyé au financement</button>
+                                                                        </div>
+                                                                        <div class="kt-form__actions">
+                                                                            <button value="En attente de financement" name="status" id="approuved-EXF" class="dropdown-item">Financement accepté</button>
+                                                                        </div>
+                                                                        <div class="kt-form__actions">
+                                                                            <button value="En attente de financement" class="dropdown-item" id="refused_EXF" name="status" >Financement refusé</button>
+                                                                        </div>
+                                                                        <div class="kt-form__actions">
+                                                                            <button value="En attente de financement" class="dropdown-item" id="funded_EXF" name="status" >Financé</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -361,8 +526,10 @@
                                             <button class="btn btn-brand btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-next">
                                                 Suivant
                                             </button>
-                                        </div>
 
+                                        </div>
+                                            @csrf
+                                        </form>
                                         <!--end: Form Actions -->
                                     </div>
                                     <!--end: Form Wizard Form-->
@@ -389,8 +556,8 @@
                     </div>
                     <div class="kt-portlet__body">
                         <!--begin::Widget -->
-                        <div class="kt-widget kt-widget--user-profile-2">         
-                            <div class="kt-widget__body">              
+                        <div class="kt-widget kt-widget--user-profile-2">
+                            <div class="kt-widget__body">
                                 <div class="kt-widget__item">
                                     <div class="kt-widget__contact">
                                         <span class="kt-widget__label">Nom:</span>
@@ -434,7 +601,7 @@
                                     </div>
                                 </div>
                             </div>
-                
+
                             <div class="kt-widget__footer">
                                 <button type="button" class="btn btn-label-success btn-lg btn-upper">Demande d'informations</button>
                             </div>
@@ -443,7 +610,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="col-xl-4">
                 <div class="kt-portlet kt-portlet--height-fluid">
                     <div class="kt-portlet__head">
@@ -474,13 +641,13 @@
                                                     <span class="kt-font-info">Mécanique - Mécatronique</span>
                                                 </div>
                                             </div>
-                                        </div>						
+                                        </div>
                                         <div class="kt-widget5__content">
                                             <div class="kt-widget5__stats">
                                                 <span class="kt-widget5__sales">Année</span>
                                                 <span class="kt-widget5__number">2008</span>
                                             </div>
-                                        </div>	
+                                        </div>
                                     </div>
                                     <div class="kt-widget5__item">
                                         <div class="kt-widget5__content">
@@ -496,13 +663,13 @@
                                                     <span class="kt-font-info">Mécanique - Mécatronique</span>
                                                 </div>
                                             </div>
-                                        </div>						
+                                        </div>
                                         <div class="kt-widget5__content">
                                             <div class="kt-widget5__stats">
                                                 <span class="kt-widget5__sales">Année</span>
                                                 <span class="kt-widget5__number">2008</span>
                                             </div>
-                                        </div>	
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -541,7 +708,7 @@
                                                     <span class="kt-font-info">Organisme</span>
                                                 </div>
                                             </div>
-                                        </div>						
+                                        </div>
                                         <div class="kt-widget5__content">
                                             <div class="kt-widget5__stats">
                                                 <span class="kt-widget5__sales">Du</span>
@@ -551,7 +718,7 @@
                                                 <span class="kt-widget5__sales">Au</span>
                                                 <span class="kt-widget5__number">10/09/2019</span>
                                             </div>
-                                        </div>	
+                                        </div>
                                     </div>
                                     <div class="kt-widget5__item">
                                         <div class="kt-widget5__content">
@@ -567,7 +734,7 @@
                                                     <span class="kt-font-info">Organisme</span>
                                                 </div>
                                             </div>
-                                        </div>						
+                                        </div>
                                         <div class="kt-widget5__content">
                                             <div class="kt-widget5__stats">
                                                 <span class="kt-widget5__sales">Du</span>
@@ -577,7 +744,7 @@
                                                 <span class="kt-widget5__sales">Au</span>
                                                 <span class="kt-widget5__number">10/09/2019</span>
                                             </div>
-                                        </div>	
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -600,8 +767,8 @@
                     </div>
                     <div class="kt-portlet__body">
                         <!--begin::Widget -->
-                        <div class="kt-widget kt-widget--user-profile-2">         
-                            <div class="kt-widget__body">              
+                        <div class="kt-widget kt-widget--user-profile-2">
+                            <div class="kt-widget__body">
                                 <div class="kt-widget__item">
                                     <div class="kt-widget__contact">
                                         <span class="kt-widget__label">Entreprise déjà créée:</span>
@@ -662,8 +829,8 @@
                                 <div class="kt-timeline-v3">
                                     <div class="kt-timeline-v3__items">
                                         <div class="kt-timeline-v3__item kt-timeline-v3__item--info">
-                                            <span class="kt-timeline-v3__item-time">28 Mars 2020</span> 
-                                            <div class="kt-timeline-v3__item-desc">							 
+                                            <span class="kt-timeline-v3__item-time">28 Mars 2020</span>
+                                            <div class="kt-timeline-v3__item-desc">
                                                 <span class="kt-timeline-v3__item-text">
                                                 Projet soumissionné
                                                 </span><br>
@@ -671,59 +838,59 @@
                                                 <a href="#" class="kt-link kt-link--dark kt-timeline-v3__itek-link">
                                                 Par Mehdi
                                                 </a>
-                                                </span>		 
+                                                </span>
                                             </div>
                                         </div>
                                         <div class="kt-timeline-v3__item kt-timeline-v3__item--warning">
-                                            <span class="kt-timeline-v3__item-time">27 Mars 2020</span> 
-                                            <div class="kt-timeline-v3__item-desc">							
+                                            <span class="kt-timeline-v3__item-time">27 Mars 2020</span>
+                                            <div class="kt-timeline-v3__item-desc">
                                                 <span class="kt-timeline-v3__item-text">
                                                 Business plan généré
                                                 </span><br>
                                                 <span class="kt-timeline-v3__item-user-name">
                                                 <a href="#" class="kt-link kt-link--dark kt-timeline-v3__itek-link">
                                                 Par Mehdi
-                                                </a>	
-                                                </span>		 
+                                                </a>
+                                                </span>
                                             </div>
                                         </div>
                                         <div class="kt-timeline-v3__item kt-timeline-v3__item--brand">
-                                            <span class="kt-timeline-v3__item-time">25 Mars 2020</span> 
-                                            <div class="kt-timeline-v3__item-desc">							
+                                            <span class="kt-timeline-v3__item-time">25 Mars 2020</span>
+                                            <div class="kt-timeline-v3__item-desc">
                                                 <span class="kt-timeline-v3__item-text">
                                                 Projet jumelé
                                                 </span><br>
                                                 <span class="kt-timeline-v3__item-user-name">
                                                 <a href="#" class="kt-link kt-link--dark kt-timeline-v3__itek-link">
                                                 Par Mehdi
-                                                </a>	
-                                                </span>		 
+                                                </a>
+                                                </span>
                                             </div>
                                         </div>
                                         <div class="kt-timeline-v3__item kt-timeline-v3__item--success">
-                                            <span class="kt-timeline-v3__item-time">23 Mars 2020</span> 
-                                            <div class="kt-timeline-v3__item-desc">							
+                                            <span class="kt-timeline-v3__item-time">23 Mars 2020</span>
+                                            <div class="kt-timeline-v3__item-desc">
                                                 <span class="kt-timeline-v3__item-text">
                                                 Inscription validée
                                                 </span><br>
                                                 <span class="kt-timeline-v3__item-user-name">
                                                 <a href="#" class="kt-link kt-link--dark kt-timeline-v3__itek-link">
                                                 Par Mehdi
-                                                </a>	
-                                                </span>		 
+                                                </a>
+                                                </span>
                                             </div>
                                         </div>
                                         <div class="kt-timeline-v3__item kt-timeline-v3__item--danger">
-                                            <span class="kt-timeline-v3__item-time">23 Mars 2020</span> 
-                                            <div class="kt-timeline-v3__item-desc">							
+                                            <span class="kt-timeline-v3__item-time">23 Mars 2020</span>
+                                            <div class="kt-timeline-v3__item-desc">
                                                 <span class="kt-timeline-v3__item-text">
                                                 Pré-inscription
                                                 </span><br>
                                                 <span class="kt-timeline-v3__item-user-name">
                                                 <a href="#" class="kt-link kt-link--dark kt-timeline-v3__itek-link">
                                                 Par Mehdi
-                                                </a>										 
-                                                </span>		 
+                                                </a>
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
@@ -907,34 +1074,34 @@
                 var demo1 = function() {
                     $('#kt_repeater_1').repeater({
                         initEmpty: false,
-                    
+
                         defaultValues: {
                             'text-input': 'foo'
                         },
-                        
+
                         show: function () {
                             $(this).slideDown();
                         },
 
-                        hide: function (deleteElement) {                
-                            $(this).slideUp(deleteElement);                 
-                        }   
+                        hide: function (deleteElement) {
+                            $(this).slideUp(deleteElement);
+                        }
                     });
 
                     $('#kt_repeater_2').repeater({
                         initEmpty: false,
-                    
+
                         defaultValues: {
                             'text-input': 'foo'
                         },
-                        
+
                         show: function () {
                             $(this).slideDown();
                         },
 
-                        hide: function (deleteElement) {                
-                            $(this).slideUp(deleteElement);                 
-                        }   
+                        hide: function (deleteElement) {
+                            $(this).slideUp(deleteElement);
+                        }
                     });
                 }
 
@@ -945,9 +1112,118 @@
                     }
                 };
             }(); */
+            $('#statusSelect, input[name="status"]').change(updateStatusElements);
+
+            function updateStatusElements(e) {
+                var valueAttribute = '[value="' + e.target.value + '"]';
+                $('#statusSelect option' + valueAttribute).prop('selected', true);
+                $('input[name="status"]' + valueAttribute).prop('checked', true);
+            }
+            $('#incorporationSelect, input[name="incorporation"]').change(updateElements);
+
+            function updateElements(e) {
+                var valueAttribute = '[value="' + e.target.value + '"]';
+                $('#incorporationSelect option' + valueAttribute).prop('selected', true);
+                $('input[name="incorporation"]' + valueAttribute).prop('checked', true);
+            }
+
+            function selectTypeElemts(){
+                let ss=$( "#statusSelect" ).val();
+                let trainingSelect=$( "#trainingSelect" ).val();
+                let CTSelect=$( "#progressSelect" ).val();
+                let EXFSelect=$( "#fundingSelect" ).val();
+
+                let valueAttribute = '[value="' + ss + '"]';
+                $('input[name="status"]' + valueAttribute).prop('checked', true)
+                // console.log($("#trainingSelect"))
+                    $("#formationbutton span").text(trainingSelect);
+
+                    if (CTSelect=='Envoyé au Comité Technique'|| CTSelect=='Accepté par le Comité Technique'||CTSelect=='Refusé par le Comité Technique' ){
+                        $("#CTbutton span").text(CTSelect);
+                    }else{
+                    $("#CPDHbutton span").text(CTSelect);
+                        $("#CTbutton span").text('Accepté par le Comité Technique')
+                }
+                $("#EXFbutton span").text(EXFSelect);
+
+
+            }
+            function selectElemts(){
+                let ss=$( "#incorporationSelect" ).val();
+                let valueAttribute = '[value="' + ss + '"]';
+                $('input[name="incorporation"]' + valueAttribute).prop('checked', true)
+            }
+
+            $("#send-training").click(function(event){
+                var ButtonText = $(this).text();
+                let valueAttribute = ' value="' + ButtonText + '"';
+                $('#send-training').append('<input type="hidden" name="training"'+ valueAttribute + '>' );
+            });
+            $("#trained").click(function(event){
+                var ButtonText = $(this).text();
+                let valueAttribute = ' value="' + ButtonText + '"';
+                $('#trained').append('<input type="hidden" name="training"'+ valueAttribute + '>' );
+            });
+            $("#training_canceled").click(function(event){
+                var ButtonText = $(this).text();
+                let valueAttribute = ' value="' + ButtonText + '"';
+                $('#training_canceled').append('<input type="hidden" name="training"'+ valueAttribute + '>' );
+            });
+            $("#send-CT").click(function(event){
+                var ButtonText = $(this).text();
+                let valueAttribute = ' value="' + ButtonText + '"';
+                $('#send-CT').append('<input type="hidden" name="progress"'+ valueAttribute + '>' );
+            });
+            $("#approuved-CT").click(function(event){
+                var ButtonText = $(this).text();
+                let valueAttribute = ' value="' + ButtonText + '"';
+                $('#approuved-CT').append('<input type="hidden" name="progress"'+ valueAttribute + '>' );
+            });
+            $("#refused_CT").click(function(event){
+                var ButtonText = $(this).text();
+                let valueAttribute = ' value="' + ButtonText + '"';
+                $('#refused_CT').append('<input type="hidden" name="progress"'+ valueAttribute + '>' );
+            });
+            $("#send-CPDH").click(function(event){
+                var ButtonText = $(this).text();
+                let valueAttribute = ' value="' + ButtonText + '"';
+                $('#send-CPDH').append('<input type="hidden" name="progress"'+ valueAttribute + '>' );
+            });
+            $("#approuved-CPDH").click(function(event){
+                var ButtonText = $(this).text();
+                let valueAttribute = ' value="' + ButtonText + '"';
+                $('#approuved-CPDH').append('<input type="hidden" name="progress"'+ valueAttribute + '>' );
+            });
+            $("#refused_CPDH").click(function(event){
+                var ButtonText = $(this).text();
+                let valueAttribute = ' value="' + ButtonText + '"';
+                $('#refused_CPDH').append('<input type="hidden" name="progress"'+ valueAttribute + '>' );
+            });
+            $("#send-EXF").click(function(event){
+                var ButtonText = $(this).text();
+                let valueAttribute = ' value="' + ButtonText + '"';
+                $('#send-EXF').append('<input type="hidden" name="funding"'+ valueAttribute + '>' );
+            });
+            $("#approuved-EXF").click(function(event){
+                var ButtonText = $(this).text();
+                let valueAttribute = ' value="' + ButtonText + '"';
+                $('#approuved-EXF').append('<input type="hidden" name="funding"'+ valueAttribute + '>' );
+            });
+            $("#refused_EXF").click(function(event){
+                var ButtonText = $(this).text();
+                let valueAttribute = ' value="' + ButtonText + '"';
+                $('#refused_EXF').append('<input type="hidden" name="funding"'+ valueAttribute + '>' );
+            });
+            $("#funded_EXF").click(function(event){
+                var ButtonText = $(this).text();
+                let valueAttribute = ' value="' + ButtonText + '"';
+                $('#funded_EXF').append('<input type="hidden" name="funding"'+ valueAttribute + '>' );
+            });
 
             jQuery(document).ready(function() {
                 KTWizard4.init();
+                selectTypeElemts();
+                selectElemts()
                 // KTFormRepeater.init();
             });
     </script>
