@@ -335,19 +335,16 @@
 												<canvas id="kt_chart_profit_share" style="height: 140px; width: 140px;"></canvas>
 											</div>
 											<div class="kt-widget14__legends">
-												<div class="kt-widget14__legend">
-													<span class="kt-widget14__bullet kt-bg-success"></span>
-													<span class="kt-widget14__stats">37% Agriculture</span>
-												</div>
-												<div class="kt-widget14__legend">
-													<span class="kt-widget14__bullet kt-bg-warning"></span>
-													<span class="kt-widget14__stats">47% Artisanat</span>
-												</div>
-												<div class="kt-widget14__legend">
-													<span class="kt-widget14__bullet kt-bg-brand"></span>
-													<span class="kt-widget14__stats">19% Industrie</span>
-												</div>
-											</div>
+                                                @foreach($Sectors as $Sector)
+
+                                                    <div class="kt-widget14__legend">
+
+                                                        <span class="kt-widget14__bullet kt-bg-success"></span>
+                                                        <span class="kt-widget14__stats">{{round($Sector[1],2)}}% {{$Sector[0]->title}} </span>
+                                                    </div>
+                                                @endforeach
+
+                                            </div>
 										</div>
 									</div>
 								</div>
@@ -365,25 +362,20 @@
 											</h3>
 											<span class="kt-widget14__desc">
 												Statistiques réparties par commune
-											</span>
+                                                											</span>
 										</div>
 										<div class="kt-widget14__content">
 											<div class="kt-widget14__chart">
 												<div id="kt_chart_revenue_change" style="height: 150px; width: 150px;"></div>
 											</div>
 											<div class="kt-widget14__legends">
+                                                @foreach($townshiparray as $township)
 												<div class="kt-widget14__legend">
 													<span class="kt-widget14__bullet kt-bg-success"></span>
-													<span class="kt-widget14__stats">+10% Mtalssa</span>
-												</div>
-												<div class="kt-widget14__legend">
-													<span class="kt-widget14__bullet kt-bg-warning"></span>
-													<span class="kt-widget14__stats">-7% Talilit</span>
-												</div>
-												<div class="kt-widget14__legend">
-													<span class="kt-widget14__bullet kt-bg-brand"></span>
-													<span class="kt-widget14__stats">+20% Midar</span>
-												</div>
+													<span class="kt-widget14__stats">{{round($township[1],2)}}%
+                                                            {{$township[0]->title}}
+                                                        </span>
+												</div>@endforeach
 											</div>
 										</div>
 									</div>
@@ -583,7 +575,7 @@ var KTDashboard = function() {
         var config = {
             type: 'line',
             data: {
-                labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October"],
+                labels: ["January", "February", "March", "April", "May", "June", "August", "September", "October"],
                 datasets: [{
                     label: "",
                     borderColor: color,
@@ -751,7 +743,9 @@ var KTDashboard = function() {
             data: {
                 datasets: [{
                     data: [
-                        35, 30, 35
+                        @foreach($Sectors as $Sector)
+                        {{round($Sector[1],2)}},
+                        @endforeach
                     ],
                     backgroundColor: [
                         KTApp.getStateColor('success'),
@@ -759,11 +753,16 @@ var KTDashboard = function() {
                         KTApp.getStateColor('brand')
                     ]
                 }],
+
+
+
                 labels: [
-                    'Angular',
-                    'CSS',
-                    'HTML'
-                ]
+                    @foreach($Sectors as $Sector)
+                        '{{$Sector[0]->title}}',
+                    @endforeach
+                    ]
+
+
             },
             options: {
                 cutoutPercentage: 75,
@@ -1221,18 +1220,13 @@ var KTDashboard = function() {
 
         Morris.Donut({
             element: 'kt_chart_revenue_change',
-            data: [{
-                    label: "Driouch",
-                    value: 10
-                },
-                {
-                    label: "Mtalssa",
-                    value: 7
-                },
-                {
-                    label: "Midar",
-                    value: 20
-                }
+            data: [@foreach($townshiparray as $township)
+            {
+
+                label:  "{{$township[0]->title}}",
+                value: {{round($township[1],2)}}
+
+                    },@endforeach
             ],
             colors: [
                 KTApp.getStateColor('success'),
@@ -1454,9 +1448,10 @@ var KTDashboard = function() {
         var config = {
             type: 'line',
             data: {
-                labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October"],
+                labels: [@foreach($created_date as $key => $date)
+                    '{{$date->date}}',@endforeach],
                 datasets: [{
-                    label: "Bandwidth Stats",
+                    label: "Dossiers en attente",
                     backgroundColor: gradient,
                     borderColor: KTApp.getStateColor('success'),
 
@@ -1467,7 +1462,8 @@ var KTDashboard = function() {
 
                     //fill: 'start',
                     data: [
-                        10, 14, 12, 16, 9, 11, 13, 9, 13, 15
+                        @foreach($created_date as $key => $date)
+                        {{$date->datecount}},@endforeach
                     ]
                 }]
             },
