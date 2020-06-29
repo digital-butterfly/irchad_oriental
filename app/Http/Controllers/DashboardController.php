@@ -30,21 +30,33 @@ class DashboardController
         $townshiparray=[];
         $created_date=ProjectApplication::selectRaw("COUNT(*) datecount, DATE_FORMAT(created_at, ' %m-%e-%Y') date")->
         where('status','!=', 'Rejeté')->where('status','!=', 'Incubé')
-            ->groupBy('date')->take(6)
+            ->groupBy('date')->take(7)
             ->get();
-
+        $incubationdate=ProjectApplication::selectRaw("COUNT(*) datecount, DATE_FORMAT(created_at, ' %m-%e-%Y') date")->
+        where('status', 'Incubé')
+            ->groupBy('date')->take(7)
+            ->get();
 foreach ($category_id as $category){
     $category->total*100/$countProjet;
-    $arrywithper=ProjectCategory::select('title')->where('parent_id','!=', null )->where('id','=',$category->category_id)->get()->push($category->total*100/$countProjet);
+    $firstArray=array('brand','danger', 'success');
+    $key=rand(1,2);
+
+
+    $arrywithper=ProjectCategory::select('title')->where('parent_id','!=', null )->where('id','=',$category->category_id)->get()->push($category->total*100/$countProjet)->push($firstArray[$key]);
+
+
     array_push($Sectors,$arrywithper);
+
+
 }
+
 foreach ($townships as $township){
     $arrytwer=Township::select('title')->where('id','=',$township->township_id)->get()->push($township->total*100/$countProjet);
     array_push($townshiparray, $arrytwer);
 }
 //todo refactor this
 
-        return view('back-office/home', compact( 'countNew','countApprouved', 'countIncube','countRejected','countPending','countProjet','category_id','Sectors','created_date','townshiparray','townships'));
+        return view('back-office/home', compact( 'countNew','countApprouved', 'countIncube','countRejected','countPending','countProjet','category_id','Sectors','created_date','townshiparray','townships', 'incubationdate' ));
     }
 
 }

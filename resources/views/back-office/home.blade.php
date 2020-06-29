@@ -334,12 +334,12 @@
 												<div class="kt-widget14__stat">{{$countProjet}}</div>
 												<canvas id="kt_chart_profit_share" style="height: 140px; width: 140px;"></canvas>
 											</div>
-											<div class="kt-widget14__legends">
+											<div id="kt-bg" class="kt-widget14__legends">
                                                 @foreach($Sectors as $Sector)
 
                                                     <div class="kt-widget14__legend">
 
-                                                        <span class="kt-widget14__bullet kt-bg-success"></span>
+                                                        <span  class="kt-widget14__bullet kt-bg-{{$Sector[2]}} "></span>
                                                         <span class="kt-widget14__stats">{{round($Sector[1],2)}}% {{$Sector[0]->title}} </span>
                                                     </div>
                                                 @endforeach
@@ -748,9 +748,10 @@ var KTDashboard = function() {
                         @endforeach
                     ],
                     backgroundColor: [
-                        KTApp.getStateColor('success'),
-                        KTApp.getStateColor('danger'),
-                        KTApp.getStateColor('brand')
+                        @foreach($Sectors as $Sector)
+                        KTApp.getStateColor('{{$Sector[2]}}'),
+                        @endforeach
+
                     ]
                 }],
 
@@ -789,7 +790,9 @@ var KTDashboard = function() {
                     xPadding: 10,
                     caretPadding: 0,
                     displayColors: false,
-                    backgroundColor: KTApp.getStateColor('brand'),
+                    @foreach($Sectors as $Sector)
+                    backgroundColor:KTApp.getStateColor('{{$Sector[2]}}'),
+                    @endforeach
                     titleFontColor: '#ffffff',
                     cornerRadius: 4,
                     footerSpacing: 0,
@@ -1544,9 +1547,10 @@ var KTDashboard = function() {
         var config = {
             type: 'line',
             data: {
-                labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October"],
+                labels: [@foreach($incubationdate as $key => $date)
+                    '{{$date->date}}',@endforeach],
                 datasets: [{
-                    label: "Bandwidth Stats",
+                    label: "Dossiers Incubés",
                     backgroundColor: gradient,
                     borderColor: KTApp.getStateColor('warning'),
                     pointBackgroundColor: Chart.helpers.color('#000000').alpha(0).rgbString(),
@@ -1556,7 +1560,8 @@ var KTDashboard = function() {
 
                     //fill: 'start',
                     data: [
-                        10, 14, 12, 16, 9, 11, 13, 9, 13, 15
+                        @foreach($incubationdate as $key => $date)
+                        {{$date->datecount}},@endforeach
                     ]
                 }]
             },
