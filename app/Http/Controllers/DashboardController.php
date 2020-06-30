@@ -40,16 +40,10 @@ foreach ($category_id as $category){
     $category->total*100/$countProjet;
     $firstArray=array('brand','danger', 'success');
     $key=rand(1,2);
-
-
     $arrywithper=ProjectCategory::select('title')->where('parent_id','!=', null )->where('id','=',$category->category_id)->get()->push($category->total*100/$countProjet)->push($firstArray[$key]);
-
-
     array_push($Sectors,$arrywithper);
 
-
 }
-
 foreach ($townships as $township){
     $arrytwer=Township::select('title')->where('id','=',$township->township_id)->get()->push($township->total*100/$countProjet);
     array_push($townshiparray, $arrytwer);

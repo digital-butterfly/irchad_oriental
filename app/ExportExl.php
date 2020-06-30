@@ -2,25 +2,39 @@
 
 namespace App;
 
-use App\Member;
-use Illuminate\Database\Eloquent\Model;
-
-use Maatwebsite\Excel\Concerns\FromArray;
-use function GuzzleHttp\Promise\all;
 use Maatwebsite\Excel\Concerns\FromCollection;
-use Maatwebsite\Excel\Concerns\WithCustomStartCell;
-use Maatwebsite\Excel\Concerns\FromQuery;
-use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\Exportable;
 
 
 
 
-class exportExl implements FromQuery{
+class exportExl implements FromCollection
+{
+    use Exportable;
 
-    public function query()
+    private $collection;
+
+    public function __construct($arrays)
     {
-        return Member::query('select identity_number');
-//        return view('ProjectApplication',compact('title'));
+        $output = [];
+
+        foreach ($arrays as $array) {
+            // get headers for current dataset
+            $output[] = array_keys($array[0]);
+            // store values for each row
+            foreach ($array as $row) {
+                $output[] = array_values($row);
+            }
+            // add an empty row before the next dataset
+            $output[] = [''];
+        }
+
+        $this->collection = collect($output);
+    }
+
+    public function collection()
+    {
+        return $this->collection;
     }
 
 
