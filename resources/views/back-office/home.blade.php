@@ -137,7 +137,6 @@
 										</span>
 										<span class="kt-widget17__desc">
 											{{$countIncube}} Adhérents Incubés
-{{--                                             <a class="btn btn-warning" href="{{ route('exportExl') }}">Export User Data</a>--}}
 										</span>
 									</div>
 									<div class="kt-widget17__item">

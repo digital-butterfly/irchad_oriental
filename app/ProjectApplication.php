@@ -50,10 +50,12 @@ class ProjectApplication extends Model
     protected $casts = [
         'created_at' => 'datetime:d-m-Y',
         'updated_at' => 'datetime:d-m-Y',
-        'business_model'=> 'object',
-        'financial_data'=> 'object',
-        'training_needs'=> 'object',
-        'company'=> 'object',
+        'business_model'=> 'array',
+        'financial_data'=> 'array',
+        'training_needs'=> 'array',
+        'company'=> 'array',
+
+
     ];
 
     /**
