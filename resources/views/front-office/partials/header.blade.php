@@ -6,6 +6,10 @@
                 <img src="images/front-office/logo-white.svg" alt="Logo Irchad" width="100px">
                 <img src="images/front-office/logo-colorful.svg" alt="Logo Irchad" width="100px">
             </a>
+            <a href="/" class="logo">
+                <img src="images/front-office/indh-white.svg" style="margin-left: 15px;" alt="Logo Irchad" width="120px">
+                <img src="images/front-office/indh-color.svg" style="margin-left: 15px;" alt="Logo Irchad" width="150px">
+            </a>
         </div>
         <!-- End Logo container-->
         <div class="menu-extras">

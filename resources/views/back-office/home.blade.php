@@ -749,7 +749,9 @@ var KTDashboard = function() {
                     ],
                     backgroundColor: [
 
-                        KTApp.getStateColor('success'),
+                        @foreach($Sectors as $Sector)
+                        KTApp.getStateColor('{{$Sector[2]}}'),
+                        @endforeach
 
 
                     ]
