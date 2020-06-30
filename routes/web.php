@@ -86,6 +86,9 @@ Route::group(['middleware' => 'auth:user'], function () {
     Route::resource('admin/', 'DashboardController');
     Route::get('admin', 'DashboardController@ajaxList');
 
+    Route::get('/admin/exportExl','ExportController@exportExl')->name('exportExl');
+
+
     Route::resource('admin/projects-categories', 'ProjectCategoryController');
 
 });
