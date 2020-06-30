@@ -1138,16 +1138,18 @@
 
                 let valueAttribute = '[value="' + ss + '"]';
                 $('input[name="status"]' + valueAttribute).prop('checked', true)
-                // console.log($("#trainingSelect"))
+                if(trainingSelect!=''){
                     $("#formationbutton span").text(trainingSelect);
+                }
 
                     if (CTSelect=='Envoyé au Comité Technique'|| CTSelect=='Accepté par le Comité Technique'||CTSelect=='Refusé par le Comité Technique' ){
                         $("#CTbutton span").text(CTSelect);
-                    }else{
+                    }else if (CTSelect!=''){
                     $("#CPDHbutton span").text(CTSelect);
                         $("#CTbutton span").text('Accepté par le Comité Technique')
                 }
-                $("#EXFbutton span").text(EXFSelect);
+if(EXFSelect!=''){ $("#EXFbutton span").text(EXFSelect);}
+
 
 
             }
