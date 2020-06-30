@@ -236,7 +236,7 @@
                                                 <div class="kt-portlet__body">
                                                     <div class="kt-portlet kt-callout kt-callout--dark">
                                                         <div class="kt-portlet__body">
-                                                            <div class=".form-group row">
+                                                            <div class=".form-group row" style="margin-bottom: 20px">
                                                                 <div class="col-12">
                                                                     <label class="col-form-label kt-margin-r-20">Status:</label>
                                                                     <label
@@ -296,6 +296,9 @@
 
                                                                 </div>
 
+                                                            </div>
+                                                            <div class="kt-form__actions" style="display: contents;">
+                                                                <button type="submit" class="btn btn-primary kt-align-center">Enregistrer les modifications</button>
                                                             </div>
                                                         </div>
                                                     </div>
