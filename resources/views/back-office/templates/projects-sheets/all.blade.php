@@ -3,7 +3,7 @@
 
 
 @section('specific_css')
-    
+
 @endsection
 
 
@@ -152,11 +152,11 @@
                                 <div class="kt-widget__subhead">
                                     <a href="#"><i class="flaticon2-new-email"></i>{{ $project->category_id }}</a>
                                     <a href="#"><i class="flaticon2-calendar-3"></i>{{ $project->market_type }}</a>
-                                    <a href="#"><i class="flaticon2-placeholder"></i>Driouch - {{ $project->township_id }}</a>
+                                    <a href="#"><i class="flaticon2-placeholder"></i>Al Hoceima - {{ $project->township_id }}</a>
                                 </div>
                                 <div class="kt-widget__info">
                                     <div class="kt-widget__desc">
-                                        {{ $project->description }} 
+                                        {{ $project->description }}
                                     </div>
                                     <div class="kt-widget__progress">
                                         <div class="kt-widget__text">
@@ -239,7 +239,7 @@
                                         if($start < 1) {
                                             $start = $current; // reset start to 1
                                             $end +=  $current + 3;
-                                        } 
+                                        }
                                         if($end >= $projects->lastPage()) $end = $projects->lastPage(); // reset end to last page
                                     @endphp
 
@@ -250,11 +250,11 @@
                                         </li>
                                         <li class="kt-pagination__link--next">
                                             <a href="{{ $projects->previousPageUrl() }}"><i class="fa fa-angle-left kt-font-brand"></i></a>
-                                        </li>     
+                                        </li>
                                     @endif
 
                                     {{-- Pagination Elements --}}
-                                        
+
 
                                     @for ($i = $start; $i <= $end; $i++)
                                         {{-- <li class="page-item {{ ($paginator->currentPage() == $i) ? ' active' : '' }}">
@@ -309,7 +309,7 @@
 
 @section('specific_js')
     <script>
-        
+
 
     </script>
 @endsection

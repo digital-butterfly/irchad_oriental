@@ -3,7 +3,7 @@
 
 
 @section('specific_css')
-    
+
 @endsection
 
 
@@ -33,7 +33,7 @@
                                     <div class="kt-widget__subhead">
                                         <a href="#"><i class="flaticon2-new-email"></i>{{ $project->category_id }}</a>
                                         <a href="#"><i class="flaticon2-calendar-3"></i>{{ $project->market_type }}</a>
-                                        <a href="#"><i class="flaticon2-placeholder"></i>Driouch - {{ $project->township_id }}</a>
+                                        <a href="#"><i class="flaticon2-placeholder"></i>Al Hoceima - {{ $project->township_id }}</a>
                                     </div>
                                     <div class="kt-widget__info">
                                         <div class="kt-widget__desc">
@@ -128,7 +128,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="col-xl-6">
                 <div class="kt-portlet kt-portlet--height-fluid">
                     <div class="kt-portlet__head">
@@ -164,17 +164,17 @@
                     <div class="kt-widget14">
                         <div class="kt-widget14__header">
                             <h3 class="kt-widget14__title">
-                                Modes de financement        
+                                Modes de financement
                             </h3>
                             <span class="kt-widget14__desc">
                                 En MAD
                             </span>
-                        </div>	 
-                        <div class="kt-widget14__content">	
+                        </div>
+                        <div class="kt-widget14__content">
                             <div class="kt-widget14__chart"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
                                 <div class="kt-widget14__stat">340K</div>
                                 <canvas id="chart_finance_program" style="height: 180px; width: 180px; display: block;" width="180" height="180" class="chartjs-render-monitor"></canvas>
-                            </div> 
+                            </div>
                             <div class="kt-widget14__legends">
                                 @php
                                     $count = 0;
@@ -189,11 +189,11 @@
                                         @endphp
                                     </div>
                                 @endforeach
-                            </div>					
-                        </div> 
+                            </div>
+                        </div>
                     </div>
-                </div>		
-                <!--end:: Widgets/Profit Share-->  
+                </div>
+                <!--end:: Widgets/Profit Share-->
             </div>
 
             <div class="col-xl-4">
@@ -202,13 +202,13 @@
                     <div class="kt-widget14">
                         <div class="kt-widget14__header">
                             <h3 class="kt-widget14__title">
-                                Programme d'investissement     
+                                Programme d'investissement
                             </h3>
                             <span class="kt-widget14__desc">
                                 En MAD
                             </span>
-                        </div>	 
-                        <div class="kt-widget14__content">	
+                        </div>
+                        <div class="kt-widget14__content">
                             <div class="kt-widget14__chart"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
                                 <div class="kt-widget14__stat">340K</div>
                                 <canvas id="chart_investment_program" style="height: 180px; width: 180px; display: block;" width="180" height="180" class="chartjs-render-monitor"></canvas>
@@ -227,11 +227,11 @@
                                         @endphp
                                     </div>
                                 @endforeach
-                            </div>			
-                        </div> 
+                            </div>
+                        </div>
                     </div>
-                </div>		
-                <!--end:: Widgets/Profit Share-->  
+                </div>
+                <!--end:: Widgets/Profit Share-->
             </div>
 
             <div class="col-xl-4">
@@ -240,10 +240,10 @@
                     <div class="kt-widget14">
                         <div class="kt-widget14__header">
                             <h3 class="kt-widget14__title">
-                                Autres informations  
+                                Autres informations
                             </h3>
-                        </div>	 
-                        <div class="kt-widget14__content">	
+                        </div>
+                        <div class="kt-widget14__content">
                             <div class="kt-widget4">
                                 <div class="kt-widget4__item">
                                     <div class="kt-widget4__info">
@@ -252,10 +252,10 @@
                                         </a>
                                         <p class="kt-widget4__text">
                                             {{ $project->partnerships }}
-                                        </p>		 
-                                    </div>					
-                                </div>	 
-                    
+                                        </p>
+                                    </div>
+                                </div>
+
                                 <div class="kt-widget4__item">
                                     <div class="kt-widget4__info">
                                         <a href="#" class="kt-widget4__title">
@@ -263,10 +263,10 @@
                                         </a>
                                         <p class="kt-widget4__text">
                                             {{ $project->contacts }}
-                                        </p>		 
-                                    </div>				 
-                                </div>	
-                    
+                                        </p>
+                                    </div>
+                                </div>
+
                                 <div class="kt-widget4__item">
                                     <div class="kt-widget4__info">
                                         <a href="#" class="kt-widget4__title">
@@ -274,14 +274,14 @@
                                         </a>
                                         <p class="kt-widget4__text">
                                             {{ $project->equipment }}
-                                        </p>		 
-                                    </div>						
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                        </div> 
+                        </div>
                     </div>
-                </div>		
-                <!--end:: Widgets/Profit Share-->  
+                </div>
+                <!--end:: Widgets/Profit Share-->
             </div>
         </div>
 
@@ -319,7 +319,7 @@
 
             // Programme de Financement Chart.
             // Based on Chartjs plugin - http://www.chartjs.org/
-            var financePogram = function() {        
+            var financePogram = function() {
                 if (!KTUtil.getByID('chart_finance_program')) {
                     return;
                 }
@@ -378,11 +378,11 @@
                             mode: 'nearest',
                             bodySpacing: 5,
                             yPadding: 10,
-                            xPadding: 10, 
+                            xPadding: 10,
                             caretPadding: 0,
                             displayColors: false,
                             backgroundColor: KTApp.getStateColor('brand'),
-                            titleFontColor: '#ffffff', 
+                            titleFontColor: '#ffffff',
                             cornerRadius: 4,
                             footerSpacing: 0,
                             titleSpacing: 0
@@ -396,7 +396,7 @@
 
             // Programme d'investissement Chart.
             // Based on Chartjs plugin - http://www.chartjs.org/
-            var investmentPogram = function() {        
+            var investmentPogram = function() {
                 if (!KTUtil.getByID('chart_investment_program')) {
                     return;
                 }
@@ -455,11 +455,11 @@
                             mode: 'nearest',
                             bodySpacing: 5,
                             yPadding: 10,
-                            xPadding: 10, 
+                            xPadding: 10,
                             caretPadding: 0,
                             displayColors: false,
                             backgroundColor: KTApp.getStateColor('brand'),
-                            titleFontColor: '#ffffff', 
+                            titleFontColor: '#ffffff',
                             cornerRadius: 4,
                             footerSpacing: 0,
                             titleSpacing: 0

@@ -1,7 +1,7 @@
 <head>
     <base href="/">
     <meta charset="utf-8" />
-    <title>IRCHAD | Incubation DRIOUCH</title>
+    <title>IRCHAD | Incubation Al HOCEIMA</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- CSRF Token -->
@@ -27,6 +27,6 @@
     <!--end::Layout Skins -->
 
     @yield('specific_css')
-    
+
     <link rel="shortcut icon" href="images/back-office/logos/favicon.ico" />
 </head>

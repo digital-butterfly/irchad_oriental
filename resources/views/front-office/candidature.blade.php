@@ -211,7 +211,7 @@
                                             <div class="form-group">
                                                 <select name="township_id" id="township_id" class="form-control">
                                                     <option value="" selected disabled>Votre commune...</option>
-                                                    <option value="14">Driouch</option>
+                                                    <option value="14">Al Hoceima</option>
                                                     <option value="13">Midar</option>
                                                     <option value="5">Mtalssa</option>
                                                     <option value="10">Ouardana</option>

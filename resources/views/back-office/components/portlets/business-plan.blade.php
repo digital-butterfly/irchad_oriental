@@ -404,7 +404,7 @@
                     <div class="kt-invoice__items">
                         <div class="kt-invoice__item">
                             <span class="kt-invoice__subtitle">COMMUNE</span>
-                            <span class="kt-invoice__text">Driouch - {{ $application->township_name }}</span>
+                            <span class="kt-invoice__text">Al Hoceima - {{ $application->township_name }}</span>
                         </div>
                         <div class="kt-invoice__item">
                             <span class="kt-invoice__subtitle">SECTEUR</span>

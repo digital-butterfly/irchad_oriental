@@ -80,7 +80,7 @@
                                     <div class="kt-widget__subhead">
                                         <a href="#"><i class="flaticon2-calendar-3"></i>{{ $application->created_at->format('d/m/Y') }}</a>
                                         <a href="#"><i class="flaticon2-new-email"></i>{{ $application->category_title }}</a>
-                                        <a href="#"><i class="flaticon2-placeholder"></i> Driouch - {{ $application->township_name }}</a>
+                                        <a href="#"><i class="flaticon2-placeholder"></i> Al Hoceima - {{ $application->township_name }}</a>
                                     </div>
                                     <div class="kt-widget__info">
                                         <div class="kt-widget__desc">
