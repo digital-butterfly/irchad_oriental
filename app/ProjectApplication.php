@@ -53,7 +53,7 @@ class ProjectApplication extends Model
         'business_model'=> 'array',
         'financial_data'=> 'array',
         'training_needs'=> 'array',
-        'company'=> 'array',
+        'company'=> 'object',
 
 
     ];

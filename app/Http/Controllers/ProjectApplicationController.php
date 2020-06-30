@@ -303,14 +303,14 @@ class ProjectApplicationController extends Controller
                 'profit_margin_rate' => $request['profit_margin_rate'],
                 'evolution_rate' => $request['evolution_rate'],
             ])),
-            'company' => json_decode(json_encode([
+            'company' => [
                 'legal_form' => $request['legal_form'],
                 'is_created' => $request['is_created'],
                 'capital' => $request['capital'],
                 'creation_date' => $request['creation_date'],
                 'corporate_name' => $request['corporate_name'],
                 'applied_tax' => $request['applied_tax'],
-            ])),
+            ],
             'training_needs' => json_decode(json_encode([
                 'pre_creation_training' => $request['pre_creation_training'],
                 'post_creation_training' => $request['post_creation_training'],

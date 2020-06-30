@@ -21,8 +21,10 @@ class ExportController extends Controller
 //        dd(ProjectApplication::all()->toArray());
 //        dd(Member::all()->toArray());
 //        dd(ProjectApplication::all()->toArray());
-
-        $arrays = [ProjectCategory::all()->toArray(),Township::all()->toArray(),Member::all()->toArray(),ProjectApplication::all()->toArray()];
+$projectApplicatoin=  (array) json_decode(ProjectApplication::all());
+        $arrays = [ProjectCategory::all()->toArray(),Township::all()->toArray(),Member::all()->toArray(),$projectApplicatoin];
+//        dump(ProjectApplication::all());
+//        dump(ProjectApplication::all()->toArray());
 
         return Excel::download(new ExcelPerSheet($arrays), Carbon::now().'-back-up.xlsx');
 
