@@ -758,7 +758,9 @@ var KTDashboard = function() {
 
 
                 labels: [
-                    'a',
+                    @foreach($Sectors as $Sector)
+                        '{{$Sector[0]->title}}',
+                    @endforeach
                     ]
 
 
