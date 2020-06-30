@@ -28,9 +28,9 @@
                 <li class="has-submenu">
                     <a href="a-propos">À Propos</a>
                 </li>
-                <li class="has-submenu">
-                    <a href="formations">Formations</a>
-                </li>
+{{--                <li class="has-submenu">--}}
+{{--                    <a href="formations">Formations</a>--}}
+{{--                </li>--}}
                 <li class="has-submenu">
                     <a href="programme">Programme</a>
                 </li>

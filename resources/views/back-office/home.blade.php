@@ -339,8 +339,8 @@
 
                                                     <div class="kt-widget14__legend">
 
-                                                        {{-- <span  class="kt-widget14__bullet kt-bg-{{$Sector[2]}} "></span> --}}
-                                                        {{-- <span class="kt-widget14__stats">{{round($Sector[1],2)}}% {{$Sector[0]->title}} </span> --}}
+                                                         <span  class="kt-widget14__bullet kt-bg-{{$Sector[2]}} "></span>
+                                                         <span class="kt-widget14__stats">{{round($Sector[1],2)}}% {{$Sector[0]->title}} </span>
                                                     </div>
                                                 @endforeach
 
@@ -743,12 +743,14 @@ var KTDashboard = function() {
             data: {
                 datasets: [{
                     data: [
-                       2,
+                        @foreach($Sectors as $Sector)
+                        {{round($Sector[1],2)}},
+                        @endforeach
                     ],
                     backgroundColor: [
-                       
+
                         KTApp.getStateColor('success'),
-                     
+
 
                     ]
                 }],
@@ -786,6 +788,9 @@ var KTDashboard = function() {
                     xPadding: 10,
                     caretPadding: 0,
                     displayColors: false,
+                    @foreach($Sectors as $Sector)
+                    backgroundColor:KTApp.getStateColor('{{$Sector[2]}}'),
+                    @endforeach
                     titleFontColor: '#ffffff',
                     cornerRadius: 4,
                     footerSpacing: 0,

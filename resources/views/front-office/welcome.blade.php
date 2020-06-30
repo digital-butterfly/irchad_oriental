@@ -9,9 +9,7 @@
         <div class="row">
             <div class="col-lg-12 text-center">
                 <h3 class="home-heading mt-5 pt-5">Une plateforme dédiée aux jeunes porteurs de projets</h3>
-                <p class="home-subtitle mx-auto mt-3 f-17">Anim elit Lorem anim dolore cillum veniam ex Lorem consectetur officia ullamco nisi culpa. Irure cupidatat est excepteur
-                     in magna laboris. Est mollit ea sunt ex amet cupidatat laboris incididunt ea elit laborum.</p>
-                <div class="home-button mt-4">
+                <p class="home-subtitle mx-auto mt-3 f-17">AVous êtes tentés par créer votre entreprise ? A la recherche d’une idée ou d’un accompagnement ? IRCHAD est votre nouvelle plateforme digitale qui vous accompagne dans votre réflexion, de l’idée à la mise en marché.<div class="home-button mt-4">
                     <a href="a-propos" class="btn btn-outline-white mt-3 mr-3">En savoir plus</a>
                     <a href="project-submission" class="btn btn-custom mt-3">Soumissionner un projet maintenant</a>
                 </div>
@@ -582,7 +580,7 @@
                     </div>
                     <div class="ml-5">
                         <h5 class="f-18">Qui peut soumissionner un projet ?</h5>
-                        <p class="faq-answer text-muted">Tous les jeunes âgés entre 18 et 35 ans, en recherche active d’un emploi et qui ne pratiquent aucune activité dans le 
+                        <p class="faq-answer text-muted">Tous les jeunes âgés entre 18 et 35 ans, en recherche active d’un emploi et qui ne pratiquent aucune activité dans le
                             secteur public ou privé. Les porteurs de projets doivent obligatoirement résider au sein de la Province de Al Hoceima</p>
                     </div>
                 </div>
@@ -593,8 +591,8 @@
                     </div>
                     <div class="ml-5">
                         <h5 class="f-18">Qui sont les candidats prioritaires ?</h5>
-                        <p class="faq-answer text-muted">La priorité est attribué aux jeunes titulaires d’un diplôme universitaire ou de l’Office de la Formation 
-                            Professionnelle et de la Promotion du Travail (OFPPT), aux jeunes ayant une expérience antérieure dans un domaine particulier et n’ayant jamais 
+                        <p class="faq-answer text-muted">La priorité est attribué aux jeunes titulaires d’un diplôme universitaire ou de l’Office de la Formation
+                            Professionnelle et de la Promotion du Travail (OFPPT), aux jeunes ayant une expérience antérieure dans un domaine particulier et n’ayant jamais
                             bénéficié des avantages du programme de l’INDH.</p>
                     </div>
                 </div>
@@ -614,7 +612,7 @@
                     </div>
                     <div class="ml-5">
                         <h5 class="f-18">Qu’est-ce qui est considéré comme un projet innovant ?</h5>
-                        <p class="faq-answer text-muted">L’innovation est toute chose nouvellement introduite. Toutes les innovations sont considérées (technologie, concept, 
+                        <p class="faq-answer text-muted">L’innovation est toute chose nouvellement introduite. Toutes les innovations sont considérées (technologie, concept,
                             procédé, commercialisation etc.)</p>
                     </div>
                 </div>
@@ -624,7 +622,7 @@
                     </div>
                     <div class="ml-5">
                         <h5 class="f-18">Dois-je céder des parts sociales à IRCHAD et à l’INDH suite à leur contribution au financement du projet ?</h5>
-                        <p class="faq-answer text-muted">Aucunement. IRCHAD et l’INDH sont des organismes à but non lucratif et dont la finalité est le dynamisme de la 
+                        <p class="faq-answer text-muted">Aucunement. IRCHAD et l’INDH sont des organismes à but non lucratif et dont la finalité est le dynamisme de la
                             croissance.</p>
                     </div>
                 </div>
@@ -637,9 +635,9 @@
                     </div>
                     <div class="ml-5">
                         <h5 class="f-18">Comment se fait la sélection des projets ?</h5>
-                        <p class="faq-answer text-muted">Une fois que vous avez rempli le formulaire d’inscription, vos données sont vérifiées par nos équipes. Lorsque vos 
-                            données seront validées, vous serez convié à l’une de nos plateformes physiques pour un entretien. Si toutes vos informations sont cohérentes avec 
-                            votre profil et vos idées, des informations d’accès à notre plateforme virtuelle vous seront envoyées. Félicitation, votre projet est désormais 
+                        <p class="faq-answer text-muted">Une fois que vous avez rempli le formulaire d’inscription, vos données sont vérifiées par nos équipes. Lorsque vos
+                            données seront validées, vous serez convié à l’une de nos plateformes physiques pour un entretien. Si toutes vos informations sont cohérentes avec
+                            votre profil et vos idées, des informations d’accès à notre plateforme virtuelle vous seront envoyées. Félicitation, votre projet est désormais
                             sélectionné.</p>
                     </div>
                 </div>
@@ -650,7 +648,7 @@
                     </div>
                     <div class="ml-5">
                         <h5 class="f-18">Les porteurs de projets doivent-ils contribuer financièrement au projet ?</h5>
-                        <p class="faq-answer text-muted">Les porteurs de projets doivent contribuer à hauteur de 25% du coût total du projet sous forme de contribution en 
+                        <p class="faq-answer text-muted">Les porteurs de projets doivent contribuer à hauteur de 25% du coût total du projet sous forme de contribution en
                             nature ou en argent.</p>
                     </div>
                 </div>
@@ -661,8 +659,8 @@
                     </div>
                     <div class="ml-5">
                         <h5 class="f-18">A combien s’élève la contribution financière par IRCHAD et l’INDH ?</h5>
-                        <p class="faq-answer text-muted">La contribution financière de IRCHAD et de l’INDH se limite à 100 000 Dirhams lorsque le porteur de projet est une 
-                            seule personne. Dans le cas où le projet est fondé par deux personnes ou plus, la contribution s’élève jusqu’à 200 000 Dirhams. Chaque projet doit 
+                        <p class="faq-answer text-muted">La contribution financière de IRCHAD et de l’INDH se limite à 100 000 Dirhams lorsque le porteur de projet est une
+                            seule personne. Dans le cas où le projet est fondé par deux personnes ou plus, la contribution s’élève jusqu’à 200 000 Dirhams. Chaque projet doit
                             contribuer à la création d’au moins 5 emplois.</p>
                     </div>
                 </div>
@@ -684,7 +682,8 @@
                     <span class="title-icon">
                     <i class="mdi mdi-dots-horizontal"></i>
                 </span>
-                    <p class="title-desc text-muted">Ipsum sit sunt ea culpa cillum est elit non tempor ea minim ullamco. Anim nostrud consequat excepteur qui enim.</p>
+                    <p class="title-desc text-muted">Soumissionnez votre projet maintenant et bénéficiez d'un accompagnement sur mesure.
+                    </p>
                 </div>
             </div>
         </div>

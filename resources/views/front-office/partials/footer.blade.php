@@ -58,7 +58,7 @@
     </div> --}}
 
     <div class="text-center mt-5">
-        <p class="footer-alt mb-0 f-14">2019 © IRCHAD, All Rights Reserved</p>
+        <p class="footer-alt mb-0 f-14">2020 © IRCHAD, All Rights Reserved</p>
     </div>
 </footer>
 <!-- END FOOTER -->
