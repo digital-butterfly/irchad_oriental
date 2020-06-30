@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-lg-12 text-center">
                 <h3 class="home-heading mt-5 pt-5">Une plateforme dédiée aux jeunes porteurs de projets</h3>
-                <p class="home-subtitle mx-auto mt-3 f-17">AVous êtes tentés par créer votre entreprise ? A la recherche d’une idée ou d’un accompagnement ? IRCHAD est votre nouvelle plateforme digitale qui vous accompagne dans votre réflexion, de l’idée à la mise en marché.<div class="home-button mt-4">
+                <p class="home-subtitle mx-auto mt-3 f-17">Vous êtes tentés par créer votre entreprise ? A la recherche d’une idée ou d’un accompagnement ? IRCHAD est votre nouvelle plateforme digitale qui vous accompagne dans votre réflexion, de l’idée à la mise en marché.<div class="home-button mt-4">
                     <a href="a-propos" class="btn btn-outline-white mt-3 mr-3">En savoir plus</a>
                     <a href="project-submission" class="btn btn-custom mt-3">Soumissionner un projet maintenant</a>
                 </div>
