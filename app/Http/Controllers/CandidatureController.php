@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\ProjectCategory;
+use App\Township;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
@@ -148,8 +149,9 @@ class CandidatureController extends Controller
         }
         $LEGALFORM=ProjectApplication::LEGALFORM;
         $AIDEETAT=ProjectApplication::AIDEETAT;
+        $Communes =Township::all();
 
-        return view('front-office.candidature',compact("sectors","LEGALFORM", 'AIDEETAT'));
+        return view('front-office.candidature',compact("sectors","LEGALFORM", 'AIDEETAT','Communes'));
 
 
     }

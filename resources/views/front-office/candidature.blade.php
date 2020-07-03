@@ -143,6 +143,7 @@
                                     <div class="row mt-4">
                                         <div class="col-lg-2">
                                             <div class=" form-group">
+
                                                 <select name="civility" id="civility" class=" custom-form form-control">
                                                     <option value="" selected disabled>Votre civilité...</option>
                                                     <option value="0">Mr</option>
@@ -211,11 +212,9 @@
                                             <div class="form-group">
                                                 <select name="township_id" id="township_id" class="form-control">
                                                     <option value="" selected disabled>Votre commune...</option>
-                                                    <option value="14">Driouch</option>
-                                                    <option value="13">Midar</option>
-                                                    <option value="5">Mtalssa</option>
-                                                    <option value="10">Ouardana</option>
-                                                    <option value="9">Talilit</option>
+                                                    @foreach($Communes as $Commune)
+                                                    <option  value="{{$Commune->id}}">{{$Commune->title}}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
