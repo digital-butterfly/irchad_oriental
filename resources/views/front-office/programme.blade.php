@@ -78,7 +78,7 @@
                                 <path id="Tracé_1337" data-name="Tracé 1337" d="M30.383,34.5H25.6A1.6,1.6,0,0,0,24,36.1V56.84h3.191V47.266h3.191a6.383,6.383,0,1,0,0-12.766Zm0,9.574H27.191V37.691h3.191a3.191,3.191,0,1,1,0,6.383Z" transform="translate(14.297 15.489)" fill="url(#linear-gradient)"/>
                             </g>
                         </svg>
-                        <h2>ACCUEIL</h2>
+                        <h3 class="mt-3">ACCUEIL</h3>
                         <div class="card-body">
 
                             <p class="card-text">Remplir les informations de pré-inscription
@@ -99,7 +99,7 @@
                         </svg>
 
                         <div class="card-body">
-                            <h2>ORIENTATION</h2>
+                            <h3 class="mb-3">ORIENTATION</h3>
                             <p class="card-text">Entretien de positionnement
                                 Validation de l’inscription
                             </p>
@@ -108,7 +108,7 @@
             </div>
             <div class="row">
                 <div class="col-md-6 d-flex justify-content-center ">
-                    <div class="card text-center " style="width: 463px;height: 606px;">
+                    <div class="card text-center " style="width: 463px;height: 364px;">
                         <svg style="display: block; margin: auto" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="105.915" height="105.915" viewBox="0 0 105.915 105.915">
                             <defs>
                                 <linearGradient id="linear-gradient" x2="0.777" y2="2.118" gradientUnits="objectBoundingBox">
@@ -122,7 +122,7 @@
                             </g>
                         </svg>
                         <div class="card-body">
-                            <h2>FORMATION</h2>
+                            <h3 class="mb-3">FORMATION</h3>
                             <p class="card-text">Planifier la formation
                                 Exécuter la formation
                                 Évaluer la formation
@@ -130,8 +130,8 @@
                         </div>
                     </div></div>
                 <div class="col-md-6 d-flex justify-content-center ">
-                    <div class="card text-center program" style="width: 463px;height: 606px;">
-                        <svg style="display: block; margin: auto" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="146.276" height="163.065" viewBox="0 0 146.276 163.065">
+                    <div class="card text-center program" style="width: 463px;height: 364px;">
+                        <svg style="display: block; margin: auto" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="146.276" height="105.065" viewBox="0 0 146.276 163.065">
                             <defs>
                                 <linearGradient id="linear-gradient" x1="0.202" y1="0.15" x2="0.791" y2="1" gradientUnits="objectBoundingBox">
                                     <stop offset="0" stop-color="#0961aa"/>
@@ -143,7 +143,7 @@
                             </g>
                         </svg>
                         <div class="card-body">
-                            <h2>ENTREPRENARIAT</h2>
+                            <h3 class="mb-3">ENTREPRENARIAT</h3>
                             <p class="card-text">Accompagnement pré-création
                                 Accompagnement à la création
                                 Accompagnement post-création
