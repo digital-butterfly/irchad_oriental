@@ -85,6 +85,7 @@ footer {
     color: #ffffff;
     margin-top: 126px;
     background: #0961aa;
+    z-index:3;
 }
 footer ul {
     list-style-type: none;
