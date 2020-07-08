@@ -211,6 +211,9 @@ footer a {
     position: relative;
     transition: all 0.4s ease-in-out;
 }
+.step-header{
+    margin-left: 11px;
+}
 
 .step .step-1 {
     position: absolute;

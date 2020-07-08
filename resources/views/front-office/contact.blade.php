@@ -63,7 +63,7 @@
 
                             <div class="row">
                                 <div class="col text-center">
-                                    <input type="submit" id="submit" name="send" class="submitBnt btn btn-primary" value="Envoyer Message">
+                                    <input type="submit" id="submit" name="send" class="submitBnt btn btn-primary" value="Envoyer un Message">
                                     <div id="simple-msg"></div>
                                 </div>
                             </div>

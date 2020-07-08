@@ -11,8 +11,8 @@
                         accompagnement ? IRCHAD est votre nouvelle plateforme digitale qui vous
                         accompagne dans votre réflexion, de l’idée à la mise en marché.</h4>
                     <div class="row mt-5 text-center">
-                        <div class="col-md-12"><button type="button" class="btn btn-primary mr-3">Soumissionner un projet</button>
-                            <button type="button" class="btn btn-outline-primary">En savoir plus</button></div>
+                        <div class="col-md-12"><a href="project-submission" type="button" class="btn btn-primary mr-3">Soumissionner un projet</a>
+                            <a href="a-propos" class="btn btn-outline-primary">En savoir plus</a></div>
                     </div>
 
                 </div>
@@ -874,7 +874,7 @@
 
                             <div class="row">
                                 <div class="col text-center">
-                                    <input type="submit" id="submit" name="send" class="submitBnt btn btn-primary" value="Envoyer Message">
+                                    <input type="submit" id="submit" name="send" class="submitBnt btn btn-primary" value="Envoyer un Message">
                                     <div id="simple-msg"></div>
                                 </div>
                             </div>
