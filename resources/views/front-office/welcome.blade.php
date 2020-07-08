@@ -760,7 +760,7 @@
     </section>
     <section class="secound-section light section-divider">
         <div class="container-fluid px-5">
-            <h3>Quels avantages à soumissionner un projet ?</h3>
+            <h3>Pourquoi choisir IRCHAD ??</h3>
             <div class="row">
                 <div class="col-lg-6">
                     <div class="mt-4">
