@@ -117,7 +117,7 @@
             </g>
         </svg>
     </div>
-    <div class="container-fluid px-5">
+    <div class="container-fluid px-5" style="padding-bottom: 42px;">
         <div class="row align-items-end ">
             <div class="col-md-5 text-center mb-3">
                 <div class="row ">
@@ -192,11 +192,11 @@
             </div>
             <div class="col-md-3">
                 <ul>
-                    <li><a href="/">À Propos</a></li>
-                    <li><a href="">Programme</a></li>
-                    <li><a href="">Soumissionner un projet</a></li>
-                    <li><a href=""> FAQ</a></li>
-                    <li><a href="">Nous Contacter</a></li>
+                    <li><a href="a-propos">À Propos</a></li>
+                    <li><a href="programme">Programme</a></li>
+                    <li><a href="project-submission">Soumissionner un projet</a></li>
+                    <li><a href="faq"> FAQ</a></li>
+                    <li><a href="contact">Nous Contacter</a></li>
                 </ul> </div>
             <div class="col-md-4 text-center mb-3">2020 © IRCHAD, All Rights Reserved</div>
         </div>
