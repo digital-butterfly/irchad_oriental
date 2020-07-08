@@ -5,10 +5,10 @@
         <div class="container-fluid px-5">
             <div class="row">
                 <div class="col-md-5"><h1>Programme ARIEJ</h1>
-                    <h4>Le programme ARIEJ est la 3ème phase du déploiement
+                    <p>Le programme ARIEJ est la 3ème phase du déploiement
                         de l’INDH 2019-2023. Il a été lancé par sa Majesté
-                        le Roi Mohammed VI que Dieu l’Assiste, <br> le 19 septembre 2018.
-                    </h4></div></div>
+                        le Roi Mohammed VI que Dieu l’Assiste, le 19 septembre 2018.
+                    </p></div></div>
             <div class="row">
                     <div class="col-md-6"> <h4>Ce programme vise spécifiquement à réussir l’intégration économique des jeunes et à l’amélioration de leur situation économique et sociale, à travers la mise en place d’un accompagnement complet dédié aux porteurs de projets, durant tout le processus de création d’entreprise.
                         </h4></div>
@@ -103,7 +103,7 @@
 
                         <div class="card-body">
                             <h3 class="mb-3">ORIENTATION</h3>
-                            <p class="card-text">Entretien de positionnement
+                            <p class="card-text">Entretien de positionnement</p><p>
                                 Validation de l’inscription
                             </p>
                         </div>
@@ -126,9 +126,9 @@
                         </svg>
                         <div class="card-body">
                             <h3 class="mb-3">FORMATION</h3>
-                            <p class="card-text">Planifier la formation
-                                Exécuter la formation
-                                Évaluer la formation
+                            <p class="card-text">Planifier la formation</p><p>
+                                Exécuter la formation</p><p>
+                                Évaluer la formation</p><p>
                                 Réorienter vers l’espace de provenance</p>
                         </div>
                     </div></div>
@@ -147,8 +147,8 @@
                         </svg>
                         <div class="card-body">
                             <h3 class="mb-3">ENTREPRENARIAT</h3>
-                            <p class="card-text">Accompagnement pré-création
-                                Accompagnement à la création
+                            <p class="card-text">Accompagnement pré-création</p><p>
+                                Accompagnement à la création</p><p>
                                 Accompagnement post-création
                             </p>
                         </div>

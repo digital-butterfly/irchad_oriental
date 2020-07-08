@@ -6,9 +6,9 @@
         <div class="container-fluid px-5">
             <div class="row">
                 <div class="col-md-5"><h1>Contactez-Nous</h1>
-                    <h4>Pour toute demande, questionnement ou suggestion,
+                    <p>Pour toute demande, questionnement ou suggestion,
                         n'hésitez pas à utiliser le formulaire de contact ci-dessous,
-                        l’équipe IRCHAD vous répondra dans les meilleurs délais.</h4>
+                        l’équipe IRCHAD vous répondra dans les meilleurs délais.</p>
 
                 </div>
 

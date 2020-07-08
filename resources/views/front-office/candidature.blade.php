@@ -6,16 +6,16 @@
         <div class="container-fluid px-5">
             <div class="row">
                 <div class="col-md-5"><h1>Soumissionner un Projet</h1>
-                    <h4>Vous avez trouvé l'idée de votre futur projet ?</h4><h4>
+                    <p>Vous avez trouvé l'idée de votre futur projet ?
                         Félicitations, vous êtes au bon endroit.
-                    </h4><h4>
+
                         D’abord, vous remplissez vos informations personnelles et professionnelles.
                         Ensuite, vous renseignez les informations de votre futur projet.
                         Finalement, vous pouvez soumissionner votre projet.
-                    </h4><h4>
+
                         Une commission d'experts se chargera d'étudier votre dossier et vous
                         contactera dans les plus brefs délais.
-                    </h4>
+                    </p>
 
                 </div>
 
@@ -188,7 +188,7 @@
 
                         </div>
                         <div class="subheader">Renseignez vos informations professionnelles.
-                            !</div>
+                            </div>
                     </div>
                     <div class="step-content two">
                         <fieldset  class="form-section">

@@ -7,9 +7,9 @@
             <div class="row">
                 <div class="col-lg-5 col-md-12 col-sm-12 col-md-push-3 "><h1>Une Plateforme dédiée
                         aux jeunes porteurs de projets</h1>
-                    <h4>Vous êtes tentés par la création de votre entreprise ? À la recherche d’une idée ou d’un
+                    <p>Vous êtes tentés par la création de votre entreprise ? À la recherche d’une idée ou d’un
                         accompagnement ? IRCHAD est votre nouvelle plateforme digitale qui vous
-                        accompagne dans votre réflexion, de l’idée à la mise en marché.</h4>
+                        accompagne dans votre réflexion, de l’idée à la mise en marché.</p>
                     <div class="row mt-5 text-center">
                         <div class="col-md-12"><a href="project-submission" type="button" class="btn btn-primary mr-3">Soumissionner un projet</a>
                             <a href="a-propos" class="btn btn-outline-primary">En savoir plus</a></div>
@@ -830,7 +830,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h3 style="color: #0961AA">Contactez Nous</h3>
+                    <h3 style="color: #0961AA">Contactez-Nous</h3>
                     <div class="custom-form mt-5">
                         <div id="message"></div>
                         <form method="post" action="php/contact.php" name="contact-form" id="contact-form">

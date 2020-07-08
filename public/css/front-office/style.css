@@ -29,6 +29,14 @@ section {
     min-height: 78vh;
     background: none;
 }
+.header-section p{
+    font-size: 20px;
+    color: #7A839E;
+    font-weight: 300;
+    line-height: 40px;
+    padding-right: 20px;
+
+}
 
 .first-section {
     margin: 0 0 152px 0;
