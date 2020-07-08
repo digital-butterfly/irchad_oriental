@@ -821,7 +821,7 @@
         <div class="container-fluid px-5">
             <div class="row">
                 <div class="col-lg-12 text-center mb-5"><h3 style="color: #ffffff">En savoir plus sur le programme IRCHAD</h3></div>
-                <div class="col-lg-12 text-center"><button type="button" class="btn btn-outline-light"> Nous contacter maintenants</button></div>
+                <div class="col-lg-12 text-center"><button type="button" class="btn btn-outline-light"> Nous contacter maintenant</button></div>
             </div>
 
         </div>
