@@ -111,7 +111,7 @@
             </div>
             <div class="row">
                 <div class="col-md-6 d-flex justify-content-center ">
-                    <div class="card text-center " style="width: 463px;height: 364px;">
+                    <div class="card text-center " style="width: 463px;height: 425px;">
                         <svg style="display: block; margin: auto" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="105.915" height="105.915" viewBox="0 0 105.915 105.915">
                             <defs>
                                 <linearGradient id="linear-gradient" x2="0.777" y2="2.118" gradientUnits="objectBoundingBox">
@@ -133,7 +133,7 @@
                         </div>
                     </div></div>
                 <div class="col-md-6 d-flex justify-content-center ">
-                    <div class="card text-center program" style="width: 463px;height: 364px;">
+                    <div class="card text-center program" style="width: 463px;height: 425px;">
                         <svg style="display: block; margin: auto" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="146.276" height="105.065" viewBox="0 0 146.276 163.065">
                             <defs>
                                 <linearGradient id="linear-gradient" x1="0.202" y1="0.15" x2="0.791" y2="1" gradientUnits="objectBoundingBox">

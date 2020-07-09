@@ -25,7 +25,7 @@
 
             <div class="row justify-content-around ">
                 <div  class="mb-4 col-md-5 align-items-center d-flex justify-content-center ">
-                    <div class="card text-center" style="width: 356px; height: 244px;">
+                    <div class="card text-center" style="width: 356px; height: 284px;">
                         <svg style="display: block; margin: auto" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="99.324" height="99.322" viewBox="0 0 99.324 99.322">
                             <defs>
                                 <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
@@ -46,7 +46,7 @@
                 </div>
                 <div  class="mb-4 col-md-5 align-items-center d-flex justify-content-center ">
                     <div class="card text-center" style="width: 356px;
-    height: 244px;">
+    height: 284px;">
                         <svg  style="display: block; margin: auto" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="111.757" height="99.322" viewBox="0 0 111.757 111.757">
                             <defs>
                                 <linearGradient id="linear-gradient" x1="0.153" y1="0.144" x2="0.857" y2="0.861" gradientUnits="objectBoundingBox">
@@ -58,16 +58,13 @@
                         </svg>
                         <div class="card-body">
 
-                            <p class="card-text">Résoudre
-                                les problématiques
-                                économiques et
-                                sociales de la province</p>
+                            <p class="card-text">Résoudre les problématiques économiques et sociales de la province</p>
                         </div>
                     </div>
 
                 </div>
                 <div  class="mb-4 col-md-5 align-items-center d-flex justify-content-center ">
-                    <div class="card text-center" style="width: 356px; height: 244px;">
+                    <div class="card text-center" style="width: 356px; height: 284px;">
                         <svg style="display: block; margin: auto" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="113.114" height="113.114" viewBox="0 0 113.114 113.114">
                             <defs>
                                 <linearGradient id="linear-gradient" x1="0.04" y1="0.147" x2="1.154" y2="1.117" gradientUnits="objectBoundingBox">
@@ -87,7 +84,7 @@
 
                 </div>
                 <div  class="mb-4 col-md-5 align-items-center d-flex justify-content-center ">
-                    <div class="card text-center" style="width: 356px; height: 244px;">
+                    <div class="card text-center" style="width: 356px; height: 284px;">
                         <svg style="display: block; margin: auto" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="111.999" height="112" viewBox="0 0 111.999 112">
                             <defs>
                                 <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">

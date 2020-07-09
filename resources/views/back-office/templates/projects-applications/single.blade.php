@@ -1135,6 +1135,11 @@
                 let trainingSelect=$( "#trainingSelect" ).val();
                 let CTSelect=$( "#progressSelect" ).val();
                 let EXFSelect=$( "#fundingSelect" ).val();
+                $( "#fundingSelect" ).parent().closest('.form-group').hide();
+                $( "#progressSelect" ).parent().closest('.form-group').hide();
+                $( "#trainingSelect" ).parent().closest('.form-group').hide();
+                $( "#incorporationSelect" ).parent().closest('.form-group').hide();
+
 
                 let valueAttribute = '[value="' + ss + '"]';
                 $('input[name="status"]' + valueAttribute).prop('checked', true)
