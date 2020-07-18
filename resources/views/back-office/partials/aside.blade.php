@@ -1,3 +1,9 @@
+<style>
+    @media (min-width: 1025px) {
+        .kt-aside--minimize .kt-aside-menu .kt-menu__nav > .kt-menu__item > .kt-menu__link > .kt-menu__link-icon {
+            color: #ffffff;
+    }}
+</style>
 <!-- begin:: Aside -->
 <!-- Uncomment this to display the close button of the panel
 <button class="kt-aside-close " id="kt_aside_close_btn"><i class="la la-close"></i></button>
@@ -14,7 +20,7 @@
         <div class="kt-aside__brand-tools">
             <button class="kt-aside__brand-aside-toggler" id="kt_aside_toggler">
                 <span><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
-                           height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                           height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon kt-svg-icon--light">
                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                             <polygon points="0 0 24 0 24 24 0 24"/>
                             <path
@@ -28,7 +34,7 @@
                         </g>
                     </svg></span>
                 <span><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
-                           height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                           height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon kt-svg-icon--light">
                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                             <polygon points="0 0 24 0 24 24 0 24"/>
                             <path
