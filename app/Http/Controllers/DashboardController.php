@@ -18,7 +18,9 @@ class DashboardController
     public function ajaxList(Request $request)
     {
 
-        $countNew = ProjectApplication::where('status', 'Nouveau')->count();
+        $New = ProjectApplication::select('created_at',ProjectApplication::raw('count(*) as total'))->where('status', 'Nouveau')->groupBy('created_at')->get();
+        $countNew=ProjectApplication::where('status', 'Nouveau')->count();
+//        dd($New->toArray());
         $countApprouved = ProjectApplication::where('status', 'Accepté')->count();
         $countIncube = ProjectApplication::where('status', 'Incubé')->count();
         $countRejected = ProjectApplication::where('status', 'Rejeté')->count();
@@ -37,20 +39,35 @@ class DashboardController
             ->groupBy('date')->take(7)
             ->get();
 foreach ($category_id as $category){
-    $category->total*100/$countProjet;
-    $firstArray=array('brand','danger', 'success');
-    $key=rand(1,2);
-    $arrywithper=ProjectCategory::select('title')->where('parent_id','!=', null )->where('id','=',$category->category_id)->get()->push($category->total*100/$countProjet)->push($firstArray[$key]);
+//    dd($category->toArray());
+    $firstArray=array('brand', 'success','blue','green','orange');;
+    $key=rand(0,4);
+//    $key=shuffle($key);
+//    dd($key);
+    $arrywithper=ProjectCategory::where('id', $category->category_id)->firstOrFail()->getParent->toArray();
+//    array_push($arrywithper,);
+    $arrywithper['total']= ($category->total*100/$countProjet);
+    $arrywithper['Type']= ($firstArray[$key]);
+
+//    dd($arrywithper);
     array_push($Sectors,$arrywithper);
 
 }
+//        dd($Sectors);
 foreach ($townships as $township){
-    $arrytwer=Township::select('title')->where('id','=',$township->township_id)->get()->push($township->total*100/$countProjet);
+    $firstArray=array('brand', 'success','blue','green','orange');;
+    $key=rand(0,4);
+    $arrytwer=Township::select('title')->where('id','=',$township->township_id)->firstOrFail()->toArray();
+    $arrytwer['total']=($township->total*100/$countProjet);
+    $arrytwer['Type']= ($firstArray[$key]);
     array_push($townshiparray, $arrytwer);
+
+
+//    dd($townshiparray);
 }
 //todo refactor this
 
-        return view('back-office/home', compact( 'countNew','countApprouved', 'countIncube','countRejected','countPending','countProjet','category_id','Sectors','created_date','townshiparray','townships', 'incubationdate' ));
+        return view('back-office/home', compact( 'countNew','New','countApprouved', 'countIncube','countRejected','countPending','countProjet','category_id','Sectors','created_date','townshiparray','townships', 'incubationdate' ));
     }
 
 }

@@ -15578,7 +15578,7 @@ canvas {
   -ms-user-select: none; }
 
 /* Customize website's scrollbar like Mac OS */
-/* 
+/*
 ::-webkit-scrollbar {
     background-color:#f6f6f6;
     width:14px;
@@ -20630,6 +20630,12 @@ strong {
 
 .kt-bg-success {
   background-color: #0abb87 !important; }
+.kt-bg-blue {
+  background-color: #0969c9 !important; }
+.kt-bg-green {
+  background-color: #3450BF !important; }
+.kt-bg-orange {
+  background-color: #00077d !important; }
 
 .kt-bg-fill-success {
   background-color: #0abb87 !important;

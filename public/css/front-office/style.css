@@ -1,6 +1,6 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,600;1,400&display=swap");
 body {
     font-family: "Poppins", sans-serif;
-    overflow-x: hidden;
 }
 
 h1 {
@@ -17,14 +17,7 @@ h4 {
     line-height: 40px;
 }
 
-section {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    background: #ffffff;
-   
-}
-p{
+p {
     font-size: 20px;
     color: #7A839E;
     font-weight: 300;
@@ -32,14 +25,31 @@ p{
     padding-right: 20px;
 }
 
-.header-section {
-    margin: 74px 0 0px 0;
-    min-height: 80vh;
-    background: none;
-     position: relative;
-     z-index:3;
+/*******************************
+       1.  section
+*******************************/
+section {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
 }
 
+.title-header {
+    display: inline-block;
+    padding-bottom: 12px;
+    background: linear-gradient(to left, #0969C9, #64D88D);
+    background-size: 18% 6px;
+    background-position: bottom 0 left 0, bottom 5px left 0;
+    background-repeat: no-repeat;
+    font-weight: 600;
+}
+
+.header-section {
+    margin: 124px 0 152px 0;
+    height: 50vh;
+    background: none;
+}
 
 .first-section {
     margin: 0 0 152px 0;
@@ -49,7 +59,6 @@ p{
     margin-top: -2rem;
     padding-top: 4rem;
     clip-path: polygon(0 100%, 100% 100%, 100% 2rem, 0 0);
-  
 }
 
 .secound-section {
@@ -67,7 +76,102 @@ p{
     background: #0969C9;
 }
 
-.custom-shape-divider-bottom-1594100419 {
+.btn {
+    padding: 8px 28px;
+    border-radius: 24px;
+    margin: 0 12px 12px 0;
+}
+
+/*******************************
+       2.  Navbar and header
+*******************************/
+.navbar {
+    width: 100%;
+    top: 0;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    position: absolute;
+    z-index: 1001;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    -webkit-backface-visibilite: hidden;
+}
+
+.navbar .nav-link {
+    font-family: "Poppins", sans-serif;
+    color: #ffffff !important;
+    font-size: 0.9rem;
+    margin-top: 12px;
+    min-width: 54px;
+    text-align: center;
+    padding-right: 16px;
+    padding-left: 16px;
+}
+
+.navbar .nav-link:hover {
+    transition: background 0.2s;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 24px;
+}
+
+.navbar .login {
+    background: #ffffff;
+    border-radius: 25px;
+    min-width: 30px;
+    min-height: 30px;
+    padding: 3.5px;
+    margin-left: 10px;
+}
+
+.btn-login {
+    outline: none;
+    background: white;
+    border-radius: 24px;
+}
+
+.banner_area {
+    height: 950px;
+    position: relative;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    background: none;
+}
+
+.s_shap {
+    position: absolute;
+    top: -1px;
+    height: 100%;
+    width: auto;
+    right: 0px;
+    z-index: 2;
+}
+
+.header_content {
+    margin-right: -55px;
+}
+
+.header_content h2 {
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 70px;
+    padding-bottom: 30px;
+    letter-spacing: -1.01px;
+    font-family: "Montserrat", sans-serif;
+    margin-bottom: 0;
+}
+
+/*******************************
+       3.  Footer
+*******************************/
+footer {
+    position: relative;
+    color: #ffffff;
+    margin-top: 126px;
+    background: #0961aa;
+    z-index: 3;
+}
+footer .custom-shape-divider-bottom-1594100419 {
     position: absolute;
     bottom: 56px;
     left: 0;
@@ -75,19 +179,10 @@ p{
     overflow: hidden;
     line-height: 0;
 }
-
-.custom-shape-divider-bottom-1594100419 svg {
+footer .custom-shape-divider-bottom-1594100419 svg {
     position: relative;
     display: block;
     width: calc(100% + 1.3px);
-}
-
-footer {
-    position: relative;
-    color: #ffffff;
-    margin-top: 126px;
-    background: #0961aa;
-    z-index:3;
 }
 footer ul {
     list-style-type: none;
@@ -99,28 +194,10 @@ footer a {
     list-style-type: none;
 }
 
-.wavy-hero {
-    position: absolute;
-    right: -306px;
-    top: 0;
-    z-index: 2;
-    overflow: hidden;
-}
+/*******************************
+       4.  Features
+*******************************/
 
-.btn-login {
-    outline: none;
-    background: white;
-}
-
-.btn {
-    padding: 8px 28px;
-    border-radius: 24px;
-
-}
-
-.feature-img img {
-    box-shadow: 50px 50px 0px 10px #b7d2ec;
-}
 
 .feature-title {
     max-width: 450px;
@@ -142,9 +219,12 @@ footer a {
     background-color: #B7D2EC;
 }
 
+/*******************************
+     5.  swiper
+*******************************/
 .swiper-container {
     width: 100%;
-    min-height: 44vh;
+    height: 50vh;
 }
 
 .swiper-slide {
@@ -165,6 +245,9 @@ footer a {
     align-items: center;
 }
 
+/*******************************
+      6.  Card
+*******************************/
 .card {
     padding: 16px;
     -webkit-box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.75);
@@ -172,9 +255,12 @@ footer a {
     box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.75);
 }
 .card p {
-    font-size: 1.2rem
+   padding-right: 0px;
 }
 
+/*******************************
+       7.  PROGRAM
+*******************************/
 .program {
     margin-bottom: 74px;
 }
@@ -201,6 +287,9 @@ footer a {
     border-right: 0.5px solid #707070;
 }
 
+/*******************************
+       8.  SOUMISSIONER UN PROJET Stepper
+*******************************/
 .steps {
     padding: 24px 0;
     position: relative;
@@ -223,9 +312,6 @@ footer a {
     padding: 0 20px 24px 50px;
     position: relative;
     transition: all 0.4s ease-in-out;
-}
-.step-header{
-    margin-left: 11px;
 }
 
 .step .step-1 {
@@ -316,6 +402,184 @@ footer a {
     border-radius: 4px;
     margin-top: 10px;
 }
+
+.next-btn:focus {
+    outline: 0;
+}
+
+.step.minimized:hover {
+    background-color: rgba(0, 0, 0, 0.06);
+}
+
+
 .logical-fields {
     display: none;
+}
+
+/*******************************
+       9.  MEDIA QUERIES
+*******************************/
+@media (min-width: 1441px) {
+    .container-fluid {
+        width: 72%;
+    }
+}
+@media (max-width: 1440px) {
+    .banner_area {
+        height: 950px;
+    }
+
+    section .container-fluid {
+        width: 93%;
+    }
+}
+@media (max-width: 1199px) {
+    .navbar-nav {
+        background: #0969c9;
+        padding: 20px 20px 15px;
+        border-radius: 5px;
+    }
+
+    .banner_area {
+        margin-top: 70px;
+    }
+
+    .s_shap {
+        height: 74%;
+    }
+
+    .s_shap {
+        top: -72px;
+    }
+
+    .header_content h4 span {
+        font-size: 13px;
+        letter-spacing: 4px;
+    }
+
+    .f_img_four {
+        right: 0px;
+    }
+
+    .header_content h2 {
+        line-height: 64px;
+    }
+}
+@media (max-width: 991px) {
+    .navbar {
+        padding: 0px 15px;
+    }
+
+    .navbar .login {
+        margin-top: 0px;
+        margin-left: auto;
+        margin-right: 20px;
+    }
+
+    .navbar-nav {
+        background: #0969c9;
+        padding: 20px 20px 15px;
+        border-radius: 5px;
+    }
+
+    .navbar .navbar-nav .nav-item .nav-link {
+        color: #040c2c;
+        display: inline-block;
+    }
+
+    .navbar .navbar-nav .nav-item + .nav-item {
+        margin-top: 5px;
+    }
+
+    .banner_area {
+        height: auto;
+        padding-top: 130px;
+    }
+
+    .s_shap {
+        display: none;
+    }
+
+    .header_content {
+        margin-right: 0;
+    }
+
+    footer .custom-shape-divider-bottom-1594100419 {
+        position: absolute;
+        bottom: 108px;
+        left: 0;
+        width: 100%;
+        overflow: hidden;
+        line-height: 0;
+    }
+}
+@media (max-width: 767px) {
+    .navbar-collapse {
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+
+    .navbar-right {
+        display: none;
+    }
+
+    .banner_content h5 {
+        margin-bottom: 10px;
+    }
+
+    .banner_content h4 {
+        letter-spacing: 0px;
+        margin-bottom: 0px;
+    }
+
+    .banner_content {
+        padding-top: 45px;
+    }
+
+    .navbar-collapse {
+        max-height: 275px;
+        overflow-y: scroll;
+    }
+
+    .navbar .logo_h img {
+        max-width: 80%;
+    }
+
+    .navbar .login {
+        padding: 3px 27px;
+    }
+
+    .navbar .navbar-toggler {
+        height: 70px;
+    }
+
+    .navbar-light .navbar-toggler {
+        transition: all 0.3s ease-in-out;
+    }
+}
+@media (max-width: 576px) {
+    .header_content h4 span {
+        font-size: 13px;
+        letter-spacing: 1px;
+        line-height: 20px;
+    }
+
+    .header_content h2 {
+        font-size: 31px;
+        line-height: 45px;
+    }
+}
+@media (max-width: 450px) {
+    .custom-shape-divider-bottom-1594100419 {
+        position: absolute;
+        bottom: 290px;
+        left: 0;
+        width: 100%;
+        overflow: hidden;
+        line-height: 0;
+    }
+
+    .navbar .login {
+        display: none;
+    }
 }

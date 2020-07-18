@@ -65,11 +65,11 @@
                 </li>
                 <li class="kt-menu__item {{ (request()->is('admin/members*')) ? 'kt-menu__item--active' : '' }}"
                     aria-haspopup="true"><a href="admin/members" class="kt-menu__link "><i
-                            class="kt-menu__link-icon flaticon-home"></i><span
+                            class="kt-menu__link-icon flaticon-users"></i><span
                             class="kt-menu__link-text">Adhérents</span></a></li>
                 <li class="kt-menu__item {{ (request()->is('admin/candidatures*')) ? 'kt-menu__item--active' : '' }}"
                     aria-haspopup="true"><a href="admin/candidatures" class="kt-menu__link "><i
-                            class="kt-menu__link-icon flaticon-home"></i><span
+                            class="kt-menu__link-icon flaticon-folder-1"></i><span
                             class="kt-menu__link-text">Candidatures</span></a></li>
 
                 <li class="kt-menu__section ">
@@ -103,7 +103,7 @@
                 </li>
                 <li class="kt-menu__item  kt-menu__item--submenu {{ (request()->is('admin/users*')) ? 'kt-menu__item--active kt-menu__item--open' : '' }}" aria-haspopup="true"
                     data-ktmenu-submenu-toggle="hover"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i
-                            class="kt-menu__link-icon flaticon-web"></i><span
+                            class="kt-menu__link-icon flaticon-user"></i><span
                             class="kt-menu__link-text">Utilisateurs</span><i
                             class="kt-menu__ver-arrow la la-angle-right"></i></a>
                     <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>

@@ -82,14 +82,14 @@
 					</div>
 					<div class="kt-portlet__body kt-portlet__body--fit">
 						<div class="kt-widget17">
-							<div class="kt-widget17__visual kt-widget17__visual--chart kt-portlet-fit--top kt-portlet-fit--sides" style="background-color: #fd397a">
+							<div class="kt-widget17__visual kt-widget17__visual--chart kt-portlet-fit--top kt-portlet-fit--sides" style="background-color: #FFFFFF">
 								<div class="kt-widget17__chart" style="height:320px;">
 									<canvas id="kt_chart_activities"></canvas>
 								</div>
 							</div>
 							<div class="kt-widget17__stats">
 								<div class="kt-widget17__items">
-									<div class="kt-widget17__item">
+									<div class="kt-widget17__item" onclick="switchnew()">
 										<span class="kt-widget17__icon">
 											<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon kt-svg-icon--brand">
 												<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -279,7 +279,7 @@
 					<div class="kt-portlet__body kt-portlet__body--fluid">
 						<div class="kt-widget20">
 							<div class="kt-widget20__content kt-portlet__space-x">
-								<span class="kt-widget20__number kt-font-danger">{{$countIncube}}+</span>
+								<span class="kt-widget20__number kt-font-warning">{{$countIncube}}+</span>
 								<span class="kt-widget20__desc">Dossiers Incubés</span>
 							</div>
 							<div class="kt-widget20__chart" style="height:130px;">
@@ -335,12 +335,12 @@
 												<canvas id="kt_chart_profit_share" style="height: 140px; width: 140px;"></canvas>
 											</div>
 											<div id="kt-bg" class="kt-widget14__legends">
-                                                @foreach($Sectors as $Sector)
 
-                                                    <div class="kt-widget14__legend">
+                                                @foreach($Sectors as $Sector => $value)
+                                                                                                        <div class="kt-widget14__legend">
 
-                                                         <span  class="kt-widget14__bullet kt-bg-{{$Sector[2]}} "></span>
-                                                         <span class="kt-widget14__stats">{{round($Sector[1],2)}}% {{$Sector[0]->title}} </span>
+                                                         <span  class="kt-widget14__bullet kt-bg-{{$value['Type']}} "></span>
+                                                         <span class="kt-widget14__stats">{{round($value['total'])}}% {{$value['title']}} </span>
                                                     </div>
                                                 @endforeach
 
@@ -369,11 +369,12 @@
 												<div id="kt_chart_revenue_change" style="height: 150px; width: 150px;"></div>
 											</div>
 											<div class="kt-widget14__legends">
-                                                @foreach($townshiparray as $township)
+                                                @foreach($townshiparray as $township => $value)
+
 												<div class="kt-widget14__legend">
-													<span class="kt-widget14__bullet kt-bg-success"></span>
-													<span class="kt-widget14__stats">{{round($township[1],2)}}%
-                                                            {{$township[0]->title}}
+													<span class="kt-widget14__bullet kt-bg-{{$value['Type']}}"></span>
+													<span class="kt-widget14__stats">{{round($value["total"],2)}}%
+                                                            {{$value["title"]}}
                                                         </span>
 												</div>@endforeach
 											</div>
@@ -561,8 +562,7 @@
 @section('specific_js')
 	<script>
 		"use strict";
-
-// Class definition
+		// Class definition
 var KTDashboard = function() {
 
 
@@ -743,14 +743,14 @@ var KTDashboard = function() {
             data: {
                 datasets: [{
                     data: [
-                        @foreach($Sectors as $Sector)
-                        {{round($Sector[1],2)}},
+                        @foreach($Sectors as $Sector => $value)
+                        {{round($value['total'],2)}},
                         @endforeach
                     ],
                     backgroundColor: [
 
-                        @foreach($Sectors as $Sector)
-                        KTApp.getStateColor('{{$Sector[2]}}'),
+                        @foreach($Sectors as $Sector=> $value)
+                        KTApp.getStateColor('{{$value['Type']}}'),
                         @endforeach
 
 
@@ -760,8 +760,8 @@ var KTDashboard = function() {
 
 
                 labels: [
-                    @foreach($Sectors as $Sector)
-                        '{{$Sector[0]->title}}',
+                    @foreach($Sectors as $Sector => $type)
+                        '{{$type['title']}}',
                     @endforeach
                     ]
 
@@ -792,8 +792,8 @@ var KTDashboard = function() {
                     xPadding: 10,
                     caretPadding: 0,
                     displayColors: false,
-                    @foreach($Sectors as $Sector)
-                    backgroundColor:KTApp.getStateColor('{{$Sector[2]}}'),
+                    @foreach($Sectors as $Sector => $value)
+                    {{--backgroundColor:KTApp.getStateColor('{{$value['Type']}}'),--}}
                     @endforeach
                     titleFontColor: '#ffffff',
                     cornerRadius: 4,
@@ -923,7 +923,7 @@ var KTDashboard = function() {
         var config = {
             type: 'line',
             data: {
-                labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October"],
+                labels: ["January", "February", "Marhch", "April", "May", "June", "July", "August", "September", "October"],
                 datasets: [{
                     label: "Sales Stats",
                     backgroundColor: KTApp.getStateColor('danger'), // Put the gradient here as a fill color
@@ -1225,18 +1225,21 @@ var KTDashboard = function() {
 
         Morris.Donut({
             element: 'kt_chart_revenue_change',
-            data: [@foreach($townshiparray as $township)
+            data: [@foreach($townshiparray as $township =>$value)
             {
 
-                label:  "{{$township[0]->title}}",
-                value: {{round($township[1],2)}}
+                label:  "{{$value["title"]}}",
+                value: {{round($value["total"],2)}}
 
                     },@endforeach
             ],
-            colors: [
-                KTApp.getStateColor('success'),
-                KTApp.getStateColor('danger'),
-                KTApp.getStateColor('brand')
+          colors: [
+                @foreach($townshiparray as $township =>$value)
+
+                KTApp.getStateColor("{{$value['Type']}}"),
+
+
+                @endforeach
             ],
         });
     }
@@ -1343,6 +1346,7 @@ var KTDashboard = function() {
         var myDoughnut = new Chart(ctx, config);
     }
 
+
     // Activities Charts.
     // Based on Chartjs plugin - http://www.chartjs.org/
     var activitiesChart = function() {
@@ -1352,18 +1356,21 @@ var KTDashboard = function() {
 
         var ctx = document.getElementById("kt_chart_activities").getContext("2d");
 
-        var gradient = ctx.createLinearGradient(0, 0, 0, 240);
-        gradient.addColorStop(0, Chart.helpers.color('#e14c86').alpha(1).rgbString());
-        gradient.addColorStop(1, Chart.helpers.color('#e14c86').alpha(0.3).rgbString());
+        var gradient = ctx.createLinearGradient(0, 1, 0, 180);
+        gradient.addColorStop(0, Chart.helpers.color('#0969c9').alpha(1).rgbString());
+        gradient.addColorStop(1, Chart.helpers.color('#64D88D').alpha(1).rgbString());
 
         var config = {
             type: 'line',
             data: {
-                labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October"],
+
+                labels:
+                    [@foreach($New as $key => $value)
+                        '{{$value['created_at']}}',@endforeach],
                 datasets: [{
-                    label: "Sales Stats",
-                    backgroundColor: Chart.helpers.color('#e14c86').alpha(1).rgbString(),  //gradient
-                    borderColor: '#e13a58',
+                    // label:"hello",
+                    backgroundColor: gradient,  //gradient
+                    borderColor: '#0969c9',
 
                     pointBackgroundColor: Chart.helpers.color('#000000').alpha(0).rgbString(),
                     pointBorderColor: Chart.helpers.color('#000000').alpha(0).rgbString(),
@@ -1372,8 +1379,9 @@ var KTDashboard = function() {
 
                     //fill: 'start',
                     data: [
-                        10, 14, 12, 16, 9, 11, 13, 9, 13, 15
-                    ]
+                        @foreach($New as $key => $value)
+                            {{$value['total']}},@endforeach],
+
                 }]
             },
             options: {
@@ -2268,6 +2276,10 @@ var KTDashboard = function() {
 jQuery(document).ready(function() {
     KTDashboard.init();
 });
+        function switchnew () {
+            KTDashboard.activitiesChart().config.labels
+            console.log('test')
+        }
 
 	</script>
 @endsection

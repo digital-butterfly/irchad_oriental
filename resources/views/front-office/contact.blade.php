@@ -2,8 +2,8 @@
 
 @section('content')
 
-    <section class="header-section">
-        <div class="container-fluid px-5">
+    <section class="banner_area">
+        <div class="container-fluid mx-auto">
             <div class="row">
                 <div class="col-md-5"><h1>Contactez-Nous</h1>
                     <p>Pour toute demande, questionnement ou suggestion,

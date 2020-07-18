@@ -2,21 +2,26 @@
 
 @section('content')
 
-    <section class="header-section">
-        <div class="container-fluid px-5">
+    <section class="banner_area" id="home">
+
+        <div class="container-fluid mx-auto  ">
             <div class="row">
-                <div class="col-lg-5 col-md-12 col-sm-12 col-md-push-3 "><h1>Une Plateforme dédiée
-                        aux jeunes porteurs de projets</h1>
-                    <p>Vous êtes tentés par la création de votre entreprise ? À la recherche d’une idée ou d’un
-                        accompagnement ? IRCHAD est votre nouvelle plateforme digitale qui vous
-                        accompagne dans votre réflexion, de l’idée à la mise en marché.</p>
-                    <div class="row mt-5 text-center">
-                        <div class="col-md-12"><a href="project-submission" type="button" class="btn btn-primary mr-3">Soumissionner un projet</a>
-                            <a href="a-propos" class="btn btn-outline-primary">En savoir plus</a></div>
+                <div class="col-lg-4 order-md-2 order-lg-1">
+                    <div class="header_content">
+                        <h1>Une Plateforme dédiée
+                            aux jeunes porteurs de projets</h1>
+                        <p>Vous êtes tentés par créer votre entreprise ? A la recherche d’une idée ou d’un
+                            accompagnement ? IRCHAD est votre nouvelle plateforme digitale qui vous
+                            accompagne dans votre réflexion, de l’idée à la mise en marché.</p>
+                        <div class="row">
+                            <div class="col-md-12"><button type="button" class="btn btn-primary">Soumissionner un projet</button>
+                                <button type="button" class="btn btn-outline-primary">En savoir plus</button></div>
+                        </div>
+
                     </div>
 
                 </div>
-                <div class="col-md-7">
+                <div class="col-lg-7 offset-1 order-md-1 order-lg-2">
                     <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="594.892" viewBox="0 0 812 594.892">
                         <g id="Groupe_1321" data-name="Groupe 1321" transform="translate(-356.948 -210.781)">
                             <g id="Groupe_1303" data-name="Groupe 1303" transform="translate(571.349 236.989)">
@@ -716,33 +721,38 @@
                         </g>
                     </svg>
                 </div>
-            </div>
+            </div></div>
+
+
+
+        </div>
+        </div>
         </div>
     </section>
 
 
     <section  class="first-section section-divider">
-        <div class="container-fluid px-5">
+        <div class="container">
             <div class="row text-center">
-                <div class="col-md-12"> <h3>Un programme d’accompagnement de A à Z </h3></div>
+                <div class="col-md-12"> <h3 class="title-header">Un programme d’accompagnement de A à Z </h3></div>
             </div>
 
             <div class="swiper-container">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
                         <div class="row">
-                            <div class="col-md-6 d-flex flex-column align-items-center">   <img width="320px" src="./images/front-office/identifier.svg"> <h5>Identifier</h5>
+                            <div class="col-md-6 d-flex flex-column align-items-center">   <img class="mb-3" width="320px" src="./images/front-office/identifier.svg"> <h5>Identifier</h5>
                                </div>
                             <div class="col-md-4 text-left align-items-center col-md-4 d-flex justify-content-center text-left">Nous cherchons activement à encourager l'entrepreneuriat et l'esprit entrepreneurial, particulièrement chez les jeunes de 18 à 25 ans, en collaboration avec les acteurs de l'écosystème entrepreneurial (INDH, Anapec, OFPPT…)</div>
                         </div>
 
                     </div>
                     <div class="swiper-slide"><div class="row">
-                            <div class="col-md-6 d-flex flex-column align-items-center">   <img width="434px" src="./images/front-office/orienter.svg"> <h5>Accompagner et orienter</h5> </div>
+                            <div class="col-md-6 d-flex flex-column align-items-center">   <img class="mb-3" width="434px" src="./images/front-office/orienter.svg"> <h5>Accompagner et orienter</h5> </div>
                             <div class="col-md-4 text-left align-items-center col-md-4 d-flex justify-content-center text-left">De l’idée au lancement, nous accompagnons les jeunes porteurs de projets avant et après la création de leurs entreprises à travers, le conseil, le financement et l’incubation.</div></div>
                     </div>
                     <div class="swiper-slide"><div class="row">
-                            <div class="col-md-6 d-flex flex-column align-items-center">   <img width="350px" src="./images/front-office/agir.svg"> <h5>Agir </h5></div>
+                            <div class="col-md-6 d-flex flex-column align-items-center">   <img class="mb-3" width="350px" src="./images/front-office/agir.svg"> <h5>Agir </h5></div>
                             <div class="col-md-4 text-left align-items-center col-md-4 d-flex justify-content-center text-left">Accélération de l’intégration des jeunes dans le tissu économique du pays. Au travers de notre programme et nos partenaires nous soutenons l’employabilité des jeunes à travers l’écoute, l’orientation et la formation.</div></div>
                     </div>
                 </div>

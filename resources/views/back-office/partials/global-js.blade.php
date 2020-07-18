@@ -4,13 +4,15 @@
         "colors": {
             "state": {
                 "brand": "#5d78ff",
-                "dark": "#282a3c",
                 "light": "#ffffff",
                 "primary": "#5867dd",
                 "success": "#34bfa3",
                 "info": "#36a3f7",
                 "warning": "#ffb822",
-                "danger": "#fd3995"
+                "danger": "#fd3995",
+                "blue":"#0969c9",
+                "green":"#34B8BF",
+                "orange":"#00077d"
             },
             "base": {
                 "label": [

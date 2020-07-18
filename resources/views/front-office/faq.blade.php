@@ -2,8 +2,8 @@
 
 @section('content')
 
-    <section class="header-section">
-        <div class="container-fluid px-5">
+    <section class="banner_area">
+        <div class="container-fluid mx-auto">
             <div class="row">
                 <div class="col-md-5"><h1>Foire aux questions</h1>
                     <p>Vous avez une question ?

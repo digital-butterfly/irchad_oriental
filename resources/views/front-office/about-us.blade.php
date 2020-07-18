@@ -1,13 +1,13 @@
 @extends('front-office.layouts.master')
 
 @section('content')
-    <section class="header-section">
-        <div class="container-fluid px-5">
+    <section class="banner_area">
+        <div class="container-fluid mx-auto">
             <div class="row">
                 <div class="col-md-5"><h1>À Propos</h1>
                     <p>IRCHAD est une solution digitale dédiée à l’entreprenariat, afin
                         de créer votre entreprise en suivant un parcours intuitif
-                        et ergonomique,<br> étape par étape.
+                        et ergonomique,étape par étape.
 
                         Elle a été mise en place par la province de Driouch dans le cadre du 3ème programme initié par l’INDH, « ARIEJ Amélioration du Revenu et Inclusion Économique des Jeunes ». </p>
 
