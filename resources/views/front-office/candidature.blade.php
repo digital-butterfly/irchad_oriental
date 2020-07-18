@@ -380,8 +380,11 @@
                                                 <optgroup label="{{$sector->title}}">
                                                     @foreach($sector['subSectors'] as $subSector)
                                                         @if($subSector->parent_id==$sector->id )
-                                                            <option
-                                                                value="{{$subSector->id}}">{{$subSector->title}}</option>
+
+                                                            <option value="{{$subSector->id}}" title="{{$subSector->title}}">
+                                                                {{Str::of(($subSector->title))->limit(35)}}
+                                                            </option>
+
 
                                                         @endif
 
