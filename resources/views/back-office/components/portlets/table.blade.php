@@ -16,6 +16,10 @@
                         <i class="la la-plus"></i>
                         Ajouter
                     </a>
+                    <a  class="btn btn-success btn-elevate btn-icon-sm export">
+                        <i class="la la-external-link-square"></i>
+                        Export
+                    </a>
                 </div>
             </div>
         </div>

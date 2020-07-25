@@ -18,25 +18,25 @@
                     <div id="kt_tree_1" class="tree-demo">
                         <ul>
                             @foreach($categories as $category)
-                                @if(!$category->parent_id)         
+                                @if(!$category->parent_id)
                                     <li>
                                         {{ $category->title }}
                                         <ul>
                                             @foreach($categories as $subCategory)
-                                                @if($subCategory->parent_id && $subCategory->parent_id == $category->id)         
+                                                @if($subCategory->parent_id && $subCategory->parent_id == $category->id)
                                                     <li>
                                                         {{ $subCategory->title }}
                                                     </li>
                                                 @endif
-                                            @endforeach	
+                                            @endforeach
                                             <li data-jstree='{ "icon" : "fa fa-plus kt-font-success " }'>
                                                 <a href="#">Ajouter</a>
                                             </li>
                                         </ul>
-                                       
+
                                     </li>
                                 @endif
-                            @endforeach	
+                            @endforeach
                             <!-- <li data-jstree='{ "icon" : "fa fa-plus kt-font-success " }'>
                                 <a href="#">Ajouter</a>
                             </li> -->

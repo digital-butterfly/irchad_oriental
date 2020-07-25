@@ -5,6 +5,10 @@
     <link href="css/back-office/pages/wizard/wizard-4.css" rel="stylesheet" type="text/css" />
     <link href="css/back-office/pages/invoices/invoice-5.css" rel="stylesheet" type="text/css" />
     <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
         .kt-timeline-v3 .kt-timeline-v3__item .kt-timeline-v3__item-time {
             width: 8.97rem;
         }
@@ -209,6 +213,27 @@
 
                     <!--end: Form Wizard Nav -->
                     <div class="kt-portlet">
+
+                        <ul class="kt-sticky-toolbar" style="top: 40%; height: 200px; align-self: flex-end;">
+                            <li class="kt-sticky-toolbar__item kt-sticky-toolbar__item--brand" id="kt_demo_panel_toggle" data-toggle="kt-tooltip" title="" data-placement="right" data-original-title="Données Entreprise">
+                                <a href="{{ url(Request::url().'#company') }}"><i class="flaticon-profile-1"></i></a>
+                            </li>
+                            <li class="kt-sticky-toolbar__item kt-sticky-toolbar__item--dark" id="kt_demo_panel_toggle" data-toggle="kt-tooltip" title="" data-placement="right" data-original-title="Données Générales">
+                                <a href="{{ url(Request::url().'#member_id') }}"><i class="flaticon-interface-3"></i></a>
+                            </li>
+                            <li class="kt-sticky-toolbar__item kt-sticky-toolbar__item--success" data-toggle="kt-tooltip" title="" data-placement="left" data-original-title="Business Model">
+                                <a href="{{ url(Request::url().'#business_model') }}"><i class="flaticon-suitcase"></i></a>
+                            </li>
+                            <li class="kt-sticky-toolbar__item kt-sticky-toolbar__item--danger" data-toggle="kt-tooltip" title="" data-placement="left" data-original-title="Données Financières
+">
+                                <a href="{{ url(Request::url().'#financial_data') }}"><i class="flaticon-graphic"></i></a>
+                            </li>
+                            <li class="kt-sticky-toolbar__item kt-sticky-toolbar__item--warning" id="kt_sticky_toolbar_chat_toggler" data-toggle="kt-tooltip" title="" data-placement="left" data-original-title="Besoins en Formation
+">
+                                <a href="{{ url(Request::url().'#training_needs') }}"><i class="flaticon-network"></i></a>
+
+                            </li>
+                        </ul>
                         <div class="kt-portlet__body kt-portlet__body--fit">
                             <div class="kt-grid">
                                 <div class="kt-grid__item kt-grid__item--fluid kt-wizard-v4__wrapper">
@@ -304,6 +329,9 @@
                                                     </div>
 
                                                     <div class="kt-section kt-section--first">
+
+
+
                                                         @php
                                                             $done_groups = [];
                                                         @endphp
@@ -314,33 +342,43 @@
                                                                         $done_groups[] = $parent['group'];
                                                                         $done_fields[] = [];
                                                                     @endphp
-                                                                    <h3 class="kt-section__title">{{ $parent['group'] }}</h3>
-                                                                    <div class="kt-section__body">
-                                                                        @foreach($fields as $child)
-                                                                            @if (isset($child['group']) && $child['group'] == $parent['group'])
-                                                                                @if (!isset($child['sub_fields']))
-                                                                                    @if (!(in_array($child['name'], $done_fields)))
-                                                                                        @php
-                                                                                            $done_fields[] = $child['name'];
-                                                                                            $child['config']['hotizontalRows'] = true;
-                                                                                        @endphp
-                                                                                        @include(sprintf('back-office.components.form.fields.%s', $child['type']), $field = $child)
-                                                                                    @endif
-                                                                                @else
-                                                                                    @foreach($child['sub_fields'] as $subchild)
-                                                                                        @if (!(in_array($subchild['name'], $done_fields)))
+
+                                                                    <div class="kt-portlet kt-portlet--mobile  {{ $parent['class'] }}" id="{{$parent['name']}}">
+                                                                        <div class="kt-portlet__head">
+                                                                            <div class="kt-portlet__head-label">
+                                                                                <h3 class="kt-portlet__head-title">
+                                                                                    {{ $parent['group'] }}
+
+                                                                                </h3>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="kt-portlet__body">
+                                                                            @foreach($fields as $child)
+                                                                                @if (isset($child['group']) && $child['group'] == $parent['group'])
+                                                                                    @if (!isset($child['sub_fields']))
+                                                                                        @if (!(in_array($child['name'], $done_fields)))
                                                                                             @php
-                                                                                                $done_fields[] = $subchild['name'];
-                                                                                                $subchild['config']['hotizontalRows'] = true;
-                                                                                                $subchild['parent_name'] = $child['name'];
+                                                                                                $done_fields[] = $child['name'];
+                                                                                                $child['config']['hotizontalRows'] = true;
                                                                                             @endphp
-                                                                                            @include(sprintf('back-office.components.form.fields.%s', $subchild['type']), $field = $subchild)
+                                                                                            @include(sprintf('back-office.components.form.fields.%s', $child['type']), $field = $child)
                                                                                         @endif
-                                                                                    @endforeach
+                                                                                    @else
+                                                                                        @foreach($child['sub_fields'] as $subchild)
+                                                                                            @if (!(in_array($subchild['name'], $done_fields)))
+                                                                                                @php
+                                                                                                    $done_fields[] = $subchild['name'];
+                                                                                                    $subchild['config']['hotizontalRows'] = true;
+                                                                                                    $subchild['parent_name'] = $child['name'];
+                                                                                                @endphp
+                                                                                                @include(sprintf('back-office.components.form.fields.%s', $subchild['type']), $field = $subchild)
+                                                                                            @endif
+                                                                                        @endforeach
+                                                                                    @endif
                                                                                 @endif
-                                                                            @endif
-                                                                        @endforeach
+                                                                            @endforeach                                                                        </div>
                                                                     </div>
+
                                                                 @endif
                                                             @endif
                                                         @endforeach
@@ -1139,6 +1177,11 @@
                 $( "#progressSelect" ).parent().closest('.form-group').hide();
                 $( "#trainingSelect" ).parent().closest('.form-group').hide();
                 $( "#incorporationSelect" ).parent().closest('.form-group').hide();
+                console.log($( "#statusSelect" ).val())
+                if ($( "#statusSelect" ).val()!=="Rejeté"){
+                    $( "#rejected_reason" ).parent().closest( '.form-group').hide()
+                }
+
 
 
                 let valueAttribute = '[value="' + ss + '"]';
@@ -1229,12 +1272,26 @@ if(EXFSelect!=''){ $("#EXFbutton span").text(EXFSelect);}
                 let valueAttribute = ' value="' + ButtonText + '"';
                 $('#funded_EXF').append('<input type="hidden" name="funding"'+ valueAttribute + '>' );
             });
+            $( "#statusSelect" ).change(function() {
+                // alert(this.value);
+                if(this.value==="Rejeté"){
 
+                    $( "#rejected_reason" ).parent().closest( '.form-group').show()
+
+
+                }
+                else{
+                    $( "#rejected_reason" ).parent().closest( '.form-group').hide()
+
+                }
+            })
             jQuery(document).ready(function() {
+
                 KTWizard4.init();
                 selectTypeElemts();
                 selectElemts()
                 // KTFormRepeater.init();
             });
+
     </script>
 @endsection

@@ -89,9 +89,12 @@ Route::group(['middleware' => 'auth:user'], function () {
     Route::get('/admin/exportExl','ExportController@exportExl')->name('exportExl');
 
 
+
     Route::resource('admin/projects-categories', 'ProjectCategoryController');
 
 });
+Route::get('/admin/exportExcel','ProjectApplicationController@exportExcel')->name('exportExcel');
+Route::get('/admin/exportExcelmembers','MemberController@exportExcel')->name('exportExcel');
 
 
 Route::group(['middleware' => 'auth:member'], function () {

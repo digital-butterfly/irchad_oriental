@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\exportCondidat;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Member;
 use App\Http\Resources\MemberCollection;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
 
 class MemberController extends Controller
 {
@@ -159,6 +162,7 @@ class MemberController extends Controller
             'township_id' => $request['township_id'],
             'degrees' => json_decode(json_encode($request['degrees'])),
             'professional_experience' => json_decode(json_encode($request['professional_experience'])),
+            'state_help' => json_decode(json_encode($request['state_help'])),
             'reduced_mobility' => $request['reduced_mobility'],
         ]);
 
@@ -195,5 +199,15 @@ class MemberController extends Controller
         catch (\Illuminate\Database\QueryException $e){
             return response()->json(['message'=>'Utilisateur non supprimer veuillez supprimer les entites liées a la Utilisateur'],409);
         }
+    }
+    public function exportExcel(Request $request)
+    {
+//        dd($request->toArray());
+
+//        $projectApplicatoin=   Member::all()->where('status',$request['status']);
+//        $arrays = new exportCondidat((array) json_decode(ProjectApplication::all()->where('status', $request['Status'])));
+//        dd($request['Status']);
+        return Excel::download(new exportCondidat($request['Status'],$request['Type']), Carbon::now().'-back-up.xlsx');
+
     }
 }

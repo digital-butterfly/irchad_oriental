@@ -34,12 +34,6 @@ class exportExl implements FromCollection
         }
 
 
-
-
-
-
-
-
-
-
 }
+
+

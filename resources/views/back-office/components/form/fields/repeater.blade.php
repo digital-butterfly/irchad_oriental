@@ -1,13 +1,25 @@
 
-    
+
 {{-- <div class="{{ (isset($field['config']) && $field['config']['hotizontalRows']) ? 'col-lg-6' : '' }}">
-    
+
     <span class="form-text text-muted"></span>
 </div> --}}
 @php
     $ref = $field['name'];
-    isset($field['parent_name']) ? $parent_ref = $field['parent_name'] : NULL;
+    isset($field['parent_name']) ? $parent_ref = $field['parent_name'] : $parent_ref = NULL;
+
 @endphp
+@php
+@endphp
+@php
+@endphp
+@php
+    // die();
+@endphp
+
+
+
+
 
 <div class="kt_repeater_{{ $field['name'] }}">
 
@@ -66,7 +78,7 @@
                                 <label>{{ $field['config']['attributes'][0][0] ?? 'Désignation' }}:</label>
                             </div>
                             <div class="kt-form__control">
-                                <input type="text" name="label" class="form-control" placeholder=""> 
+                                <input type="text" name="label" class="form-control" placeholder="">
                             </div>
                         </div>
                         <div class="d-md-none kt-margin-b-10"></div>
@@ -77,7 +89,7 @@
                                 <label>{{ $field['config']['attributes'][1][0] ?? 'Quantité' }}:</label>
                             </div>
                             <div class="kt-form__control">
-                                <input type="text" name="count" class="form-control" placeholder=""> 
+                                <input type="text" name="count" class="form-control" placeholder="">
                             </div>
                         </div>
                         <div class="d-md-none kt-margin-b-10"></div>
@@ -88,7 +100,7 @@
                                 <label class="kt-label m-label--single">{{ $field['config']['attributes'][2][0] ?? 'Valeur' }}:</label>
                             </div>
                             <div class="kt-form__control">
-                                <input type="text" name="value" class="form-control" placeholder="">   
+                                <input type="text" name="value" class="form-control" placeholder="">
                             </div>
                         </div>
                         <div class="d-md-none kt-margin-b-10"></div>
@@ -108,7 +120,7 @@
                                 ]);
                             });
                         </script>
-                    @elseif (isset($data) && isset($data->$parent_ref) && isset($data->$parent_ref->$ref) && $data->$parent_ref->$ref != NULL)
+                    @elseif (isset($data) && isset($data->$parent_ref) && $data->$parent_ref != NULL && isset($data->$parent_ref->$ref) && $data->$parent_ref->$ref != NULL)
                         <script>
                             window.addEventListener('load', function() {
                                 var $repeater = $('.kt_repeater_{{ $field['name'] }}').repeater();
@@ -141,7 +153,7 @@
                                 <label>{{ $field['config']['attributes'][0][0] ?? 'Désignation' }}:</label>
                             </div>
                             <div class="kt-form__control">
-                                <input type="text" name="label" class="form-control" placeholder=""> 
+                                <input type="text" name="label" class="form-control" placeholder="">
                             </div>
                         </div>
                         <div class="d-md-none kt-margin-b-10"></div>
@@ -152,7 +164,7 @@
                                 <label>{{ $field['config']['attributes'][1][0] ?? 'Valeur' }}:</label>
                             </div>
                             <div class="kt-form__control">
-                                <input type="text" name="value" class="form-control" placeholder=""> 
+                                <input type="text" name="value" class="form-control" placeholder="">
                             </div>
                         </div>
                         <div class="d-md-none kt-margin-b-10"></div>
@@ -163,7 +175,7 @@
                                 <label class="kt-label m-label--single">{{ $field['config']['attributes'][2][0] ?? 'Taux' }}:</label>
                             </div>
                             <div class="kt-form__control">
-                                <input type="text" name="rate" class="form-control" placeholder="">   
+                                <input type="text" name="rate" class="form-control" placeholder="">
                             </div>
                         </div>
                         <div class="d-md-none kt-margin-b-10"></div>
@@ -174,7 +186,7 @@
                                 <label class="kt-label m-label--single">{{ $field['config']['attributes'][3][0] ?? 'Années' }}:</label>
                             </div>
                             <div class="kt-form__control">
-                                <input type="text" name="duration" class="form-control" placeholder="">   
+                                <input type="text" name="duration" class="form-control" placeholder="">
                             </div>
                         </div>
                         <div class="d-md-none kt-margin-b-10"></div>
@@ -230,7 +242,7 @@
                                 <label>Désignation:</label>
                             </div>
                             <div class="kt-form__control">
-                                <input type="text" name="label" class="form-control" placeholder=""> 
+                                <input type="text" name="label" class="form-control" placeholder="">
                             </div>
                         </div>
                         <div class="d-md-none kt-margin-b-10"></div>
@@ -241,7 +253,7 @@
                                 <label class="kt-label m-label--single">Valeur:</label>
                             </div>
                             <div class="kt-form__control">
-                                <input type="text" name="value" class="form-control" placeholder="">   
+                                <input type="text" name="value" class="form-control" placeholder="">
                             </div>
                         </div>
                         <div class="d-md-none kt-margin-b-10"></div>
@@ -284,15 +296,15 @@
                             });
                         </script>
                     @endif
-                @endif 
+                @endif
                 <div class="col-md-4">
                     <a href="javascript:;" data-repeater-delete="" class="btn-sm btn btn-label-danger btn-bold">
                         <i class="la la-trash-o"></i>
                         Supprimer
                     </a>
                 </div>
-            </div>                            
-        </div>                 
+            </div>
+        </div>
     </div>
 
     <div class="form-group form-group-last row">
@@ -302,7 +314,7 @@
                 <i class="la la-plus"></i> Ajouter
             </a>
             <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg"></div>
-        </div>                                        
+        </div>
     </div>
 
 </div>

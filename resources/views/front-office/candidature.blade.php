@@ -426,9 +426,9 @@
                                 </div>
                             </div>
                             <div class="col-lg-12 fields-section logical-fields">
-                                <div class="source-field ">
+                                <div class="source-field">
                                     <div class="form-group">
-                                        <select name="state-aid-oui" id="state-aid-oui"
+                                        <select name="statehelp[0][aid-oui]" id="state-aid-oui"
                                                 class="form-control bootstrap-select" id="kt_form_type">
                                             <option disabled selected>Si oui, laquelle?</option>
 
@@ -443,12 +443,12 @@
                                         {{--                                            <input name="state-aid-oui" id="state-aid-oui" type="text" class="form-control" placeholder="Si oui, laquelle?">--}}
                                     </div>
                                     <div class="form-group">
-                                        <input name="aide_date"   id="aide_date" type='number' min='2010'
+                                        <input name="statehelp[0][aide_date]"   id="aide_date" type='number' min='2010'
                                                max='2011' class="form-control"
                                                placeholder="Dans qu'elle année ?">
                                     </div>
                                     <div class="form-group">
-                                        <input name="aide_montant" id="aide_montant" type='number' min='0'
+                                        <input name="statehelp[0][aide_montant]" id="aide_montant" type='number' min='0'
                                                class="form-control"  placeholder="le montant?">
                                     </div>
                                     <div class="col-lg-2">
@@ -734,7 +734,12 @@
                     this.name = this.name.replace(/\[(\d+)\]/, function (str, p1) {
                         return '[' + (parseInt(p1, 10) + 1) + ']'
                     });
+
                 });
+                dfElement.find('select').each(function () {
+                    this.name = this.name.replace(/\[(\d+)\]/, function (str, p1) {
+                        return '[' + (parseInt(p1, 10) + 1) + ']'
+                    });});
                 $(this).removeClass('add-field').addClass('remove-degree').val('-');
                 if (dfCounter >= 5) {
                     $(this).prop('disabled', true);

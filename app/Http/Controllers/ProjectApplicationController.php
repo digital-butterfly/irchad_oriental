@@ -12,6 +12,11 @@ use App\Township;
 use App\Http\Resources\ProjectApplicationCollection;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
+use Carbon\Carbon;
+use App\exportCondidat;
+
+
 
 class ProjectApplicationController extends Controller
 {
@@ -204,6 +209,7 @@ class ProjectApplicationController extends Controller
      */
     public function show($id)
     {
+
         $application = ProjectApplication::find($id);
 
         $member = Member::find($application->member_id);
@@ -242,7 +248,7 @@ class ProjectApplicationController extends Controller
         $data = (object)$data;
 
         $fields = ProjectApplication::formFields();
-
+//dd($application->toArray());
         return view('back-office/templates/projects-applications/single', compact('application', 'data', 'fields'));
     }
 
@@ -273,7 +279,7 @@ class ProjectApplicationController extends Controller
         {
             return redirect()->back()->withErrors($validation)->withInput();
         }
-        ProjectApplication::find($id)->update([
+      $PA=  ProjectApplication::find($id)->update([
             'member_id' => $request['member_id'],
             'category_id' => $request['category_id'],
             'township_id' => $request['township_id'],
@@ -316,12 +322,14 @@ class ProjectApplicationController extends Controller
                 'post_creation_training' => $request['post_creation_training'],
             ])),
             'status' => $request['status'],
-             'progress' => $request['progress'],
+            'progress' => $request['progress'],
             'training' => $request['training'],
             'incorporation' => $request['incorporation'],
             'funding' => $request['funding'],
-            'created_by' => Auth::id()
+            'created_by' => Auth::id(),
+            'rejected_reason' => $request['rejected_reason']
         ]);
+//        dd($PA);
 
         return redirect()->intended('admin/candidatures/'.$id);
     }
@@ -342,5 +350,14 @@ class ProjectApplicationController extends Controller
             return response()->json(['message'=>'Project application supprimé !'],200);
         }
         return response()->json(['message'=>'Project application na pas etait supprimer!'],404);
+    }
+    public function exportExcel(Request $request)
+    {
+
+        $projectApplicatoin=   json_decode(ProjectApplication::all()->where('status',$request['status']));
+//        $arrays = new exportCondidat((array) json_decode(ProjectApplication::all()->where('status', $request['Status'])));
+//        dd($request->toArray());
+        return Excel::download(new exportCondidat($request['Status'],$request['Type']), Carbon::now().'-back-up.xlsx');
+
     }
 }

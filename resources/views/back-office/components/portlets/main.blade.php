@@ -23,6 +23,6 @@
         {{$body}}
     </div>
     <div class="kt-portlet__body kt-portlet__body--fit">
-        
+
     </div>
 </div>

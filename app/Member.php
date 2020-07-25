@@ -34,6 +34,7 @@ class Member extends Authenticatable
         'degrees',
         'professional_experience',
         'reduced_mobility',
+        'state_help'
     ];
 
     /**
@@ -54,6 +55,7 @@ class Member extends Authenticatable
         'birth_date' => 'date:d-m-Y',
         'degrees' => 'object',
         'professional_experience' => 'object',
+        'state_help' => 'object',
     ];
 
 
@@ -145,6 +147,12 @@ class Member extends Authenticatable
                 'type' => 'repeater',
                 'label' => 'Experience professionnelle',
                 'config' => ['doubleRepeater' => true]
+            ],
+            [
+                'name' => 'state_help',
+                'type' => 'repeater',
+                'label' => 'Aide Etatique ',
+                'config' => ['tripleRepeater' => true]
             ],
             [
                 'name' => 'reduced_mobility',

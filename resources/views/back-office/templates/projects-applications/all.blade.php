@@ -196,5 +196,37 @@
             });
         });
 
+        $(function () {
+            $('.export').on('click', function () {
+                var Status = $("#kt_form_type").children("option:selected"). val();
+                let Type='Candidatures'
+                $.ajax({
+                    url: 'admin/exportExcel',
+                    data: {
+                        Status: Status,
+                        Type:Type
+
+                    },
+
+                    xhrFields: {
+                        responseType: 'blob'
+                    },
+                    success: function (data,textStatus, request) {
+                        let filename = request.getResponseHeader('Content-Disposition').split("filename=")[1]
+                        console.log()
+                        var a = document.createElement('a');
+                        var url = window.URL.createObjectURL(data);
+                        a.href = url;
+                        a.download = filename.substring(1, filename.length-1);
+                        document.body.append(a);
+                        a.click();
+                        a.remove();
+                        window.URL.revokeObjectURL(url);
+                    }
+                });
+            });
+        });
+
+
     </script>
 @endsection

@@ -39,6 +39,7 @@ class ProjectApplication extends Model
         'incorporation',
         'funding',
         'created_by',
+        'rejected_reason',
         'updated_by'
     ];
 
@@ -50,9 +51,9 @@ class ProjectApplication extends Model
     protected $casts = [
         'created_at' => 'datetime:d-m-Y',
         'updated_at' => 'datetime:d-m-Y',
-        'business_model'=> 'array',
-        'financial_data'=> 'array',
-        'training_needs'=> 'array',
+        'business_model'=> 'object',
+        'financial_data'=> 'object',
+        'training_needs'=> 'object',
         'company'=> 'object',
 
 
@@ -106,6 +107,7 @@ class ProjectApplication extends Model
             [
                 'name' => 'company',
                 'type' => 'section',
+                'class' => 'kt-callout--primary',
                 'label' => 'Données Entreprise',
                 "sub_fields" => [
                     [
@@ -148,6 +150,7 @@ class ProjectApplication extends Model
             [
                 'name' => 'member_id',
                 'type' => 'text',
+                'class' => 'kt-callout--dark',
                 'label' => 'ID Adhérent',
                 'group' => 'Données Générales'
             ],
@@ -189,6 +192,12 @@ class ProjectApplication extends Model
                 'label' => 'Status',
                 'options' => ['Nouveau', 'Accepté','En cours', 'En attente de formation','En attente de financement', 'Rejeté','Business plan achevé', 'Incubé'],
                 'group' => 'Données Générales'
+            ],[
+                'name' => 'rejected_reason',
+                'type' => 'textarea',
+                'style'=> 'display: none;',
+                'label' => 'Motif de refus',
+                'group' => 'Données Générales'
             ],
             [
                 'name' => 'progress',
@@ -218,6 +227,7 @@ class ProjectApplication extends Model
             [
                 'name' => 'business_model',
                 'type' => 'text',
+                'class' => 'kt-callout--success',
                 'label' => 'Business Model',
                 'sub_fields' => [
                     [
@@ -256,11 +266,12 @@ class ProjectApplication extends Model
                         'label' => 'Stratégie de distribution'
                     ],
                 ],
-                'group' => 'Business Model'
+                'group' => 'Business Model',
             ],
             [
                 'name' => 'financial_data',
                 'type' => 'section',
+                'class' => 'kt-callout--danger',
                 'sub_fields' => [
                     [
                         'name' => 'startup_needs',
@@ -328,6 +339,7 @@ class ProjectApplication extends Model
                 'group' => 'Données Financières'
             ],
             [
+                'class' => 'kt-callout--warning',
                 'name' => 'training_needs',
                 'type' => 'section',
                 'sub_fields' => [
@@ -342,7 +354,8 @@ class ProjectApplication extends Model
                         'label' => 'Besoins en post-création'
                     ],
                 ],
-                'group' => 'Besoins en Formation'
+                'group' => 'Besoins en Formation',
+
             ],
         ];
     }
@@ -355,3 +368,4 @@ class ProjectApplication extends Model
         return $this->hasMany('App\ProjectApplication');
     } */
 }
+
