@@ -162,5 +162,8 @@ class Member extends Authenticatable
             ],
         ];
     }
-
+    public function getFullNameAttribute($value)
+    {
+        return ucfirst($this->first_name) . ' ' . ucfirst($this->last_name);
+    }
 }

@@ -63,7 +63,7 @@ class ProjectApplication extends Model
      * Custom function.
      *
      */
-    public static function formFields() {
+    public static function formFields($input) {
 
         $categories_options = [];
         $categories_sub_options = [];
@@ -102,6 +102,14 @@ class ProjectApplication extends Model
                 'title' => $township->title
             ]);
         }
+
+        $projectApplicationMembers = ProjectApplicationMember::where('project_application_id','=', $input)->get()->map(function($member){
+            $user=$member->getUser ->only(['id','first_name','last_name']);
+            return [
+                'id'=>$user['id'],
+                'value'=>$user['first_name'].' '. $user['last_name']
+            ];
+        });
 
         return [
             [
@@ -153,6 +161,13 @@ class ProjectApplication extends Model
                 'class' => 'kt-callout--dark',
                 'label' => 'ID Adhérent',
                 'group' => 'Données Générales'
+            ],[
+                'name' => 'members',
+                'type' => 'taggify',
+                'class' => 'kt-callout--dark',
+                'label' => 'noms sous Adhérent',
+                'group' => 'Données Générales',
+                'value'=> $projectApplicationMembers
             ],
             [
                 'name' => 'category_id',
@@ -367,5 +382,10 @@ class ProjectApplication extends Model
     {
         return $this->hasMany('App\ProjectApplication');
     } */
+    public function getAdhname()
+    {
+        return $this->belongsTo('App\Member','member_id');
+    }
+
 }
 

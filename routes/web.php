@@ -82,6 +82,8 @@ Route::group(['middleware' => 'auth:user'], function () {
 
     Route::resource('admin/candidatures', 'ProjectApplicationController');
     Route::post('/admin/list/candidatures', 'ProjectApplicationController@ajaxList');
+    route::post('/admin/candidaturesmemmbers', 'ProjectApplicationController@ajaxMembersList');
+
 
     Route::resource('admin/', 'DashboardController');
     Route::get('admin', 'DashboardController@ajaxList');

@@ -34,10 +34,11 @@ class exportCondidat implements FromArray, WithHeadings,WithMapping
            return [
                '#',
                'Adhérant',
-               'id secteurs',
-               'township_id',
+               'secteurs',
+               'Sous secteurs',
+               'Communes',
                'sheet_id',
-               'title',
+               'Titre',
                'description',
                'market_type',
                'business_model',
@@ -87,13 +88,24 @@ class exportCondidat implements FromArray, WithHeadings,WithMapping
     {
         $data=null;
         if ($this->type==="Candidatures"){
-        $data = (array) json_decode(ProjectApplication::all()->where('status',$this->status));
-//        dd($data);
+            if ($this->status!=null){
+                $data = (array) json_decode(ProjectApplication::all()->where('status',$this->status));
+            }
+            else{
+                $data = (array) json_decode(ProjectApplication::all());
+            }
+
+
             return $data;
-}elseif ($this->type==="Member"){
-            $data =  (Member::all()->where('status',$this->status)->toArray());
+}
+        elseif ($this->type==="Member"){
+            if ($this->status!=null){
+            $data =  (Member::all()->where('status',$this->status)->toArray());}
+            else{
+                $data =  (Member::all()->toArray());}
+            }
              return $data;
-        }
+
 
 
     }
@@ -104,9 +116,10 @@ class exportCondidat implements FromArray, WithHeadings,WithMapping
             return [
 
                 $data->id,
-                $data->member_id,
-                $data->category_id,
-                $data->township_id,
+                Member::findOrFail($data->member_id)->getFullNameAttribute($data->member_id),
+                ProjectCategory::findOrFail($data->category_id)->getParent->title,
+                ProjectCategory::findOrFail($data->category_id)->title,
+                Township::findOrFail($data->township_id)->title,
                 $data->sheet_id,
                 $data->title,
                 $data->description,

@@ -46,67 +46,7 @@
 				<div class="kt-portlet__body">
 					<div class="kt-section kt-section--first">
 
-                        <div class="form-group row">
-                            <div class="col-12">
-                                <label class="col-form-label kt-margin-r-100">Status:</label>
-                                <label
-                                    class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input
-                                        type="radio" value="Nouveau"
-                                        name="status">
-                                    Nouveau<span></span></label><label
-                                    class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input
-                                        type="radio" value="Rejeté"
-                                        name="status">
-                                    Rejeté<span></span></label><label
-                                    class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input
-                                        type="radio" value="Accepté"
-                                        name="status">
-                                    Accepté<span></span></label><label
-                                    class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input
-                                        type="radio" value="En cours"
-                                        name="status"> En
-                                    cours<span></span></label>
-                                <label
-                                    class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input
-                                        type="radio"
-                                        value="En attente de formation"
-                                        name="status">Formation<span></span></label><label
-                                    class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input
-                                        type="radio"
-                                        value="En attente de financement"
-                                        name="status">Financement<span></span></label>
 
-                                <label
-                                    class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input
-                                        type="radio"
-                                        value="Business plan achevé"
-                                        name="status"> BP achevé
-                                    <span></span></label><label
-                                    class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input
-                                        type="radio" value="Incubé"
-                                        name="status">
-                                    Incubé<span></span></label>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-12">
-                                <label class="col-form-label kt-margin-r-80">Creation:</label>
-
-                                <label class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input
-                                        type="radio"
-                                        value="Entreprise en cours de création"
-                                        name="incorporation"> Entreprise en
-                                    cours de création<span></span></label>
-
-
-                                <label
-                                    class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input
-                                        type="radio" value="Entreprise créee"
-                                        name="incorporation"> Entreprise
-                                    créee<span></span></label>
-
-                            </div>
-                        </div>
 
 						@php
 							$done_groups = [];
@@ -168,6 +108,221 @@
 
 @section('specific_js')
 	<script>
+        var KTTagify = function() {
+
+            // Private functions
+            var demo1 = function() {
+                var toEl = document.getElementById('kt_tagify_1');
+                console.log( $('#member_id').val())
+                var tagifyTo = new Tagify(toEl, {
+                    delimiters: ", ", // add new tags when a comma or a space character is entered
+                    maxTags: 5,
+                    enforceWhitelist: true,
+                    blacklist: [$('#member_id').val()],
+                    keepInvalidTags: true, // do not remove invalid tags (but keep them marked as invalid)
+                    whitelist: [],
+                    templates: {
+                        dropdownItem : function(tagData){
+                            try{
+                                return '<div class="tagify__dropdown__item">' +
+                                    '<div class="kt-media-card">' +
+                                    '    <span class="kt-media kt-media--'+(tagData.initialsState?tagData.initialsState:'')+'" style="background-image: url('+tagData.pic+')">' +
+                                    '        <span>'+tagData.id+'</span>' +
+                                    '    </span>' +
+                                    '    <div class="kt-media-card__info">' +
+                                    '        <a href="#" class="kt-media-card__title">'+tagData.value+'</a>' +
+                                    '    </div>' +
+                                    '</div>' +
+                                    '</div>';
+                            }
+                            catch(err){}
+                        }
+                    },
+                    transformTag: function(tagData) {
+                        tagData.class = 'tagify__tag tagify__tag--brand';
+                    },
+                    dropdown : {
+                        searchKeys: ["value", "name","id"] ,
+                        classname : "color-blue",
+                        enabled   : 1,
+                        maxItems  : 5
+                    }
+
+
+                });
+
+                tagifyTo.on('input', onInput)
+                function onInput(e){
+                    console.log("onInput: ", e.detail);
+                    tagifyTo.settings.whitelist.length = 0; // reset current whitelist
+                    // tagify.loading(true).dropdown.hide.call(tagify) // show the loader animation
+
+
+                    // get new whitelist from a delayed mocked request (Promise)
+                    $.ajax({
+                        headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content},
+                        url : '/admin/candidaturesmemmbers', // La ressource ciblée
+                        method:'POST',
+                        data:{'tag':e.detail.value}
+
+                    })
+                        .then(function(result){
+                            // replace tagify "whitelist" array values with new values
+                            // and add back the ones already choses as Tags
+                            console.log('---->',result)
+
+                            tagifyTo.settings.whitelist.push(...result[0])
+                            // tagify.settings.whitelist.splice(0, result[0].length, ...tagify.value)
+
+                            // render the suggestions dropdown.
+                            tagifyTo.dropdown.show.call(tagifyTo, e.detail.value);
+                            console.log(e.detail.value,tagifyTo.value,tagifyTo.settings.whitelist,'helo')
+                        })
+                }
+
+                // // initialize Tagify on the above input node reference
+                // var tagify = new Tagify(input, {
+                //     enforceWhitelist: true,
+                //     skipInvalid: true,
+                //     templates: {
+                //                     dropdownItem : function(tagData){
+                //                         try{
+                //                             return '<div class="tagify__dropdown__item">' +
+                //                                 '<div class="kt-media-card">' +
+                //                                 '    <div class="kt-media-card__info">' +
+                //                                 '        <a href="#" class="kt-media-card__title">'+tagData.name+'</a>' +
+                //                                 '        <span class="kt-media-card__desc">'+tagData.value+'</span>' +
+                //                                 '    </div>' +
+                //                                 '</div>' +
+                //                                 '</div>';
+                //                         }
+                //                         catch(err){}
+                //                     }
+                //                 },
+                //     whitelist: [{name: "hamid", email: "achrboukh", value: 14}],
+                //     dropdown: {
+                //         classname: 'tagify__input',
+                //         searchKeys: ["value", "name"] ,
+                //         closeOnSelect: false,
+                //         enabled: 0,
+                //         //  try matching suggestions only for those keys (from whitelist Array)
+                //     }
+                //
+                // })
+
+
+//
+// // "remove all tags" button event listener
+//                 document.querySelector('.tags--removeAllBtn')
+//                     .addEventListener('click', tagify.removeAllTags.bind(tagify))
+
+// Chainable event listeners
+//                 tagify.on('input', onInput)
+
+
+// on character(s) added/removed (user is typing/deleting)
+//                 function onInput(e){
+//                     console.log("onInput: ", e.detail);
+//                     tagify.settings.whitelist.length = 0; // reset current whitelist
+//                     // tagify.loading(true).dropdown.hide.call(tagify) // show the loader animation
+//
+//
+//                     // get new whitelist from a delayed mocked request (Promise)
+//                     $.ajax({
+//                         headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content},
+//                         url : '/admin/candidaturesmemmbers', // La ressource ciblée
+//                         method:'POST',
+//                         data:{'tag':e.detail.value}
+//
+//                     })
+//                         .then(function(result){
+//                             // replace tagify "whitelist" array values with new values
+//                             // and add back the ones already choses as Tags
+//                             console.log('---->',result[0])
+//
+//                             tagify.settings.whitelist.push(...result[0])
+//                             // tagify.settings.whitelist.splice(0, result[0].length, ...tagify.value)
+//
+//                             // render the suggestions dropdown.
+//                             tagify.dropdown.show.call(tagify, e.detail.value);
+//                             console.log(e.detail.value,tagify.value,tagify.settings.whitelist,'helo')
+//                         })
+//                 }
+
+
+
+                //     var tagify = new Tagify(input, {
+            //         enforceWhitelist: true,
+            //         keepInvalidTags     : true,
+            //         whitelist: [{first_name: "hamid", last_name: "achrboukh", id: 104}],
+            //         templates: {
+            //             dropdownItem : function(tagData){
+            //                 try{
+            //                     return '<div class="tagify__dropdown__item">' +
+            //                         '<div class="kt-media-card">' +
+            //                         '    <div class="kt-media-card__info">' +
+            //                         '        <a href="#" class="kt-media-card__title">'+tagData.first_name+' '  +tagData.last_name+'</a>' +
+            //                         '        <span class="kt-media-card__desc">'+tagData.id+'</span>' +
+            //                         '    </div>' +
+            //                         '</div>' +
+            //                         '</div>';
+            //                 }
+            //                 catch(err){}
+            //             }
+            //         },
+            //
+            //     });
+            //     tagify.on('input', onInput).on('add', onAddTag).on('invalid', onInvalidTag).on('click', onTagClick).on('dropdown:select', onDropdownSelect)
+            //     function onInput(e){
+            //         tagify.settings.whitelist.length = 0; // reset current whitelist
+            //         tagify.loading(true).dropdown.hide.call(tagify) // show the loader animation
+            //         //
+            //         // // get new whitelist from a delayed mocked request (Promise)
+            //         console.log("onInput: ", e.detail);
+            //         $.ajax({
+            //             headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content},
+            //             url : '/admin/candidaturesmemmbers', // La ressource ciblée
+            //             method:'POST',
+            //             data:{'tag':e.detail.value}
+            //
+            //         }).then(function(result){
+            //             console.log(result)
+            //             // replace tagify "whitelist" array values with new values
+            //             // and add back the ones already choses as Tags
+            //             tagify.settings.whitelist.push(...result[0], ...tagify.value)
+            //             console.log('console.log(tagify.value)',tagify.settings.whitelist)
+            //
+            //             // render the suggestions dropdown.
+            //             tagify.loading(false).dropdown.show.call(tagify);
+            //         })
+            //     }
+            //     function onAddTag(e){
+            //         console.log("onAddTag: ", e.detail);
+            //         console.log("original input value: ", input.value)
+            //         tagify.off('add', onAddTag) // exmaple of removing a custom Tagify event
+            //     }
+            //     // invalid tag added callback
+            //     function onInvalidTag(e){
+            //         console.log("onInvalidTag: ", e.detail);
+            //     }
+            //     function onTagClick(e){
+            //         console.log(e.detail);
+            //         console.log("onTagClick: ", e.detail);
+            //     }
+            //     function onDropdownSelect(e){
+            //         console.log("onDropdownSelect: ", e.detail)
+            //     }
+            //
+            }
+
+            return {
+                // public functions
+                init: function() {
+                    demo1();
+
+                }
+            };
+        }();
 		// Class definition
 		var KTFormRepeater = function() {
 
@@ -360,6 +515,7 @@
 
 
 			KTFormRepeater.init();
+            KTTagify.init();
 		});
 	</script>
 @endsection

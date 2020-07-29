@@ -10,6 +10,7 @@ use App\Member;
 use App\ProjectCategory;
 use App\Township;
 use App\Http\Resources\ProjectApplicationCollection;
+use App\ProjectApplicationMember;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
@@ -198,6 +199,7 @@ class ProjectApplicationController extends Controller
             'funding' => $request['funding'],
             'created_by' => Auth::id()
         ]);
+
         return redirect()->intended('admin/candidatures');
     }
 
@@ -233,7 +235,6 @@ class ProjectApplicationController extends Controller
         $updator != NULL ? ($application->updator = $updator->first_name . ' ' . $updator->last_name) : NULL;
 
 
-
         $data = ProjectApplication::find($id);
 
         foreach ($data as $key => $item){
@@ -259,9 +260,45 @@ class ProjectApplicationController extends Controller
      */
     public function edit($id)
     {
-        $data = ProjectApplication::find($id);
-        $fields = ProjectApplication::formFields();
-        return view('back-office/templates/projects-applications/edit', compact('fields', 'data'));
+        $projectApplicationMembers = ProjectApplicationMember::where('project_application_id','=', $id)->get()->map(function($member){
+           $user=$member->getUser ->only(['id','first_name','last_name']);
+            return [
+                'id'=>$user['id'],
+                'value'=>$user['first_name'].' '. $user['last_name']
+            ];
+        });
+//        dd($projectApplicationMembers->toArray());
+//        $data =collect([ProjectApplication::findOrFail($id),$projectApplicationMembers]);
+        $data =ProjectApplication::findOrFail($id);
+
+//        dd(array_merge($data->toArray()));
+        $fields = ProjectApplication::formFields($id);
+        return view('back-office/templates/projects-applications/edit', compact('fields', 'data', 'projectApplicationMembers'));
+    }
+    /**
+     * Get Members tag.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function ajaxMembersList(Request $request)
+    {
+//        $validation = $this->validator($request->all(), 'projectApplication');
+//        if($validation->fails())
+//        {
+//            return redirect()->back()->withErrors($validation)->withInput();
+//        }
+
+//        dd($request['tag']);
+        $member=Member::select(Member::raw("CONCAT(first_name,' ',last_name) as value"),'id' )->where(function ($q) use ($request) {
+            $q->where('first_name', 'LIKE', '%' . $request['tag']  . '%')
+                ->orWhere('last_name', 'LIKE', '%' . $request['tag'] . '%')
+                ->orWhere('id', 'LIKE', '%' . $request['tag'] . '%');
+        })->get();
+
+//        dd($member->toArray());
+
+//        return $member;
+        return response()->json([$member]);
     }
 
     /**
@@ -279,7 +316,9 @@ class ProjectApplicationController extends Controller
         {
             return redirect()->back()->withErrors($validation)->withInput();
         }
-      $PA=  ProjectApplication::find($id)->update([
+//        dd($request->toArray());
+//        dd($id);
+        ProjectApplication::find($id)->update([
             'member_id' => $request['member_id'],
             'category_id' => $request['category_id'],
             'township_id' => $request['township_id'],
@@ -329,8 +368,16 @@ class ProjectApplicationController extends Controller
             'created_by' => Auth::id(),
             'rejected_reason' => $request['rejected_reason']
         ]);
-//        dd($PA);
+        foreach (json_decode($request['members']) as $key =>$value)
+        {
 
+
+        ProjectApplicationMember::updateOrCreate([
+            'member_id' => $value->id,
+            'project_application_id' => $id,
+]
+        );
+    }
         return redirect()->intended('admin/candidatures/'.$id);
     }
 
