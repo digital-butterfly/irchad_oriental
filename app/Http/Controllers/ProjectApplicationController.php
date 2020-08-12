@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\AdherentSession;
+use App\Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\ProjectApplication;
@@ -248,7 +250,7 @@ class ProjectApplicationController extends Controller
 
         $data = (object)$data;
 
-        $fields = ProjectApplication::formFields();
+        $fields = ProjectApplication::formFields($id);
 //dd($application->toArray());
         return view('back-office/templates/projects-applications/single', compact('application', 'data', 'fields'));
     }
@@ -282,23 +284,38 @@ class ProjectApplicationController extends Controller
      */
     public function ajaxMembersList(Request $request)
     {
-//        $validation = $this->validator($request->all(), 'projectApplication');
-//        if($validation->fails())
-//        {
-//            return redirect()->back()->withErrors($validation)->withInput();
-//        }
-
-//        dd($request['tag']);
-        $member=Member::select(Member::raw("CONCAT(first_name,' ',last_name) as value"),'id' )->where(function ($q) use ($request) {
+        $member=Member::select(Member::raw("CONCAT(first_name,' ',last_name) as value"),'id AS member_id' )->where(function ($q) use ($request) {
             $q->where('first_name', 'LIKE', '%' . $request['tag']  . '%')
                 ->orWhere('last_name', 'LIKE', '%' . $request['tag'] . '%')
                 ->orWhere('id', 'LIKE', '%' . $request['tag'] . '%');
         })->get();
 
-//        dd($member->toArray());
 
-//        return $member;
         return response()->json([$member]);
+    }
+  /**
+     * Get Members tag.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function ajaxSessionList(Request $request)
+    {
+//        dd($request['formation_id']);
+        $session =  Session::where('id_formation','=', $request['formation_id'])->where('sort','=','En file d\'attente')->get();
+
+        foreach ($session as $key => $value) {
+
+//            $sessionMemebers=AdherentSession:
+
+            ;
+
+        }
+        dd($sessionMemebers->toArray());
+
+
+
+//        dd($session->toArray());
+        return response()->json([$session]);
     }
 
     /**
@@ -368,15 +385,21 @@ class ProjectApplicationController extends Controller
             'created_by' => Auth::id(),
             'rejected_reason' => $request['rejected_reason']
         ]);
+//        dd(json_decode($request['deteletags']));
+        if (json_decode($request['deteletags'])) {
+            foreach (json_decode($request['deteletags']) as $key => $value) {
+                ProjectApplicationMember::where('member_id', '=', $value->member_id)->where('project_application_id', '=', $id)->delete();
+            }
+        }
+        if (json_decode($request['members'])) {
         foreach (json_decode($request['members']) as $key =>$value)
         {
 
-
         ProjectApplicationMember::updateOrCreate([
-            'member_id' => $value->id,
-            'project_application_id' => $id,
-]
+            'member_id' => $value->member_id,
+            'project_application_id' => $id,]
         );
+    }
     }
         return redirect()->intended('admin/candidatures/'.$id);
     }
@@ -398,6 +421,11 @@ class ProjectApplicationController extends Controller
         }
         return response()->json(['message'=>'Project application na pas etait supprimer!'],404);
     }
+
+
+
+
+
     public function exportExcel(Request $request)
     {
 

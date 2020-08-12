@@ -24,7 +24,7 @@
                                                     {{ old($field['name']) == $option->id ? 'selected' : '' }}
                                                 @elseif (isset($option->title))
                                                     {{ old($field['name']) == $option->title ? 'selected' : '' }}
-                                                @else 
+                                                @else
                                                     {{ old($field['name']) == $option ? 'selected' : '' }}
                                                 @endif
                                             @elseif (isset($data->$ref))
@@ -32,13 +32,13 @@
                                                     {{ $data->$ref == $option->id ? 'selected' : '' }}
                                                 @elseif (isset($option->title))
                                                     {{ $data->$ref == $option->title ? 'selected' : '' }}
-                                                @else 
+                                                @else
                                                     {{ $data->$ref == $option ? 'selected' : '' }}
                                                 @endif
                                             @endif
-                                            
-                                            >{{ $option->title ?? $option }}</option> 
-                                        @endforeach	 
+
+                                            >{{ $option->title ?? $option }}</option>
+                                        @endforeach
                                     @endif
                                 </optgroup>
                             @else
@@ -49,7 +49,7 @@
                                             {{ old($field['name']) == $option->id ? 'selected' : '' }}
                                         @elseif (isset($option->title))
                                             {{ old($field['name']) == $option->title ? 'selected' : '' }}
-                                        @else 
+                                        @else
                                             {{ old($field['name']) == $option ? 'selected' : '' }}
                                         @endif
                                     @elseif (isset($data->$ref))
@@ -57,15 +57,15 @@
                                             {{ $data->$ref == $option->id ? 'selected' : '' }}
                                         @elseif (isset($option->title))
                                             {{ $data->$ref == $option->title ? 'selected' : '' }}
-                                        @else 
+                                        @else
                                             {{ $data->$ref == $option ? 'selected' : '' }}
                                         @endif
                                     @endif
 
-                                
-                                >{{ $option->title ?? $option }}</option> 
+
+                                >{{ $option->title ?? $option }}</option>
                             @endif
-                        @endforeach	
+                        @endforeach
                     </div>
                 @elseif ($key['type'] == 'section')
                     @foreach ($key['sub_fields'] as $subfield)
@@ -81,13 +81,13 @@
                                             @if (!empty($option->childs))
                                                 @foreach($option->childs as $option)
                                                     <option value="{{ $option->id ?? ($option->title ?? $option) }}"
-        
+
                                                         @if (old($field['name']))
                                                             @if (isset($option->id))
                                                                 {{ old($field['name']) == $option->id ? 'selected' : '' }}
                                                             @elseif (isset($option->title))
                                                                 {{ old($field['name']) == $option->title ? 'selected' : '' }}
-                                                            @else 
+                                                            @else
                                                                 {{ old($field['name']) == $option ? 'selected' : '' }}
                                                             @endif
                                                         @elseif (isset($data->$ref))
@@ -95,24 +95,24 @@
                                                                 {{ $data->$ref == $option->id ? 'selected' : '' }}
                                                             @elseif (isset($option->title))
                                                                 {{ $data->$ref == $option->title ? 'selected' : '' }}
-                                                            @else 
+                                                            @else
                                                                 {{ $data->$ref == $option ? 'selected' : '' }}
                                                             @endif
                                                         @endif
-                                                    
-                                                    >{{ $option->title ?? $option }}</option> 
-                                                @endforeach	 
+
+                                                    >{{ $option->title ?? $option }}</option>
+                                                @endforeach
                                             @endif
                                         </optgroup>
                                     @else
                                         <option value="{{ $option->id ?? ($option->title ?? $option) }}"
-                                            
+
                                         @if (old($field['name']))
                                             @if (isset($option->id))
                                                 {{ old($field['name']) == $option->id ? 'selected' : '' }}
                                             @elseif (isset($option->title))
                                                 {{ old($field['name']) == $option->title ? 'selected' : '' }}
-                                            @else 
+                                            @else
                                                 {{ old($field['name']) == $option ? 'selected' : '' }}
                                             @endif
                                         @elseif (isset($data->$ref->$sub_ref))
@@ -120,7 +120,7 @@
                                                 {{ $data->$ref->$sub_ref == $option->id ? 'selected' : '' }}
                                             @elseif (isset($option->title))
                                                 {{ $data->$ref->$sub_ref == $option->title ? 'selected' : '' }}
-                                            @else 
+                                            @else
                                                 {{ $data->$ref->$sub_ref == $option ? 'selected' : '' }}
                                             @endif
                                         @elseif (isset($data->$ref))
@@ -128,20 +128,20 @@
                                                 {{ $data->$ref == $option->id ? 'selected' : '' }}
                                             @elseif (isset($option->title))
                                                 {{ $data->$ref == $option->title ? 'selected' : '' }}
-                                            @else 
+                                            @else
                                                 {{ $data->$ref == $option ? 'selected' : '' }}
                                             @endif
                                         @endif
-                                        
+
                                         >{{ $option->title ?? $option }}</option>
 
                                     @endif
-                                @endforeach	
+                                @endforeach
                             </div>
                         @endif
                     @endforeach
                 @endif
-            @endforeach	
+            @endforeach
         </select>
         <span class="form-text text-muted"></span>
     </div>

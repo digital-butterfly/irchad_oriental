@@ -8,7 +8,15 @@
         html {
             scroll-behavior: smooth;
         }
-
+        .tagify__input.form-control {
+            margin: 0;
+            height: 70px;
+        }
+        .tagify .tagify__tag {
+            margin: 3px;}
+        .tagify__tag__removeBtn{
+            margin-left: 2px;
+        }
         .kt-timeline-v3 .kt-timeline-v3__item .kt-timeline-v3__item-time {
             width: 8.97rem;
         }
@@ -240,7 +248,7 @@
 
                                     <!--begin: Form Wizard Form-->
                                     <div class="kt-form" id="kt_form">
-                                        <form class="" method="POST" action="{{ route('candidatures.update', $data->id) }}">
+                                        <form id="candidaturesform" class="" method="POST" action="{{ route('candidatures.update', $data->id) }}">
                                         {{ method_field('PUT') }}
 
 
@@ -569,6 +577,8 @@
                                             </button>
 
                                         </div>
+                                            <input name="deteletags" type="hidden" id="deteletags" value=""/>
+
                                             @csrf
                                         </form>
                                         <!--end: Form Actions -->
@@ -943,6 +953,101 @@
                 </div>
             </div>
         </div> --}}
+
+    <!--begin::Modal-->
+        <div class="modal fade" id="kt_select2_modal" role="dialog" aria-labelledby="" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="">Envoyer vere Formation</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" class="la la-remove"></span>
+                        </button>
+                    </div>
+                    <form class="kt-form kt-form--fit kt-form--label-right">
+                        <div class="modal-body">
+                            <!--begin::Form-->
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div><br />
+                            @endif
+                            <form class="kt-form" method="POST" action="{{ route('formation.store') }}">
+
+                                        @foreach($fields as $field)
+                                            @if($field['name']==='id_formation')
+                                            @php
+                                                $field['config']['hotizontalRows'] = true;
+                                            @endphp
+                                            @include(sprintf('back-office.components.form.fields.%s', $field['type']), $field)
+                                            @endif
+                                        @endforeach
+
+
+                                            <div class="form-group">
+                                                <label>Session:</label>
+                                                <div class="row">
+                                                    <div class="col-lg-6">
+                                                        <label class="kt-option kt-option kt-option--plain">
+																<span class="kt-option__control">
+																	<span class="kt-radio">
+																		<input type="radio" name="m_option_1" value="1" checked>
+																		<span></span>
+																	</span>
+																</span>
+                                                            <span class="kt-option__label">
+																	<span class="kt-option__head">
+																		<span class="kt-option__title">
+																			session
+																		</span>
+																	</span>
+																	<span class="kt-option__body">
+																		desc
+																	</span>
+																</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <label class="kt-option kt-option kt-option--plain">
+																<span class="kt-option__control">
+																	<span class="kt-radio">
+																		<input type="radio" name="m_option_1" value="1" checked>
+																		<span></span>
+																	</span>
+																</span>
+                                                            <span class="kt-option__label">
+																	<span class="kt-option__head">
+																		<span class="kt-option__title">
+																			auto
+																		</span>
+																	</span>
+																	<span class="kt-option__body">
+                                                                            desc
+                                                                    </span>
+																</span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                @csrf
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-brand" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!--end::Modal-->
+
     </div>
 @endsection
 
@@ -951,7 +1056,195 @@
 @section ('specific_js')
     <script>
             "use strict";
+            var KTSelect2 = function() {
+                // Private functions
+                var demos = function() {
+                    function formatRepo(formation) {
+                        console.log(formation,'formation')
+                        if (formation.loading) return formation.text;
+                        var markup = "<div class='select2-result-formationsitory clearfix'>" +
+                            "<div class='select2-result-formationsitory__meta'>" +
+                            "<div class='select2-result-formationsitory__title'>" + formation.title + "</div>";
+                        if (formation.description) {
+                            markup += "<div class='select2-result-formationsitory__description'>" + formation.description + "</div>";
+                        }
 
+                        return markup;
+                    }
+
+                    function formatRepoSelection(formation) {
+                        return formation.title || formation.text;
+                    }
+
+                    $("#id_formationSelect").select2({
+                        placeholder: "Formation",
+                        allowClear: true,
+                        ajax: {
+                            url: 'admin/FormationList',
+                            headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content},
+                            method:'POST',
+                            data: function (params) {
+                                console.log(params,'passsdd')
+                                return {
+                                    generalSearch: params.term, // search term
+                                    pagination: params.page
+                                };
+                            },
+                            processResults: function (data, params) {
+                                // parse the results into the format expected by Select2
+                                // since we are using custom formatting functions we do not need to
+                                // alter the remote JSON data, except to indicate that infinite
+                                // scrolling can be used
+                                params.page = params.page || 1;
+                                return {
+                                    results: data[0],
+                                };
+                            },
+                            cache: true
+                        },
+                        escapeMarkup: function (markup) {
+                            return markup;
+                        }, // let our custom formatter work
+                        minimumInputLength: 1,
+                        templateResult: formatRepo, // omitted for brevity, see the source of this page
+                        templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
+                    });
+                    $("#id_formationSelect").change(function() {
+                        $.ajax({
+                            headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content},
+                            url : 'admin/sessionFormation', // La ressource ciblée
+                            method:'POST',
+                            data:{'formation_id':$("#id_formationSelect").val()}
+
+                        })
+
+
+
+                    });
+                }
+                // Public functions
+                return {
+                    init: function() {
+                        demos();
+                    }
+                };
+            }();
+            var KTTagify = function() {
+
+                // Private functions
+                var demo1 = function() {
+                    var todelet =[];
+                    var toEl = document.getElementById('kt_tagify_1');
+                    var myFunction = function(){
+                        console.log(todelet)
+                        $("#deteletags").val(JSON.stringify(todelet))
+                    }
+                    document.getElementById("candidaturesform").addEventListener("submit", myFunction);
+
+                    var tagifyTo = new Tagify(toEl, {
+                        delimiters: ", ", // add new tags when a comma or a space character is entered
+                        maxTags: 5,
+                        enforceWhitelist: true,
+                        // blacklist: [JSON.parse($('#member_id').val())],
+                        // keepInvalidTags: true, // do not remove invalid tags (but keep them marked as invalid)
+                        whitelist: JSON.parse(toEl.value),
+                        templates: {
+                            tag : function(tagData){
+                                try{
+                                    return `<tag title='${tagData.member_id}' contenteditable='false' spellcheck="false" class='tagify__tag tagify__tag--brand tagify--noAnim ${tagData.class ? tagData.class : ""}' ${this.getAttributes(tagData)}>
+                                        <x title='remove tag' class='tagify__tag__removeBtn'></x>
+                                        <div>
+                                            <span class='tagify__tag-text'>${tagData.value}</span>
+                                        </div>
+                                    </tag>`
+                                }
+                                catch(err){}
+                            },
+                            dropdownItem : function(tagData){
+                                try{
+                                    return `<div class='tagify__dropdown__item ${tagData.class ? tagData.class : ""}' tagifySuggestionIdx="${tagData.tagifySuggestionIdx}">
+                                    <div class="kt-media-card">
+                            <span class="kt-media kt-media--'+(tagData.initialsState?tagData.initialsState:'')+'" >
+                                   <span>${tagData.member_id}</span>
+                               </span>
+                                <div class="kt-media-card__info">
+                            <a class="kt-media-card__title">${tagData.value}</a>
+                                </div>
+                        </div> </div>`
+                                }
+                                catch(err){}
+                            }
+
+
+                        },
+
+                        transformTag: function(tagData) {
+                            tagData.class = 'tagify__tag tagify__tag--brand';
+                        },
+                        dropdown : {
+                            searchKeys: ["value","member_id"] ,
+                            classname : "color-blue",
+                            enabled   : 1,
+                            maxItems  : 10
+                        }
+
+
+                    });
+                    // tagifyTo.settings.whitelist.push(...toEl.value)
+                    // console.log('helloooooooo',tagifyTo.settings.whitelist)
+                    console.log('helloooooooo', tagifyTo)
+
+
+                    tagifyTo.on('input', onInput).on('remove', onRemoveTag).on('dropdown:select', onSelectSuggestion)
+
+                    function onInput(e){
+                        console.log("onInput: ", e.detail);
+                        // tagifyTo.loading(true).dropdown.hide.call(tagifyTo) // show the loader animation
+
+
+                        // get new whitelist from a delayed mocked request (Promise)
+                        $.ajax({
+                            headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content},
+                            url : '/admin/candidaturesmemmbers', // La ressource ciblée
+                            method:'POST',
+                            data:{'tag':e.detail.value}
+
+                        })
+                            .then(function(result){
+                                tagifyTo.settings.whitelist.length = 0; // reset current whitelist
+                                // replace tagify "whitelist" array values with new values
+                                // and add back the ones already choses as Tags
+                                console.log('---->',result)
+
+                                tagifyTo.settings.whitelist.push(...result[0], ...tagifyTo.value)
+                                // tagify.settings.whitelist.splice(0, result[0].length, ...tagify.value)
+
+                                // render the suggestions dropdown.
+                                tagifyTo.dropdown.show.call(tagifyTo, e.detail.value);
+                                console.log(tagifyTo.settings.whitelist,'whitelist')
+                            })
+                    }
+                    // tag remvoed callback
+                    function onRemoveTag(e){
+                        todelet.push(e.detail.data)
+                        console.log("onRemoveTag:", e.detail.data)
+                    }
+                    function onSelectSuggestion(e){
+                        // todelet.push(e.detail.data)
+                        console.log("select:", e.detail)
+                    }
+
+
+                }
+
+                return {
+                    // public functions
+                    init: function() {
+                        demo1();
+
+                    }
+                };
+            }();
             // Class definition
             var KTWizard4 = function () {
                 // Base elements
@@ -1290,6 +1583,9 @@ if(EXFSelect!=''){ $("#EXFbutton span").text(EXFSelect);}
                 KTWizard4.init();
                 selectTypeElemts();
                 selectElemts()
+                KTTagify.init();
+                KTSelect2.init();
+
                 // KTFormRepeater.init();
             });
 

@@ -105,8 +105,9 @@ class ProjectApplication extends Model
 
         $projectApplicationMembers = ProjectApplicationMember::where('project_application_id','=', $input)->get()->map(function($member){
             $user=$member->getUser ->only(['id','first_name','last_name']);
+//            dd($user);
             return [
-                'id'=>$user['id'],
+                'member_id'=>$user['id'],
                 'value'=>$user['first_name'].' '. $user['last_name']
             ];
         });
@@ -164,6 +165,7 @@ class ProjectApplication extends Model
             ],[
                 'name' => 'members',
                 'type' => 'taggify',
+                'id'=>'kt_tagify_1',
                 'class' => 'kt-callout--dark',
                 'label' => 'noms sous Adhérent',
                 'group' => 'Données Générales',
@@ -371,6 +373,12 @@ class ProjectApplication extends Model
                 ],
                 'group' => 'Besoins en Formation',
 
+            ],
+            [
+                'name' => 'id_formation',
+                'type' => 'select',
+                'label' => 'Formation',
+                'options'=>[],
             ],
         ];
     }

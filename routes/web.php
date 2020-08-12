@@ -29,9 +29,9 @@ Route::get('/adherent', function () {
 Route::get('/a-propos',function(){
     return view('front-office.about-us');
 });
-//route vers la page formations
-Route::get('/formations',function(){
-    return view('front-office.formations');
+//route vers la page formation
+Route::get('/formation',function(){
+    return view('front-office.formation');
 });
 //route vers la page cantact
 Route::get('/contact',function(){
@@ -82,7 +82,19 @@ Route::group(['middleware' => 'auth:user'], function () {
 
     Route::resource('admin/candidatures', 'ProjectApplicationController');
     Route::post('/admin/list/candidatures', 'ProjectApplicationController@ajaxList');
+
+    Route::resource('admin/formation', 'FormationController');
+    Route::post('/admin/list/Formation', 'FormationController@ajaxList');
+    route::post('/admin/FormationList', 'SessionController@ajaxFormationList');
+
+    Route::resource('admin/session', 'SessionController');
+    Route::post('/admin/list/session', 'SessionController@ajaxList');
+    Route::post('/admin/projectList', 'SessionController@ajaxProjectList');
+    Route::post('/admin/MemebersProjectList', 'SessionController@ajaxMemebersProjectList');
+
+
     route::post('/admin/candidaturesmemmbers', 'ProjectApplicationController@ajaxMembersList');
+    route::post('/admin/sessionFormation', 'ProjectApplicationController@ajaxSessionList');
 
 
     Route::resource('admin/', 'DashboardController');
@@ -95,8 +107,8 @@ Route::group(['middleware' => 'auth:user'], function () {
     Route::resource('admin/projects-categories', 'ProjectCategoryController');
 
 });
-Route::get('/admin/exportExcel','ProjectApplicationController@exportExcel')->name('exportExcel');
-Route::get('/admin/exportExcelmembers','MemberController@exportExcel')->name('exportExcel');
+    Route::get('/admin/exportExcel','ProjectApplicationController@exportExcel')->name('exportExcel');
+    Route::get('/admin/exportExcelmembers','MemberController@exportExcel')->name('exportExcel');
 
 
 Route::group(['middleware' => 'auth:member'], function () {

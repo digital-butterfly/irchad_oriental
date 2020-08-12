@@ -37,6 +37,7 @@ class Member extends Authenticatable
         'state_help'
     ];
 
+
     /**
      * The attributes that should be hidden for arrays.
      *
