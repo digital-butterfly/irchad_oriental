@@ -2,554 +2,633 @@
 
 @section('content')
 
-    <section class="banner_area">
-        <div class="container-fluid mx-auto">
-            <div class="row">
-                <div class="col-md-5"><h1>Soumissionner un Projet</h1>
-                    <p>Vous avez trouvé l'idée de votre futur projet ?
-                        Félicitations, vous êtes au bon endroit.
+    <style>
+        .home-bg-overlay {
+            z-index: 0;
+        }
 
-                        D’abord, vous remplissez vos informations personnelles et professionnelles.
-                        Ensuite, vous renseignez les informations de votre futur projet.
-                        Finalement, vous pouvez soumissionner votre projet.
+        /*progressbar*/
+        #progressbar {
+            margin-bottom: 30px;
+            overflow: hidden;
+            /*CSS counters to number the steps*/
+            counter-reset: step;
+            text-align: center;
+            width: 800px;
+            margin: 0 auto;
+            position: relative;
+            bottom: -292px;
+        }
 
-                        Une commission d'experts se chargera d'étudier votre dossier et vous
-                        contactera dans les plus brefs délais.
-                    </p>
 
-                </div>
+        #progressbar li {
+            list-style-type: none;
+            color: white;
+            text-transform: uppercase;
+            font-size: 9px;
+            width: 33.33%;
+            float: left;
+            position: relative;
+            letter-spacing: 1px;
+        }
 
+        #progressbar li:before {
+            content: counter(step);
+            counter-increment: step;
+            width: 24px;
+            height: 24px;
+            line-height: 26px;
+            display: block;
+            font-size: 12px;
+            color: #333;
+            background: white;
+            border-radius: 25px;
+            margin: 0 auto 10px auto;
+        }
+
+        /*progressbar connectors*/
+        #progressbar li:after {
+            content: '';
+            width: 100%;
+            height: 2px;
+            background: white;
+            position: absolute;
+            left: -50%;
+            top: 9px;
+            z-index: -1; /*put it behind the numbers*/
+        }
+
+        #progressbar li:first-child:after {
+            /*connector not needed before the first step*/
+            content: none;
+        }
+
+        /*marking active/completed steps green*/
+        /*The number of the step and the connector before it = green*/
+        #progressbar li.active:before, #progressbar li.active:after {
+            background: #1bbc9b;
+            color: white;
+        }
+
+        /*Hide all steps except first step*/
+        #contact-form fieldset:not(:first-of-type) {
+            display: none;
+        }
+
+        .custom-form input::-webkit-calendar-picker-indicator { /* display: none */
+        }
+
+        .custom-form input[type=date]::-webkit-inner-spin-button,
+        .custom-form input[type=date]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+            /* position: relative; */
+            /* top : 7px; */
+        }
+
+        .custom-form .form-control, .custom-form #contact-form select.form-control {
+            border: none;
+            border-bottom: 1px solid #c1c1c1;
+        }
+
+        .contact-details .contact-details-header {
+            text-align: center;
+        }
+
+        .logical-fields {
+            display: none;
+        }
+    </style>
+    <form method="POST" data-route="{{ route('projectSubmission')}}" id="form-data">
+    @csrf
+
+    <!-- START CONTACT-HEADER -->
+        <section class="bg-pages-title">
+            <div class="home-bg-overlay">
+                <!-- progressbar -->
+                <ul id="progressbar">
+                    <li class="active">Informations Personnelles</li>
+                    <li>Informations Professionelles</li>
+                    <li>Informations sur le Projet</li>
+                </ul>
             </div>
-        </div>
-    </section>
-    <section class="secound-section light section-divider">
-        <div class="container-fluid px-5">
-            <form method="POST" data-route="{{ route('projectSubmission')}}" id="form-data">
-                @csrf
-            <div id="form-errors"></div>
-            <div class="steps">
-                <div class="step">
-                    <span class="step-1">1</span>
-
-                    <div class="step-header">
-                        <div class="header">Informations personnelles
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="text-center text-white">
+                            <h1 class="text-white">Soumissionner un Projet</h1>
+                            {{-- <p class="mt-3 mb-0 text-uppercase">get in touch with us</p> --}}
                         </div>
-                        <div class="subheader">Renseignez vos informations personnelles.
-                        </div>
-                    </div>
-                    <div class="step-content one">
-                        <fieldset class="form-section">
-                            <div class="contact-details-header">
-
-                            </div>
-                            <div class="row mt-4">
-                                <div class="col-lg-2">
-                                    <div class=" form-group">
-
-                                        <select name="civility" id="civility" class=" custom-form form-control">
-                                            <option value="" selected disabled>Votre civilité...</option>
-                                            <option value="0">Mr</option>
-                                            <option value="1">Mme</option>
-                                            <option value="2">Mlle</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-5">
-                                    <div class="form-group">
-                                        <input name="first_name" id="first_name" type="text"
-                                               class="form-control" placeholder="Votre prénom..." required="">
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-5">
-                                    <div class="form-group">
-                                        <input name="last_name" id="last_name" type="text" class="form-control"
-                                               required="" placeholder="Votre nom de famille...">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row mt-4">
-                                <div class="col-lg-4">
-                                    <div class="form-group">
-                                        <input name="identity_number" id="identity_number" type="text"
-                                               required="" class="form-control"
-                                               placeholder="Votre numéro de CIN...">
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-4">
-                                    <div class="form-group">
-                                        <input name="birth_date" id="birth_date" type="date"
-                                               class="form-control" required=""
-                                               placeholder="Votre date de naissance...">
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-4">
-                                    <div class="form-group">
-                                        <select name="marital-status" id="marital-status" required=""
-                                                class="form-control">
-                                            <option value="" selected disabled>Votre situation familiale...
-                                            </option>
-                                            <option value="">Célibataire</option>
-                                            <option value="">Marié(e)</option>
-                                            <option value="">Divorcé(e)</option>
-                                            <option value="">Veuf(e)</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row mt-4">
-                                <div class="col-lg-8">
-                                    <div class="form-group">
-                                        <input name="address" id="address" type="text" required=""
-                                               class="form-control" placeholder="Votre adresse...">
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-4">
-                                    <div class="form-group">
-                                        <select name="township_id" id="township_id" class="form-control">
-                                            <option value="" selected disabled>Votre commune...</option>
-                                            @foreach($Communes as $Commune)
-                                                <option  value="{{$Commune->id}}">{{$Commune->title}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row mt-4">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <input name="email" id="email" type="email" class="form-control"
-                                               placeholder="Votre email...">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <input name="phone" id="phone" type="phone" class="form-control"
-                                               placeholder="Votre téléphone...">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row mt-4">
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <select name="reduced_mobility" id="reduced_mobility"
-                                                class="form-control">
-                                            <option value="" selected disabled>Êtes-vous une personne à mobilité
-                                                réduite?
-                                            </option>
-                                            <option value="Non">Non</option>
-                                            <option value="Handicap auditif">Handicap auditif</option>
-                                            <option value="Handicap vocal">Handicap vocal</option>
-                                            <option value="Handicap moteur">Handicap moteur</option>
-                                            <option value="Handicap visuel">Handicap visuel</option>
-                                            <option value="Handicap mental">Handicap mental</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row mt-4 text-center">
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value=""
-                                                   id="defaultCheck1" name="defaultCheck1">
-                                            <label class="form-check-label" for="defaultCheck1">Je certifie
-                                                l'exactitude des données renseignées et j'accepte les <a
-                                                    href="#">termes et conditions</a>.</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row mt-4 text-center">
-                                                            <div class="col-lg-12">
-                                                               <input type="button" name="next" class="next-btn btn-primary submitBnt btn btn-custom next"
-                                                                      value="Suivant">
-                                                                <div id="simple-msg"></div>
-                                                           </div>
-                            </div>
-                        </fieldset>
-
                     </div>
                 </div>
-                <div class="step minimized">
-                    <span class="step-1">2</span>
-                    <div class="step-header">
-                        <div class="header">Informations professionnelles
+            </div>
+        </section>
+        <!-- END CONTACT-HEADER -->
+        <!-- START CONTACT -->
+        <section class="section pt-0 bg-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="contact-details bg-white p-5 mt-3">
+                            <div class="custom-form">
+                                <div id="form-errors"></div>
+                                <!-- STEP 1 -->
+                                <fieldset class="form-section">
+                                    <div class="contact-details-header">
+                                        <div class="contact-icon">
+                                            <i class="pe-7s-id text-custom"></i>
+                                        </div>
+                                        <h3>Informations personnelles</h3>
+                                        <p class="text-muted mt-3">Renseignez vos informations personnelles.</p>
+                                    </div>
+                                    <div class="row mt-4">
+                                        <div class="col-lg-2">
+                                            <div class=" form-group">
+                                                <select name="civility" id="civility" class=" custom-form form-control">
+                                                    <option value="" selected disabled>Votre civilité...</option>
+                                                    <option value="0">Mr</option>
+                                                    <option value="1">Mme</option>
+                                                    <option value="2">Mlle</option>
+                                                </select>
+                                            </div>
+                                        </div>
 
-                        </div>
-                        <div class="subheader">Renseignez vos informations professionnelles.
-                            </div>
-                    </div>
-                    <div class="step-content two">
-                        <fieldset  class="form-section">
-                            <div class="contact-details-header">
+                                        <div class="col-lg-5">
+                                            <div class="form-group">
+                                                <input name="first_name" id="first_name" type="text"
+                                                       class="form-control" placeholder="Votre prénom..." required="">
+                                            </div>
+                                        </div>
 
-
-                            <div class="fields-section">
-                                <h4 class="mt-4">Formation</h4>
-                                <h5><small class="text-muted">Renseignez vos diplômes</small></h5>
-
-                                <div class="row source-field">
-                                    <div class="col-lg-3">
-                                        <div class="form-group">
-                                            <input name="degrees[0][diplome_type]" id="diplome_type" type="text"
-                                                   class="form-control" placeholder="Type de diplôme...">
+                                        <div class="col-lg-5">
+                                            <div class="form-group">
+                                                <input name="last_name" id="last_name" type="text" class="form-control"
+                                                       required="" placeholder="Votre nom de famille...">
+                                            </div>
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-3">
-                                        <div class="form-group">
-                                            <input name="degrees[0][annee]" id="annee" type="text"
-                                                   class="form-control" placeholder="Année d'obtention...">
+                                    <div class="row mt-4">
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <input name="identity_number" id="identity_number" type="text"
+                                                       required="" class="form-control"
+                                                       placeholder="Votre numéro de CIN...">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <input name="birth_date" id="birth_date" type="date"
+                                                       class="form-control" required=""
+                                                       placeholder="Votre date de naissance...">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <select name="marital-status" id="marital-status" required=""
+                                                        class="form-control">
+                                                    <option value="" selected disabled>Votre situation familiale...
+                                                    </option>
+                                                    <option value="">Célibataire</option>
+                                                    <option value="">Marié(e)</option>
+                                                    <option value="">Divorcé(e)</option>
+                                                    <option value="">Veuf(e)</option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
 
-                                    {{-- <div class="col-lg-2">
-                                    <div class="form-group">
-                                        <input name="degrees[0][specialite]" id="specialite" type="text" class="form-control" placeholder="Spécialité...">
-                                    </div>
-                                </div>
-
-                                    <div class="col-lg-2">
-                                        <div class="form-group">
-                                            <input name="degrees[0][option]" id="option" type="text" class="form-control" placeholder="Option...">
+                                    <div class="row mt-4">
+                                        <div class="col-lg-8">
+                                            <div class="form-group">
+                                                <input name="address" id="address" type="text" required=""
+                                                       class="form-control" placeholder="Votre adresse...">
+                                            </div>
                                         </div>
-                                    </div>--}}
 
-                                    <div class="col-lg-4">
-                                        <div class="form-group">
-                                            <input name="degrees[0][etablissement]" id="etablissement"
-                                                   type="text" class="form-control"
-                                                   placeholder="Établissement...">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-2">
-                                        <div class="form-group">
-                                            <input type="button" name="add-field"
-                                                   class="submitBnt btn btn-custom add-field btn-primary" value="+">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="dynamic-fields">
-                                    <!-- Dynamic fielfd will be cloned here -->
-                                </div>
-                            </div>
-
-                            <div class="fields-section">
-                                <h4 class="mt-5">Experience Professionnelle</h4>
-                                <h5><small class="text-muted">Renseignez vos experiences
-                                        professionnelles</small></h5>
-
-                                <div class="row source-field">
-                                    <div class="col-lg-2">
-                                        <div class="form-group">
-                                            <input name="professional_experience[0][du]" id="du" type="text"
-                                                   class="form-control" placeholder="Du...">
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <select name="township_id" id="township_id" class="form-control">
+                                                    <option value="" selected disabled>Votre commune...</option>
+                                                    <option value="14">Al Hoceima</option>
+                                                    <option value="13">Midar</option>
+                                                    <option value="5">Mtalssa</option>
+                                                    <option value="10">Ouardana</option>
+                                                    <option value="9">Talilit</option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-2">
-                                        <div class="form-group">
-                                            <input name="professional_experience[0][au]" id="au" type="text"
-                                                   class="form-control" placeholder="Au...">
+                                    <div class="row mt-4">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <input name="email" id="email" type="email" class="form-control"
+                                                       placeholder="Votre email...">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <input name="phone" id="phone" type="phone" class="form-control"
+                                                       placeholder="Votre téléphone...">
+                                            </div>
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-2">
-                                        <div class="form-group">
-                                            <input name="professional_experience[0][poste]" id="poste"
-                                                   type="text" class="form-control" placeholder="Poste...">
+                                    <div class="row mt-4">
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <select name="reduced_mobility" id="reduced_mobility"
+                                                        class="form-control">
+                                                    <option value="" selected disabled>Êtes-vous une personne à mobilité
+                                                        réduite?
+                                                    </option>
+                                                    <option value="Non">Non</option>
+                                                    <option value="Handicap auditif">Handicap auditif</option>
+                                                    <option value="Handicap vocal">Handicap vocal</option>
+                                                    <option value="Handicap moteur">Handicap moteur</option>
+                                                    <option value="Handicap visuel">Handicap visuel</option>
+                                                    <option value="Handicap mental">Handicap mental</option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-2">
-                                        <div class="form-group">
-                                            <input name="professional_experience[0][organisme]" id="organisme"
-                                                   type="text" class="form-control" placeholder="Organisme...">
+                                    <div class="row mt-4 text-center">
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value=""
+                                                           id="defaultCheck1" name="defaultCheck1">
+                                                    <label class="form-check-label" for="defaultCheck1">Je certifie
+                                                        l'exactitude des données renseignées et j'accepte les <a
+                                                            href="#">termes et conditions</a>.</label>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-2">
-                                        <div class="form-group">
-                                            <input name="professional_experience[0][mission]" id="mission"
-                                                   type="text" class="form-control" placeholder="Mission...">
+                                    <div class="row mt-4 text-center">
+                                        <div class="col-lg-12">
+                                            <input type="button" name="next" class="submitBnt btn btn-custom next"
+                                                   value="Suivant">
+                                            <div id="simple-msg"></div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <!-- STEP 2 -->
+                                <fieldset style="display:none" class="form-section">
+                                    <div class="contact-details-header">
+                                        <div class="contact-icon">
+                                            <i class="pe-7s-study text-custom"></i>
+                                        </div>
+                                        <h3>Informations professionnelles</h3>
+                                        <p class="text-muted mt-3">Renseignez vos informations professionnelles.</p>
+                                    </div>
+
+                                    <div class="fields-section">
+                                        <h4 class="mt-4">Formation</h4>
+                                        <h5><small class="text-muted">Renseignez vos diplômes</small></h5>
+
+                                        <div class="row source-field">
+                                            <div class="col-lg-3">
+                                                <div class="form-group">
+                                                    <input name="degrees[0][diplome_type]" id="diplome_type" type="text"
+                                                           class="form-control" placeholder="Type de diplôme...">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-3">
+                                                <div class="form-group">
+                                                    <input name="degrees[0][annee]" id="annee" type="text"
+                                                           class="form-control" placeholder="Année d'obtention...">
+                                                </div>
+                                            </div>
+
+                                            {{-- <div class="col-lg-2">
+                                                 <div class="form-group">
+                                                     <input name="degrees[0][specialite]" id="specialite" type="text" class="form-control" placeholder="Spécialité...">
+                                                 </div>
+                                             </div>
+
+                                             <div class="col-lg-2">
+                                                 <div class="form-group">
+                                                     <input name="degrees[0][option]" id="option" type="text" class="form-control" placeholder="Option...">
+                                                 </div>
+                                             </div>--}}
+
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <input name="degrees[0][etablissement]" id="etablissement"
+                                                           type="text" class="form-control"
+                                                           placeholder="Établissement...">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-2">
+                                                <div class="form-group">
+                                                    <input type="button" name="add-field"
+                                                           class="submitBnt btn btn-custom add-field" value="+">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="dynamic-fields">
+                                            <!-- Dynamic fielfd will be cloned here -->
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-2">
-                                        <div class="form-group">
-                                            <input type="button" name="add-field"
-                                                   class="submitBnt btn btn-custom add-field btn-primary" value="+">
+                                    <div class="fields-section">
+                                        <h4 class="mt-5">Experience Professionnelle</h4>
+                                        <h5><small class="text-muted">Renseignez vos experiences
+                                                professionnelles</small></h5>
+
+                                        <div class="row source-field">
+                                            <div class="col-lg-2">
+                                                <div class="form-group">
+                                                    <input name="professional_experience[0][du]" id="du" type="text"
+                                                           class="form-control" placeholder="Du...">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-2">
+                                                <div class="form-group">
+                                                    <input name="professional_experience[0][au]" id="au" type="text"
+                                                           class="form-control" placeholder="Au...">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-2">
+                                                <div class="form-group">
+                                                    <input name="professional_experience[0][poste]" id="poste"
+                                                           type="text" class="form-control" placeholder="Poste...">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-2">
+                                                <div class="form-group">
+                                                    <input name="professional_experience[0][organisme]" id="organisme"
+                                                           type="text" class="form-control" placeholder="Organisme...">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-2">
+                                                <div class="form-group">
+                                                    <input name="professional_experience[0][mission]" id="mission"
+                                                           type="text" class="form-control" placeholder="Mission...">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-2">
+                                                <div class="form-group">
+                                                    <input type="button" name="add-field"
+                                                           class="submitBnt btn btn-custom add-field" value="+">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="dynamic-fields">
+                                            <!-- Dynamic fielfd will be cloned here -->
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="dynamic-fields">
-                                    <!-- Dynamic fielfd will be cloned here -->
-                                </div>
-                            </div>
+                                    {{-- <div class="fields-section">
+                                        <h4 class="mt-5">Langues</h4>
+                                        <h5><small class="text-muted">Renseignez les langues que vous parlez</small></h5>
 
-                        {{-- <div class="fields-section">
-                        <h4 class="mt-5">Langues</h4>
-                        <h5><small class="text-muted">Renseignez les langues que vous parlez</small></h5>
+                                        <div class="row source-field">
+                                            <div class="col-lg-5">
+                                                <div class="form-group">
+                                                    <input name="name" id="name" type="text" class="form-control" placeholder="Langue...">
+                                                </div>
+                                            </div>
 
-                        <div class="row source-field">
-                            <div class="col-lg-5">
-                                <div class="form-group">
-                                    <input name="name" id="name" type="text" class="form-control" placeholder="Langue...">
-                                </div>
-                            </div>
+                                            <div class="col-lg-5">
+                                                <div class="form-group">
+                                                    <input name="name" id="name" type="text" class="form-control" placeholder="Niveau...">
+                                                </div>
+                                            </div>
 
-                            <div class="col-lg-5">
-                                <div class="form-group">
-                                    <input name="name" id="name" type="text" class="form-control" placeholder="Niveau...">
-                                </div>
-                            </div>
+                                            <div class="col-lg-2">
+                                                <div class="form-group">
+                                                    <input type="button" name="add-field" class="submitBnt btn btn-custom add-field" value="+">
+                                                </div>
+                                            </div>
+                                        </div>
 
-                            <div class="col-lg-2">
-                                <div class="form-group">
-                                    <input type="button" name="add-field" class="submitBnt btn btn-custom add-field" value="+">
-                                </div>
-                            </div>
-                        </div>
+                                        <div class="dynamic-fields">
+                                            <!-- Dynamic fielfd will be cloned here -->
+                                        </div>
+                                    </div> --}}
 
-                        <div class="dynamic-fields">
-                            <!-- Dynamic fielfd will be cloned here -->
-                        </div>
-                    </div> --}}
-
-{{--                                         <div class="row mt-4 text-center">--}}
-{{--                                                     <div class="col-lg-12">--}}
-{{--                                                        <input type="button" name="previous"--}}
-{{--                                                                  class="submitBnt btn btn-custom previous" value="Précédent">--}}
-{{--                                                        <input type="button" name="next" class="submitBnt btn btn-custom next"--}}
-{{--                                                                 value="Suivant">--}}
-{{--                                                          <div id="simple-msg"></div>--}}
-{{--                                                     </div>--}}
-{{--                                                  </div>--}}
-                        </fieldset>
-                        <div class="row mt-4 text-center">
-                            <div class="col-lg-12">
-                                <input type="button" name="previous"
-                                       class="submitBnt btn btn-custom btn-primary previous mr-5" value="Précédent">
-                                <input type="button" name="next" class="next-btn submitBnt btn-primary btn btn-custom next"
-                                       value="Suivant">
-                            </div>
-                            </div>
-                    </div>
-                </div>
-                <div class="step minimized">
-                    <div class="step-header">
-                        <span class="step-1">3</span>
-                        <div class="header">Informations sur le projet
-                        </div>
-                        <div class="subheader">Renseignez les détails de votre projet.</div>
-                    </div>
-                    <div class="step-content three">
-                        <fieldset id="last-fieldset"  class="form-section">
-
-
-                            <div class="row">
-                                <div class="col-lg-8">
-                                    <div class="form-group">
-                                        <input name="title" id="title" type="text" class="form-control"
-                                               placeholder="Titre de votre projet...">
+                                    <div class="row mt-4 text-center">
+                                        <div class="col-lg-12">
+                                            <input type="button" name="previous"
+                                                   class="submitBnt btn btn-custom previous" value="Précédent">
+                                            <input type="button" name="next" class="submitBnt btn btn-custom next"
+                                                   value="Suivant">
+                                            <div id="simple-msg"></div>
+                                        </div>
                                     </div>
-                                </div>
+                                </fieldset>
 
-                                <div class="col-lg-4">
-                                    <div class="form-group">
-                                        <select name="category_id" id="category_id"
-                                                class="form-control bootstrap-select" id="kt_form_type">
-                                            <option disabled selected>Secteur d'activité...</option>
+                                <!-- STEP 3 -->
+                                <fieldset id="last-fieldset" style="display:none" class="form-section">
+                                    <div class="contact-details-header">
+                                        <div class="contact-icon">
+                                            <i class="pe-7s-portfolio text-custom"></i>
+                                        </div>
+                                        <h3>Informations sur le projet</h3>
+                                        <p class="text-muted mt-3">Renseignez les détails de votre projet.</p>
+                                    </div>
 
-                                            @foreach ($sectors as $sector)
+                                    <div class="row">
+                                        <div class="col-lg-8">
+                                            <div class="form-group">
+                                                <input name="title" id="title" type="text" class="form-control"
+                                                       placeholder="Titre de votre projet...">
+                                            </div>
+                                        </div>
 
-                                                <optgroup label="{{$sector->title}}">
-                                                    @foreach($sector['subSectors'] as $subSector)
-                                                        @if($subSector->parent_id==$sector->id )
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <select name="category_id" id="category_id"
+                                                        class="form-control bootstrap-select" id="kt_form_type">
+                                                    <option disabled selected>Secteur d'activité...</option>
 
-                                                            <option value="{{$subSector->id}}" title="{{$subSector->title}}">
-                                                                {{Str::of(($subSector->title))->limit(35)}}
-                                                            </option>
+                                                    @foreach ($sectors as $sector)
 
+                                                        <optgroup label="{{$sector->title}}">
+                                                            @foreach($sector['subSectors'] as $subSector)
+                                                                @if($subSector->parent_id==$sector->id )
+                                                                    <option
+                                                                        value="{{$subSector->id}}">{{$subSector->title}}</option>
 
-                                                        @endif
+                                                                @endif
 
+                                                            @endforeach
+                                                        </optgroup>
+                                                        <p></p>
                                                     @endforeach
-                                                </optgroup>
-                                                <p></p>
-                                            @endforeach
 
-                                        </select>
+                                                </select>
 
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row mt-4">
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <input name="total_jobs" id="total_jobs" min="0" type="number"
-                                               class="form-control" placeholder="Effectif du projet...">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row mt-4">
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <select name="state-aid" id="state-aid"
-                                                class="form-control  logical-parent">
-                                            <option value="" selected disabled>Avez-vous déjà bénéficié d'une
-                                                aide étatique?
-                                            </option>
-                                            <option value="0">Non, je n'ai jamais bénéficié d'une aide
-                                                étatique.
-                                            </option>
-                                            <option value="1">Oui, j'ai déjà bénéficié d'une aide étatique.
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-12 fields-section logical-fields">
-                                <div class="source-field">
-                                    <div class="form-group">
-                                        <select name="statehelp[0][aid-oui]" id="state-aid-oui"
-                                                class="form-control bootstrap-select" id="kt_form_type">
-                                            <option disabled selected>Si oui, laquelle?</option>
-
-                                            @foreach ($AIDEETAT as $aide)
-
-                                                <option value="{{$aide}}">{{$aide}}</option>
-
-                                                <p></p>
-                                            @endforeach
-
-                                        </select>
-                                        {{--                                            <input name="state-aid-oui" id="state-aid-oui" type="text" class="form-control" placeholder="Si oui, laquelle?">--}}
-                                    </div>
-                                    <div class="form-group">
-                                        <input name="statehelp[0][aide_date]"   id="aide_date" type='number' min='2010'
-                                               max='2011' class="form-control"
-                                               placeholder="Dans qu'elle année ?">
-                                    </div>
-                                    <div class="form-group">
-                                        <input name="statehelp[0][aide_montant]" id="aide_montant" type='number' min='0'
-                                               class="form-control"  placeholder="le montant?">
-                                    </div>
-                                    <div class="col-lg-2">
-                                        <div class="form-group">
-                                            <input type="button" name="add-field"
-                                                   class="submitBnt btn btn-custom add-field btn-primary" value="+">
+                                            </div>
                                         </div>
                                     </div>
 
-                                </div>
-                                <div class="dynamic-fields">
-                                    <!-- Dynamic fielfd will be cloned here -->
-                                </div>
-
-                            </div>
-
-
-
-
-                            <div class="row mt-4">
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <select name="company[is_created]" id="company_creation"
-                                                class="form-control logical-parent">
-                                            <option value="" selected disabled>Avez-vous déjà créé une
-                                                entreprise pour votre projet?
-                                            </option>
-                                            <option value="1">Oui, j'ai déjà créé une entreprise pour mon
-                                                projet.
-                                            </option>
-                                            <option value="0">Non, je n'est pas encore créé une entreprise pour
-                                                mon projet.
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="logical-fields">
-                                <div class="row mt-4">
-                                    <div class="col-lg-4">
-                                        <div class="form-group">
-                                            <select name="company[legal_form]" id="company_form"
-                                                    class="form-control bootstrap-select" id="kt_form_type">
-                                                <option disabled selected>Forme de l'entreprise...</option>
-
-                                                @foreach ($LEGALFORM as $legal)
-
-                                                    <option value="{{$legal}}">{{$legal}}</option>
-
-                                                    <p></p>
-                                                @endforeach
-
-                                            </select>
-
-
+                                    <div class="row mt-4">
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <input name="total_jobs" id="total_jobs" min="0" type="number"
+                                                       class="form-control" placeholder="Effectif du projet...">
+                                            </div>
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-4">
-                                        <div class="form-group">
-                                            <input name="company[corporate_name]" id="company_denomination"
-                                                   type="text" class="form-control"
-                                                   placeholder="Dénomination de l'entreprise...">
+                                    <div class="row mt-4">
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <select name="state-aid" id="state-aid"
+                                                        class="form-control  logical-parent">
+                                                    <option value="" selected disabled>Avez-vous déjà bénéficié d'une
+                                                        aide étatique?
+                                                    </option>
+                                                    <option value="0">Non, je n'ai jamais bénéficié d'une aide
+                                                        étatique.
+                                                    </option>
+                                                    <option value="1">Oui, j'ai déjà bénéficié d'une aide étatique.
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                        <div class="col-lg-12 fields-section logical-fields">
+                                            <div class="source-field ">
+                                                <div class="form-group">
+                                                    <select name="state-aid-oui" id="state-aid-oui"
+                                                            class="form-control bootstrap-select" id="kt_form_type">
+                                                        <option disabled selected>Si oui, laquelle?</option>
+
+                                                        @foreach ($AIDEETAT as $aide)
+
+                                                            <option value="{{$aide}}">{{$aide}}</option>
+
+                                                            <p></p>
+                                                        @endforeach
+
+                                                    </select>
+                                                    {{--                                            <input name="state-aid-oui" id="state-aid-oui" type="text" class="form-control" placeholder="Si oui, laquelle?">--}}
+                                                </div>
+                                                <div class="form-group">
+                                                    <input name="aide_date"   id="aide_date" type='number' min='2010'
+                                                           max='2011' class="form-control"
+                                                           placeholder="Dans qu'elle année ?">
+                                                </div>
+                                                <div class="form-group">
+                                                    <input name="aide_montant" id="aide_montant" type='number' min='0'
+                                                           class="form-control"  placeholder="le montant?">
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <div class="form-group">
+                                                        <input type="button" name="add-field"
+                                                               class="submitBnt btn btn-custom add-field" value="+">
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="dynamic-fields">
+                                                <!-- Dynamic fielfd will be cloned here -->
+                                            </div>
+
+                                        </div>
+
+
+
+
+                                    <div class="row mt-4">
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <select name="company[is_created]" id="company_creation"
+                                                        class="form-control logical-parent">
+                                                    <option value="" selected disabled>Avez-vous déjà créé une
+                                                        entreprise pour votre projet?
+                                                    </option>
+                                                    <option value="1">Oui, j'ai déjà créé une entreprise pour mon
+                                                        projet.
+                                                    </option>
+                                                    <option value="0">Non, je n'est pas encore créé une entreprise pour
+                                                        mon projet.
+                                                    </option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-4">
-                                        <div class="form-group">
-                                            <input name="company[creation_date]" id="company_date" type="date"
-                                                   class="form-control"
-                                                   placeholder="Date de création de l'entreprise...">
+                                    <div class="logical-fields">
+                                        <div class="row mt-4">
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <select name="company[legal_form]" id="company_form"
+                                                            class="form-control bootstrap-select" id="kt_form_type">
+                                                        <option disabled selected>Forme de l'entreprise...</option>
+
+                                                        @foreach ($LEGALFORM as $legal)
+
+                                                            <option value="{{$legal}}">{{$legal}}</option>
+
+                                                            <p></p>
+                                                        @endforeach
+
+                                                    </select>
+
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <input name="company[corporate_name]" id="company_denomination"
+                                                           type="text" class="form-control"
+                                                           placeholder="Dénomination de l'entreprise...">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <input name="company[creation_date]" id="company_date" type="date"
+                                                           class="form-control"
+                                                           placeholder="Date de création de l'entreprise...">
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
 
-                            <div class="row mt-4 text-center">
-                                <div class="col-lg-12">
-                                    <input type="button" name="previous"
-                                           class="submitBnt mr-5 btn btn-custom previous btn-primary" value="Précédent">
-                                    <input type="submit" id="submit" name="submit"
-                                           class="submitBnt  btn btn-custom btn-success " value="Envoyer">
-                                    <div id="simple-msg"></div>
-                                </div>
+                                    <div class="row mt-4 text-center">
+                                        <div class="col-lg-12">
+                                            <input type="button" name="previous"
+                                                   class="submitBnt btn btn-custom previous" value="Précédent">
+                                            <input type="submit" id="submit" name="submit"
+                                                   class="submitBnt btn btn-custom " value="Envoyer">
+                                            <div id="simple-msg"></div>
+                                        </div>
+                                    </div>
+                                </fieldset>
                             </div>
-                        </fieldset>
-                        <!--                    <button class="close-btn">Close</button>-->
+                        </div>
                     </div>
                 </div>
             </div>
-            </form>
-        </div>
-
-    </section>
+        </section>
+        <!-- END CONTACT -->
+    </form>
 @endsection
 
 @section('custom-js')
-    <!-- owl-carousel -->
-    <script src="js/front-office/owl.carousel.min.js"></script>
-    <script src="js/front-office/app.js"></script>
+
     <script>
         function curIndex() {
             // Return the current index by looking at which section has the class 'current'
@@ -562,46 +641,22 @@
         /* var animating; */ //flag to prevent quick multi-click glitches
 
         $(".next").click(function () {
-            console.log('hello')
             /* if(animating) return false;
             animating = true; */
-            // current_fs = $(this).parents().eq(4);
-            // console.log($(this).parents())
-            // console.log($(this).parents())
-            // next_fs = $(this).parents().eq(4).next();
-
-
-
-
-            if (verification($("fieldset").index($(this).parents().eq(2))) == false) {
+            current_fs = $(this).parents().eq(2);
+            next_fs = $(this).parents().eq(2).next();
+            if (verification($("fieldset").index(current_fs)) == false) {
                 $('html,body').animate({
                     scrollTop: $('#form-errors').offset().top - 100
                 }, 'slow');
                 return false;
             }
-            else{
-                let cur = $(this).closest('.step');
-                let next = $(cur).next();
-                $(cur).addClass('minimized');
-                setTimeout(function() {
-                    $(next).removeClass('minimized');
-                    stepOpen = $(next);
-                }, 400);
-
-            }
             //activate next step on progressbar using the index of next_fs
             $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
             $('#form-errors').html(''); //appending errors
-            // current_fs.addClass('minimized');
-            // // setTimeout(function() {
-            // //     $(next).removeClass('minimized');
-            // //     stepOpen = $(next);
-            // // }, 400);
-            // next_fs.removeClass('minimized');
-            // setTimeout(function() {
-            //     $(next).removeClass('minimized');
-            //     stepOpen = $(next);
-            // }, 400);
+            current_fs.hide();
+            next_fs.show();
+
 
             //show the next fieldset
 
@@ -634,26 +689,16 @@
         $(".previous").click(function () {
             /* if(animating) return false;
             animating = true; */
-            let cur = $(this).closest('.step');
-            console.log('hallo',cur);
-            let previous = $(cur).prev();
-            console.log('hllo',previous)
-            $(cur).addClass('minimized');
-            setTimeout(function() {
-                $(previous).removeClass('minimized');
-                stepOpen = $(previous);
-            }, 400);
 
+            current_fs = $(this).parents().eq(2);
+            previous_fs = $(this).parents().eq(2).prev();
 
-            // current_fs = $(this).parents().eq(2);
-            // previous_fs = $(this).parents().eq(2).prev();
-            //
-            // //de-activate current step on progressbar
-            // $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
-            //
-            // //show the previous fieldset
-            // current_fs.hide();
-            // previous_fs.show();
+            //de-activate current step on progressbar
+            $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
+
+            //show the previous fieldset
+            current_fs.hide();
+            previous_fs.show();
             //hide the current fieldset with style
             /* current_fs.animate({opacity: 0}, {
                 step: function(now, mx) {
@@ -722,7 +767,7 @@
         var fsElement, dfElement, dfCounter;
 
         //Clone the degree field and show it
-        $('.step-content').on('click', '.add-field', function () {
+        $('body').on('click', '.add-field', function () {
             console.log('add')
             fsElement = $(this).closest('.fields-section');
             dfElement = fsElement.find('.source-field');
@@ -734,12 +779,7 @@
                     this.name = this.name.replace(/\[(\d+)\]/, function (str, p1) {
                         return '[' + (parseInt(p1, 10) + 1) + ']'
                     });
-
                 });
-                dfElement.find('select').each(function () {
-                    this.name = this.name.replace(/\[(\d+)\]/, function (str, p1) {
-                        return '[' + (parseInt(p1, 10) + 1) + ']'
-                    });});
                 $(this).removeClass('add-field').addClass('remove-degree').val('-');
                 if (dfCounter >= 5) {
                     $(this).prop('disabled', true);
@@ -935,8 +975,8 @@
 
         //Attach functionality to delete buttons
         function attach_delete() {
-            $('.step-content').off('click', '.remove-degree');
-            $('.step-content').on('click', '.remove-degree', function () {
+            $('body').off('click', '.remove-degree');
+            $('body').on('click', '.remove-degree', function () {
                 fsElement = $(this).closest('.fields-section');
                 $(this).closest('.source-field').remove();
                 dfCounter = fsElement.find('.source-field').length;
@@ -965,47 +1005,6 @@
         $('.form-section').each(function (index, section) {
             $(section).find(':input').attr('data-parsley-group', 'block-' + index);
         });
-    </script>
-    <script>
-        // let stepOpen;
-        //
-        // $(document).ready(function() {
-        //     stepOpen = $('.step')[0];
-        //
-        //
-        //
-        //     $('.close-btn').on('click', function() {
-        //         let cur = $(this).closest('.step');
-        //         $(cur).addClass('minimized');
-        //         stepOpen = null;
-        //     });
-        //
-        //     $('.step .step-content').on('click' ,function(e) {
-        //         e.stopPropagation();
-        //     });
-        //
-        //     $('.step').on('click', function() {
-        //         if (!$(this).hasClass("minimized")) {
-        //             stepOpen = null;
-        //             $(this).addClass('minimized');
-        //         }
-        //         else {
-        //             let next = $(this);
-        //             if (stepOpen === null) {
-        //                 stepOpen = next;
-        //                 $(stepOpen).removeClass('minimized');
-        //             }
-        //             else {
-        //                 $(stepOpen).addClass('minimized');
-        //                 setTimeout(function() {
-        //                     $(next).removeClass('minimized');
-        //                     stepOpen = $(next);
-        //                 }, 300);
-        //             }
-        //         }
-        //     });
-        // })
-
     </script>
 
 @endsection

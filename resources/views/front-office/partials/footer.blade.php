@@ -1,157 +1,65 @@
 <!-- START FOOTER -->
-{{--<footer class="section bg-footer">--}}
-{{--    --}}{{-- <div class="container">--}}
-{{--        <div class="row">--}}
-{{--            <div class="col-lg-3">--}}
-{{--                <div class="">--}}
-{{--                    <h6 class="footer-heading text-uppercase text-white">Information</h6>--}}
-{{--                    <ul class="list-unstyled footer-link mt-4">--}}
-{{--                        <li><a href="">Pages</a></li>--}}
-{{--                        <li><a href="">Our Team</a></li>--}}
-{{--                        <li><a href="">Feuchers</a></li>--}}
-{{--                        <li><a href="">Pricing</a></li>--}}
-{{--                    </ul>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-
-{{--            <div class="col-lg-3">--}}
-{{--                <div class="">--}}
-{{--                    <h6 class="footer-heading text-uppercase text-white">Ressources</h6>--}}
-{{--                    <ul class="list-unstyled footer-link mt-4">--}}
-{{--                        <li><a href="">Monitoring Grader </a></li>--}}
-{{--                        <li><a href="">Video Tutorial</a></li>--}}
-{{--                        <li><a href="">Term &amp; Service</a></li>--}}
-{{--                        <li><a href="">Zeeko API</a></li>--}}
-{{--                    </ul>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-
-{{--            <div class="col-lg-2">--}}
-{{--                <div class="">--}}
-{{--                    <h6 class="footer-heading text-uppercase text-white">Help</h6>--}}
-{{--                    <ul class="list-unstyled footer-link mt-4">--}}
-{{--                        <li><a href="">Sign Up </a></li>--}}
-{{--                        <li><a href="">Login</a></li>--}}
-{{--                        <li><a href="">Terms of Services</a></li>--}}
-{{--                        <li><a href="">Privacy Policy</a></li>--}}
-{{--                    </ul>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-
-{{--            <div class="col-lg-4">--}}
-{{--                <div class="">--}}
-{{--                    <h6 class="footer-heading text-uppercase text-white">Contact Us</h6>--}}
-{{--                    <p class="contact-info mt-4">Contact us if need help withanything</p>--}}
-{{--                    <p class="contact-info">+01 508-844-4036</p>--}}
-{{--                    <div class="mt-5">--}}
-{{--                        <ul class="list-inline">--}}
-{{--                            <li class="list-inline-item"><a href="#"><i class="mdi mdi-facebook facebook footer-social-icon"></i></a></li>--}}
-{{--                            <li class="list-inline-item"><a href="#"><i class="mdi mdi-twitter twitter footer-social-icon"></i></a></li>--}}
-{{--                            <li class="list-inline-item"><a href="#"><i class="mdi mdi-google google footer-social-icon"></i></a></li>--}}
-{{--                            <li class="list-inline-item"><a href="#"><i class="mdi mdi-apple apple footer-social-icon"></i></a></li>--}}
-{{--                        </ul>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-
-{{--        </div>--}}
-{{--    </div> --}}
-
-{{--    <div class="text-center mt-5">--}}
-{{--        <p class="footer-alt mb-0 f-14">2020 © IRCHAD, All Rights Reserved</p>--}}
-{{--    </div>--}}
-{{--</footer>--}}
-<footer class="footer">
-
-    <div class="custom-shape-divider-bottom-1594100419">
-        <svg id="Calque_1" data-name="Calque 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 841.89 200.38"><defs><style>.cls-1{fill:url(#Dégradé_sans_nom);}.cls-2{fill:url(#Dégradé_sans_nom_2);}</style><linearGradient id="Dégradé_sans_nom" x1="-555.78" y1="-2435.23" x2="-555.09" y2="-2434.16" gradientTransform="translate(467847.16 486626.83) scale(841.45 199.81)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#0969c9"/><stop offset="1" stop-color="#64d88d"/></linearGradient><linearGradient id="Dégradé_sans_nom_2" x1="-555.82" y1="-2434.96" x2="-555.13" y2="-2433.89" gradientTransform="translate(467847.59 410170.56) scale(841.45 168.42)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#0961aa"/><stop offset="1" stop-color="#0961aa"/></linearGradient></defs><g id="Groupe_1613" data-name="Groupe 1613"><path id="Soustraction_8" data-name="Soustraction 8" class="cls-1" d="M789,203.83H0V58.9c14.91-9,26.34-15.51,37.06-21.17A364.29,364.29,0,0,1,74.75,20.26c6.55-2.55,13.12-4.83,19.5-6.75,6.73-2,13.51-3.75,20.17-5.12,7-1.43,14-2.52,21-3.24a212.7,212.7,0,0,1,22-1.14c5,0,10.07.18,15.12.52s10.43.89,15.68,1.61S199,7.79,204.5,8.9s11.25,2.46,16.93,4,11.71,3.32,17.63,5.27,12.2,4.21,18.38,6.62,12.72,5.15,19.18,8.05,13.28,6.14,20,9.54c7.21,3.64,14.51,7.06,21.68,10.2,7,3.06,14.11,5.93,21.1,8.52C346.27,63.61,353.18,66,360,68s13.37,3.86,20,5.45c6.46,1.55,13,2.92,19.46,4.07,6.29,1.12,12.66,2,18.94,2.78,6.1.71,12.31,1.25,18.44,1.6,5.94.34,12,.51,18,.51,26.75,0,53.93-3.36,83.09-10.26,11.94-2.83,24.33-6.27,37.86-10.52C589,57.47,601.8,53,611.46,49.59c4.46-1.58,8.92-3.17,13.23-4.72l.2-.07h0l.34-.12.15-.05h.05c20.49-7.33,39.84-14.26,58.62-19.4a264.67,264.67,0,0,1,27.69-6.16c4.62-.75,9.17-1.32,13.52-1.7,4.54-.4,9-.6,13.33-.6a129.85,129.85,0,0,1,17.73,1.19,115.72,115.72,0,0,1,34.81,10.54,131.11,131.11,0,0,1,17.19,10,160.87,160.87,0,0,1,17.13,13.67,209.58,209.58,0,0,1,16,16.37v84.67C827.86,166.36,810.2,183.39,789,203.83Z" transform="translate(0 -4.01)"/><path id="Soustraction_11" data-name="Soustraction 11" class="cls-2" d="M841.89,204.39H.44V88.73c11.27,3.44,23.28,7.54,35.69,12.17,10.67,4,21.37,7.48,31.79,10.4,10.08,2.82,20.2,5.19,30.09,7,9.53,1.77,19.12,3.11,28.51,4,9,.83,18.12,1.25,27.06,1.25,7.92,0,15.94-.33,23.85-1,7.54-.62,15.22-1.56,22.82-2.78,7.2-1.16,14.56-2.61,21.89-4.32,6.87-1.6,14-3.49,21.07-5.6C271,101.59,297,90.46,321.27,79.77l8-3.52h0l.25-.11.19-.09.15-.07c46.45-20.57,90.32-40,139-40,3.95,0,7.94.13,11.85.39s8.07.67,12.06,1.2,8.22,1.24,12.29,2.08,8.37,1.86,12.54,3,8.56,2.51,12.82,4,8.75,3.2,13.12,5,9,3.93,13.44,6.14,9.19,4.71,13.78,7.3C577.58,69,584.53,72.66,591.37,76c6.6,3.19,13.27,6.15,19.84,8.79,6.32,2.54,12.72,4.88,19,6.93,6,2,12.2,3.73,18.25,5.25a266.88,266.88,0,0,0,65.63,7.95c19.79,0,37.82-1.94,54.59-3.92l4.15-.49h0l.39,0c7.42-.89,14.44-1.72,21.25-2.35,7.62-.7,13.81-1,19.49-1a109.24,109.24,0,0,1,14.35.86,75,75,0,0,1,13.39,2.95h0l.12,0v103.5Z" transform="translate(0 -4.01)"/></g></svg>
-    </div>
-    <div class="container-fluid px-5" style="padding-bottom: 42px;">
-        <div class="row align-items-end ">
-            <div class="col-md-5 text-center mb-3">
-                <div class="row ">
-                    <div class="col-md-12">
-                        <svg version="1.1" id="Calque_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="150px" x="0px" y="0px"
-                             viewBox="-0.1 554.9 1594.1 481.1" enable-background="new -0.1 554.9 1594.1 481.1" xml:space="preserve">
-<g>
-    <path fill="#E0E0E0" d="M228.2,672.2c30.3,8.9,53.7,33.3,61.3,64.2L376.8,586L228.2,672.2"/>
-    <rect x="522.8" y="660.4" fill="#FFFFFF" width="46.7" height="319.1"/>
-    <path fill="#FFFFFF" d="M696.5,660.4c26.1,0,45,7.3,57.3,22.1c10.9,12.9,16.1,30.9,16.1,54v46.4c0,22.7-8.3,41.8-25.1,57.3
-		l34.6,139.3h-50.3L700.8,859c-1.3,0-2.7,0.3-4.3,0.3h-26.6v120.1h-46.7v-319L696.5,660.4L696.5,660.4z M724.6,737.4
-		c0-18.4-8.9-27.6-26.6-27.6h-27.9v102.1H698c7.6,0,13.8-2.7,18.7-8.3c5.3-5.3,7.6-11.9,7.6-19.4v-46.7L724.6,737.4L724.6,737.4z"/>
-    <path fill="#FFFFFF" d="M897.8,983.3c-20.7,0-38.2-7.3-52.3-22.1c-14.4-14.8-21.4-32.6-21.4-54V732.4c0-21.1,7.3-39.3,21.7-54
-		c14.4-14.8,31.9-22.4,52.3-22.4c20.7,0,38.2,7.6,52.3,22.4c14.1,14.8,21.4,32.9,21.4,54v36.3h-48.3v-36.9c0-7.6-2.7-14.1-8-19.7
-		c-5.3-5.3-11.5-8.3-19.1-8.3c-7.3,0-13.4,2.7-18.7,8.3c-5.3,5.3-8,11.9-8,19.7v175.3c0,7.6,2.7,14.1,8,19.4c5.3,5.3,11.5,8,18.7,8
-		c7.6,0,13.8-2.7,19.1-8s8-11.9,8-19.4v-44h48.3v44.2c0,21.1-7.3,39.3-21.7,54C935.6,976.2,918.2,983.3,897.8,983.3z"/>
-    <polygon fill="#FFFFFF" points="1068.5,844.5 1068.5,979.4 1022.2,979.4 1022.2,660.4 1068.5,660.4 1068.5,796 1124.9,796
-		1124.9,660.4 1171.2,660.4 1171.2,979.4 1124.9,979.4 1124.9,844.5 	"/>
-    <path fill="#FFFFFF" d="M1282.9,906l-11.5,73.4h-48.3l52.3-319.1h64.2l51.7,319.1h-48.8l-11.2-73.4H1282.9L1282.9,906z
-		 M1307.2,733.5l-17.4,125.8h34.6L1307.2,733.5z"/>
-    <path fill="#FFFFFF" d="M1589.6,903c0,21.1-7.3,38.9-21.4,54c-14.4,14.8-31.6,22.4-51.7,22.4h-73.4v-319h73.4
-		c20.4,0,37.6,7.6,52,22.4c14.1,14.8,21.4,32.9,21.4,53.7V903H1589.6L1589.6,903z M1489.5,931.6h27.9c7.6,0,13.8-2.7,18.7-8.3
-		c5-5.7,7.6-12.2,7.6-19.4V737.1c0-7.6-2.7-14.1-8-19.4c-5.3-5.3-11.5-8.3-18.7-8.3h-27.9v222.3L1489.5,931.6L1489.5,931.6z"/>
-    <path fill="#E0E0E0" d="M336.2,974.9l-40.8-90.6c-10.9-24.1-49.7-41.5-92.5-41.5s-81.6,17.4-92.5,41.2l-40.8,91
-		c-4.7,10.2-3.7,15.4,2.7,25.4c14.1,21.7,50,30.9,89.9,30.9h81.7c39.5,0,75.7-9.2,89.9-30.9C339.8,990.3,340.8,985.3,336.2,974.9"/>
-    <path fill="#FFFFFF" d="M258.1,757.5c0,30.6-24.7,55.3-55.3,55.3s-55.3-24.7-55.3-55.3s24.7-55.3,55.3-55.3
-		S258.1,726.9,258.1,757.5"/>
-    <path fill="#0969C9" d="M202.5,812.8L202.5,812.8L202.5,812.8 M202.5,812.8L202.5,812.8L202.5,812.8 M202.1,812.8L202.1,812.8
-		L202.1,812.8 M202.1,812.8L202.1,812.8L202.1,812.8 M201.8,812.8L201.8,812.8L201.8,812.8 M201.5,812.8
-		C201.5,812.8,201.8,812.8,201.5,812.8C201.8,812.8,201.5,812.8,201.5,812.8 M201.5,812.8L201.5,812.8L201.5,812.8 M201.2,812.8
-		L201.2,812.8L201.2,812.8 M201.2,812.8L201.2,812.8L201.2,812.8 M200.9,812.8L200.9,812.8L200.9,812.8 M200.6,812.8L200.6,812.8
-		L200.6,812.8 M200.6,812.8L200.6,812.8L200.6,812.8 M200.2,812.8L200.2,812.8L200.2,812.8 M200.2,812.8L200.2,812.8L200.2,812.8
-		 M199.9,812.8L199.9,812.8L199.9,812.8 M199.3,812.8L199.3,812.8L199.3,812.8 M199.3,812.8L199.3,812.8L199.3,812.8 M198.9,812.8
-		L198.9,812.8L198.9,812.8 M198.6,812.8L198.6,812.8L198.6,812.8 M258.1,757.5L258.1,757.5L258.1,757.5L258.1,757.5 M258.1,757.2
-		L258.1,757.2L258.1,757.2 M258.1,757.2L258.1,757.2L258.1,757.2 M258.1,756.8L258.1,756.8L258.1,756.8 M258.1,756.5
-		C258.1,756.8,258.1,756.8,258.1,756.5C258.1,756.8,258.1,756.8,258.1,756.5 M258.1,756.5L258.1,756.5L258.1,756.5 M258.1,756.2
-		C258.1,756.2,258.1,756.5,258.1,756.2C258.1,756.5,258.1,756.2,258.1,756.2 M258.1,756.2L258.1,756.2L258.1,756.2 M258.1,755.8
-		L258.1,755.8L258.1,755.8 M258.1,755.5L258.1,755.5L258.1,755.5 M258.1,755.5L258.1,755.5L258.1,755.5 M258.1,755.2L258.1,755.2
-		L258.1,755.2 M258.1,755.2L258.1,755.2L258.1,755.2 M258.1,754.8L258.1,754.8L258.1,754.8 M258.1,754.5
-		C258.1,754.8,258.1,754.8,258.1,754.5C258.1,754.8,258.1,754.8,258.1,754.5 M258.1,754.5L258.1,754.5L258.1,754.5 M258.1,753.8v0.3
-		C258.1,754.2,258.1,754.2,258.1,753.8 M258.1,753.8L258.1,753.8L258.1,753.8 M258.1,753.5C258.1,753.5,258.1,753.8,258.1,753.5
-		C258.1,753.8,258.1,753.5,258.1,753.5 M258.1,753.5L258.1,753.5L258.1,753.5 M258.1,753.2L258.1,753.2L258.1,753.2 M258.1,753.2
-		L258.1,753.2L258.1,753.2 M258.1,752.8L258.1,752.8L258.1,752.8 M258.1,752.5C258.1,752.5,258.1,752.8,258.1,752.5
-		C258.1,752.8,258.1,752.5,258.1,752.5 M258.1,752.5L258.1,752.5L258.1,752.5 M258.1,752.2L258.1,752.2L258.1,752.2 M258.1,752.2
-		L258.1,752.2L258.1,752.2 M258.1,751.8L258.1,751.8L258.1,751.8 M257.8,751.5C258.1,751.8,258.1,751.8,257.8,751.5
-		C258.1,751.8,258.1,751.8,257.8,751.5 M257.8,751.5L257.8,751.5L257.8,751.5 M257.8,751.3L257.8,751.3L257.8,751.3 M257.8,751.3
-		L257.8,751.3L257.8,751.3 M257.8,750.9L257.8,750.9L257.8,750.9 M257.8,750.6C257.8,750.9,257.8,750.9,257.8,750.6
-		C257.8,750.9,257.8,750.9,257.8,750.6 M257.8,750.6L257.8,750.6L257.8,750.6 M257.8,750.3L257.8,750.3L257.8,750.3 M257.8,750.3
-		L257.8,750.3L257.8,750.3 M257.8,749.9L257.8,749.9L257.8,749.9"/>
-    <path fill="#E0E0E0" d="M238.1,714.8c8,9.5,12.9,22.1,12.9,35.3c0,30.6-24.7,55.3-55.3,55.3c-13.4,0-25.7-5-35.3-12.9
-		c9.2,11.2,23.1,18.7,38.6,20.1l0,0c0,0,0,0,0.3,0l0,0c0,0,0,0,0.3,0l0,0c0,0,0,0,0.3,0l0,0c0.3,0,0.3,0,0.7,0l0,0c0,0,0,0,0.3,0
-		l0,0l0,0l0,0l0,0l0,0l0,0l0,0l0,0l0,0l0,0l0,0c0,0,0,0,0.3,0l0,0c0,0,0,0,0.3,0l0,0l0,0l0,0l0,0l0,0l0,0l0,0l0,0l0,0l0,0l0,0l0,0
-		l0,0c0,0,0,0,0.3,0c30.6,0,55.3-24.7,55.3-55.3l0,0c0,0,0,0,0-0.3l0,0l0,0l0,0l0,0l0,0l0,0l0,0l0,0l0,0l0,0l0,0l0,0l0,0l0,0v-0.3
-		l0,0l0,0l0,0l0,0l0,0l0,0l0,0l0,0l0,0l0,0l0,0l0,0l0,0l0,0l0,0v-0.3l0,0l0,0l0,0l0,0l0,0l0,0l0,0l0,0l0,0l0,0l0,0l0,0l0,0v-0.3l0,0
-		l0,0l0,0l0,0l0,0l0,0l0,0l0,0l0,0l0,0l0,0l0,0l0,0l0,0l0,0l0,0c0,0,0,0,0-0.3l0,0l0,0l0,0l0,0l0,0l0,0l0,0l0,0l0,0l0,0l0,0
-		C255.8,735.8,248.6,723.6,238.1,714.8"/>
-    <path fill="#FFFFFF" d="M205.1,842.8c-32.9,0.3-82.3,17.4-92.8,41.2l-41.8,91c-2.3,5-3.7,10.2-3.3,15.1c0.7,2.7,2,5.3,4,8.3
-		c0.3,0.7,1,1.3,1.3,2c14.1,21.7,50,30.9,89.6,30.9h43.1L205.1,842.8"/>
-    <path fill="#FFFFFF" d="M374.4,587.2l-146.1,85l0,0c0,0,0,0,0.3,0c14.8,4.3,27.9,12.2,38.6,23.1L374.4,587.2"/>
-    <path fill="#FFFFFF" d="M202.8,605.1c19.4,0,37.9,4,55,10.5l46.4-27c-29.6-18.4-64.9-29-102.3-29C92.5,559.6,4,648.2,4,757.6
-		c0,61,27.6,115.6,70.7,151.7L90.1,875c1.3-3.3,3.3-6.3,5.3-9.2c-27.9-27.6-45-65.8-45-108.4C50.5,673.2,118.5,605.1,202.8,605.1z"
-    />
-    <path fill="#E0E0E0" d="M346.4,706.1c6,16.1,9.2,33.3,9.2,51.4c0,42.5-17.1,80.6-45,108.4c2,3,3.7,6,5.3,9.2l14.8,32.9
-		c42.5-36.3,69.4-90.3,69.4-150.4c0-35.9-9.5-69.4-26.3-98.4L346.4,706.1z"/>
-</g>
-</svg>
-                    </div>
-                    <div class="col-md-12 ">4779 Oujda Avenue28306</div>
-                    <div class="col-md-12">+212 656-525-125</div>
+<footer class="section bg-footer">
+    {{-- <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="">
+                    <h6 class="footer-heading text-uppercase text-white">Information</h6>
+                    <ul class="list-unstyled footer-link mt-4">
+                        <li><a href="">Pages</a></li>
+                        <li><a href="">Our Team</a></li>
+                        <li><a href="">Feuchers</a></li>
+                        <li><a href="">Pricing</a></li>
+                    </ul>
                 </div>
-
             </div>
-            <div class="col-md-3">
-                <ul>
-                    <li><a href="a-propos">À Propos</a></li>
-                    <li><a href="programme">Programme</a></li>
-                    <li><a href="project-submission">Soumissionner un projet</a></li>
-                    <li><a href="faq"> FAQ</a></li>
-                    <li><a href="contact">Nous Contacter</a></li>
-                </ul> </div>
-            <div class="col-md-4 text-center mb-3">2020 © IRCHAD, All Rights Reserved</div>
+
+            <div class="col-lg-3">
+                <div class="">
+
+                    <h6 class="footer-heading text-uppercase text-white">Ressources</h6>
+                    <ul class="list-unstyled footer-link mt-4">
+                        <li><a href="">Monitoring Grader </a></li>
+                        <li><a href="">Video Tutorial</a></li>
+                        <li><a href="">Term &amp; Service</a></li>
+                        <li><a href="">Zeeko API</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-lg-2">
+                <div class="">
+                    <h6 class="footer-heading text-uppercase text-white">Help</h6>
+                    <ul class="list-unstyled footer-link mt-4">
+                        <li><a href="">Sign Up </a></li>
+                        <li><a href="">Login</a></li>
+                        <li><a href="">Terms of Services</a></li>
+                        <li><a href="">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="">
+                    <h6 class="footer-heading text-uppercase text-white">Contact Us</h6>
+                    <p class="contact-info mt-4">Contact us if need help withanything</p>
+                    <p class="contact-info">+01 508-844-4036</p>
+                    <div class="mt-5">
+                        <ul class="list-inline">
+                            <li class="list-inline-item"><a href="#"><i class="mdi mdi-facebook facebook footer-social-icon"></i></a></li>
+                            <li class="list-inline-item"><a href="#"><i class="mdi mdi-twitter twitter footer-social-icon"></i></a></li>
+                            <li class="list-inline-item"><a href="#"><i class="mdi mdi-google google footer-social-icon"></i></a></li>
+                            <li class="list-inline-item"><a href="#"><i class="mdi mdi-apple apple footer-social-icon"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
         </div>
+    </div> --}}
 
+    <div class="text-center mt-5">
+        <p class="footer-alt mb-0 f-14">2020 © IRCHAD, All Rights Reserved</p>
     </div>
-
-
 </footer>
 <!-- END FOOTER -->

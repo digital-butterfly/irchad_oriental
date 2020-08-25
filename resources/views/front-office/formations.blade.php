@@ -13,7 +13,7 @@
                     <p class="mt-3 mb-0 text-uppercase">IRCHAD réunit un comité d'experts multidisciplinaire chargé de guider et de former les jeunes porteurs de projet.
 
                             Nos experts ont longuement abordé la question : "comment faire des jeunes d'aujourd'hui des managers performants ?"
-                            
+
                             Nous sommes convaincus que pour soutenir l'humain et contribuer au développement de l'économie, il est essentiel de munir les jeunes de compétences
                                 utiles et ce grâce à une formation de qualité qui assure l'équilibre et le bon fonctionnement de tout un écosystème.</p>
                 </div>
@@ -22,6 +22,7 @@
     </div>
 </section>
 <!-- END ABOUT-HEADER -->
+
 
 <!-- START SERVICES -->
 {{--     <section class="section bg-white">
@@ -33,7 +34,7 @@
                     <span class="title-icon">
                     <i class="mdi mdi-dots-horizontal"></i>
                 </span>
-                    <p class="title-desc text-muted">Le programme IRCHAD met à la disposition des jeunes porteurs de projet un accompagnement complet, dans un environnement 
+                    <p class="title-desc text-muted">Le programme IRCHAD met à la disposition des jeunes porteurs de projet un accompagnement complet, dans un environnement
                         innovant et évolutif, allant de l'élaboration de l'idée initiale du projet jusqu'à sa mise en place sur le marché.
 
                         IRCHAD est un programme d'accompagnement, d'incubation et de financement. Notre but est de :
