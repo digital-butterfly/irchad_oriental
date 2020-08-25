@@ -39,6 +39,7 @@ class ProjectApplication extends Model
         'incorporation',
         'funding',
         'created_by',
+        'rejected_reason',
         'updated_by'
     ];
 
@@ -54,13 +55,17 @@ class ProjectApplication extends Model
         'financial_data'=> 'object',
         'training_needs'=> 'object',
         'company'=> 'object',
+        'start_date' => 'datetime:d-m-Y',
+        'end_date' => 'datetime:d-m-Y',
+
+
     ];
 
     /**
      * Custom function.
      *
      */
-    public static function formFields() {
+    public static function formFields($input) {
 
         $categories_options = [];
         $categories_sub_options = [];
@@ -100,10 +105,59 @@ class ProjectApplication extends Model
             ]);
         }
 
+        $projectApplicationMembers = ProjectApplicationMember::where('project_application_id','=', $input)->get()->map(function($member){
+            $user=$member->getUser ->only(['id','first_name','last_name']);
+//            dd($user);
+            return [
+                'member_id'=>$user['id'],
+                'value'=>$user['first_name'].' '. $user['last_name']
+            ];
+        });
+
+        $membersession = AdherentSession::where('id_projet', $input)->get()->filter(function($member){
+//            dd($member->getParentSession);
+            $user=$member->getAdhname ->only(['id','first_name','last_name']);
+            $sess= $member->getParentSession;
+
+    return $sess->sort==='Terminée';
+
+           });
+
+
+       $membersess= $membersession->map(function($member){
+            $user=$member->getAdhname;
+            return [
+                'member_id'=>$user['id'],
+                'value'=>$user['first_name'].' '. $user['last_name']
+            ];
+});
+        $membersessionAll = AdherentSession::where('id_projet', $input)->get()->map(function($members){
+
+            $user=$members->getAdhname->only(['id','first_name','last_name']);
+            return [
+                'member_id'=>$user['id'],
+                'value'=>$user['first_name'].' '. $user['last_name']
+            ];
+        });
+
+$diff = $projectApplicationMembers->filter(function ($value1, $key) use ($membersess, $membersessionAll){
+//    $exists = false;
+    if ($membersess->isEmpty() && !$membersessionAll->isEmpty()){
+        foreach ($membersessionAll as $value2){
+            $exists=$value1['member_id']===$value2['member_id'];
+        }
+        return $exists;
+    }else{
+        return $value1;
+    }
+  })->values();
+
+
         return [
             [
                 'name' => 'company',
                 'type' => 'section',
+                'class' => 'kt-callout--primary',
                 'label' => 'Données Entreprise',
                 "sub_fields" => [
                     [
@@ -146,8 +200,17 @@ class ProjectApplication extends Model
             [
                 'name' => 'member_id',
                 'type' => 'text',
+                'class' => 'kt-callout--dark',
                 'label' => 'ID Adhérent',
                 'group' => 'Données Générales'
+            ],[
+                'name' => 'members',
+                'type' => 'taggify',
+                'id'=>'kt_tagify_1',
+                'class' => 'kt-callout--dark',
+                'label' => 'noms sous Adhérent',
+                'group' => 'Données Générales',
+                'value'=> $projectApplicationMembers
             ],
             [
                 'name' => 'category_id',
@@ -187,6 +250,12 @@ class ProjectApplication extends Model
                 'label' => 'Status',
                 'options' => ['Nouveau', 'Accepté','En cours', 'En attente de formation','En attente de financement', 'Rejeté','Business plan achevé', 'Incubé'],
                 'group' => 'Données Générales'
+            ],[
+                'name' => 'rejected_reason',
+                'type' => 'textarea',
+                'style'=> 'display: none;',
+                'label' => 'Motif de refus',
+                'group' => 'Données Générales'
             ],
             [
                 'name' => 'progress',
@@ -216,6 +285,7 @@ class ProjectApplication extends Model
             [
                 'name' => 'business_model',
                 'type' => 'text',
+                'class' => 'kt-callout--success',
                 'label' => 'Business Model',
                 'sub_fields' => [
                     [
@@ -254,11 +324,12 @@ class ProjectApplication extends Model
                         'label' => 'Stratégie de distribution'
                     ],
                 ],
-                'group' => 'Business Model'
+                'group' => 'Business Model',
             ],
             [
                 'name' => 'financial_data',
                 'type' => 'section',
+                'class' => 'kt-callout--danger',
                 'sub_fields' => [
                     [
                         'name' => 'startup_needs',
@@ -326,6 +397,7 @@ class ProjectApplication extends Model
                 'group' => 'Données Financières'
             ],
             [
+                'class' => 'kt-callout--warning',
                 'name' => 'training_needs',
                 'type' => 'section',
                 'sub_fields' => [
@@ -340,7 +412,21 @@ class ProjectApplication extends Model
                         'label' => 'Besoins en post-création'
                     ],
                 ],
-                'group' => 'Besoins en Formation'
+                'group' => 'Besoins en Formation',
+
+            ],
+            [
+                'name' => 'id_formation',
+                'type' => 'select',
+                'label' => 'Formation',
+                'options'=>[],
+            ],
+            [
+                'name' => 'members-tagify',
+                'type' => 'taggify',
+                'id'=>'kt_tagify_2',
+                'label' => 'noms sous Adhérent',
+                'value'=> $diff
             ],
         ];
     }
@@ -352,4 +438,10 @@ class ProjectApplication extends Model
     {
         return $this->hasMany('App\ProjectApplication');
     } */
+    public function getAdhname()
+    {
+        return $this->belongsTo('App\Member','member_id');
+    }
+
 }
+

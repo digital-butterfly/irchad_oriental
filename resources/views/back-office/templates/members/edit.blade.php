@@ -104,6 +104,21 @@
 						$(this).slideUp(deleteElement);
 					}
 				});
+				var repeater_state_help = $('.kt_repeater_state_help').repeater({
+					initEmpty: false,
+
+					defaultValues: {
+						'text-input': 'foo'
+					},
+
+					show: function () {
+						$(this).slideDown();
+					},
+
+					hide: function (deleteElement) {
+						$(this).slideUp(deleteElement);
+					}
+				});
 			}
 
 			return {

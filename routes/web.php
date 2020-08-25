@@ -29,9 +29,9 @@ Route::get('/adherent', function () {
 Route::get('/a-propos',function(){
     return view('front-office.about-us');
 });
-//route vers la page formations
-Route::get('/formations',function(){
-    return view('front-office.formations');
+//route vers la page formation
+Route::get('/formation',function(){
+    return view('front-office.formation');
 });
 //route vers la page cantact
 Route::get('/contact',function(){
@@ -83,12 +83,44 @@ Route::group(['middleware' => 'auth:user'], function () {
     Route::resource('admin/candidatures', 'ProjectApplicationController');
     Route::post('/admin/list/candidatures', 'ProjectApplicationController@ajaxList');
 
+    Route::resource('admin/formation', 'FormationController');
+    Route::post('/admin/list/Formation', 'FormationController@ajaxList');
+    route::post('/admin/FormationList', 'SessionController@ajaxFormationList');
+
+    Route::resource('admin/session', 'SessionController');
+    Route::resource('admin/session/all-calendar', 'SessionController@allcalendar');
+    Route::post('/admin/list/session', 'SessionController@ajaxList');
+
+
+    Route::resource('admin/session-members', 'AdherentSessionController');
+    Route::post('/admin/list/adherentsession', 'AdherentSessionController@ajaxList');
+    Route::post('/admin/list/adherentsess', 'AdherentSessionController@ajaxListAdhSess');
+
+    Route::post('/admin/list/projectadherentsess', 'ProjectApplicationController@ajaxListAdhSess');
+    Route::post('/admin/list/projectAppMembers', 'ProjectApplicationController@ajaxListProjectMembers');
+
+
+
+    Route::post('/admin/projectList', 'SessionController@ajaxProjectList');
+    Route::post('/admin/MemebersProjectList', 'SessionController@ajaxMemebersProjectList');
+
+
+    route::post('/admin/candidaturesmemmbers', 'ProjectApplicationController@ajaxMembersList');
+    route::post('/admin/sessionFormation', 'ProjectApplicationController@ajaxSessionList');
+
+
     Route::resource('admin/', 'DashboardController');
     Route::get('admin', 'DashboardController@ajaxList');
+
+    Route::get('/admin/exportExl','ExportController@exportExl')->name('exportExl');
+
+
 
     Route::resource('admin/projects-categories', 'ProjectCategoryController');
 
 });
+    Route::get('/admin/exportExcel','ProjectApplicationController@exportExcel')->name('exportExcel');
+    Route::get('/admin/exportExcelmembers','MemberController@exportExcel')->name('exportExcel');
 
 
 Route::group(['middleware' => 'auth:member'], function () {

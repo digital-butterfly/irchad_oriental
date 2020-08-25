@@ -52,4 +52,8 @@ class ProjectCategory extends Model
             ],
         ];
     }
+    public function getParent(){
+        return $this->belongsTo('App\ProjectCategory', 'parent_id');
+    }
 }
+

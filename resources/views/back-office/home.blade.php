@@ -27,13 +27,32 @@
 		<div class="row">
 			<div class="col-lg-6 col-xl-6 order-lg-1 order-xl-1">
 				<!--begin:: Widgets/Activity-->
-				<div class="kt-portlet kt-portlet--fit kt-portlet--head-lg kt-portlet--head-overlay kt-portlet--skin-solid kt-portlet--height-fluid">
+				<div class="kt-portlet kt-portlet--fit kt-portlet--head-lg kt-portlet--head-overlay kt-portlet--height-fluid">
 					<div class="kt-portlet__head kt-portlet__head--noborder kt-portlet__space-x">
 						<div class="kt-portlet__head-label">
 							<h3 class="kt-portlet__head-title">
 								Activité
 							</h3>
 						</div>
+                        <div class="kt-portlet__head-toolbar">
+                            <ul class="nav nav-pills nav-pills-sm nav-dark-75" id="activityChart" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link py-2 px-4  chartType" id="mois" data-chart-id="mois">
+                                        <span class="nav-text font-size-sm">Mois</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link py-2 px-4 chartType" id="week" data-chart-id="week">
+                                        <span class="nav-text font-size-sm">Semaines</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link py-2 px-4 chartType active" id="days" id="days" data-chart-id="days">
+                                        <span class="nav-text font-size-sm">Jours</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
 						{{-- <div class="kt-portlet__head-toolbar">
 							<a href="#" class="btn btn-label-light btn-sm btn-bold dropdown-toggle" data-toggle="dropdown">
 								Export
@@ -81,15 +100,18 @@
 						</div> --}}
 					</div>
 					<div class="kt-portlet__body kt-portlet__body--fit">
+
 						<div class="kt-widget17">
-							<div class="kt-widget17__visual kt-widget17__visual--chart kt-portlet-fit--top kt-portlet-fit--sides" style="background-color: #fd397a">
+
+							<div class="kt-widget17__visual kt-widget17__visual--chart kt-portlet-fit--top kt-portlet-fit--sides" style="background-color: #FFFFFF">
 								<div class="kt-widget17__chart" style="height:320px;">
+
 									<canvas id="kt_chart_activities"></canvas>
 								</div>
 							</div>
 							<div class="kt-widget17__stats">
 								<div class="kt-widget17__items">
-									<div class="kt-widget17__item">
+									<div class="kt-widget17__item chartTypeDataNew" >
 										<span class="kt-widget17__icon">
 											<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon kt-svg-icon--brand">
 												<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -105,7 +127,7 @@
 											{{$countNew}} Nouveaux Projets
 										</span>
 									</div>
-									<div class="kt-widget17__item">
+									<div class="kt-widget17__item chartTypeDataAccepte">
 										<span class="kt-widget17__icon">
 											<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon kt-svg-icon--success">
 												<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -122,8 +144,8 @@
 										</span>
 									</div>
 								</div>
-								<div class="kt-widget17__items">
-									<div class="kt-widget17__item">
+								<div class="kt-widget17__items ">
+									<div class="kt-widget17__item chartTypeDataincub">
 										<span class="kt-widget17__icon">
 											<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon kt-svg-icon--warning">
 												<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -139,7 +161,7 @@
 											{{$countIncube}} Adhérents Incubés
 										</span>
 									</div>
-									<div class="kt-widget17__item">
+									<div class="kt-widget17__item chartTypeDatarefused">
 										<span class="kt-widget17__icon">
 											<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon kt-svg-icon--danger">
 												<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -279,7 +301,7 @@
 					<div class="kt-portlet__body kt-portlet__body--fluid">
 						<div class="kt-widget20">
 							<div class="kt-widget20__content kt-portlet__space-x">
-								<span class="kt-widget20__number kt-font-danger">{{$countIncube}}+</span>
+								<span class="kt-widget20__number kt-font-warning">{{$countIncube}}+</span>
 								<span class="kt-widget20__desc">Dossiers Incubés</span>
 							</div>
 							<div class="kt-widget20__chart" style="height:130px;">
@@ -335,12 +357,12 @@
 												<canvas id="kt_chart_profit_share" style="height: 140px; width: 140px;"></canvas>
 											</div>
 											<div id="kt-bg" class="kt-widget14__legends">
-                                                @foreach($Sectors as $Sector)
 
-                                                    <div class="kt-widget14__legend">
+                                                @foreach($Sectors as $Sector => $value)
+                                                                                                        <div class="kt-widget14__legend">
 
-                                                         <span  class="kt-widget14__bullet kt-bg-{{$Sector[2]}} "></span>
-                                                         <span class="kt-widget14__stats">{{round($Sector[1],2)}}% {{$Sector[0]->title}} </span>
+                                                         <span  class="kt-widget14__bullet kt-bg-{{$value['Type']}} "></span>
+                                                         <span class="kt-widget14__stats">{{round($value['total'])}}% {{$value['title']}} </span>
                                                     </div>
                                                 @endforeach
 
@@ -369,11 +391,12 @@
 												<div id="kt_chart_revenue_change" style="height: 150px; width: 150px;"></div>
 											</div>
 											<div class="kt-widget14__legends">
-                                                @foreach($townshiparray as $township)
+                                                @foreach($townshiparray as $township => $value)
+
 												<div class="kt-widget14__legend">
-													<span class="kt-widget14__bullet kt-bg-success"></span>
-													<span class="kt-widget14__stats">{{round($township[1],2)}}%
-                                                            {{$township[0]->title}}
+													<span class="kt-widget14__bullet kt-bg-{{$value['Type']}}"></span>
+													<span class="kt-widget14__stats">{{round($value["total"],2)}}%
+                                                            {{$value["title"]}}
                                                         </span>
 												</div>@endforeach
 											</div>
@@ -561,8 +584,7 @@
 @section('specific_js')
 	<script>
 		"use strict";
-
-// Class definition
+		// Class definition
 var KTDashboard = function() {
 
 
@@ -743,13 +765,15 @@ var KTDashboard = function() {
             data: {
                 datasets: [{
                     data: [
-                        @foreach($Sectors as $Sector)
-                        {{round($Sector[1],2)}},
+                        @foreach($Sectors as $Sector => $value)
+                        {{round($value['total'],2)}},
                         @endforeach
                     ],
                     backgroundColor: [
 
-                        KTApp.getStateColor('success'),
+                        @foreach($Sectors as $Sector=> $value)
+                        KTApp.getStateColor('{{$value['Type']}}'),
+                        @endforeach
 
 
                     ]
@@ -758,8 +782,8 @@ var KTDashboard = function() {
 
 
                 labels: [
-                    @foreach($Sectors as $Sector)
-                        '{{$Sector[0]->title}}',
+                    @foreach($Sectors as $Sector => $type)
+                        '{{$type['title']}}',
                     @endforeach
                     ]
 
@@ -790,8 +814,8 @@ var KTDashboard = function() {
                     xPadding: 10,
                     caretPadding: 0,
                     displayColors: false,
-                    @foreach($Sectors as $Sector)
-                    backgroundColor:KTApp.getStateColor('{{$Sector[2]}}'),
+                    @foreach($Sectors as $Sector => $value)
+                    {{--backgroundColor:KTApp.getStateColor('{{$value['Type']}}'),--}}
                     @endforeach
                     titleFontColor: '#ffffff',
                     cornerRadius: 4,
@@ -921,7 +945,7 @@ var KTDashboard = function() {
         var config = {
             type: 'line',
             data: {
-                labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October"],
+                labels: ["January", "February", "Marhch", "April", "May", "June", "July", "August", "September", "October"],
                 datasets: [{
                     label: "Sales Stats",
                     backgroundColor: KTApp.getStateColor('danger'), // Put the gradient here as a fill color
@@ -1223,18 +1247,21 @@ var KTDashboard = function() {
 
         Morris.Donut({
             element: 'kt_chart_revenue_change',
-            data: [@foreach($townshiparray as $township)
+            data: [@foreach($townshiparray as $township =>$value)
             {
 
-                label:  "{{$township[0]->title}}",
-                value: {{round($township[1],2)}}
+                label:  "{{$value["title"]}}",
+                value: {{round($value["total"],2)}}
 
                     },@endforeach
             ],
-            colors: [
-                KTApp.getStateColor('success'),
-                KTApp.getStateColor('danger'),
-                KTApp.getStateColor('brand')
+          colors: [
+                @foreach($townshiparray as $township =>$value)
+
+                KTApp.getStateColor("{{$value['Type']}}"),
+
+
+                @endforeach
             ],
         });
     }
@@ -1341,6 +1368,7 @@ var KTDashboard = function() {
         var myDoughnut = new Chart(ctx, config);
     }
 
+
     // Activities Charts.
     // Based on Chartjs plugin - http://www.chartjs.org/
     var activitiesChart = function() {
@@ -1350,89 +1378,512 @@ var KTDashboard = function() {
 
         var ctx = document.getElementById("kt_chart_activities").getContext("2d");
 
-        var gradient = ctx.createLinearGradient(0, 0, 0, 240);
-        gradient.addColorStop(0, Chart.helpers.color('#e14c86').alpha(1).rgbString());
-        gradient.addColorStop(1, Chart.helpers.color('#e14c86').alpha(0.3).rgbString());
+        var gradient = ctx.createLinearGradient(0, 1, 0, 180);
+        gradient.addColorStop(0, Chart.helpers.color('#0969c9').alpha(1).rgbString());
+        gradient.addColorStop(1, Chart.helpers.color('#64D88D').alpha(1).rgbString());
+        {{--var config = {--}}
+        {{--    type: 'line',--}}
+        {{--    data: {--}}
 
-        var config = {
-            type: 'line',
-            data: {
-                labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October"],
-                datasets: [{
-                    label: "Sales Stats",
-                    backgroundColor: Chart.helpers.color('#e14c86').alpha(1).rgbString(),  //gradient
-                    borderColor: '#e13a58',
+        {{--        labels:--}}
+        {{--            [@foreach($New as $key => $value)--}}
+        {{--                '{{$value['date']}}',@endforeach],--}}
+        {{--        datasets: [{--}}
+        {{--            // label:"hello",--}}
+        {{--            backgroundColor: gradient,  //gradient--}}
+        {{--            borderColor: '#0969c9',--}}
+
+        {{--            pointBackgroundColor: Chart.helpers.color('#000000').alpha(0).rgbString(),--}}
+        {{--            pointBorderColor: Chart.helpers.color('#000000').alpha(0).rgbString(),--}}
+        {{--            pointHoverBackgroundColor: KTApp.getStateColor('light'),--}}
+        {{--            pointHoverBorderColor: Chart.helpers.color('#ffffff').alpha(0.1).rgbString(),--}}
+
+        {{--            //fill: 'start',--}}
+        {{--            data: [--}}
+        {{--                @foreach($New as $key => $value)--}}
+        {{--                    {{$value['datecount']}},@endforeach],--}}
+
+        {{--        }]--}}
+        {{--    },--}}
+        {{--};--}}
+
+        // var chart = new Chart(ctx, config);
+        var ChartPage = {
+            getGeneralOptions: function() {
+                return {
+                    type:'line',
+                    backgroundColor: gradient,  //gradient
+                    borderColor: '#c90909',
 
                     pointBackgroundColor: Chart.helpers.color('#000000').alpha(0).rgbString(),
                     pointBorderColor: Chart.helpers.color('#000000').alpha(0).rgbString(),
                     pointHoverBackgroundColor: KTApp.getStateColor('light'),
                     pointHoverBorderColor: Chart.helpers.color('#ffffff').alpha(0.1).rgbString(),
-
-                    //fill: 'start',
-                    data: [
-                        10, 14, 12, 16, 9, 11, 13, 9, 13, 15
-                    ]
-                }]
+                };
             },
-            options: {
-                title: {
-                    display: false,
-                },
-                tooltips: {
-                    mode: 'nearest',
-                    intersect: false,
-                    position: 'nearest',
-                    xPadding: 10,
-                    yPadding: 10,
-                    caretPadding: 10
-                },
-                legend: {
-                    display: false
-                },
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    xAxes: [{
-                        display: false,
-                        gridLines: false,
-                        scaleLabel: {
-                            display: true,
-                            labelString: 'Month'
-                        }
-                    }],
-                    yAxes: [{
-                        display: false,
-                        gridLines: false,
-                        scaleLabel: {
-                            display: true,
-                            labelString: 'Value'
-                        },
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                },
-                elements: {
-                    line: {
-                        tension: 0.0000001
-                    },
-                    point: {
-                        radius: 4,
-                        borderWidth: 12
-                    }
-                },
-                layout: {
-                    padding: {
-                        left: 0,
-                        right: 0,
-                        top: 10,
-                        bottom: 0
-                    }
-                }
-            }
-        };
+            getChartOptions: function(data) {
+                console.log('data',data)
 
-        var chart = new Chart(ctx, config);
+                return {
+                    data:data,
+                    type: 'line',
+                    {{--data: {--}}
+
+                    {{--    labels:--}}
+                    {{--        [@foreach($New as $key => $value)--}}
+                    {{--            '{{$value['date']}}',@endforeach],--}}
+                    {{--    datasets: [{--}}
+                    {{--        // label:"hello",--}}
+                    {{--        backgroundColor: gradient,  //gradient--}}
+                    {{--        borderColor: '#0969c9',--}}
+
+                    {{--        pointBackgroundColor: Chart.helpers.color('#000000').alpha(0).rgbString(),--}}
+                    {{--        pointBorderColor: Chart.helpers.color('#000000').alpha(0).rgbString(),--}}
+                    {{--        pointHoverBackgroundColor: KTApp.getStateColor('light'),--}}
+                    {{--        pointHoverBorderColor: Chart.helpers.color('#ffffff').alpha(0.1).rgbString(),--}}
+
+                    {{--        //fill: 'start',--}}
+                    {{--        data: [--}}
+                    {{--            @foreach($New as $key => $value)--}}
+                    {{--            {{$value['datecount']}},@endforeach],--}}
+
+                    {{--    }],--}}
+                    {{--},--}}
+                    options: {
+                        title: {
+                            display: false,
+                        },
+                        tooltips: {
+                            mode: 'nearest',
+                            intersect: false,
+                            position: 'nearest',
+                            xPadding: 10,
+                            yPadding: 10,
+                            caretPadding: 10
+                        },
+                        legend: {
+                            display: false
+                        },
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            xAxes: [{
+                                display: false,
+                                gridLines: false,
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'Month'
+                                }
+                            }],
+                            yAxes: [{
+                                display: false,
+                                gridLines: false,
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'Value'
+                                },
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        },
+                        elements: {
+                            line: {
+                                tension: 0.0000001
+                            },
+                            point: {
+                                radius: 4,
+                                borderWidth: 12
+                            }
+                        },
+                        layout: {
+                            padding: {
+                                left: 0,
+                                right: 0,
+                                top: 10,
+                                bottom: 0
+                            }
+                        }
+                    },
+
+            }},
+            data: {
+                initial: {
+                    labels:
+                        [@foreach($New as $key => $value)
+                            '{{$value['date']}}',@endforeach],
+                    datasets: [{
+                        // label:"hello",
+                        backgroundColor: gradient,  //gradient
+                        borderColor: '#0969c9',
+
+                        pointBackgroundColor: Chart.helpers.color('#000000').alpha(0).rgbString(),
+                        pointBorderColor: Chart.helpers.color('#000000').alpha(0).rgbString(),
+                        pointHoverBackgroundColor: KTApp.getStateColor('light'),
+                        pointHoverBorderColor: Chart.helpers.color('#ffffff').alpha(0.1).rgbString(),
+
+                        //fill: 'start',
+                        data: [
+                            @foreach($New as $key => $value)
+                            {{$value['datecount']}},@endforeach],
+
+                    }],
+                },
+                'days': {
+                    labels:
+                        [@foreach($New as $key => $value)
+                            '{{$value['date']}}',@endforeach],
+                    datasets: [{
+                        // label:"hello",
+                        backgroundColor: gradient,  //gradient
+                        borderColor: '#0969c9',
+
+                        pointBackgroundColor: Chart.helpers.color('#000000').alpha(0).rgbString(),
+                        pointBorderColor: Chart.helpers.color('#000000').alpha(0).rgbString(),
+                        pointHoverBackgroundColor: KTApp.getStateColor('light'),
+                        pointHoverBorderColor: Chart.helpers.color('#ffffff').alpha(0.1).rgbString(),
+
+                        //fill: 'start',
+                        data: [
+                            @foreach($New as $key => $value)
+                            {{$value['datecount']}},@endforeach],
+
+                    }],
+                },
+                'mois':  {
+                    labels:
+                        [@foreach($NewMonth as $key => $value)
+                            '{{$value['date']}}',@endforeach],
+                    datasets: [{
+                        // label:"hello",
+                        backgroundColor: gradient,  //gradient
+                        borderColor: '#0969c9',
+
+                        pointBackgroundColor: Chart.helpers.color('#000000').alpha(0).rgbString(),
+                        pointBorderColor: Chart.helpers.color('#000000').alpha(0).rgbString(),
+                        pointHoverBackgroundColor: KTApp.getStateColor('light'),
+                        pointHoverBorderColor: Chart.helpers.color('#ffffff').alpha(0.1).rgbString(),
+
+                        //fill: 'start',
+                        data: [
+                            @foreach($NewMonth as $key => $value)
+                            {{$value['datecount']}},@endforeach],
+
+                    }],
+                },
+                'week': {
+                    labels:
+                    [@foreach($byweek as $key => $value)
+                        'semaine :{{ $value['week']}}',@endforeach
+                        ],
+                    datasets: [{
+                        // label:"hello",
+                        backgroundColor: gradient,  //gradient
+                        borderColor: '#0969c9',
+
+                        pointBackgroundColor: Chart.helpers.color('#000000').alpha(0).rgbString(),
+                        pointBorderColor: Chart.helpers.color('#000000').alpha(0).rgbString(),
+                        pointHoverBackgroundColor: KTApp.getStateColor('light'),
+                        pointHoverBorderColor: Chart.helpers.color('#ffffff').alpha(0.1).rgbString(),
+
+                        //fill: 'start',
+                        data: [
+                            @foreach($byweek as $key => $value)
+                            {{$value['datecount']}},@endforeach],
+
+
+                    }],
+                },
+
+                'daysAccepted': {
+                    labels:
+                        [@foreach($Accepted as $key => $value)
+                            '{{$value['date']}}',@endforeach],
+                    datasets: [{
+                        // label:"hello",
+                        backgroundColor: gradient,  //gradient
+                        borderColor: '#0969c9',
+
+                        pointBackgroundColor: Chart.helpers.color('#000000').alpha(0).rgbString(),
+                        pointBorderColor: Chart.helpers.color('#000000').alpha(0).rgbString(),
+                        pointHoverBackgroundColor: KTApp.getStateColor('light'),
+                        pointHoverBorderColor: Chart.helpers.color('#ffffff').alpha(0.1).rgbString(),
+
+                        //fill: 'start',
+                        data: [
+                            @foreach($Accepted as $key => $value)
+                            {{$value['datecount']}},@endforeach],
+
+                    }],
+                },
+                'moisAccepted':  {
+                    labels:
+                        [@foreach($AcceptedMonth as $key => $value)
+                            '{{$value['date']}}',@endforeach],
+                    datasets: [{
+                        // label:"hello",
+                        backgroundColor: gradient,  //gradient
+                        borderColor: '#0969c9',
+
+                        pointBackgroundColor: Chart.helpers.color('#000000').alpha(0).rgbString(),
+                        pointBorderColor: Chart.helpers.color('#000000').alpha(0).rgbString(),
+                        pointHoverBackgroundColor: KTApp.getStateColor('light'),
+                        pointHoverBorderColor: Chart.helpers.color('#ffffff').alpha(0.1).rgbString(),
+
+                        //fill: 'start',
+                        data: [
+                            @foreach($AcceptedMonth as $key => $value)
+                            {{$value['datecount']}},@endforeach],
+
+                    }],
+                },
+                'weekAccepted': {
+                    labels:
+                    [@foreach($byweekAccepted as $key => $value)
+                        'semaine :{{ $value['week']}}',@endforeach
+                        ],
+                    datasets: [{
+                        // label:"hello",
+                        backgroundColor: gradient,  //gradient
+                        borderColor: '#0969c9',
+
+                        pointBackgroundColor: Chart.helpers.color('#000000').alpha(0).rgbString(),
+                        pointBorderColor: Chart.helpers.color('#000000').alpha(0).rgbString(),
+                        pointHoverBackgroundColor: KTApp.getStateColor('light'),
+                        pointHoverBorderColor: Chart.helpers.color('#ffffff').alpha(0.1).rgbString(),
+
+                        //fill: 'start',
+                        data: [
+                            @foreach($byweekAccepted as $key => $value)
+                            {{$value['datecount']}},@endforeach],
+
+
+                    }],
+                },
+
+                'daysIncube': {
+                    labels:
+                        [@foreach($Incube as $key => $value)
+                            '{{$value['date']}}',@endforeach],
+                    datasets: [{
+                        // label:"hello",
+                        backgroundColor: gradient,  //gradient
+                        borderColor: '#0969c9',
+
+                        pointBackgroundColor: Chart.helpers.color('#000000').alpha(0).rgbString(),
+                        pointBorderColor: Chart.helpers.color('#000000').alpha(0).rgbString(),
+                        pointHoverBackgroundColor: KTApp.getStateColor('light'),
+                        pointHoverBorderColor: Chart.helpers.color('#ffffff').alpha(0.1).rgbString(),
+
+                        //fill: 'start',
+                        data: [
+                            @foreach($Incube as $key => $value)
+                            {{$value['datecount']}},@endforeach],
+
+                    }],
+                },
+                'moisIncube':  {
+                    labels:
+                        [@foreach($IncubeMonth as $key => $value)
+                            '{{$value['date']}}',@endforeach],
+                    datasets: [{
+                        // label:"hello",
+                        backgroundColor: gradient,  //gradient
+                        borderColor: '#0969c9',
+
+                        pointBackgroundColor: Chart.helpers.color('#000000').alpha(0).rgbString(),
+                        pointBorderColor: Chart.helpers.color('#000000').alpha(0).rgbString(),
+                        pointHoverBackgroundColor: KTApp.getStateColor('light'),
+                        pointHoverBorderColor: Chart.helpers.color('#ffffff').alpha(0.1).rgbString(),
+
+                        //fill: 'start',
+                        data: [
+                            @foreach($IncubeMonth as $key => $value)
+                            {{$value['datecount']}},@endforeach],
+
+                    }],
+                },
+                'weekIncube': {
+                    labels:
+                    [@foreach($byweekIncube as $key => $value)
+                        'semaine :{{ $value['week']}}',@endforeach
+                        ],
+                    datasets: [{
+                        // label:"hello",
+                        backgroundColor: gradient,  //gradient
+                        borderColor: '#0969c9',
+
+                        pointBackgroundColor: Chart.helpers.color('#000000').alpha(0).rgbString(),
+                        pointBorderColor: Chart.helpers.color('#000000').alpha(0).rgbString(),
+                        pointHoverBackgroundColor: KTApp.getStateColor('light'),
+                        pointHoverBorderColor: Chart.helpers.color('#ffffff').alpha(0.1).rgbString(),
+
+                        //fill: 'start',
+                        data: [
+                            @foreach($byweekIncube as $key => $value)
+                            {{$value['datecount']}},@endforeach],
+
+
+                    }],
+                },
+
+                'daysRejected': {
+                    labels:
+                        [@foreach($Rejected as $key => $value)
+                            '{{$value['date']}}',@endforeach],
+                    datasets: [{
+                        // label:"hello",
+                        backgroundColor: gradient,  //gradient
+                        borderColor: '#0969c9',
+
+                        pointBackgroundColor: Chart.helpers.color('#000000').alpha(0).rgbString(),
+                        pointBorderColor: Chart.helpers.color('#000000').alpha(0).rgbString(),
+                        pointHoverBackgroundColor: KTApp.getStateColor('light'),
+                        pointHoverBorderColor: Chart.helpers.color('#ffffff').alpha(0.1).rgbString(),
+
+                        //fill: 'start',
+                        data: [
+                            @foreach($Rejected as $key => $value)
+                            {{$value['datecount']}},@endforeach],
+
+                    }],
+                },
+                'moisRejected':  {
+                    labels:
+                        [@foreach($RejectedMonth as $key => $value)
+                            '{{$value['date']}}',@endforeach],
+                    datasets: [{
+                        // label:"hello",
+                        backgroundColor: gradient,  //gradient
+                        borderColor: '#0969c9',
+
+                        pointBackgroundColor: Chart.helpers.color('#000000').alpha(0).rgbString(),
+                        pointBorderColor: Chart.helpers.color('#000000').alpha(0).rgbString(),
+                        pointHoverBackgroundColor: KTApp.getStateColor('light'),
+                        pointHoverBorderColor: Chart.helpers.color('#ffffff').alpha(0.1).rgbString(),
+
+                        //fill: 'start',
+                        data: [
+                            @foreach($RejectedMonth as $key => $value)
+                            {{$value['datecount']}},@endforeach],
+
+                    }],
+                },
+                'weekRejected': {
+                    labels:
+                    [@foreach($byweekRejected as $key => $value)
+                        'semaine :{{ $value['week']}}',@endforeach
+                        ],
+                    datasets: [{
+                        // label:"hello",
+                        backgroundColor: gradient,  //gradient
+                        borderColor: '#0969c9',
+
+                        pointBackgroundColor: Chart.helpers.color('#000000').alpha(0).rgbString(),
+                        pointBorderColor: Chart.helpers.color('#000000').alpha(0).rgbString(),
+                        pointHoverBackgroundColor: KTApp.getStateColor('light'),
+                        pointHoverBorderColor: Chart.helpers.color('#ffffff').alpha(0.1).rgbString(),
+
+                        //fill: 'start',
+                        data: [
+                            @foreach($byweekRejected as $key => $value)
+                            {{$value['datecount']}},@endforeach],
+
+
+                    }],
+                },
+            },
+
+
+            updateGraph: function(chartId) {
+
+                if (this.chart) {
+                    this.chart.clear();
+                    this.chart.destroy();
+                    delete this.chart;
+                }
+                // Then, let's set up the chart again
+                var chartOpts = this.getChartOptions(this.data[chartId]);
+                this.chart = new Chart(ctx,chartOpts);
+                this.chart.update();
+            }
+
+
+        };
+        ChartPage.updateGraph('initial');
+
+
+        var buttons = document.querySelectorAll('.chartType');
+        [].slice.call(buttons).forEach(function(button) {
+            button.addEventListener('click', function(e) {
+                var btn = e.target;
+                console.log('lol',button.dataset.chartId)
+                ChartPage.updateGraph(button.dataset.chartId);
+                $('a').removeClass('active');
+                $(this).addClass('active');
+            });
+        });
+        var buttons = document.querySelectorAll('.chartTypeDataNew');
+        [].slice.call(buttons).forEach(function(button) {
+            button.addEventListener('click', function(e) {
+                var btn = e.target;
+                ChartPage.updateGraph('days');
+                document.getElementById('mois').setAttribute("data-chart-id", "mois")
+                document.getElementById('days').setAttribute("data-chart-id", "days")
+                document.getElementById('week').setAttribute("data-chart-id", "week")
+
+                // ChartPage.updateGraph(button.dataset.chartId);
+                // $('a').removeClass('active');
+                // $(this).addClass('active');
+            });
+        });
+
+ var buttons = document.querySelectorAll('.chartTypeDataAccepte');
+        [].slice.call(buttons).forEach(function(button) {
+            button.addEventListener('click', function(e) {
+                var btn = e.target;
+                ChartPage.updateGraph('daysAccepted');
+                document.getElementById('mois').setAttribute("data-chart-id", "moisAccepted")
+                document.getElementById('days').setAttribute("data-chart-id", "daysAccepted")
+                document.getElementById('week').setAttribute("data-chart-id", "weekAccepted")
+
+                // ChartPage.updateGraph(button.dataset.chartId);
+                // $('a').removeClass('active');
+                // $(this).addClass('active');
+            });
+        });
+
+ var buttons = document.querySelectorAll('.chartTypeDataincub');
+        [].slice.call(buttons).forEach(function(button) {
+            button.addEventListener('click', function(e) {
+                var btn = e.target;
+                ChartPage.updateGraph('daysIncube');
+                console.log('hello from the otherside')
+                document.getElementById('mois').setAttribute("data-chart-id", "moisIncube")
+                document.getElementById('days').setAttribute("data-chart-id", "weekIncube")
+                document.getElementById('week').setAttribute("data-chart-id", "daysIncube")
+
+                // ChartPage.updateGraph(button.dataset.chartId);
+                // $('a').removeClass('active');
+                // $(this).addClass('active');
+            });
+        });
+
+        var buttons = document.querySelectorAll('.chartTypeDatarefused');
+        [].slice.call(buttons).forEach(function(button) {
+            button.addEventListener('click', function(e) {
+                var btn = e.target;
+                ChartPage.updateGraph('daysRejected');
+                console.log('hello from the otherside')
+                document.getElementById('mois').setAttribute("data-chart-id", "moisRejected")
+                document.getElementById('days').setAttribute("data-chart-id", "daysRejected")
+                document.getElementById('week').setAttribute("data-chart-id", "weekRejected")
+
+                // ChartPage.updateGraph(button.dataset.chartId);
+                // $('a').removeClass('active');
+                // $(this).addClass('active');
+            });
+        });
     }
 
     // Bandwidth Charts 1.

@@ -34,7 +34,9 @@ class Member extends Authenticatable
         'degrees',
         'professional_experience',
         'reduced_mobility',
+        'state_help'
     ];
+
 
     /**
      * The attributes that should be hidden for arrays.
@@ -54,6 +56,7 @@ class Member extends Authenticatable
         'birth_date' => 'date:d-m-Y',
         'degrees' => 'object',
         'professional_experience' => 'object',
+        'state_help' => 'object',
     ];
 
 
@@ -147,6 +150,12 @@ class Member extends Authenticatable
                 'config' => ['doubleRepeater' => true]
             ],
             [
+                'name' => 'state_help',
+                'type' => 'repeater',
+                'label' => 'Aide Etatique ',
+                'config' => ['tripleRepeater' => true]
+            ],
+            [
                 'name' => 'reduced_mobility',
                 'type' => 'select',
                 'label' => 'Mobilité réduite',
@@ -154,5 +163,8 @@ class Member extends Authenticatable
             ],
         ];
     }
-
+    public function getFullNameAttribute($value)
+    {
+        return ucfirst($this->first_name) . ' ' . ucfirst($this->last_name);
+    }
 }

@@ -70,7 +70,8 @@ var KTSelect2 = function() {
             return markup;
         }
 
-        function formatRepoSelection(repo) {
+        function formatRepoSelection(repo)
+        {
             return repo.full_name || repo.text;
         }
 

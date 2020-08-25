@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\AdherentSession;
+use App\Http\Resources\AdherentSessionCollection;
+use App\Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\ProjectApplication;
@@ -10,8 +13,14 @@ use App\Member;
 use App\ProjectCategory;
 use App\Township;
 use App\Http\Resources\ProjectApplicationCollection;
+use App\ProjectApplicationMember;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
+use Carbon\Carbon;
+use App\exportCondidat;
+
+
 
 class ProjectApplicationController extends Controller
 {
@@ -193,6 +202,7 @@ class ProjectApplicationController extends Controller
             'funding' => $request['funding'],
             'created_by' => Auth::id()
         ]);
+
         return redirect()->intended('admin/candidatures');
     }
 
@@ -204,6 +214,7 @@ class ProjectApplicationController extends Controller
      */
     public function show($id)
     {
+
         $application = ProjectApplication::find($id);
 
         $member = Member::find($application->member_id);
@@ -227,7 +238,6 @@ class ProjectApplicationController extends Controller
         $updator != NULL ? ($application->updator = $updator->first_name . ' ' . $updator->last_name) : NULL;
 
 
-
         $data = ProjectApplication::find($id);
 
         foreach ($data as $key => $item){
@@ -241,8 +251,8 @@ class ProjectApplicationController extends Controller
 
         $data = (object)$data;
 
-        $fields = ProjectApplication::formFields();
-
+        $fields = ProjectApplication::formFields($id);
+//dd($application->toArray());
         return view('back-office/templates/projects-applications/single', compact('application', 'data', 'fields'));
     }
 
@@ -253,9 +263,136 @@ class ProjectApplicationController extends Controller
      */
     public function edit($id)
     {
-        $data = ProjectApplication::find($id);
-        $fields = ProjectApplication::formFields();
-        return view('back-office/templates/projects-applications/edit', compact('fields', 'data'));
+        $projectApplicationMembers = ProjectApplicationMember::where('project_application_id','=', $id)->get()->map(function($member){
+           $user=$member->getUser ->only(['id','first_name','last_name']);
+            return [
+                'id'=>$user['id'],
+                'value'=>$user['first_name'].' '. $user['last_name']
+            ];
+        });
+//        dd($projectApplicationMembers->toArray());
+//        $data =collect([ProjectApplication::findOrFail($id),$projectApplicationMembers]);
+        $data =ProjectApplication::findOrFail($id);
+
+//        dd(array_merge($data->toArray()));
+        $fields = ProjectApplication::formFields($id);
+        return view('back-office/templates/projects-applications/edit', compact('fields', 'data', 'projectApplicationMembers'));
+    }
+    /**
+     * Get Members tag.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function ajaxMembersList(Request $request)
+    {
+        $member=Member::select(Member::raw("CONCAT(first_name,' ',last_name) as value"),'id AS member_id' )->where(function ($q) use ($request) {
+            $q->where('first_name', 'LIKE', '%' . $request['tag']  . '%')
+                ->orWhere('last_name', 'LIKE', '%' . $request['tag'] . '%')
+                ->orWhere('id', 'LIKE', '%' . $request['tag'] . '%');
+        })->get();
+
+
+        return response()->json([$member]);
+    }
+  /**
+     * Get Members tag.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function ajaxSessionList(Request $request)
+    {
+
+        $userCount=ProjectApplicationMember::where('project_application_id','=',$request['project_id'])->count() + 1;
+//        + 1 adherent principale
+        $session =  Session::where('id_formation','=', $request['formation_id'])->where('sort','=','En file d\'attente')->get();
+        $sessionCount=collect();
+         foreach ($session as $key => $value) {
+             $sessionMemebers= AdherentSession::where('id_session', '=', $value->id )->count();
+             $sessionCount->push([
+                 'session_id'=> $value->id,
+                 'count'=>$sessionMemebers]
+         );
+
+        }
+        $sessions =  $sessionCount->map(function ($value) use ($userCount, $request,$session) {
+
+     return Session::where('id_formation','=', $request['formation_id'])->where('id','=',$value['session_id'])->where('sort','=','En file d\'attente')->get()->filter(function($session) use ($value,$userCount){
+        $session['total']= $value['count'];
+
+        return     $session->max_inscrit > ($value['count'] + $userCount);
+        });});
+
+        return $sessions->flatten();
+
+    }
+
+
+
+
+
+    public function ajaxListAdhSess(Request $request)
+
+    {
+//        dump(                        $request->sort['field'] != 'title' ? $request->sort['field'] : 'first_name'
+        $query = $request->get('query');
+
+        $search_term = isset($query['generalSearch']) ? $query['generalSearch'] : '' ;
+        $role_filter = isset($query['Type']) ? $query['Type'] : '' ;;
+
+//        dd($request['query']['id_projet']);
+        $members=
+            new AdherentSessionCollection(AdherentSession::join('members','members.id','=','adherent_sessions.id_member')->where('id_member','=',$request['query']['id_projet'])
+            ->join('projects_applications', 'projects_applications.id', '=', 'adherent_sessions.id_projet')
+            ->join('sessions', 'sessions.id', '=', 'adherent_sessions.id_session')
+
+                ->selectRaw(' adherent_sessions.* ,sessions.title, sessions.start_date, sessions.end_date ')
+
+            ->where(function ($q) use ($search_term,$request) {
+                $q->where('adherent_sessions.id', 'LIKE', '%' .$search_term  . '%')
+                    ->orWhere('members.first_name', 'LIKE', '%' . $search_term . '%')
+                    ->orWhere('members.last_name', 'LIKE', '%' . $search_term . '%')
+                    ->orWhere('adherent_sessions.id', 'LIKE', '%' . $search_term . '%');
+
+            })->
+            where(function ($q) use ($role_filter) {
+                $role_filter ? $q->whereRaw('LOWER(status) = ?', [$role_filter]) : NULL;
+            })->orderBy(
+                $request->sort['field'] != 'title' ? $request->sort['field'] : 'members.first_name',
+                $request->sort['sort']
+            )->
+            paginate(
+                $perPage = (int)$request->pagination['perpage'],
+                $columns = ['*'],
+                $pageName = '*',
+                $page = $request->pagination['page']
+            )
+        );
+//        dd($members);
+        return $members;
+    }
+
+
+
+    public function ajaxListProjectMembers(Request $request)
+    {
+
+        $query = $request->get('query');
+
+        $search_term = isset($query['generalSearch']) ? $query['generalSearch'] : '' ;
+
+        $members=ProjectApplicationMember::where('project_application_id','=', $request['id_projet'])->get()->map(function($member){
+//            dd($member);
+            $user=$member->getUser->only(['id','first_name','last_name']);
+            return [
+                'id'=>$member['id'],
+                'member_id'=>$user['id'],
+                'title'=>$user['first_name'].' '. $user['last_name'],
+                'sort'=>$member['sort'],
+                'observation'=>$member['observation']
+            ];
+        });
+//dd($members->toArray());
+        return $members;
     }
 
     /**
@@ -273,6 +410,8 @@ class ProjectApplicationController extends Controller
         {
             return redirect()->back()->withErrors($validation)->withInput();
         }
+//        dd($request->toArray());
+//        dd($id);
         ProjectApplication::find($id)->update([
             'member_id' => $request['member_id'],
             'category_id' => $request['category_id'],
@@ -303,26 +442,42 @@ class ProjectApplicationController extends Controller
                 'profit_margin_rate' => $request['profit_margin_rate'],
                 'evolution_rate' => $request['evolution_rate'],
             ])),
-            'company' => json_decode(json_encode([
+            'company' => [
                 'legal_form' => $request['legal_form'],
                 'is_created' => $request['is_created'],
                 'capital' => $request['capital'],
                 'creation_date' => $request['creation_date'],
                 'corporate_name' => $request['corporate_name'],
                 'applied_tax' => $request['applied_tax'],
-            ])),
+            ],
             'training_needs' => json_decode(json_encode([
                 'pre_creation_training' => $request['pre_creation_training'],
                 'post_creation_training' => $request['post_creation_training'],
             ])),
             'status' => $request['status'],
-             'progress' => $request['progress'],
+            'progress' => $request['progress'],
             'training' => $request['training'],
             'incorporation' => $request['incorporation'],
             'funding' => $request['funding'],
-            'created_by' => Auth::id()
+            'created_by' => Auth::id(),
+            'rejected_reason' => $request['rejected_reason']
         ]);
+//        dd(json_decode($request['deteletags']));
+        if (json_decode($request['deteletags'])) {
+            foreach (json_decode($request['deteletags']) as $key => $value) {
+                ProjectApplicationMember::where('member_id', '=', $value->member_id)->where('project_application_id', '=', $id)->delete();
+            }
+        }
+        if (json_decode($request['members'])) {
+        foreach (json_decode($request['members']) as $key =>$value)
+        {
 
+        ProjectApplicationMember::updateOrCreate([
+            'member_id' => $value->member_id,
+            'project_application_id' => $id,]
+        );
+    }
+    }
         return redirect()->intended('admin/candidatures/'.$id);
     }
 
@@ -342,5 +497,19 @@ class ProjectApplicationController extends Controller
             return response()->json(['message'=>'Project application supprimé !'],200);
         }
         return response()->json(['message'=>'Project application na pas etait supprimer!'],404);
+    }
+
+
+
+
+
+    public function exportExcel(Request $request)
+    {
+
+        $projectApplicatoin=   json_decode(ProjectApplication::all()->where('status',$request['status']));
+//        $arrays = new exportCondidat((array) json_decode(ProjectApplication::all()->where('status', $request['Status'])));
+//        dd($request->toArray());
+        return Excel::download(new exportCondidat($request['Status'],$request['Type']), Carbon::now().'-back-up.xlsx');
+
     }
 }

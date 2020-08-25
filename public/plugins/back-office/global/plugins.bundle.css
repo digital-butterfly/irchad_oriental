@@ -5560,7 +5560,7 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
   white-space: nowrap; }
 
 .tagify__input {
-  display: block;
+  /*display: block;*/
   min-width: 110px;
   margin: 5px;
   padding: .3em .5em;

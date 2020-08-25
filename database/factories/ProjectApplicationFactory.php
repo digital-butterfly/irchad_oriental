@@ -19,13 +19,13 @@ use Illuminate\Support\Str;
 
 $factory->define(ProjectApplication::class, function (Faker $faker) {
     return [
-        'member_id' => $faker->randomElement($array = array (12,14,15,18,19,20,21,23,24,25,26)), 
-        'category_id' => $faker->randomElement($array = array (12,13,14,17,18)), 
-        'township_id' => $faker->randomElement($array = array (5,9,10,13)), 
-        'sheet_id' => NULL, 
-        'title' => $faker->catchPhrase, 
-        'description' => $faker->text($maxNbChars = 100), 
-        'market_type' => $faker->randomElement($array = array ('Marché national','Export','Marché national et export')), 
+        'member_id' => $faker->randomElement($array = array (12,14,15,18,19,20,21,23,24,25,26)),
+        'category_id' => $faker->randomElement($array = array (12,13,14,17,18)),
+        'township_id' => $faker->randomElement($array = array (5,9,10,13)),
+        'sheet_id' => NULL,
+        'title' => $faker->catchPhrase,
+        'description' => $faker->text($maxNbChars = 100),
+        'market_type' => $faker->randomElement($array = array ('Marché national','Export','Marché national et exportExl')),
         'business_model' => json_decode(json_encode([
             'core_business' => $faker->text($maxNbChars = 200),
             'primary_target' => $faker->text($maxNbChars = 200),
@@ -34,7 +34,7 @@ $factory->define(ProjectApplication::class, function (Faker $faker) {
             'advertising' => $faker->text($maxNbChars = 200),
             'pricing_strategy' => $faker->text($maxNbChars = 200),
             'distribution_strategy' => $faker->text($maxNbChars = 200),
-        ])), 
+        ])),
         'financial_data' => json_decode(json_encode([
             'financial_plan' => json_decode(fakeJson(NULL, 2, 6, 'double')),
             'financial_plan_loans' => json_decode(fakeJson(NULL, 1, 3, 'quadruple')),
@@ -47,7 +47,7 @@ $factory->define(ProjectApplication::class, function (Faker $faker) {
             'products_turnover_forecast' => $faker->numberBetween($min = 200000, $max = 5000000),
             'profit_margin_rate' => $faker->numberBetween($min = 1, $max = 300),
             'evolution_rate' => $faker->numberBetween($min = 0, $max = 300),
-        ])), 
+        ])),
         'company' => json_decode(json_encode([
             'legal_form' => $faker->randomElement($array = array ('Association','Coopérative','SARL')),
             'is_created' => '',

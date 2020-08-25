@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 
 use App\ProjectApplication;
 use App\ProjectCategory;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Township;
 
@@ -18,7 +19,24 @@ class DashboardController
     public function ajaxList(Request $request)
     {
 
-        $countNew = ProjectApplication::where('status', 'Nouveau')->count();
+        $New = ProjectApplication::selectRaw("COUNT(*) datecount, DATE_FORMAT(created_at, '%m-%e-%Y') date")->where('status', 'Nouveau')->groupBy('date')->get();
+        $NewMonth = ProjectApplication::selectRaw("COUNT(*) datecount, DATE_FORMAT(created_at, '%M') date")->where('status', 'Nouveau')->groupBy('date')->get();
+        $byweek = ProjectApplication::selectRaw("COUNT(*) datecount, DATE_FORMAT(created_at, '%U-%X') week")->where('status', 'Nouveau')->groupBy('week')->get();
+
+        $Rejected = ProjectApplication::selectRaw("COUNT(*) datecount, DATE_FORMAT(created_at, '%m-%e-%Y') date")->where('status', 'Rejeté')->groupBy('date')->get();
+        $RejectedMonth = ProjectApplication::selectRaw("COUNT(*) datecount, DATE_FORMAT(created_at, '%M') date")->where('status', 'Rejeté')->groupBy('date')->get();
+        $byweekRejected = ProjectApplication::selectRaw("COUNT(*) datecount, DATE_FORMAT(created_at, '%U-%X') week")->where('status', 'Rejeté')->groupBy('week')->get();
+
+        $Incube = ProjectApplication::selectRaw("COUNT(*) datecount, DATE_FORMAT(created_at, '%m-%e-%Y') date")->where('status', 'Incubé')->groupBy('date')->get();
+        $IncubeMonth = ProjectApplication::selectRaw("COUNT(*) datecount, DATE_FORMAT(created_at, '%M') date")->where('status', 'Incubé')->groupBy('date')->get();
+        $byweekIncube = ProjectApplication::selectRaw("COUNT(*) datecount, DATE_FORMAT(created_at, '%U-%X') week")->where('status', 'Incubé')->groupBy('week')->get();
+
+        $Accepted = ProjectApplication::selectRaw("COUNT(*) datecount, DATE_FORMAT(created_at, '%m-%e-%Y') date")->where('status', 'Accepté')->groupBy('date')->get();
+        $AcceptedMonth = ProjectApplication::selectRaw("COUNT(*) datecount, DATE_FORMAT(created_at, '%M') date")->where('status', 'Accepté')->groupBy('date')->get();
+        $byweekAccepted = ProjectApplication::selectRaw("COUNT(*) datecount, DATE_FORMAT(created_at, '%U-%X') week")->where('status', 'Accepté')->groupBy('week')->get();
+
+//dd($byweek->toArray());
+        $countNew=ProjectApplication::where('status', 'Nouveau')->count();
         $countApprouved = ProjectApplication::where('status', 'Accepté')->count();
         $countIncube = ProjectApplication::where('status', 'Incubé')->count();
         $countRejected = ProjectApplication::where('status', 'Rejeté')->count();
@@ -37,26 +55,35 @@ class DashboardController
             ->groupBy('date')->take(7)
             ->get();
 foreach ($category_id as $category){
-    $category->total*100/$countProjet;
-    $firstArray=array('brand','danger', 'success');
-    $key=rand(1,2);
 
+    $firstArray=array('brand', 'success','blue','green','orange');;
+    $key=rand(0,4);
+//    $key=shuffle($key);
+//    dd($key);
+    $arrywithper=ProjectCategory::where('id', $category->category_id)->firstOrFail()->getParent->toArray();
+//    array_push($arrywithper,);
+    $arrywithper['total']= ($category->total*100/$countProjet);
+    $arrywithper['Type']= ($firstArray[$key]);
 
-    $arrywithper=ProjectCategory::select('title')->where('parent_id','!=', null )->where('id','=',$category->category_id)->get()->push($category->total*100/$countProjet)->push($firstArray[$key]);
-
-
+//    dd($arrywithper);
     array_push($Sectors,$arrywithper);
 
-
 }
-
+//        dd($Sectors);
 foreach ($townships as $township){
-    $arrytwer=Township::select('title')->where('id','=',$township->township_id)->get()->push($township->total*100/$countProjet);
+    $firstArray=array('brand', 'success','blue','green','orange');;
+    $key=rand(0,4);
+    $arrytwer=Township::select('title')->where('id','=',$township->township_id)->firstOrFail()->toArray();
+    $arrytwer['total']=($township->total*100/$countProjet);
+    $arrytwer['Type']= ($firstArray[$key]);
     array_push($townshiparray, $arrytwer);
+
+
+//    dd($townshiparray);
 }
 //todo refactor this
 
-        return view('back-office/home', compact( 'countNew','countApprouved', 'countIncube','countRejected','countPending','countProjet','category_id','Sectors','created_date','townshiparray','townships', 'incubationdate' ));
+        return view('back-office/home', compact( 'Accepted','AcceptedMonth','byweekAccepted','Incube','IncubeMonth','byweekIncube','Rejected','RejectedMonth','byweekRejected','countNew','New','byweek','NewMonth','countApprouved', 'countIncube','countRejected','countPending','countProjet','category_id','Sectors','created_date','townshiparray','townships', 'incubationdate' ));
     }
 
 }

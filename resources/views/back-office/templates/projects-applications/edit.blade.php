@@ -3,7 +3,14 @@
 
 
 @section('specific_css')
+ <style>
 
+     .tagify .tagify__tag {
+         margin: 3px;}
+     .tagify__tag__removeBtn{
+         margin-left: 2px;
+     }
+ </style>
 @endsection
 
 
@@ -13,7 +20,7 @@
     <div class="kt-container  kt-grid__item kt-grid__item--fluid">
         <div class="kt-portlet">
             <!--begin::Form-->
-            <form class="kt-form" method="POST" action="{{ route('candidatures.update', $data->id) }}">
+            <form id="candidaturesform" class="kt-form" method="POST" action="{{ route('candidatures.update', $data->id) }}">
                 <div class="kt-portlet kt-portlet--last kt-portlet--head-lg kt-portlet--responsive-mobile" id="kt_page_portlet">
                     <div class="kt-portlet__head kt-portlet__head--lg">
                         <div class="kt-portlet__head-label">
@@ -46,67 +53,7 @@
 				<div class="kt-portlet__body">
 					<div class="kt-section kt-section--first">
 
-                        <div class="form-group row">
-                            <div class="col-12">
-                                <label class="col-form-label kt-margin-r-100">Status:</label>
-                                <label
-                                    class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input
-                                        type="radio" value="Nouveau"
-                                        name="status">
-                                    Nouveau<span></span></label><label
-                                    class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input
-                                        type="radio" value="Rejeté"
-                                        name="status">
-                                    Rejeté<span></span></label><label
-                                    class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input
-                                        type="radio" value="Accepté"
-                                        name="status">
-                                    Accepté<span></span></label><label
-                                    class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input
-                                        type="radio" value="En cours"
-                                        name="status"> En
-                                    cours<span></span></label>
-                                <label
-                                    class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input
-                                        type="radio"
-                                        value="En attente de formation"
-                                        name="status">Formation<span></span></label><label
-                                    class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input
-                                        type="radio"
-                                        value="En attente de financement"
-                                        name="status">Financement<span></span></label>
 
-                                <label
-                                    class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input
-                                        type="radio"
-                                        value="Business plan achevé"
-                                        name="status"> BP achevé
-                                    <span></span></label><label
-                                    class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input
-                                        type="radio" value="Incubé"
-                                        name="status">
-                                    Incubé<span></span></label>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-12">
-                                <label class="col-form-label kt-margin-r-80">Creation:</label>
-
-                                <label class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input
-                                        type="radio"
-                                        value="Entreprise en cours de création"
-                                        name="incorporation"> Entreprise en
-                                    cours de création<span></span></label>
-
-
-                                <label
-                                    class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input
-                                        type="radio" value="Entreprise créee"
-                                        name="incorporation"> Entreprise
-                                    créee<span></span></label>
-
-                            </div>
-                        </div>
 
 						@php
 							$done_groups = [];
@@ -156,7 +103,8 @@
 						<button onclick="history.go(-1);" type="reset" class="btn btn-secondary">Retour</button>
 					</div>
 				</div>
-				@csrf
+                <input name="deteletags" type="hidden" id="deteletags" value=""/>
+                @csrf
 			</form>
 			<!--end::Form-->
 		</div>
@@ -168,6 +116,125 @@
 
 @section('specific_js')
 	<script>
+
+
+        var KTTagify = function() {
+
+            // Private functions
+            var demo1 = function() {
+                var todelet =[];
+                var toEl = document.getElementById('kt_tagify_1');
+                var myFunction = function(){
+                    console.log(todelet)
+                    $("#deteletags").val(JSON.stringify(todelet))
+                }
+                document.getElementById("candidaturesform").addEventListener("submit", myFunction);
+
+                var tagifyTo = new Tagify(toEl, {
+                    delimiters: ", ", // add new tags when a comma or a space character is entered
+                    maxTags: 5,
+                    enforceWhitelist: true,
+                    // blacklist: [$('#member_id').val()],
+                    // keepInvalidTags: true, // do not remove invalid tags (but keep them marked as invalid)
+                    whitelist: toEl.value ? JSON.parse(toEl.value) : [],
+                    templates: {
+                        tag : function(tagData){
+                            console.log('conx',tagData)
+                            try{
+                                return `<tag title='${tagData.member_id}' contenteditable='false' spellcheck="false" class='tagify__tag tagify__tag--brand tagify--noAnim ${tagData.class ? tagData.class : ""}' ${this.getAttributes(tagData)}>
+                                        <x title='remove tag' class='tagify__tag__removeBtn'></x>
+                                        <div>
+                                            <span class='tagify__tag-text'>${tagData.value}</span>
+                                        </div>
+                                    </tag>`
+                            }
+                            catch(err){}
+                        },
+                        dropdownItem : function(tagData){
+                            try{
+                                return `<div class='tagify__dropdown__item ${tagData.class ? tagData.class : ""}' tagifySuggestionIdx="${tagData.tagifySuggestionIdx}">
+                                    <div class="kt-media-card">
+                            <span class="kt-media kt-media--'+(tagData.initialsState?tagData.initialsState:'')+'" >
+                                   <span>${tagData.member_id}</span>
+                               </span>
+                                <div class="kt-media-card__info">
+                            <a class="kt-media-card__title">${tagData.value}</a>
+                                </div>
+                        </div> </div>`
+                            }
+                            catch(err){}
+                        }
+
+
+                    },
+
+                    transformTag: function(tagData) {
+                        tagData.class = 'tagify__tag tagify__tag--brand';
+                    },
+                    dropdown : {
+                        searchKeys: ["value","member_id"] ,
+                        classname : "color-blue",
+                        enabled   : 1,
+                        maxItems  : 10
+                    }
+
+
+                });
+                // tagifyTo.settings.whitelist.push(...toEl.value)
+                // console.log('helloooooooo',tagifyTo.settings.whitelist)
+                console.log('helloooooooo', tagifyTo)
+
+
+                tagifyTo.on('input', onInput).on('remove', onRemoveTag).on('dropdown:select', onSelectSuggestion)
+
+                function onInput(e){
+                    console.log("onInput: ", e.detail);
+                    // tagifyTo.loading(true).dropdown.hide.call(tagifyTo) // show the loader animation
+
+
+                    // get new whitelist from a delayed mocked request (Promise)
+                    $.ajax({
+                        headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content},
+                        url : '/admin/candidaturesmemmbers', // La ressource ciblée
+                        method:'POST',
+                        data:{'tag':e.detail.value}
+
+                    })
+                        .then(function(result){
+                            tagifyTo.settings.whitelist.length = 0; // reset current whitelist
+                            // replace tagify "whitelist" array values with new values
+                            // and add back the ones already choses as Tags
+                            console.log('---->',result)
+
+                            tagifyTo.settings.whitelist.push(...result[0], ...tagifyTo.value)
+                            // tagify.settings.whitelist.splice(0, result[0].length, ...tagify.value)
+
+                            // render the suggestions dropdown.
+                            tagifyTo.dropdown.show.call(tagifyTo, e.detail.value);
+                            console.log(tagifyTo.settings.whitelist,'whitelist')
+                        })
+                }
+                // tag remvoed callback
+                function onRemoveTag(e){
+                    todelet.push(e.detail.data)
+                    console.log("onRemoveTag:", e.detail.data)
+                }
+                function onSelectSuggestion(e){
+                    // todelet.push(e.detail.data)
+                    console.log("select:", e.detail)
+                }
+
+
+            }
+
+            return {
+                // public functions
+                init: function() {
+                    demo1();
+
+                }
+            };
+        }();
 		// Class definition
 		var KTFormRepeater = function() {
 
@@ -360,6 +427,7 @@
 
 
 			KTFormRepeater.init();
+            KTTagify.init();
 		});
 	</script>
 @endsection

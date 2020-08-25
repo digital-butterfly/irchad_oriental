@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\ExcelPerSheet;
 use App\ProjectCategory;
+use App\Township;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 use App\Member;
 use App\ProjectApplication;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CandidatureController extends Controller
 {
@@ -66,25 +70,54 @@ class CandidatureController extends Controller
         {
             foreach($request['degrees'] as $degree)
             {
+                if ($this->input_is_null($degree)) {
                 //var_dump($degree["'annee'"]);die;
                $degrees [] = array(
                 "label" => $degree["diplome_type"].','.$degree["etablissement"],
                 'value' => $degree["annee"]
-               );
+               );}
             }
         }
 
         $expericances = array();
+
+
+
+
+
         if(isset($request['professional_experience']))
         {
             foreach($request['professional_experience'] as $exp)
             {
+                if ($this->input_is_null($exp)) {
+                    $expericances [] = array(
+                        "label" => $exp["du"].'-'.$exp["au"],
+                        'value' => $exp["poste"].' ' .$exp["mission"].' chez '. $exp['organisme']
+                    );
+                }
 
-               $expericances [] = array(
-                "label" => $exp["du"].'-'.$exp["au"],
-                'value' => $exp["poste"].' ' .$exp["mission"].' chez '. $exp['organisme']
-               );
             }
+        }
+
+        $statehelp = array();
+        if(isset($request['statehelp']))
+        {
+            foreach($request['statehelp'] as $state)
+            {
+        if ($this->input_is_null($state)){
+
+
+                $statehelp [] = array(
+                    "label" => $state["aid-oui"],
+                    "value" => $state["aide-date"],
+                    'count' => $state["aide-montant"]
+                );
+            } else{
+            $statehelp = null;
+
+        }
+            }
+
         }
 
         $company = array();
@@ -118,6 +151,7 @@ class CandidatureController extends Controller
             'township_id' => $request['township_id'],
             'degrees' => json_decode(json_encode($degrees)),
             'professional_experience' => json_decode(json_encode($expericances)),
+            'state_help' => json_decode(json_encode($statehelp)),
             'reduced_mobility' => $request['reduced_mobility'],
         ]);
         $application = ProjectApplication::create([
@@ -148,9 +182,30 @@ class CandidatureController extends Controller
         }
         $LEGALFORM=ProjectApplication::LEGALFORM;
         $AIDEETAT=ProjectApplication::AIDEETAT;
+        $Communes =Township::all();
 
-        return view('front-office.candidature',compact("sectors","LEGALFORM", 'AIDEETAT'));
+        return view('front-office.candidature',compact("sectors","LEGALFORM", 'AIDEETAT','Communes'));
 
 
     }
+
+    /**
+     * Check if Member experience is null.
+     *
+     * @param  array  $exp
+     * @return boolean
+     */
+    private function input_is_null($data) {
+        $exp_is_null = false;
+
+        for ($i = 1; $i >=  sizeof($data); $i++) {
+            $data[i] != NULL ? $exp_is_null == true : NULL;
+        }
+
+        return $exp_is_null;
+    }
+
+
+
 }
+
