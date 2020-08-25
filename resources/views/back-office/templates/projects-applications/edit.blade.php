@@ -136,7 +136,7 @@
                     enforceWhitelist: true,
                     // blacklist: [$('#member_id').val()],
                     // keepInvalidTags: true, // do not remove invalid tags (but keep them marked as invalid)
-                    whitelist: JSON.parse(toEl.value),
+                    whitelist: toEl.value ? JSON.parse(toEl.value) : [],
                     templates: {
                         tag : function(tagData){
                             console.log('conx',tagData)

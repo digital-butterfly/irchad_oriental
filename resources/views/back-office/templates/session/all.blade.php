@@ -63,7 +63,10 @@
                         scroll: false,
                         footer: false,
                     },
-
+                    detail: {
+                        title: 'Load sub table',
+                        content: subTableInit,
+                    },
                     // column sorting
                     sortable: true,
 
@@ -93,7 +96,17 @@
                                 return   row.title;
                             },
 
-                        },
+                        }
+                        ,
+                        {
+                            field: 'sort',
+                            title: 'Sort',
+                            template: function(row) {
+                                return   row.sort;
+                            },
+
+                        }
+                        ,
                         {
                             field: 'max_inscrit',
                             title: 'max inscrit',
@@ -139,6 +152,91 @@
             $('#kt_form_status,#kt_form_type').selectpicker();
 
             };
+            function subTableInit(e) {
+                $('<div/>').attr('id', 'child_data_ajax_' + e.data.id).appendTo(e.detailCell).KTDatatable({
+                    data: {
+                        type: 'remote',
+                        source: {
+                            read: {
+                                url: 'admin/list/adherentsession',
+                                headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content},
+                                params: {
+                                    // custom query params
+                                    query: {
+                                        generalSearch:e.data.id,
+                                    },
+                                },
+                            },
+                        },
+                        // pageSize: 10,
+                        serverPaging: true,
+                        serverFiltering: true,
+                        serverSorting: true,
+                    },
+
+                    // layout definition
+                    layout: {
+                        scroll: true,
+                        height: 400,
+                        footer: false,
+
+                        // enable/disable datatable spinner.
+                        spinner: {
+                            type: 1,
+                            theme: 'default',
+                        },
+                    },
+
+                    sortable: true,
+
+                    // columns definition
+                    columns: [
+                        {
+                            field: 'member_id',
+                            title: '#',
+                            sortable: 'asc',
+                            width: 50,
+                            type: 'number',
+                            selector: false,
+                            textAlign: 'center',
+                        }, {
+                            field: 'title',
+                            title: 'Nom',
+                            template: function(row) {
+                                return   row.title;
+                            },
+
+                        },
+                        {
+                            field: 'projet',
+                            title: 'Projet',
+                        },
+                        {
+                            field: 'sort',
+                            title: 'Sort',
+                        },{
+                            field: 'observation',
+                            title: 'observation',
+                        },
+
+                        {
+                            field: 'Actions',
+                            title: 'Actions',
+                            sortable: false,
+                            width: 110,
+                            overflow: 'visible',
+                            autoHide: false,
+                            template: function(row) {
+                                console.log(row,'row')
+                                return '\
+                                <a href="admin/session-members/' + row.id  + '/edit" class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="Edit details">\
+                                    <i class="flaticon2-gear"></i>\
+                                </a>';
+                            },
+                        }
+                    ],
+                });
+            }
 
             return {
                 // public functions
@@ -163,7 +261,7 @@
 
                 $('#kt_modal_1 button.delete').click(function() {
                     $.ajax({
-                        url: 'admin/formation/' + id,
+                        url: 'admin/session/' + id,
                         headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content},
                         type: 'DELETE',
                         success: function(result) {

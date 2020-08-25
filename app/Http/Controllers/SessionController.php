@@ -33,7 +33,12 @@ class SessionController extends Controller
 
         ]);
     }
-
+    public function show()
+    {
+        $value=null;
+        $fields = Session::formFields($value);
+        return view('back-office/templates/session/all-calendar', compact("fields"));
+    }
     /**
      * Display a listing of the resource.
      *
@@ -57,36 +62,88 @@ class SessionController extends Controller
     }
     public function store(Request $request)
     {
-//dd($request->toArray());
-        $this->validator($request->all(), 'session')->validate();
-        $countses= (int) Session::where('id','=',$request['id_formation'])->get()->Count();
-        $session=Session::create([
-            'title'=> 'seesion '. Formation::findOrFail($request['id_formation'])->only('title')['title'].' '. ($countses + 1),
-            'id_formation' => $request['id_formation'],
-            'max_inscrit' =>$request['max_inscrit'],
-            'start_date' => $request['start_date'],
-            'end_date' => $request['end_date'],
-            'sort' => $request['sort'],
-            'observation' => $request['observation'],
+//        dd($request->toArray());
 
-        ]);
+        if ($request['projet']!=null){
+ if ($request['session']==='auto'){
+     $session=Session::create([
+         'title'=> 'Session '. Formation::findOrFail($request['id_formation'])->only('title')['title'].' '. ((int) Session::where('id_formation','=',$request['id_formation'])->get()->Count() + 1),
+         'id_formation' => $request['id_formation'],
+         'max_inscrit' =>10,
+         'start_date' => $request['start_date'],
+         'end_date' => $request['end_date'],
+         'sort' => $request['sort'],
+         'observation' => $request['observation'],
 
-        if (json_decode($request['members'])) {
+     ]);
+
+     if (json_decode($request['members-tagify'])) {
+         foreach (json_decode($request['members-tagify']) as $key =>$value)
+         {
+
+         AdherentSession::updateOrCreate([
+                 'id_session'=> $session['id'],
+                 'id_projet' => $request['projet'],
+                 'id_member' => $value->member_id,
+             ]
+         );
+
+     }
+     }
+ }else{
+
+
+     if (json_decode($request['members-tagify'])) {
+         foreach (json_decode($request['members-tagify']) as $key =>$value)
+         {
+
+         AdherentSession::updateOrCreate([
+                 'id_session'=> $request['session'],
+                 'id_projet' => $request['projet'],
+                 'id_member' => $value->member_id,
+             ]
+         );
+
+
+     }
+     }
+ }
+
+
+        }
+        else {
+            $this->validator($request->all(), 'session')->validate();
+            $countses= (int) Session::where('id','=',$request['id_formation'])->get()->Count();
+            $session=Session::create([
+                'title'=> 'Session '. Formation::findOrFail($request['id_formation'])->only('title')['title'].' '. ((int) Session::where('id_formation','=',$request['id_formation'])->get()->Count() + 1),
+                'id_formation' => $request['id_formation'],
+                'max_inscrit' =>$request['max_inscrit'],
+                'start_date' => $request['start_date'],
+                'end_date' => $request['end_date'],
+                'sort' => $request['sort'],
+                'observation' => $request['observation'],
+
+            ]);
+
+            if (json_decode($request['members'])) {
 //            dd($request->toArray());
-            foreach (json_decode($request['members']) as $key =>$value)
-            {
+                foreach (json_decode($request['members']) as $key =>$value)
+                {
 //                dd($value->member_id);
 
-                AdherentSession::updateOrCreate([
+                    AdherentSession::updateOrCreate([
 
-                        'id_session'=> $session['id'],
-                        'id_projet' => $value->project_id,
-                        'id_member' => $value->member_id,
+                            'id_session'=> $session['id'],
+                            'id_projet' => $value->project_id,
+                            'id_member' => $value->member_id,
 
                         ]
-                );
+                    );
+                }
             }
         }
+
+
 
 
         return redirect()->intended('admin/session');
@@ -103,7 +160,7 @@ class SessionController extends Controller
         $role_filter = isset($query['Type']) ? $query['Type'] : '' ;;
             $sessions=new SessionCollection(Session::
             where(function ($q) use ($search_term) {
-           $q->where('id', 'LIKE', '%' .$search_term  . '%')
+           $q->where('title', 'LIKE', '%' .$search_term  . '%')
              ->orWhere('id', 'LIKE', '%' . $search_term . '%');
 
             })->
@@ -111,7 +168,7 @@ class SessionController extends Controller
                     $role_filter ? $q->whereRaw('LOWER(status) = ?', [$role_filter]) : NULL;
                 })->
             orderBy(
-        $request->sort['field'] != 'name' ? $request->sort['field'] : 'id',
+        $request->sort['field'] != 'name' ? $request->sort['field'] : 'member_id',
         $request->sort['sort']
             )->
          paginate(
@@ -121,15 +178,13 @@ class SessionController extends Controller
          $page = $request->pagination['page']
 )
 );
-
+//dd($sessions);
         return  $sessions;
     }
 
     public function edit(Session $session)
     {
         $data = $session;
-//        dd(AdherentSession::where('id_session','=', $session['id'])->get()->toArray());
-
         $fields = Session::formFields($session['id']);
         return view('back-office/templates/Session/edit', compact('fields', 'data'));
     }
@@ -143,16 +198,37 @@ class SessionController extends Controller
      */
     public function update(Request $request, Session $session)
     {
+        if (json_decode($request['deteletags'])) {
+            foreach (json_decode($request['deteletags']) as $key => $value) {
+
+                AdherentSession::where('id_member', '=', $value->member_id)->where('id_session', '=', $session->id)->delete();
+            }};
+        if (json_decode($request['members'])) {
+//            dd($request->toArray());
+            foreach (json_decode($request['members']) as $key =>$value)
+            {
+//                dd($value->member_id);
+
+                AdherentSession::updateOrCreate([
+
+                        'id_session'=> $session['id'],
+                        'id_projet' => $value->project_id,
+                        'id_member' => $value->member_id,
+
+                    ]
+                );
+            }
+        }
         $session->update([
-            'title' => $request['title'],
+
+            'id_formation' => $request['id_formation'],
+            'max_inscrit' =>$request['max_inscrit'],
+            'start_date' => $request['start_date'],
+            'end_date' => $request['end_date'],
             'description' => $request['description'],
             'domaine' => $request['domaine'],
 
         ]);
-
-
-
-
 
         return redirect()->intended('admin/session');
     }
@@ -169,7 +245,7 @@ class SessionController extends Controller
         try{
             $session->delete();
 
-            return response()->json(['message'=>'Utilisateur supprimé !'],200);
+            return response()->json(['message'=>'session supprimé !'],200);
 
         }
         catch (\Illuminate\Database\QueryException $e){
@@ -187,7 +263,6 @@ class SessionController extends Controller
 }
     public function ajaxProjectlist(Request $request)
     {
-
         $ProjectApplication=ProjectApplication::select('id','title AS value','description')->where('Status','=','Accepté')->where(function ($q) use ($request) {
             $q->where('title', 'LIKE', '%' . $request['ProjectApplication']  . '%')
                 ->orWhere('id', 'LIKE', '%' . $request['ProjectApplication'] . '%');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\AdherentSession;
+use App\Http\Resources\AdherentSessionCollection;
 use App\Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -300,22 +301,98 @@ class ProjectApplicationController extends Controller
      */
     public function ajaxSessionList(Request $request)
     {
-//        dd($request['formation_id']);
+
+        $userCount=ProjectApplicationMember::where('project_application_id','=',$request['project_id'])->count() + 1;
+//        + 1 adherent principale
         $session =  Session::where('id_formation','=', $request['formation_id'])->where('sort','=','En file d\'attente')->get();
-
-        foreach ($session as $key => $value) {
-
-//            $sessionMemebers=AdherentSession:
-
-            ;
+        $sessionCount=collect();
+         foreach ($session as $key => $value) {
+             $sessionMemebers= AdherentSession::where('id_session', '=', $value->id )->count();
+             $sessionCount->push([
+                 'session_id'=> $value->id,
+                 'count'=>$sessionMemebers]
+         );
 
         }
-        dd($sessionMemebers->toArray());
+        $sessions =  $sessionCount->map(function ($value) use ($userCount, $request,$session) {
+
+     return Session::where('id_formation','=', $request['formation_id'])->where('id','=',$value['session_id'])->where('sort','=','En file d\'attente')->get()->filter(function($session) use ($value,$userCount){
+        $session['total']= $value['count'];
+
+        return     $session->max_inscrit > ($value['count'] + $userCount);
+        });});
+
+        return $sessions->flatten();
+
+    }
 
 
 
-//        dd($session->toArray());
-        return response()->json([$session]);
+
+
+    public function ajaxListAdhSess(Request $request)
+
+    {
+//        dump(                        $request->sort['field'] != 'title' ? $request->sort['field'] : 'first_name'
+        $query = $request->get('query');
+
+        $search_term = isset($query['generalSearch']) ? $query['generalSearch'] : '' ;
+        $role_filter = isset($query['Type']) ? $query['Type'] : '' ;;
+
+//        dd($request['query']['id_projet']);
+        $members=
+            new AdherentSessionCollection(AdherentSession::join('members','members.id','=','adherent_sessions.id_member')->where('id_member','=',$request['query']['id_projet'])
+            ->join('projects_applications', 'projects_applications.id', '=', 'adherent_sessions.id_projet')
+            ->join('sessions', 'sessions.id', '=', 'adherent_sessions.id_session')
+
+                ->selectRaw(' adherent_sessions.* ,sessions.title, sessions.start_date, sessions.end_date ')
+
+            ->where(function ($q) use ($search_term,$request) {
+                $q->where('adherent_sessions.id', 'LIKE', '%' .$search_term  . '%')
+                    ->orWhere('members.first_name', 'LIKE', '%' . $search_term . '%')
+                    ->orWhere('members.last_name', 'LIKE', '%' . $search_term . '%')
+                    ->orWhere('adherent_sessions.id', 'LIKE', '%' . $search_term . '%');
+
+            })->
+            where(function ($q) use ($role_filter) {
+                $role_filter ? $q->whereRaw('LOWER(status) = ?', [$role_filter]) : NULL;
+            })->orderBy(
+                $request->sort['field'] != 'title' ? $request->sort['field'] : 'members.first_name',
+                $request->sort['sort']
+            )->
+            paginate(
+                $perPage = (int)$request->pagination['perpage'],
+                $columns = ['*'],
+                $pageName = '*',
+                $page = $request->pagination['page']
+            )
+        );
+//        dd($members);
+        return $members;
+    }
+
+
+
+    public function ajaxListProjectMembers(Request $request)
+    {
+
+        $query = $request->get('query');
+
+        $search_term = isset($query['generalSearch']) ? $query['generalSearch'] : '' ;
+
+        $members=ProjectApplicationMember::where('project_application_id','=', $request['id_projet'])->get()->map(function($member){
+//            dd($member);
+            $user=$member->getUser->only(['id','first_name','last_name']);
+            return [
+                'id'=>$member['id'],
+                'member_id'=>$user['id'],
+                'title'=>$user['first_name'].' '. $user['last_name'],
+                'sort'=>$member['sort'],
+                'observation'=>$member['observation']
+            ];
+        });
+//dd($members->toArray());
+        return $members;
     }
 
     /**

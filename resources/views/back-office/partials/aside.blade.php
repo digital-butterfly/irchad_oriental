@@ -2,7 +2,7 @@
     @media (min-width: 1025px) {
         .kt-aside--minimize .kt-aside-menu .kt-menu__nav > .kt-menu__item > .kt-menu__link > .kt-menu__link-icon {
             color: #ffffff;
-    }}
+        }}
     .kt-aside-menu .kt-menu__nav > .kt-menu__item.kt-menu__item--open > .kt-menu__heading, .kt-aside-menu .kt-menu__nav > .kt-menu__item.kt-menu__item--open > .kt-menu__link {
         background-color: #f1f2f7;
         border-radius: 15px 0 0 15px;
@@ -31,6 +31,9 @@
     }
     .kt-aside-menu .kt-menu__nav > .kt-menu__item .kt-menu__submenu .kt-menu__item:not(.kt-menu__item--parent):not(.kt-menu__item--open):not(.kt-menu__item--here):not(.kt-menu__item--active):hover > .kt-menu__heading .kt-menu__link-text, .kt-aside-menu .kt-menu__nav > .kt-menu__item .kt-menu__submenu .kt-menu__item:not(.kt-menu__item--parent):not(.kt-menu__item--open):not(.kt-menu__item--here):not(.kt-menu__item--active):hover > .kt-menu__link .kt-menu__link-text {
         color: #0961aa;
+    }
+    .kt-aside-menu .kt-menu__nav > .kt-menu__item .kt-menu__submenu .kt-menu__item > .kt-menu__heading .kt-menu__link-text, .kt-aside-menu .kt-menu__nav > .kt-menu__item .kt-menu__submenu .kt-menu__item > .kt-menu__link .kt-menu__link-text {
+        color: #f0f0f0;
     }
 </style>
 <!-- begin:: Aside -->
@@ -107,6 +110,62 @@
                             class="kt-menu__link-icon flaticon-folder-1"></i><span
                             class="kt-menu__link-text">Candidatures</span></a></li>
 
+                <li class="kt-menu__item  kt-menu__item--submenu {{ (request()->is('admin/formation*'))  || (request()->is('admin/session*')) || (request()->is('admin/session-members')) ? 'kt-menu__item--active kt-menu__item--open' : '' }}" aria-haspopup="true"
+                    data-ktmenu-submenu-toggle="hover"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i
+                            class="kt-menu__link-icon flaticon-book"></i><span
+                            class="kt-menu__link-text">Formations</span><i
+                            class="kt-menu__ver-arrow la la-angle-right"></i></a>
+                    <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
+                        <ul class="kt-menu__subnav">
+                            <li class="kt-menu__item  kt-menu__item--parent "  aria-haspopup="true"><span
+                                    class="kt-menu__link"><span class="kt-menu__link-text">Formations</span></span>
+                            </li>
+                            <li class="kt-menu__item {{ (request()->is('admin/formation'))   ? 'kt-menu__item--active kt-menu__item--open' : '' }} " aria-haspopup="true"><a href="admin/formation"
+                                                                                                                                                                           class="kt-menu__link "><i
+                                        class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span
+                                        class="kt-menu__link-text"> Liste des formations</span></a></li>
+                            <li class="kt-menu__item {{ (request()->is('admin/session')) ? 'kt-menu__item--active kt-menu__item--open' : '' }} " aria-haspopup="true"><a href="admin/session"
+                                                                                                                                                                          class="kt-menu__link "><i
+                                        class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span
+                                        class="kt-menu__link-text">Sessions</span></a></li>
+
+                            <li class="kt-menu__item {{ (request()->is('admin/session-members')) ? 'kt-menu__item--active kt-menu__item--open' : '' }} " aria-haspopup="true"><a href="admin/session-members"
+                                                                                                                                                                          class="kt-menu__link "><i
+                                        class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span
+                                        class="kt-menu__link-text">Liste des inscrits </span></a></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="kt-menu__item  kt-menu__item--submenu " aria-haspopup="true"
+                    data-ktmenu-submenu-toggle="hover"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i
+                            class="kt-menu__link-icon flaticon-coins"></i><span
+                            class="kt-menu__link-text">Financement</span><i
+                            class="kt-menu__ver-arrow la la-angle-right"></i></a>
+                    <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
+                        <ul class="kt-menu__subnav">
+                            <li class="kt-menu__item  kt-menu__item--parent "  aria-haspopup="true"><span
+                                    class="kt-menu__link"><span class="kt-menu__link-text">Financement</span></span>
+                            </li>
+
+                        </ul>
+                    </div>
+                </li>
+                <li class="kt-menu__item  kt-menu__item--submenu " aria-haspopup="true"
+                    data-ktmenu-submenu-toggle="hover"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i
+                            class="kt-menu__link-icon flaticon-open-box"></i><span
+                            class="kt-menu__link-text">Création d'entreprise</span><i
+                            class="kt-menu__ver-arrow la la-angle-right"></i></a>
+                    <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
+                        <ul class="kt-menu__subnav">
+                            <li class="kt-menu__item  kt-menu__item--parent "  aria-haspopup="true"><span
+                                    class="kt-menu__link"><span class="kt-menu__link-text">Financement</span></span>
+                            </li>
+
+                        </ul>
+                    </div>
+                </li>
+
                 <li class="kt-menu__section ">
                     <h4 class="kt-menu__section-text">Configuration</h4>
                     <i class="kt-menu__section-icon flaticon-more-v2"></i>
@@ -122,15 +181,15 @@
                                     class="kt-menu__link"><span
                                         class="kt-menu__link-text">Banque de projets</span></span></li>
                             <li class="kt-menu__item {{ (request()->is('admin/fiches-projets*')) ? 'kt-menu__item--active kt-menu__item--open' : '' }} " aria-haspopup="true"><a href="admin/fiches-projets"
-                                                                               class="kt-menu__link "><i
+                                                                                                                                                                                 class="kt-menu__link "><i
                                         class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span
                                         class="kt-menu__link-text">Fiches de projets</span></a></li>
                             <li class="kt-menu__item {{ (request()->is('admin/projects-categories*')) ? 'kt-menu__item--active kt-menu__item--open' : '' }} " aria-haspopup="true"><a href="admin/projects-categories"
-                                                                               class="kt-menu__link "><i
+                                                                                                                                                                                      class="kt-menu__link "><i
                                         class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span
                                         class="kt-menu__link-text">Catégories</span></a></li>
                             <li class="kt-menu__item {{ (request()->is('admin/communes*')) ? 'kt-menu__item--active kt-menu__item--open' : '' }} " aria-haspopup="true"><a href="admin/communes"
-                                                                               class="kt-menu__link "><i
+                                                                                                                                                                           class="kt-menu__link "><i
                                         class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span
                                         class="kt-menu__link-text">Communes</span></a></li>
                         </ul>
@@ -147,11 +206,11 @@
                                     class="kt-menu__link"><span class="kt-menu__link-text">Utilisateurs</span></span>
                             </li>
                             <li class="kt-menu__item {{ (request()->is('admin/users')) ? 'kt-menu__item--active kt-menu__item--open' : '' }} " aria-haspopup="true"><a href="admin/users"
-                                                                               class="kt-menu__link "><i
+                                                                                                                                                                       class="kt-menu__link "><i
                                         class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span
                                         class="kt-menu__link-text">Utilisateurs</span></a></li>
                             <li class="kt-menu__item {{ (request()->is('admin/users/create')) ? 'kt-menu__item--active kt-menu__item--open' : '' }} " aria-haspopup="true"><a href="admin/users/create"
-                                                                               class="kt-menu__link "><i
+                                                                                                                                                                              class="kt-menu__link "><i
                                         class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span
                                         class="kt-menu__link-text">Ajouter</span></a></li>
                         </ul>

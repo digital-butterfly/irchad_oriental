@@ -88,7 +88,19 @@ Route::group(['middleware' => 'auth:user'], function () {
     route::post('/admin/FormationList', 'SessionController@ajaxFormationList');
 
     Route::resource('admin/session', 'SessionController');
+    Route::resource('admin/session/all-calendar', 'SessionController@allcalendar');
     Route::post('/admin/list/session', 'SessionController@ajaxList');
+
+
+    Route::resource('admin/session-members', 'AdherentSessionController');
+    Route::post('/admin/list/adherentsession', 'AdherentSessionController@ajaxList');
+    Route::post('/admin/list/adherentsess', 'AdherentSessionController@ajaxListAdhSess');
+
+    Route::post('/admin/list/projectadherentsess', 'ProjectApplicationController@ajaxListAdhSess');
+    Route::post('/admin/list/projectAppMembers', 'ProjectApplicationController@ajaxListProjectMembers');
+
+
+
     Route::post('/admin/projectList', 'SessionController@ajaxProjectList');
     Route::post('/admin/MemebersProjectList', 'SessionController@ajaxMemebersProjectList');
 

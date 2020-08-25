@@ -55,6 +55,8 @@ class ProjectApplication extends Model
         'financial_data'=> 'object',
         'training_needs'=> 'object',
         'company'=> 'object',
+        'start_date' => 'datetime:d-m-Y',
+        'end_date' => 'datetime:d-m-Y',
 
 
     ];
@@ -111,6 +113,45 @@ class ProjectApplication extends Model
                 'value'=>$user['first_name'].' '. $user['last_name']
             ];
         });
+
+        $membersession = AdherentSession::where('id_projet', $input)->get()->filter(function($member){
+//            dd($member->getParentSession);
+            $user=$member->getAdhname ->only(['id','first_name','last_name']);
+            $sess= $member->getParentSession;
+
+    return $sess->sort==='Terminée';
+
+           });
+
+
+       $membersess= $membersession->map(function($member){
+            $user=$member->getAdhname;
+            return [
+                'member_id'=>$user['id'],
+                'value'=>$user['first_name'].' '. $user['last_name']
+            ];
+});
+        $membersessionAll = AdherentSession::where('id_projet', $input)->get()->map(function($members){
+
+            $user=$members->getAdhname->only(['id','first_name','last_name']);
+            return [
+                'member_id'=>$user['id'],
+                'value'=>$user['first_name'].' '. $user['last_name']
+            ];
+        });
+
+$diff = $projectApplicationMembers->filter(function ($value1, $key) use ($membersess, $membersessionAll){
+//    $exists = false;
+    if ($membersess->isEmpty() && !$membersessionAll->isEmpty()){
+        foreach ($membersessionAll as $value2){
+            $exists=$value1['member_id']===$value2['member_id'];
+        }
+        return $exists;
+    }else{
+        return $value1;
+    }
+  })->values();
+
 
         return [
             [
@@ -379,6 +420,13 @@ class ProjectApplication extends Model
                 'type' => 'select',
                 'label' => 'Formation',
                 'options'=>[],
+            ],
+            [
+                'name' => 'members-tagify',
+                'type' => 'taggify',
+                'id'=>'kt_tagify_2',
+                'label' => 'noms sous Adhérent',
+                'value'=> $diff
             ],
         ];
     }

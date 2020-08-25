@@ -15,7 +15,7 @@
 			<div class="kt-portlet__head">
 				<div class="kt-portlet__head-label">
 					<h3 class="kt-portlet__head-title">
-						Modifier Formation
+						Modifier Session
 					</h3>
 				</div>
 			</div>
@@ -50,7 +50,9 @@
 					</div>
 				</div>
 				@csrf
-			</form>
+                <input name="deteletags" type="hidden" id="deteletags" value=""/>
+
+            </form>
 			<!--end::Form-->
 		</div>
     </div>
@@ -61,9 +63,9 @@
 
 @section('specific_js')
 	<script>
-		// Class definition
         var KTSelect2 = function() {
             // Private functions
+            // $('#candidaturesSelect').attr('multiple','multiple');
             var demos = function() {
                 function formatRepo(formation) {
                     console.log(formation,'formation')
@@ -124,152 +126,32 @@
                 }
             };
         }();
-        var KTSelectCandidatures = function() {
-            // Private functions
-            var demos = function() {
-                $('#kt_tagify_1').attr('readonly','')
-                function formatRepo(candidatures) {
-                    console.log(candidatures,'candidatures')
-                    if (candidatures.loading) return candidatures.text;
-                    var markup = "<div class='select2-result-candidaturessitory clearfix'>" +
-                        "<div class='select2-result-candidaturessitory__meta'>" +
-                        "<div class='select2-result-candidaturessitory__title'><b>" + candidatures.title + "</b></div>";
-                    if (candidatures.description) {
-                        markup += "<div class='select2-result-candidaturessitory__description'>" + candidatures.description + "</div>";
-                    }
 
-                    return markup;
-                }
-
-                function formatRepoSelection(candidatures) {
-                    return candidatures.title || candidatures.text;
-                }
-                var el=document.getElementById('kt_tagify_1');
-                $("#candidaturesSelect").select2({
-                    placeholder: "Candidatures",
-                    allowClear: true,
-                    ajax: {
-                        url: 'admin/projectList',
-                        headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content},
-                        method:'POST',
-                        data: function (params) {
-                            console.log(params,'passsdd')
-                            return {
-                                generalSearch: params.term, // search term
-                                pagination: params.page
-                            };
-                        },
-                        processResults: function (data, params) {
-                            // parse the results into the format expected by Select2
-                            // since we are using custom formatting functions we do not need to
-                            // alter the remote JSON data, except to indicate that infinite
-                            // scrolling can be used
-                            params.page = params.page || 1;
-                            return {
-                                results: data[0],
-                            };
-                        },
-                        cache: true
-                    },
-                    escapeMarkup: function (markup) {
-                        return markup;
-                    }, // let our custom formatter work
-                    minimumInputLength: 1,
-                    templateResult: formatRepo, // omitted for brevity, see the source of this page
-                    templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
-                });
-
-
-            }
-            // Public functions
-            return {
-                init: function() {
-                    demos();
-                }
-            };
-        }();
-		var KTFormRepeater = function() {
-
-			// Private functions
-			var demo1 = function() {
-				var repeater_strengths = $('.kt_repeater_degrees').repeater({
-					initEmpty: false,
-
-					defaultValues: {
-						'text-input': 'foo'
-					},
-
-					show: function () {
-						$(this).slideDown();
-					},
-
-					hide: function (deleteElement) {
-						$(this).slideUp(deleteElement);
-					}
-				});
-
-				var repeater_weaknesses = $('.kt_repeater_professional_experience').repeater({
-					initEmpty: false,
-
-					defaultValues: {
-						'text-input': 'foo'
-					},
-
-					show: function () {
-						$(this).slideDown();
-					},
-
-					hide: function (deleteElement) {
-						$(this).slideUp(deleteElement);
-					}
-				});
-				var repeater_state_help = $('.kt_repeater_state_help').repeater({
-					initEmpty: false,
-
-					defaultValues: {
-						'text-input': 'foo'
-					},
-
-					show: function () {
-						$(this).slideDown();
-					},
-
-					hide: function (deleteElement) {
-						$(this).slideUp(deleteElement);
-					}
-				});
-			}
-
-			return {
-				// public functions
-				init: function() {
-					demo1();
-				}
-			};
-		}();
-        var KTTagify = function() {
+        var KTTagifyCandidatures = function() {
 
             // Private functions
             var demo1 = function() {
                 var todelet =[];
-                var toEl = document.getElementById('kt_tagify_1');
+                // $('#kt_tagify_1').attr('readonly','')
+                var toEl = document.getElementById('tagifycandidatures');
+                var toEl2 = document.getElementById('kt_tagify_1');
                 var myFunction = function(){
                     console.log(todelet)
                     $("#deteletags").val(JSON.stringify(todelet))
                 }
-                // document.getElementById("candidaturesform").addEventListener("submit", myFunction);
-
-                var tagifyTo = new Tagify(toEl, {
+                document.getElementById("sessionform").addEventListener("submit", myFunction);
+                var tagifyTo = new Tagify(toEl2, {
                     delimiters: ", ", // add new tags when a comma or a space character is entered
-                    maxTags: 5,
+                    maxTags: 15,
                     enforceWhitelist: true,
-                    // blacklist: [JSON.parse($('#member_id').val())],
-                    keepInvalidTags: true, // do not remove invalid tags (but keep them marked as invalid)
-                    whitelist: toEl.value ? JSON.parse(toEl.value) : [],
+                    // blacklist: [$('#member_id').val()],
+                    keepInvalidTags: false, // do not remove invalid tags (but keep them marked as invalid)
+                    whitelist:toEl2.value ? JSON.parse(toEl2.value) : [],
                     templates: {
                         tag : function(tagData){
+                            console.log('conx',tagData)
                             try{
-                                return `<tag title='${tagData.member_id}' contenteditable='false' spellcheck="false" class='tagify__tag tagify__tag--brand tagify--noAnim ${tagData.class ? tagData.class : ""}' ${this.getAttributes(tagData)}>
+                                return `<tag title='${tagData.project_id}' contenteditable='false' spellcheck="false" class='tagify__tag tagify__tag--brand tagify--noAnim ${tagData.class ? tagData.class : ""}' ${this.getAttributes(tagData)}>
                                         <x title='remove tag' class='tagify__tag__removeBtn'></x>
                                         <div>
                                             <span class='tagify__tag-text'>${tagData.value}</span>
@@ -308,15 +190,123 @@
 
 
                 });
-                // tagifyTo.settings.whitelist.push(...toEl.value)
-                // console.log('helloooooooo',tagifyTo.settings.whitelist)
-                console.log('helloooooooo', tagifyTo)
-                $('#candidaturesSelect').change(function(){
+                var tagifyCand = new Tagify(toEl, {
+                    delimiters: ", ", // add new tags when a comma or a space character is entered
+                    maxTags: 5,
+                    enforceWhitelist: true,
+                    // blacklist: [$('#member_id').val()],
+                    keepInvalidTags: true, // do not remove invalid tags (but keep them marked as invalid)
+                    whitelist: toEl.value ? JSON.parse(toEl.value) : [],
+                    templates: {
+                        tag : function(tagData){
+                            console.log('contxrt',tagData)
+                            try{
+                                // console.log(tagData.value)
+                                return `<tag title='${tagData.id}' contenteditable='false' spellcheck="false" class='tagify__tag tagify__tag--brand tagify--noAnim ${tagData.class ? tagData.class : ""}' ${this.getAttributes(tagData)}>
+                                        <x title='remove tag' class='tagify__tag__removeBtn'></x>
+                                        <div>
+                                            <span class='tagify__tag-text'>${tagData.value}</span>
+                                        </div>
+                                    </tag>`
+                            }
+                            catch(err){}
+                        },
+                        dropdownItem : function(tagData){
+                            try{
+                                return `<div class='tagify__dropdown__item ${tagData.class ? tagData.class : ""}' tagifySuggestionIdx="${tagData.tagifySuggestionIdx}">
+                                    <div class="kt-media-card">
+                            <span class="kt-media kt-media--'+(tagData.initialsState?tagData.initialsState:'')+'" >
+                                   <span>${tagData.id}</span>
+                               </span>
+                                <div class="kt-media-card__info">
+                            <a class="kt-media-card__title">${tagData.value}</a>
+                            <span class="kt-media-card__desc">${tagData.description}</span>
+                                </div>
+                        </div> </div>`
+                            }
+                            catch(err){}
+                        }
 
-                    // You can access the value of your select field using the .val() method
-                    // alert('Select field value has changed to' + );
 
-                    // You can perform an ajax request using the .ajax() method
+                    },
+
+                    transformTag: function(tagData) {
+                        tagData.class = 'tagify__tag tagify__tag--brand';
+                    },
+                    dropdown : {
+                        searchKeys: ["value","id"] ,
+                        classname : "color-black",
+                        enabled   : 1,
+                        maxItems  : 10
+                    }
+
+
+                });
+                // tagifyCand.settings.whitelist.push(...toEl.value)
+                // console.log('helloooooooo',tagifyCand.settings.whitelist)
+                console.log('helloooooooo', tagifyCand)
+
+
+                tagifyCand.on('input', onInput).on('remove', onRemoveTag).on('dropdown:select', onSelectSuggestion)
+                tagifyTo.on('remove',onRemoveTag2)
+                function onInput(e){
+                    console.log("onInput: ", e.detail);
+                    // tagifyCand.loading(true).dropdown.hide.call(tagifyCand) // show the loader animation
+
+
+                    // get new whitelist from a delayed mocked request (Promise)
+                    $.ajax({
+                        headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content},
+                        url : 'admin/projectList', // La ressource ciblée
+                        method:'POST',
+                        data:{'tag':e.detail.value}
+
+                    })
+                        .then(function(result){
+                            tagifyCand.settings.whitelist.length = 0; // reset current whitelist
+                            // replace tagify "whitelist" array values with new values
+                            // and add back the ones already choses as Tags
+                            console.log('---->',result)
+
+                            tagifyCand.settings.whitelist.push(...result[0], ...tagifyCand.value)
+                            // tagify.settings.whitelist.splice(0, result[0].length, ...tagify.value)
+
+                            // render the suggestions dropdown.
+                            tagifyCand.dropdown.show.call(tagifyCand, e.detail.value);
+                            console.log(tagifyCand.settings.whitelist,'whitelist')
+                        })
+                }
+                // tag remvoed callback
+                function onRemoveTag(e){
+                    todelet.push(e.detail.data)
+                    console.log("onRemoveTag:", e.detail.data)
+                    console.log(e.detail.data.id)
+                    let remouveable=tagifyTo.value
+                    console.log(tagifyTo,'hello')
+
+                    for (var item in remouveable) {
+                        if (e.detail.data.id===remouveable[item].project_id){
+                            tagifyTo.removeTags(remouveable[item].value)
+                            // tagifyTo.removeTags('azzelarab khlifi')
+                            // setTimeout(function () {
+                            //     tagifyTo.loadOriginalValues([])
+                            // }, 5000)
+
+
+                            console.log(remouveable[item])
+                        }
+
+                    }
+                    console.log('fe',tagifyTo.value)
+
+                    // tagifyTo.removeTags(e.detail.data.value)
+                    // console.log(tagifyTo.value,'tagifyTotagifyTo')
+
+                }
+                function onSelectSuggestion(e){
+                    // todelet.push(e.detail.data)
+                    console.log("select:", e.detail)
+
                     $.ajax({
                         headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content},
                         method:'POST',
@@ -324,27 +314,44 @@
 
                         // This is an object of values that will be passed as GET variables and
                         // available inside changeStatus.php as $_GET['selectFieldValue'] etc...
-                        data: {project_application_id: $('#candidaturesSelect').val()},
+                        data: {project_application_id: e.detail.data.id},
 
                         // This is what to do once a successful request has been completed - if
                         // you want to do nothing then simply don't include it. But I suggest you
                         // add something so that your use knows the db has been updated
                         success: function(html){
                             console.log(html)
-                            console.log($('#kt_tagify_1'))
-                            $('#kt_tagify_1').val(html)
-                            tagifyTo.destroy();
-                            KTTagify.init();
+                            console.log( typeof $('#kt_tagify_1').val())
+                            console.log( typeof html)
+                            let oldValue=[]
+                            let newValue=[]
+                            try {
+                                newValue = JSON.parse(html)
+                                if ($('#kt_tagify_1').val()){
+                                    oldValue = JSON.parse(($('#kt_tagify_1').val()))
+
+                                    console.log('tagifytooooo',tagifyTo)
+                                }
+
+
+                            } catch (e){
+                                console.error(e)
+                            }
+                            console.log([...oldValue,...newValue],'...ohlalal..')
+                            tagifyTo.settings.whitelist.push(...newValue, ...tagifyTo.value)
+                            $('#kt_tagify_1').val( JSON.stringify([...oldValue,...newValue]))
+                            // tagifyTo.addTags( JSON.parse(html))
+                            tagifyTo.loadOriginalValues();
+                            // tagifyTo =new Tagify(toEl2)
                             // $('#kt_tagify_1').val(html)
                         },
                         dataType: 'html'
                     });
-
-                });
-
-
-
-
+                }
+                function onRemoveTag2(e){
+                    todelet.push(e.detail.data)
+                    console.log("onRemoveTag:", e.detail.data)
+                }
 
 
             }
@@ -357,13 +364,59 @@
                 }
             };
         }();
+        // Class definition
+        var KTFormRepeater = function() {
+
+            // Private functions
+            var demo1 = function() {
+                var repeater_strengths = $('.kt_repeater_degrees').repeater({
+                    initEmpty: false,
+
+                    defaultValues: {
+                        'text-input': 'foo'
+                    },
+
+                    show: function () {
+                        $(this).slideDown();
+                    },
+
+                    hide: function (deleteElement) {
+                        $(this).slideUp(deleteElement);
+                    }
+                });
+
+                var repeater_weaknesses = $('.kt_repeater_professional_experience').repeater({
+                    initEmpty: false,
+
+                    defaultValues: {
+                        'text-input': 'foo'
+                    },
+
+                    show: function () {
+                        $(this).slideDown();
+                    },
+
+                    hide: function (deleteElement) {
+                        $(this).slideUp(deleteElement);
+                    }
+                });
+            }
+
+            return {
+                // public functions
+                init: function() {
+                    demo1();
+                }
+            };
+        }();
 
 
-		jQuery(document).ready(function() {
-			KTFormRepeater.init();
+
+        jQuery(document).ready(function() {
+            KTFormRepeater.init();
             KTSelect2.init();
-            KTSelectCandidatures.init();
-            KTTagify.init();
+            KTTagifyCandidatures.init();
+            // KTTagify.init();
 
 
 

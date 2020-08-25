@@ -200,6 +200,10 @@ class MemberController extends Controller
             return response()->json(['message'=>'Utilisateur non supprimer veuillez supprimer les entites liées a la Utilisateur'],409);
         }
     }
+
+
+
+
     public function exportExcel(Request $request)
     {
 //        dd($request->toArray());

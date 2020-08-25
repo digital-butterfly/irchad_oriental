@@ -8,7 +8,7 @@
                 {{$title}}
             </h3>
         </div>
-
+        @if (isset($add_link))
         <div class="kt-portlet__head-toolbar">
             <div class="kt-portlet__head-wrapper">
                 <div class="dropdown dropdown-inline">
@@ -24,6 +24,7 @@
             </div>
         </div>
     </div>
+
     <div class="kt-portlet__body">
         @if ($errors->any())
             <div class="alert alert-danger">
@@ -66,6 +67,7 @@
                                 </div>
                             </div>
                         </div> --}}
+                        @endif
                         @if (isset($types))
                             <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
                                 <div class="kt-form__group kt-form__group--inline">

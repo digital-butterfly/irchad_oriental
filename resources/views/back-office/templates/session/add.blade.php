@@ -193,7 +193,7 @@
             // Private functions
             var demo1 = function() {
                 var todelet =[];
-                $('#kt_tagify_1').attr('readonly','')
+                // $('#kt_tagify_1').attr('readonly','')
                 var toEl = document.getElementById('tagifycandidatures');
                 var toEl2 = document.getElementById('kt_tagify_1');
                 var myFunction = function(){

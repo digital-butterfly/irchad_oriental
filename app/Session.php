@@ -36,6 +36,7 @@ class Session extends Model
 
 
     public static function formFields($value) {
+//        dd($value);
         if ($value!=null){
             $sessionMembers = AdherentSession::where('id_session','=', $value)->get()->map(function($member){
                 $user=$member->getAdhname->only(['id','first_name','last_name']);
@@ -45,9 +46,19 @@ class Session extends Model
                     'value'=>$user['first_name'].' '. $user['last_name']
                 ];
             });
+            $sessionProjects= AdherentSession::select('id_session','id_projet')->where('id_session','=', $value)->groupBy('id_session','id_projet')->get()->map(function($project){
+                $user=$project->getParentProject->only(['id','title']);
+
+                return [
+                    'project_id'=>$user['id'],
+                    'value'=>$user['title']
+                ];
+            });
+//        dd($sessionProjects->toArray());
         }
         else{
             $sessionMembers =null;
+            $sessionProjects=null;
         }
         $formation = Formation::all();
 
@@ -62,7 +73,7 @@ class Session extends Model
                 'type' => 'taggify',
                 'id'=>'tagifycandidatures',
                 'label' => 'Candidatures',
-                'options'=>[]
+                'value'=>$sessionProjects
             ],
             [
                 'name' => 'members',
@@ -83,7 +94,7 @@ class Session extends Model
             [
                 'name' => 'max_inscrit',
                 'type' => 'number',
-                'label' => 'Nombre d\'Inscrit'
+                'label' => 'Nombre max d\'Inscrit'
             ],
             [
                 'name' => 'start_date',

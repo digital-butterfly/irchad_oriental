@@ -102,7 +102,7 @@ class FormationController extends Controller
      * @param Formation $formation
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Formation $formation)
+    public function update(Request $request, Formation $formation )
     {
         $formation->update([
             'title' => $request['title'],
@@ -110,11 +110,6 @@ class FormationController extends Controller
             'domaine' => $request['domaine'],
 
         ]);
-
-
-
-
-
         return redirect()->intended('admin/formation');
     }
 
