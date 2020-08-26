@@ -1800,10 +1800,10 @@
             let CTSelect=$( "#progressSelect" ).val();
             let EXFSelect=$( "#fundingSelect" ).val();
             let creationEnt= $( "#incorporationSelect" ).val()
-            // $( "#fundingSelect" ).parent().closest('.form-group').hide();
-            // $( "#progressSelect" ).parent().closest('.form-group').hide();
-            // $( "#trainingSelect" ).parent().closest('.form-group').hide();
-            // $( "#incorporationSelect" ).parent().closest('.form-group').hide();
+            $( "#fundingSelect" ).parent().closest('.form-group').hide();
+            $( "#progressSelect" ).parent().closest('.form-group').hide();
+            $( "#trainingSelect" ).parent().closest('.form-group').hide();
+            $( "#incorporationSelect" ).parent().closest('.form-group').hide();
             console.log($( "#statusSelect" ).val())
 
 
