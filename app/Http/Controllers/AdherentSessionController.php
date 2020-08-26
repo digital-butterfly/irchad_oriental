@@ -55,7 +55,7 @@ return $members;
 
 //        dd($request->sort['field']);
         $members= new AdherentSessionCollection(AdherentSession::join('members','members.id','=','adherent_sessions.id_member')
-                                                        ->join('projects_applications', 'projects_applications.id', '=', 'adherent_sessions.id_projet')->selectRaw(' adherent_sessions.* , first_name, last_name  ,title AS projet')->groupBy('homestead.adherent_sessions.id','first_name','last_name')->where(function ($q) use ($request) {
+                                                        ->join('projects_applications', 'projects_applications.id', '=', 'adherent_sessions.id_projet')->selectRaw(' adherent_sessions.* , first_name, last_name  ,title AS projet')->groupBy('adherent_sessions.id','first_name','last_name')->where(function ($q) use ($request) {
                                                             if ($request['id_projet']){
                                                                 $q->where('id_projet','=',$request['id_projet']);
                                                             }
