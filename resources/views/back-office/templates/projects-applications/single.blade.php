@@ -1551,7 +1551,7 @@
                     delimiters: ", ", // add new tags when a comma or a space character is entered
                     maxTags: 5,
                     enforceWhitelist: true,
-                    // blacklist: [JSON.parse($('#member_id').val())],
+                    // blacklist: [$('#member_id').val()],
                     // keepInvalidTags: true, // do not remove invalid tags (but keep them marked as invalid)
                     whitelist: toEl.value ? JSON.parse(toEl.value) : [],
                     templates: {
@@ -1613,7 +1613,11 @@
                         headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content},
                         url : '/admin/candidaturesmemmbers', // La ressource ciblée
                         method:'POST',
-                        data:{'tag':e.detail.value}
+                        data:{
+                            'tag':e.detail.value,
+                            'project_id': {{$data->id}}
+                        }
+
 
                     })
                         .then(function(result){

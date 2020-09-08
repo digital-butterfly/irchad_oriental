@@ -40,7 +40,7 @@ class ProjectApplicationController extends Controller
             'capital' => ['nullable', 'integer'],
             'corporate_name' => ['nullable', 'string', 'max:155'],
             'member_id' => ['required', 'integer', 'exists:members,id'],
-            'category_id' => ['nullable', 'integer', 'exists:projects_categories,id'],
+            'category_id' => ['required', 'integer', 'exists:projects_categories,id'],
             'township_id' => ['required', 'integer', 'exists:townships,id'],
             'title' => ['required', 'string', 'max:155'],
             'description' => ['nullable', 'string', 'max:455'],
@@ -151,6 +151,7 @@ class ProjectApplicationController extends Controller
      */
     public function store(Request $request)
     {
+
         $validation = $this->validator($request->all(), 'projectApplication');
         if($validation->fails())
         {
@@ -198,7 +199,7 @@ class ProjectApplicationController extends Controller
                 'pre_creation_training' => $request['pre_creation_training'],
                 'post_creation_training' => $request['post_creation_training'],
             ])),
-            'status' => $request['status'],
+            'status' => $request['status'] != null ? $request['status'] : 'Nouveau',
             'progress' => $request['progress'],
             'training' => $request['training'],
             'incorporation' => $request['incorporation'],
@@ -300,8 +301,10 @@ class ProjectApplicationController extends Controller
      */
     public function ajaxMembersList(Request $request)
     {
-        $member=Member::select(Member::raw("CONCAT(first_name,' ',last_name) as value"),'id AS member_id' )->where(function ($q) use ($request) {
-            $q->where('first_name', 'LIKE', '%' . $request['tag']  . '%')
+      $project_owner=ProjectApplication::findOrFail($request['project_id'])->only('member_id');
+
+        $member=Member::select(Member::raw("CONCAT(first_name,' ',last_name) as value"),'id AS member_id' )->where(function ($q) use ($request, $project_owner) {
+            $q->where('id','!=',$project_owner['member_id'])->where('first_name', 'LIKE', '%' . $request['tag']  . '%')
                 ->orWhere('last_name', 'LIKE', '%' . $request['tag'] . '%')
                 ->orWhere('id', 'LIKE', '%' . $request['tag'] . '%');
         })->get();
