@@ -50,7 +50,7 @@ class Session extends Model
                 $user=$project->getParentProject->only(['id','title']);
 
                 return [
-                    'project_id'=>$user['id'],
+                    'id'=>$user['id'],
                     'value'=>$user['title']
                 ];
             });

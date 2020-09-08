@@ -7,6 +7,8 @@ use App\AdherentSession;
 use App\Formation;
 use App\ProjectApplication;
 use App\ProjectApplicationMember;
+use App\ProjectHistory;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Session;
@@ -72,7 +74,7 @@ class SessionController extends Controller
          'max_inscrit' =>10,
          'start_date' => $request['start_date'],
          'end_date' => $request['end_date'],
-         'sort' => $request['sort'],
+         'sort' => 'En file d\'attente',
          'observation' => $request['observation'],
 
      ]);
@@ -90,7 +92,15 @@ class SessionController extends Controller
 
      }
      }
- }else{
+     ProjectHistory::create([
+         'title'=>'Candidature en formation de  '. Formation::findOrFail($request['id_formation'])->only('title')['title'],
+         'id_projet'=>$request['projet'],
+         'updatedBy'=>Auth::id()
+
+     ]);
+
+ }
+ else{
 
 
      if (json_decode($request['members-tagify'])) {
@@ -103,10 +113,14 @@ class SessionController extends Controller
                  'id_member' => $value->member_id,
              ]
          );
-
-
      }
      }
+     ProjectHistory::create([
+         'title'=>'Candidature en formation de  '. Formation::findOrFail($request['id_formation'])->only('title')['title'],
+         'id_projet'=>$request['projet'],
+         'updatedBy'=>Auth::id()
+
+     ]);
  }
 
 
@@ -141,6 +155,12 @@ class SessionController extends Controller
                     );
                 }
             }
+            ProjectHistory::create([
+                'title'=>'Candidature en formation de  '. Formation::findOrFail($request['id_formation'])->only('title')['title'],
+                'id_projet'=>$request['projet'],
+                'updatedBy'=>Auth::id()
+
+            ]);
         }
 
 
@@ -186,7 +206,7 @@ class SessionController extends Controller
     {
         $data = $session;
         $fields = Session::formFields($session['id']);
-        return view('back-office/templates/Session/edit', compact('fields', 'data'));
+        return view('back-office/templates/session/edit', compact('fields', 'data'));
     }
 
     /**
@@ -198,37 +218,53 @@ class SessionController extends Controller
      */
     public function update(Request $request, Session $session)
     {
+
         if (json_decode($request['deteletags'])) {
             foreach (json_decode($request['deteletags']) as $key => $value) {
-
                 AdherentSession::where('id_member', '=', $value->member_id)->where('id_session', '=', $session->id)->delete();
-            }};
+            }
+        };
         if (json_decode($request['members'])) {
 //            dd($request->toArray());
             foreach (json_decode($request['members']) as $key =>$value)
             {
-//                dd($value->member_id);
+                foreach (json_decode($request['candidatures']) as $key =>$value2)
+                {
 
                 AdherentSession::updateOrCreate([
 
                         'id_session'=> $session['id'],
-                        'id_projet' => $value->project_id,
+                        'id_projet' => $value2->id,
                         'id_member' => $value->member_id,
 
                     ]
                 );
-            }
+            }}
+        }
+//        dd($request->toArray());
+        if ($session['sort']!==$request['sort']){
+            foreach (json_decode($request['candidatures']) as $key =>$value)
+            {
+            ProjectHistory::create([
+                'title'=>'Formation  ' . Formation::findOrFail($request['id_formation'])->only('title')['title'].' de la Candidature est '. $request['sort'],
+                'id_projet'=>$value->id,
+                'updatedBy'=>Auth::id()
+
+            ]);
+        }
         }
         $session->update([
 
+            'title'=> 'Session '. Formation::findOrFail($request['id_formation'])->only('title')['title'].' '. ((int) Session::where('id_formation','=',$request['id_formation'])->get()->Count() + 1),
             'id_formation' => $request['id_formation'],
             'max_inscrit' =>$request['max_inscrit'],
             'start_date' => $request['start_date'],
             'end_date' => $request['end_date'],
-            'description' => $request['description'],
-            'domaine' => $request['domaine'],
+            'sort' => $request['sort'],
+            'observation' => $request['observation'],
 
         ]);
+
 
         return redirect()->intended('admin/session');
     }

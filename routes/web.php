@@ -83,14 +83,24 @@ Route::group(['middleware' => 'auth:user'], function () {
     Route::resource('admin/candidatures', 'ProjectApplicationController');
     Route::post('/admin/list/candidatures', 'ProjectApplicationController@ajaxList');
 
+    Route::resource('admin/create-enterprise', 'IncorporationController');
+    Route::post('admin/list/enterprise', 'IncorporationController@ajaxList');
+
+    Route::resource('admin/create-step', 'IncorporationStepsController');
+    route::post('/admin/showSteps', 'IncorporationController@showSteps');
+
+    Route::resource('admin/accountants', 'AccountantsController');
+    Route::post('admin/list/accountants', 'AccountantsController@ajaxList');
+
     Route::resource('admin/formation', 'FormationController');
     Route::post('/admin/list/Formation', 'FormationController@ajaxList');
     route::post('/admin/FormationList', 'SessionController@ajaxFormationList');
 
     Route::resource('admin/session', 'SessionController');
-    Route::resource('admin/session/all-calendar', 'SessionController@allcalendar');
+//    Route::resource('admin/session/all-calendar', 'SessionController@allcalendar');
     Route::post('/admin/list/session', 'SessionController@ajaxList');
 
+    Route::resource('admin/funding', 'FundingController');
 
     Route::resource('admin/session-members', 'AdherentSessionController');
     Route::post('/admin/list/adherentsession', 'AdherentSessionController@ajaxList');

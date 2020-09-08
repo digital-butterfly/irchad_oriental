@@ -123,10 +123,19 @@
                             </h3>
                         </div>
                     </div>
-                    <div class="kt-portlet__body" data-scroll="true" data-scrollbar-shown="true">
+                    <div class="kt-portlet__body kt-scroll ps ps--active-y" data-scroll="true" style="height: 200px; overflow: hidden;">
                         <!--begin::Timeline 1-->
                         <div class="kt-list-timeline">
                             <div class="kt-list-timeline__items">
+                                @foreach($histo as $item )
+                                    <div class="kt-list-timeline__item">
+                                        <span class="kt-list-timeline__badge kt-list-timeline__badge--primary"></span>
+                                        <span class="kt-list-timeline__text">{{$item->title}} - <a class="kt-link">{{ $item->updatedBy['first_name'] . ' '. $item->updatedBy['last_name']   }}</a></span>
+                                        <span class="kt-list-timeline__time">{{ $item->created_at->format('d/m/Y H:i') }}</span>
+                                    </div>
+
+
+                                @endforeach
                                 <div class="kt-list-timeline__item">
                                     <span class="kt-list-timeline__badge kt-list-timeline__badge--success"></span>
                                     <span class="kt-list-timeline__text">Candidature créée - <a class="kt-link">{{ $application->creator }}</a></span>
@@ -139,6 +148,7 @@
                                         <span class="kt-list-timeline__time">{{ $application->updated_at->format('d/m/Y H:i') }}</span>
                                     </div>
                                 @endif
+
                                 {{-- <div class="kt-list-timeline__item">
                                     <span class="kt-list-timeline__badge kt-list-timeline__badge--danger"></span>
                                     <span class="kt-list-timeline__text">Scheduled system reboot completed <span class="kt-badge kt-badge--success kt-badge--inline">completed</span></span>
@@ -190,8 +200,8 @@
                                         <div class="kt-wizard-v4__nav-label-title">
                                             Détails du projet
                                         </div>
-                                        <div class="kt-section__content kt-section__content--solid">
-                                            <span class="kt-badge kt-badge--unified-dark kt-badge--lg kt-badge--rounded " id="status-top" style="font-size: 2.0rem !important;" data-placement="bottom" data-toggle="kt-popover" title="Status de Candidatures " data-content="Aucun status" data-original-title="Popover title"><i class="flaticon-list"></i></span>
+                                        <div class="kt-section__content kt-section__content--solid ">
+                                            <span class="kt-badge  kt-badge--unified-dark kt-badge--lg kt-badge--rounded " id="status-top" style="font-size: 2.0rem !important;" data-placement="bottom" data-toggle="kt-popover" title="Status de Candidatures " data-content="Aucun status" data-original-title="Popover title"><i class="flaticon-list"></i></span>
 
                                             <span class="kt-badge kt-badge--unified-dark kt-badge--lg kt-badge--rounded " id="entreprise-top" style="font-size: 2.0rem !important;" data-placement="bottom" data-toggle="kt-popover" title="Création d'entreprise" data-content="Aucun status" data-original-title="Popover title"><i class="flaticon-profile-1"></i></span>
 
@@ -1108,6 +1118,69 @@
 
 @section ('specific_js')
     <script>
+        let tab = JSON.parse(("{{$application->entreprise}}").replace(/&quot;/g,'"'))
+
+        function switchvalue  (){
+            if ($('#is_createdSelect').val()==='Non')
+            {
+                $( "<div id='creatEnt' class=\"col-lg-2\">\n" +
+                    "        <button id='creatEntbtn' class=\"btn btn-success \">"+((tab=== undefined || tab.length == 0) ?'Créer l\'entreprise':'Voir l\'entreprise') + "</button>\n" +
+                    "        <span class=\"form-text text-muted\"></span>\n" +
+                    "    </div>" ).insertAfter( $("#legal_formSelect").closest('.col-lg-6') );
+                document.getElementById('creatEntbtn').onclick = function(e){
+                    e.preventDefault();
+                  if (tab!= undefined && tab.length != 0){
+                      console.log('hello')
+                      console.log(tab.length );
+                      window.location.href ='admin/create-enterprise/'+tab[0].id
+
+                  }
+                  else {
+                      if (!$('#legal_formSelect').val()){
+                          $("#legal_formSelect").closest('.col-lg-6').append("<small><a  class=\"kt-link kt-link--state kt-link--danger\">Merci de renseigner  la Forme juridique</a></small>")
+                      }
+                      else {
+                          $.ajax({
+                              headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content},
+                              method:'POST',
+                              url : 'admin/create-enterprise',
+                              data:{'form_juridique':$('#legal_formSelect').val(),
+                                  'id_projet':{{$application->id}}},
+                              success: function(data) {
+                                  window.location.href ='admin/create-enterprise/'+data.id
+                              }
+                          });
+                      }
+
+                  }
+                };
+            }
+            else {
+                $( "#creatEnt" ).remove();
+            }
+
+   }
+
+
+        $('#is_createdSelect').change(function() {
+            switchvalue()
+        });
+
+
+        // var Status = $(this).val();
+        // $.ajax({
+        //     url: 'Ajax/StatusUpdate.php',
+        //     data: {
+        //         text: $("textarea[name=Status]").val(),
+        //         Status: Status
+        //     },
+        //     dataType : 'json'
+        // });
+
+        // });
+        console.log(document.getElementById('creatEntbtn'))
+
+
         "use strict";
         // Class definition
         var KTDatatableRemoteAjaxDemo = function() {
@@ -1779,6 +1852,11 @@
                 }
             };
         }(); */
+
+
+
+
+
         $('#statusSelect, input[name="status"]').change(updateStatusElements);
 
         function updateStatusElements(e) {
@@ -1983,6 +2061,7 @@
             selectElemts()
             KTTagify.init();
             KTSelect2.init();
+            switchvalue()
             // KTFormRepeater.init();
 
             var id;
