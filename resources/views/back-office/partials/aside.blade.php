@@ -161,6 +161,10 @@
                             <li class="kt-menu__item  kt-menu__item--parent "  aria-haspopup="true"><span
                                     class="kt-menu__link"><span class="kt-menu__link-text">Financement</span></span>
                             </li>
+                            <li class="kt-menu__item {{ (request()->is('admin/create-enterprise'))   ? 'kt-menu__item--active kt-menu__item--open' : '' }} " aria-haspopup="true">
+                                <a href="admin/create-enterprise" class="kt-menu__link "><i
+                                        class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span
+                                        class="kt-menu__link-text"> Liste des enterprise</span></a></li>
 
                         </ul>
                     </div>
@@ -191,7 +195,10 @@
                             <li class="kt-menu__item {{ (request()->is('admin/communes*')) ? 'kt-menu__item--active kt-menu__item--open' : '' }} " aria-haspopup="true"><a href="admin/communes"
                                                                                                                                                                            class="kt-menu__link "><i
                                         class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span
-                                        class="kt-menu__link-text">Communes</span></a></li>
+                                        class="kt-menu__link-text">Communes</span></a></li> <li class="kt-menu__item {{ (request()->is('admin/accountants*')) ? 'kt-menu__item--active kt-menu__item--open' : '' }} " aria-haspopup="true"><a href="admin/accountants"
+                                                                                                                                                                           class="kt-menu__link "><i
+                                        class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span
+                                        class="kt-menu__link-text">Comptables</span></a></li>
                         </ul>
                     </div>
                 </li>

@@ -61,68 +61,6 @@
 @section('specific_js')
 	<script>
 		// Class definition
-		var KTFormRepeater = function() {
 
-			// Private functions
-			var demo1 = function() {
-				var repeater_strengths = $('.kt_repeater_degrees').repeater({
-					initEmpty: false,
-
-					defaultValues: {
-						'text-input': 'foo'
-					},
-
-					show: function () {
-						$(this).slideDown();
-					},
-
-					hide: function (deleteElement) {
-						$(this).slideUp(deleteElement);
-					}
-				});
-
-				var repeater_weaknesses = $('.kt_repeater_professional_experience').repeater({
-					initEmpty: false,
-
-					defaultValues: {
-						'text-input': 'foo'
-					},
-
-					show: function () {
-						$(this).slideDown();
-					},
-
-					hide: function (deleteElement) {
-						$(this).slideUp(deleteElement);
-					}
-				});
-				var repeater_state_help = $('.kt_repeater_state_help').repeater({
-					initEmpty: false,
-
-					defaultValues: {
-						'text-input': 'foo'
-					},
-
-					show: function () {
-						$(this).slideDown();
-					},
-
-					hide: function (deleteElement) {
-						$(this).slideUp(deleteElement);
-					}
-				});
-			}
-
-			return {
-				// public functions
-				init: function() {
-					demo1();
-				}
-			};
-		}();
-
-		jQuery(document).ready(function() {
-			KTFormRepeater.init();
-		});
 	</script>
 @endsection

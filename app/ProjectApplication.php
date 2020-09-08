@@ -13,7 +13,7 @@ class ProjectApplication extends Model
 
     protected $guard = 'user';
 
-    const LEGALFORM=['S.A.R.L','S.A','Coopérative'];
+    const LEGALFORM=['S.A.R.L','S.A.R.L A.U','S.N.C','Coopérative','A.E'];
     const AIDEETAT=['INDH','DPA','Collectivités territoriales', 'Autre'];
 
     /**

@@ -8,14 +8,15 @@
                 {{$title}}
             </h3>
         </div>
-        @if (isset($add_link))
+
         <div class="kt-portlet__head-toolbar">
             <div class="kt-portlet__head-wrapper">
                 <div class="dropdown dropdown-inline">
+                    @if (isset($add_link))
                     <a href="{{$add_link}}" class="btn btn-brand btn-elevate btn-icon-sm">
                         <i class="la la-plus"></i>
                         Ajouter
-                    </a>
+                    </a>@endif
                     <a  class="btn btn-success btn-elevate btn-icon-sm export">
                         <i class="la la-external-link-square"></i>
                         Export
@@ -67,7 +68,9 @@
                                 </div>
                             </div>
                         </div> --}}
-                        @endif
+
+
+
                         @if (isset($types))
                             <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
                                 <div class="kt-form__group kt-form__group--inline">

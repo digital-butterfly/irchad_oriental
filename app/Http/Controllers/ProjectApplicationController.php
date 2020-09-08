@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\AdherentSession;
 use App\Http\Resources\AdherentSessionCollection;
+use App\Incorporation;
+use App\ProjectHistory;
 use App\Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -136,7 +138,8 @@ class ProjectApplicationController extends Controller
      */
     public function create()
     {
-        $fields = ProjectApplication::formFields();
+        $id=0;
+        $fields = ProjectApplication::formFields($id);
         return view('back-office/templates/projects-applications/add', compact("fields"));
     }
 
@@ -227,6 +230,8 @@ class ProjectApplicationController extends Controller
 
         $updator = User::find($application->updated_by);
 
+        $entreprise = json_encode(Incorporation::where('id_projet',$id)->get()->toArray());
+        $application->entreprise=$entreprise;
         $application->member = $member;
 
         $application->category_title = is_object($category) == null ? "" : $category->title;
@@ -236,7 +241,18 @@ class ProjectApplicationController extends Controller
         $application->creator = is_object($creator) == null ? "" : $creator->first_name . ' ' . $creator->last_name;
 
         $updator != NULL ? ($application->updator = $updator->first_name . ' ' . $updator->last_name) : NULL;
+        $history = ProjectHistory::where('id_projet',$id)->orderBy('created_at', 'DESC')->get();
+//        dd($history->toArray());
 
+        $histo = $history->map( function ($item) use($history){
+            $h = User::findOrFail($item->updatedBy);
+            $item->updatedBy=$h->toArray();
+            return
+                $item
+            ;
+
+        });
+//        dd($histo->toArray());
 
         $data = ProjectApplication::find($id);
 
@@ -250,10 +266,9 @@ class ProjectApplicationController extends Controller
         }
 
         $data = (object)$data;
-
         $fields = ProjectApplication::formFields($id);
 //dd($application->toArray());
-        return view('back-office/templates/projects-applications/single', compact('application', 'data', 'fields'));
+        return view('back-office/templates/projects-applications/single', compact('histo','application', 'data', 'fields'));
     }
 
     /**
@@ -404,6 +419,7 @@ class ProjectApplicationController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $application =ProjectApplication::findOrFail($id);
 //        dd($id);
         $validation = $this->validator($request->all(), 'projectApplication');
         if($validation->fails())
@@ -412,7 +428,16 @@ class ProjectApplicationController extends Controller
         }
 //        dd($request->toArray());
 //        dd($id);
-        ProjectApplication::find($id)->update([
+        if ($application->status!==$request['status']){
+             ProjectHistory::create([
+            'title'=>'Candidature '. $request['status'],
+            'id_projet'=>$id,
+            'updatedBy'=>Auth::id()
+
+    ]);
+        }
+
+        $application->update([
             'member_id' => $request['member_id'],
             'category_id' => $request['category_id'],
             'township_id' => $request['township_id'],
