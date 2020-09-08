@@ -3,7 +3,7 @@
 
 
 @section('specific_css')
-    
+
 @endsection
 
 
@@ -30,7 +30,7 @@
         var KTDatatableRemoteAjaxDemo = function() {
 
             // Private functions
-            
+
             // basic demo
             var demo = function() {
 
@@ -56,6 +56,8 @@
                         serverPaging: true,
                         serverFiltering: true,
                         serverSorting: true,
+                        webstorage: false,
+                        saveState:false,
                     },
 
                     // layout definition

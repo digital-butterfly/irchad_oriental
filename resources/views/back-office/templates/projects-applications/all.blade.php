@@ -38,6 +38,7 @@
                     // datasource definition
                     data: {
                         type: 'remote',
+
                         source: {
                             read: {
                                 url: 'admin/list/candidatures',
@@ -56,6 +57,8 @@
                         serverPaging: true,
                         serverFiltering: true,
                         serverSorting: true,
+                        webstorage: false,
+                        saveState:false,
                     },
 
                     // layout definition
