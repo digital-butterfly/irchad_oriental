@@ -7,9 +7,25 @@ use App\Http\Resources\AdherentSessionCollection;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Validator;
 
 class AdherentSessionController extends Controller
 {
+
+    /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param  array  $data
+     * @param  string  $type
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validator(array $data, $type)
+    {
+        return Validator::make($data, [
+            'sort' => ['required', 'string', 'max:255'],
+            'observation' => ['required', 'string', 'max:255'],
+        ]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -47,8 +63,6 @@ class AdherentSessionController extends Controller
     public function ajaxListAdhSess(Request $request)
 
     {
-//            dd($request->toArray());
-//        dump(                        $request->sort['field'] != 'title' ? $request->sort['field'] : 'first_name'
         $query = $request->get('query');
 
         $search_term = isset($query['generalSearch']) ? $query['generalSearch'] : '';
@@ -107,6 +121,7 @@ class AdherentSessionController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validator($request->all(), 'Adherentsession')->validate();
         $adhsession = AdherentSession::findOrFail($id);
 //        dd($adhsee->toArray());
 
