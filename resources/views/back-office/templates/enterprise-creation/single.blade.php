@@ -158,9 +158,9 @@
 
                         <!--begin: Form Actions -->
                         <div class="kt-form__actions">
-                            <button class="btn btn-secondary btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-prev">
-                                Previous
-                            </button>
+{{--                            <button class="btn btn-secondary btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-prev">--}}
+{{--                                Previous--}}
+{{--                            </button>--}}
                             <button type="submit" class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-submit" >
                                 Enregistrer
                             </button>
@@ -306,7 +306,7 @@
 
                                      '                                                </div>\n' +
                                      '                                                <div class="kt-widget2__actions">\n' +
-                                     (item.sorts!=null || item.sorts ==="non-achevé" || item.currentstep  ?  '                                                    <a href="#" class="btn btn-clean btn-sm btn-icon btn-icon-md" data-toggle="dropdown" >\n' +
+                                     (item.currentstep  ?  '                                                    <a href="#" class="btn btn-clean btn-sm btn-icon btn-icon-md" data-toggle="dropdown" >\n' +
                                          '                                                        <i class="flaticon-more-1"></i>\n' +
                                          '                                                    </a>\n' +
                                          '                                                    <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right">\n' +
