@@ -5,6 +5,7 @@ use App\ProjectCategory;
 use App\Township;
 
 use Illuminate\Database\Eloquent\Model;
+use phpDocumentor\Reflection\Types\Collection;
 use phpDocumentor\Reflection\Types\This;
 
 class ProjectApplication extends Model
@@ -113,24 +114,51 @@ class ProjectApplication extends Model
                 'value'=>$user['first_name'].' '. $user['last_name']
             ];
         });
+        $adhprc=ProjectApplication::where('id','=', $input)->get()->map(function($member){
 
-        $membersession = AdherentSession::where('id_projet', $input)->get()->filter(function($member){
-//            dd($member->getParentSession);
-            $user=$member->getAdhname ->only(['id','first_name','last_name']);
-            $sess= $member->getParentSession;
+            $user=$member->getAdhname->only(['id','first_name','last_name']);
 
-    return $sess->sort==='Terminée';
-
-           });
-
-
-       $membersess= $membersession->map(function($member){
-            $user=$member->getAdhname;
             return [
                 'member_id'=>$user['id'],
-                'value'=>$user['first_name'].' '. $user['last_name']
-            ];
-});
+                'value'=>$user['first_name'].' '. $user['last_name'],
+
+            ]; });
+        $allmembers= $projectApplicationMembers;
+
+        if (!empty($allmembers->toArray())) {
+            $allmembers = $allmembers->merge($adhprc);
+        }
+        else{
+            $allmembers =$adhprc;
+        }
+        $membersession = AdherentSession::all();
+
+
+       $membersessdone= $membersession->where('id_projet', $input)->filter(function($member){
+//
+           $user=$member->getAdhname ->only(['id','first_name','last_name']);
+           $sess= $member->getParentSession;
+           return $sess->sort==='Terminée';
+       })->map(function($member){
+            $user=$member->getAdhname;
+                return [
+                    'member_id'=>$user['id'],
+                    'value'=>$user['first_name'].' '. $user['last_name']
+                        ];
+            });
+                    $membernotdone= $membersession->where('id_projet', $input)->filter(function($member){
+                    //
+                        $user=$member->getAdhname ->only(['id','first_name','last_name']);
+                        $sess= $member->getParentSession;
+                        return $sess->sort!='Terminée';
+                    })->map(function($member){
+                        $user=$member->getAdhname;
+                        return [
+                            'member_id'=>$user['id'],
+                            'value'=>$user['first_name'].' '. $user['last_name']
+                        ];
+                    });
+
         $membersessionAll = AdherentSession::where('id_projet', $input)->get()->map(function($members){
 
             $user=$members->getAdhname->only(['id','first_name','last_name']);
@@ -139,19 +167,22 @@ class ProjectApplication extends Model
                 'value'=>$user['first_name'].' '. $user['last_name']
             ];
         });
+        if (!$membernotdone->isEmpty()){
 
-$diff = $projectApplicationMembers->filter(function ($value1, $key) use ($membersess, $membersessionAll){
-//    $exists = false;
-    if ($membersess->isEmpty() && !$membersessionAll->isEmpty()){
-        foreach ($membersessionAll as $value2){
-            $exists=$value1['member_id']===$value2['member_id'];
+            foreach ($membernotdone as $key1=>$notdone){
+                $selected = [];
+                foreach ($allmembers as $key => $value) {
+                    if ($value == $notdone) {
+                        $selected[] = $value;
+                        $allmembers->forget($key);
+                    }
+                }
         }
-        return $exists;
-    }else{
-        return $value1;
-    }
-  })->values();
-
+            $diff =$allmembers->values();
+        }
+        else{
+            $diff =$allmembers->values();
+        }
 
         return [
             [
@@ -425,7 +456,7 @@ $diff = $projectApplicationMembers->filter(function ($value1, $key) use ($member
                 'name' => 'members-tagify',
                 'type' => 'taggify',
                 'id'=>'kt_tagify_2',
-                'label' => 'noms sous Adhérent',
+                'label' => 'list des inscrits',
                 'value'=> $diff
             ],
         ];

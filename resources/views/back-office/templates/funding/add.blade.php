@@ -85,8 +85,34 @@
                         </div>
                     </div>
                     <div class="kt-portlet__body">
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled.
-                    </div>
+                        <div class="kt-grid-nav kt-grid-nav--skin-light">
+                            <div class="kt-grid-nav__row">
+                                <a href="" data-toggle="modal" class="kt-grid-nav__item" data-target="#kt_modal_6">
+
+                                    <span class="kt-grid-nav__title">Eligible INDH</span>
+                                    <span class="kt-grid-nav__desc">Financement INDH</span>
+                                </a>
+
+                            </div>
+                            <div class="kt-grid-nav__row">
+                                <a href="#" class="kt-grid-nav__item">
+                                    <span class="kt-grid-nav__title">Non-Eligible INDH</span>
+                                    <span class="kt-grid-nav__desc">Financement externe</span>
+                                </a>
+
+
+                            </div>   <div class="kt-grid-nav__row">
+                                <a href="#" class="kt-grid-nav__item">
+
+                                    <span class="kt-grid-nav__title"> INDH et Financement externe </span>
+                                    <span class="kt-grid-nav__desc">Financement Mixte</span>
+                                </a>
+
+
+                            </div>
+
+                        </div>
+                                            </div>
                 </div>
                 <!--end::Portlet-->
 
@@ -103,16 +129,58 @@
                         </div>
                     </div>
                     <div class="kt-portlet__body">
+
+                        <div class="kt-widget kt-widget--user-profile-3">
+                            <div class="kt-widget__top">
+                                <div class="kt-widget__content">
+                                    <div class="kt-widget__head">
+                                        <a class="kt-widget__title">
+                                            {{$application->inctitle}}
+                                        </a>
+
+                                    </div>
+                                    <div class="kt-widget__subhead">
+                                        <a href="#"><i class="kt-menu__link-icon flaticon-folder-1"></i>{{$application->title}}</a>
+                                        <a href="#"><i class="flaticon2-new-email"></i>{{$application->category}}</a>
+                                        <a href="#"><i class="flaticon2-placeholder"></i> Al Hoceima - {{$application->township}}</a>
+                                    </div>
+                                    <div class="kt-widget__info">
+                                         <span class="kt-widget__desc">
+                                                <div class="kt-widget__progress" style="display: -webkit-box">
+
+                                            <div class="kt-widget__text">
+                                                <i class="flaticon2-calendar-3"></i> {{$application->adherent}}
+                                            </div>
+                                            @foreach($application->sousadherent as $value)
+
+                                                <div class="kt-widget__text">
+                                                    <i class="flaticon2-calendar-3"></i> {{$value['first_name']}}  {{$value['last_name']}}
+                                                </div>
+
+                                            @endforeach
+                                        </div>
+
+															</span>
+
+
+                                        </div>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
                         <div class="accordion  accordion-toggle-arrow" id="accordionExample4">
                             <div class="card">
-                                <div class="card-header" id="headingOne4">
+                                <div class="card-header kt-bg-light-danger" id="headingOne4">
 
-                                    <div class="card-title collapsed" data-toggle="collapse" data-target="#collapseOne4" aria-expanded="false" aria-controls="collapseOne4">
+                                    <div class="card-title collapsed" data-toggle="collapse" data-target="#collapseOne4" aria-expanded="true" aria-controls="collapseOne4">
                                         Programme d'investissement
                                     </div>
                                 </div>
-                                <div id="collapseOne4" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample4" style="">
-                                    <div class="card-body">
+                                <div id="collapseOne4" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample4" style="">
+                                    <div class="card-body kt-bg-light-danger">
 
 
                                             <div class="kt-invoice__body">
@@ -120,7 +188,7 @@
                                                     <div class="table-responsive">
                                                         <table class="table">
                                                             <thead>
-                                                            <tr>
+                                                            <tr class="table-danger">
                                                                 <th>Désignation:</th>
                                                                 <th>Valeur:</th>
                                                                 <th>Taux:</th>
@@ -128,8 +196,9 @@
                                                             </tr>
                                                             </thead>
                                                             <tbody>
+                                                            @isset($application->financial_data->startup_needs)
                                                             @foreach($application->financial_data->startup_needs as $value=> $key)
-                                                            <tr>
+                                                            <tr class="table-danger">
                                                                 <td> {{$key->label}}</td>
                                                                 <td> {{$key->value}}</td>
                                                                 <td> {{$key->duration}}</td>
@@ -138,11 +207,11 @@
                                                             </tr>
 
                                                             @endforeach
-                                                            <tr>
-                                                                <td class="kt-font-success kt-font-xl kt-font-boldest">Total:</td>
-{{--                                                                <td> {{$total}}</td>--}}
-                                                                <td> {{$key->duration}}</td>
-                                                                <td> {{$key->rate}}</td>
+                                                            @endisset
+                                                            <tr class="table-danger">
+                                                                <td class="kt-font-dark kt-font-xl kt-font-boldest">Total:</td>
+                                                                <td class="kt-font-dark kt-font-xl kt-font-bolder"> {{$application->total}}</td>
+
 
                                                             </tr>
                                                             </tbody>
@@ -163,7 +232,56 @@
                 </div>
                 <!--end::Portlet-->
             </div>
+        <!--begin::Modal-->
+
+        <div class="modal fade" id="kt_modal_6" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-md" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        </button>
+                    </div>
+                    <form class="kt-form" method="POST" action="{{route('funding.store') }}">
+                    <div class="modal-body">
+                        <!--begin::Form-->
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div><br />
+                        @endif
+
+                            <div class="kt-portlet__body">
+                                <div class="kt-section kt-section--first">
+                                    @foreach($fields as $field)
+                                        @php
+                                            $field['config']['hotizontalRows'] = true;
+                                        @endphp
+                                        @include(sprintf('back-office.components.form.fields.%s', $field['type']), $field)
+
+                                    @endforeach
+                                    <input name="project_id" value="{{$application->id}}" hidden>
+                                </div>
+                            </div>
+                            <div>
+                            </div>
+                                           </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                    @csrf
+                    </form>
+                </div>
+            </div>
         </div>
+
+
+        <!--end::Modal-->
     </div>
 @endsection
 

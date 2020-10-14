@@ -99,6 +99,9 @@
                         {
                             field: 'projet',
                             title: 'Projet',
+                        }, {
+                            field: 'title_session',
+                            title: 'Session',
                         },
                         {
                             field: 'sort',

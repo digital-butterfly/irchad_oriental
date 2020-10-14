@@ -10,10 +10,11 @@
 
 
 @section('page_content')
+
     <div class="kt-container  kt-grid__item kt-grid__item--fluid">
-        @component('back-office.components.portlets.table', [])
+        @component('back-office.components.portlets.table')
             @slot('title')
-                Liste des entreprises
+                INDH
             @endslot
         @endcomponent
     </div>
@@ -40,7 +41,7 @@
                         type: 'remote',
                         source: {
                             read: {
-                                url: 'admin/list/enterprise',
+                                url: 'admin/list/indh',
                                 headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content},
                                 map: function(raw) {
                                     // sample data mapping
@@ -89,19 +90,16 @@
                             selector: false,
                             textAlign: 'center',
                         },
+
                         {
                             field: 'title',
                             title: 'Projet',
-                        }, {
-                            field: 'form_juridique',
-                            title: 'Form juridique',
-                        },
-                        {
-                            field: 'stepsleft',
-                            title: 'étapes achevé',
-                            sortable: false,
-                        },
 
+                        },{
+                            field: 'status_indh',
+                            title: 'Status',
+
+                        },
                         {
                             field: 'Actions',
                             title: 'Actions',
@@ -111,7 +109,7 @@
                             autoHide: false,
                             template: function(row) {
                                 return '\
-                                <a href="admin/create-enterprise/' + row.id + '" class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="Edit details">\
+                                <a href="admin/funding-indh/' + row.id + '/edit" class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="Edit details">\
                                     <i class="flaticon2-gear"></i>\
                                 </a>\
                                 <a href="javascript:;" class="btn btn-sm btn-clean btn-icon btn-icon-sm" data-toggle="modal" data-target="#kt_modal_1" title="Delete">\
@@ -121,18 +119,17 @@
                             },
                         }
                     ],
-
                 });
 
-                $('#kt_form_status').on('change', function() {
-                    datatable.search($(this).val().toLowerCase(), 'Status');
-                });
+            $('#kt_form_status').on('change', function() {
+            datatable.search($(this).val().toLowerCase(), 'Status');
+            });
 
-                $('#kt_form_type').on('change', function() {
-                    datatable.search($(this).val().toLowerCase(), 'Type');
-                });
+            $('#kt_form_type').on('change', function() {
+            datatable.search($(this).val().toLowerCase(), 'Type');
+            });
 
-                $('#kt_form_status,#kt_form_type').selectpicker();
+            $('#kt_form_status,#kt_form_type').selectpicker();
 
             };
 
@@ -153,52 +150,27 @@
 
                 id = $(this).closest('tr').find('td[data-field="id"] span').html();
 
-                name = $(this).closest('tr').find('td[data-field="id_projet"] span').html();
+                name = $(this).closest('tr').find('td[data-field="name"] span').html();
 
-                $('#kt_modal_1 .modal-body p span').html('l\'entreprise  de <b>' + name+'</b>');
+                $('#kt_modal_1 .modal-body p span').html('le Comptables <b> ' + name+'</b>');
 
                 $('#kt_modal_1 button.delete').click(function() {
                     $.ajax({
-                        url: 'admin/create-enterprise/' + id,
+                        url: 'admin/accountants/' + id,
                         headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content},
                         type: 'DELETE',
                         success: function(result) {
                             location.reload();
+                        },
+                        error:function (result) {
+                            $('.error-request').show()
+                            $('.error-request').html(result.responseJSON.message)
                         }
                     });
                 });
 
             });
         });
-        // $(function () {
-        //     $('.export').on('click', function () {
-        //         var Status = $("#kt_form_type").children("option:selected"). val();
-        //         let Type='Member'
-        //         console.log(Type)
-        //         $.ajax({
-        //             url: 'admin/exportExcelmembers',
-        //             data: {
-        //                 Status: Status,
-        //                 Type:Type
-        //             },
-        //
-        //             xhrFields: {
-        //                 responseType: 'blob'
-        //             },
-        //             success: function (data,textStatus, request) {
-        //                 let filename = request.getResponseHeader('Content-Disposition').split("filename=")[1]
-        //                 console.log()
-        //                 var a = document.createElement('a');
-        //                 var url = window.URL.createObjectURL(data);
-        //                 a.href = url;
-        //                 a.download = filename.substring(1, filename.length-1);
-        //                 document.body.append(a);
-        //                 a.click();
-        //                 a.remove();
-        //                 window.URL.revokeObjectURL(url);
-        //             }
-        //         });
-        //     });
-        // });
+
     </script>
 @endsection

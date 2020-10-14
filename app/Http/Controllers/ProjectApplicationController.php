@@ -206,6 +206,16 @@ class ProjectApplicationController extends Controller
             'funding' => $request['funding'],
             'created_by' => Auth::id()
         ]);
+        if (json_decode($request['members'])) {
+            foreach (json_decode($request['members']) as $key =>$value)
+            {
+
+                ProjectApplicationMember::updateOrCreate([
+                        'member_id' => $value->member_id,
+                        'project_application_id' => $application->id,]
+                );
+            }
+        }
 
         return redirect()->intended('admin/candidatures');
     }
@@ -301,10 +311,16 @@ class ProjectApplicationController extends Controller
      */
     public function ajaxMembersList(Request $request)
     {
-      $project_owner=ProjectApplication::findOrFail($request['project_id'])->only('member_id');
+            if ($request['project_id']!=null){
+              $project_owner=ProjectApplication::findOrFail($request['project_id'])->only('member_id');
+            }else
+                {
+                $project_owner=null;
+                }
 
-        $member=Member::select(Member::raw("CONCAT(first_name,' ',last_name) as value"),'id AS member_id' )->where(function ($q) use ($request, $project_owner) {
-            $q->where('id','!=',$project_owner['member_id'])->where('first_name', 'LIKE', '%' . $request['tag']  . '%')
+
+        $member=Member::select(Member::raw("CONCAT(first_name,' ',last_name) as value"),'id AS member_id' )->where('id','!=',$request['project_id']!=null? $project_owner['member_id']:null)->where(function ($q) use ($request, $project_owner) {
+            $q->where('first_name', 'LIKE', '%' . $request['tag']  . '%')
                 ->orWhere('last_name', 'LIKE', '%' . $request['tag'] . '%')
                 ->orWhere('id', 'LIKE', '%' . $request['tag'] . '%');
         })->get();
@@ -343,9 +359,6 @@ class ProjectApplicationController extends Controller
         return $sessions->flatten();
 
     }
-
-
-
 
 
     public function ajaxListAdhSess(Request $request)
@@ -388,8 +401,6 @@ class ProjectApplicationController extends Controller
 //        dd($members);
         return $members;
     }
-
-
 
     public function ajaxListProjectMembers(Request $request)
     {

@@ -16,7 +16,9 @@ var KTDatatableRecordSelectionDemo = function() {
             pageSize: 10,
             serverPaging: true,
             serverFiltering: true,
-            serverSorting: true,
+                        serverSorting: true,
+                        webstorage: false,
+                        saveState:false,
         },
 
         // layout definition

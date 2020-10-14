@@ -201,17 +201,18 @@ return $incorporation;
 //
 //            }
 
-        $incorporation= new IncorporationCollection( Incorporation::
+        $incorporation= new IncorporationCollection(Incorporation::join('projects_applications','projects_applications.id','=','incorporations.id_projet')
+            ->join('incorporation_progresses', 'incorporations.id', '=', 'incorporation_progresses.id_incorporation')->selectRaw(' incorporations.* , projects_applications.title')->groupBy('incorporations.id')->
         where(function ($q) use ($search_term) {
-            $q->where('title', 'LIKE', '%' .$search_term  . '%')
-                ->orWhere('id', 'LIKE', '%' . $search_term . '%');
+            $q->where('projects_applications.title', 'LIKE', '%' .$search_term  . '%')
+                ->orWhere('incorporations.id', 'LIKE', '%' . $search_term . '%');
 
         })->
         where(function ($q) use ($role_filter) {
             $role_filter ? $q->whereRaw('LOWER(status) = ?', [$role_filter]) : NULL;
         })->
         orderBy(
-            $request->sort['field'] != 'name' ? $request->sort['field'] : 'member_id',
+            $request->sort['field'] != 'title' ? $request->sort['field'] : 'projects_applications.title',
             $request->sort['sort']
         )->
         paginate(
@@ -225,7 +226,6 @@ return $incorporation;
 //        dd($incorporation);
         foreach ($incorporation as $value){
 
-            $value->id_projet = ProjectApplication::findOrFail($value->id_projet)->title;
             $value->stepsleft =  $progress->where('id_incorporation',$value->id)->where('sort','achevé')->count().'/'.$steps->where('form_jurdique',$value->form_juridique)->count();
                 }
 

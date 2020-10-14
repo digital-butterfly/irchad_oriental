@@ -21,7 +21,9 @@ var KTUserListDatatable = function () {
                 pageSize: 10, // display 20 records per page
                 serverPaging: true,
                 serverFiltering: true,
-                serverSorting: true,
+                        serverSorting: true,
+                        webstorage: false,
+                        saveState:false,
             },
 
             // layout definition

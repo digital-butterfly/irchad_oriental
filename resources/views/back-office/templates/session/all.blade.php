@@ -56,8 +56,6 @@
                         serverPaging: true,
                         serverFiltering: true,
                         serverSorting: true,
-                        webstorage: false,
-                        saveState:false,
                     },
 
                     // layout definition
@@ -174,8 +172,6 @@
                         serverPaging: true,
                         serverFiltering: true,
                         serverSorting: true,
-                        webstorage: false,
-                        saveState:false,
                     },
 
                     // layout definition
@@ -257,15 +253,19 @@
 
             $('.kt-datatable').on('click', '.kt-datatable__body a[title="Delete"]', function() {
 
-                id = $(this).closest('tr').find('td[data-field="id"] span').html();
+                id = $(this).closest('tr').find('td[data-field="id"]').html()
 
-                name = $(this).closest('tr').find('td[data-field="name"] span').html();
 
-                $('#kt_modal_1 .modal-body p span').html('le compte de ' + name);
+
+
+
+                name = $(this).closest('tr').find('td[data-field="title"] span').html();
+
+                $('#kt_modal_1 .modal-body p span').html('' + name);
 
                 $('#kt_modal_1 button.delete').click(function() {
                     $.ajax({
-                        url: 'admin/session/' + id,
+                        url: 'admin/session/' + $(id).data("value"),
                         headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content},
                         type: 'DELETE',
                         success: function(result) {

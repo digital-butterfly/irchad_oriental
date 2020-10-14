@@ -54,7 +54,7 @@ class DashboardController
         where('status', 'Incubé')
             ->groupBy('date')->take(7)
             ->get();
-foreach ($category_id as $category){
+    foreach ($category_id as $category){
 
     $firstArray=array('brand', 'success','blue','green','orange');;
     $key=rand(0,4);

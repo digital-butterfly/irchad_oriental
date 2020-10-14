@@ -69,7 +69,6 @@ class FormationController extends Controller
         return new FormationCollection(Formation::
         where(function ($q) use ($search_term) {
             $q->where('id', 'LIKE', '%' .$search_term  . '%')
-                ->orWhere('id', 'LIKE', '%' . $search_term . '%')
                 ->orWhere('title', 'LIKE', '%' . $search_term . '%');
         })->
         where(function ($q) use ($role_filter) {
@@ -90,6 +89,7 @@ class FormationController extends Controller
 
     public function edit(Formation $formation)
     {
+//        dd($formation);
         $data = $formation;
         $fields = Formation::formFields();
         return view('back-office/templates/Formation/edit', compact('fields', 'data'));

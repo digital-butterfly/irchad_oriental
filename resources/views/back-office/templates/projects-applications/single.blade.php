@@ -8,11 +8,11 @@
         html {
             scroll-behavior: smooth;
         }
-        .tagify__input.form-control {
+        .tagify__input .form-control {
             margin: 0;
             height: 70px;
         }
-        .tagify .tagify__tag {
+        .tagify .tagify__tag , .members-tagify .tagify__tag  {
             margin: 3px;}
         .tagify__tag__removeBtn{
             margin-left: 2px;
@@ -442,7 +442,7 @@
                                                                 <div class="kt-callout__content">
                                                                     <h3 class="kt-callout__title">1. Formation</h3>
                                                                     <p class="kt-callout__desc">
-                                                                        Inscrire le candidat aux formations nécessaires
+                                                                        Inscrire les candidats aux formations nécessaires
                                                                     </p>
                                                                 </div>
                                                                 <div id="kt_form" class="kt-callout__action">
@@ -527,63 +527,63 @@
                                                                         </button>
                                                                         <div class="dropdown-menu" style="">
 
-                                                                            <div class="kt-form__actions" >
+{{--                                                                            <div class="kt-form__actions" >--}}
 
-                                                                                <button value="En attente de financement" class="dropdown-item" id="send-CPDH" name="status" >Envoyé au CPDH</button>
-                                                                            </div>
-                                                                            <div class="kt-form__actions">
-                                                                                <button value="En attente de financement" name="status" id="approuved-CPDH" class="dropdown-item">Accepté par le CPDH</button>
-                                                                            </div>
-                                                                            <div class="kt-form__actions">
-                                                                                <button value="En attente de financement" class="dropdown-item" id="refused_CPDH" name="status" >Refusé par le CPDH</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
+{{--                                                                                <button value="En attente de financement" class="dropdown-item" id="send-CPDH" name="status" >Envoyé au CPDH</button>--}}
+{{--                                                                            </div>--}}
+{{--                                                                            <div class="kt-form__actions">--}}
+{{--                                                                                <button value="En attente de financement" name="status" id="approuved-CPDH" class="dropdown-item">Accepté par le CPDH</button>--}}
+{{--                                                                            </div>--}}
+{{--                                                                            <div class="kt-form__actions">--}}
+{{--                                                                                <button value="En attente de financement" class="dropdown-item" id="refused_CPDH" name="status" >Refusé par le CPDH</button>--}}
+{{--                                                                            </div>--}}
+{{--                                                                        </div>--}}
+{{--                                                                    </div>--}}
 
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+{{--                                                                </div>--}}
+{{--                                                            </div>--}}
+{{--                                                        </div>--}}
+{{--                                                    </div>--}}
+{{--                                                </div>--}}
 
-                                                <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid printable-bp">
-                                                    <div class="kt-portlet kt-callout kt-bg-light-dark">
-                                                        <div class="kt-portlet__body">
-                                                            <div class="kt-callout__body">
-                                                                <div class="kt-callout__content">
-                                                                    <h3 class="kt-callout__title">4. Financement externe </h3>
-                                                                    <p class="kt-callout__desc">
-                                                                        Soumissionner a un organisme de financement externe
-                                                                    </p>
-                                                                </div>
-                                                                <div class="kt-callout__action">
-                                                                    <div class="btn-group">
-                                                                        <button type="button" id="EXFbutton" class="btn btn-brand dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                            <span class="ui-button-text">Soumissionner</span>
-                                                                        </button>
-                                                                        <div class="dropdown-menu" style="">
+{{--                                                <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid printable-bp">--}}
+{{--                                                    <div class="kt-portlet kt-callout kt-bg-light-dark">--}}
+{{--                                                        <div class="kt-portlet__body">--}}
+{{--                                                            <div class="kt-callout__body">--}}
+{{--                                                                <div class="kt-callout__content">--}}
+{{--                                                                    <h3 class="kt-callout__title">4. Financement externe </h3>--}}
+{{--                                                                    <p class="kt-callout__desc">--}}
+{{--                                                                        Soumissionner a un organisme de financement externe--}}
+{{--                                                                    </p>--}}
+{{--                                                                </div>--}}
+{{--                                                                <div class="kt-callout__action">--}}
+{{--                                                                    <div class="btn-group">--}}
+{{--                                                                        <button type="button" id="EXFbutton" class="btn btn-brand dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
+{{--                                                                            <span class="ui-button-text">Soumissionner</span>--}}
+{{--                                                                        </button>--}}
+{{--                                                                        <div class="dropdown-menu" style="">--}}
 
-                                                                            <div class="kt-form__actions" >
+{{--                                                                            <div class="kt-form__actions" >--}}
 
-                                                                                <button value="En attente de financement" class="dropdown-item" id="send-EXF" name="status" >Envoyé au financement</button>
-                                                                            </div>
-                                                                            <div class="kt-form__actions">
-                                                                                <button value="En attente de financement" name="status" id="approuved-EXF" class="dropdown-item">Financement accepté</button>
-                                                                            </div>
-                                                                            <div class="kt-form__actions">
-                                                                                <button value="En attente de financement" class="dropdown-item" id="refused_EXF" name="status" >Financement refusé</button>
-                                                                            </div>
-                                                                            <div class="kt-form__actions">
-                                                                                <button value="En attente de financement" class="dropdown-item" id="funded_EXF" name="status" >Financé</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
+{{--                                                                                <button value="En attente de financement" class="dropdown-item" id="send-EXF" name="status" >Envoyé au financement</button>--}}
+{{--                                                                            </div>--}}
+{{--                                                                            <div class="kt-form__actions">--}}
+{{--                                                                                <button value="En attente de financement" name="status" id="approuved-EXF" class="dropdown-item">Financement accepté</button>--}}
+{{--                                                                            </div>--}}
+{{--                                                                            <div class="kt-form__actions">--}}
+{{--                                                                                <button value="En attente de financement" class="dropdown-item" id="refused_EXF" name="status" >Financement refusé</button>--}}
+{{--                                                                            </div>--}}
+{{--                                                                            <div class="kt-form__actions">--}}
+{{--                                                                                <button value="En attente de financement" class="dropdown-item" id="funded_EXF" name="status" >Financé</button>--}}
+{{--                                                                            </div>--}}
+{{--                                                                        </div>--}}
+{{--                                                                    </div>--}}
 
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+{{--                                                                </div>--}}
+{{--                                                            </div>--}}
+{{--                                                        </div>--}}
+{{--                                                    </div>--}}
+{{--                                                </div>--}}
                                             </div>
                                             <!--end: Form Wizard Step 3-->
 
@@ -1006,7 +1006,7 @@
                                     @endif
 
                                         @foreach($fields as $field)
-                                            @if($field['name']==='id_formation'|| $field['name']==='members-tagify' )
+                                            @if($field['name']==='id_formation'|| $field['name']==='members-tagify'   )
                                                 @php
                                                     $field['config']['hotizontalRows'] = true;
                                                 @endphp
@@ -1997,9 +1997,11 @@
             $('#training_canceled').append('<input type="hidden" name="training"'+ valueAttribute + '>' );
         });
         $("#send-CT").click(function(event){
-            var ButtonText = $(this).text();
-            let valueAttribute = ' value="' + ButtonText + '"';
-            $('#send-CT').append('<input type="hidden" name="progress"'+ valueAttribute + '>' );
+            // event.preventDefault();
+
+            // var ButtonText = $(this).text();
+            // let valueAttribute = ' value="' + ButtonText + '"';
+            // $('#send-CT').append('<input type="hidden" name="progress"'+ valueAttribute + '>' );
         });
         $("#approuved-CT").click(function(event){
             var ButtonText = $(this).text();

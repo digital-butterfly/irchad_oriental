@@ -67,31 +67,35 @@ class SessionController extends Controller
 //        dd($request->toArray());
 
         if ($request['projet']!=null){
- if ($request['session']==='auto'){
-     $session=Session::create([
-         'title'=> 'Session '. Formation::findOrFail($request['id_formation'])->only('title')['title'].' '. ((int) Session::where('id_formation','=',$request['id_formation'])->get()->Count() + 1),
-         'id_formation' => $request['id_formation'],
-         'max_inscrit' =>10,
-         'start_date' => $request['start_date'],
-         'end_date' => $request['end_date'],
-         'sort' => 'En file d\'attente',
-         'observation' => $request['observation'],
+            if ($request['session']==='auto'){
+                 $session=Session::create([
+                    'title'=> 'Session '. Formation::findOrFail($request['id_formation'])->only('title')['title'].' '. ((int) Session::where('id_formation','=',$request['id_formation'])->get()->Count() + 1),
+                    'id_formation' => $request['id_formation'],
+                    'max_inscrit' =>10,
+                    'start_date' => $request['start_date'],
+                    'end_date' => $request['end_date'],
+                    'sort' => 'En file d\'attente',
+                    'observation' => $request['observation'],
 
-     ]);
+              ]);
 
-     if (json_decode($request['members-tagify'])) {
-         foreach (json_decode($request['members-tagify']) as $key =>$value)
-         {
+                  if (json_decode($request['members-tagify'])) {
+                       foreach (json_decode($request['members-tagify']) as $key =>$value) {
 
-         AdherentSession::updateOrCreate([
-                 'id_session'=> $session['id'],
-                 'id_projet' => $request['projet'],
-                 'id_member' => $value->member_id,
-             ]
+                         AdherentSession::updateOrCreate([
+                                 'id_session'=> $session['id'],
+                                 'id_projet' => $request['projet'],
+                                 'id_member' => $value->member_id,
+                                 ]
          );
 
      }
      }
+//                AdherentSession::updateOrCreate([
+//                    'id_session'=> $session['id'],
+//                    'id_projet' => $request['projet'],
+//                    'id_member' => $value->member_id,
+//                ]);
      ProjectHistory::create([
          'title'=>'Candidature en formation de  '. Formation::findOrFail($request['id_formation'])->only('title')['title'],
          'id_projet'=>$request['projet'],
@@ -319,7 +323,7 @@ class SessionController extends Controller
                 'project_id'=>$member->project_application_id
                            ];
         });
-//       dd($users);
+
        $adhprc=ProjectApplication::where('id','=', $request['project_application_id'])->get()->map(function($member){
 //           dd($member);
            $user=$member->getAdhname->only(['id','first_name','last_name']);

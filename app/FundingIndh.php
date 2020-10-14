@@ -4,9 +4,23 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Funding extends Model
+class FundingIndh extends Model
 {
+    protected $casts =[
+        'date_prise_charge' => 'datetime:d-m-Y',
+    ];
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'status_indh',
+        'date_prise_charge',
+        'id_projet'
+
+    ];
 
     /**
      * Custom function.
@@ -14,7 +28,6 @@ class Funding extends Model
      */
     public static function formFields() {
         return [
-
             [
                 'name' => 'status_indh',
                 'type' => 'select',

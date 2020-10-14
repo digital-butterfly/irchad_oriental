@@ -102,6 +102,12 @@ Route::group(['middleware' => 'auth:user'], function () {
 
     Route::resource('admin/funding', 'FundingController');
 
+
+    Route::resource('admin/funding-indh', 'FundingIndhController');
+    Route::post('admin/list/indh', 'FundingIndhController@ajaxListIndh');
+
+
+
     Route::resource('admin/session-members', 'AdherentSessionController');
     Route::post('/admin/list/adherentsession', 'AdherentSessionController@ajaxList');
     Route::post('/admin/list/adherentsess', 'AdherentSessionController@ajaxListAdhSess');
