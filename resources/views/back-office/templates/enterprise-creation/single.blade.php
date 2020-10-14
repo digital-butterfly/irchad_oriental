@@ -78,7 +78,7 @@
                 @endif
 
                     <!--begin: Form Wizard Form-->
-                    <form class="kt-form" id="kt_form"  method="POST" action="{{ route('create-enterprise.update', $data->id) }}">
+                        <form class="kt-form" method="POST" action="{{ route('create-enterprise.update', $data->id) }}">
                     {{ method_field('PUT') }}
 
                         <!--begin: Form Wizard Step 1-->
@@ -161,10 +161,10 @@
                             <button class="btn btn-secondary btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-prev">
                                 Previous
                             </button>
-
-                            <button class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-submit" type="submit">
-                                Submit
+                            <button type="submit" class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-submit" >
+                                Enregistrer
                             </button>
+
                             <button class="btn btn-brand btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-next">
                                 Next Step
                             </button>
@@ -266,7 +266,7 @@
                 wizard = new KTWizard('kt_wizard_v2', {
 
                     startStep:  1, // initial active step number
-                    clickableSteps: true  // allow step clicking
+                    clickableSteps: false  // allow step clicking
                 });
                 let candidatures = "{{$data->candidatures}}"
                 let el =document.getElementById('form_juridiqueSelect').value
@@ -306,7 +306,7 @@
 
                                      '                                                </div>\n' +
                                      '                                                <div class="kt-widget2__actions">\n' +
-                                     (item.sorts!="achevé" ?  '                                                    <a href="#" class="btn btn-clean btn-sm btn-icon btn-icon-md" data-toggle="dropdown" >\n' +
+                                     (item.sorts!=null || item.sorts ==="non-achevé" || item.currentstep  ?  '                                                    <a href="#" class="btn btn-clean btn-sm btn-icon btn-icon-md" data-toggle="dropdown" >\n' +
                                          '                                                        <i class="flaticon-more-1"></i>\n' +
                                          '                                                    </a>\n' +
                                          '                                                    <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right">\n' +

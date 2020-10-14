@@ -37,10 +37,11 @@ class IncorporationController extends Controller
     }
 
     public function showSteps(Request $request){
-
+//dd($request['projet']);
           if ($request['projet']) {
-//             dd($request['projet']['id']);
+
                $inc= Incorporation::where('id_projet',$request['projet']['id'])->get();
+
 
                if ($inc->isEmpty()){
 //                   dd('kk');
