@@ -11,7 +11,7 @@
 
 @section('page_content')
     <div class="kt-container  kt-grid__item kt-grid__item--fluid">
-        @component('back-office.components.portlets.table', [ 'add_link' => 'admin/session-members/create'])
+        @component('back-office.components.portlets.table')
             @slot('title')
                 Liste des Inscrit
             @endslot
