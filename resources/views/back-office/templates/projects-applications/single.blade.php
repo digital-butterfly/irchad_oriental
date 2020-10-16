@@ -288,74 +288,74 @@
 
 
                                                 <div class="kt-portlet__body">
-{{--                                                    <div class="kt-portlet kt-callout kt-callout--dark">--}}
-{{--                                                        <div class="kt-portlet__body">--}}
-{{--                                                            <div class=".form-group row" style="margin-bottom: 20px">--}}
-{{--                                                                <div class="col-12">--}}
-{{--                                                                    <label class="col-form-label kt-margin-r-20">Status:</label>--}}
-{{--                                                                    <label--}}
-{{--                                                                        class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input--}}
-{{--                                                                            type="radio" value="Nouveau"--}}
-{{--                                                                            name="status">--}}
-{{--                                                                        Nouveau<span></span></label><label--}}
-{{--                                                                        class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input--}}
-{{--                                                                            type="radio" value="Rejeté"--}}
-{{--                                                                            name="status">--}}
-{{--                                                                        Rejeté<span></span></label><label--}}
-{{--                                                                        class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input--}}
-{{--                                                                            type="radio" value="Accepté"--}}
-{{--                                                                            name="status">--}}
-{{--                                                                        Accepté<span></span></label><label--}}
-{{--                                                                        class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input--}}
-{{--                                                                            type="radio" value="En cours"--}}
-{{--                                                                            name="status"> En--}}
-{{--                                                                        cours<span></span></label>--}}
-{{--                                                                    <label--}}
-{{--                                                                        class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input--}}
-{{--                                                                            type="radio"--}}
-{{--                                                                            value="En attente de formation"--}}
-{{--                                                                            name="status">Formation<span></span></label><label--}}
-{{--                                                                        class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input--}}
-{{--                                                                            type="radio"--}}
-{{--                                                                            value="En attente de financement"--}}
-{{--                                                                            name="status">Financement<span></span></label>--}}
+                                                    {{--                                                    <div class="kt-portlet kt-callout kt-callout--dark">--}}
+                                                    {{--                                                        <div class="kt-portlet__body">--}}
+                                                    {{--                                                            <div class=".form-group row" style="margin-bottom: 20px">--}}
+                                                    {{--                                                                <div class="col-12">--}}
+                                                    {{--                                                                    <label class="col-form-label kt-margin-r-20">Status:</label>--}}
+                                                    {{--                                                                    <label--}}
+                                                    {{--                                                                        class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input--}}
+                                                    {{--                                                                            type="radio" value="Nouveau"--}}
+                                                    {{--                                                                            name="status">--}}
+                                                    {{--                                                                        Nouveau<span></span></label><label--}}
+                                                    {{--                                                                        class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input--}}
+                                                    {{--                                                                            type="radio" value="Rejeté"--}}
+                                                    {{--                                                                            name="status">--}}
+                                                    {{--                                                                        Rejeté<span></span></label><label--}}
+                                                    {{--                                                                        class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input--}}
+                                                    {{--                                                                            type="radio" value="Accepté"--}}
+                                                    {{--                                                                            name="status">--}}
+                                                    {{--                                                                        Accepté<span></span></label><label--}}
+                                                    {{--                                                                        class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input--}}
+                                                    {{--                                                                            type="radio" value="En cours"--}}
+                                                    {{--                                                                            name="status"> En--}}
+                                                    {{--                                                                        cours<span></span></label>--}}
+                                                    {{--                                                                    <label--}}
+                                                    {{--                                                                        class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input--}}
+                                                    {{--                                                                            type="radio"--}}
+                                                    {{--                                                                            value="En attente de formation"--}}
+                                                    {{--                                                                            name="status">Formation<span></span></label><label--}}
+                                                    {{--                                                                        class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input--}}
+                                                    {{--                                                                            type="radio"--}}
+                                                    {{--                                                                            value="En attente de financement"--}}
+                                                    {{--                                                                            name="status">Financement<span></span></label>--}}
 
-{{--                                                                    <label--}}
-{{--                                                                        class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input--}}
-{{--                                                                            type="radio"--}}
-{{--                                                                            value="Business plan achevé"--}}
-{{--                                                                            name="status"> BP achevé--}}
-{{--                                                                        <span></span></label><label--}}
-{{--                                                                        class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input--}}
-{{--                                                                            type="radio" value="Incubé"--}}
-{{--                                                                            name="status">--}}
-{{--                                                                        Incubé<span></span></label>--}}
-{{--                                                                </div>--}}
+                                                    {{--                                                                    <label--}}
+                                                    {{--                                                                        class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input--}}
+                                                    {{--                                                                            type="radio"--}}
+                                                    {{--                                                                            value="Business plan achevé"--}}
+                                                    {{--                                                                            name="status"> BP achevé--}}
+                                                    {{--                                                                        <span></span></label><label--}}
+                                                    {{--                                                                        class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input--}}
+                                                    {{--                                                                            type="radio" value="Incubé"--}}
+                                                    {{--                                                                            name="status">--}}
+                                                    {{--                                                                        Incubé<span></span></label>--}}
+                                                    {{--                                                                </div>--}}
 
-{{--                                                                <div class="col-12">--}}
-{{--                                                                    <label class="col-form-label kt-margin-r-20">Creation:</label>--}}
+                                                    {{--                                                                <div class="col-12">--}}
+                                                    {{--                                                                    <label class="col-form-label kt-margin-r-20">Creation:</label>--}}
 
-{{--                                                                    <label class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input--}}
-{{--                                                                            type="radio"--}}
-{{--                                                                            value="Entreprise en cours de création"--}}
-{{--                                                                            name="incorporation"> Entreprise en--}}
-{{--                                                                        cours de création<span></span></label>--}}
+                                                    {{--                                                                    <label class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input--}}
+                                                    {{--                                                                            type="radio"--}}
+                                                    {{--                                                                            value="Entreprise en cours de création"--}}
+                                                    {{--                                                                            name="incorporation"> Entreprise en--}}
+                                                    {{--                                                                        cours de création<span></span></label>--}}
 
 
-{{--                                                                    <label--}}
-{{--                                                                        class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input--}}
-{{--                                                                            type="radio" value="Entreprise créee"--}}
-{{--                                                                            name="incorporation"> Entreprise--}}
-{{--                                                                        créee<span></span></label>--}}
+                                                    {{--                                                                    <label--}}
+                                                    {{--                                                                        class="kt-radio kt-radio--bold kt-radio--brand kt-margin-r-20"><input--}}
+                                                    {{--                                                                            type="radio" value="Entreprise créee"--}}
+                                                    {{--                                                                            name="incorporation"> Entreprise--}}
+                                                    {{--                                                                        créee<span></span></label>--}}
 
-{{--                                                                </div>--}}
+                                                    {{--                                                                </div>--}}
 
-{{--                                                            </div>--}}
-{{--                                                            <div class="kt-form__actions" style="display: contents;">--}}
-{{--                                                                <button type="submit" class="btn btn-primary kt-align-center">Enregistrer les modifications</button>--}}
-{{--                                                            </div>--}}
-{{--                                                        </div>--}}
-{{--                                                    </div>--}}
+                                                    {{--                                                            </div>--}}
+                                                    {{--                                                            <div class="kt-form__actions" style="display: contents;">--}}
+                                                    {{--                                                                <button type="submit" class="btn btn-primary kt-align-center">Enregistrer les modifications</button>--}}
+                                                    {{--                                                            </div>--}}
+                                                    {{--                                                        </div>--}}
+                                                    {{--                                                    </div>--}}
 
                                                     <div class="kt-section kt-section--first">
 
@@ -480,9 +480,9 @@
                                                         <div class="kt-portlet__body">
                                                             <div class="kt-callout__body">
                                                                 <div class="kt-callout__content">
-                                                                    <h3 class="kt-callout__title">2. Comité technique</h3>
+                                                                    <h3 class="kt-callout__title">2. Financement </h3>
                                                                     <p class="kt-callout__desc">
-                                                                        Soumissionner le projet au commité téchnique
+                                                                        Soumissionner le projet au Financement
                                                                     </p>
                                                                 </div>
                                                                 <div class="kt-callout__action">
@@ -494,14 +494,15 @@
 
                                                                             <div class="kt-form__actions" >
 
-                                                                                <button value="En attente de financement" class="dropdown-item" id="send-CT" name="status" >Envoyé au Comité Technique</button>
+                                                                                <a  href="admin/funding/create?id={{$data->id}}" class="dropdown-item" id="send-CT" >Envoyé au Financement</a>
+
                                                                             </div>
-                                                                            <div class="kt-form__actions">
-                                                                                <button value="En attente de financement" name="status" id="approuved-CT" class="dropdown-item">Accepté par le Comité Technique</button>
-                                                                            </div>
-                                                                            <div class="kt-form__actions">
-                                                                                <button value="En attente de financement" class="dropdown-item" id="refused_CT" name="status" >Refusé par le Comité Technique</button>
-                                                                            </div>
+                                                                            {{--                                                                            <div class="kt-form__actions">--}}
+                                                                            {{--                                                                                <button value="En attente de financement" name="status" id="approuved-CT" class="dropdown-item">Accepté par le Comité Technique</button>--}}
+                                                                            {{--                                                                            </div>--}}
+                                                                            {{--                                                                            <div class="kt-form__actions">--}}
+                                                                            {{--                                                                                <button value="En attente de financement" class="dropdown-item" id="refused_CT" name="status" >Refusé par le Comité Technique</button>--}}
+                                                                            {{--                                                                            </div>--}}
                                                                         </div>
                                                                     </div>
 
@@ -510,80 +511,80 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid printable-bp">
-                                                    <div class="kt-portlet kt-callout kt-callout--brand">
-                                                        <div class="kt-portlet__body">
-                                                            <div class="kt-callout__body">
-                                                                <div class="kt-callout__content">
-                                                                    <h3 class="kt-callout__title">3. CPDH</h3>
-                                                                    <p class="kt-callout__desc">
-                                                                        Soumissionner le projet au CPDH
-                                                                    </p>
-                                                                </div>
-                                                                <div class="kt-callout__action">
-                                                                    <div class="btn-group">
-                                                                        <button type="button" id="CPDHbutton" class="btn btn-brand dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                            <span class="ui-button-text">Soumissionner</span>
-                                                                        </button>
-                                                                        <div class="dropdown-menu" style="">
+                                                {{--                                                <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid printable-bp">--}}
+                                                {{--                                                    <div class="kt-portlet kt-callout kt-callout--brand">--}}
+                                                {{--                                                        <div class="kt-portlet__body">--}}
+                                                {{--                                                            <div class="kt-callout__body">--}}
+                                                {{--                                                                <div class="kt-callout__content">--}}
+                                                {{--                                                                    <h3 class="kt-callout__title">3. CPDH</h3>--}}
+                                                {{--                                                                    <p class="kt-callout__desc">--}}
+                                                {{--                                                                        Soumissionner le projet au CPDH--}}
+                                                {{--                                                                    </p>--}}
+                                                {{--                                                                </div>--}}
+                                                {{--                                                                <div class="kt-callout__action">--}}
+                                                {{--                                                                    <div class="btn-group">--}}
+                                                {{--                                                                        <button type="button" id="CPDHbutton" class="btn btn-brand dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
+                                                {{--                                                                            <span class="ui-button-text">Soumissionner</span>--}}
+                                                {{--                                                                        </button>--}}
+                                                {{--                                                                        <div class="dropdown-menu" style="">--}}
 
-{{--                                                                            <div class="kt-form__actions" >--}}
+                                                {{--                                                                            <div class="kt-form__actions" >--}}
 
-{{--                                                                                <button value="En attente de financement" class="dropdown-item" id="send-CPDH" name="status" >Envoyé au CPDH</button>--}}
-{{--                                                                            </div>--}}
-{{--                                                                            <div class="kt-form__actions">--}}
-{{--                                                                                <button value="En attente de financement" name="status" id="approuved-CPDH" class="dropdown-item">Accepté par le CPDH</button>--}}
-{{--                                                                            </div>--}}
-{{--                                                                            <div class="kt-form__actions">--}}
-{{--                                                                                <button value="En attente de financement" class="dropdown-item" id="refused_CPDH" name="status" >Refusé par le CPDH</button>--}}
-{{--                                                                            </div>--}}
-{{--                                                                        </div>--}}
-{{--                                                                    </div>--}}
+                                                {{--                                                                                <button value="En attente de financement" class="dropdown-item" id="send-CPDH" name="status" >Envoyé au CPDH</button>--}}
+                                                {{--                                                                            </div>--}}
+                                                {{--                                                                            <div class="kt-form__actions">--}}
+                                                {{--                                                                                <button value="En attente de financement" name="status" id="approuved-CPDH" class="dropdown-item">Accepté par le CPDH</button>--}}
+                                                {{--                                                                            </div>--}}
+                                                {{--                                                                            <div class="kt-form__actions">--}}
+                                                {{--                                                                                <button value="En attente de financement" class="dropdown-item" id="refused_CPDH" name="status" >Refusé par le CPDH</button>--}}
+                                                {{--                                                                            </div>--}}
+                                                {{--                                                                        </div>--}}
+                                                {{--                                                                    </div>--}}
 
-{{--                                                                </div>--}}
-{{--                                                            </div>--}}
-{{--                                                        </div>--}}
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
+                                                {{--                                                                </div>--}}
+                                                {{--                                                            </div>--}}
+                                                {{--                                                        </div>--}}
+                                                {{--                                                    </div>--}}
+                                                {{--                                                </div>--}}
 
-{{--                                                <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid printable-bp">--}}
-{{--                                                    <div class="kt-portlet kt-callout kt-bg-light-dark">--}}
-{{--                                                        <div class="kt-portlet__body">--}}
-{{--                                                            <div class="kt-callout__body">--}}
-{{--                                                                <div class="kt-callout__content">--}}
-{{--                                                                    <h3 class="kt-callout__title">4. Financement externe </h3>--}}
-{{--                                                                    <p class="kt-callout__desc">--}}
-{{--                                                                        Soumissionner a un organisme de financement externe--}}
-{{--                                                                    </p>--}}
-{{--                                                                </div>--}}
-{{--                                                                <div class="kt-callout__action">--}}
-{{--                                                                    <div class="btn-group">--}}
-{{--                                                                        <button type="button" id="EXFbutton" class="btn btn-brand dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
-{{--                                                                            <span class="ui-button-text">Soumissionner</span>--}}
-{{--                                                                        </button>--}}
-{{--                                                                        <div class="dropdown-menu" style="">--}}
+                                                {{--                                                <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid printable-bp">--}}
+                                                {{--                                                    <div class="kt-portlet kt-callout kt-bg-light-dark">--}}
+                                                {{--                                                        <div class="kt-portlet__body">--}}
+                                                {{--                                                            <div class="kt-callout__body">--}}
+                                                {{--                                                                <div class="kt-callout__content">--}}
+                                                {{--                                                                    <h3 class="kt-callout__title">4. Financement externe </h3>--}}
+                                                {{--                                                                    <p class="kt-callout__desc">--}}
+                                                {{--                                                                        Soumissionner a un organisme de financement externe--}}
+                                                {{--                                                                    </p>--}}
+                                                {{--                                                                </div>--}}
+                                                {{--                                                                <div class="kt-callout__action">--}}
+                                                {{--                                                                    <div class="btn-group">--}}
+                                                {{--                                                                        <button type="button" id="EXFbutton" class="btn btn-brand dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
+                                                {{--                                                                            <span class="ui-button-text">Soumissionner</span>--}}
+                                                {{--                                                                        </button>--}}
+                                                {{--                                                                        <div class="dropdown-menu" style="">--}}
 
-{{--                                                                            <div class="kt-form__actions" >--}}
+                                                {{--                                                                            <div class="kt-form__actions" >--}}
 
-{{--                                                                                <button value="En attente de financement" class="dropdown-item" id="send-EXF" name="status" >Envoyé au financement</button>--}}
-{{--                                                                            </div>--}}
-{{--                                                                            <div class="kt-form__actions">--}}
-{{--                                                                                <button value="En attente de financement" name="status" id="approuved-EXF" class="dropdown-item">Financement accepté</button>--}}
-{{--                                                                            </div>--}}
-{{--                                                                            <div class="kt-form__actions">--}}
-{{--                                                                                <button value="En attente de financement" class="dropdown-item" id="refused_EXF" name="status" >Financement refusé</button>--}}
-{{--                                                                            </div>--}}
-{{--                                                                            <div class="kt-form__actions">--}}
-{{--                                                                                <button value="En attente de financement" class="dropdown-item" id="funded_EXF" name="status" >Financé</button>--}}
-{{--                                                                            </div>--}}
-{{--                                                                        </div>--}}
-{{--                                                                    </div>--}}
+                                                {{--                                                                                <button value="En attente de financement" class="dropdown-item" id="send-EXF" name="status" >Envoyé au financement</button>--}}
+                                                {{--                                                                            </div>--}}
+                                                {{--                                                                            <div class="kt-form__actions">--}}
+                                                {{--                                                                                <button value="En attente de financement" name="status" id="approuved-EXF" class="dropdown-item">Financement accepté</button>--}}
+                                                {{--                                                                            </div>--}}
+                                                {{--                                                                            <div class="kt-form__actions">--}}
+                                                {{--                                                                                <button value="En attente de financement" class="dropdown-item" id="refused_EXF" name="status" >Financement refusé</button>--}}
+                                                {{--                                                                            </div>--}}
+                                                {{--                                                                            <div class="kt-form__actions">--}}
+                                                {{--                                                                                <button value="En attente de financement" class="dropdown-item" id="funded_EXF" name="status" >Financé</button>--}}
+                                                {{--                                                                            </div>--}}
+                                                {{--                                                                        </div>--}}
+                                                {{--                                                                    </div>--}}
 
-{{--                                                                </div>--}}
-{{--                                                            </div>--}}
-{{--                                                        </div>--}}
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
+                                                {{--                                                                </div>--}}
+                                                {{--                                                            </div>--}}
+                                                {{--                                                        </div>--}}
+                                                {{--                                                    </div>--}}
+                                                {{--                                                </div>--}}
                                             </div>
                                             <!--end: Form Wizard Step 3-->
 
@@ -1005,29 +1006,29 @@
                                         </div><br />
                                     @endif
 
-                                        @foreach($fields as $field)
-                                            @if($field['name']==='id_formation'|| $field['name']==='members-tagify'   )
-                                                @php
-                                                    $field['config']['hotizontalRows'] = true;
-                                                @endphp
-                                                @include(sprintf('back-office.components.form.fields.%s', $field['type']), $field)
-                                            @endif
-                                        @endforeach
+                                    @foreach($fields as $field)
+                                        @if($field['name']==='id_formation'|| $field['name']==='members-tagify'   )
+                                            @php
+                                                $field['config']['hotizontalRows'] = true;
+                                            @endphp
+                                            @include(sprintf('back-office.components.form.fields.%s', $field['type']), $field)
+                                        @endif
+                                    @endforeach
 
 
-                                        <div class="form-group">
-                                            <label>Session:</label>
-                                            <div id="session_check"  class="row" style="display: none;">
-                                                <div class="col-lg-12"  >
+                                    <div class="form-group">
+                                        <label>Session:</label>
+                                        <div id="session_check"  class="row" style="display: none;">
+                                            <div class="col-lg-12"  >
 
-                                                    <label class="kt-option kt-option kt-option">
+                                                <label class="kt-option kt-option kt-option">
 																<span class="kt-option__control">
 																	<span class="kt-radio kt-radio--success">
 																		<input type="radio" name="session" value="auto" checked>
 																		<span></span>
 																	</span>
 																</span>
-                                                        <span class="kt-option__label">
+                                                    <span class="kt-option__label">
 																	<span class="kt-option__head">
 																		<span class="kt-option__title">
 																			Nouvelles
@@ -1036,12 +1037,12 @@
 																	<span class="kt-option__body">
                                                                 Generer une nouvelle session de formation pour les adherents du projet                                                                    </span>
 																</span>
-                                                    </label>
-                                                </div>
+                                                </label>
                                             </div>
                                         </div>
-                                            <input name="projet" type="hidden" id="projet" value={{$application->id}} />
-                                        @csrf
+                                    </div>
+                                    <input name="projet" type="hidden" id="projet" value={{$application->id}} />
+                                    @csrf
 
                                 </div>
 
@@ -1067,37 +1068,37 @@
 
 
 
-  <div class="modal fade" id="list-members" role="dialog" aria-labelledby="" aria-hidden="true">
+        <div class="modal fade" id="list-members" role="dialog" aria-labelledby="" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-{{--                        <h5 class="modal-title" id="">Envoyer  Formation</h5>--}}
+                        {{--                        <h5 class="modal-title" id="">Envoyer  Formation</h5>--}}
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true" class="la la-remove"></span>
                         </button>
                     </div>
 
-                        <div class="kt-portlet__body">
-                            <div class="kt-section kt-section--first">
-                                <div class="modal-body">
-                                    <div class="  kt-grid__item kt-grid__item--fluid">
-                                        @component('back-office.components.portlets.table')
-                                            @slot('title')
-                                                Liste des Inscrit
-                                            @endslot
-                                        @endcomponent
-                                    </div>
-
+                    <div class="kt-portlet__body">
+                        <div class="kt-section kt-section--first">
+                            <div class="modal-body">
+                                <div class="  kt-grid__item kt-grid__item--fluid">
+                                    @component('back-office.components.portlets.table')
+                                        @slot('title')
+                                            Liste des Inscrit
+                                        @endslot
+                                    @endcomponent
                                 </div>
 
-{{--                                <div class="modal-footer">--}}
-
-{{--                                    <div class="kt-form__actions">--}}
-{{--                                        <button type="submit" class="btn btn-primary">Appliquer</button>--}}
-{{--                                        <button type="button" class="btn btn-brand" data-dismiss="modal">Close</button>                            </div>--}}
-{{--                                </div>--}}
                             </div>
+
+                            {{--                                <div class="modal-footer">--}}
+
+                            {{--                                    <div class="kt-form__actions">--}}
+                            {{--                                        <button type="submit" class="btn btn-primary">Appliquer</button>--}}
+                            {{--                                        <button type="button" class="btn btn-brand" data-dismiss="modal">Close</button>                            </div>--}}
+                            {{--                                </div>--}}
                         </div>
+                    </div>
 
 
 
@@ -1129,37 +1130,37 @@
                     "    </div>" ).insertAfter( $("#legal_formSelect").closest('.col-lg-6') );
                 document.getElementById('creatEntbtn').onclick = function(e){
                     e.preventDefault();
-                  if (tab!= undefined && tab.length != 0){
-                      console.log('hello')
-                      console.log(tab.length );
-                      window.location.href ='admin/create-enterprise/'+tab[0].id
+                    if (tab!= undefined && tab.length != 0){
+                        console.log('hello')
+                        console.log(tab.length );
+                        window.location.href ='admin/create-enterprise/'+tab[0].id
 
-                  }
-                  else {
-                      if (!$('#legal_formSelect').val()){
-                          $("#legal_formSelect").closest('.col-lg-6').append("<small><a  class=\"kt-link kt-link--state kt-link--danger\">Merci de renseigner  la Forme juridique</a></small>")
-                      }
-                      else {
-                          $.ajax({
-                              headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content},
-                              method:'POST',
-                              url : 'admin/create-enterprise',
-                              data:{'form_juridique':$('#legal_formSelect').val(),
-                                  'id_projet':{{$application->id}}},
-                              success: function(data) {
-                                  window.location.href ='admin/create-enterprise/'+data.id
-                              }
-                          });
-                      }
+                    }
+                    else {
+                        if (!$('#legal_formSelect').val()){
+                            $("#legal_formSelect").closest('.col-lg-6').append("<small><a  class=\"kt-link kt-link--state kt-link--danger\">Merci de renseigner  la Forme juridique</a></small>")
+                        }
+                        else {
+                            $.ajax({
+                                headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content},
+                                method:'POST',
+                                url : 'admin/create-enterprise',
+                                data:{'form_juridique':$('#legal_formSelect').val(),
+                                    'id_projet':{{$application->id}}},
+                                success: function(data) {
+                                    window.location.href ='admin/create-enterprise/'+data.id
+                                }
+                            });
+                        }
 
-                  }
+                    }
                 };
             }
             else {
                 $( "#creatEnt" ).remove();
             }
 
-   }
+        }
 
 
         $('#is_createdSelect').change(function() {
@@ -1197,7 +1198,7 @@
                         source: {
                             read: {
                                 {{--url: 'admin/list/projectadherentsess?id_projet='+{{$data--}}
-                                {{--->id}},--}}
+                                    {{--->id}},--}}
                                 url: 'admin/list/projectAppMembers?id_projet='+{{$data
                                 ->id}},
                                 headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content},
@@ -1383,7 +1384,7 @@
                             },
 
                         },
-                                               {
+                        {
                             field: 'sort',
                             title: 'Sort',
                         },{
@@ -1482,45 +1483,45 @@
                         url : 'admin/sessionFormation', // La ressource ciblée
                         method:'POST',
                         data:{'formation_id':$("#id_formationSelect").val(),
-                        'project_id':{{$application->id}}},
+                            'project_id':{{$application->id}}},
                         success: function(result) {
                             console.log(result)
 
                             let box =[]
                             console.log(result)
-                                $.each(result, function(index, value) {
-                                    console.log(value.title)
-                                   box=[
+                            $.each(result, function(index, value) {
+                                console.log(value.title)
+                                box=[
 
-                                       "<div class=\"col-lg-6 apaned_session\"><label class=\"kt-option kt-option kt-option\ apaned_session\" >",
-                                      " <span class=\"kt-option__control\">",
-                                        "<span class=\"kt-radio kt-radio--brand\">",
-                                       " <input type=\"radio\" name=\"session\" value="+value.id+">",
+                                    "<div class=\"col-lg-6 apaned_session\"><label class=\"kt-option kt-option kt-option\ apaned_session\" >",
+                                    " <span class=\"kt-option__control\">",
+                                    "<span class=\"kt-radio kt-radio--brand\">",
+                                    " <input type=\"radio\" name=\"session\" value="+value.id+">",
                                     "<span></span>",
-                                   " </span>",
+                                    " </span>",
                                     "</span>",
                                     "<span class=\"kt-option__label\">",
-                                        "<span class=\"kt-option__head\">",
-                                        "<span class=\"kt-option__title\">",
-                                        value.title,
-                                        "</span>",
-                                        "</span>",
-                                        "<span class=\"kt-option__body\">",
-                                        "Date Debut:",
-                                       value.start_date,
-                                       "Total Inscrit :",
-                                       value.total+"/"+value.max_inscrit ,
-                                        "</span>",
-                                        "</span>",
-                                       " </label>",
-                                        "</div>",
-                                        "</div>"
+                                    "<span class=\"kt-option__head\">",
+                                    "<span class=\"kt-option__title\">",
+                                    value.title,
+                                    "</span>",
+                                    "</span>",
+                                    "<span class=\"kt-option__body\">",
+                                    "Date Debut:",
+                                    value.start_date,
+                                    "Total Inscrit :",
+                                    value.total+"/"+value.max_inscrit ,
+                                    "</span>",
+                                    "</span>",
+                                    " </label>",
+                                    "</div>",
+                                    "</div>"
 
 
 
-                                   ].join("\n")
-                                    $("#session_check").append(box)
-                                });
+                                ].join("\n")
+                                $("#session_check").append(box)
+                            });
 
 
                         }

@@ -29,6 +29,7 @@ class MemberController extends Controller
             'phone' => ['required', 'string', 'max:255'],
             'identity_number' => ['required', 'string', 'max:255'],
             'password' => ['required', 'string', 'min:4', 'confirmed'],
+            'status' => ['required', 'string', 'max:255'],
         ]);
     }
 

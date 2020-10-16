@@ -50,7 +50,7 @@ $factory->define(ProjectApplication::class, function (Faker $faker) {
         ])),
         'company' => json_decode(json_encode([
             'legal_form' => $faker->randomElement($array = array ('Association','Coopérative','SARL')),
-            'is_created' => '',
+            'is_created' => $faker->randomElement($array = array ('Oui','Non')),
             'capital' => $faker->optional()->numberBetween($min = 50000, $max = 10000000),
             'creation_date' => $faker->optional()->date($format = 'Y-m-d'),
             'corporate_name' => $faker->optional()->company,

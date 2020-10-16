@@ -319,7 +319,7 @@ class ProjectApplicationController extends Controller
                 }
 
 
-        $member=Member::select(Member::raw("CONCAT(first_name,' ',last_name) as value"),'id AS member_id' )->where('id','!=',$request['project_id']!=null? $project_owner['member_id']:null)->where(function ($q) use ($request, $project_owner) {
+        $member=Member::select(Member::raw("CONCAT(first_name,' ',last_name) as value"),'id AS member_id' )->where('status','=','Validé')->where('id','!=',$request['project_id']!=null? $project_owner['member_id']:null)->where(function ($q) use ($request, $project_owner) {
             $q->where('first_name', 'LIKE', '%' . $request['tag']  . '%')
                 ->orWhere('last_name', 'LIKE', '%' . $request['tag'] . '%')
                 ->orWhere('id', 'LIKE', '%' . $request['tag'] . '%');
