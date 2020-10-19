@@ -92,7 +92,7 @@ class FormationController extends Controller
 //        dd($formation);
         $data = $formation;
         $fields = Formation::formFields();
-        return view('back-office/templates/Formation/edit', compact('fields', 'data'));
+        return view('back-office/templates/formation/edit', compact('fields', 'data'));
     }
 
     /**

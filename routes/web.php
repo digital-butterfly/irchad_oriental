@@ -139,6 +139,6 @@ Route::group(['middleware' => 'auth:user'], function () {
     Route::get('/admin/exportExcelmembers','MemberController@exportExcel')->name('exportExcel');
 
 
-Route::group(['middleware' => 'auth:member'], function () {
+    Route::group(['middleware' => 'auth:member'], function () {
     Route::view('/member', 'member-office/home');
 });
