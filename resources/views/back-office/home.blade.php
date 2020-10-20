@@ -374,7 +374,7 @@
                                                                                                                 ?>
                                                                                                             @endforeach
                                                                                                             <span  class="kt-widget14__bullet kt-bg-{{$type}} "></span>
-                                                         <span class="kt-widget14__stats">{{$b}}% {{$key}} </span>
+                                                         <span class="kt-widget14__stats">{{round($b,2)}}% {{$key}} </span>
                                                     </div>
                                                 @endforeach
 
