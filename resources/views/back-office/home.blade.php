@@ -370,6 +370,7 @@
 
                                                                                                                 $b+=$a['total'];
                                                                                                                 $type=$a['Type'];
+
 //
                                                                                                                 ?>
                                                                                                             @endforeach
@@ -784,7 +785,6 @@ var KTDashboard = function() {
                         <?php
 
                         $b+=$a['total'];
-                        $type=$a['Type'];
                         //
                         ?>
                         @endforeach
@@ -802,9 +802,12 @@ var KTDashboard = function() {
 
                         $b+=$a['total'];
                         $type=$a['Type'];
+
                         //
                         ?>
+            {{--console.log('helloolol','{{$type}}')--}}
                         @endforeach
+
                         KTApp.getStateColor('{{$type}}'),
                         @endforeach
 
