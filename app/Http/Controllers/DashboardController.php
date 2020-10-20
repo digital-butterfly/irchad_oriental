@@ -54,22 +54,23 @@ class DashboardController
         where('status', 'Incubé')
             ->groupBy('date')->take(7)
             ->get();
+        $arrywithper=collect();
     foreach ($category_id as $category){
-
     $firstArray=array('brand', 'success','blue','green','orange');;
     $key=rand(0,4);
-//    $key=shuffle($key);
-//    dd($key);
-    $arrywithper=ProjectCategory::where('id', $category->category_id)->firstOrFail()->getParent->toArray();
-//    array_push($arrywithper,);
-    $arrywithper['total']= ($category->total*100/$countProjet);
-    $arrywithper['Type']= ($firstArray[$key]);
+//  $key=shuffle($key);
+//  dd($key);
+$obj=ProjectCategory::where('id', $category->category_id)->firstOrFail()->getParent;
+$obj['total']=($category->total*100/$countProjet);
+    $arrywithper->push($obj);
 
-//    dd($arrywithper);
-    array_push($Sectors,$arrywithper);
+
+        $obj['Type']= ($firstArray[$key]);
+
 
 }
-//        dd($Sectors);
+        $Sectors=$arrywithper->groupBy('title')->toArray();
+
 foreach ($townships as $township){
     $firstArray=array('brand', 'success','blue','green','orange');;
     $key=rand(0,4);
@@ -78,8 +79,6 @@ foreach ($townships as $township){
     $arrytwer['Type']= ($firstArray[$key]);
     array_push($townshiparray, $arrytwer);
 
-
-//    dd($townshiparray);
 }
 //todo refactor this
 

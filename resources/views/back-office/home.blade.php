@@ -358,11 +358,23 @@
 											</div>
 											<div id="kt-bg" class="kt-widget14__legends">
 
-                                                @foreach($Sectors as $Sector => $value)
+                                                @foreach($Sectors as $key => $value)
                                                                                                         <div class="kt-widget14__legend">
+{{--{{$value}}--}}
 
-                                                         <span  class="kt-widget14__bullet kt-bg-{{$value['Type']}} "></span>
-                                                         <span class="kt-widget14__stats">{{round($value['total'])}}% {{$value['title']}} </span>
+
+                                                                                                            <?php
+                                                                                                            $b=0;?>
+                                                                                                            @foreach($value as $a)
+                                                                                                                <?php
+
+                                                                                                                $b+=$a['total'];
+                                                                                                                $type=$a['Type'];
+//
+                                                                                                                ?>
+                                                                                                            @endforeach
+                                                                                                            <span  class="kt-widget14__bullet kt-bg-{{$type}} "></span>
+                                                         <span class="kt-widget14__stats">{{$b}}% {{$key}} </span>
                                                     </div>
                                                 @endforeach
 
@@ -766,13 +778,34 @@ var KTDashboard = function() {
                 datasets: [{
                     data: [
                         @foreach($Sectors as $Sector => $value)
-                        {{round($value['total'],2)}},
+                        <?php
+                        $b=0;?>
+                        @foreach($value as $a)
+                        <?php
+
+                        $b+=$a['total'];
+                        $type=$a['Type'];
+                        //
+                        ?>
+                        @endforeach
+
+                        {{round($b,2)}},
                         @endforeach
                     ],
                     backgroundColor: [
 
                         @foreach($Sectors as $Sector=> $value)
-                        KTApp.getStateColor('{{$value['Type']}}'),
+                        <?php
+                        $b=0;?>
+                        @foreach($value as $a)
+                        <?php
+
+                        $b+=$a['total'];
+                        $type=$a['Type'];
+                        //
+                        ?>
+                        @endforeach
+                        KTApp.getStateColor('{{$type}}'),
                         @endforeach
 
 
@@ -783,7 +816,7 @@ var KTDashboard = function() {
 
                 labels: [
                     @foreach($Sectors as $Sector => $type)
-                        '{{$type['title']}}',
+                        '{{$Sector}}',
                     @endforeach
                     ]
 
