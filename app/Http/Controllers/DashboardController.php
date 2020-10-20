@@ -56,21 +56,26 @@ class DashboardController
             ->get();
         $arrywithper=collect();
     foreach ($category_id as $category){
-    $firstArray=array('brand', 'success','blue','green','orange');;
-    $key=rand(0,4);
+    $firstArray=array('brand', 'success','blue','green','orange');
 //  $key=shuffle($key);
 //  dd($key);
 $obj=ProjectCategory::where('id', $category->category_id)->firstOrFail()->getParent;
 $obj['total']=($category->total*100/$countProjet);
     $arrywithper->push($obj);
+//dd($firstArray);
+        for ($i=0; $i<sizeof($arrywithper);$i++){
+//            dump($firstArray[$i]);
+            $obj['Type']= ($firstArray[$i]);
+            if ($i===sizeof($firstArray)){
+                $i=0;
+            }
+        }
 
-
-        $obj['Type']= ($firstArray[$key]);
 
 
 }
         $Sectors=$arrywithper->groupBy('title')->toArray();
-
+//dd($Sectors);
 foreach ($townships as $township){
     $firstArray=array('brand', 'success','blue','green','orange');;
     $key=rand(0,4);
