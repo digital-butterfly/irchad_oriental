@@ -294,17 +294,17 @@
                                         <h5><small class="text-muted">Renseignez vos diplômes</small></h5>
 
                                         <div class="row source-field">
-                                            <div class="col-lg-5">
+                                            <div class="col-lg-3">
                                                 <div class="form-group">
-                                                    <input name="degrees[0][label]" id="diplome_type" type="text"
-                                                           class="form-control" placeholder="Désignation...">
+                                                    <input name="degrees[0][diplome_type]" id="diplome_type" type="text"
+                                                           class="form-control" placeholder="Type de diplôme...">
                                                 </div>
                                             </div>
 
-                                            <div class="col-lg-5">
+                                            <div class="col-lg-3">
                                                 <div class="form-group">
-                                                    <input name="degrees[0][value]" id="annee" type="text"
-                                                           class="form-control" placeholder="Valeur...">
+                                                    <input name="degrees[0][annee]" id="annee" type="text"
+                                                           class="form-control" placeholder="Année d'obtention...">
                                                 </div>
                                             </div>
 
@@ -320,13 +320,13 @@
                                                  </div>
                                              </div>--}}
 
-{{--                                            <div class="col-lg-4">--}}
-{{--                                                <div class="form-group">--}}
-{{--                                                    <input name="degrees[0][etablissement]" id="etablissement"--}}
-{{--                                                           type="text" class="form-control"--}}
-{{--                                                           placeholder="Établissement...">--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <input name="degrees[0][etablissement]" id="etablissement"
+                                                           type="text" class="form-control"
+                                                           placeholder="Établissement...">
+                                                </div>
+                                            </div>
 
                                             <div class="col-lg-2">
                                                 <div class="form-group">
@@ -347,40 +347,40 @@
                                                 professionnelles</small></h5>
 
                                         <div class="row source-field">
-                                            <div class="col-lg-5">
+                                            <div class="col-lg-2">
                                                 <div class="form-group">
-                                                    <input name="professional_experience[0][label]" id="du" type="text"
-                                                           class="form-control" placeholder="Désignation...">
+                                                    <input name="professional_experience[0][du]" id="du" type="text"
+                                                           class="form-control" placeholder="Du...">
                                                 </div>
                                             </div>
 
-                                            <div class="col-lg-5">
+                                            <div class="col-lg-2">
                                                 <div class="form-group">
-                                                    <input name="professional_experience[0][value]" id="au" type="text"
-                                                           class="form-control" placeholder="Valeur...">
+                                                    <input name="professional_experience[0][au]" id="au" type="text"
+                                                           class="form-control" placeholder="Au...">
                                                 </div>
                                             </div>
 
-{{--                                            <div class="col-lg-2">--}}
-{{--                                                <div class="form-group">--}}
-{{--                                                    <input name="professional_experience[0][poste]" id="poste"--}}
-{{--                                                           type="text" class="form-control" placeholder="Poste...">--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
+                                            <div class="col-lg-2">
+                                                <div class="form-group">
+                                                    <input name="professional_experience[0][poste]" id="poste"
+                                                           type="text" class="form-control" placeholder="Poste...">
+                                                </div>
+                                            </div>
 
-{{--                                            <div class="col-lg-2">--}}
-{{--                                                <div class="form-group">--}}
-{{--                                                    <input name="professional_experience[0][organisme]" id="organisme"--}}
-{{--                                                           type="text" class="form-control" placeholder="Organisme...">--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
+                                            <div class="col-lg-2">
+                                                <div class="form-group">
+                                                    <input name="professional_experience[0][organisme]" id="organisme"
+                                                           type="text" class="form-control" placeholder="Organisme...">
+                                                </div>
+                                            </div>
 
-{{--                                            <div class="col-lg-2">--}}
-{{--                                                <div class="form-group">--}}
-{{--                                                    <input name="professional_experience[0][mission]" id="mission"--}}
-{{--                                                           type="text" class="form-control" placeholder="Mission...">--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
+                                            <div class="col-lg-2">
+                                                <div class="form-group">
+                                                    <input name="professional_experience[0][mission]" id="mission"
+                                                           type="text" class="form-control" placeholder="Mission...">
+                                                </div>
+                                            </div>
 
                                             <div class="col-lg-2">
                                                 <div class="form-group">

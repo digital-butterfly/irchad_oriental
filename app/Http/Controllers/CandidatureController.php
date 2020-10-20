@@ -140,7 +140,6 @@ class CandidatureController extends Controller
         $gender = $request['civility'] == 0 ? 'Homme' : 'Femme';
 
         //inserstion Of member
-//        dd($request->toArray());
         $member = Member::create([
             'first_name' => strtolower($request['first_name']),
             'last_name' => strtolower($request['last_name']),
@@ -150,8 +149,8 @@ class CandidatureController extends Controller
             'birth_date' => $request['birth_date'],
             'address' => $request['address'],
             'township_id' => $request['township_id'],
-            'degrees' => json_decode(json_encode($request['degrees'])),
-            'professional_experience' => json_decode(json_encode($request['professional_experience'])),
+            'degrees' => json_decode(json_encode($degrees)),
+            'professional_experience' => json_decode(json_encode($expericances)),
             'state_help' => json_decode(json_encode($statehelp)),
             'reduced_mobility' => $request['reduced_mobility'],
         ]);

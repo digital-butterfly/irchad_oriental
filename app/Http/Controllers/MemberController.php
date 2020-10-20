@@ -99,7 +99,6 @@ class MemberController extends Controller
      */
     public function store(Request $request)
     {
-//        dd($request->toArray());
         $this->validator($request->all(), 'member')->validate();
         $member = Member::create([
             'first_name' => strtolower($request['first_name']),
@@ -153,7 +152,6 @@ class MemberController extends Controller
      */
     public function update(Request $request, Member $member)
     {
-//        dd($request->toArray());
         $member->update([
             'first_name' => strtolower($request['first_name']),
             'last_name' => strtolower($request['last_name']),
