@@ -62,11 +62,11 @@ class DashboardController
 $obj=ProjectCategory::where('id', $category->category_id)->firstOrFail()->getParent;
 $obj['total']=($category->total*100/$countProjet);
     $arrywithper->push($obj);
-//dd($firstArray);
-        for ($i=0; $i<sizeof($arrywithper)-1;$i++){
+$raw = sizeof($arrywithper);
+        for ($i=0; $i<$raw-1;$i++){
 //            dump($firstArray[$i]);
             $obj['Type']= ($firstArray[$i]);
-            if ($i===sizeof($firstArray)-1){
+            if ($i===$raw-1){
                 $i=0;
             }
         }
