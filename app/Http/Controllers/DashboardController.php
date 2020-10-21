@@ -55,41 +55,33 @@ class DashboardController
             ->groupBy('date')->take(7)
             ->get();
         $arrywithper=collect();
-    foreach ($category_id as $category){
-    $firstArray=array('brand', 'success','blue','green','orange');
+        foreach ($category_id as $category){
+            $firstArray=array('brand', 'success','blue','green','orange');;
+            $key=rand(0,4);
 //  $key=shuffle($key);
 //  dd($key);
-$obj=ProjectCategory::where('id', $category->category_id)->firstOrFail()->getParent;
-$obj['total']=($category->total*100/$countProjet);
-    $arrywithper->push($obj);
-$raw = (sizeof($arrywithper)-1);
-dd($arrywithper);
-        for ($i=0; $i<$raw;$i++){
-            if ($i===$raw){
-                $i=0;
-            }
-//            dump($firstArray[$i]);
-            $obj['Type']= ($firstArray[$i]);
+            $obj=ProjectCategory::where('id', $category->category_id)->firstOrFail()->getParent;
+            $obj['total']=($category->total*100/$countProjet);
+            $arrywithper->push($obj);
+
+
+            $obj['Type']= ($firstArray[$key]);
+
 
         }
-
-
-
-}
         $Sectors=$arrywithper->groupBy('title')->toArray();
-//dd($Sectors);
-foreach ($townships as $township){
-    $firstArray=array('brand', 'success','blue','green','orange');;
-    $key=rand(0,4);
-    $arrytwer=Township::select('title')->where('id','=',$township->township_id)->firstOrFail()->toArray();
-    $arrytwer['total']=($township->total*100/$countProjet);
-    $arrytwer['Type']= ($firstArray[$key]);
-    array_push($townshiparray, $arrytwer);
 
-}
+        foreach ($townships as $township){
+            $firstArray=array('brand', 'success','blue','green','orange');;
+            $key=rand(0,4);
+            $arrytwer=Township::select('title')->where('id','=',$township->township_id)->firstOrFail()->toArray();
+            $arrytwer['total']=($township->total*100/$countProjet);
+            $arrytwer['Type']= ($firstArray[$key]);
+            array_push($townshiparray, $arrytwer);
+
+        }
 //todo refactor this
 
         return view('back-office/home', compact( 'Accepted','AcceptedMonth','byweekAccepted','Incube','IncubeMonth','byweekIncube','Rejected','RejectedMonth','byweekRejected','countNew','New','byweek','NewMonth','countApprouved', 'countIncube','countRejected','countPending','countProjet','category_id','Sectors','created_date','townshiparray','townships', 'incubationdate' ));
     }
-
 }
