@@ -63,7 +63,7 @@ $obj=ProjectCategory::where('id', $category->category_id)->firstOrFail()->getPar
 $obj['total']=($category->total*100/$countProjet);
     $arrywithper->push($obj);
 $raw = (sizeof($arrywithper)-1);
-dd($raw);
+dd($arrywithper);
         for ($i=0; $i<$raw;$i++){
             if ($i===$raw){
                 $i=0;
