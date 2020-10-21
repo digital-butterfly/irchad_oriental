@@ -63,10 +63,10 @@ $obj=ProjectCategory::where('id', $category->category_id)->firstOrFail()->getPar
 $obj['total']=($category->total*100/$countProjet);
     $arrywithper->push($obj);
 //dd($firstArray);
-        for ($i=0; $i<sizeof($arrywithper);$i++){
+        for ($i=0; $i<sizeof($arrywithper)-1;$i++){
 //            dump($firstArray[$i]);
             $obj['Type']= ($firstArray[$i]);
-            if ($i===sizeof($firstArray)){
+            if ($i===sizeof($firstArray)-1){
                 $i=0;
             }
         }
