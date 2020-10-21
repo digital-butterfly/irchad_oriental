@@ -64,11 +64,12 @@ $obj['total']=($category->total*100/$countProjet);
     $arrywithper->push($obj);
 $raw = sizeof($arrywithper);
         for ($i=0; $i<$raw-1;$i++){
-//            dump($firstArray[$i]);
-            $obj['Type']= ($firstArray[$i]);
             if ($i===$raw-1){
                 $i=0;
             }
+//            dump($firstArray[$i]);
+            $obj['Type']= ($firstArray[$i]);
+
         }
 
 
