@@ -480,9 +480,9 @@
                                                         <div class="kt-portlet__body">
                                                             <div class="kt-callout__body">
                                                                 <div class="kt-callout__content">
-                                                                    <h3 class="kt-callout__title">2. Comité technique</h3>
+                                                                    <h3 class="kt-callout__title">2. Financement </h3>
                                                                     <p class="kt-callout__desc">
-                                                                        Soumissionner le projet au commité téchnique
+                                                                        Soumissionner le projet au Financement
                                                                     </p>
                                                                 </div>
                                                                 <div class="kt-callout__action">
@@ -494,14 +494,15 @@
 
                                                                             <div class="kt-form__actions" >
 
-                                                                                <button value="En attente de financement" class="dropdown-item" id="send-CT" name="status" >Envoyé au Comité Technique</button>
+                                                                                <a  href="admin/funding/create?id={{$data->id}}" class="dropdown-item" id="send-CT" >Envoyé au Financement</a>
+
                                                                             </div>
-                                                                            <div class="kt-form__actions">
-                                                                                <button value="En attente de financement" name="status" id="approuved-CT" class="dropdown-item">Accepté par le Comité Technique</button>
-                                                                            </div>
-                                                                            <div class="kt-form__actions">
-                                                                                <button value="En attente de financement" class="dropdown-item" id="refused_CT" name="status" >Refusé par le Comité Technique</button>
-                                                                            </div>
+                                                                            {{--                                                                            <div class="kt-form__actions">--}}
+                                                                            {{--                                                                                <button value="En attente de financement" name="status" id="approuved-CT" class="dropdown-item">Accepté par le Comité Technique</button>--}}
+                                                                            {{--                                                                            </div>--}}
+                                                                            {{--                                                                            <div class="kt-form__actions">--}}
+                                                                            {{--                                                                                <button value="En attente de financement" class="dropdown-item" id="refused_CT" name="status" >Refusé par le Comité Technique</button>--}}
+                                                                            {{--                                                                            </div>--}}
                                                                         </div>
                                                                     </div>
 
@@ -510,80 +511,80 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid printable-bp">
-                                                    <div class="kt-portlet kt-callout kt-callout--brand">
-                                                        <div class="kt-portlet__body">
-                                                            <div class="kt-callout__body">
-                                                                <div class="kt-callout__content">
-                                                                    <h3 class="kt-callout__title">3. CPDH</h3>
-                                                                    <p class="kt-callout__desc">
-                                                                        Soumissionner le projet au CPDH
-                                                                    </p>
-                                                                </div>
-                                                                <div class="kt-callout__action">
-                                                                    <div class="btn-group">
-                                                                        <button type="button" id="CPDHbutton" class="btn btn-brand dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                            <span class="ui-button-text">Soumissionner</span>
-                                                                        </button>
-                                                                        <div class="dropdown-menu" style="">
+                                                {{--                                                <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid printable-bp">--}}
+                                                {{--                                                    <div class="kt-portlet kt-callout kt-callout--brand">--}}
+                                                {{--                                                        <div class="kt-portlet__body">--}}
+                                                {{--                                                            <div class="kt-callout__body">--}}
+                                                {{--                                                                <div class="kt-callout__content">--}}
+                                                {{--                                                                    <h3 class="kt-callout__title">3. CPDH</h3>--}}
+                                                {{--                                                                    <p class="kt-callout__desc">--}}
+                                                {{--                                                                        Soumissionner le projet au CPDH--}}
+                                                {{--                                                                    </p>--}}
+                                                {{--                                                                </div>--}}
+                                                {{--                                                                <div class="kt-callout__action">--}}
+                                                {{--                                                                    <div class="btn-group">--}}
+                                                {{--                                                                        <button type="button" id="CPDHbutton" class="btn btn-brand dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
+                                                {{--                                                                            <span class="ui-button-text">Soumissionner</span>--}}
+                                                {{--                                                                        </button>--}}
+                                                {{--                                                                        <div class="dropdown-menu" style="">--}}
 
-                                                                            <div class="kt-form__actions" >
+                                                {{--                                                                            <div class="kt-form__actions" >--}}
 
-                                                                                <button value="En attente de financement" class="dropdown-item" id="send-CPDH" name="status" >Envoyé au CPDH</button>
-                                                                            </div>
-                                                                            <div class="kt-form__actions">
-                                                                                <button value="En attente de financement" name="status" id="approuved-CPDH" class="dropdown-item">Accepté par le CPDH</button>
-                                                                            </div>
-                                                                            <div class="kt-form__actions">
-                                                                                <button value="En attente de financement" class="dropdown-item" id="refused_CPDH" name="status" >Refusé par le CPDH</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
+                                                {{--                                                                                <button value="En attente de financement" class="dropdown-item" id="send-CPDH" name="status" >Envoyé au CPDH</button>--}}
+                                                {{--                                                                            </div>--}}
+                                                {{--                                                                            <div class="kt-form__actions">--}}
+                                                {{--                                                                                <button value="En attente de financement" name="status" id="approuved-CPDH" class="dropdown-item">Accepté par le CPDH</button>--}}
+                                                {{--                                                                            </div>--}}
+                                                {{--                                                                            <div class="kt-form__actions">--}}
+                                                {{--                                                                                <button value="En attente de financement" class="dropdown-item" id="refused_CPDH" name="status" >Refusé par le CPDH</button>--}}
+                                                {{--                                                                            </div>--}}
+                                                {{--                                                                        </div>--}}
+                                                {{--                                                                    </div>--}}
 
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                {{--                                                                </div>--}}
+                                                {{--                                                            </div>--}}
+                                                {{--                                                        </div>--}}
+                                                {{--                                                    </div>--}}
+                                                {{--                                                </div>--}}
 
-                                                <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid printable-bp">
-                                                    <div class="kt-portlet kt-callout kt-bg-light-dark">
-                                                        <div class="kt-portlet__body">
-                                                            <div class="kt-callout__body">
-                                                                <div class="kt-callout__content">
-                                                                    <h3 class="kt-callout__title">4. Financement externe </h3>
-                                                                    <p class="kt-callout__desc">
-                                                                        Soumissionner a un organisme de financement externe
-                                                                    </p>
-                                                                </div>
-                                                                <div class="kt-callout__action">
-                                                                    <div class="btn-group">
-                                                                        <button type="button" id="EXFbutton" class="btn btn-brand dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                            <span class="ui-button-text">Soumissionner</span>
-                                                                        </button>
-                                                                        <div class="dropdown-menu" style="">
+                                                {{--                                                <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid printable-bp">--}}
+                                                {{--                                                    <div class="kt-portlet kt-callout kt-bg-light-dark">--}}
+                                                {{--                                                        <div class="kt-portlet__body">--}}
+                                                {{--                                                            <div class="kt-callout__body">--}}
+                                                {{--                                                                <div class="kt-callout__content">--}}
+                                                {{--                                                                    <h3 class="kt-callout__title">4. Financement externe </h3>--}}
+                                                {{--                                                                    <p class="kt-callout__desc">--}}
+                                                {{--                                                                        Soumissionner a un organisme de financement externe--}}
+                                                {{--                                                                    </p>--}}
+                                                {{--                                                                </div>--}}
+                                                {{--                                                                <div class="kt-callout__action">--}}
+                                                {{--                                                                    <div class="btn-group">--}}
+                                                {{--                                                                        <button type="button" id="EXFbutton" class="btn btn-brand dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
+                                                {{--                                                                            <span class="ui-button-text">Soumissionner</span>--}}
+                                                {{--                                                                        </button>--}}
+                                                {{--                                                                        <div class="dropdown-menu" style="">--}}
 
-                                                                            <div class="kt-form__actions" >
+                                                {{--                                                                            <div class="kt-form__actions" >--}}
 
-                                                                                <button value="En attente de financement" class="dropdown-item" id="send-EXF" name="status" >Envoyé au financement</button>
-                                                                            </div>
-                                                                            <div class="kt-form__actions">
-                                                                                <button value="En attente de financement" name="status" id="approuved-EXF" class="dropdown-item">Financement accepté</button>
-                                                                            </div>
-                                                                            <div class="kt-form__actions">
-                                                                                <button value="En attente de financement" class="dropdown-item" id="refused_EXF" name="status" >Financement refusé</button>
-                                                                            </div>
-                                                                            <div class="kt-form__actions">
-                                                                                <button value="En attente de financement" class="dropdown-item" id="funded_EXF" name="status" >Financé</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
+                                                {{--                                                                                <button value="En attente de financement" class="dropdown-item" id="send-EXF" name="status" >Envoyé au financement</button>--}}
+                                                {{--                                                                            </div>--}}
+                                                {{--                                                                            <div class="kt-form__actions">--}}
+                                                {{--                                                                                <button value="En attente de financement" name="status" id="approuved-EXF" class="dropdown-item">Financement accepté</button>--}}
+                                                {{--                                                                            </div>--}}
+                                                {{--                                                                            <div class="kt-form__actions">--}}
+                                                {{--                                                                                <button value="En attente de financement" class="dropdown-item" id="refused_EXF" name="status" >Financement refusé</button>--}}
+                                                {{--                                                                            </div>--}}
+                                                {{--                                                                            <div class="kt-form__actions">--}}
+                                                {{--                                                                                <button value="En attente de financement" class="dropdown-item" id="funded_EXF" name="status" >Financé</button>--}}
+                                                {{--                                                                            </div>--}}
+                                                {{--                                                                        </div>--}}
+                                                {{--                                                                    </div>--}}
 
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                {{--                                                                </div>--}}
+                                                {{--                                                            </div>--}}
+                                                {{--                                                        </div>--}}
+                                                {{--                                                    </div>--}}
+                                                {{--                                                </div>--}}
                                             </div>
                                             <!--end: Form Wizard Step 3-->
 
