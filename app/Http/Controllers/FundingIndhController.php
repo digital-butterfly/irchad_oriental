@@ -46,7 +46,7 @@ class FundingIndhController extends Controller
 
 
         ]);
-        dd($fundingIndh);
+//        dd($fundingIndh);
 //        return redirect()->intended('admin/accountants');
     }
 

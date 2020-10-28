@@ -66,9 +66,11 @@ class FundingController extends Controller
 
           };
           $application->total=$total; }
+        $funding=FundingIndh::where('id_projet',$request['id']);
+        $application->funding= $funding->get();
+        $application->found=  $funding->exists();
 
-
-
+//      dd($application);
 
 
 //        dd(($application->financial_data));
@@ -88,12 +90,35 @@ class FundingController extends Controller
             'status_indh'=>$request['status_indh'],
             'date_prise_charge'=>$request['date_prise_charge'],
             'id_projet'=>$request['project_id']
-
-
+        ]);
+        if ($request['status_indh']==='Prêt pour envoi au CT'){
+//            dd($fundingIndh->id);
+            FundingIndh::find($fundingIndh->id)  ->update([
+                'ready_cpdh'=>1,
+            ]);
+            dd($fundingIndh);
+        }
+//        dd($fundingIndh);
+//        return redirect()->intended('admin/accountants');
+    }
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param FundingIndh $fundingIndh
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request)
+    {
+//        dd($request->toArray());
+        $fundingIndh= FundingIndh::where("id_projet",$request['project_id'])->get();
+        $fundingIndh[0]->update([
+            'status_indh'=>$request['status_indh'],
+            'date_prise_charge'=>$request['date_prise_charge'],
+            'id_projet'=>$request['project_id']
 
         ]);
-        dd($fundingIndh);
-//        return redirect()->intended('admin/accountants');
+        return redirect()->intended('admin/funding-indh/');
     }
 
 

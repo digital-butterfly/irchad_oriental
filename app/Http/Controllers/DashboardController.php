@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 
 use App\ProjectApplication;
 use App\ProjectCategory;
+use App\ProjectHistory;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Township;
@@ -44,6 +45,8 @@ class DashboardController
         $countProjet =  ProjectApplication::count();
         $category_id=ProjectApplication::select('category_id',ProjectApplication::raw('count(*) as total'))->groupBy('category_id')->get();
         $townships=ProjectApplication::select('township_id',ProjectApplication::raw('count(*) as total'))->groupBy('township_id')->get();
+        $firstinteraction=ProjectHistory::latest('created_at', 'desc')->first();
+
         $Sectors=[];
         $townshiparray=[];
         $created_date=ProjectApplication::selectRaw("COUNT(*) datecount, DATE_FORMAT(created_at, ' %m-%e-%Y') date")->

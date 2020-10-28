@@ -18,7 +18,8 @@ class FundingIndh extends Model
     protected $fillable = [
         'status_indh',
         'date_prise_charge',
-        'id_projet'
+        'id_projet',
+        'ready_cpdh'
 
     ];
 

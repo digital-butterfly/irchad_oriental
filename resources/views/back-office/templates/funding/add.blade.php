@@ -86,7 +86,7 @@
                     </div>
                     <div class="kt-portlet__body">
                         <div class="kt-grid-nav kt-grid-nav--skin-light">
-                            <div class="kt-grid-nav__row">
+                            <div class="kt-grid-nav__row {{$application->found ? 'kt-bg-light-success':''}}">
                                 <a href="" data-toggle="modal" class="kt-grid-nav__item" data-target="#kt_modal_6">
 
                                     <span class="kt-grid-nav__title">Eligible INDH</span>
@@ -242,7 +242,46 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         </button>
                     </div>
-                    <form class="kt-form" method="POST" action="{{route('funding.store') }}">
+                    @if($application->found)
+                        <form class="kt-form" method="POST" action="{{ route('funding.update', $application->id) }}">
+                            {{ method_field('PUT') }}
+                            <div class="modal-body">
+                                <!--begin::Form-->
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div><br />
+                                @endif
+
+                                <div class="kt-portlet__body">
+                                    <div class="kt-section kt-section--first">
+                                        @foreach($fields as $field)
+                                            @php
+                                                $field['config']['hotizontalRows'] = true;
+                                            @endphp
+                                            @include(sprintf('back-office.components.form.fields.%s', $field['type']), $field)
+
+                                        @endforeach
+                                        <input name="project_id" value="{{$application->id}}" hidden>
+                                    </div>
+                                </div>
+                                <div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save changes</button>
+                            </div>
+                            @csrf
+                        </form>
+
+                    @else
+
+                        <form class="kt-form" method="POST" action="{{route('funding.store') }}">
                     <div class="modal-body">
                         <!--begin::Form-->
                         @if ($errors->any())
@@ -276,6 +315,7 @@
                     </div>
                     @csrf
                     </form>
+                    @endif
                 </div>
             </div>
         </div>
@@ -288,5 +328,17 @@
 
 
 @section ('specific_js')
+    @if($application->found)
+    <script>
+        $('.kt-grid-nav__item').click(function(){
+            $('#status_indhSelect').val('{{$application->funding[0]['status_indh']}}');
+            const str = '{{$application->funding[0]['date_prise_charge']}}';
+            const words = str.split(' ');
+            $('#date_prise_charge').val(words[0]);
 
+            console.log('{{$application->funding[0]['date_prise_charge']}}')
+
+        });
+    </script>
+    @endif
 @endsection

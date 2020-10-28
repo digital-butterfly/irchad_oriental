@@ -18,6 +18,7 @@
             @endslot
         @endcomponent
     </div>
+{{--    <a href="javascript:;" class="btn btn-primary" id="showtoast">Show Toast</a>--}}
 @endsection
 
 
@@ -121,6 +122,30 @@
                     ],
                 });
 
+
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": true,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": true,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                };
+                toastr.options.onclick = function () {
+                    alert('You can perform some custom action after a toast goes away');
+                };
+            }();
+            $('#showtoast').click(function(event) {
+                toastr.success('You clicked Success toast');
+            });
             $('#kt_form_status').on('change', function() {
             datatable.search($(this).val().toLowerCase(), 'Status');
             });
@@ -131,7 +156,7 @@
 
             $('#kt_form_status,#kt_form_type').selectpicker();
 
-            };
+
 
             return {
                 // public functions
