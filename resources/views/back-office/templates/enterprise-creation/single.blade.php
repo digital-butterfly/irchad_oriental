@@ -301,7 +301,7 @@
                                      '                                                    <span  class="kt-widget2__title">\n' +
 
                                      item.title+
-                                     '                                                    </span>\n' +
+                                     '                                                    </span>\n' + (item.updated_at===undefined ? '':item.updated_at )+
                                      ((item.form_jurdique==="S.A.R.L" ||item.form_jurdique==="S.A.R.L A.U" ||item.form_jurdique==="S.N.C") && item.order===3 ?  '<a href="#"  data-toggle="modal" data-target="#kt_modal_6" class="">Liste des comptables agrées </a>':'')+
 
                                      '                                                </div>\n' +

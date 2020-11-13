@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Funding;
+use App\FundingExterne;
 use App\FundingIndh;
 use App\Incorporation;
 use App\Member;
@@ -53,13 +54,16 @@ class FundingController extends Controller
 
         $township=Township::findOrFail($application->township_id);
         $application->township= $township->title;
-       if ($application->company->is_created=='Non'){
-            $title=Incorporation::select('title')->where('id_projet',$request['id'])->get()->toArray();
+        $inc= Incorporation::where('id_projet',$request['id']);
+       if ($application->company->is_created=='Non' && $inc->exists() ){
+
+            $title=$inc->select('title')->get()->toArray();
            $application->inctitle=$title[0]['title'];
        }else{
            $application->inctitle=$application->company->corporate_name;
        }
         $total=0;
+//       dd($application->financial_data);
       if ($application->financial_data->startup_needs){
           foreach($application->financial_data->startup_needs as $item){
               $total+=(int)$item->value;
@@ -67,8 +71,11 @@ class FundingController extends Controller
           };
           $application->total=$total; }
         $funding=FundingIndh::where('id_projet',$request['id']);
+        $fundingext=FundingExterne::where('id_projet',$request['id']);
         $application->funding= $funding->get();
+        $application->fundingext= $fundingext->get();
         $application->found=  $funding->exists();
+        $application->foundext=  $fundingext->exists();
 
 //      dd($application);
 
@@ -96,10 +103,10 @@ class FundingController extends Controller
             FundingIndh::find($fundingIndh->id)  ->update([
                 'ready_cpdh'=>1,
             ]);
-            dd($fundingIndh);
+//            dd($fundingIndh);
         }
 //        dd($fundingIndh);
-//        return redirect()->intended('admin/accountants');
+        return redirect()->intended('admin/funding-indh');
     }
     /**
      * Update the specified resource in storage.

@@ -144,9 +144,23 @@
                             class="kt-menu__ver-arrow la la-angle-right"></i></a>
                     <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
                         <ul class="kt-menu__subnav">
-                            <li class="kt-menu__item  kt-menu__item--parent "  aria-haspopup="true"><span
-                                    class="kt-menu__link"><span class="kt-menu__link-text">Financement</span></span>
-                            </li>
+
+                            <li class="kt-menu__item {{ (request()->is('admin/funding-indh'))   ? 'kt-menu__item--active kt-menu__item--open' : '' }} " aria-haspopup="true">
+                                <a href="admin/funding-indh" class="kt-menu__link "><i
+                                        class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span
+                                        class="kt-menu__link-text">  INDH </span></a></li>
+                            <li class="kt-menu__item {{ (request()->is('admin/funding-cpde'))   ? 'kt-menu__item--active kt-menu__item--open' : '' }} " aria-haspopup="true">
+                                <a href="admin/funding-cpde" class="kt-menu__link "><i
+                                        class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span
+                                        class="kt-menu__link-text">  CPDE </span></a></li>
+                            <li class="kt-menu__item {{ (request()->is('admin/funding-cpdh'))   ? 'kt-menu__item--active kt-menu__item--open' : '' }} " aria-haspopup="true">
+                                <a href="admin/funding-cpdh" class="kt-menu__link "><i
+                                        class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span
+                                        class="kt-menu__link-text">  CPDH </span></a></li>
+                            <li class="kt-menu__item {{ (request()->is('admin/funding-ext'))   ? 'kt-menu__item--active kt-menu__item--open' : '' }} " aria-haspopup="true">
+                                <a href="admin/funding-ext" class="kt-menu__link "><i
+                                        class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span
+                                        class="kt-menu__link-text">  Financement externe </span></a></li>
 
                         </ul>
                     </div>
@@ -158,13 +172,11 @@
                             class="kt-menu__ver-arrow la la-angle-right"></i></a>
                     <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
                         <ul class="kt-menu__subnav">
-                            <li class="kt-menu__item  kt-menu__item--parent "  aria-haspopup="true"><span
-                                    class="kt-menu__link"><span class="kt-menu__link-text">Financement</span></span>
-                            </li>
+
                             <li class="kt-menu__item {{ (request()->is('admin/create-enterprise'))   ? 'kt-menu__item--active kt-menu__item--open' : '' }} " aria-haspopup="true">
                                 <a href="admin/create-enterprise" class="kt-menu__link "><i
                                         class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span
-                                        class="kt-menu__link-text"> Liste des enterprise</span></a></li>
+                                        class="kt-menu__link-text"> Liste des entreprises </span></a></li>
 
                         </ul>
                     </div>

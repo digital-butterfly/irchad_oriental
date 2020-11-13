@@ -17,6 +17,11 @@ class IncorporationProgress extends Model
         'sort',
         'observation'
     ];
+    protected $casts = [
+        'date_creation' => 'datetime:d-m-Y',
+        'updated_at' => 'datetime:d-m-Y',
+
+    ];
 
 
 

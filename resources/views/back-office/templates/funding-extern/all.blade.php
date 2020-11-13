@@ -14,7 +14,7 @@
     <div class="kt-container  kt-grid__item kt-grid__item--fluid">
         @component('back-office.components.portlets.table')
             @slot('title')
-                INDH
+                Financement externe
             @endslot
         @endcomponent
     </div>
@@ -42,7 +42,7 @@
                         type: 'remote',
                         source: {
                             read: {
-                                url: 'admin/list/indh',
+                                url: 'admin/list/fund-ext',
                                 headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content},
                                 map: function(raw) {
                                     // sample data mapping
@@ -97,9 +97,15 @@
                             title: 'Projet',
 
                         },{
-                            field: 'status_indh',
+                            field: 'status_ext',
                             title: 'Status',
-
+                        }
+                        ,{
+                            field: 'funding_organism',
+                            title: 'Organisme:',
+                        },{
+                            field: 'montant',
+                            title: 'Montant',
                         },
                         {
                             field: 'Actions',
@@ -110,7 +116,7 @@
                             autoHide: false,
                             template: function(row) {
                                 return '\
-                                <a href="admin/funding-indh/' + row.id + '/edit" class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="Edit details">\
+                                <a href="admin/funding-cpdh/' + row.id + '/edit" class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="Edit details">\
                                     <i class="flaticon2-gear"></i>\
                                 </a>\
                                 <a href="javascript:;" class="btn btn-sm btn-clean btn-icon btn-icon-sm" data-toggle="modal" data-target="#kt_modal_1" title="Delete">\
@@ -124,80 +130,6 @@
 
 
 
-                $.ajax({
-                    url: '/admin/list/indh-pool',
-                    headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content},
-                    type: 'GET',
-                    success: function(result) {
-                        console.log(result)
-                        result.forEach(function(item) {
-                            console.log(item.length);
-                            if (item.length>= 5){
-                                console.log(item)
-                                toastr.options = {
-                                    "closeButton": false,
-                                    "debug": false,
-                                    "newestOnTop": true,
-                                    "progressBar": true,
-                                    "positionClass": "toast-top-right",
-                                    "preventDuplicates": false,
-                                    "showDuration": "300",
-                                    "hideDuration": "10000",
-                                    "timeOut": "5000",
-                                    "extendedTimeOut": "1000",
-                                    "showEasing": "swing",
-                                    "hideEasing": "linear",
-                                    "showMethod": "fadeIn",
-                                    "hideMethod": "fadeOut"
-                                };
-                                toastr.options.onclick = function (
-
-                                ) {
-                                    let stc='';
-                                    item.forEach(function (it){
-                                        stc+='<p>'+it.title+'</p>'
-                                        console.log(`<p>${it.title}</p>`)
-
-                                    }),
-                                        // console.log('ff',stc)
-
-                                    swal.fire({
-                                        title: 'Voulez-vous envoyer les projets suivent au CPDE?',
-                                        html: stc  ,
-
-                                        type: 'warning',
-                                        showCancelButton: true,
-                                        confirmButtonText: 'Oui'
-                                    }).then(function(result) {
-                                        if (result.value) {
-                                            $.ajax({
-                                                url: '/admin/funding-indh-update',
-                                                headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content},
-                                                type: 'POST',
-                                                contentType: 'application/json',
-                                                data:JSON.stringify(item),
-                                                success: function(result) {
-
-                                                    swal.fire(
-                                                        'Envoyé!',
-                                                        'Les projets ont été envoyés au CPDE?.',
-                                                        'success'
-                                                    )
-                                                }})
-
-                                        }
-                                    });
-
-                                };
-                                toastr.success('5 Prêt pour envoi au CT');
-                            }
-
-
-                        });
-
-
-                    }
-                });
             }();
             $('#showtoast').click(function(event) {
 

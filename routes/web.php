@@ -104,8 +104,23 @@ Route::group(['middleware' => 'auth:user'], function () {
 
 
     Route::resource('admin/funding-indh', 'FundingIndhController');
+    Route::post('admin/funding-indh-update', 'FundingIndhController@updatepool');
     Route::post('admin/list/indh', 'FundingIndhController@ajaxListIndh');
+    Route::get('admin/list/indh-pool', 'FundingIndhController@pool');
 
+
+    Route::resource('admin/funding-cpde', 'FundingcpdeController');
+    Route::post('admin/funding-cpde-update', 'FundingcpdeController@updatepool');
+    Route::post('admin/list/cpde', 'FundingcpdeController@ajaxListCpde');
+    Route::get('admin/list/cpde-pool', 'FundingcpdeController@pool');
+
+
+
+    Route::resource('admin/funding-cpdh', 'FundingcpdhController');
+    Route::post('admin/list/cpdh', 'FundingcpdhController@ajaxListCpdh');
+
+    Route::resource('admin/funding-ext', 'FundingExterneController');
+    Route::post('admin/list/fund-ext', 'FundingExterneController@ajaxListext');
 
 
     Route::resource('admin/session-members', 'AdherentSessionController');
@@ -121,8 +136,8 @@ Route::group(['middleware' => 'auth:user'], function () {
     Route::post('/admin/MemebersProjectList', 'SessionController@ajaxMemebersProjectList');
 
 
-    route::post('/admin/candidaturesmemmbers', 'ProjectApplicationController@ajaxMembersList');
-    route::post('/admin/sessionFormation', 'ProjectApplicationController@ajaxSessionList');
+    Route::post('/admin/candidaturesmemmbers', 'ProjectApplicationController@ajaxMembersList');
+    Route::post('/admin/sessionFormation', 'ProjectApplicationController@ajaxSessionList');
 
 
     Route::resource('admin/', 'DashboardController');

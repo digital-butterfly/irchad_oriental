@@ -63,6 +63,7 @@ class FundingIndhController extends Controller
         $role_filter = isset($query['Type']) ? $query['Type'] : '';
 
         return new FundingIndhCollection(FundingIndh::join('projects_applications', 'projects_applications.id', '=', 'funding_indhs.id_projet')->selectRaw(' funding_indhs.* , projects_applications.title')->
+            where('sent_cpde',0)->
         where(function ($q) use ($search_term) {
 //            $q->where('id', 'LIKE', '%' .$search_term  . '%')
 //                ->orWhere('first_name', 'LIKE', '%' . $search_term . '%')
@@ -81,6 +82,20 @@ class FundingIndhController extends Controller
             $page = $request->pagination['page']
         )
         );
+    }
+
+    /**
+     * Custom function to get pools of n
+     *
+     */
+    public function pool(Request $request){
+    $collection = FundingIndh::join('projects_applications', 'projects_applications.id', '=', 'funding_indhs.id_projet')->selectRaw('funding_indhs.* , projects_applications.title')
+        ->where('status_indh','Prêt pour envoi au CT')->where('ready_cpde','1')->where('sent_cpde','0')->get();
+        $groups = $collection->chunk(5);
+        foreach ($groups as $key => $chunk) {
+            $groups[$key] = array_values($chunk->toArray());
+        }
+        return $groups;
     }
 
 
@@ -103,14 +118,31 @@ class FundingIndhController extends Controller
     public function update(Request $request, $id )
     {
 
-
         FundingIndh::findOrfail($id)->update([
             'status_indh'=>$request['status_indh'],
             'date_prise_charge'=>$request['date_prise_charge'],
                  ]);
         if($request['status_indh']==='Prêt pour envoi au CT'){
-            FundingIndh::findOrfail($id)->update(['ready_cpdh'=>1]);
+            FundingIndh::findOrfail($id)->update(['ready_cpde'=>1]);
         }
         return redirect()->intended('admin/funding-indh');
+    }
+    /**
+     * Update the pool of specified resources in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param FundingIndh $fundingindh
+     * @return \Illuminate\Http\Response
+     */
+    public function updatepool(Request $request )
+    {
+        foreach ($request->toArray() as $item){
+
+            FundingIndh::findOrfail($item['id'])->update([
+                'status_cpde'=>'en cours',
+                'sent_cpdh'=>1,
+            ]);
+        }
+
     }
 }

@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class FundingIndh extends Model
+class Fundingcpde extends Model
 {
     protected $casts =[
         'date_prise_charge' => 'datetime:d-m-Y',
@@ -22,11 +22,7 @@ class FundingIndh extends Model
         'ready_cpdh',
         'sent_cpde',
         'status_cpde',
-        'status_cpdh',
-        'observation_cpde',
-        'observation_cpdh',
-        'sent_cpdh',
-        'montant'
+        'observation_cpde'
 
     ];
 
@@ -37,15 +33,15 @@ class FundingIndh extends Model
     public static function formFields() {
         return [
             [
-                'name' => 'status_indh',
+                'name' => 'status_cpde',
                 'type' => 'select',
                 'label' => 'Statut',
-                'options' => ['En cours', 'Prêt pour envoi au CT']
+                'options' => ['En cours', 'Accepté', 'Refusé']
             ],
             [
-                'name' => 'date_prise_charge',
-                'type' => 'date',
-                'label' => 'Date de prise en charge '
+                'name' => 'observation_cpde',
+                'type' => 'textarea',
+                'label' => 'Observation'
             ],
         ];
     }

@@ -73,6 +73,7 @@ class IncorporationController extends Controller
 
             $progress = IncorporationProgress::where('id_incorporation',$request['id'])->get();
         }
+
         $lenght = $steps->count();
 
         $steps->map( function($value) use($progress,$lenght){
@@ -92,6 +93,7 @@ class IncorporationController extends Controller
                     else{
                         $value->stepid = $progres->id;
                         $value->currentstep = false;
+                        $value->updated_at = $progres->updated_at;;
                     }
                     break;
                 }
@@ -105,7 +107,7 @@ class IncorporationController extends Controller
 
 
             }
-//            dd($value->sorts);
+//            dd($value);
 
             return $value;
         } );

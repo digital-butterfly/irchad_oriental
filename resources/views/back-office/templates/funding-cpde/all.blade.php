@@ -14,7 +14,7 @@
     <div class="kt-container  kt-grid__item kt-grid__item--fluid">
         @component('back-office.components.portlets.table')
             @slot('title')
-                INDH
+                CPDE
             @endslot
         @endcomponent
     </div>
@@ -42,7 +42,7 @@
                         type: 'remote',
                         source: {
                             read: {
-                                url: 'admin/list/indh',
+                                url: 'admin/list/cpde',
                                 headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content},
                                 map: function(raw) {
                                     // sample data mapping
@@ -97,7 +97,7 @@
                             title: 'Projet',
 
                         },{
-                            field: 'status_indh',
+                            field: 'status_cpde',
                             title: 'Status',
 
                         },
@@ -110,7 +110,7 @@
                             autoHide: false,
                             template: function(row) {
                                 return '\
-                                <a href="admin/funding-indh/' + row.id + '/edit" class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="Edit details">\
+                                <a href="admin/funding-cpde/' + row.id + '/edit" class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="Edit details">\
                                     <i class="flaticon2-gear"></i>\
                                 </a>\
                                 <a href="javascript:;" class="btn btn-sm btn-clean btn-icon btn-icon-sm" data-toggle="modal" data-target="#kt_modal_1" title="Delete">\
@@ -125,7 +125,7 @@
 
 
                 $.ajax({
-                    url: '/admin/list/indh-pool',
+                    url: '/admin/list/cpde-pool',
                     headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content},
                     type: 'GET',
                     success: function(result) {
@@ -162,7 +162,7 @@
                                         // console.log('ff',stc)
 
                                     swal.fire({
-                                        title: 'Voulez-vous envoyer les projets suivent au CPDE?',
+                                        title: 'Voulez-vous envoyer les projets suivent au CPDH?',
                                         html: stc  ,
 
                                         type: 'warning',
@@ -171,7 +171,7 @@
                                     }).then(function(result) {
                                         if (result.value) {
                                             $.ajax({
-                                                url: '/admin/funding-indh-update',
+                                                url: '/admin/funding-cpde-update',
                                                 headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content},
                                                 type: 'POST',
                                                 contentType: 'application/json',
@@ -180,7 +180,7 @@
 
                                                     swal.fire(
                                                         'Envoyé!',
-                                                        'Les projets ont été envoyés au CPDE?.',
+                                                        'Les projets ont été envoyés au CPDH?.',
                                                         'success'
                                                     )
                                                 }})
@@ -189,7 +189,7 @@
                                     });
 
                                 };
-                                toastr.success('5 Prêt pour envoi au CT');
+                                toastr.success('5 Prêt pour envoi au CPDH');
                             }
 
 

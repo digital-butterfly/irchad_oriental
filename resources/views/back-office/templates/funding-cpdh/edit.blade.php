@@ -8,6 +8,7 @@
 
 
 
+
 @section('page_content')
     <div class="kt-container  kt-grid__item kt-grid__item--fluid">
         <div class="kt-portlet">
@@ -28,12 +29,11 @@
                     </ul>
                 </div><br />
             @endif
-            <form class="kt-form" method="POST" action="{{ route('funding-indh.update', $data->id) }}">
+            <form class="kt-form" method="POST" action="{{ route('funding-cpdh.update', $data->id) }}">
                 {{ method_field('PUT') }}
                 <div class="kt-portlet__body">
                     <div class="kt-section kt-section--first">
                         @foreach($fields as $field)
-                            {{$data->id}}
                             @php
                                 $field['config']['hotizontalRows'] = true;
                             @endphp
@@ -60,7 +60,18 @@
 
 @section('specific_js')
     <script>
-        // Class definition
+        $( "#montant" ).parent().closest( '.form-group').hide()
+
+        $('#status_cpdhSelect, input[name="status_cpdh"]').change(switchSelect);
+        function switchSelect(){
+            let SelVal=$( "#status_cpdhSelect" ).val();
+            if (SelVal==='Accepté'){
+                $( "#montant" ).parent().closest( '.form-group').show();
+            }else {
+                $( "#montant" ).parent().closest( '.form-group').hide()
+            }
+        }
+
 
     </script>
 @endsection
