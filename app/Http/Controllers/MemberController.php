@@ -27,6 +27,7 @@ class MemberController extends Controller
             'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:members'],
             'phone' => ['required', 'string', 'max:255'],
+            'birth_date'=>['required', 'date', 'max:255'],
             'identity_number' => ['required', 'string', 'max:255'],
             'password' => ['required', 'string', 'min:4', 'confirmed'],
             'status' => ['required', 'string', 'max:255'],
