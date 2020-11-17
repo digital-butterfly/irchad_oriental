@@ -181,9 +181,9 @@
 
                 id = $(this).closest('tr').find('td[data-field="id"] span').html();
 
-                name = $(this).closest('tr').find('td[data-field="name"] span').html();
+                name = $(this).closest('tr').find('td[data-field="title"] span').html();
 
-                $('#kt_modal_1 .modal-body p span').html('la candidature intitulée ' + name);
+                $('#kt_modal_1 .modal-body p span').html('la candidature intitulée ' +'<b>'+ name+'</b>');
 
                 $('#kt_modal_1 button.delete').click(function() {
                     $.ajax({
