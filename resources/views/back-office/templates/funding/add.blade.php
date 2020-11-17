@@ -670,8 +670,9 @@
 
 
 @section ('specific_js')
-    @if($application->found)
     <script>
+    @if($application->found)
+
         $('#kt_modal_6').on('shown.bs.modal', function () {
             $('#status_indhSelect').val('{{$application->funding[0]['status_indh']}}');
             const str = '{{$application->funding[0]['date_prise_charge']}}';
