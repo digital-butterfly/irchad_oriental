@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'Questions fréquemment posées'=>'الأسئلة المتواترة',
+    'Questions fréquemment posées'=>'أسئلة و أجوبة',
     'Qui peut soumissionner un projet ?'=>'من يستطيع تقديم مشروع؟',
     'Tous les jeunes âgés entre 18 et 35 ans, en recherche active d’un emploi et qui ne pratiquent aucune activité dans le secteur public ou privé. Les porteurs de projets doivent obligatoirement résider au sein de la Province de Al Hoceima.'=>'جميع الشباب الذين تتراوح أعمارهم بين 18 و 35 عاما، الباحثين عن فرصة عمل والذين لا يمارسون أي نشاط في القطاع العام أو الخاص. على حامل المشروع أن يقيم في إقليم الحسيمة.',
     'Qui sont les candidats prioritaires ?'=>'من هم المرشحون الذين لهم الأولوية؟',

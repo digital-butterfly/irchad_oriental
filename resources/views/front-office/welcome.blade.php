@@ -1,7 +1,21 @@
 @extends('front-office.layouts.master')
 
 @section('content')
+    @if(app()->getLocale()=='ar')
 
+    <style>
+        .subcribe-form button {
+            position: absolute;
+            top: 5px;
+            left: 5px !important;
+            right: unset;
+            outline: none !important;
+            border-radius: 3px;
+            font-size: 14px;
+            padding: 12px 45px;
+        }
+    </style>
+    @endif
 <!-- START HOME -->
 <section class="bg-home" id="home">
     <div class="home-bg-overlay"></div>

@@ -13,10 +13,10 @@ return [
     |
     */
 
-    'À Propos' => 'حول',
+    'À Propos' => 'حول إرشاد',
     'Programme'=>'البرنامج',
     'Soumissionner un projet'=>'تقديم المشروع',
-    'FAQ'=>'الأسئلة المتواترة',
+    'FAQ'=>'أسئلة و أجوبة',
     'Nous Contacter'=>'اتصل بنا',
     'Se Connecter'=>' تسجيل الدخول',
 
