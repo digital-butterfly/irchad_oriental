@@ -8,14 +8,14 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h3 class="home-heading mt-5 pt-5">Une plateforme dédiée aux jeunes porteurs de projets</h3>
-                <p class="home-subtitle mx-auto mt-3 f-17">Vous êtes tentés par créer votre entreprise ? A la recherche d’une idée ou d’un accompagnement ? IRCHAD est votre nouvelle plateforme digitale qui vous accompagne dans votre réflexion, de l’idée à la mise en marché.<div class="home-button mt-4">
-                    <a href="a-propos" class="btn btn-outline-white mt-3 mr-3">En savoir plus</a>
-                    <a href="project-submission" class="btn btn-custom mt-3">Soumissionner un projet maintenant</a>
+                <h3 class="home-heading mt-5 pt-5">{{__('welcome.Une plateforme dédiée aux jeunes porteurs de projets')}}</h3>
+                <p class="home-subtitle mx-auto mt-3 f-17">{{__('welcome.Vous êtes tentés par créer votre entreprise')}}<div class="home-button mt-4">
+                    <a href="a-propos" class="btn btn-outline-white mt-3 mr-3">{{__('welcome.En savoir plus')}}</a>
+                    <a href="project-submission" class="btn btn-custom mt-3">{{__('welcome.Soumissionner un projet')}}</a>
                 </div>
 
                 <div class="home-img">
-                    <img src="images/front-office/home-macbook.png" alt="" class="img-fluid rounded">
+                    <img src="images/front-office/Illus-Irchad-Hoceima.svg" alt="" class="img-fluid rounded">
                 </div>
             </div>
         </div>
@@ -49,7 +49,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="text-center">
-                    <h3 class="title-heading">Un Programme à Valeur Ajoutée</h3>
+                    <h3 class="title-heading">{{__('welcome.Un programme d’accompagnement de A à Z')}}</h3>
                     <span class="title-icon">
                     <i class="mdi mdi-dots-horizontal"></i>
                 </span>
@@ -76,8 +76,8 @@
                     <div class="about-count">
                         <p class="mb-0">01</p>
                     </div>
-                    <h5>Jeunesse</h5>
-                    <p class="text-muted mt-3">Un programme visant spécifiquement les jeunes entre 18 et 35 ans.</p>
+                    <h5>{{__('welcome.Identifier')}}</h5>
+                    <p class="text-muted mt-3">{{__('welcome.Nous cherchons activement à encourager')}}</p>
                 </div>
             </div>
 
@@ -89,8 +89,8 @@
                     <div class="about-count">
                         <p class="mb-0">02</p>
                     </div>
-                    <h5>Revenu</h5>
-                    <p class="text-muted mt-3">Amélioration des revenus des jeunes via le lancement d’une nouvelle génération d’initiatives.</p>
+                    <h5>{{__('welcome.Accompagner et orienter')}}</h5>
+                    <p class="text-muted mt-3">{{__('welcome.De l’idée au lancement')}}</p>
                 </div>
             </div>
 
@@ -102,8 +102,8 @@
                     <div class="about-count">
                         <p class="mb-0">03</p>
                     </div>
-                    <h5>Économie</h5>
-                    <p class="text-muted mt-3">Accélération de l’intégration des jeunes dans le tissu économique du pays.</p>
+                    <h5>{{__('welcome.Agir')}}</h5>
+                    <p class="text-muted mt-3">{{__('welcome.Accélération de l’intégration')}}</p>
                 </div>
             </div>
         </div>
@@ -112,7 +112,7 @@
             <div class="container">
                 <div class="col-lg-12">
                     <div class="text-center">
-                        <a href="programme" class="btn btn-sm btn-custom">Découvrir le Programme <i class="mdi mdi-arrow-right pl-1"></i></a>
+                        <a href="programme" class="btn btn-sm btn-custom">{{__('welcome.Je découvre IRCHAD')}} <i class="mdi mdi-arrow-right pl-1"></i></a>
                     </div>
                 </div>
             </div>
@@ -128,7 +128,7 @@
         <div class="row">
             <div class="col-lg-6">
                 <div class="mt-4">
-                    <h3 class="feature-title line-height_1_4">Quels avantages à soumissionner un projet ?</h3>
+                    <h3 class="feature-title line-height_1_4">{{__('welcome.Pourquoi choisir IRCHAD')}}</h3>
                     <div class="feature-border bg-custom"></div>
 
                     <div class="mt-5 p-2">
@@ -136,8 +136,8 @@
                             <i class="mdi mdi-check text-custom"></i>
                         </div>
                         <div class="ml-5">
-                            <h5 class="f-18">Espace d'orientation</h5>
-                            <p class="text-muted">Un espace d'accueil, d'écoute et d'orientation pour un accompagnement convivial et effectif.</p>
+                            <h5 class="f-18">{{__('welcome.Espace d\'orientation')}}</h5>
+                            <p class="text-muted">{{__('welcome.Un espace d\'accueil')}}</p>
                         </div>
                     </div>
 
@@ -146,8 +146,8 @@
                             <i class="mdi mdi-check text-custom"></i>
                         </div>
                         <div class="ml-5">
-                            <h5 class="f-18">Mentors proactifs</h5>
-                            <p class="text-muted">Un comité multidisciplinaire pour vous accompagner tout au long de votre projet et pour vous aider à atteindre vos objectifs.</p>
+                            <h5 class="f-18">{{__('welcome.Mentors proactifs')}}</h5>
+                            <p class="text-muted">{{__('welcome.Un comité multidisciplinaire pour vous accompagner')}}</p>
                         </div>
                     </div>
 
@@ -156,8 +156,8 @@
                             <i class="mdi mdi-check text-custom"></i>
                         </div>
                         <div class="ml-5">
-                            <h5 class="f-18">Démarches fluides</h5>
-                            <p class="text-muted">Des démarches simples et fluides appuyées par les technologies de l'information les plus modernes.</p>
+                            <h5 class="f-18">{{__('welcome.Démarches fluides')}}</h5>
+                            <p class="text-muted">{{__('welcome.Démarches fluides')}}</p>
                         </div>
                     </div>
 
@@ -166,8 +166,8 @@
                             <i class="mdi mdi-check text-custom"></i>
                         </div>
                         <div class="ml-5">
-                            <h5 class="f-18">Soutien financier</h5>
-                            <p class="text-muted">Un soutien financier pouvant aller jusqu'à 200.000 Dirhams par projet.</p>
+                            <h5 class="f-18">{{__('welcome.Soutien financier')}}</h5>
+                            <p class="text-muted">{{__('welcome.Un soutien financier pouvant aller jusqu')}}</p>
                         </div>
                     </div>
 
@@ -369,10 +369,10 @@
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 <div class="text-center">
-                    <h3 class="text-white">En savoir plus sur le programme IRCHAD</h3>
+                    <h3 class="text-white">{{__('welcome.En savoir plus sur le programme IRCHAD')}}</h3>
                     {{-- <p class="f-16 mt-4 text-white">Pour nous contacter ou pour en savoir plus sur le programme IRCHAD</p> --}}
                     <div class="mt-5">
-                        <a href="#" class="btn btn-outline-white text-uppercase"><i class="mdi mdi-information-outline"></i> Nous contacter maintenant</a>
+                        <a href="#" class="btn btn-outline-white text-uppercase"><i class="mdi mdi-information-outline"></i> {{__('welcome.Nous contacter maintenant')}}</a>
                     </div>
                 </div>
             </div>
@@ -564,7 +564,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="text-center">
-                    <h3 class="title-heading">Questions fréquemment posées</h3>
+                    <h3 class="title-heading">{{__('FAQ.Questions fréquemment posées')}}</h3>
                     <span class="title-icon">
                     <i class="mdi mdi-dots-horizontal"></i>
                 </span>
@@ -580,9 +580,10 @@
                         <i class="mdi mdi-help-box text-custom h3"></i>
                     </div>
                     <div class="ml-5">
-                        <h5 class="f-18">Qui peut soumissionner un projet ?</h5>
-                        <p class="faq-answer text-muted">Tous les jeunes âgés entre 18 et 35 ans, en recherche active d’un emploi et qui ne pratiquent aucune activité dans le
-                            secteur public ou privé. Les porteurs de projets doivent obligatoirement résider au sein de la Province de Al Hoceima</p>
+                        <h5 class="f-18">{{__('FAQ.Qui peut soumissionner un projet ?')}}</h5>
+                        <p class="faq-answer text-muted">
+                            {{__('FAQ.Tous les jeunes âgés entre 18 et 35 ans, en recherche active d’un emploi et qui ne pratiquent aucune activité dans le secteur public ou privé. Les porteurs de projets doivent obligatoirement résider au sein de la Province de Al Hoceima.')}}
+                        </p>
                     </div>
                 </div>
 
@@ -591,10 +592,13 @@
                         <i class="mdi mdi-help-box text-custom h3"></i>
                     </div>
                     <div class="ml-5">
-                        <h5 class="f-18">Qui sont les candidats prioritaires ?</h5>
-                        <p class="faq-answer text-muted">La priorité est attribué aux jeunes titulaires d’un diplôme universitaire ou de l’Office de la Formation
-                            Professionnelle et de la Promotion du Travail (OFPPT), aux jeunes ayant une expérience antérieure dans un domaine particulier et n’ayant jamais
-                            bénéficié des avantages du programme de l’INDH.</p>
+                        <h5 class="f-18">
+                            {{__('FAQ.Qui sont les candidats prioritaires ?')}}
+                        </h5>
+                        <p class="faq-answer text-muted">
+                            {{__('FAQ.La priorité est attribué aux jeunes titulaires d’un diplôme universitaire ou de l’Office de la Formation Professionnelle et de la Promotion du Travail (OFPPT), aux jeunes ayant une expérience antérieure dans un domaine particulier et n’ayant jamais bénéficié des avantages du programme de l’INDH.')}}
+
+                        </p>
                     </div>
                 </div>
 
@@ -603,8 +607,8 @@
                         <i class="mdi mdi-help-box text-custom h3"></i>
                     </div>
                     <div class="ml-5">
-                        <h5 class="f-18">Un projet validé est-il éditable ?</h5>
-                        <p class="faq-answer text-muted">Oui. Vous pouvez compléter votre dossier ou le modifier tout en étant accompagné par nos experts et nos mentors.</p>
+                        <h5 class="f-18">{{__('FAQ.Un projet validé est-il éditable ?')}}</h5>
+                        <p class="faq-answer text-muted">  {{__('FAQ.Oui. Vous pouvez compléter votre dossier ou le modifier tout en étant accompagné par nos experts et nos mentors.')}}</p>
                     </div>
                 </div>
                 <div class="mt-5">
@@ -612,9 +616,11 @@
                         <i class="mdi mdi-help-box text-custom h3"></i>
                     </div>
                     <div class="ml-5">
-                        <h5 class="f-18">Qu’est-ce qui est considéré comme un projet innovant ?</h5>
-                        <p class="faq-answer text-muted">L’innovation est toute chose nouvellement introduite. Toutes les innovations sont considérées (technologie, concept,
-                            procédé, commercialisation etc.)</p>
+                        <h5 class="f-18">{{__('FAQ.Qu’est-ce qui est considéré comme un projet?')}}</h5>
+                        <p class="faq-answer text-muted">
+                            {{__('FAQ.L’innovation est toute chose nouvellement introduite. Toutes les innovations sont considérées (technologie, concept, procédé, commercialisation etc.)')}}
+
+                        </p>
                     </div>
                 </div>
                 <div class="mt-5">
@@ -622,9 +628,10 @@
                         <i class="mdi mdi-help-box text-custom h3"></i>
                     </div>
                     <div class="ml-5">
-                        <h5 class="f-18">Dois-je céder des parts sociales à IRCHAD et à l’INDH suite à leur contribution au financement du projet ?</h5>
-                        <p class="faq-answer text-muted">Aucunement. IRCHAD et l’INDH sont des organismes à but non lucratif et dont la finalité est le dynamisme de la
-                            croissance.</p>
+                        <h5 class="f-18">{{__('FAQ.Comment se fait la sélection des projets ?')}}</h5>
+                        <p class="faq-answer text-muted">
+                            {{__('FAQ.Une fois que vous avez rempli le formulaire d’inscription, vos données sont vérifiées par nos équipes. Lorsqu\'elles seront validées, vous serez convié à l’une de nos plateformes physiques pour un entretien. Si toutes vos informations sont cohérentes avec votre profil et vos idées, des informations d’accès à notre plateforme virtuelle vous seront envoyées. Félicitation, votre projet est désormais sélectionné.')}}
+                        </p>
                     </div>
                 </div>
             </div>
@@ -635,11 +642,13 @@
                         <i class="mdi mdi-help-box text-custom h3"></i>
                     </div>
                     <div class="ml-5">
-                        <h5 class="f-18">Comment se fait la sélection des projets ?</h5>
-                        <p class="faq-answer text-muted">Une fois que vous avez rempli le formulaire d’inscription, vos données sont vérifiées par nos équipes. Lorsque vos
-                            données seront validées, vous serez convié à l’une de nos plateformes physiques pour un entretien. Si toutes vos informations sont cohérentes avec
-                            votre profil et vos idées, des informations d’accès à notre plateforme virtuelle vous seront envoyées. Félicitation, votre projet est désormais
-                            sélectionné.</p>
+                        <h5 class="f-18">
+                            {{__('FAQ.Les porteurs de projets doivent-ils contribuer financièrement au projet ?')}}
+                        </h5>
+                        <p class="faq-answer text-muted">
+                            {{__('FAQ.Les porteurs de projets doivent contribuer à hauteur de 25% du coût total du projet sous forme de contribution en nature ou en argent.')}}
+
+                        </p>
                     </div>
                 </div>
 
@@ -648,9 +657,13 @@
                         <i class="mdi mdi-help-box text-custom h3"></i>
                     </div>
                     <div class="ml-5">
-                        <h5 class="f-18">Les porteurs de projets doivent-ils contribuer financièrement au projet ?</h5>
-                        <p class="faq-answer text-muted">Les porteurs de projets doivent contribuer à hauteur de 25% du coût total du projet sous forme de contribution en
-                            nature ou en argent.</p>
+                        <h5 class="f-18">
+                            {{__('FAQ.A combien s’élève la contribution financière par IRCHAD et l’INDH ?')}}
+                        </h5>
+                        <p class="faq-answer text-muted">
+                            {{__('FAQ.La contribution financière de IRCHAD et de l’INDH se limite à 100 000 Dirhams lorsque le porteur de projet est une seule personne. Dans le cas où le projet est fondé par deux personnes ou plus, la contribution s’élève jusqu’à 200 000 Dirhams. Chaque projet doit contribuer à la création d’au moins 5 emplois.')}}
+
+                        </p>
                     </div>
                 </div>
 
@@ -659,10 +672,14 @@
                         <i class="mdi mdi-help-box text-custom h3"></i>
                     </div>
                     <div class="ml-5">
-                        <h5 class="f-18">A combien s’élève la contribution financière par IRCHAD et l’INDH ?</h5>
-                        <p class="faq-answer text-muted">La contribution financière de IRCHAD et de l’INDH se limite à 100 000 Dirhams lorsque le porteur de projet est une
-                            seule personne. Dans le cas où le projet est fondé par deux personnes ou plus, la contribution s’élève jusqu’à 200 000 Dirhams. Chaque projet doit
-                            contribuer à la création d’au moins 5 emplois.</p>
+                        <h5 class="f-18">
+                            {{__('FAQ.Dois-je céder des parts sociales à IRCHAD et à l’INDH suite à leur contribution au financement du projet ?')}}
+
+                        </h5>
+                        <p class="faq-answer text-muted">
+                            {{__('FAQ.Aucunement. IRCHAD et l’INDH sont des organismes à but non lucratif et dont la finalité est le dynamisme de la croissance.')}}
+
+                        </p>
                     </div>
                 </div>
             </div>
@@ -679,11 +696,11 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="text-center">
-                    <h3 class="title-heading">Bénéficiez du Programme IRCHAD</h3>
+                    <h3 class="title-heading">{{__('welcome.Bénéficiez de la plateforme IRCHAD')}}</h3>
                     <span class="title-icon">
                     <i class="mdi mdi-dots-horizontal"></i>
                 </span>
-                    <p class="title-desc text-muted">Soumissionnez votre projet maintenant et bénéficiez d'un accompagnement sur mesure.
+                    <p class="title-desc text-muted">{{__('welcome.Soumissionnez votre projet maintenant et bénéficiez d\'un accompagnement sur mesure.')}}
                     </p>
                 </div>
             </div>
@@ -693,8 +710,8 @@
             <div class="col-lg-8">
                 <div class="subcribe-form mt-4">
                     <form action="#">
-                        <input placeholder="Entrer le titre de votre projet..." type="text">
-                        <button type="submit" class="btn btn-custom">Commencer</button>
+                        <input placeholder="{{__('welcome.Entrez le titre de votre projet')}}..." type="text">
+                        <button type="submit" class="btn btn-custom">{{__('welcome.Commencer')}}</button>
                     </form>
                 </div>
             </div>

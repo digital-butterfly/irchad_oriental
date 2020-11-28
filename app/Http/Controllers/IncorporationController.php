@@ -38,19 +38,19 @@ class IncorporationController extends Controller
 
     public function showSteps(Request $request){
 //dd($request['projet']);
-          if ($request['projet']) {
+        if ($request['projet']) {
 
-               $inc= Incorporation::where('id_projet',$request['projet']['id'])->get();
+            $inc= Incorporation::where('id_projet',$request['projet']['id'])->get();
 
 
-               if ($inc->isEmpty()){
+            if ($inc->isEmpty()){
 //                   dd('kk');
-                   Incorporation::create([
-                       'id_projet'=>$request['projet']['id'],
-                       'form_juridique'=>$request['Form']
-                   ]);
-                   $inc= Incorporation::where('id_projet',$request['projet']['id'])->get();
-               }
+                Incorporation::create([
+                    'id_projet'=>$request['projet']['id'],
+                    'form_juridique'=>$request['Form']
+                ]);
+                $inc= Incorporation::where('id_projet',$request['projet']['id'])->get();
+            }
 
         }
 
@@ -113,20 +113,21 @@ class IncorporationController extends Controller
         } );
 //        dd($steps->toArray());
 
-      return $steps  ;
+        return $steps  ;
 
     }
 
     public function update(Request $request ,$id){
 
         $etreprise = Incorporation::findOrFail($id);
-                $etreprise->update([
+        $etreprise->update([
             'title'=>$request['title'],
             'ICE'=>$request['ICE'],
             'date_creation'=>$request['date_creation']
         ]);
+        ProjectApplication::findOrFail($etreprise->id_projet)->update(['incorporation'=>'Entreprise créee']);
 
-//dd($etreprise);
+        //dd($etreprise);
 
 
 
@@ -150,8 +151,9 @@ class IncorporationController extends Controller
         $incorporation = Incorporation::create([
             'form_juridique'=>$request['form_juridique'],
             'id_projet'=>$request['id_projet']
-                        ]);
-return $incorporation;
+        ]);
+        ProjectApplication::findOrFail($request['id_projet'])->update(['incorporation'=>'Entreprise en cours de création']);
+        return $incorporation;
 //        return redirect()->intended('admin/candidatures');
     }
     /**
@@ -206,33 +208,33 @@ return $incorporation;
 
         $incorporation= new IncorporationCollection(Incorporation::join('projects_applications','projects_applications.id','=','incorporations.id_projet')
             ->join('incorporation_progresses', 'incorporations.id', '=', 'incorporation_progresses.id_incorporation')->selectRaw(' incorporations.* , projects_applications.title')->groupBy('incorporations.id')->
-        where(function ($q) use ($search_term) {
-            $q->where('projects_applications.title', 'LIKE', '%' .$search_term  . '%')
-                ->orWhere('incorporations.id', 'LIKE', '%' . $search_term . '%');
+            where(function ($q) use ($search_term) {
+                $q->where('projects_applications.title', 'LIKE', '%' .$search_term  . '%')
+                    ->orWhere('incorporations.id', 'LIKE', '%' . $search_term . '%');
 
-        })->
-        where(function ($q) use ($role_filter) {
-            $role_filter ? $q->whereRaw('LOWER(status) = ?', [$role_filter]) : NULL;
-        })->
-        orderBy(
-            $request->sort['field'] != 'title' ? $request->sort['field'] : 'projects_applications.title',
-            $request->sort['sort']
-        )->
-        paginate(
-            $perPage = (int)$request->pagination['perpage'],
-            $columns = ['*'],
-            $pageName = '*',
-            $page = $request->pagination['page']
-        )
+            })->
+            where(function ($q) use ($role_filter) {
+                $role_filter ? $q->whereRaw('LOWER(status) = ?', [$role_filter]) : NULL;
+            })->
+            orderBy(
+                $request->sort['field'] != 'title' ? $request->sort['field'] : 'projects_applications.title',
+                $request->sort['sort']
+            )->
+            paginate(
+                $perPage = (int)$request->pagination['perpage'],
+                $columns = ['*'],
+                $pageName = '*',
+                $page = $request->pagination['page']
+            )
         );
 
 //        dd($incorporation);
         foreach ($incorporation as $value){
 
             $value->stepsleft =  $progress->where('id_incorporation',$value->id)->where('sort','achevé')->count().'/'.$steps->where('form_jurdique',$value->form_juridique)->count();
-                }
+        }
 
-              return  $incorporation;
+        return  $incorporation;
     }
 
 

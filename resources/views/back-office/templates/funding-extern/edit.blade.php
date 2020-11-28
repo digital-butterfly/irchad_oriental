@@ -29,7 +29,7 @@
                     </ul>
                 </div><br />
             @endif
-            <form class="kt-form" method="POST" action="{{ route('funding-cpdh.update', $data->id) }}">
+            <form class="kt-form" method="POST" action="{{ route('funding-ext.update', $data->id) }}">
                 {{ method_field('PUT') }}
                 <div class="kt-portlet__body">
                     <div class="kt-section kt-section--first">

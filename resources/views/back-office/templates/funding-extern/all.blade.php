@@ -116,7 +116,7 @@
                             autoHide: false,
                             template: function(row) {
                                 return '\
-                                <a href="admin/funding-cpdh/' + row.id + '/edit" class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="Edit details">\
+                                <a href="admin/funding-ext/' + row.id + '/edit" class="btn btn-sm btn-clean btn-icon btn-icon-sm" title="Edit details">\
                                     <i class="flaticon2-gear"></i>\
                                 </a>\
                                 <a href="javascript:;" class="btn btn-sm btn-clean btn-icon btn-icon-sm" data-toggle="modal" data-target="#kt_modal_1" title="Delete">\

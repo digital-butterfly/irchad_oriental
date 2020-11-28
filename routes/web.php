@@ -22,9 +22,9 @@ Route::get('/programme', function () {
 });
 //route vers la page soummisions projet
 Route::get('/project-submission','CandidatureController@index');
-Route::get('/adherent', function () {
-    return view('adherent');
-});
+//Route::get('/adherent', function () {
+//    return view('adherent');
+//});
 //route vers la page à propos
 Route::get('/a-propos',function(){
     return view('front-office.about-us');
@@ -150,10 +150,22 @@ Route::group(['middleware' => 'auth:user'], function () {
     Route::resource('admin/projects-categories', 'ProjectCategoryController');
 
 });
-    Route::get('/admin/exportExcel','ProjectApplicationController@exportExcel')->name('exportExcel');
-    Route::get('/admin/exportExcelmembers','MemberController@exportExcel')->name('exportExcel');
 
 
-    Route::group(['middleware' => 'auth:member'], function () {
+
+Route::group(['middleware' => 'auth:member'], function () {
+    Route::resource('adherent/', 'AdherentController');
+//    Route::get('adherent', 'AdherentController@index');
+
+});
+Route::get('/admin/exportExcel','ProjectApplicationController@exportExcel')->name('exportExcel');
+Route::get('/admin/exportExcelmembers','MemberController@exportExcel')->name('exportExcel');
+
+
+Route::group(['middleware' => 'auth:member'], function () {
     Route::view('/member', 'member-office/home');
+});
+Route::get('locale/{locale}', function ($locale){
+    Session::put('locale', $locale);
+    return redirect()->back();
 });

@@ -68,7 +68,7 @@ class SessionController extends Controller
 
         if ($request['projet']!=null){
             if ($request['session']==='auto'){
-                 $session=Session::create([
+                $session=Session::create([
                     'title'=> 'Session '. Formation::findOrFail($request['id_formation'])->only('title')['title'].' '. ((int) Session::where('id_formation','=',$request['id_formation'])->get()->Count() + 1),
                     'id_formation' => $request['id_formation'],
                     'max_inscrit' =>10,
@@ -77,55 +77,60 @@ class SessionController extends Controller
                     'sort' => 'En file d\'attente',
                     'observation' => $request['observation'],
 
-              ]);
+                ]);
 
-                  if (json_decode($request['members-tagify'])) {
-                       foreach (json_decode($request['members-tagify']) as $key =>$value) {
+                if (json_decode($request['members-tagify'])) {
+                    foreach (json_decode($request['members-tagify']) as $key =>$value) {
 
-                         AdherentSession::updateOrCreate([
-                                 'id_session'=> $session['id'],
-                                 'id_projet' => $request['projet'],
-                                 'id_member' => $value->member_id,
-                                 ]
-         );
+                        AdherentSession::updateOrCreate([
+                                'id_session'=> $session['id'],
+                                'id_projet' => $request['projet'],
+                                'id_member' => $value->member_id,
+                            ]
+                        );
 
-     }
-     }
+                    }
+                }
 //                AdherentSession::updateOrCreate([
 //                    'id_session'=> $session['id'],
 //                    'id_projet' => $request['projet'],
 //                    'id_member' => $value->member_id,
 //                ]);
-     ProjectHistory::create([
-         'title'=>'Candidature en formation de  '. Formation::findOrFail($request['id_formation'])->only('title')['title'],
-         'id_projet'=>$request['projet'],
-         'updatedBy'=>Auth::id()
+                ProjectHistory::create([
+                    'title'=>'Candidature en formation de  '. Formation::findOrFail($request['id_formation'])->only('title')['title'],
+                    'id_projet'=>$request['projet'],
+                    'updatedBy'=>Auth::id()
 
-     ]);
+                ]);
+                ProjectApplication::findOrFail($request['projet'])->update(['training'=>'Envoyé vers formation'
 
- }
- else{
+                ]);
+
+            }
+            else{
 
 
-     if (json_decode($request['members-tagify'])) {
-         foreach (json_decode($request['members-tagify']) as $key =>$value)
-         {
+                if (json_decode($request['members-tagify'])) {
+                    foreach (json_decode($request['members-tagify']) as $key =>$value)
+                    {
 
-         AdherentSession::updateOrCreate([
-                 'id_session'=> $request['session'],
-                 'id_projet' => $request['projet'],
-                 'id_member' => $value->member_id,
-             ]
-         );
-     }
-     }
-     ProjectHistory::create([
-         'title'=>'Candidature en formation de  '. Formation::findOrFail($request['id_formation'])->only('title')['title'],
-         'id_projet'=>$request['projet'],
-         'updatedBy'=>Auth::id()
+                        AdherentSession::updateOrCreate([
+                                'id_session'=> $request['session'],
+                                'id_projet' => $request['projet'],
+                                'id_member' => $value->member_id,
+                            ]
+                        );
+                    }
+                }
+                ProjectHistory::create([
+                    'title'=>'Candidature en formation de  '. Formation::findOrFail($request['id_formation'])->only('title')['title'],
+                    'id_projet'=>$request['projet'],
+                    'updatedBy'=>Auth::id()
 
-     ]);
- }
+                ]);
+            }
+            ProjectApplication::findOrFail($request['projet'])->update(['training'=>'Envoyé vers formation']);
+
 
 
         }
@@ -165,6 +170,8 @@ class SessionController extends Controller
                 'updatedBy'=>Auth::id()
 
             ]);
+            ProjectApplication::findOrFail($request['projet'])->update(['training'=>'Envoyé vers formation']);
+
         }
 
 
@@ -182,26 +189,26 @@ class SessionController extends Controller
         $search_term = isset($query['generalSearch']) ? $query['generalSearch'] : '' ;
 
         $role_filter = isset($query['Type']) ? $query['Type'] : '' ;;
-            $sessions=new SessionCollection(Session::
-            where(function ($q) use ($search_term) {
-           $q->where('title', 'LIKE', '%' .$search_term  . '%')
-             ->orWhere('id', 'LIKE', '%' . $search_term . '%');
+        $sessions=new SessionCollection(Session::
+        where(function ($q) use ($search_term) {
+            $q->where('title', 'LIKE', '%' .$search_term  . '%')
+                ->orWhere('id', 'LIKE', '%' . $search_term . '%');
 
-            })->
-                    where(function ($q) use ($role_filter) {
-                    $role_filter ? $q->whereRaw('LOWER(status) = ?', [$role_filter]) : NULL;
-                })->
-            orderBy(
-        $request->sort['field'] != 'name' ? $request->sort['field'] : 'member_id',
-        $request->sort['sort']
-            )->
-         paginate(
-           $perPage = (int)$request->pagination['perpage'],
-         $columns = ['*'],
-         $pageName = '*',
-         $page = $request->pagination['page']
-)
-);
+        })->
+        where(function ($q) use ($role_filter) {
+            $role_filter ? $q->whereRaw('LOWER(status) = ?', [$role_filter]) : NULL;
+        })->
+        orderBy(
+            $request->sort['field'] != 'name' ? $request->sort['field'] : 'member_id',
+            $request->sort['sort']
+        )->
+        paginate(
+            $perPage = (int)$request->pagination['perpage'],
+            $columns = ['*'],
+            $pageName = '*',
+            $page = $request->pagination['page']
+        )
+        );
 //dd($sessions);
         return  $sessions;
     }
@@ -235,27 +242,27 @@ class SessionController extends Controller
                 foreach (json_decode($request['candidatures']) as $key =>$value2)
                 {
 
-                AdherentSession::updateOrCreate([
+                    AdherentSession::updateOrCreate([
 
-                        'id_session'=> $session['id'],
-                        'id_projet' => $value2->id,
-                        'id_member' => $value->member_id,
+                            'id_session'=> $session['id'],
+                            'id_projet' => $value2->id,
+                            'id_member' => $value->member_id,
 
-                    ]
-                );
-            }}
+                        ]
+                    );
+                }}
         }
 //        dd($request->toArray());
         if ($session['sort']!==$request['sort']){
             foreach (json_decode($request['candidatures']) as $key =>$value)
             {
-            ProjectHistory::create([
-                'title'=>'Formation  ' . Formation::findOrFail($request['id_formation'])->only('title')['title'].' de la Candidature est '. $request['sort'],
-                'id_projet'=>$value->id,
-                'updatedBy'=>Auth::id()
+                ProjectHistory::create([
+                    'title'=>'Formation  ' . Formation::findOrFail($request['id_formation'])->only('title')['title'].' de la Candidature est '. $request['sort'],
+                    'id_projet'=>$value->id,
+                    'updatedBy'=>Auth::id()
 
-            ]);
-        }
+                ]);
+            }
         }
         $session->update([
 
@@ -300,7 +307,7 @@ class SessionController extends Controller
         })->get();
         return response()->json([$Formations]);
         //
-}
+    }
     public function ajaxProjectlist(Request $request)
     {
         $ProjectApplication=ProjectApplication::select('id','title AS value','description')->where('Status','=','Accepté')->where(function ($q) use ($request) {
@@ -312,27 +319,27 @@ class SessionController extends Controller
         return response()->json([$ProjectApplication]);
     }
 
-  public function ajaxMemebersProjectList(Request $request)
+    public function ajaxMemebersProjectList(Request $request)
     {
-       $users= ProjectApplicationMember::select('project_application_id','member_id')->where('project_application_id','=', $request['project_application_id'])->get()->map(function($member){
+        $users= ProjectApplicationMember::select('project_application_id','member_id')->where('project_application_id','=', $request['project_application_id'])->get()->map(function($member){
             $user=$member->getUser ->only(['id','first_name','last_name']);
 
             return [
                 'member_id'=>$user['id'],
                 'value'=>$user['first_name'].' '. $user['last_name'],
                 'project_id'=>$member->project_application_id
-                           ];
+            ];
         });
 
-       $adhprc=ProjectApplication::where('id','=', $request['project_application_id'])->get()->map(function($member){
+        $adhprc=ProjectApplication::where('id','=', $request['project_application_id'])->get()->map(function($member){
 //           dd($member);
-           $user=$member->getAdhname->only(['id','first_name','last_name']);
+            $user=$member->getAdhname->only(['id','first_name','last_name']);
 
-           return [
-               'member_id'=>$user['id'],
-               'value'=>$user['first_name'].' '. $user['last_name'],
-               'project_id'=>$member->id
-           ]; });
+            return [
+                'member_id'=>$user['id'],
+                'value'=>$user['first_name'].' '. $user['last_name'],
+                'project_id'=>$member->id
+            ]; });
 //        dump($users);
         foreach ($adhprc as $value) {
             $MyObject =[];

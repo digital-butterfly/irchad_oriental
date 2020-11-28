@@ -9,11 +9,8 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="text-center text-white">
-                    <h1 class="text-white">À Propos</h1>
-                    <p class="mt-3 mb-0 text-uppercase">Nous accompagnons les porteurs de projets dans leur évolution.</p>
-                    <p class="mt-3 mb-0 text-uppercase">Le programme IRCHAD est un programme dédié à accompagner les jeunes porteurs de projets de la Province de Al Hoceima. Ce
-                            programme est initié par l’Association Provinciale d’Appui des Activités de Proximité (APAAP) afin de viabiliser les projets appuyés par l’Initiative
-                            Nationale pour le Développement Humain (INDH).</p>
+                    <h1 class="text-white">{{__('about.À Propos')}}</h1>
+                    <p class="mt-3 mb-0 text-uppercase">{{__('about.IRCHAD est une solution digitale dédiée à l’entreprenariat, afin de créer votre entreprise en suivant un parcours intuitif et ergonomique,étape par étape. Il a été initié par l’association provinciale d’appui des activités de proximité (APAAP) de la province d\'Al Hoceima, afin de viabiliser les projets appuyés par l’INDH, dans le cadre du 3ème programme initié par l’INDH, « ARIEJ Amélioration du Revenu et Inclusion Économique des Jeunes ».')}}</p>
                 </div>
             </div>
         </div>
@@ -27,13 +24,13 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="text-center">
-                    <h3 class="title-heading">Un programme d'accompagnement, d'incubation et de financement</h3>
+                    <h3 class="title-heading">{{__('about.IRCHAD est votre nouvelle boîte à outils digitale qui répond à vos besoins pour assurer le continuum de création de votre entreprise. À travers IRCHAD, nous allons :')}}</h3>
                     <span class="title-icon">
                     <i class="mdi mdi-dots-horizontal"></i>
                 </span>
-                    <p class="title-desc text-muted">Le programme IRCHAD met à la disposition des jeunes porteurs de projet un accompagnement complet, dans un environnement
-                        innovant et évolutif, allant de l'élaboration de l'idée initiale du projet jusqu'à sa mise en place sur le marché.
-                    </p>
+{{--                    <p class="title-desc text-muted">Le programme IRCHAD met à la disposition des jeunes porteurs de projet un accompagnement complet, dans un environnement--}}
+{{--                        innovant et évolutif, allant de l'élaboration de l'idée initiale du projet jusqu'à sa mise en place sur le marché.--}}
+{{--                    </p>--}}
                 </div>
             </div>
         </div>
@@ -46,7 +43,7 @@
                     <div class="services-icon">
                         <i class="pe-7s-way text-custom"></i>
                     </div>
-                    <h5 class="mt-3 f-18">Orienter les porteurs d'idées grâce à des dispositifs d'écoute, de formation, de conseil et de financement</h5>
+                    <h5 class="mt-3 f-18">{{__('about.Améliorer l’orientation des porteurs de projets surtout via le digital')}}</h5>
                     {{-- <p class="text-muted mt-3">Printing and typesetting been industrys standard dummy text ever since when unknown printer took galley type scrambled book.</p> --}}
                 </div>
             </div>
@@ -56,7 +53,7 @@
                     <div class="services-icon">
                         <i class="pe-7s-wallet text-custom"></i>
                     </div>
-                    <h5 class="mt-3 f-18">Améliorer les revenus des jeunes</h5>
+                    <h5 class="mt-3 f-18">{{__('about.Faciliter l’intégration des jeunes dans le tissu économique de la province')}}</h5>
                     {{-- <p class="text-muted mt-3">Printing and typesetting been industrys standard dummy text ever since when unknown printer took galley type scrambled book.</p> --}}
                 </div>
             </div>
@@ -69,7 +66,7 @@
                     <div class="services-icon">
                         <i class="pe-7s-culture text-custom"></i>
                     </div>
-                    <h5 class="mt-3 f-18">Intégrer les jeunes dans le tissu économique du pays</h5>
+                    <h5 class="mt-3 f-18">{{__('about.Assurer une meilleure coordination des offres d\'accompagnement à tous les stades de création de l’entreprise')}}</h5>
                     {{-- <p class="text-muted mt-3">Printing and typesetting been industrys standard dummy text ever since when unknown printer took galley type scrambled book.</p> --}}
                 </div>
             </div>
@@ -79,7 +76,7 @@
                     <div class="services-icon">
                         <i class="pe-7s-light text-custom"></i>
                     </div>
-                    <h5 class="mt-3 f-18">Résoudre des problématiques économiques et sociales</h5>
+                    <h5 class="mt-3 f-18">{{__('about.Résoudre les problématiques économiques et sociales de la province')}}</h5>
                     {{-- <p class="text-muted mt-3">Printing and typesetting been industrys standard dummy text ever since when unknown printer took galley type scrambled book.</p> --}}
                 </div>
             </div>

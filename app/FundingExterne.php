@@ -25,4 +25,39 @@ class FundingExterne extends Model
         'montant'
 
     ];
+    public static function formFields() {
+        return [
+            [
+
+                'name' => 'status_ext',
+                'type' => 'select',
+                'label' => 'Statut',
+                'options' => ['En cours', 'Accepté','Refusé']
+            ],
+            [
+
+                'name' => 'funding_organism',
+                'type' => 'text',
+                'label' => 'Organisme de financement',
+            ],
+//            [
+//
+//                'name' => 'date_prise_charge_ext',
+//                'type' => 'date',
+//                'label' => 'Date de prise en charge'
+//            ]
+
+            [
+
+                'name' => 'montant',
+                'type' => 'number',
+                'label' => 'Montant'
+            ],[
+
+                'name' => 'observation_ext',
+                'type' => 'textarea',
+                'label' => 'Observation'
+            ],];
+
+}
 }

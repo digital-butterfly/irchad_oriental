@@ -22,7 +22,7 @@ class RedirectIfAuthenticated
             return redirect('/admin');
         }
         if ($guard == "member" && Auth::guard($guard)->check()) {
-            return redirect('/member');
+            return redirect('/adherent');
         }
         if (Auth::guard($guard)->check()) {
             return redirect('/member');

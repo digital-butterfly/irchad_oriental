@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Member;
 use App\Providers\RouteServiceProvider;
+use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Auth;
@@ -13,6 +15,7 @@ class LoginController extends Controller
     /*
     |--------------------------------------------------------------------------
     | Login Controller
+
     |--------------------------------------------------------------------------
     |
     | This controller handles authenticating users for the application and
@@ -63,12 +66,26 @@ class LoginController extends Controller
             'email'   => 'required|email',
             'password' => 'required|min:4'
         ]);
+       if ( User::where('email',$request['email'])->exists()){
 
-        if (Auth::guard('user')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
+           if (Auth::guard('user')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
 
-            return redirect()->intended('/admin');
-        }
+               return redirect()->intended('/admin');
+           }
+
+
+       }
+       elseif(Member::where('email',$request['email'])->exists()){
+//           dd(Auth::guard('member')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember')));
+
+           if (Auth::guard('member')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
+
+               return redirect()->intended('/adherent');
+           }
+
+       }
         return back()->withInput($request->only('email', 'remember'));
+
     }
 
     /**
@@ -80,7 +97,7 @@ class LoginController extends Controller
     {
         return view('auth.login', ['url' => 'member']);
     }
-    
+
     /**
      * Custom function.
      *
@@ -88,6 +105,7 @@ class LoginController extends Controller
      */
     public function memberLogin(Request $request)
     {
+
         $this->validate($request, [
             'email'   => 'required|email',
             'password' => 'required|min:4'

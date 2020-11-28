@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Fundingcpdh;
 use App\FundingIndh;
+use App\ProjectApplication;
 use App\Http\Resources\FundingCpdhCollection;
 use Illuminate\Http\Request;
 
@@ -65,14 +66,21 @@ class FundingcpdhController extends Controller
     public function update(Request $request, $id )
     {
 
-        FundingIndh::findOrfail($id)->update([
+        $funding=FundingIndh::findOrfail($id);
+//        dd($funding->id_projet);
+        $funding->update([
             'status_cpdh'=>$request['status_cpdh'],
             'observation_cpdh'=>$request['observation_cpdh'],
             'montant'=>$request['montant'],
         ]);
-//        if($request['status_cpdh']==='Accepté'){
-//            FundingIndh::findOrfail($id)->update(['ready_cpdh'=>1]);
-//        }
+
+        if($request['status_cpdh']==='Accepté'){
+            ProjectApplication::findOrFail($funding->id_projet)->update(['funding'=>'Financé']);
+        }
+        elseif($request['status_cpdh']==='Financement refusé'){
+            ProjectApplication::findOrFail($funding->id_projet)->update(['funding'=>'Financement refusé']);
+        }
+
         return redirect()->intended('admin/funding-cpdh');
     }
 

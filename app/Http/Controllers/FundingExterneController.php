@@ -48,10 +48,11 @@ class FundingExterneController extends Controller
     }
     public function edit($id)
     {
-        $data =FundingIndh::findOrFail($id);
-        $fields = Fundingcpdh::formFields();
+        $data =FundingExterne::findOrFail($id);
+        $fields = FundingExterne::formFields();
+//        dd($id);
 //        dd($data);
-        return view('back-office/templates/funding-cpdh/edit', compact('fields', 'data'));
+        return view('back-office/templates/funding-extern/edit', compact('fields', 'data'));
     }
     /**
      * Update the specified resource in storage.
@@ -62,19 +63,45 @@ class FundingExterneController extends Controller
      */
     public function update(Request $request, $id )
     {
+        if ($request['project_id']){
+            $fundingext= FundingExterne::where("id_projet",$request['project_id'])->get();
 
+            $funding= $fundingext[0];
+            $funding->update([
+                'status_ext'=>$request['status_ext'],
+                'observation_ext'=>$request['observation_ext'],
+                'montant'=>$request['montant'],
+                'funding_organism'=>$request['funding_organism'],
+            ]);
+            if($request['status_ext']==='Accepté'){
+                ProjectApplication::findOrFail($funding->id_projet)->update(['funding'=>'Financé']);
+            }
+            elseif($request['status_ext']==='Refusé'){
+                ProjectApplication::findOrFail($funding->id_projet)->update(['funding'=>'Financement refusé']);
+            }
 
-        $fundingext= FundingExterne::where("id_projet",$request['project_id'])->get();
+        }
+        else{
+            $fundingext= FundingExterne::findOrFail($id);
 
-        $fundingext[0]->update([
-            'status_ext'=>$request['status_ext'],
-            'observation_ext'=>$request['observation_ext'],
-            'montant'=>$request['montant'],
-            'funding_organism'=>$request['funding_organism'],
-        ]);
+            $funding=$fundingext;
+            $funding->update([
+                'status_ext'=>$request['status_ext'],
+                'observation_ext'=>$request['observation_ext'],
+                'montant'=>$request['montant'],
+                'funding_organism'=>$request['funding_organism'],
+            ]);
+            if($request['status_ext']==='Accepté'){
+                ProjectApplication::findOrFail($funding->id_projet)->update(['funding'=>'Financé']);
+            }
+            elseif($request['status_ext']==='Refusé'){
+                ProjectApplication::findOrFail($funding->id_projet)->update(['funding'=>'Financement refusé']);
+            }
 //        if($request['status_cpdh']==='Accepté'){
 //            FundingIndh::findOrfail($id)->update(['ready_cpdh'=>1]);
 //        }
+        }
+
         return redirect()->intended('admin/funding-ext');
     }
 

@@ -95,7 +95,7 @@ class RegisterController extends Controller
 
     /**
      * Custom function.
-     * 
+     *
      */
     public function showUserRegisterForm()
     {
@@ -104,7 +104,7 @@ class RegisterController extends Controller
 
     /**
      * Custom function.
-     * 
+     *
      */
     public function showMemberRegisterForm()
     {
@@ -114,7 +114,7 @@ class RegisterController extends Controller
 
     /**
      * Custom function.
-     * 
+     *
      */
     protected function createUser(Request $request)
     {
@@ -131,7 +131,7 @@ class RegisterController extends Controller
 
     /**
      * Custom function.
-     * 
+     *
      */
     protected function createMember(Request $request)
     {
@@ -143,6 +143,6 @@ class RegisterController extends Controller
             'phone' => $request['phone'],
             'password' => Hash::make($request['password']),
         ]);
-        return redirect()->intended('login/member');
+//        return redirect()->intended('login/member');
     }
 }

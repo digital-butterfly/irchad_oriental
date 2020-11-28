@@ -46,6 +46,8 @@ class FundingIndhController extends Controller
 
 
         ]);
+        ProjectApplication::findOrFail($request['project_id'])->update(['funding'=>'Envoyé au financement']);
+
 //        dd($fundingIndh);
 //        return redirect()->intended('admin/accountants');
     }

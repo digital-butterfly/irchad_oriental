@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="text-center text-white">
-                    <h1 class="text-white">F.A.Q</h1>
+                    <h1 class="text-white">{{__('FAQ.Questions fréquemment posées')}}</h1>
                     {{-- <p class="mt-3 mb-0 text-uppercase">get in touch with us</p> --}}
                 </div>
             </div>
@@ -26,21 +26,21 @@
             <div class="col-lg-12">
                 <div class="typography mt-4">
                     <div class="mt-4">
-                        <h4 class="dispaly-4">Questions fréquemment posées</h4>
+                        <h4 class="dispaly-4">{{__('FAQ.Questions fréquemment posées')}}</h4>
                         <hr/>
                         <div class="accordion" id="accordionExample">
                             <div class="card">
                                 <div class="card-header" id="headingOne">
                                 <h2 class="mb-0">
                                     <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                    Qui peut soumissionner un projet ?
+                                    {{__('FAQ.Qui peut soumissionner un projet ?')}}
                                     </button>
                                 </h2>
                                 </div>
 
                                 <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                                 <div class="card-body">
-                                    Tous les jeunes âgés entre 18 et 35 ans, en recherche active d’un emploi et qui ne pratiquent aucune activité dans le secteur public ou privé. Les porteurs de projets doivent obligatoirement résider au sein de la Province de Al Hoceima.
+                                    {{__('FAQ.Tous les jeunes âgés entre 18 et 35 ans, en recherche active d’un emploi et qui ne pratiquent aucune activité dans le secteur public ou privé. Les porteurs de projets doivent obligatoirement résider au sein de la Province de Al Hoceima.')}}
                                 </div>
                                 </div>
                             </div>
@@ -48,13 +48,13 @@
                                 <div class="card-header" id="headingTwo">
                                 <h2 class="mb-0">
                                     <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                    Qui sont les candidats prioritaires ?
+                                    {{__('FAQ.Qui sont les candidats prioritaires ?')}}
                                     </button>
                                 </h2>
                                 </div>
                                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
                                 <div class="card-body">
-                                    La priorité est attribué aux jeunes titulaires d’un diplôme universitaire ou de l’Office de la Formation Professionnelle et de la Promotion du Travail (OFPPT), aux jeunes ayant une expérience antérieure dans un domaine particulier et n’ayant jamais bénéficié des avantages du programme de l’INDH.
+                                    {{__('FAQ.La priorité est attribué aux jeunes titulaires d’un diplôme universitaire ou de l’Office de la Formation Professionnelle et de la Promotion du Travail (OFPPT), aux jeunes ayant une expérience antérieure dans un domaine particulier et n’ayant jamais bénéficié des avantages du programme de l’INDH.')}}
                                 </div>
                                 </div>
                             </div>
@@ -62,13 +62,13 @@
                                 <div class="card-header" id="headingThree">
                                 <h2 class="mb-0">
                                     <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                    Un projet validé est-il éditable ?
+                                    {{__('FAQ.Un projet validé est-il éditable ?')}}
                                     </button>
                                 </h2>
                                 </div>
                                 <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
                                 <div class="card-body">
-                                    Oui. Vous pouvez compléter votre dossier ou le modifier tout en étant accompagné par nos experts et nos mentors.
+                                    {{__('FAQ.Oui. Vous pouvez compléter votre dossier ou le modifier tout en étant accompagné par nos experts et nos mentors.')}}
                                 </div>
                                 </div>
                             </div>
@@ -76,13 +76,13 @@
                                 <div class="card-header" id="headingFour">
                                 <h2 class="mb-0">
                                     <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                                    Qu’est-ce qui est considéré comme un projet innovant ?
+                                    {{__('FAQ.Qu’est-ce qui est considéré comme un projet?')}}
                                     </button>
                                 </h2>
                                 </div>
                                 <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
                                 <div class="card-body">
-                                    L’innovation est toute chose nouvellement introduite. Toutes les innovations sont considérées (technologie, concept, procédé, commercialisation etc.)
+                                    {{__('FAQ.L’innovation est toute chose nouvellement introduite. Toutes les innovations sont considérées (technologie, concept, procédé, commercialisation etc.)')}}
                                 </div>
                                 </div>
                             </div>
@@ -90,13 +90,13 @@
                                 <div class="card-header" id="headingFive">
                                 <h2 class="mb-0">
                                     <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                                    Comment se fait la sélection des projets ?
+                                    {{__('FAQ.Comment se fait la sélection des projets ?')}}
                                     </button>
                                 </h2>
                                 </div>
                                 <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
                                 <div class="card-body">
-                                    Une fois que vous avez rempli le formulaire d’inscription, vos données sont vérifiées par nos équipes. Lorsque vos données seront validées, vous serez convié à l’une de nos plateformes physiques pour un entretien. Si toutes vos informations sont cohérentes avec votre profil et vos idées, des informations d’accès à notre plateforme virtuelle vous seront envoyées. Félicitation, votre projet est désormais sélectionné.
+                                    {{__('FAQ.Une fois que vous avez rempli le formulaire d’inscription, vos données sont vérifiées par nos équipes. Lorsqu\'elles seront validées, vous serez convié à l’une de nos plateformes physiques pour un entretien. Si toutes vos informations sont cohérentes avec votre profil et vos idées, des informations d’accès à notre plateforme virtuelle vous seront envoyées. Félicitation, votre projet est désormais sélectionné.')}}
                                 </div>
                                 </div>
                             </div>
@@ -104,13 +104,13 @@
                                 <div class="card-header" id="headingSix">
                                 <h2 class="mb-0">
                                     <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-                                    Les porteurs de projets doivent-ils contribuer financièrement au projet ?
+                                    {{__('FAQ.Les porteurs de projets doivent-ils contribuer financièrement au projet ?')}}
                                     </button>
                                 </h2>
                                 </div>
                                 <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionExample">
                                 <div class="card-body">
-                                    Les porteurs de projets doivent contribuer à hauteur de 25% du coût total du projet sous forme de contribution en nature ou en argent.
+                                    {{__('FAQ.Les porteurs de projets doivent contribuer à hauteur de 25% du coût total du projet sous forme de contribution en nature ou en argent.')}}
                                 </div>
                                 </div>
                             </div>
@@ -118,13 +118,13 @@
                                 <div class="card-header" id="headingSeven">
                                 <h2 class="mb-0">
                                     <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
-                                    A combien s’élève la contribution financière par IRCHAD et l’INDH ?
+                                    {{__('FAQ.A combien s’élève la contribution financière par IRCHAD et l’INDH ?')}}
                                     </button>
                                 </h2>
                                 </div>
                                 <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#accordionExample">
                                 <div class="card-body">
-                                    La contribution financière de IRCHAD et de l’INDH se limite à 100 000 Dirhams lorsque le porteur de projet est une seule personne. Dans le cas où le projet est fondé par deux personnes ou plus, la contribution s’élève jusqu’à 200 000 Dirhams. Chaque projet doit contribuer à la création d’au moins 5 emplois.
+                                    {{__('FAQ.La contribution financière de IRCHAD et de l’INDH se limite à 100 000 Dirhams lorsque le porteur de projet est une seule personne. Dans le cas où le projet est fondé par deux personnes ou plus, la contribution s’élève jusqu’à 200 000 Dirhams. Chaque projet doit contribuer à la création d’au moins 5 emplois.')}}
                                 </div>
                                 </div>
                             </div>
@@ -132,13 +132,13 @@
                                 <div class="card-header" id="headingEight">
                                 <h2 class="mb-0">
                                     <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
-                                    Dois-je céder des parts sociales à IRCHAD et à l’INDH suite à leur contribution au financement du projet ?
+                                    {{__('FAQ.Dois-je céder des parts sociales à IRCHAD et à l’INDH suite à leur contribution au financement du projet ?')}}
                                     </button>
                                 </h2>
                                 </div>
                                 <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#accordionExample">
                                 <div class="card-body">
-                                    Aucunement. IRCHAD et l’INDH sont des organismes à but non lucratif et dont la finalité est le dynamisme de la croissance.
+                                    {{__('FAQ.Aucunement. IRCHAD et l’INDH sont des organismes à but non lucratif et dont la finalité est le dynamisme de la croissance.')}}
                                 </div>
                                 </div>
                             </div>

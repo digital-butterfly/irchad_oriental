@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}">
 
 <head>
 
@@ -19,7 +19,11 @@
     <link rel="stylesheet" type="text/css" href="css/front-office/pe-icon-7-stroke.css">
 
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="css/front-office/bootstrap.min.css" type="text/css">
+        @if(app()->getLocale()=='en')
+        <link rel="stylesheet" href="css/front-office/bootstrap.min.css" type="text/css">
+    @elseif(app()->getLocale()=='ar')
+        <link rel="stylesheet" href="css/front-office/rtl/bootstrap.min.css" type="text/css">
+@endif
 
     <!--Material Icon -->
     <link rel="stylesheet" type="text/css" href="css/front-office/materialdesignicons.min.css" />
@@ -36,7 +40,12 @@
     <link rel="stylesheet" href="css/front-office/owl.transitions.css" />
 
     <!-- MENU CUSTOM css -->
-    <link rel="stylesheet" type="text/css" href="css/front-office/menu.css">
+    @if(app()->getLocale()=='en')
+        <link rel="stylesheet" type="text/css" href="css/front-office/menu.css">
+    @elseif(app()->getLocale()=='ar')
+        <link rel="stylesheet" type="text/css" href="css/front-office/rtl/menu.css">
+    @endif
+
 
     <!-- Custom  Css -->
     <link rel="stylesheet" type="text/css" href="css/front-office/style.css" />
@@ -44,6 +53,7 @@
 </head>
 
 <body>
+{{--{{app()->getLocale()}}--}}
 
     @include('front-office.partials.header')
 
@@ -54,7 +64,12 @@
     <!-- JAVASCRIPTS -->
     <script src="js/front-office/jquery.min.js"></script>
     <script src="js/front-office/popper.min.js"></script>
+    @if(app()->getLocale()=='en')
     <script src="js/front-office/bootstrap.min.js"></script>
+    @elseif(app()->getLocale()=='ar')
+    <script src="js/front-office/rtl/bootstrap.min.js"></script>
+    @endif
+
     <script src="js/front-office/jquery.easing.min.js"></script>
     <script src="js/front-office/scrollspy.min.js"></script>
     <!-- owl-carousel -->

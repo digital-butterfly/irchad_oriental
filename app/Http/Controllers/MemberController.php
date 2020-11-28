@@ -63,7 +63,8 @@ class MemberController extends Controller
                     ->orWhere('id', 'LIKE', '%' . $search_term . '%')
                     ->orWhere('first_name', 'LIKE', '%' . $search_term . '%')
                     ->orWhere('last_name', 'LIKE', '%' . $search_term . '%')
-                    ->orWhere('email', 'LIKE', '%' . $search_term . '%');
+                    ->orWhere('email', 'LIKE', '%' . $search_term . '%')
+                    ->orWhere('identity_number', 'LIKE', '%' . $search_term . '%');
             })->
             where(function ($q) use ($role_filter) {
                 $role_filter ? $q->whereRaw('LOWER(status) = ?', [$role_filter]) : NULL;

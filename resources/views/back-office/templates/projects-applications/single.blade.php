@@ -134,20 +134,20 @@
                                         <span class="kt-list-timeline__time">{{ $item->created_at->format('d/m/Y H:i') }}</span>
                                     </div>
 
-
+                                    @if ($application->updated_by != NULL)
+                                        <div class="kt-list-timeline__item">
+                                            <span class="kt-list-timeline__badge kt-list-timeline__badge--primary"></span>
+                                            <span class="kt-list-timeline__text">Candidature modifiée - <a class="kt-link">{{ $application->updator }}</a></span>
+                                            <span class="kt-list-timeline__time">{{ $application->updated_at->format('d/m/Y H:i') }}</span>
+                                        </div>
+                                    @endif
                                 @endforeach
                                 <div class="kt-list-timeline__item">
                                     <span class="kt-list-timeline__badge kt-list-timeline__badge--success"></span>
                                     <span class="kt-list-timeline__text">Candidature créée - <a class="kt-link">{{ $application->creator }}</a></span>
                                     <span class="kt-list-timeline__time">{{ $application->created_at->format('d/m/Y H:i') }}</span>
                                 </div>
-                                @if ($application->updated_by != NULL)
-                                    <div class="kt-list-timeline__item">
-                                        <span class="kt-list-timeline__badge kt-list-timeline__badge--primary"></span>
-                                        <span class="kt-list-timeline__text">Candidature modifiée - <a class="kt-link">{{ $application->updator }}</a></span>
-                                        <span class="kt-list-timeline__time">{{ $application->updated_at->format('d/m/Y H:i') }}</span>
-                                    </div>
-                                @endif
+
 
                                 {{-- <div class="kt-list-timeline__item">
                                     <span class="kt-list-timeline__badge kt-list-timeline__badge--danger"></span>
@@ -989,7 +989,7 @@
                         </button>
                     </div>
 
-                    <form class="kt-form" method="POST" action="{{ route('session.store') }}">
+                    <form id="sendformation" class="kt-form" method="POST" action="{{ route('session.store') }}">
 
 
                         <div class="kt-portlet__body">
@@ -1119,6 +1119,19 @@
 
 @section ('specific_js')
     <script>
+        $('#sendformation').submit(function() {
+            if (!$('#id_formationSelect').val())
+            {
+                if ($("#innerformationalert").length===0){
+                    $("#id_formationSelect").closest('.col-lg-6').append("<small id='innerformationalert'><a  class=\"kt-link kt-link--state kt-link--danger\">Merci de renseigner  la Formation</a></small>");
+                }
+
+                return false;
+            }
+            // return false to cancel form action
+        });
+
+
         let tab = JSON.parse(("{{$application->entreprise}}").replace(/&quot;/g,'"'))
 
         function switchvalue  (){
@@ -1468,7 +1481,7 @@
                     escapeMarkup: function (markup) {
                         return markup;
                     }, // let our custom formatter work
-                    minimumInputLength: 1,
+                    minimumInputLength: 0,
                     templateResult: formatRepo, // omitted for brevity, see the source of this page
                     templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
                 });
@@ -1603,7 +1616,7 @@
                 });
                 // tagifyTo.settings.whitelist.push(...toEl.value)
                 // console.log('helloooooooo',tagifyTo.settings.whitelist)
-                console.log('helloooooooo', tagifyTo)
+
 
 
                 tagifyTo.on('input', onInput).on('remove', onRemoveTag).on('dropdown:select', onSelectSuggestion)
@@ -1910,6 +1923,11 @@
                 el.setAttribute('data-content',ss)
                 el.classList.add('kt-badge--unified-danger');
                 el.classList.remove('kt-badge--unified-dark');
+            } else if (ss==='Incubé'){
+                let el = document.getElementById('status-top');
+                el.setAttribute('data-content',ss)
+                el.classList.add('kt-badge--unified-brand');
+                el.classList.remove('kt-badge--unified-dark');
             } else if (ss==='Nouveau'){
                 let el = document.getElementById('status-top');
                 el.setAttribute('data-content',ss)
@@ -1930,22 +1948,43 @@
 
             }
             if (trainingSelect ==='Envoyé vers formation'){
-                let el = document.getElementById('entreprise-top');
-                el.setAttribute('data-content',creationEnt)
+                let el = document.getElementById('formation-top');
+                el.setAttribute('data-content',trainingSelect)
                 el.classList.add('kt-badge--unified-warning');
                 el.classList.remove('kt-badge--unified-dark');
 
             }
             else if (trainingSelect ==='Formé'){
-                let el = document.getElementById('entreprise-top');
-                el.setAttribute('data-content',creationEnt)
+                let el = document.getElementById('formation-top');
+                el.setAttribute('data-content',trainingSelect)
                 el.classList.add('kt-badge--unified-success');
                 el.classList.remove('kt-badge--unified-dark');
 
             }
             else if (trainingSelect ==='Formation annulée'){
-                let el = document.getElementById('entreprise-top');
-                el.setAttribute('data-content',creationEnt)
+                let el = document.getElementById('formation-top');
+                el.setAttribute('data-content',trainingSelect)
+                el.classList.add('kt-badge--unified-danger');
+                el.classList.remove('kt-badge--unified-dark');
+
+            }
+ if (EXFSelect ==='Envoyé au financement'){
+                let el = document.getElementById('financement-top');
+                el.setAttribute('data-content',EXFSelect)
+                el.classList.add('kt-badge--unified-warning');
+                el.classList.remove('kt-badge--unified-dark');
+
+            }
+            else if (EXFSelect ==='Financé'){
+                let el = document.getElementById('financement-top');
+                el.setAttribute('data-content',EXFSelect)
+                el.classList.add('kt-badge--unified-success');
+                el.classList.remove('kt-badge--unified-dark');
+
+            }
+            else if (EXFSelect ==='Financement refusé'){
+                let el = document.getElementById('financement-top');
+                el.setAttribute('data-content',EXFSelect)
                 el.classList.add('kt-badge--unified-danger');
                 el.classList.remove('kt-badge--unified-dark');
 

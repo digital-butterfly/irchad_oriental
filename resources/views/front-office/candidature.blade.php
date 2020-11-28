@@ -1,122 +1,228 @@
 @extends('front-office.layouts.master')
 
 @section('content')
+    @if(app()->getLocale()=='en')
+        <style>
+            .home-bg-overlay {
+                z-index: 0;
+            }
 
-    <style>
-        .home-bg-overlay {
-            z-index: 0;
-        }
-
-        /*progressbar*/
-        #progressbar {
-            margin-bottom: 30px;
-            overflow: hidden;
-            /*CSS counters to number the steps*/
-            counter-reset: step;
-            text-align: center;
-            width: 800px;
-            margin: 0 auto;
-            position: relative;
-            bottom: -292px;
-        }
+            /*progressbar*/
+            #progressbar {
+                margin-bottom: 30px;
+                overflow: hidden;
+                /*CSS counters to number the steps*/
+                counter-reset: step;
+                text-align: center;
+                width: 800px;
+                margin: 0 auto;
+                position: relative;
+                bottom: -292px;
+            }
 
 
-        #progressbar li {
-            list-style-type: none;
-            color: white;
-            text-transform: uppercase;
-            font-size: 9px;
-            width: 33.33%;
-            float: left;
-            position: relative;
-            letter-spacing: 1px;
-        }
+            #progressbar li {
+                list-style-type: none;
+                color: white;
+                text-transform: uppercase;
+                font-size: 9px;
+                width: 33.33%;
+                float: left;
+                position: relative;
+                letter-spacing: 1px;
+            }
 
-        #progressbar li:before {
-            content: counter(step);
-            counter-increment: step;
-            width: 24px;
-            height: 24px;
-            line-height: 26px;
-            display: block;
-            font-size: 12px;
-            color: #333;
-            background: white;
-            border-radius: 25px;
-            margin: 0 auto 10px auto;
-        }
+            #progressbar li:before {
+                content: counter(step);
+                counter-increment: step;
+                width: 24px;
+                height: 24px;
+                line-height: 26px;
+                display: block;
+                font-size: 12px;
+                color: #333;
+                background: white;
+                border-radius: 25px;
+                margin: 0 auto 10px auto;
+            }
 
-        /*progressbar connectors*/
-        #progressbar li:after {
-            content: '';
-            width: 100%;
-            height: 2px;
-            background: white;
-            position: absolute;
-            left: -50%;
-            top: 9px;
-            z-index: -1; /*put it behind the numbers*/
-        }
+            /*progressbar connectors*/
+            #progressbar li:after {
+                content: '';
+                width: 100%;
+                height: 2px;
+                background: white;
+                position: absolute;
+                left: -50%;
+                top: 9px;
+                z-index: -1; /*put it behind the numbers*/
+            }
 
-        #progressbar li:first-child:after {
-            /*connector not needed before the first step*/
-            content: none;
-        }
+            #progressbar li:first-child:after {
+                /*connector not needed before the first step*/
+                content: none;
+            }
 
-        /*marking active/completed steps green*/
-        /*The number of the step and the connector before it = green*/
-        #progressbar li.active:before, #progressbar li.active:after {
-            background: #1bbc9b;
-            color: white;
-        }
+            /*marking active/completed steps green*/
+            /*The number of the step and the connector before it = green*/
+            #progressbar li.active:before, #progressbar li.active:after {
+                background: #1bbc9b;
+                color: white;
+            }
 
-        /*Hide all steps except first step*/
-        #contact-form fieldset:not(:first-of-type) {
-            display: none;
-        }
+            /*Hide all steps except first step*/
+            #contact-form fieldset:not(:first-of-type) {
+                display: none;
+            }
 
-        .custom-form input::-webkit-calendar-picker-indicator { /* display: none */
-        }
+            .custom-form input::-webkit-calendar-picker-indicator { /* display: none */
+            }
 
-        .custom-form input[type=date]::-webkit-inner-spin-button,
-        .custom-form input[type=date]::-webkit-outer-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-            /* position: relative; */
-            /* top : 7px; */
-        }
+            .custom-form input[type=date]::-webkit-inner-spin-button,
+            .custom-form input[type=date]::-webkit-outer-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+                /* position: relative; */
+                /* top : 7px; */
+            }
 
-        .custom-form .form-control, .custom-form #contact-form select.form-control {
-            border: none;
-            border-bottom: 1px solid #c1c1c1;
-        }
+            .custom-form .form-control, .custom-form #contact-form select.form-control {
+                border: none;
+                border-bottom: 1px solid #c1c1c1;
+            }
 
-        .contact-details .contact-details-header {
-            text-align: center;
-        }
+            .contact-details .contact-details-header {
+                text-align: center;
+            }
 
-        .logical-fields {
-            display: none;
-        }
-    </style>
+            .logical-fields {
+                display: none;
+            }
+        </style>
+    @elseif(app()->getLocale()=='ar')
+        <style>
+            form{
+                direction: rtl;
+            }
+            .home-bg-overlay {
+                z-index: 0;
+            }
+
+            /*progressbar*/
+            #progressbar {
+                margin-bottom: 30px;
+                overflow: hidden;
+                /*CSS counters to number the steps*/
+                counter-reset: step;
+                text-align: center;
+                width: 800px;
+                margin: 0 auto;
+                position: relative;
+                bottom: -292px;
+            }
+
+
+            #progressbar li {
+                list-style-type: none;
+                color: white;
+                text-transform: uppercase;
+                font-size: 9px;
+                width: 33.33%;
+                float: right;
+                position: relative;
+                letter-spacing: 1px;
+            }
+
+            #progressbar li:before {
+                content: counter(step);
+                counter-increment: step;
+                width: 24px;
+                height: 24px;
+                line-height: 26px;
+                display: block;
+                font-size: 12px;
+                color: #333;
+                background: white;
+                border-radius: 25px;
+                margin: 0 auto 10px auto;
+            }
+
+            /*progressbar connectors*/
+            #progressbar li:after {
+                content: '';
+                width: 100%;
+                height: 2px;
+                background: white;
+                position: absolute;
+                right: -50%;
+                top: 9px;
+                z-index: -1; /*put it behind the numbers*/
+            }
+
+            #progressbar li:first-child:after {
+                /*connector not needed before the first step*/
+                content: none;
+            }
+
+            /*marking active/completed steps green*/
+            /*The number of the step and the connector before it = green*/
+            #progressbar li.active:before, #progressbar li.active:after {
+                background: #1bbc9b;
+                color: white;
+            }
+
+            /*Hide all steps except first step*/
+            #contact-form fieldset:not(:first-of-type) {
+                display: none;
+            }
+
+            .custom-form input::-webkit-calendar-picker-indicator { /* display: none */
+            }
+
+            .custom-form input[type=date]::-webkit-inner-spin-button,
+            .custom-form input[type=date]::-webkit-outer-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+                /* position: relative; */
+                /* top : 7px; */
+            }
+
+            .custom-form .form-control, .custom-form #contact-form select.form-control {
+                border: none;
+                border-bottom: 1px solid #c1c1c1;
+            }
+
+            .contact-details .contact-details-header {
+                text-align: center;
+            }
+
+            .logical-fields {
+                display: none;
+            }
+        </style>
+    @endif
+
     <form method="POST" data-route="{{ route('projectSubmission')}}" id="form-data">
     @csrf
 
+
     <!-- START CONTACT-HEADER -->
         <section class="bg-pages-title">
+
             <div class="home-bg-overlay">
                 <!-- progressbar -->
                 <ul id="progressbar">
-                    <li class="active">Informations Personnelles</li>
-                    <li>Informations Professionelles</li>
-                    <li>Informations sur le Projet</li>
+                    <li class="active">{{__('project-submission.Informations personnelles')}}</li>
+                    <li>{{__('project-submission.Informations Professionelles')}}</li>
+                    <li>{{__('project-submission.Informations sur le Projet')}}</li>
                 </ul>
             </div>
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="text-center text-white">
-                            <h1 class="text-white">Soumissionner un Projet</h1>
+                            <h1 class="text-white">{{__('project-submission.Soumissionner un Projet')}}</h1>
+
                             {{-- <p class="mt-3 mb-0 text-uppercase">get in touch with us</p> --}}
                         </div>
                     </div>
@@ -134,21 +240,24 @@
                                 <div id="form-errors"></div>
                                 <!-- STEP 1 -->
                                 <fieldset class="form-section">
+
+
+
                                     <div class="contact-details-header">
                                         <div class="contact-icon">
                                             <i class="pe-7s-id text-custom"></i>
                                         </div>
-                                        <h3>Informations personnelles</h3>
-                                        <p class="text-muted mt-3">Renseignez vos informations personnelles.</p>
+                                        <h3>{{__('project-submission.Informations personnelles')}}</h3>
+                                        <p class="text-muted mt-3">{{__('project-submission.Renseignez vos informations personnelles')}}</p>
                                     </div>
                                     <div class="row mt-4">
                                         <div class="col-lg-2">
                                             <div class=" form-group">
                                                 <select name="civility" id="civility" class=" custom-form form-control">
-                                                    <option value="" selected disabled>Votre civilité...</option>
-                                                    <option value="0">Mr</option>
-                                                    <option value="1">Mme</option>
-                                                    <option value="2">Mlle</option>
+                                                    <option value="" selected disabled>{{__('project-submission.Votre civilité')}}...</option>
+                                                    <option value="0">{{__('project-submission.Mr')}}</option>
+                                                    <option value="1">{{__('project-submission.Mme')}}</option>
+             w                                       <option value="2">{{__('project-submission.Mlle')}}</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -156,14 +265,14 @@
                                         <div class="col-lg-5">
                                             <div class="form-group">
                                                 <input name="first_name" id="first_name" type="text"
-                                                       class="form-control" placeholder="Votre prénom..." required="">
+                                                       class="form-control" placeholder="{{__('project-submission.Votre prénom')}}..." required="">
                                             </div>
                                         </div>
 
                                         <div class="col-lg-5">
                                             <div class="form-group">
                                                 <input name="last_name" id="last_name" type="text" class="form-control"
-                                                       required="" placeholder="Votre nom de famille...">
+                                                       required="" placeholder="{{__('project-submission.Votre nom de famille')}}...">
                                             </div>
                                         </div>
                                     </div>
@@ -173,7 +282,7 @@
                                             <div class="form-group">
                                                 <input name="identity_number" id="identity_number" type="text"
                                                        required="" class="form-control"
-                                                       placeholder="Votre numéro de CIN...">
+                                                       placeholder="{{__('project-submission.Votre numéro de CIN')}}...">
                                             </div>
                                         </div>
 
@@ -181,7 +290,7 @@
                                             <div class="form-group">
                                                 <input name="birth_date" id="birth_date" type="date"
                                                        class="form-control" required=""
-                                                       placeholder="Votre date de naissance...">
+                                                       placeholder="{{__('project-submission.Votre date de naissance')}}...">
                                             </div>
                                         </div>
 
@@ -189,12 +298,12 @@
                                             <div class="form-group">
                                                 <select name="marital-status" id="marital-status" required=""
                                                         class="form-control">
-                                                    <option value="" selected disabled>Votre situation familiale...
+                                                    <option value="" selected disabled>{{__('project-submission.Votre situation familiale')}}...
                                                     </option>
-                                                    <option value="">Célibataire</option>
-                                                    <option value="">Marié(e)</option>
-                                                    <option value="">Divorcé(e)</option>
-                                                    <option value="">Veuf(e)</option>
+                                                    <option value="">{{__('project-submission.Célibataire')}}</option>
+                                                    <option value="">{{__('project-submission.Marié(e)')}}</option>
+                                                    <option value="">{{__('project-submission.Divorcé(e)')}}</option>
+                                                    <option value="">{{__('project-submission.Veuf(e)')}}</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -204,19 +313,19 @@
                                         <div class="col-lg-8">
                                             <div class="form-group">
                                                 <input name="address" id="address" type="text" required=""
-                                                       class="form-control" placeholder="Votre adresse...">
+                                                       class="form-control" placeholder="{{__('project-submission.Votre adresse')}}...">
                                             </div>
                                         </div>
 
                                         <div class="col-lg-4">
                                             <div class="form-group">
                                                 <select name="township_id" id="township_id" class="form-control">
-                                                    <option value="" selected disabled>Votre commune...</option>
-                                                    <option value="14">Al Hoceima</option>
-                                                    <option value="13">Midar</option>
-                                                    <option value="5">Mtalssa</option>
-                                                    <option value="10">Ouardana</option>
-                                                    <option value="9">Talilit</option>
+                                                    <option value="" selected disabled>{{__('project-submission.Votre commune')}}...</option>
+                                                    <option value="14">{{__('project-submission.Al Hoceima')}}</option>
+                                                    <option value="13">{{__('project-submission.Midar')}}</option>
+                                                    <option value="5">{{__('project-submission.Mtalssa')}}</option>
+                                                    <option value="10">{{__('project-submission.Ouardana')}}</option>
+                                                    <option value="9">{{__('project-submission.Talilit')}}</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -226,13 +335,13 @@
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <input name="email" id="email" type="email" class="form-control"
-                                                       placeholder="Votre email...">
+                                                       placeholder="{{__('project-submission.Votre email')}}...">
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <input name="phone" id="phone" type="phone" class="form-control"
-                                                       placeholder="Votre téléphone...">
+                                                       placeholder="{{__('project-submission.ٍVotre téléphone')}}...">
                                             </div>
                                         </div>
                                     </div>
@@ -242,15 +351,14 @@
                                             <div class="form-group">
                                                 <select name="reduced_mobility" id="reduced_mobility"
                                                         class="form-control">
-                                                    <option value="" selected disabled>Êtes-vous une personne à mobilité
-                                                        réduite?
+                                                    <option value="" selected disabled>{{__('project-submission.Êtes-vous une personne à mobilité  réduite?')}}
                                                     </option>
-                                                    <option value="Non">Non</option>
-                                                    <option value="Handicap auditif">Handicap auditif</option>
-                                                    <option value="Handicap vocal">Handicap vocal</option>
-                                                    <option value="Handicap moteur">Handicap moteur</option>
-                                                    <option value="Handicap visuel">Handicap visuel</option>
-                                                    <option value="Handicap mental">Handicap mental</option>
+                                                    <option value="Non">{{__('project-submission.Non')}}</option>
+                                                    <option value="Handicap auditif">{{__('project-submission.Handicap auditif')}}</option>
+                                                    <option value="Handicap vocal">{{__('project-submission.Handicap vocal')}}</option>
+                                                    <option value="Handicap moteur">{{__('project-submission.Handicap moteur')}}</option>
+                                                    <option value="Handicap visuel">{{__('project-submission.Handicap visuel')}}</option>
+                                                    <option value="Handicap mental">{{__('project-submission.Handicap mental')}}</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -262,9 +370,8 @@
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="checkbox" value=""
                                                            id="defaultCheck1" name="defaultCheck1">
-                                                    <label class="form-check-label" for="defaultCheck1">Je certifie
-                                                        l'exactitude des données renseignées et j'accepte les <a
-                                                            href="#">termes et conditions</a>.</label>
+                                                    <label class="form-check-label" for="defaultCheck1">{{__('project-submission.Je certifie l\'exactitude des données renseignées et j\'accepte les')}} <a
+                                                            href="#">{{__('project-submission.termes et conditions')}}</a>.</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -273,7 +380,7 @@
                                     <div class="row mt-4 text-center">
                                         <div class="col-lg-12">
                                             <input type="button" name="next" class="submitBnt btn btn-custom next"
-                                                   value="Suivant">
+                                                   value="{{__('project-submission.Suivant')}}">
                                             <div id="simple-msg"></div>
                                         </div>
                                     </div>
@@ -285,26 +392,26 @@
                                         <div class="contact-icon">
                                             <i class="pe-7s-study text-custom"></i>
                                         </div>
-                                        <h3>Informations professionnelles</h3>
-                                        <p class="text-muted mt-3">Renseignez vos informations professionnelles.</p>
+                                        <h3>{{__('project-submission.Informations Professionelles')}}</h3>
+                                        <p class="text-muted mt-3">{{__('project-submission.Renseignez vos informations professionnelles.')}}</p>
                                     </div>
 
                                     <div class="fields-section">
-                                        <h4 class="mt-4">Formation</h4>
-                                        <h5><small class="text-muted">Renseignez vos diplômes</small></h5>
+                                        <h4 class="mt-4">{{__('project-submission.Formation')}}</h4>
+                                        <h5><small class="text-muted">{{__('project-submission.Renseignez vos diplômes')}}</small></h5>
 
                                         <div class="row source-field">
                                             <div class="col-lg-3">
                                                 <div class="form-group">
                                                     <input name="degrees[0][diplome_type]" id="diplome_type" type="text"
-                                                           class="form-control" placeholder="Type de diplôme...">
+                                                           class="form-control" placeholder="{{__('project-submission.Type de diplôme')}}...">
                                                 </div>
                                             </div>
 
                                             <div class="col-lg-3">
                                                 <div class="form-group">
                                                     <input name="degrees[0][annee]" id="annee" type="text"
-                                                           class="form-control" placeholder="Année d'obtention...">
+                                                           class="form-control" placeholder="{{__('project-submission.Année d\'obtention')}}...">
                                                 </div>
                                             </div>
 
@@ -324,7 +431,7 @@
                                                 <div class="form-group">
                                                     <input name="degrees[0][etablissement]" id="etablissement"
                                                            type="text" class="form-control"
-                                                           placeholder="Établissement...">
+                                                           placeholder="{{__('project-submission.Établissement')}}...">
                                                 </div>
                                             </div>
 
@@ -342,43 +449,42 @@
                                     </div>
 
                                     <div class="fields-section">
-                                        <h4 class="mt-5">Experience Professionnelle</h4>
-                                        <h5><small class="text-muted">Renseignez vos experiences
-                                                professionnelles</small></h5>
+                                        <h4 class="mt-5">{{__('project-submission.Experience Professionnelle')}}</h4>
+                                        <h5><small class="text-muted">{{__('project-submission.Renseignez vos experiences professionnelles')}}</small></h5>
 
                                         <div class="row source-field">
                                             <div class="col-lg-2">
                                                 <div class="form-group">
                                                     <input name="professional_experience[0][du]" id="du" type="text"
-                                                           class="form-control" placeholder="Du...">
+                                                           class="form-control" placeholder="{{__('project-submission.Du')}}...">
                                                 </div>
                                             </div>
 
                                             <div class="col-lg-2">
                                                 <div class="form-group">
                                                     <input name="professional_experience[0][au]" id="au" type="text"
-                                                           class="form-control" placeholder="Au...">
+                                                           class="form-control" placeholder="{{__('project-submission.Au')}}...">
                                                 </div>
                                             </div>
 
                                             <div class="col-lg-2">
                                                 <div class="form-group">
                                                     <input name="professional_experience[0][poste]" id="poste"
-                                                           type="text" class="form-control" placeholder="Poste...">
+                                                           type="text" class="form-control" placeholder="{{__('project-submission.Poste')}}...">
                                                 </div>
                                             </div>
 
                                             <div class="col-lg-2">
                                                 <div class="form-group">
                                                     <input name="professional_experience[0][organisme]" id="organisme"
-                                                           type="text" class="form-control" placeholder="Organisme...">
+                                                           type="text" class="form-control" placeholder="{{__('project-submission.Organisme')}}...">
                                                 </div>
                                             </div>
 
                                             <div class="col-lg-2">
                                                 <div class="form-group">
                                                     <input name="professional_experience[0][mission]" id="mission"
-                                                           type="text" class="form-control" placeholder="Mission...">
+                                                           type="text" class="form-control" placeholder="{{__('project-submission.Mission')}}...">
                                                 </div>
                                             </div>
 
@@ -427,9 +533,9 @@
                                     <div class="row mt-4 text-center">
                                         <div class="col-lg-12">
                                             <input type="button" name="previous"
-                                                   class="submitBnt btn btn-custom previous" value="Précédent">
+                                                   class="submitBnt btn btn-custom previous" value="{{__('project-submission.Précédent')}}">
                                             <input type="button" name="next" class="submitBnt btn btn-custom next"
-                                                   value="Suivant">
+                                                   value="{{__('project-submission.Suivant')}}">
                                             <div id="simple-msg"></div>
                                         </div>
                                     </div>
@@ -441,15 +547,15 @@
                                         <div class="contact-icon">
                                             <i class="pe-7s-portfolio text-custom"></i>
                                         </div>
-                                        <h3>Informations sur le projet</h3>
-                                        <p class="text-muted mt-3">Renseignez les détails de votre projet.</p>
+                                        <h3>{{__('project-submission.Informations sur le Projet')}}</h3>
+                                        <p class="text-muted mt-3">{{__('project-submission.Renseignez les détails de votre projet')}}.</p>
                                     </div>
 
                                     <div class="row">
                                         <div class="col-lg-8">
                                             <div class="form-group">
                                                 <input name="title" id="title" type="text" class="form-control"
-                                                       placeholder="Titre de votre projet...">
+                                                       placeholder="{{__('project-submission.Titre de votre projet')}}...">
                                             </div>
                                         </div>
 
@@ -457,15 +563,17 @@
                                             <div class="form-group">
                                                 <select name="category_id" id="category_id"
                                                         class="form-control bootstrap-select" id="kt_form_type">
-                                                    <option disabled selected>Secteur d'activité...</option>
+                                                    <option disabled selected>{{__('project-submission.Secteur d\'activité')}}...</option>
 
                                                     @foreach ($sectors as $sector)
 
-                                                        <optgroup label="{{$sector->title}}">
+                                                        {{--                                                        <optgroup label="{{$sector->title}}">--}}
+                                                        <optgroup label="@lang( 'project-submission.' . $sector->title. '' )">
                                                             @foreach($sector['subSectors'] as $subSector)
                                                                 @if($subSector->parent_id==$sector->id )
                                                                     <option
-                                                                        value="{{$subSector->id}}">{{$subSector->title}}</option>
+                                                                        {{--                                                                        value="{{$subSector->id}}">{{$subSector->title}}</option>--}}
+                                                                        value="{{$subSector->id}}">@lang( 'project-submission.' . $subSector->title . '' )</option>
 
                                                                 @endif
 
@@ -484,7 +592,7 @@
                                         <div class="col-lg-12">
                                             <div class="form-group">
                                                 <input name="total_jobs" id="total_jobs" min="0" type="number"
-                                                       class="form-control" placeholder="Effectif du projet...">
+                                                       class="form-control" placeholder="{{__('project-submission.Effectif du projet')}}...">
                                             </div>
                                         </div>
                                     </div>
@@ -494,57 +602,55 @@
                                             <div class="form-group">
                                                 <select name="state-aid" id="state-aid"
                                                         class="form-control  logical-parent">
-                                                    <option value="" selected disabled>Avez-vous déjà bénéficié d'une
-                                                        aide étatique?
+                                                    <option value="" selected disabled>{{__('project-submission.Avez-vous déjà bénéficié d\'une aide étatique?')}}
                                                     </option>
-                                                    <option value="0">Non, je n'ai jamais bénéficié d'une aide
-                                                        étatique.
+                                                    <option value="0">{{__('project-submission.Non, je n\'ai jamais bénéficié d\'une aide étatique.')}}
                                                     </option>
-                                                    <option value="1">Oui, j'ai déjà bénéficié d'une aide étatique.
+                                                    <option value="1">{{__('project-submission.Oui, j\'ai déjà bénéficié d\'une aide étatique.')}}
                                                     </option>
                                                 </select>
                                             </div>
                                         </div>
                                     </div>
-                                        <div class="col-lg-12 fields-section logical-fields">
-                                            <div class="source-field ">
-                                                <div class="form-group">
-                                                    <select name="state-aid-oui" id="state-aid-oui"
-                                                            class="form-control bootstrap-select" id="kt_form_type">
-                                                        <option disabled selected>Si oui, laquelle?</option>
+                                    <div class="col-lg-12 fields-section logical-fields">
+                                        <div class="source-field ">
+                                            <div class="form-group">
+                                                <select name="state-aid-oui" id="state-aid-oui"
+                                                        class="form-control bootstrap-select" id="kt_form_type">
+                                                    <option disabled selected>{{__('project-submission.Si oui, laquelle?')}}</option>
 
-                                                        @foreach ($AIDEETAT as $aide)
+                                                    @foreach ($AIDEETAT as $aide)
 
-                                                            <option value="{{$aide}}">{{$aide}}</option>
+                                                        <option value="{{$aide}}">@lang( 'project-submission.' . $aide . '' )</option>
 
-                                                            <p></p>
-                                                        @endforeach
+                                                        <p></p>
+                                                    @endforeach
 
-                                                    </select>
-                                                    {{--                                            <input name="state-aid-oui" id="state-aid-oui" type="text" class="form-control" placeholder="Si oui, laquelle?">--}}
-                                                </div>
-                                                <div class="form-group">
-                                                    <input name="aide_date"   id="aide_date" type='number' min='2010'
-                                                           max='2011' class="form-control"
-                                                           placeholder="Dans qu'elle année ?">
-                                                </div>
-                                                <div class="form-group">
-                                                    <input name="aide_montant" id="aide_montant" type='number' min='0'
-                                                           class="form-control"  placeholder="le montant?">
-                                                </div>
-                                                <div class="col-lg-2">
-                                                    <div class="form-group">
-                                                        <input type="button" name="add-field"
-                                                               class="submitBnt btn btn-custom add-field" value="+">
-                                                    </div>
-                                                </div>
-
+                                                </select>
+                                                {{--                                            <input name="state-aid-oui" id="state-aid-oui" type="text" class="form-control" placeholder="Si oui, laquelle?">--}}
                                             </div>
-                                            <div class="dynamic-fields">
-                                                <!-- Dynamic fielfd will be cloned here -->
+                                            <div class="form-group">
+                                                <input name="aide_date"   id="aide_date" type='number' min='2010'
+                                                       max='2011' class="form-control"
+                                                       placeholder="{{__('project-submission.Dans qu\'elle année?')}}">
+                                            </div>
+                                            <div class="form-group">
+                                                <input name="aide_montant" id="aide_montant" type='number' min='0'
+                                                       class="form-control"  placeholder="{{__('project-submission.le montant?')}}">
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <div class="form-group">
+                                                    <input type="button" name="add-field"
+                                                           class="submitBnt btn btn-custom add-field" value="+">
+                                                </div>
                                             </div>
 
                                         </div>
+                                        <div class="dynamic-fields">
+                                            <!-- Dynamic fielfd will be cloned here -->
+                                        </div>
+
+                                    </div>
 
 
 
@@ -554,14 +660,11 @@
                                             <div class="form-group">
                                                 <select name="company[is_created]" id="company_creation"
                                                         class="form-control logical-parent">
-                                                    <option value="" selected disabled>Avez-vous déjà créé une
-                                                        entreprise pour votre projet?
+                                                    <option value="" selected disabled>{{__('project-submission.Avez-vous déjà créé une entreprise pour votre projet?')}}
                                                     </option>
-                                                    <option value="1">Oui, j'ai déjà créé une entreprise pour mon
-                                                        projet.
+                                                    <option value="1">{{__('project-submission.Oui, j\'ai déjà créé une entreprise pour mon projet.')}}
                                                     </option>
-                                                    <option value="0">Non, je n'est pas encore créé une entreprise pour
-                                                        mon projet.
+                                                    <option value="0">{{__('project-submission.Non, je n\'est pas encore créé une entreprise pour mon projet.')}}
                                                     </option>
                                                 </select>
                                             </div>
@@ -574,11 +677,11 @@
                                                 <div class="form-group">
                                                     <select name="company[legal_form]" id="company_form"
                                                             class="form-control bootstrap-select" id="kt_form_type">
-                                                        <option disabled selected>Forme de l'entreprise...</option>
+                                                        <option disabled selected>{{__('project-submission.Forme de l\'entreprise')}}...</option>
 
                                                         @foreach ($LEGALFORM as $legal)
 
-                                                            <option value="{{$legal}}">{{$legal}}</option>
+                                                            <option value="{{$legal}}">@lang( 'project-submission.' . $legal . '' )</option>
 
                                                             <p></p>
                                                         @endforeach
@@ -593,7 +696,7 @@
                                                 <div class="form-group">
                                                     <input name="company[corporate_name]" id="company_denomination"
                                                            type="text" class="form-control"
-                                                           placeholder="Dénomination de l'entreprise...">
+                                                           placeholder="{{__('project-submission.Dénomination de l\'entreprise')}}...">
                                                 </div>
                                             </div>
 
@@ -601,7 +704,7 @@
                                                 <div class="form-group">
                                                     <input name="company[creation_date]" id="company_date" type="date"
                                                            class="form-control"
-                                                           placeholder="Date de création de l'entreprise...">
+                                                           placeholder="{{__('project-submission.Date de création de l\'entreprise')}}...">
                                                 </div>
                                             </div>
                                         </div>
@@ -610,9 +713,9 @@
                                     <div class="row mt-4 text-center">
                                         <div class="col-lg-12">
                                             <input type="button" name="previous"
-                                                   class="submitBnt btn btn-custom previous" value="Précédent">
+                                                   class="submitBnt btn btn-custom previous" value="{{__('project-submission.Précédent')}}">
                                             <input type="submit" id="submit" name="submit"
-                                                   class="submitBnt btn btn-custom " value="Envoyer">
+                                                   class="submitBnt btn btn-custom " value="{{__('project-submission.Envoyer')}}">
                                             <div id="simple-msg"></div>
                                         </div>
                                     </div>
@@ -796,51 +899,51 @@
             errorsHtml = '<div class="alert alert-danger"><ul>';
             if (current_fs == 0) {
                 if ($("#civility").val() == null) {
-                    errorsHtml += '<li>Veuillez renseigner votre civilité</li>';
+                    errorsHtml += "<li>{{__('project-submission.Veuillez renseigner votre civilité')}}</li>";
                     is_error = true;
                 }
                 if ($("#first_name").val() == '') {
-                    errorsHtml += '<li>Veuillez renseigner votre prénom</li>';
+                    errorsHtml += "<li>{{__('project-submission.Veuillez renseigner votre prénom')}}</li>";
                     is_error = true;
                 }
                 if ($("#last_name").val() == '') {
-                    errorsHtml += '<li>Veuillez renseigner votre nom</li>';
+                    errorsHtml += "<li>{{__('project-submission.Veuillez renseigner votre nom')}}</li>";
                     is_error = true;
                 }
                 if ($("#identity_number").val() == '') {
-                    errorsHtml += '<li>Veuillez renseigner votre CIN</li>';
+                    errorsHtml += "<li>{{__('project-submission.Veuillez renseigner votre CIN')}}</li>";
                     is_error = true;
                 }
                 if ($("#birth_date").val() == '') {
-                    errorsHtml += '<li>Veuillez renseigner votre date de naissance</li>';
+                    errorsHtml += "<li>{{__('project-submission.Veuillez renseigner votre date de naissance')}}</li>";
                     is_error = true;
                 }
                 if ($("#marital-status").val() == null) {
-                    errorsHtml += '<li>Veuillez renseigner votre situation familliale</li>';
+                    errorsHtml += "<li>{{__('project-submission.Veuillez renseigner votre situation familliale')}}</li>";
                     is_error = true;
                 }
                 if ($("#address").val() == '') {
-                    errorsHtml += '<li>Veuillez renseigner votre adresse</li>';
+                    errorsHtml += "<li>{{__('project-submission.Veuillez renseigner votre adresse')}}</li>";
                     is_error = true;
                 }
                 if ($("#township_id").val() == null) {
-                    errorsHtml += '<li>Veuillez renseigner votre commune</li>';
+                    errorsHtml += "<li>{{__('project-submission.Veuillez renseigner votre commune')}}</li>";
                     is_error = true;
                 }
                 if ($("#email").val() == '') {
-                    errorsHtml += '<li>Veuillez renseigner votre adresse email</li>';
+                    errorsHtml += "<li>{{__('project-submission.Veuillez renseigner votre adresse email')}}</li>";
                     is_error = true;
                 }
                 if ($("#phone").val() == '') {
-                    errorsHtml += '<li>Veuillez renseigner votre numéro de téléphone</li>';
+                    errorsHtml += "<li>{{__('project-submission.Veuillez renseigner votre numéro de téléphone')}}</li>";
                     is_error = true;
                 }
                 if ($("#reduced_mobility").val() == null) {
-                    errorsHtml += '<li>Veuillez renseigner votre situation de mobilité</li>';
+                    errorsHtml += "<li>{{__('project-submission.Veuillez renseigner votre situation de mobilité')}}</li>";
                     is_error = true;
                 }
                 if ($('#defaultCheck1').is(":checked") == false) {
-                    errorsHtml += '<li>Veuillez certifie l\'exactitude des données renseignées</li>';
+                    errorsHtml += "<li>{{__('project-submission.Veuillez certifie l\'exactitude des données renseignées')}}</li>";
                     is_error = true;
                 }
             }
