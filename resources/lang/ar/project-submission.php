@@ -221,6 +221,17 @@ return [
     'Ajdir'=>'أجدير',
     'Abdelghaya Souahel'=>'عبد الغاية سواحل',
 
+    'Zarkt'=>'زرقت',
+    'Zaouïat Sidi Abdelkader'=>'زاوية سيدي عبد القادر',
+    'Tifarouine'=>'تيفروين',
+    'Targuist'=>'تارجيست',
+    'Tamsaout'=>'تمزاوت',
+    'Taghzout'=>'تاغزوت',
+    'Sidi Bouzineb'=>'سيدي بوزينب',
+    'Sidi Boutmim'=>'سيدي بوتميم',
+    'Senada'=>'زنادة',
+    'Rouadi'=>'رواضي',
+
     'Arabe'=>'العربية',
     'Francais'=>'الفرنسية'
 ];

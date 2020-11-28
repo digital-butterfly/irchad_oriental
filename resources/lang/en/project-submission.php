@@ -177,6 +177,17 @@ return [
     'Al Hoceïma'=>'Al Hoceïma',
     'Ajdir'=>'Ajdir',
     'Abdelghaya Souahel'=>'Abdelghaya Souahel',
+    'Zarkt'=>'Zarkt',
+    'Zaouïat Sidi Abdelkader'=>'Zaouïat Sidi Abdelkader',
+    'Tifarouine'=>'Tifarouine',
+    'Targuist'=>'Targuist',
+    'Tamsaout'=>'Tamsaout',
+    'Taghzout'=>'Taghzout',
+    'Sidi Bouzineb'=>'Sidi Bouzineb',
+    'Sidi Boutmim'=>'Sidi Boutmim',
+    'Senada'=>'Senada',
+    'Rouadi'=>'Rouadi',
+
 
     'Renseignez les détails de votre projet'=>'Renseignez les détails de votre projet',
     'Titre de votre projet'=>'Titre de votre projet',
