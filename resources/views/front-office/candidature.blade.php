@@ -321,11 +321,12 @@
                                             <div class="form-group">
                                                 <select name="township_id" id="township_id" class="form-control">
                                                     <option value="" selected disabled>{{__('project-submission.Votre commune')}}...</option>
-                                                    <option value="14">{{__('project-submission.Al Hoceima')}}</option>
-                                                    <option value="13">{{__('project-submission.Midar')}}</option>
-                                                    <option value="5">{{__('project-submission.Mtalssa')}}</option>
-                                                    <option value="10">{{__('project-submission.Ouardana')}}</option>
-                                                    <option value="9">{{__('project-submission.Talilit')}}</option>
+                                                    @foreach ($Communes as $Commune)
+
+                                                        <option value="{{$Commune->id}}">@lang( 'project-submission.' . $Commune->title . '' )</option>
+
+                                                        <p></p>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>

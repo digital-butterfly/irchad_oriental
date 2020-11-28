@@ -62,9 +62,9 @@
 
                     <li class="has-submenu last-elements">
                         <a>@if(app()->getLocale()=='ar')
-                                العربية
+                            <i class="pe-7s-global"></i>    العربية
                             @else
-                                Francais
+                                <i class="pe-7s-global"></i>    Francais
                             @endif
                         </a>
                         <span class="menu-arrow"></span>
@@ -109,7 +109,7 @@
                 <li>
                     <ul class="list-inline login-button pl-4">
                         <li class="list-inline-item mb-0 ">
-                            <a href="login" class="btn btn-sm btn-login">{{__('header.Se Connecter')}}</a>
+                            <a href="login" class="btn btn-sm btn-login"><i class="mdi mdi-login-variant"></i> {{__('header.Se Connecter')}}</a>
                         </li>
                     </ul>
                 </li>
