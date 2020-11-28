@@ -49,6 +49,14 @@
 
     <!-- Custom  Css -->
     <link rel="stylesheet" type="text/css" href="css/front-office/style.css" />
+    @if(app()->getLocale()=='ar')
+        <style>
+            body{
+                direction: rtl;
+            }
+        </style>
+
+    @endif
 
 </head>
 
