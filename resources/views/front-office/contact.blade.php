@@ -18,7 +18,7 @@
             <div class="col-lg-12">
                 <div class="text-center text-white">
                     <h1 class="text-white">{{__('contact.Contactez-Nous')}}</h1>
-                     <p class="mt-3 mb-0 text-uppercase">{{__('contact.contact_disc')}}</p>
+                     <p class="mt-3 mb-0">{{__('contact.contact_disc')}}</p>
                 </div>
             </div>
         </div>

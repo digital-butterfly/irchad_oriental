@@ -112,7 +112,7 @@
             <div class="container">
                 <div class="col-lg-12">
                     <div class="text-center">
-                        <a href="programme" class="btn btn-sm btn-custom">{{__('welcome.Je découvre IRCHAD')}} <i class="mdi mdi-arrow-right pl-1"></i></a>
+                        <a href="a-propos" class="btn btn-sm btn-custom">{{__('welcome.Je découvre IRCHAD')}} <i class="mdi mdi-arrow-right pl-1"></i></a>
                     </div>
                 </div>
             </div>
@@ -372,7 +372,7 @@
                     <h3 class="text-white">{{__('welcome.En savoir plus sur le programme IRCHAD')}}</h3>
                     {{-- <p class="f-16 mt-4 text-white">Pour nous contacter ou pour en savoir plus sur le programme IRCHAD</p> --}}
                     <div class="mt-5">
-                        <a href="#" class="btn btn-outline-white text-uppercase"><i class="mdi mdi-information-outline"></i> {{__('welcome.Nous contacter maintenant')}}</a>
+                        <a href="contact" class="btn btn-outline-white text-uppercase"><i class="mdi mdi-information-outline"></i> {{__('welcome.Nous contacter maintenant')}}</a>
                     </div>
                 </div>
             </div>
@@ -709,7 +709,7 @@
         <div class="row justify-content-center mt-5">
             <div class="col-lg-8">
                 <div class="subcribe-form mt-4">
-                    <form action="#">
+                    <form action="/project-submission">
                         <input placeholder="{{__('welcome.Entrez le titre de votre projet')}}..." type="text">
                         <button type="submit" class="btn btn-custom">{{__('welcome.Commencer')}}</button>
                     </form>

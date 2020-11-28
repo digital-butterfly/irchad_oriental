@@ -10,7 +10,7 @@
             <div class="col-lg-12">
                 <div class="text-center text-white">
                     <h1 class="text-white">{{__('programme.Programme ARIEJ')}}</h1>
-                    <p class="mt-3 mb-0 text-uppercase">{{__('programme.Le programme ARIEJ est le 3ème programme relevant de la 3ème phase du déploiement de l’INDH 2019-2023. Il a été lancé par sa Majesté le Roi Mohammed VI que Dieu l’Assiste, le 19 septembre 2018. Ce programme vise spécifiquement à réussir l’intégration économique des jeunes et à l’amélioration de leur situation économique et sociale, à travers la mise en place d’un accompagnement complet dédié aux porteurs de projets, durant tout le processus de création d’entreprise.')}}</p>
+                    <p class="mt-3 mb-0">{{__('programme.Le programme ARIEJ est le 3ème programme relevant de la 3ème phase du déploiement de l’INDH 2019-2023. Il a été lancé par sa Majesté le Roi Mohammed VI que Dieu l’Assiste, le 19 septembre 2018. Ce programme vise spécifiquement à réussir l’intégration économique des jeunes et à l’amélioration de leur situation économique et sociale, à travers la mise en place d’un accompagnement complet dédié aux porteurs de projets, durant tout le processus de création d’entreprise.')}}</p>
                 </div>
             </div>
         </div>
@@ -34,7 +34,7 @@
         </div>
 
         <div class="row mt-5">
-            <div class="col-lg-4">
+            <div class="col-lg-6">
                 <div class="services-box text-center p-3 mt-4">
                     <div class="services-icon">
                         <i class="pe-7s-display1 text-custom"></i>
@@ -44,7 +44,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-4">
+            <div class="col-lg-6">
                 <div class="services-box text-center p-3 mt-4">
                     <div class="services-icon">
                         <i class="pe-7s-portfolio text-custom"></i>
@@ -53,8 +53,9 @@
                     <p class="text-muted mt-3">{{__('programme.Accompagner les jeunes porteurs de projets éligibles dans la préparation de leur projet, afin d’améliorer le niveau de préparation du projet et augmenter les chances de succès de leur activité (formation, appui…).')}}</p>
                 </div>
             </div>
-
-            <div class="col-lg-4">
+        </div>
+        <div class="row mt-5">
+            <div class="col-lg-6">
                 <div class="services-box text-center p-3 mt-4">
                     <div class="services-icon">
                         <i class="pe-7s-graph text-custom"></i>
@@ -63,7 +64,7 @@
                     <p class="text-muted mt-3">{{__('programme.Accompagner les jeunes dans le choix des structures juridiques adaptées à leurs profiles et aux spécificités de leurs projets.')}}'</p>
                 </div>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-6">
                 <div class="services-box text-center p-3 mt-4">
                     <div class="services-icon">
                         <i class="pe-7s-culture text-custom"></i>

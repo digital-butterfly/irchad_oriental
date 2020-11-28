@@ -37,25 +37,7 @@
 {{--                    <option value="locale/ar">{{__('project-submission.Arabe')}}</option>--}}
 {{--                    <option value="locale/ar">{{__('project-submission.Francais')}}</option>--}}
 {{--                </select>--}}
-                @if(app()->getLocale()=='en')
-                    <li class="has-submenu last-elements">
-                        <a>@if(app()->getLocale()=='ar')
-                                العربية
-                            @else
-                                Francais
-                            @endif
-                        </a>
-                        <span class="menu-arrow"></span>
-                        <ul class="submenu">
-                            <li>
-                                <a href="{{ url('locale/en') }}" ><i class="fa fa-language"></i> {{__('project-submission.Francais')}}</a>
-                            </li>
-                            <li>
-                                <a href="{{ url('locale/ar') }}" ><i class="fa fa-language"></i> {{__('project-submission.Arabe')}}</a>
-                            </li>
-                        </ul>
-                    </li>
-                @endif
+
 
 
 
@@ -77,7 +59,7 @@
                 <li class="has-submenu">
                     <a href="contact">{{__('header.Nous Contacter')}}</a>
                 </li>
-                @if(app()->getLocale()=='ar')
+
                     <li class="has-submenu last-elements">
                         <a>@if(app()->getLocale()=='ar')
                                 العربية
@@ -95,7 +77,6 @@
                             </li>
                         </ul>
                     </li>
-                @endif
 
                 {{-- <li class="has-submenu">
                     <a href="#pages">Pages</a>

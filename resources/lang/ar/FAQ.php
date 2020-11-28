@@ -18,7 +18,7 @@ return [
     'Tous les jeunes âgés entre 18 et 35 ans, en recherche active d’un emploi et qui ne pratiquent aucune activité dans le secteur public ou privé. Les porteurs de projets doivent obligatoirement résider au sein de la Province de Al Hoceima.'=>'جميع الشباب الذين تتراوح أعمارهم بين 18 و 35 عاما، الباحثين عن فرصة عمل والذين لا يمارسون أي نشاط في القطاع العام أو الخاص. على حامل المشروع أن يقيم في إقليم الحسيمة.',
     'Qui sont les candidats prioritaires ?'=>'من هم المرشحون الذين لهم الأولوية؟',
     'La priorité est attribué aux jeunes titulaires d’un diplôme universitaire ou de l’Office de la Formation Professionnelle et de la Promotion du Travail (OFPPT), aux jeunes ayant une expérience antérieure dans un domaine particulier et n’ayant jamais bénéficié des avantages du programme de l’INDH.'=>'تعطى الأولوية للشباب الحاصلين على شهادة جامعية أو دبلوم مكتب التكوين المهني وإنعاش العمل (OFPPT)، والشباب مع خبرة سابقة في مجال معين الذين لم يستفيدوا من أحد برنامج المبادرة الوطنية للتنمية البشرية.',
-    'Un projet validé est-il éditable ?'=>'هل يمكن تعديل مشروع بعد التقق من صحته؟',
+    'Un projet validé est-il éditable ?'=>'هل يمكن تعديل مشروع بعد التحقق من صحته؟',
     'Oui. Vous pouvez compléter votre dossier ou le modifier tout en étant accompagné par nos experts et nos mentors.'=>'نعم. يمكنك إكمال طلبك أو تعديله تحت مرافقة الخبراء و الموجهين.',
     'Qu’est-ce qui est considéré comme un projet?'=>'ما يعتبر كمشروع؟',
     'L’innovation est toute chose nouvellement introduite. Toutes les innovations sont considérées (technologie, concept, procédé, commercialisation etc.)'=>'الابتكار هو كل شيءتم اكتشافها حديثا. وتعتبر الابتكارات في عدة مجالات (التكنولوجيا، ومفهوم، عملية، التسويق وغيرها)',

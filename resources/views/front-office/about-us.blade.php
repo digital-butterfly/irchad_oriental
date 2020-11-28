@@ -10,7 +10,7 @@
             <div class="col-lg-12">
                 <div class="text-center text-white">
                     <h1 class="text-white">{{__('about.À Propos')}}</h1>
-                    <p class="mt-3 mb-0 text-uppercase">{{__('about.IRCHAD est une solution digitale dédiée à l’entreprenariat, afin de créer votre entreprise en suivant un parcours intuitif et ergonomique,étape par étape. Il a été initié par l’association provinciale d’appui des activités de proximité (APAAP) de la province d\'Al Hoceima, afin de viabiliser les projets appuyés par l’INDH, dans le cadre du 3ème programme initié par l’INDH, « ARIEJ Amélioration du Revenu et Inclusion Économique des Jeunes ».')}}</p>
+                    <p class="mt-3 mb-0">{{__('about.IRCHAD est une solution digitale dédiée à l’entreprenariat, afin de créer votre entreprise en suivant un parcours intuitif et ergonomique,étape par étape. Il a été initié par l’association provinciale d’appui des activités de proximité (APAAP) de la province d\'Al Hoceima, afin de viabiliser les projets appuyés par l’INDH, dans le cadre du 3ème programme initié par l’INDH, « ARIEJ Amélioration du Revenu et Inclusion Économique des Jeunes ».')}}</p>
                 </div>
             </div>
         </div>
