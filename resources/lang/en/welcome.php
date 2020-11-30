@@ -14,17 +14,17 @@ return [
     */
 
     'Une plateforme dédiée aux jeunes porteurs de projets'=>'Une plateforme dédiée aux jeunes porteurs de projets',
-    'Vous êtes tentés par créer votre entreprise'=>'Vous êtes tentés par créer votre entreprise ? A la recherche d’une idée ou d’un accompagnement ? IRCHAD est votre nouvelle plateforme digitale qui vous accompagne dans votre réflexion, de l’idée à la mise en marché.',
+    'Vous êtes tentés par créer votre entreprise'=>'Êtes-vous tentés par la création de votre entreprise? Vous êtes à la recherche d’une idée ou d’un accompagnement? IRCHAD est votre nouvelle plateforme digitale qui vous accompagne dans votre réflexion, de l’idée à la mise en marché.',
     'Soumissionner un projet'=>'Soumissionner un projet',
     'En savoir plus'=>'En savoir plus',
 
     'Un programme d’accompagnement de A à Z'=>'Un programme d’accompagnement de A à Z',
     'Identifier'=>'Identifier',
-    'Nous cherchons activement à encourager'=>'Nous cherchons activement à encourager l\'entrepreneuriat et l\'esprit entrepreneurial, particulièrement chez les jeunes de 18 à 25 ans, en collaboration avec les acteurs de l\'écosystème entrepreneurial (INDH, Anapec, OFPPT…)',
+    'Nous cherchons activement à encourager'=>'Nous cherchons activement à encourager l\'entrepreneuriat, particulièrement chez les jeunes de 18 à 35 ans, et ce, en collaboration avec les acteurs de l\'écosystème entrepreneurial (INDH, Anapec, OFPPT…)',
     'Accompagner et orienter'=>'Accompagner et orienter',
     'De l’idée au lancement'=>'De l’idée au lancement, nous accompagnons les jeunes porteurs de projets avant et après la création de leurs entreprises à travers, le conseil, le financement et l’incubation.',
     'Agir'=>'Agir',
-    'Accélération de l’intégration'=>'Accélération de l’intégration des jeunes dans le tissu économique de la province d\'Al Hoceima. Au travers de notre programme et nos partenaires nous soutenons l\’employabilité des jeunes à travers l\’écoute, l\’orientation et la formation.',
+    'Accélération de l’intégration'=>'Accélération de l’intégration des jeunes dans le tissu économique de la province d\'Al Hoceima. À travers cette plateforme et en collaboration avec nos partenaires, nous soutenons l’employabilité des jeunes à travers l’écoute, l’orientation et la formation.',
     'Je découvre IRCHAD'=>'Je découvre IRCHAD',
 
     'Pourquoi choisir IRCHAD'=>'Pourquoi choisir IRCHAD?',

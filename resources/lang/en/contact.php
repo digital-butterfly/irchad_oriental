@@ -24,5 +24,6 @@ return [
     'Votre téléphone'=>'Votre téléphone',
     'Votre message'=>'Votre message',
     'Envoyer un message'=>'Envoyer un message',
+    'Plateforme physique'=>'Plateforme physique'
 
 ];

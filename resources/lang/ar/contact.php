@@ -17,12 +17,13 @@ return [
     'contact_disc'=>'للاستفسارات أو أسئلة أو اقتراحات، لا تتردد في استخدام استمارة الاتصال أدناه، فريق إرشاد سيجيبكم في أقرب وقت.',
 
     'Contactez-Nous'=>'اتصل بنا',
-    'Formulaire de Contact'=>'إستمارات الإتصال',
+    'Formulaire de Contact'=>'إستمارة الإتصال',
     'Vote prénom'=>'الإسم الشخصي',
     'Votre nom'=>'اللإسم العائلي',
     'Votre email'=>'البريد الإلكتروني',
     'Votre téléphone'=>'رقمك الهاتفي',
     'Votre message'=>'رسالتك',
     'Envoyer un message'=>'أرسل الرسالة',
+    'Plateforme physique'=>'Plateforme physique'
 
 ];
