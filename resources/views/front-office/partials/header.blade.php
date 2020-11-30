@@ -7,7 +7,9 @@
 </style>
 @endif
 <header id="topnav" class="defaultscroll fixed-top navbar-sticky">
+
     <div class="container">
+
         <!-- Logo container-->
         <div>
             <a href="/" class="logo">
@@ -60,23 +62,7 @@
                     <a href="contact">{{__('header.Nous Contacter')}}</a>
                 </li>
 
-                    <li class="has-submenu last-elements">
-                        <a>@if(app()->getLocale()=='ar')
-                            <i class="pe-7s-global"></i>    العربية
-                            @else
-                                <i class="pe-7s-global"></i>    Francais
-                            @endif
-                        </a>
-                        <span class="menu-arrow"></span>
-                        <ul class="submenu">
-                            <li>
-                                <a href="{{ url('locale/en') }}" ><i class="fa fa-language"></i> {{__('project-submission.Francais')}}</a>
-                            </li>
-                            <li>
-                                <a href="{{ url('locale/ar') }}" ><i class="fa fa-language"></i> {{__('project-submission.Arabe')}}</a>
-                            </li>
-                        </ul>
-                    </li>
+
 
                 {{-- <li class="has-submenu">
                     <a href="#pages">Pages</a>
@@ -113,9 +99,8 @@
                         </li>
                     </ul>
                 </li>
-
-
             </ul>
+
 
             <!-- End navigation menu-->
         </div>

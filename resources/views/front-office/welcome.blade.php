@@ -73,11 +73,23 @@
         </div>
 
         <div class="row">
-            <div class="col-lg-6 text-center about-left-icon-1">
-                <i class="mdi mdi-chevron-right"></i>
+            <div class="col-lg-6 text-center  about-left-icon-1">
+                <i class="mdi
+                @if(app()->getLocale()=='ar')
+                    mdi-chevron-left
+                    @else
+                mdi-chevron-right
+                @endif
+                    "></i>
             </div>
             <div class="col-lg-6 text-center about-left-icon-2">
-                <i class="mdi mdi-chevron-right"></i>
+                <i class="mdi
+                @if(app()->getLocale()=='ar')
+                    mdi-chevron-left
+                    @else
+                    mdi-chevron-right
+@endif
+                    "></i>
             </div>
         </div>
 
@@ -126,7 +138,20 @@
             <div class="container">
                 <div class="col-lg-12">
                     <div class="text-center">
-                        <a href="a-propos" class="btn btn-sm btn-custom">{{__('welcome.Je découvre IRCHAD')}} <i class="mdi mdi-arrow-right pl-1"></i></a>
+                        <a href="a-propos" class="btn btn-sm btn-custom">{{__('welcome.Je découvre IRCHAD')}}
+
+
+
+                            <i class="mdi
+                @if(app()->getLocale()=='ar')
+                                mdi-arrow-left pl-1
+@else
+                                mdi-arrow-right pl-1
+@endif
+                                "></i>
+
+
+                        </a>
                     </div>
                 </div>
             </div>
@@ -171,7 +196,7 @@
                         </div>
                         <div class="ml-5">
                             <h5 class="f-18">{{__('welcome.Démarches fluides')}}</h5>
-                            <p class="text-muted">{{__('welcome.Démarches fluides')}}</p>
+                            <p class="text-muted">{{__('welcome.Des démarches simples et fluides')}}</p>
                         </div>
                     </div>
 

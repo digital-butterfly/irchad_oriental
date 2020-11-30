@@ -27,6 +27,7 @@
 
     <!--Material Icon -->
     <link rel="stylesheet" type="text/css" href="css/front-office/materialdesignicons.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css" integrity="sha512-Cv93isQdFwaKBV+Z4X8kaVBYWHST58Xb/jVOcV9aRsGSArZsgAnFIhMpDoMDcFNoUtday1hdjn0nGp3+KZyyFw==" crossorigin="anonymous" />
 
     <!-- Swiper CSS -->
     <link rel="stylesheet" href="css/front-office/swiper.min.css">
@@ -48,15 +49,25 @@
 
 
     <!-- Custom  Css -->
-    <link rel="stylesheet" type="text/css" href="css/front-office/style.css" />
+
     @if(app()->getLocale()=='ar')
+        <link rel="stylesheet" type="text/css" href="css/front-office/rtl/style.css" />
         <style>
             body{
                 direction: rtl;
             }
-        </style>
 
+        </style>
+    @else
+        <link rel="stylesheet" type="text/css" href="css/front-office/style.css" />
     @endif
+    <style>
+        .test{
+            position: absolute;
+            z-index: 9;
+            top: 90px;
+        }
+    </style>
 
 </head>
 
@@ -64,6 +75,24 @@
 {{--{{app()->getLocale()}}--}}
 
     @include('front-office.partials.header')
+<div class="container">
+
+    <div class="test dropdown show">
+        <a class="btn btn-sm btn-login dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            @if(app()->getLocale()=='ar')
+                <span class="flag-icon flag-icon-ma"></span>         العربية
+            @else
+                <span class="flag-icon flag-icon-fr"></span>   Francais
+            @endif
+        </a>
+
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <a  class="dropdown-item" href="{{ url('locale/en') }}" ><i class="flag-icon flag-icon-fr"></i> {{__('project-submission.Francais')}}</a>
+            <a  class="dropdown-item" href="{{ url('locale/ar') }}" ><i class="flag-icon flag-icon-ma"></i> {{__('project-submission.Arabe')}}</a>
+        </div>
+    </div>
+</div>
+
 
     @yield('content')
 
@@ -73,7 +102,7 @@
     <script src="js/front-office/jquery.min.js"></script>
     <script src="js/front-office/popper.min.js"></script>
     @if(app()->getLocale()=='en')
-    <script src="js/front-office/bootstrap.min.js"></script>
+    <script src="js/front-office/rtl/bootstrap.min.js"></script>
     @elseif(app()->getLocale()=='ar')
     <script src="js/front-office/rtl/bootstrap.min.js"></script>
     @endif
