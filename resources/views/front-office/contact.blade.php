@@ -36,9 +36,9 @@
                     <div class="contact-icon">
                         <i class="pe-7s-map-marker text-custom"></i>
                     </div>
-                    <h5 class="mt-2">Irchad</h5>
+                    <h5 class="mt-2">{{__('contact.Plateforme physique')}}</h5>
                     <p class="text-muted mt-3">AL Hoceima</p>
-                    <p class="text-muted mt-3">+212 656-525-125</p>
+                    <p class="text-muted mt-3" style="direction: ltr">+212 656-525-125</p>
                 </div>
             </div>
 
