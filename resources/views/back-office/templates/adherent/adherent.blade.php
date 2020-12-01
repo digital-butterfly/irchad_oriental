@@ -847,7 +847,9 @@
                                                 </span><br>
                                                             <span class="kt-timeline-v3__item-user-name">
                                                 <a   class="kt-link kt-link--dark kt-timeline-v3__itek-link">
-                                                Par {{ $project[0]->creator }}
+                                                   @if($project[0]->creator)
+                                                Par {{ $project[0]->creator}}
+                                                    @endif
                                                 </a>
                                                 </span>
                                                         </div>
