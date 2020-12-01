@@ -98,6 +98,19 @@
             .logical-fields {
                 display: none;
             }
+            @media  (max-width: 768px) {
+                #progressbar {
+                    margin-bottom: 30px;
+                    overflow: hidden;
+                    /*CSS counters to number the steps*/
+                    counter-reset: step;
+                    text-align: center;
+                    width: 100%;
+                    margin: 0 auto;
+                    position: relative;
+                    bottom: -292px;
+                }
+            }
         </style>
     @elseif(app()->getLocale()=='ar')
         <style>
@@ -198,6 +211,19 @@
 
             .logical-fields {
                 display: none;
+            }
+            @media  (max-width: 768px) {
+                #progressbar {
+                    margin-bottom: 30px;
+                    overflow: hidden;
+                    /*CSS counters to number the steps*/
+                    counter-reset: step;
+                    text-align: center;
+                    width: 100%;
+                    margin: 0 auto;
+                    position: relative;
+                    bottom: -292px;
+                }
             }
         </style>
     @endif
