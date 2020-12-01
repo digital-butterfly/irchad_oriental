@@ -8,10 +8,15 @@ use App\Township;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Member;
 use App\ProjectApplication;
 use Maatwebsite\Excel\Facades\Excel;
+
+use \App\Mail\WelcomeMail;
+use \Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class CandidatureController extends Controller
 {
@@ -45,6 +50,7 @@ class CandidatureController extends Controller
 
     public function create(Request $request)
     {
+//        dd(isset($request['degrees']));
         //validation
         $validation =  $this->validator($request->all(), 'member');
         if($validation->fails())
@@ -70,12 +76,14 @@ class CandidatureController extends Controller
         {
             foreach($request['degrees'] as $degree)
             {
-                if ($this->input_is_null($degree)) {
+                if (!$this->input_is_null($degree)) {
+
                 //var_dump($degree["'annee'"]);die;
                $degrees [] = array(
                 "label" => $degree["diplome_type"].','.$degree["etablissement"],
                 'value' => $degree["annee"]
                );}
+
             }
         }
 
@@ -89,7 +97,7 @@ class CandidatureController extends Controller
         {
             foreach($request['professional_experience'] as $exp)
             {
-                if ($this->input_is_null($exp)) {
+                if (!$this->input_is_null($exp)) {
                     $expericances [] = array(
                         "label" => $exp["du"].'-'.$exp["au"],
                         'value' => $exp["poste"].' ' .$exp["mission"].' chez '. $exp['organisme']
@@ -104,7 +112,7 @@ class CandidatureController extends Controller
         {
             foreach($request['statehelp'] as $state)
             {
-        if ($this->input_is_null($state)){
+        if (!$this->input_is_null($state)){
 
 
                 $statehelp [] = array(
@@ -140,6 +148,7 @@ class CandidatureController extends Controller
         $gender = $request['civility'] == 0 ? 'Homme' : 'Femme';
 
         //inserstion Of member
+        $password=Str::random(8);
         $member = Member::create([
             'first_name' => strtolower($request['first_name']),
             'last_name' => strtolower($request['last_name']),
@@ -148,12 +157,14 @@ class CandidatureController extends Controller
             'phone' => $request['phone'],
             'birth_date' => $request['birth_date'],
             'address' => $request['address'],
+            'password'=>Hash::make($password),
             'township_id' => $request['township_id'],
             'degrees' => json_decode(json_encode($degrees)),
             'professional_experience' => json_decode(json_encode($expericances)),
             'state_help' => json_decode(json_encode($statehelp)),
             'reduced_mobility' => $request['reduced_mobility'],
         ]);
+//        dd($member);
         $application = ProjectApplication::create([
             'member_id' => $member->id,
             'township_id' => $request['township_id'],
@@ -165,6 +176,15 @@ class CandidatureController extends Controller
 
             'company' =>  json_decode(json_encode($company)),
         ]);
+
+        $user = [
+            'email' => $member->email,
+            'password' => $password,
+            'first_name'=>$member->first_name
+        ];
+        Mail::to($member->email)->subject('Bienvenue a Irchad')->send(new WelcomeMail($user));
+
+
         return response()->json(['message'=> 'Projet submited'],200);
     }
 

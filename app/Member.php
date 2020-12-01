@@ -30,6 +30,7 @@ class Member extends Authenticatable
         'gender',
         'birth_date',
         'address',
+        'password',
         'township_id',
         'degrees',
         'professional_experience',

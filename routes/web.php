@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use \App\Mail\WelcomeMail;
+use \Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +61,11 @@ Route::post('/login/admin', 'Auth\LoginController@userLogin');
 Route::post('/login/member', 'Auth\LoginController@memberLogin');
 Route::post('/register/admin', 'Auth\RegisterController@createUser')->name('register.admin');
 Route::post('/register/member', 'Auth\RegisterController@createMember')->name('register.member');
+
+Route::get('/email',function (){
+//   Mail::to('email@email.com')->send(new WelcomeMail());
+   return new WelcomeMail();
+});
 
 
 Route::view('/home', 'home')->middleware('auth');

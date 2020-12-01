@@ -455,7 +455,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="kt-wizard-v1__nav-item" data-ktwizard-type="step" data-ktwizard-state="pending">
+                                                    <div class="kt-wizard-v1__nav-item" data-ktwizard-type="step" data-ktwizard-state="{{$project[0]['training']=='Formé'?'done':'pending'}}">
                                                         <div class="kt-wizard-v1__nav-body">
                                                             <div class="kt-wizard-v1__nav-icon">
                                                                 {{--                                                                <i class="flaticon-truck"></i>--}}
@@ -463,8 +463,8 @@
 
                                                                 <i class=" {{$project[0]['training']==null?'flaticon-book':'flaticon-book'}}
                                                                 {{$project[0]['training']==='Rejeté'?'flaticon-cancel kt-font-danger':'flaticon-book'}}
-                                                                {{$project[0]['training']==='Entreprise en cours de création'?'flaticon-cancel kt-font-brand':'flaticon-book'}}
-                                                                {{$project[0]['training']==='Entreprise créee'?'flaticon-book':'flaticon-book'}}
+                                                                {{$project[0]['training']==='Envoyé vers formation'?'flaticon-book kt-font-brand':'flaticon-book'}}
+                                                                {{$project[0]['training']==='Formé'?'flaticon-book':'flaticon-book'}}
                                                                     "></i>
 
 
@@ -474,10 +474,18 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="kt-wizard-v1__nav-item" data-ktwizard-type="step" data-ktwizard-state="pending">
+                                                    <div class="kt-wizard-v1__nav-item" data-ktwizard-type="step" data-ktwizard-state="{{$project[0]['funding']=='Financé'?'done':'pending'}}">
                                                         <div class="kt-wizard-v1__nav-body">
                                                             <div class="kt-wizard-v1__nav-icon">
-                                                                <i class="flaticon-coins"></i>
+{{--                                                                <i class="flaticon-coins"></i>--}}
+                                                                <i class=" {{$project[0]['funding']==null?'flaticon-coins':'flaticon-coins'}}
+                                                                {{$project[0]['funding']==='Financement refusé'?'flaticon-cancel kt-font-danger':'flaticon-coins'}}
+                                                                {{$project[0]['funding']==='Envoyé au financement'?'flaticon-cancel kt-font-brand':'flaticon-coins'}}
+                                                                {{$project[0]['funding']==='Financé'?'flaticon-coins':'flaticon-coins'}}
+                                                                    "></i>
+
+
+
                                                                 {{--                                                                <i class="flaticon-globe"></i>--}}
                                                             </div>
                                                             <div class="kt-wizard-v1__nav-label">
