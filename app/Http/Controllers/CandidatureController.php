@@ -108,6 +108,7 @@ class CandidatureController extends Controller
         }
 
         $statehelp = array();
+//        dd($request->toArray());
         if(isset($request['statehelp']))
         {
             foreach($request['statehelp'] as $state)
@@ -117,8 +118,8 @@ class CandidatureController extends Controller
 
                 $statehelp [] = array(
                     "label" => $state["aid-oui"],
-                    "value" => $state["aide-date"],
-                    'count' => $state["aide-montant"]
+                    "value" => $state["aide_date"],
+                    'count' => $state["aide_montant"]
                 );
             } else{
             $statehelp = null;
@@ -127,7 +128,7 @@ class CandidatureController extends Controller
             }
 
         }
-
+//dd($statehelp);
         $company = array();
         if(isset($request['company']))
         {
@@ -182,7 +183,7 @@ class CandidatureController extends Controller
             'password' => $password,
             'first_name'=>$member->first_name
         ];
-        Mail::to($member->email)->subject('Bienvenue a Irchad')->send(new WelcomeMail($user));
+        Mail::to($member->email)->send(new WelcomeMail($user));
 
 
         return response()->json(['message'=> 'Projet submited'],200);
