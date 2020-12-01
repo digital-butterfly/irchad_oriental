@@ -448,7 +448,7 @@ class ProjectApplicationController extends Controller
 
             ]);
         }
-
+//dd($request->toArray());
         $application->update([
             'member_id' => $request['member_id'],
             'category_id' => $request['category_id'],

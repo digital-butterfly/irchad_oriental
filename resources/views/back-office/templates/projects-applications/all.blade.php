@@ -113,7 +113,7 @@
                                 };
                                 console.log(states[row.status]);
                                 return '<span class="kt-badge kt-badge--' + states[row.status].state + ' kt-badge--dot"></span>&nbsp;<span class="kt-font-bold kt-font-' + states[row.status].state + '">' +
-                                        row.status + '</span>';
+                                    row.status + '</span>';
                             },
                         }, {
                             field: 'Actions',
@@ -139,27 +139,27 @@
 
                 });
 
-            $('#kt_form_status').on('change', function() {
-            datatable.search($(this).val().toLowerCase(), 'Status');
-            });
+                $('#kt_form_status').on('change', function() {
+                    datatable.search($(this).val().toLowerCase(), 'Status');
+                });
 
-            $('#kt_form_type').on('change', function() {
-            datatable.search($(this).val().toLowerCase(), 'Type');
-            });
+                $('#kt_form_type').on('change', function() {
+                    datatable.search($(this).val().toLowerCase(), 'Type');
+                });
 
-           $('#kt_form_progress').on('change', function() {
-            datatable.search($(this).val().toLowerCase(), 'progress');
-        });
-           $('#kt_form_training').on('change', function() {
-            datatable.search($(this).val().toLowerCase(), 'Formation');
-        });
-           $('#kt_form_incorporation').on('change', function() {
-            datatable.search($(this).val().toLowerCase(), 'Création');
-        });$('#kt_form_funding').on('change', function() {
-            datatable.search($(this).val().toLowerCase(), 'Financement');
-        });
+                $('#kt_form_progress').on('change', function() {
+                    datatable.search($(this).val().toLowerCase(), 'progress');
+                });
+                $('#kt_form_training').on('change', function() {
+                    datatable.search($(this).val().toLowerCase(), 'Formation');
+                });
+                $('#kt_form_incorporation').on('change', function() {
+                    datatable.search($(this).val().toLowerCase(), 'Création');
+                });$('#kt_form_funding').on('change', function() {
+                    datatable.search($(this).val().toLowerCase(), 'Financement');
+                });
 
-        $('#kt_form_status,#kt_form_type,#kt_form_progress, #kt_form_training, #kt_form_incorporation,#kt_form_funding ').selectpicker();
+                $('#kt_form_status,#kt_form_type,#kt_form_progress, #kt_form_training, #kt_form_incorporation,#kt_form_funding ').selectpicker();
 
             };
 
@@ -183,7 +183,7 @@
 
                 name = $(this).closest('tr').find('td[data-field="title"] span').html();
 
-                $('#kt_modal_1 .modal-body p span').html('la candidature intitulée ' +'<b>'+ name+'</b>');
+                $('#kt_modal_1 .modal-body p span ').html('la candidature intitulée '  +'<b>'+name+'</b>');
 
                 $('#kt_modal_1 button.delete').click(function() {
                     $.ajax({

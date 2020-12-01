@@ -173,10 +173,15 @@ class CandidatureController extends Controller
             'description' => $request['description'],
             'market_type' => $request['market_type'],
             'category_id' => $request['category_id'],
+            'training_needs'=> json_decode('{"pre_creation_training": [{"pre_creation_training": null}], "post_creation_training": [{"post_creation_training": null}]}'),
+            'financial_data'=>json_decode('{"taxes": [{"label": null, "value": null}], "startup_needs": [{"rate": null, "label": null, "value": null, "duration": null}], "evolution_rate": null, "financial_plan": [{"label": null, "value": null}], "overheads_fixed": [{"label": null, "value": null}], "human_ressources": [{"count": null, "label": null, "value": null}], "overheads_scalable": [{"label": null, "value": null}], "profit_margin_rate": null, "financial_plan_loans": [{"rate": null, "label": null, "value": null, "duration": null}], "products_turnover_forecast": null, "services_turnover_forecast": null}'),
+            'business_model'=>json_decode('{"suppliers": null, "advertising": null, "competition": null, "core_business": null, "primary_target": null, "pricing_strategy": null, "distribution_strategy": null}'),
+
 //            'created_by' => 0,
 
             'company' =>  json_decode(json_encode($company)),
         ]);
+//        dd($application);
 
         $user = [
             'email' => $member->email,
