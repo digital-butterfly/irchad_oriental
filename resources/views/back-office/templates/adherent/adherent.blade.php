@@ -422,7 +422,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="kt-wizard-v1__nav-item" data-ktwizard-type="step" data-ktwizard-state="{{$user->status=='Validé'&& $project[0]['status']==='Accepté'?'done':'current'}}">
+                                                    <div class="kt-wizard-v1__nav-item" data-ktwizard-type="step" data-ktwizard-state="{{$user->status=='Validé' && $project[0]['status']=='Accepté' ?'done':'pending'}}">
                                                         <div class="kt-wizard-v1__nav-body">
                                                             <div class="kt-wizard-v1__nav-icon">
                                                                 {{--                                                                <i class="flaticon-interface-5"></i>--}}

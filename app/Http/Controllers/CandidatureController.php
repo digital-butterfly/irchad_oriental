@@ -108,8 +108,8 @@ class CandidatureController extends Controller
         }
 
         $statehelp = array();
-//        dd($request->toArray());
-        if(isset($request['statehelp']))
+//        dd(isset($request['statehelp'][0]['aide_date']));
+        if(isset($request['statehelp'][0]['aide_date']))
         {
             foreach($request['statehelp'] as $state)
             {
