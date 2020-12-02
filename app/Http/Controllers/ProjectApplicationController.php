@@ -60,7 +60,7 @@ class ProjectApplicationController extends Controller
             'financial_plan_loans.*.rate' => ['nullable', 'integer'],
             'financial_plan_loans.*.duration' => ['nullable', 'integer'],
             'services_turnover_forecast' => ['nullable', 'integer'],
-            'products_turnover_forecast' => ['nullable', 'integer'],
+//            'products_turnover_forecast' => ['nullable', 'integer'],
             'profit_margin_rate' => ['nullable', 'integer'],
             'evolution_rate' => ['nullable', 'integer'],
             'overheads_fixed.*.value' => ['nullable', 'integer'],

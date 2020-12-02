@@ -366,19 +366,19 @@ class ProjectApplication extends Model
                         'name' => 'startup_needs',
                         'type' => 'repeater',
                         'label' => 'Programme d\'investissement',
-                        'config' => ['quadrupleRepeater' => true, 'attributes' => [['Désignation',3], ['Valeur',3], ['Taux',1], ['TVA',1]]]
+                        'config' => ['quadrupleRepeater' => true, 'attributes' => [['Rubrique d\'investissement',3], ['Montant ',2], ['Taux d\'amortis',2], ['TVA',1]]]
                     ],
                     [
                         'name' => 'financial_plan',
                         'type' => 'repeater',
                         'label' => 'Plan de financement hors prêts',
-                        'config' => ['doubleRepeater' => true]
+                        'config' => ['doubleRepeater' => true, 'attributes' => [['Rubrique de financement',4], ['Montant',2]]]
                     ],
                     [
                         'name' => 'financial_plan_loans',
                         'type' => 'repeater',
                         'label' => 'Prêts',
-                        'config' => ['quadrupleRepeater' => true]
+                        'config' => ['quadrupleRepeater' => true, 'attributes' => [['Organisme de crédit',3], ['Montant',3], ['Taux',1], ['TVA',1]]]
                     ],
                     [
                         'name' => 'services_turnover_forecast',
@@ -387,14 +387,15 @@ class ProjectApplication extends Model
                     ],
                     [
                         'name' => 'products_turnover_forecast',
-                        'type' => 'text',
-                        'label' => 'CA prévisionnel - Produits'
+                        'type' => 'repeater',
+                        'label' => 'CA prévisionnel - Produits',
+                        'config' => ['quadrupleRepeater' => true, 'attributes' => [['Produit',3], ['Quantité  vendus',3], ['P.U',1], ['Taux',1]]]
                     ],
-                    [
-                        'name' => 'profit_margin_rate',
-                        'type' => 'text',
-                        'label' => 'Taux de marge'
-                    ],
+//                    [
+//                        'name' => 'profit_margin_rate',
+//                        'type' => 'text',
+//                        'label' => 'Taux de marge'
+//                    ],
                     [
                         'name' => 'evolution_rate',
                         'type' => 'text',
@@ -404,25 +405,25 @@ class ProjectApplication extends Model
                         'name' => 'overheads_fixed',
                         'type' => 'repeater',
                         'label' => 'Charges annuelles constantes',
-                        'config' => ['doubleRepeater' => true]
+                        'config' => ['doubleRepeater' => true, 'attributes' => [['Intitulé de la charge',4], ['Montant ',3]]]
                     ],
                     [
                         'name' => 'overheads_scalable',
                         'type' => 'repeater',
                         'label' => 'Charges annuelles évolutives',
-                        'config' => ['doubleRepeater' => true]
+                        'config' => ['doubleRepeater' => true, 'attributes' => [['Intitulé de la charge',4], ['Montant ',3]]]
                     ],
                     [
                         'name' => 'human_ressources',
                         'type' => 'repeater',
                         'label' => 'Ressources humaines',
-                        'config' => ['tripleRepeater' => true]
+                        'config' => ['tripleRepeater' => true, 'attributes' => [['Poste',3], ['Nombre des postes',3], ['Salaire  annuel',1]]]
                     ],
                     [
                         'name' => 'taxes',
                         'type' => 'repeater',
                         'label' => 'Taxes',
-                        'config' => ['doubleRepeater' => true]
+                        'config' => ['doubleRepeater' => true,'attributes' => [['Types de taxes',4], ['Montant ',3]]]
                     ],
                 ],
                 'group' => 'Données Financières'

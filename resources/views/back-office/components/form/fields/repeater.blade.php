@@ -27,6 +27,7 @@
         <label for="{{ $field['name'] }}" class="{{ (isset($field['config']) && isset($field['config']['hotizontalRows']) && $field['config']['hotizontalRows']) ? 'col-lg-3 col-form-label' : '' }}">{{ $field['label'] }}:</label>
         <div data-repeater-list="{{ $field['name'] }}" class="col-lg-9">
             <div data-repeater-item="" class="form-group row align-items-center">
+
                 @if (!(isset($field['config']['doubleRepeater'])) && !(isset($field['config']['tripleRepeater'])) && !(isset($field['config']['quadrupleRepeater'])))
                     <div class="col-md-8">
                         <div class="kt-form__group--inline">
@@ -236,10 +237,10 @@
                         </script>
                     @endif
                 @else
-                    <div class="col-md-4">
+                    <div class="col-md-{{ $field['config']['attributes'][0][1] ?? '3' }}">
                         <div class="kt-form__group--inline">
                             <div class="kt-form__label">
-                                <label>Désignation:</label>
+                                <label>{{ $field['config']['attributes'][0][0] ?? 'Désignation' }}::</label>
                             </div>
                             <div class="kt-form__control">
                                 <input type="text" name="label" class="form-control" placeholder="">
@@ -247,10 +248,10 @@
                         </div>
                         <div class="d-md-none kt-margin-b-10"></div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-{{ $field['config']['attributes'][0][1] ?? '3' }}">
                         <div class="kt-form__group--inline">
                             <div class="kt-form__label">
-                                <label class="kt-label m-label--single">Valeur:</label>
+                                <label class="kt-label m-label--single">{{ $field['config']['attributes'][1][0] ?? 'Valeur' }}:</label>
                             </div>
                             <div class="kt-form__control">
                                 <input type="text" name="value" class="form-control" placeholder="">

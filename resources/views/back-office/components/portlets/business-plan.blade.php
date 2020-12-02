@@ -25,9 +25,22 @@
     }
 
     // Parameters
-    $bp_turnover_products_total = isset($application->financial_data->products_turnover_forecast) ? $application->financial_data->products_turnover_forecast : 0;
+    $bp_turnover_products_total =  0;
+    $bp_profit_margin_rate =  0;
+    if (isset($application->financial_data->products_turnover_forecast)){
+        foreach ($application->financial_data->products_turnover_forecast as $total){
+
+          //  dd($total);
+            $bp_turnover_products_total = $bp_turnover_products_total +( $total->rate * $total->value) ;
+            $bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration;
+
+        }
+    }
+//dd($bp_profit_margin_rate);
+  //  $bp_turnover_products_total = isset($application->financial_data->products_turnover_forecast) ? $application->financial_data->products_turnover_forecast : 0;
     $bp_turnover_services_total = isset($application->financial_data->services_turnover_forecast) ? $application->financial_data->services_turnover_forecast : 0 ;
-    $bp_profit_margin_rate = isset($application->financial_data->profit_margin_rate) ? $application->financial_data->profit_margin_rate : 0;
+   // $bp_profit_margin_rate = isset($application->financial_data->profit_margin_rate) ? $application->financial_data->profit_margin_rate : 0;
+
     $bp_evolution_rate = isset($application->financial_data->evolution_rate) ? $application->financial_data->evolution_rate : 0;
 
     // Loans Amortization
@@ -67,7 +80,8 @@
 
 
     // Turnover
-    $bp_turnover_first_year = $bp_turnover_products_total + $bp_turnover_services_total;
+   $bp_turnover_first_year = $bp_turnover_products_total + $bp_turnover_services_total;
+  //  $bp_turnover_first_year = 0;
     $bp_turnover_second_year = $bp_turnover_first_year + ($bp_turnover_first_year * $bp_evolution_rate / 100);
     $bp_turnover_third_year = $bp_turnover_second_year + ($bp_turnover_second_year * $bp_evolution_rate / 100);
 
