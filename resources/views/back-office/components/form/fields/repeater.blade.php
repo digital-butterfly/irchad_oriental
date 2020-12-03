@@ -155,7 +155,7 @@
                             </div>
                             <div class="kt-form__control">
                                 @if($field['config']['Select'])
-                                    <select class="form-control sel" name="label"  onchange="$(this).val()==='Autre à préciser'?$(this).closest('.kt-form__control').find('.pi').show():''">
+                                    <select class="form-control sel" name="label"  onchange="$(this).val()==='Autre à préciser'?$(this).closest('.kt-form__control').find('.pi').show():$(this).closest('.kt-form__control').find('.pi').hide()">
                                         <option value="">---</option>
                                         @foreach($field['config']['options'] as $value)
                                             <option value="{{$value}}" >{{$value}}</option>
