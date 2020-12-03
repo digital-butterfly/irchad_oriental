@@ -14,6 +14,8 @@ class ProjectApplication extends Model
 
     protected $guard = 'user';
 
+    const TAXES=['La taxe professionnelle','La taxe des services communaux','La taxe des véhicules','La taxe d’essieu pour les camions'];
+    const INVEST=['Terrain', 'Construction', 'Aménagement', 'Matériel d’exploitation', 'Matériel bureautique', 'Matériel informatique', 'Matériel de transport', 'Autre à préciser'];
     const LEGALFORM=['S.A.R.L','S.A.R.L A.U','S.N.C','Coopérative','A.E'];
     const AIDEETAT=['INDH','DPA','Collectivités territoriales', 'Autre'];
 
@@ -29,6 +31,7 @@ class ProjectApplication extends Model
         'sheet_id',
         'title',
         'description',
+        'montant_est',
         'market_type',
         'business_model',
         'financial_data',
@@ -217,7 +220,15 @@ class ProjectApplication extends Model
                     [
                         'name' => 'corporate_name',
                         'type' => 'text',
-                        'label' => 'Dénomination sociale'
+                        'label' => 'Dénomination social'
+                    ],[
+                        'name' => 'corporate_CEO',
+                        'type' => 'text',
+                        'label' => 'Gérant de la société '
+                    ],[
+                        'name' => 'corporate_sig',
+                        'type' => 'text',
+                        'label' => 'Le siège sociale '
                     ],
                     [
                         'name' => 'applied_tax',
@@ -270,9 +281,15 @@ class ProjectApplication extends Model
                 'group' => 'Données Générales'
             ],
             [
+                'name' => 'montant_est',
+                'type' => 'number',
+                'label' => 'Montant d\'investissement estimatif',
+                'group' => 'Données Générales'
+            ], [
                 'name' => 'market_type',
-                'type' => 'text',
-                'label' => 'Type du marché',
+                'type' => 'select',
+                'label' => 'Marché visé',
+                'options' => ['Marché national', 'Marché international'],
                 'group' => 'Données Générales'
             ],
             [
@@ -315,7 +332,7 @@ class ProjectApplication extends Model
             ],
             [
                 'name' => 'business_model',
-                'type' => 'text',
+                'type' => 'section',
                 'class' => 'kt-callout--success',
                 'label' => 'Business Model',
                 'sub_fields' => [
@@ -342,12 +359,13 @@ class ProjectApplication extends Model
                     [
                         'name' => 'advertising',
                         'type' => 'textarea',
-                        'label' => 'Marketing et publicité'
+                        'label' => 'Stratégie  marketing et publicité'
                     ],
                     [
                         'name' => 'pricing_strategy',
-                        'type' => 'textarea',
-                        'label' => 'Stratégie de prix'
+                        'type' => 'select',
+                        'label' => 'Stratégie de prix',
+                        'options' => ['Écrémage', 'Alignement','Pénétration'],
                     ],
                     [
                         'name' => 'distribution_strategy',
@@ -366,19 +384,19 @@ class ProjectApplication extends Model
                         'name' => 'startup_needs',
                         'type' => 'repeater',
                         'label' => 'Programme d\'investissement',
-                        'config' => ['quadrupleRepeater' => true, 'attributes' => [['Rubrique d\'investissement',3], ['Montant ',2], ['Taux d\'amortis',2], ['TVA',1]]]
+                        'config' => ['quadrupleRepeater' => true, 'attributes' => [['Rubrique d\'investissement',3], ['Montant ',2], ['Taux d\'amortis',2], ['TVA',1]],'Select'=>true,'options'=>self::INVEST]
                     ],
                     [
                         'name' => 'financial_plan',
                         'type' => 'repeater',
                         'label' => 'Plan de financement hors prêts',
-                        'config' => ['doubleRepeater' => true, 'attributes' => [['Rubrique de financement',4], ['Montant',2]]]
+                        'config' => ['doubleRepeater' => true, 'attributes' => [['Rubrique de financement',4], ['Montant',2]],'Select'=>false]
                     ],
                     [
                         'name' => 'financial_plan_loans',
                         'type' => 'repeater',
                         'label' => 'Prêts',
-                        'config' => ['quadrupleRepeater' => true, 'attributes' => [['Organisme de crédit',3], ['Montant',3], ['Taux',1], ['TVA',1]]]
+                        'config' => ['quadrupleRepeater' => true, 'attributes' => [['Organisme de crédit',3], ['Montant',3], ['Taux',1], ['TVA',1]],'Select'=>false]
                     ],
                     [
                         'name' => 'services_turnover_forecast',
@@ -389,7 +407,7 @@ class ProjectApplication extends Model
                         'name' => 'products_turnover_forecast',
                         'type' => 'repeater',
                         'label' => 'CA prévisionnel - Produits',
-                        'config' => ['quadrupleRepeater' => true, 'attributes' => [['Produit',3], ['Quantité  vendus',3], ['P.U',1], ['Taux',1]]]
+                        'config' => ['quadrupleRepeater' => true, 'attributes' => [['Produit',3], ['Quantité  vendus',3], ['P.U',1], ['Taux',1]],'Select'=>false]
                     ],
 //                    [
 //                        'name' => 'profit_margin_rate',
@@ -405,13 +423,13 @@ class ProjectApplication extends Model
                         'name' => 'overheads_fixed',
                         'type' => 'repeater',
                         'label' => 'Charges annuelles constantes',
-                        'config' => ['doubleRepeater' => true, 'attributes' => [['Intitulé de la charge',4], ['Montant ',3]]]
+                        'config' => ['doubleRepeater' => true, 'attributes' => [['Intitulé de la charge',4], ['Montant ',3]],'Select'=>false]
                     ],
                     [
                         'name' => 'overheads_scalable',
                         'type' => 'repeater',
                         'label' => 'Charges annuelles évolutives',
-                        'config' => ['doubleRepeater' => true, 'attributes' => [['Intitulé de la charge',4], ['Montant ',3]]]
+                        'config' => ['doubleRepeater' => true, 'attributes' => [['Intitulé de la charge',4], ['Montant ',3]],'Select'=>false,]
                     ],
                     [
                         'name' => 'human_ressources',
@@ -423,7 +441,7 @@ class ProjectApplication extends Model
                         'name' => 'taxes',
                         'type' => 'repeater',
                         'label' => 'Taxes',
-                        'config' => ['doubleRepeater' => true,'attributes' => [['Types de taxes',4], ['Montant ',3]]]
+                        'config' => ['doubleRepeater' => true,'attributes' => [['Types de taxes',4], ['Montant ',3]],'Select'=>true, 'options' =>self::TAXES]
                     ],
                 ],
                 'group' => 'Données Financières'

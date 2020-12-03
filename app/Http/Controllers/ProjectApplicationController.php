@@ -276,7 +276,7 @@ class ProjectApplicationController extends Controller
         }
         $data = (object)$data;
         $fields = ProjectApplication::formFields($id);
-        //dd($application->toArray());
+//        dd($data->toArray());
         return view('back-office/templates/projects-applications/single', compact('histo','application', 'data', 'fields'));
     }
 
@@ -431,6 +431,7 @@ class ProjectApplicationController extends Controller
      */
     public function update(Request $request, $id)
     {
+//        dd($request->toArray());
         $application =ProjectApplication::findOrFail($id);
 //        dd($id);
         $validation = $this->validator($request->all(), 'projectApplication');
@@ -457,6 +458,7 @@ class ProjectApplicationController extends Controller
             'title' => $request['title'],
             'description' => $request['description'],
             'market_type' => $request['market_type'],
+            'montant_est' => $request['montant_est'],
             'business_model' => json_decode(json_encode([
                 'core_business' => $request['core_business'],
                 'primary_target' => $request['primary_target'],
@@ -486,6 +488,8 @@ class ProjectApplicationController extends Controller
                 'creation_date' => $request['creation_date'],
                 'corporate_name' => $request['corporate_name'],
                 'applied_tax' => $request['applied_tax'],
+                'corporate_CEO' => $request['corporate_CEO'],
+                'corporate_sig' => $request['corporate_sig'],
             ],
             'training_needs' => json_decode(json_encode([
                 'pre_creation_training' => $request['pre_creation_training'],

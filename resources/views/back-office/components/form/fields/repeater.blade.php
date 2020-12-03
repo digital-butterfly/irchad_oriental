@@ -154,10 +154,28 @@
                                 <label>{{ $field['config']['attributes'][0][0] ?? 'Désignation' }}:</label>
                             </div>
                             <div class="kt-form__control">
-                                <input type="text" name="label" class="form-control" placeholder="">
+                                @if($field['config']['Select'])
+                                    <select class="form-control sel" name="label"  onchange="$(this).val()==='Autre à préciser'?$(this).closest('.kt-form__control').find('.pi').show():''">
+                                        <option value="">---</option>
+                                        @foreach($field['config']['options'] as $value)
+                                            <option value="{{$value}}" >{{$value}}</option>
+                                        @endforeach
+                                    </select>
+
+                                    <input type="text"  name="labelOther" class="pi form-control" placeholder=""  style="display: block">
+                                    <?php
+//                                    dd ($data)
+                                    ?>
+                                @else
+                                    <input type="text" name="label" class="form-control" placeholder="">
+
+                                @endif
+{{--                                <input type="text" name="label" class="form-control" placeholder="">--}}
                             </div>
                         </div>
+
                         <div class="d-md-none kt-margin-b-10"></div>
+
                     </div>
                     <div class="col-md-{{ $field['config']['attributes'][1][1] ?? '3' }}">
                         <div class="kt-form__group--inline">
@@ -192,31 +210,39 @@
                         </div>
                         <div class="d-md-none kt-margin-b-10"></div>
                     </div>
+
                     @if (isset($data) && isset($data->$ref) && $data->$ref != NULL)
                         <script>
                             window.addEventListener('load', function() {
                                 var $repeater = $('.kt_repeater_{{ $field['name'] }}').repeater();
                                 $repeater.setList([
                                     @foreach ($data->$ref as $item)
+
                                         {
                                             'label' :  '{{ $item->label ?? '' }}',
+                                            'labelOther' :  '{{ $item->labelOther ?? '' }}',
                                             'value' :  '{{ $item->value ?? '' }}',
                                             'rate' :  '{{ $item->rate ?? '' }}',
-                                            'duration' :  '{{ $item->duration ?? '' }}',
+                                            'duration' : '{{ $item->duration ?? '' }}',
                                         },
+
                                     @endforeach
                                 ]);
+
                             });
                         </script>
                     @elseif (isset($data) && isset($data->$parent_ref) && isset($data->$parent_ref->$ref) && $data->$parent_ref->$ref != NULL)
                         <script>
                             window.addEventListener('load', function() {
+
                                 var $repeater = $('.kt_repeater_{{ $field['name'] }}').repeater();
+
                                 $repeater.setList([
                                     @if (!is_array($data->$parent_ref->$ref))
                                         @foreach ($data->$parent_ref->$ref as $item)
                                             {
                                                 'label' :  '{{ $item->label ?? '' }}',
+                                                'labelOther' :  '{{ $item->labelOther ?? '' }}',
                                                 'value' :  '{{ $item->value ?? '' }}',
                                                 'rate' :  '{{ $item->rate ?? '' }}',
                                                 'duration' :  '{{ $item->duration ?? '' }}',
@@ -226,6 +252,7 @@
                                         @foreach ($data->$parent_ref->$ref as $item)
                                             {
                                                 'label' :  '{{ $item->label ?? '' }}',
+                                                'labelOther' :  '{{ $item->labelOther ?? '' }}',
                                                 'value' :  '{{ $item->value ?? '' }}',
                                                 'rate' :  '{{ $item->rate ?? '' }}',
                                                 'duration' :  '{{ $item->duration ?? '' }}',
@@ -233,17 +260,33 @@
                                         @endforeach
                                     @endif
                                 ]);
+
+                                // if($('.pi').val()!=''){
+                                //     $('.pi').show()
+                                // }
                             });
+
                         </script>
                     @endif
                 @else
                     <div class="col-md-{{ $field['config']['attributes'][0][1] ?? '3' }}">
                         <div class="kt-form__group--inline">
                             <div class="kt-form__label">
-                                <label>{{ $field['config']['attributes'][0][0] ?? 'Désignation' }}::</label>
+                                <label>{{ $field['config']['attributes'][0][0] ?? 'Désignation' }}:</label>
                             </div>
                             <div class="kt-form__control">
-                                <input type="text" name="label" class="form-control" placeholder="">
+
+                                @if($field['config']['Select'])
+                                <select name="label" class="form-control">
+                                    <option value="">---</option>
+                                    @foreach($field['config']['options'] as $value)
+                                    <option value="{{$value}}" >{{$value}}</option>
+                                    @endforeach
+                                </select>
+                                @else
+                                    <input type="text" name="label" class="form-control" placeholder="">
+
+                                @endif
                             </div>
                         </div>
                         <div class="d-md-none kt-margin-b-10"></div>
@@ -255,6 +298,7 @@
                             </div>
                             <div class="kt-form__control">
                                 <input type="text" name="value" class="form-control" placeholder="">
+
                             </div>
                         </div>
                         <div class="d-md-none kt-margin-b-10"></div>

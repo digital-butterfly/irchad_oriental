@@ -15,7 +15,7 @@
 			<div class="kt-portlet__head">
 				<div class="kt-portlet__head-label">
 					<h3 class="kt-portlet__head-title">
-						Ajouter un nouvelle candidature
+						Ajouter une nouvelle candidature
 					</h3>
 				</div>
 			</div>

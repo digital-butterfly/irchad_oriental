@@ -2138,5 +2138,19 @@
             });
         });
 
+
+        setTimeout(function(){
+            $('.pi').each(function( index ) {
+                console.log($(this).closest('.kt-form__control').find('input').val())
+                if($(this).closest('.kt-form__control').find('.pi').val()===''){
+                    console.log( $(this).closest('.kt-form__control').find('.pi'))
+                    $(this).closest('.kt-form__control').find('.pi').hide();
+                }
+
+            });
+            }, 1000);
+
+
+
     </script>
 @endsection
