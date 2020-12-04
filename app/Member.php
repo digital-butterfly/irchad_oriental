@@ -142,13 +142,13 @@ class Member extends Authenticatable
                 'name' => 'degrees',
                 'type' => 'repeater',
                 'label' => 'Diplômes',
-                'config' => ['doubleRepeater' => true]
+                'config' => ['doubleRepeater' => true,'Select'=>false]
             ],
             [
                 'name' => 'professional_experience',
                 'type' => 'repeater',
                 'label' => 'Experience professionnelle',
-                'config' => ['doubleRepeater' => true]
+                'config' => ['doubleRepeater' => true,'Select'=>false]
             ],
             [
                 'name' => 'state_help',
