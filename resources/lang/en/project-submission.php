@@ -153,6 +153,22 @@ return [
 
 
 
+
+
+    'Oui'=>'Oui',
+    'Non'=>'Non',
+    'Actuellement, êtes-vous au chômage ?'=>'Actuellement, êtes-vous au chômage ?',
+    'Depuis combien de temps?'=>'Depuis combien de temps?',
+    'Exercez-vous une activité informelle?'=>'Exercez-vous une activité informelle?',
+    'Dans quel secteur?'=>'Dans quel secteur?',
+    'Exercez-vous une activité entreprenariale?'=>'Exercez-vous une activité entreprenariale?',
+    'Depuis combien de mois ?'=>'Depuis combien de mois ?',
+    'Avez-vous une idée de projet?'=>'Avez-vous une idée de projet?',
+    'laquelle ?'=>'laquelle ?',
+    'Auriez-vous besoin d\'une formation?'=>'Auriez-vous besoin d\'une formation?',
+    'Dans quel domaine ?'=>'Dans quel domaine ?',
+
+
     'Nekkour'=>'Nekkour',
     'Moulay Ahmed Chérif'=>'Moulay Ahmed Chérif',
     'Louta'=>'Louta',

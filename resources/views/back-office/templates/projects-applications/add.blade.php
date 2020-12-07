@@ -91,7 +91,7 @@
 
 @section('specific_js')
 	<script>
-		// Class definition
+        // Class definition
 		var KTFormRepeater = function() {
 
 			// Private functions

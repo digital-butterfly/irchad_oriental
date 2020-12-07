@@ -35,7 +35,8 @@ class Member extends Authenticatable
         'degrees',
         'professional_experience',
         'reduced_mobility',
-        'state_help'
+        'state_help',
+        'otherquestions',
     ];
 
 
@@ -142,13 +143,13 @@ class Member extends Authenticatable
                 'name' => 'degrees',
                 'type' => 'repeater',
                 'label' => 'Diplômes',
-                'config' => ['doubleRepeater' => true,'Select'=>false]
+                'config' => ['tripleRepeater' => true,'attributes' => [['Type de diplôme',3], ['Année d\'obtention',2], ['Établissement',3]],'Select'=>false]
             ],
             [
                 'name' => 'professional_experience',
                 'type' => 'repeater',
                 'label' => 'Experience professionnelle',
-                'config' => ['doubleRepeater' => true,'Select'=>false]
+                'config' => ['quintupleRepeater' => true, 'attributes' => [['Poste',2], ['Du',1], ['Au',1],['Organisme',2], ['Mission',2]],'Select'=>false]
             ],
             [
                 'name' => 'state_help',
@@ -156,11 +157,65 @@ class Member extends Authenticatable
                 'label' => 'Aide Etatique ',
                 'config' => ['tripleRepeater' => true]
             ],
+
             [
                 'name' => 'reduced_mobility',
                 'type' => 'select',
                 'label' => 'Mobilité réduite',
                 'options' => ['Malentendant', 'Malvoyant', 'Déficience Motrice', 'Déficience Mentale']
+            ], [
+                'name' => 'chomage',
+                'type' => 'select',
+                'label' => 'Actuellement, êtes-vous au chômage ',
+                'options' => ['Oui', 'Non',]
+            ],[
+                'name' => 'chomage_desc',
+                'type' => 'textarea',
+                'label' => 'Depuis combien de temps',
+            ],
+            [
+                'name' => 'informal_activity',
+                'type' => 'select',
+                'label' => 'Exercez-vous une activité informelle',
+                'options' => ['Oui', 'Non',]
+            ],
+            [
+                'name' => 'informal_activity_desc',
+                'type' => 'textarea',
+                'label' => 'Dans quel secteur',
+            ],
+            [
+                'name' => 'entre_activity',
+                'type' => 'select',
+                'label' => 'Exercez-vous une activité entreprenariale',
+                'options' => ['Oui', 'Non',]
+            ],
+            [
+                'name' => 'entre_activity_desc',
+                'type' => 'textarea',
+                'label' => 'Depuis combien de mois?',
+            ],
+            [
+                'name' => 'project_idea',
+                'type' => 'select',
+                'label' => 'Avez-vous une idée de projet',
+                'options' => ['Oui', 'Non',]
+            ],
+            [
+                'name' => 'project_idea_desc',
+                'type' => 'textarea',
+                'label' => 'Depuis combien de temps?',
+            ],
+            [
+                'name' => 'formation_needs',
+                'type' => 'select',
+                'label' => 'Auriez-vous besoin d\'une formation',
+                'options' => ['Oui', 'Non']
+            ],
+            [
+                'name' => 'formation_needs_desc',
+                'type' => 'textarea',
+                'label' => 'laquelle',
             ],
         ];
     }

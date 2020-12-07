@@ -152,6 +152,23 @@ return [
 
 
 
+
+    'Oui'=>'نعم',
+    'Non'=>'لا',
+    'Actuellement, êtes-vous au chômage ?'=>'حاليا، هل أنت عاطل عن العمل؟',
+    'Depuis combien de temps?'=>'منذ متى؟',
+    'Exercez-vous une activité informelle?'=>'هل تمارس نشاطا غير منظم (غير رسمي)؟',
+    'Dans quel secteur?'=>'في أي مهنة؟',
+    'Exercez-vous une activité entreprenariale?'=>'هل لديك نشاط مقاولاتي؟',
+    'Depuis combien de mois ?'=>'منذ كم من شهر؟',
+    'Avez-vous une idée de projet?'=>'هل لديك فكرة مشروع؟',
+    'laquelle ?'=>'ما هي فكرة المشروع؟',
+    'Auriez-vous besoin d\'une formation?'=>'هل أنت في حاجة إلى تكوين؟',
+    'Dans quel domaine ?'=>'في أي مجال؟',
+
+
+
+
     'Renseignez les détails de votre projet'=>'تفاصيل المشروع',
     'Titre de votre projet'=>'إسم المشروع',
     'Secteur d\'activité'=>'قطاع النشاط.',

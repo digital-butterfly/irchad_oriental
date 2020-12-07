@@ -102,6 +102,21 @@ class MemberController extends Controller
     public function store(Request $request)
     {
         $this->validator($request->all(), 'member')->validate();
+        $otherquestions [] = array(
+            "chomage" => $request["chomage"],
+            "chomage_desc" => $request["chomage_desc"],
+            "informal_activity_desc" => $request["informal_activity_desc"],
+            "informal_activity" => $request["informal_activity"],
+            "entre_activity" => $request["entre_activity"],
+            "entre_activity_desc" => $request["entre_activity_desc"],
+            "project_idea" => $request["project_idea"],
+            "project_idea_desc" => $request["project_idea_desc"],
+            "formation_needs" => $request["formation_needs"],
+            "formation_needs_desc" => $request["formation_needs_desc"],
+
+
+        );
+
         $member = Member::create([
             'first_name' => strtolower($request['first_name']),
             'last_name' => strtolower($request['last_name']),
@@ -117,6 +132,8 @@ class MemberController extends Controller
             'degrees' => json_decode(json_encode($request['degrees'])),
             'professional_experience' => json_decode(json_encode($request['professional_experience'])),
             'reduced_mobility' => $request['reduced_mobility'],
+            'otherquestions' => json_decode(json_encode($otherquestions)),
+
         ]);
         return redirect()->intended('admin/members');
     }
@@ -141,6 +158,24 @@ class MemberController extends Controller
     public function edit(Member $member)
     {
         $data = $member;
+        if(isset($data->otherquestions)){
+
+
+        $data->chomage=json_decode($data->otherquestions)[0]->chomage;
+        $data->chomage_desc=json_decode($data->otherquestions)[0]->chomage_desc;
+        $data->project_idea=json_decode($data->otherquestions)[0]->project_idea;
+        $data->entre_activity=json_decode($data->otherquestions)[0]->entre_activity;
+        $data->formation_needs=json_decode($data->otherquestions)[0]->formation_needs;
+        $data->informal_activity=json_decode($data->otherquestions)[0]->informal_activity;
+        $data->project_idea_desc=json_decode($data->otherquestions)[0]->project_idea_desc;
+        $data->entre_activity_desc=json_decode($data->otherquestions)[0]->entre_activity_desc;
+        $data->formation_needs_desc=json_decode($data->otherquestions)[0]->formation_needs_desc;
+        $data->informal_activity_desc=json_decode($data->otherquestions)[0]->informal_activity_desc;
+        }
+//        dd($data->toArray());
+//       dd ($data->otherquestions=json_decode($data->otherquestions)[0]);
+
+//        dd($data->toArray());
         $fields = Member::formFields();
         return view('back-office/templates/members/edit', compact('fields', 'data'));
     }
@@ -154,6 +189,24 @@ class MemberController extends Controller
      */
     public function update(Request $request, Member $member)
     {
+//        dd($request->toArray());
+
+        $otherquestions [] = array(
+            "chomage" => $request["chomage"],
+            "chomage_desc" => $request["chomage_desc"],
+            "informal_activity_desc" => $request["informal_activity_desc"],
+            "informal_activity" => $request["informal_activity"],
+            "entre_activity" => $request["entre_activity"],
+            "entre_activity_desc" => $request["entre_activity_desc"],
+            "project_idea" => $request["project_idea"],
+            "project_idea_desc" => $request["project_idea_desc"],
+            "formation_needs" => $request["formation_needs"],
+            "formation_needs_desc" => $request["formation_needs_desc"],
+
+
+        );
+
+
         $member->update([
             'first_name' => strtolower($request['first_name']),
             'last_name' => strtolower($request['last_name']),
@@ -167,6 +220,7 @@ class MemberController extends Controller
             'professional_experience' => json_decode(json_encode($request['professional_experience'])),
             'state_help' => json_decode(json_encode($request['state_help'])),
             'reduced_mobility' => $request['reduced_mobility'],
+            'otherquestions' => json_decode(json_encode($otherquestions)),
         ]);
 
         if ($request['password']) {

@@ -80,8 +80,10 @@ class CandidatureController extends Controller
 
                 //var_dump($degree["'annee'"]);die;
                $degrees [] = array(
-                "label" => $degree["diplome_type"].','.$degree["etablissement"],
-                'value' => $degree["annee"]
+//                "label" => $degree["diplome_type"].','.$degree["etablissement"],
+                   "label" => $degree["diplome_type"],
+                   "value"=>$degree["etablissement"],
+                   'count' => $degree["annee"]
                );}
 
             }
@@ -99,8 +101,13 @@ class CandidatureController extends Controller
             {
                 if (!$this->input_is_null($exp)) {
                     $expericances [] = array(
-                        "label" => $exp["du"].'-'.$exp["au"],
-                        'value' => $exp["poste"].' ' .$exp["mission"].' chez '. $exp['organisme']
+                        "label" => $exp["label"],
+                        "value" => $exp["value"],
+                        "rate" => $exp["rate"],
+                        "duration" => $exp["duration"],
+                        "organisme" => $exp["organisme"],
+//                        "label" => $exp["du"].'-'.$exp["au"],
+//                        'value' => $exp["poste"].' ' .$exp["mission"].' chez '. $exp['organisme']
                     );
                 }
 
@@ -145,10 +152,25 @@ class CandidatureController extends Controller
                 "creation_date" => $request['company']["creation_date"],
             );
         }
+        $otherquestions [] = array(
+            "chomage" => $request["chomage"],
+            "chomage_desc" => $request["chomage_desc"],
+            "informal_activity_desc" => $request["informal_activity_desc"],
+            "informal_activity" => $request["informal_activity"],
+            "entre_activity" => $request["entre_activity"],
+            "entre_activity_desc" => $request["entre_activity_desc"],
+            "project_idea" => $request["project_idea"],
+            "project_idea_desc" => $request["project_idea_desc"],
+            "formation_needs" => $request["formation_needs"],
+            "formation_needs_desc" => $request["formation_needs_desc"],
+
+
+        );
 
         $gender = $request['civility'] == 0 ? 'Homme' : 'Femme';
 
         //inserstion Of member
+//        dd((json_encode($otherquestions)));
         $password=Str::random(8);
         $member = Member::create([
             'first_name' => strtolower($request['first_name']),
@@ -164,6 +186,8 @@ class CandidatureController extends Controller
             'professional_experience' => json_decode(json_encode($expericances)),
             'state_help' => json_decode(json_encode($statehelp)),
             'reduced_mobility' => $request['reduced_mobility'],
+            'otherquestions' => (json_encode($otherquestions)),
+
         ]);
 //        dd($member);
         $application = ProjectApplication::create([

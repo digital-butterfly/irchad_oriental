@@ -482,35 +482,35 @@
                                         <div class="row source-field">
                                             <div class="col-lg-2">
                                                 <div class="form-group">
-                                                    <input name="professional_experience[0][du]" id="du" type="text"
+                                                    <input name="professional_experience[0][value]" id="du" type="text"
                                                            class="form-control" placeholder="{{__('project-submission.Du')}}...">
                                                 </div>
                                             </div>
 
                                             <div class="col-lg-2">
                                                 <div class="form-group">
-                                                    <input name="professional_experience[0][au]" id="au" type="text"
+                                                    <input name="professional_experience[0][rate]" id="au" type="text"
                                                            class="form-control" placeholder="{{__('project-submission.Au')}}...">
                                                 </div>
                                             </div>
 
                                             <div class="col-lg-2">
                                                 <div class="form-group">
-                                                    <input name="professional_experience[0][poste]" id="poste"
+                                                    <input name="professional_experience[0][label]" id="poste"
                                                            type="text" class="form-control" placeholder="{{__('project-submission.Poste')}}...">
                                                 </div>
                                             </div>
 
                                             <div class="col-lg-2">
                                                 <div class="form-group">
-                                                    <input name="professional_experience[0][organisme]" id="organisme"
+                                                    <input name="professional_experience[0][duration]" id="organisme"
                                                            type="text" class="form-control" placeholder="{{__('project-submission.Organisme')}}...">
                                                 </div>
                                             </div>
 
                                             <div class="col-lg-2">
                                                 <div class="form-group">
-                                                    <input name="professional_experience[0][mission]" id="mission"
+                                                    <input name="professional_experience[0][organisme]" id="mission"
                                                            type="text" class="form-control" placeholder="{{__('project-submission.Mission')}}...">
                                                 </div>
                                             </div>
@@ -556,6 +556,112 @@
                                             <!-- Dynamic fielfd will be cloned here -->
                                         </div>
                                     </div> --}}
+
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <div class="row mt-4">
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <select name="chomage" id="chomageSelect" class="form-control  logical-parent" data-parsley-group="block-2">
+                                                    <option value="" selected="" disabled="">{{__('project-submission.Actuellement, êtes-vous au chômage ?')}}
+                                                    </option>
+                                                    <option value="Oui">{{__('project-submission.Oui')}}
+                                                    </option>
+                                                    <option value="Non">{{__('project-submission.Non')}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-lg-6">
+                                                    <input type="text" id="chomage_desc" name="chomage_desc" class="form-control" placeholder="{{__('project-submission.Depuis combien de temps?')}}" >
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+<div class="row mt-4">
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <select name="informal_activity" id="informal_activitySelect" class="form-control  logical-parent" data-parsley-group="block-2">
+                                                    <option value="" selected="" disabled="">{{__('project-submission.Exercez-vous une activité informelle?')}}
+
+                                                    </option>
+                                                    <option value="Oui">{{__('project-submission.Oui')}}
+                                                    </option>
+                                                    <option value="Non">{{__('project-submission.Non')}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-lg-6">
+                                                    <input type="text" id="informal_activity_desc" name="informal_activity_desc" class="form-control" placeholder="{{__('project-submission.Dans quel secteur?')}}" >
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+<div class="row mt-4">
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <select name="entre_activity" id="entre_activitySelect" class="form-control  logical-parent" data-parsley-group="block-2">
+                                                    <option value="" selected="" disabled="">{{__('project-submission.Exercez-vous une activité entreprenariale?')}}
+
+                                                    </option>
+                                                    <option value="Oui">{{__('project-submission.Oui')}}
+                                                    </option>
+                                                    <option value="Non">{{__('project-submission.Non')}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-lg-6">
+                                                    <input type="text" id="entre_activity_desc" name="entre_activity_desc" class="form-control" placeholder="{{__('project-submission.Depuis combien de mois ?')}}" >
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+<div class="row mt-4">
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <select name="project_idea" id="project_ideaSelect" class="form-control  logical-parent" data-parsley-group="block-2">
+                                                    <option value="" selected="" disabled="">{{__('project-submission.Avez-vous une idée de projet?')}}
+
+                                                    </option>
+                                                    <option value="Oui">{{__('project-submission.Oui')}}
+                                                    </option>
+                                                    <option value="Non">{{__('project-submission.Non')}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-lg-6">
+                                                    <input type="text" id="project_idea_desc" name="project_idea_desc" class="form-control" placeholder="{{__('project-submission.laquelle ?')}}" >
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-4">
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <select name="formation_needs" id="formation_needsSelect" class="form-control  logical-parent" data-parsley-group="block-2">
+                                                    <option value="" selected="" disabled="">{{__('project-submission.Auriez-vous besoin d\'une formation?')}}
+                                                    </option>
+                                                    <option value="Oui">{{__('project-submission.Oui')}}
+                                                    </option>
+                                                    <option value="Non">{{__('project-submission.Non')}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-lg-6">
+                                                    <input type="text" id="formation_needs_desc" name="formation_needs_desc" class="form-control" placeholder="{{__('project-submission.Dans quel domaine ?')}}" >
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
 
                                     <div class="row mt-4 text-center">
                                         <div class="col-lg-12">
@@ -1138,6 +1244,56 @@
         $('.form-section').each(function (index, section) {
             $(section).find(':input').attr('data-parsley-group', 'block-' + index);
         });
+        window.addEventListener('load', function() {
+
+
+                $('#chomage_desc').parent().closest('.form-group').hide();
+                $('#informal_activity_desc').parent().closest('.form-group').hide();
+                $('#entre_activity_desc').parent().closest('.form-group').hide();
+                $('#formation_needs_desc').parent().closest('.form-group').hide();
+                $('#project_idea_desc').parent().closest('.form-group').hide();
+        });
+
+        $('#chomageSelect').change(function() {
+            if( $('#chomageSelect').val()=='Oui'){
+                $('#chomage_desc').parent().closest( '.form-group').show();
+            }else {
+                $('#chomage_desc').parent().closest( '.form-group').hide();
+            }
+        });
+
+        $('#informal_activitySelect').change(function() {
+            if( $('#informal_activitySelect').val()=='Oui'){
+                $('#informal_activity_desc').parent().closest( '.form-group').show();
+            }else {
+                $('#informal_activity_desc').parent().closest( '.form-group').hide();
+            }
+        });
+
+        $('#entre_activitySelect').change(function() {
+            if( $('#entre_activitySelect').val()=='Oui'){
+                $('#entre_activity_desc').parent().closest( '.form-group').show();
+            }else {
+                $('#entre_activity_desc').parent().closest( '.form-group').hide();
+            }
+        });
+
+        $('#project_ideaSelect').change(function() {
+            if( $('#project_ideaSelect').val()=='Oui'){
+                $('#project_idea_desc').parent().closest( '.form-group').show();
+            }else {
+                $('#project_idea_desc').parent().closest( '.form-group').hide();
+            }
+        });
+
+        $('#formation_needsSelect').change(function() {
+            if( $('#formation_needsSelect').val()=='Oui'){
+                $('#formation_needs_desc').parent().closest( '.form-group').show();
+            }else {
+                $('#formation_needs_desc').parent().closest( '.form-group').hide();
+            }
+        });
+
     </script>
 
 @endsection

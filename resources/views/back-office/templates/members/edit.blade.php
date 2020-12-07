@@ -68,6 +68,70 @@
 
 @section('specific_js')
 	<script>
+        window.addEventListener('load', function() {
+
+// alert($('#chomageSelect').val())
+        // console.log($('#chomageSelect').val())
+
+            if($('#chomageSelect').val()!='Oui'){
+                $('#chomage_desc').parent().closest( '.form-group').hide();
+            };
+
+            if( $('#informal_activitySelect').val()!='Oui') {
+                $('#informal_activity_desc').parent().closest('.form-group').hide();
+            }
+            if( $('#entre_activitySelect').val()!='Oui') {
+                $('#entre_activity_desc').parent().closest('.form-group').hide();
+            }
+            if($('#project_ideaSelect').val()!='Oui') {
+                $('#formation_needs_desc').parent().closest('.form-group').hide();
+            }
+            if( $('#formation_needsSelect').val()!='Oui') {
+                $('#project_idea_desc').parent().closest('.form-group').hide();
+            }
+        });
+
+        $('#chomageSelect').change(function() {
+           if( $('#chomageSelect').val()=='Oui'){
+               $('#chomage_desc').parent().closest( '.form-group').show();
+           }else {
+               $('#chomage_desc').parent().closest( '.form-group').hide();
+           }
+        });
+
+        $('#informal_activitySelect').change(function() {
+           if( $('#informal_activitySelect').val()=='Oui'){
+               $('#informal_activity_desc').parent().closest( '.form-group').show();
+           }else {
+               $('#informal_activity_desc').parent().closest( '.form-group').hide();
+           }
+        });
+
+        $('#entre_activitySelect').change(function() {
+           if( $('#entre_activitySelect').val()=='Oui'){
+               $('#entre_activity_desc').parent().closest( '.form-group').show();
+           }else {
+               $('#entre_activity_desc').parent().closest( '.form-group').hide();
+           }
+        });
+
+        $('#project_ideaSelect').change(function() {
+           if( $('#project_ideaSelect').val()=='Oui'){
+               $('#project_idea_desc').parent().closest( '.form-group').show();
+           }else {
+               $('#project_idea_desc').parent().closest( '.form-group').hide();
+           }
+        });
+
+        $('#formation_needsSelect').change(function() {
+           if( $('#formation_needsSelect').val()=='Oui'){
+               $('#formation_needs_desc').parent().closest( '.form-group').show();
+           }else {
+               $('#formation_needs_desc').parent().closest( '.form-group').hide();
+           }
+        });
+
+
 		// Class definition
 		var KTFormRepeater = function() {
 
@@ -125,6 +189,7 @@
 				// public functions
 				init: function() {
 					demo1();
+
 				}
 			};
 		}();

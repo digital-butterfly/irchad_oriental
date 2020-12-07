@@ -257,7 +257,7 @@ class ProjectApplication extends Model
             [
                 'name' => 'category_id',
                 'type' => 'select',
-                'label' => 'Catégorie du projet',
+                'label' => 'Secteur d\'activité',
                 'options' => $categories_options,
                 'group' => 'Données Générales'
             ],
