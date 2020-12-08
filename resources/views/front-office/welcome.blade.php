@@ -44,10 +44,7 @@
         <div class="row mt-5">
             <div class="col-lg-12">
                 <div class="text-center">
-                    <div class="client-images mt-5">
-                        <img src="images/front-office/client-brand/img-4.png" alt="" class="img-fluid mx-auto d-block">
-                    </div>
-                    <div class="client-images mt-5">
+                                       <div class="client-images mt-5">
                         <img src="images/front-office/client-brand/img-4.png" alt="" class="img-fluid mx-auto d-block">
                     </div>
                 </div>

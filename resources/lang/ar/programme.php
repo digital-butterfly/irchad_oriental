@@ -13,10 +13,13 @@ return [
     |
     */
 
-    'Programme ARIEJ'=>'برنامج ARIEJ',
-    'Le programme ARIEJ est le 3ème programme relevant de la 3ème phase du déploiement de l’INDH 2019-2023. Il a été lancé par sa Majesté le Roi Mohammed VI que Dieu l’Assiste, le 19 septembre 2018. Ce programme vise spécifiquement à réussir l’intégration économique des jeunes et à l’amélioration de leur situation économique et sociale, à travers la mise en place d’un accompagnement complet dédié aux porteurs de projets, durant tout le processus de création d’entreprise.'=>'"ARIEJ هو البرنامج الثالث في إطار المرحلة الثالثة من المبادرة الوطنية للتنمية البشرية 2019-2023. وقد تم إطلاقه من طرف صاحب الجلالة الملك محمد السادس نصره الله في 19 سبتمبر 2018. ويهدف هذا البرنامج خصيصا لتحقيق التكامل الاقتصادي للشباب وتحسين الوضع الاقتصادي والاجتماعي، من خلال إنشاء الدعم الكامل المخصص للشباب حاملي المشاريع، في جميع مراحل إنشاء المشروع."',
+    'Programme ARIEJ'=>' "برنامج تحسين الدخل و الإدماج الاقتصادي للشباب"',
+    '"Le programme ARIEJ est le 3ème programme relevant de la 3ème phase du déploiement de l’INDH 2019-2023.  Il a été lancé par sa Majesté le Roi Mohammed VI que Dieu l’Assiste, le 19 septembre 2018.
+Ce programme vise spécifiquement à réussir l’intégration économique des jeunes et à l’amélioration de leur situation économique et sociale, à travers la mise en place d’un accompagnement complet dédié aux porteurs de projets, durant tout le processus de création d’entreprise.
+Il trouve son fondement, entre autres, à apporter sa contribution au développement économique local et aux problèmatiques liées au chômage et l\'inactivité des jeunes qui restent relativement élevés au Maroc."'=>'"برنامج تحسين الدخل و الإدماج الاقتصادي للشباب" هو البرنامج الثالث ضمن المرحلة الثالثة من المبادرة الوطنية للتنمية البشرية الممتدة بين سنة 2019 و 2023. البرنامج تم إطلاقه من طرف صاحب الجلالة الملك محمد السادس نصره الله بتاريخ 19 سبتمبر 2018 بهدف ضمان الإندماج الفعال للشباب في الإقتصاد الوطني مع تحسين وضعهم الإقتصادي والإجتماعي، عبرالتنزيل الفعلي لبرنامج الدعم الكامل  المخصص للشباب حاملي المشاريع عند جميع مراحل تأسيس المشروع.
+و يسعى هذا البرنامج أيضا إلى النهوض بالتنمية الإقتصادية المحلية والإشكاليات المتعلقة بالبطالة لدى الشباب التي لا تزال مرتفعة نسبيا في المغرب."',
 
-    'ARIEJ consiste en le déploiement des 4 missions listées ci-après :'=>'يتكون ARIEJ من 4 مهام مدرجة أدناه:',
+    'ARIEJ consiste en le déploiement des 4 missions listées ci-après :'=>'يتكون البرنامج من 4 مهام مدرجة أدناه:',
 
     '1. Sensibilisation, orientation et information'=>'1. التوعية والتوجيه والمعلومات',
     'Écouter, informer, orienter et sensibiliser les jeunes aux opportunités offertes par l\'entreprenariat en tant que source de revenus et création d\'emplois. Les activités de sensibilisation seront fondamentales pour informer sur le programme et recruter des bénéficiaires potentiels des mécanismes.'=>'الاستماع، إعلام، توجيه وتحسيس الشباب للفرص المتاحة من طرف إطلاق مشروع خاص بهم و إرجاعه كمصدر للدخل وخلق فرص العمل. أنشطة التوعية ستكون حاسمة لإبلاغ عن البرنامج وتسجيل المستفيدين المحتملين.',

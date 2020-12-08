@@ -10,7 +10,9 @@
             <div class="col-lg-12">
                 <div class="text-center text-white">
                     <h1 class="text-white">{{__('programme.Programme ARIEJ')}}</h1>
-                    <p class="mt-3 mb-0">{{__('programme.Le programme ARIEJ est le 3ème programme relevant de la 3ème phase du déploiement de l’INDH 2019-2023. Il a été lancé par sa Majesté le Roi Mohammed VI que Dieu l’Assiste, le 19 septembre 2018. Ce programme vise spécifiquement à réussir l’intégration économique des jeunes et à l’amélioration de leur situation économique et sociale, à travers la mise en place d’un accompagnement complet dédié aux porteurs de projets, durant tout le processus de création d’entreprise.')}}</p>
+                    <p class="mt-3 mb-0">{{__('programme."Le programme ARIEJ est le 3ème programme relevant de la 3ème phase du déploiement de l’INDH 2019-2023.  Il a été lancé par sa Majesté le Roi Mohammed VI que Dieu l’Assiste, le 19 septembre 2018.
+Ce programme vise spécifiquement à réussir l’intégration économique des jeunes et à l’amélioration de leur situation économique et sociale, à travers la mise en place d’un accompagnement complet dédié aux porteurs de projets, durant tout le processus de création d’entreprise.
+Il trouve son fondement, entre autres, à apporter sa contribution au développement économique local et aux problèmatiques liées au chômage et l\'inactivité des jeunes qui restent relativement élevés au Maroc."')}}</p>
                 </div>
             </div>
         </div>

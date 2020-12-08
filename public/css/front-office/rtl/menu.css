@@ -494,6 +494,13 @@
 }
 
 @media (max-width: 768px) {
+    .navbar-sticky .logo img:nth-child(2), .navbar-sticky .logo img:first-child {
+        display: none;
+    }
+
+    .navbar-sticky .logo img:nth-child(2) {
+        display: inline;
+    }
     #topnav {
         background-color: #ffffff !important;
         box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.2) !important;

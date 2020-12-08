@@ -305,7 +305,7 @@
 }
 
 .navbar-sticky .logo img:nth-child(2), .navbar-sticky.darkheader .logo img:first-child {
-    display: none;
+    /*display: none;*/
 }
 
 .navbar-sticky.darkheader .logo img:nth-child(2) {
