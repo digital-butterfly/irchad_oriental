@@ -7,6 +7,10 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 class ProjectApplicationCollection extends ResourceCollection
 {
     private $pagination;
+    /**
+     * @var mixed
+     */
+    private $member;
 
     public function __construct($resource)
     {
@@ -33,10 +37,16 @@ class ProjectApplicationCollection extends ResourceCollection
      */
     public function toArray($request)
     {
+//        dd($this->collection[0]->getAdhname->only(['id', 'first_name', 'last_name']));
+      foreach ($this->collection as $members){
+          $members->adherant=$members->getAdhname->only(['first_name', 'last_name'])['first_name'].' '. $members->getAdhname->only(['first_name', 'last_name'])['last_name'];
+      }
+//        dump($this->collection[0]);
+
         return [
             'data' => $this->collection,
             'meta' => $this->pagination
         ];
     }
-    
+
 }

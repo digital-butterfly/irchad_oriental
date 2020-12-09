@@ -92,6 +92,11 @@
                         }, {
                             field: 'title',
                             title: 'Titre',
+                            width: 250,
+                        },{
+                            field: 'adherant',
+                            title: 'Adherent',
+
                         }, {
                             field: 'created_at',
                             title: 'Date',
