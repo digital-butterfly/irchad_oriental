@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\ExcelPerSheet;
+use App\ProjectApplicationMember;
 use App\ProjectCategory;
 use App\Township;
 use Carbon\Carbon;
@@ -32,11 +33,15 @@ class CandidatureController extends Controller
         if($type == 'member')
         {
 
-            return Validator::make($data, [
-                'first_name' => ['required', 'string', 'max:255'],
-                'last_name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:members'],
-            ]);
+                return Validator::make($data, [
+                    'first_name.*' => ['required', 'string', 'max:255'],
+                    'last_name.*' => ['required', 'string', 'max:255'],
+                    'email.*' => ['required', 'string', 'email', 'max:255', 'unique:members'],
+                ]);
+
+
+
+
         }else if( $type == 'projectApplication')
         {
             return Validator::make($data, [
@@ -50,9 +55,11 @@ class CandidatureController extends Controller
 
     public function create(Request $request)
     {
+//        dd($request->toArray());
 //        dd(isset($request['degrees']));
         //validation
         $validation =  $this->validator($request->all(), 'member');
+//        dd($validation);
         if($validation->fails())
         {
             //return redirect()->back()->withErrors($validation)->withInput();
@@ -72,50 +79,57 @@ class CandidatureController extends Controller
             ), 400); // 400 being the HTTP code for an invalid request.
         }
         $degrees = array();
-        if(isset($request['degrees']))
-        {
-            foreach($request['degrees'] as $degree)
-            {
-                if (!$this->input_is_null($degree)) {
-
-                //var_dump($degree["'annee'"]);die;
-               $degrees [] = array(
-//                "label" => $degree["diplome_type"].','.$degree["etablissement"],
-                   "label" => $degree["diplome_type"],
-                   "value"=>$degree["etablissement"],
-                   'count' => $degree["annee"]
-               );}
-
-            }
-        }
-
         $expericances = array();
-
-
-
-
-
-        if(isset($request['professional_experience']))
-        {
-            foreach($request['professional_experience'] as $exp)
+        $statehelp = array();
+        $company = array();
+        $memarray = array();
+        foreach ($request['member'] as $item){
+//            dd($item);
+            if(isset($item['degrees']))
             {
-                if (!$this->input_is_null($exp)) {
-                    $expericances [] = array(
-                        "label" => $exp["label"],
-                        "value" => $exp["value"],
-                        "rate" => $exp["rate"],
-                        "duration" => $exp["duration"],
-                        "organisme" => $exp["organisme"],
+                foreach($item['degrees'] as $degree)
+                {
+                    if (!$this->input_is_null($degree)) {
+
+                        //var_dump($degree["'annee'"]);die;
+                        $degrees [] = array(
+//                "label" => $degree["diplome_type"].','.$degree["etablissement"],
+                            "label" => $degree["diplome_type"],
+                            "value"=>$degree["etablissement"],
+                            'count' => $degree["annee"]
+                        );}
+
+                }
+            }
+
+
+
+
+
+
+
+
+
+            if (isset($item['professional_experience'])) {
+                foreach ($item['professional_experience'] as $exp) {
+                    if (!$this->input_is_null($exp)) {
+                        $expericances [] = array(
+                            "label" => $exp["label"],
+                            "value" => $exp["value"],
+                            "rate" => $exp["rate"],
+                            "duration" => $exp["duration"],
+                            "organisme" => $exp["organisme"],
 //                        "label" => $exp["du"].'-'.$exp["au"],
 //                        'value' => $exp["poste"].' ' .$exp["mission"].' chez '. $exp['organisme']
-                    );
+                        );
+                    }
+
                 }
-
             }
-        }
 
-        $statehelp = array();
+
 //        dd(isset($request['statehelp'][0]['aide_date']));
+
         if(isset($request['statehelp'][0]['aide_date']))
         {
             foreach($request['statehelp'] as $state)
@@ -136,7 +150,7 @@ class CandidatureController extends Controller
 
         }
 //dd($statehelp);
-        $company = array();
+
         if(isset($request['company']))
         {
             $is_created = "Non";
@@ -152,47 +166,60 @@ class CandidatureController extends Controller
                 "creation_date" => $request['company']["creation_date"],
             );
         }
-        $otherquestions [] = array(
-            "chomage" => $request["chomage"],
-            "chomage_desc" => $request["chomage_desc"],
-            "informal_activity_desc" => $request["informal_activity_desc"],
-            "informal_activity" => $request["informal_activity"],
-            "entre_activity" => $request["entre_activity"],
-            "entre_activity_desc" => $request["entre_activity_desc"],
-            "project_idea" => $request["project_idea"],
-            "project_idea_desc" => $request["project_idea_desc"],
-            "formation_needs" => $request["formation_needs"],
-            "formation_needs_desc" => $request["formation_needs_desc"],
+
+            $otherquestions [] = array(
+                "chomage" => $item["chomage"],
+                "chomage_desc" => $item["chomage_desc"],
+                "informal_activity_desc" => $item["informal_activity_desc"],
+                "informal_activity" => $item["informal_activity"],
+                "entre_activity" => $item["entre_activity"],
+                "entre_activity_desc" => $item["entre_activity_desc"],
+                "project_idea" => $item["project_idea"],
+                "project_idea_desc" => $item["project_idea_desc"],
+                "formation_needs" => $item["formation_needs"],
+                "formation_needs_desc" => $item["formation_needs_desc"],
 
 
-        );
+            );
 
-        $gender = $request['civility'] == 0 ? 'Homme' : 'Femme';
+
+
+            $gender = $item['civility'] == 0 ? 'Homme' : 'Femme';
 
         //inserstion Of member
 //        dd((json_encode($otherquestions)));
+
         $password=Str::random(8);
         $member = Member::create([
-            'first_name' => strtolower($request['first_name']),
-            'last_name' => strtolower($request['last_name']),
-            'email' => $request['email'],
-            'identity_number' => $request['identity_number'],
-            'phone' => $request['phone'],
-            'birth_date' => $request['birth_date'],
-            'address' => $request['address'],
+            'first_name' => strtolower($item['first_name']),
+            'last_name' => strtolower($item['last_name']),
+            'email' => $item['email'],
+            'identity_number' => $item['identity_number'],
+            'phone' => $item['phone'],
+            'birth_date' => $item['birth_date'],
+            'address' => $item['address'],
             'password'=>Hash::make($password),
-            'township_id' => $request['township_id'],
+            'township_id' => $item['township_id'],
             'degrees' => json_decode(json_encode($degrees)),
             'professional_experience' => json_decode(json_encode($expericances)),
             'state_help' => json_decode(json_encode($statehelp)),
-            'reduced_mobility' => $request['reduced_mobility'],
+            'reduced_mobility' => $item['reduced_mobility'],
             'otherquestions' => (json_encode($otherquestions)),
 
         ]);
-//        dd($member);
+            $user = [
+                'email' => $member->email,
+                'password' => $password,
+                'first_name'=>$member->first_name
+            ];
+            Mail::to($member->email)->send(new WelcomeMail($user));
+
+            array_push($memarray, $member->id);
+        }
+
         $application = ProjectApplication::create([
-            'member_id' => $member->id,
-            'township_id' => $request['township_id'],
+            'member_id' => $memarray[0],
+            'township_id' => $member->township_id,
             'title' => $request['title'],
             'description' => $request['description'],
             'market_type' => $request['market_type'],
@@ -205,14 +232,20 @@ class CandidatureController extends Controller
 
             'company' =>  json_decode(json_encode($company)),
         ]);
+        if (count($memarray)>1){
+            foreach ($memarray as $key=>$value){
+                if ($key>0){
+                    $projectappmembers=ProjectApplicationMember::create([
+                        'member_id' => $value,
+                        'project_application_id' => $application->id,]);
+                }
+
+            }
+
+        }
+
 //        dd($application);
 
-        $user = [
-            'email' => $member->email,
-            'password' => $password,
-            'first_name'=>$member->first_name
-        ];
-        Mail::to($member->email)->send(new WelcomeMail($user));
 
 
         return response()->json(['message'=> 'Projet submited'],200);

@@ -265,145 +265,165 @@
                             <div class="custom-form">
                                 <div id="form-errors"></div>
                                 <!-- STEP 1 -->
-                                <fieldset class="form-section">
+                                {{--                                <div class="fields-section source-field">--}}
+
+                                <fieldset class="fields-section form-section">
 
 
 
-                                    <div class="contact-details-header">
-                                        <div class="contact-icon">
-                                            <i class="pe-7s-id text-custom"></i>
-                                        </div>
-                                        <h3>{{__('project-submission.Informations personnelles')}}</h3>
-                                        <p class="text-muted mt-3">{{__('project-submission.Renseignez vos informations personnelles')}}</p>
-                                    </div>
-                                    <div class="row mt-4">
-                                        <div class="col-lg-2">
-                                            <div class=" form-group">
-                                                <select name="civility" id="civility" class=" custom-form form-control">
-                                                    <option value="" selected disabled>{{__('project-submission.Votre civilité')}}...</option>
-                                                    <option value="0">{{__('project-submission.Mr')}}</option>
-                                                    <option value="1">{{__('project-submission.Mme')}}</option>
-             w                                       <option value="2">{{__('project-submission.Mlle')}}</option>
-                                                </select>
+<span class="source-field">
+
+
+
+                                            <div class="contact-details-header">
+                                                <div class="contact-icon">
+                                                    <i class="pe-7s-id text-custom"></i>
+                                                </div>
+                                                <h3>{{__('project-submission.Informations personnelles')}}</h3>
+                                                <p class="text-muted mt-3">{{__('project-submission.Renseignez vos informations personnelles')}}</p>
                                             </div>
-                                        </div>
 
-                                        <div class="col-lg-5">
-                                            <div class="form-group">
-                                                <input name="first_name" id="first_name" type="text"
-                                                       class="form-control" placeholder="{{__('project-submission.Votre prénom')}}..." required="">
-                                            </div>
-                                        </div>
+                                            <div class="row mt-4">
+                                                <div class="col-lg-2">
+                                                    <div class=" form-group">
+                                                        <select name="member[0][civility]" id="member[0]civility" class=" custom-form form-control">
+                                                            <option value="" selected disabled>{{__('project-submission.Votre civilité')}}...</option>
+                                                            <option value="0">{{__('project-submission.Mr')}}</option>
+                                                            <option value="1">{{__('project-submission.Mme')}}</option>
+                                                            <option value="2">{{__('project-submission.Mlle')}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
 
-                                        <div class="col-lg-5">
-                                            <div class="form-group">
-                                                <input name="last_name" id="last_name" type="text" class="form-control"
-                                                       required="" placeholder="{{__('project-submission.Votre nom de famille')}}...">
-                                            </div>
-                                        </div>
-                                    </div>
+                                                <div class="col-lg-5">
+                                                    <div class="form-group">
+                                                        <input name="member[0][first_name]" id="member[0]first_name" type="text"
+                                                               class="form-control" placeholder="{{__('project-submission.Votre prénom')}}..." required="">
+                                                    </div>
+                                                </div>
 
-                                    <div class="row mt-4">
-                                        <div class="col-lg-4">
-                                            <div class="form-group">
-                                                <input name="identity_number" id="identity_number" type="text"
-                                                       required="" class="form-control"
-                                                       placeholder="{{__('project-submission.Votre numéro de CIN')}}...">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-4">
-                                            <div class="form-group">
-                                                <input name="birth_date" id="birth_date" type="date"
-                                                       class="form-control" required=""
-                                                       placeholder="{{__('project-submission.Votre date de naissance')}}...">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-4">
-                                            <div class="form-group">
-                                                <select name="marital-status" id="marital-status" required=""
-                                                        class="form-control">
-                                                    <option value="" selected disabled>{{__('project-submission.Votre situation familiale')}}...
-                                                    </option>
-                                                    <option value="">{{__('project-submission.Célibataire')}}</option>
-                                                    <option value="">{{__('project-submission.Marié(e)')}}</option>
-                                                    <option value="">{{__('project-submission.Divorcé(e)')}}</option>
-                                                    <option value="">{{__('project-submission.Veuf(e)')}}</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row mt-4">
-                                        <div class="col-lg-8">
-                                            <div class="form-group">
-                                                <input name="address" id="address" type="text" required=""
-                                                       class="form-control" placeholder="{{__('project-submission.Votre adresse')}}...">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-4">
-                                            <div class="form-group">
-                                                <select name="township_id" id="township_id" class="form-control">
-                                                    <option value="" selected disabled>{{__('project-submission.Votre commune')}}...</option>
-                                                    @foreach ($Communes as $Commune)
-
-                                                        <option value="{{$Commune->id}}">@lang( 'project-submission.' . $Commune->title . '' )</option>
-
-                                                        <p></p>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row mt-4">
-                                        <div class="col-lg-6">
-                                            <div class="form-group">
-                                                <input name="email" id="email" type="email" class="form-control"
-                                                       placeholder="{{__('project-submission.Votre email')}}...">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="form-group">
-                                                <input name="phone" id="phone" type="phone" class="form-control"
-                                                       placeholder="{{__('project-submission.ٍVotre téléphone')}}...">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row mt-4">
-                                        <div class="col-lg-12">
-                                            <div class="form-group">
-                                                <select name="reduced_mobility" id="reduced_mobility"
-                                                        class="form-control">
-                                                    <option value="" selected disabled>{{__('project-submission.Êtes-vous une personne à mobilité  réduite?')}}
-                                                    </option>
-                                                    <option value="Non">{{__('project-submission.Non')}}</option>
-                                                    <option value="Handicap auditif">{{__('project-submission.Handicap auditif')}}</option>
-                                                    <option value="Handicap vocal">{{__('project-submission.Handicap vocal')}}</option>
-                                                    <option value="Handicap moteur">{{__('project-submission.Handicap moteur')}}</option>
-                                                    <option value="Handicap visuel">{{__('project-submission.Handicap visuel')}}</option>
-                                                    <option value="Handicap mental">{{__('project-submission.Handicap mental')}}</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row mt-4 text-center">
-                                        <div class="col-lg-12">
-                                            <div class="form-group">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value=""
-                                                           id="defaultCheck1" name="defaultCheck1">
-                                                    <label class="form-check-label" for="defaultCheck1">{{__('project-submission.Je certifie l\'exactitude des données renseignées et j\'accepte les')}} <a
-                                                            href="#">{{__('project-submission.termes et conditions')}}</a>.</label>
+                                                <div class="col-lg-5">
+                                                    <div class="form-group">
+                                                        <input name="member[0][last_name]" id="member[0]last_name" type="text" class="form-control"
+                                                               required="" placeholder="{{__('project-submission.Votre nom de famille')}}...">
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
 
+                                            <div class="row mt-4">
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <input name="member[0][identity_number]" id="member[0]identity_number" type="text"
+                                                               required="" class="form-control"
+                                                               placeholder="{{__('project-submission.Votre numéro de CIN')}}...">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <input name="member[0][birth_date]" id="member[0]birth_date" type="date"
+                                                               class="form-control" required=""
+                                                               placeholder="{{__('project-submission.Votre date de naissance')}}...">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <select name="member[0][marital-status]" id="member[0]marital-status" required=""
+                                                                class="form-control">
+                                                            <option value="" selected disabled>{{__('project-submission.Votre situation familiale')}}...
+                                                            </option>
+                                                            <option value="">{{__('project-submission.Célibataire')}}</option>
+                                                            <option value="">{{__('project-submission.Marié(e)')}}</option>
+                                                            <option value="">{{__('project-submission.Divorcé(e)')}}</option>
+                                                            <option value="">{{__('project-submission.Veuf(e)')}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mt-4">
+                                                <div class="col-lg-8">
+                                                    <div class="form-group">
+                                                        <input name="member[0][address]" id="member[0]address" type="text" required=""
+                                                               class="form-control" placeholder="{{__('project-submission.Votre adresse')}}...">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <select name="member[0][township_id]" id="member[0]township_id" class="form-control">
+                                                            <option value="" selected disabled>{{__('project-submission.Votre commune')}}...</option>
+                                                            @foreach ($Communes as $Commune)
+
+                                                                <option value="{{$Commune->id}}">@lang( 'project-submission.' . $Commune->title . '' )</option>
+
+                                                                <p></p>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mt-4">
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <input name="member[0][email]" id="member[0]email" type="email" class="form-control"
+                                                               placeholder="{{__('project-submission.Votre email')}}...">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <input name="member[0][phone]" id="member[0]phone" type="phone" class="form-control"
+                                                               placeholder="{{__('project-submission.ٍVotre téléphone')}}...">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mt-4">
+                                                <div class="col-lg-12">
+                                                    <div class="form-group">
+                                                        <select name="member[0][reduced_mobility]" id="member[0]reduced_mobility"
+                                                                class="form-control">
+                                                            <option value="" selected disabled>{{__('project-submission.Êtes-vous une personne à mobilité  réduite?')}}
+                                                            </option>
+                                                            <option value="Non">{{__('project-submission.Non')}}</option>
+                                                            <option value="Handicap auditif">{{__('project-submission.Handicap auditif')}}</option>
+                                                            <option value="Handicap vocal">{{__('project-submission.Handicap vocal')}}</option>
+                                                            <option value="Handicap moteur">{{__('project-submission.Handicap moteur')}}</option>
+                                                            <option value="Handicap visuel">{{__('project-submission.Handicap visuel')}}</option>
+                                                            <option value="Handicap mental">{{__('project-submission.Handicap mental')}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mt-4 text-center">
+                                                <div class="col-lg-12">
+                                                    <div class="form-group">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" value=""
+                                                                   id="defaultCheck1" name="defaultCheck1">
+                                                            <label class="form-check-label" for="defaultCheck1">{{__('project-submission.Je certifie l\'exactitude des données renseignées et j\'accepte les')}} <a
+                                                                    href="#">{{__('project-submission.termes et conditions')}}</a>.</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <div class="form-group">
+                                                    <input type="button" name="add-field"
+                                                           class="submitBnt btn btn-custom add-field" value="+">
+                                                </div>
+                                            </div>
+
+
+
+
+</span>
+                                    <div class="dynamic-fields">
+                                        <!-- Dynamic fielfd will be cloned here -->
+                                    </div>
                                     <div class="row mt-4 text-center">
                                         <div class="col-lg-12">
                                             <input type="button" name="next" class="submitBnt btn btn-custom next"
@@ -414,256 +434,267 @@
                                 </fieldset>
 
                                 <!-- STEP 2 -->
-                                <fieldset style="display:none" class="form-section">
-                                    <div class="contact-details-header">
-                                        <div class="contact-icon">
-                                            <i class="pe-7s-study text-custom"></i>
+                                <fieldset style="display:none" class="fs form-section">
+<span class="sf">
+
+                                            <div class="contact-details-header">
+                                                <div class="contact-icon">
+                                                    <i class="pe-7s-study text-custom"></i>
+                                                </div>
+                                                <h3>{{__('project-submission.Informations Professionelles')}}</h3>
+                                                <p class="text-muted mt-3">{{__('project-submission.Renseignez vos informations professionnelles.')}}</p>
+                                            </div>
+                                            <div class="fields-section">
+                                                <h4 class="mt-4">{{__('project-submission.Formation')}}</h4>
+                                                <h5><small class="text-muted">{{__('project-submission.Renseignez vos diplômes')}}</small></h5>
+
+                                                <div class="row source-field">
+                                                    <div class="col-lg-3">
+                                                        <div class="form-group">
+                                                            <input name="member[0][degrees][0][diplome_type]" id="diplome_type" type="text"
+                                                                   class="form-control" placeholder="{{__('project-submission.Type de diplôme')}}...">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-3">
+                                                        <div class="form-group">
+                                                            <input name="member[0][degrees][0][annee]" id="annee" type="text"
+                                                                   class="form-control" placeholder="{{__('project-submission.Année d\'obtention')}}...">
+                                                        </div>
+                                                    </div>
+
+                                                    {{-- <div class="col-lg-2">
+                                                         <div class="form-group">
+                                                             <input name="degrees[0][specialite]" id="specialite" type="text" class="form-control" placeholder="Spécialité...">
+                                                         </div>
+                                                     </div>
+
+                                                     <div class="col-lg-2">
+                                                         <div class="form-group">
+                                                             <input name="degrees[0][option]" id="option" type="text" class="form-control" placeholder="Option...">
+                                                         </div>
+                                                     </div>--}}
+
+                                                    <div class="col-lg-4">
+                                                        <div class="form-group">
+                                                            <input name="member[0][degrees][0][etablissement]" id="etablissement"
+                                                                   type="text" class="form-control"
+                                                                   placeholder="{{__('project-submission.Établissement')}}...">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-2">
+                                                        <div class="form-group">
+                                                            <input id="add-deg" type="button" name="add-field"
+                                                                   class="submitBnt btn btn-custom add-field" value="+">
+                                                        </div>
+                                                    </div>
+</div>
+
+                                                <div class="dynamic-fields">
+                                                    <!-- Dynamic fielfd will be cloned here -->
+                                                </div>
+                                            </div>
+                                            <div class="fields-section">
+                                                <h4 class="mt-5">{{__('project-submission.Experience Professionnelle')}}</h4>
+                                                <h5><small class="text-muted">{{__('project-submission.Renseignez vos experiences professionnelles')}}</small></h5>
+
+                                                <div class="row source-field">
+                                                    <div class="col-lg-2">
+                                                        <div class="form-group">
+                                                            <input name="member[0][professional_experience][0][value]" id="du" type="text"
+                                                                   class="form-control" placeholder="{{__('project-submission.Du')}}...">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-2">
+                                                        <div class="form-group">
+                                                            <input name="member[0][professional_experience][0][rate]" id="au" type="text"
+                                                                   class="form-control" placeholder="{{__('project-submission.Au')}}...">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-2">
+                                                        <div class="form-group">
+                                                            <input name="member[0][professional_experience][0][label]" id="poste"
+                                                                   type="text" class="form-control" placeholder="{{__('project-submission.Poste')}}...">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-2">
+                                                        <div class="form-group">
+                                                            <input name="member[0][professional_experience][0][duration]" id="organisme"
+                                                                   type="text" class="form-control" placeholder="{{__('project-submission.Organisme')}}...">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-2">
+                                                        <div class="form-group">
+                                                            <input name="member[0][professional_experience][0][organisme]" id="mission"
+                                                                   type="text" class="form-control" placeholder="{{__('project-submission.Mission')}}...">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-2">
+                                                        <div class="form-group">
+                                                            <input type="button" id="add-deg" name="add-field"
+                                                                   class="submitBnt btn btn-custom add-field" value="+">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="dynamic-fields">
+                                                    <!-- Dynamic fielfd will be cloned here -->
+                                                </div>
+                                            </div>
+                                            {{-- <div class="fields-section">
+                                                <h4 class="mt-5">Langues</h4>
+                                                <h5><small class="text-muted">Renseignez les langues que vous parlez</small></h5>
+
+                                                <div class="row source-field">
+                                                    <div class="col-lg-5">
+                                                        <div class="form-group">
+                                                            <input name="name" id="name" type="text" class="form-control" placeholder="Langue...">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-5">
+                                                        <div class="form-group">
+                                                            <input name="name" id="name" type="text" class="form-control" placeholder="Niveau...">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-2">
+                                                        <div class="form-group">
+                                                            <input type="button" name="add-field" class="submitBnt btn btn-custom add-field" value="+">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="dynamic-fields">
+                                                    <!-- Dynamic fielfd will be cloned here -->
+                                                </div>
+                                            </div> --}}
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <div class="row mt-4">
+                                                <div class="col-lg-12">
+                                                    <div class="form-group">
+                                                        <select name="member[0][chomage]" id="chomageSelect" class="form-control  logical-parent" data-parsley-group="block-2">
+                                                            <option value="" selected="" disabled="">{{__('project-submission.Actuellement, êtes-vous au chômage ?')}}
+                                                            </option>
+                                                            <option value="Oui">{{__('project-submission.Oui')}}
+                                                            </option>
+                                                            <option value="Non">{{__('project-submission.Non')}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <div class="col-lg-6">
+                                                            <input type="text" id="chomage_desc" name="member[0][chomage_desc]" class="form-control" placeholder="{{__('project-submission.Depuis combien de temps?')}}" >
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-4">
+                                                <div class="col-lg-12">
+                                                    <div class="form-group">
+                                                        <select name="member[0][informal_activity]" id="informal_activitySelect" class="form-control  logical-parent" data-parsley-group="block-2">
+                                                            <option value="" selected="" disabled="">{{__('project-submission.Exercez-vous une activité informelle?')}}
+
+                                                            </option>
+                                                            <option value="Oui">{{__('project-submission.Oui')}}
+                                                            </option>
+                                                            <option value="Non">{{__('project-submission.Non')}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <div class="col-lg-6">
+                                                            <input type="text" name="member[0][informal_activity_desc]" id="informal_activity_desc" class="form-control" placeholder="{{__('project-submission.Dans quel secteur?')}}" >
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="row mt-4">
+                                                <div class="col-lg-12">
+                                                    <div class="form-group">
+                                                        <select name="member[0][entre_activity]" id="entre_activitySelect" class="form-control  logical-parent" data-parsley-group="block-2">
+                                                            <option value="" selected="" disabled="">{{__('project-submission.Exercez-vous une activité entreprenariale?')}}
+
+                                                            </option>
+                                                            <option value="Oui">{{__('project-submission.Oui')}}
+                                                            </option>
+                                                            <option value="Non">{{__('project-submission.Non')}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <div class="col-lg-6">
+                                                            <input type="text" name="member[0][entre_activity_desc]" id="entre_activity_desc" class="form-control" placeholder="{{__('project-submission.Depuis combien de mois ?')}}" >
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-4">
+                                                <div class="col-lg-12">
+                                                    <div class="form-group">
+                                                        <select name="member[0][project_idea]" id="project_ideaSelect" class="form-control  logical-parent" data-parsley-group="block-2">
+                                                            <option value="" selected="" disabled="">{{__('project-submission.Avez-vous une idée de projet?')}}
+
+                                                            </option>
+                                                            <option value="Oui">{{__('project-submission.Oui')}}
+                                                            </option>
+                                                            <option value="Non">{{__('project-submission.Non')}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <div class="col-lg-6">
+                                                            <input type="text" name="member[0][project_idea_desc]" id="project_idea_desc" class="form-control" placeholder="{{__('project-submission.laquelle ?')}}" >
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-4">
+                                                <div class="col-lg-12">
+                                                    <div class="form-group">
+                                                        <select name="member[0][formation_needs]" id="formation_needsSelect" class="form-control  logical-parent" data-parsley-group="block-2">
+                                                            <option value="" selected="" disabled="">{{__('project-submission.Auriez-vous besoin d\'une formation?')}}
+                                                            </option>
+                                                            <option value="Oui">{{__('project-submission.Oui')}}
+                                                            </option>
+                                                            <option value="Non">{{__('project-submission.Non')}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <div class="col-lg-6">
+                                                            <input type="text" id="formation_needs_desc" name="member[0][formation_needs_desc]" class="form-control" placeholder="{{__('project-submission.Dans quel domaine ?')}}" >
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+
+<div class="col-lg-2">
+                                        <div class="form-group">
+                                            <input type="button" name="add-field"
+                                                   class="submitBnt btn btn-custom add-field ml-sf" value="+">
                                         </div>
-                                        <h3>{{__('project-submission.Informations Professionelles')}}</h3>
-                                        <p class="text-muted mt-3">{{__('project-submission.Renseignez vos informations professionnelles.')}}</p>
                                     </div>
 
-                                    <div class="fields-section">
-                                        <h4 class="mt-4">{{__('project-submission.Formation')}}</h4>
-                                        <h5><small class="text-muted">{{__('project-submission.Renseignez vos diplômes')}}</small></h5>
 
-                                        <div class="row source-field">
-                                            <div class="col-lg-3">
-                                                <div class="form-group">
-                                                    <input name="degrees[0][diplome_type]" id="diplome_type" type="text"
-                                                           class="form-control" placeholder="{{__('project-submission.Type de diplôme')}}...">
-                                                </div>
-                                            </div>
 
-                                            <div class="col-lg-3">
-                                                <div class="form-group">
-                                                    <input name="degrees[0][annee]" id="annee" type="text"
-                                                           class="form-control" placeholder="{{__('project-submission.Année d\'obtention')}}...">
-                                                </div>
-                                            </div>
 
-                                            {{-- <div class="col-lg-2">
-                                                 <div class="form-group">
-                                                     <input name="degrees[0][specialite]" id="specialite" type="text" class="form-control" placeholder="Spécialité...">
-                                                 </div>
-                                             </div>
-
-                                             <div class="col-lg-2">
-                                                 <div class="form-group">
-                                                     <input name="degrees[0][option]" id="option" type="text" class="form-control" placeholder="Option...">
-                                                 </div>
-                                             </div>--}}
-
-                                            <div class="col-lg-4">
-                                                <div class="form-group">
-                                                    <input name="degrees[0][etablissement]" id="etablissement"
-                                                           type="text" class="form-control"
-                                                           placeholder="{{__('project-submission.Établissement')}}...">
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-2">
-                                                <div class="form-group">
-                                                    <input type="button" name="add-field"
-                                                           class="submitBnt btn btn-custom add-field" value="+">
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="dynamic-fields">
-                                            <!-- Dynamic fielfd will be cloned here -->
-                                        </div>
+</span>
+                                    <div class="df">
+                                        <!-- Dynamic fielfd will be cloned here -->
                                     </div>
-
-                                    <div class="fields-section">
-                                        <h4 class="mt-5">{{__('project-submission.Experience Professionnelle')}}</h4>
-                                        <h5><small class="text-muted">{{__('project-submission.Renseignez vos experiences professionnelles')}}</small></h5>
-
-                                        <div class="row source-field">
-                                            <div class="col-lg-2">
-                                                <div class="form-group">
-                                                    <input name="professional_experience[0][value]" id="du" type="text"
-                                                           class="form-control" placeholder="{{__('project-submission.Du')}}...">
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-2">
-                                                <div class="form-group">
-                                                    <input name="professional_experience[0][rate]" id="au" type="text"
-                                                           class="form-control" placeholder="{{__('project-submission.Au')}}...">
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-2">
-                                                <div class="form-group">
-                                                    <input name="professional_experience[0][label]" id="poste"
-                                                           type="text" class="form-control" placeholder="{{__('project-submission.Poste')}}...">
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-2">
-                                                <div class="form-group">
-                                                    <input name="professional_experience[0][duration]" id="organisme"
-                                                           type="text" class="form-control" placeholder="{{__('project-submission.Organisme')}}...">
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-2">
-                                                <div class="form-group">
-                                                    <input name="professional_experience[0][organisme]" id="mission"
-                                                           type="text" class="form-control" placeholder="{{__('project-submission.Mission')}}...">
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-2">
-                                                <div class="form-group">
-                                                    <input type="button" name="add-field"
-                                                           class="submitBnt btn btn-custom add-field" value="+">
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="dynamic-fields">
-                                            <!-- Dynamic fielfd will be cloned here -->
-                                        </div>
-                                    </div>
-
-                                    {{-- <div class="fields-section">
-                                        <h4 class="mt-5">Langues</h4>
-                                        <h5><small class="text-muted">Renseignez les langues que vous parlez</small></h5>
-
-                                        <div class="row source-field">
-                                            <div class="col-lg-5">
-                                                <div class="form-group">
-                                                    <input name="name" id="name" type="text" class="form-control" placeholder="Langue...">
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-5">
-                                                <div class="form-group">
-                                                    <input name="name" id="name" type="text" class="form-control" placeholder="Niveau...">
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-2">
-                                                <div class="form-group">
-                                                    <input type="button" name="add-field" class="submitBnt btn btn-custom add-field" value="+">
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="dynamic-fields">
-                                            <!-- Dynamic fielfd will be cloned here -->
-                                        </div>
-                                    </div> --}}
-
-                                    <br>
-                                    <br>
-                                    <br>
-                                    <div class="row mt-4">
-                                        <div class="col-lg-12">
-                                            <div class="form-group">
-                                                <select name="chomage" id="chomageSelect" class="form-control  logical-parent" data-parsley-group="block-2">
-                                                    <option value="" selected="" disabled="">{{__('project-submission.Actuellement, êtes-vous au chômage ?')}}
-                                                    </option>
-                                                    <option value="Oui">{{__('project-submission.Oui')}}
-                                                    </option>
-                                                    <option value="Non">{{__('project-submission.Non')}}
-                                                    </option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class="col-lg-6">
-                                                    <input type="text" id="chomage_desc" name="chomage_desc" class="form-control" placeholder="{{__('project-submission.Depuis combien de temps?')}}" >
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-<div class="row mt-4">
-                                        <div class="col-lg-12">
-                                            <div class="form-group">
-                                                <select name="informal_activity" id="informal_activitySelect" class="form-control  logical-parent" data-parsley-group="block-2">
-                                                    <option value="" selected="" disabled="">{{__('project-submission.Exercez-vous une activité informelle?')}}
-
-                                                    </option>
-                                                    <option value="Oui">{{__('project-submission.Oui')}}
-                                                    </option>
-                                                    <option value="Non">{{__('project-submission.Non')}}
-                                                    </option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class="col-lg-6">
-                                                    <input type="text" id="informal_activity_desc" name="informal_activity_desc" class="form-control" placeholder="{{__('project-submission.Dans quel secteur?')}}" >
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-<div class="row mt-4">
-                                        <div class="col-lg-12">
-                                            <div class="form-group">
-                                                <select name="entre_activity" id="entre_activitySelect" class="form-control  logical-parent" data-parsley-group="block-2">
-                                                    <option value="" selected="" disabled="">{{__('project-submission.Exercez-vous une activité entreprenariale?')}}
-
-                                                    </option>
-                                                    <option value="Oui">{{__('project-submission.Oui')}}
-                                                    </option>
-                                                    <option value="Non">{{__('project-submission.Non')}}
-                                                    </option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class="col-lg-6">
-                                                    <input type="text" id="entre_activity_desc" name="entre_activity_desc" class="form-control" placeholder="{{__('project-submission.Depuis combien de mois ?')}}" >
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-<div class="row mt-4">
-                                        <div class="col-lg-12">
-                                            <div class="form-group">
-                                                <select name="project_idea" id="project_ideaSelect" class="form-control  logical-parent" data-parsley-group="block-2">
-                                                    <option value="" selected="" disabled="">{{__('project-submission.Avez-vous une idée de projet?')}}
-
-                                                    </option>
-                                                    <option value="Oui">{{__('project-submission.Oui')}}
-                                                    </option>
-                                                    <option value="Non">{{__('project-submission.Non')}}
-                                                    </option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class="col-lg-6">
-                                                    <input type="text" id="project_idea_desc" name="project_idea_desc" class="form-control" placeholder="{{__('project-submission.laquelle ?')}}" >
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-4">
-                                        <div class="col-lg-12">
-                                            <div class="form-group">
-                                                <select name="formation_needs" id="formation_needsSelect" class="form-control  logical-parent" data-parsley-group="block-2">
-                                                    <option value="" selected="" disabled="">{{__('project-submission.Auriez-vous besoin d\'une formation?')}}
-                                                    </option>
-                                                    <option value="Oui">{{__('project-submission.Oui')}}
-                                                    </option>
-                                                    <option value="Non">{{__('project-submission.Non')}}
-                                                    </option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class="col-lg-6">
-                                                    <input type="text" id="formation_needs_desc" name="formation_needs_desc" class="form-control" placeholder="{{__('project-submission.Dans quel domaine ?')}}" >
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                    </div>
-
-                                    <div class="row mt-4 text-center">
+                                                 <div class="row mt-4 text-center">
                                         <div class="col-lg-12">
                                             <input type="button" name="previous"
                                                    class="submitBnt btn btn-custom previous" value="{{__('project-submission.Précédent')}}">
@@ -675,7 +706,9 @@
                                 </fieldset>
 
                                 <!-- STEP 3 -->
-                                <fieldset id="last-fieldset" style="display:none" class="form-section">
+                                <fieldset id="last-fieldset" style="display:none" class="fields-section form-section source-field">
+<span class="source-field">
+
                                     <div class="contact-details-header">
                                         <div class="contact-icon">
                                             <i class="pe-7s-portfolio text-custom"></i>
@@ -684,165 +717,168 @@
                                         <p class="text-muted mt-3">{{__('project-submission.Renseignez les détails de votre projet')}}.</p>
                                     </div>
 
-                                    <div class="row">
-                                        <div class="col-lg-8">
-                                            <div class="form-group">
-                                                <input name="title" id="title" type="text" class="form-control"
-                                                       placeholder="{{__('project-submission.Titre de votre projet')}}...">
-                                            </div>
-                                        </div>
+                                            <div class="row">
+                                                <div class="col-lg-8">
+                                                    <div class="form-group">
+                                                        <input name="title" id="title" type="text" class="form-control"
+                                                               placeholder="{{__('project-submission.Titre de votre projet')}}...">
+                                                    </div>
+                                                </div>
 
-                                        <div class="col-lg-4">
-                                            <div class="form-group">
-                                                <select name="category_id" id="category_id"
-                                                        class="form-control bootstrap-select" id="kt_form_type">
-                                                    <option disabled selected>{{__('project-submission.Secteur d\'activité')}}...</option>
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <select name="category_id" id="category_id"
+                                                                class="form-control bootstrap-select" id="kt_form_type">
+                                                            <option disabled selected>{{__('project-submission.Secteur d\'activité')}}...</option>
 
-                                                    @foreach ($sectors as $sector)
+                                                            @foreach ($sectors as $sector)
 
-                                                        {{--                                                        <optgroup label="{{$sector->title}}">--}}
-                                                        <optgroup label="@lang( 'project-submission.' . $sector->title. '' )">
-                                                            @foreach($sector['subSectors'] as $subSector)
-                                                                @if($subSector->parent_id==$sector->id )
-                                                                    <option
-                                                                        {{--                                                                        value="{{$subSector->id}}">{{$subSector->title}}</option>--}}
-                                                                        value="{{$subSector->id}}">@lang( 'project-submission.' . $subSector->title . '' )</option>
+                                                                {{--                                                        <optgroup label="{{$sector->title}}">--}}
+                                                                <optgroup label="@lang( 'project-submission.' . $sector->title. '' )">
+                                                                    @foreach($sector['subSectors'] as $subSector)
+                                                                        @if($subSector->parent_id==$sector->id )
+                                                                            <option
+                                                                                {{--                                                                        value="{{$subSector->id}}">{{$subSector->title}}</option>--}}
+                                                                                value="{{$subSector->id}}">@lang( 'project-submission.' . $subSector->title . '' )</option>
 
-                                                                @endif
+                                                                        @endif
 
+                                                                    @endforeach
+                                                                </optgroup>
+                                                                <p></p>
                                                             @endforeach
-                                                        </optgroup>
-                                                        <p></p>
-                                                    @endforeach
 
-                                                </select>
+                                                        </select>
 
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row mt-4">
-                                        <div class="col-lg-12">
-                                            <div class="form-group">
-                                                <input name="total_jobs" id="total_jobs" min="0" type="number"
-                                                       class="form-control" placeholder="{{__('project-submission.Effectif du projet')}}...">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row mt-4">
-                                        <div class="col-lg-12">
-                                            <div class="form-group">
-                                                <select name="state-aid" id="state-aid"
-                                                        class="form-control  logical-parent">
-                                                    <option value="" selected disabled>{{__('project-submission.Avez-vous déjà bénéficié d\'une aide étatique?')}}
-                                                    </option>
-                                                    <option value="0">{{__('project-submission.Non, je n\'ai jamais bénéficié d\'une aide étatique.')}}
-                                                    </option>
-                                                    <option value="1">{{__('project-submission.Oui, j\'ai déjà bénéficié d\'une aide étatique.')}}
-                                                    </option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12 fields-section logical-fields">
-                                        <div class="source-field">
-                                            <div class="form-group">
-                                                <select name="statehelp[0][aid-oui]" id="state-aid-oui"
-                                                        class="form-control bootstrap-select" id="kt_form_type">
-                                                    <option disabled selected>{{__('project-submission.Si oui, laquelle?')}}</option>
-
-                                                    @foreach ($AIDEETAT as $aide)
-
-                                                        <option value="{{$aide}}">@lang( 'project-submission.' . $aide . '' )</option>
-
-                                                        <p></p>
-                                                    @endforeach
-
-                                                </select>
-                                                {{--                                            <input name="state-aid-oui" id="state-aid-oui" type="text" class="form-control" placeholder="Si oui, laquelle?">--}}
-                                            </div>
-                                            <div class="form-group">
-                                                <input name="statehelp[0][aide_date]"   id="aide_date" type='number' min='2010'
-                                                       max='2011' class="form-control"
-                                                       placeholder="{{__('project-submission.Dans qu\'elle année?')}}">
-                                            </div>
-                                            <div class="form-group">
-                                                <input name="statehelp[0][aide_montant]" id="aide_montant" type='number' min='0'
-                                                       class="form-control"  placeholder="{{__('project-submission.le montant?')}}">
-                                            </div>
-                                            <div class="col-lg-2">
-                                                <div class="form-group">
-                                                    <input type="button" name="add-field"
-                                                           class="submitBnt btn btn-custom add-field" value="+">
+                                                    </div>
                                                 </div>
                                             </div>
 
-                                        </div>
-                                        <div class="dynamic-fields">
-                                            <!-- Dynamic fielfd will be cloned here -->
-                                        </div>
-
-                                    </div>
-
-
-
-
-                                    <div class="row mt-4">
-                                        <div class="col-lg-12">
-                                            <div class="form-group">
-                                                <select name="company[is_created]" id="company_creation"
-                                                        class="form-control logical-parent">
-                                                    <option value="" selected disabled>{{__('project-submission.Avez-vous déjà créé une entreprise pour votre projet?')}}
-                                                    </option>
-                                                    <option value="1">{{__('project-submission.Oui, j\'ai déjà créé une entreprise pour mon projet.')}}
-                                                    </option>
-                                                    <option value="0">{{__('project-submission.Non, je n\'est pas encore créé une entreprise pour mon projet.')}}
-                                                    </option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="logical-fields">
-                                        <div class="row mt-4">
-                                            <div class="col-lg-4">
-                                                <div class="form-group">
-                                                    <select name="company[legal_form]" id="company_form"
-                                                            class="form-control bootstrap-select" id="kt_form_type">
-                                                        <option disabled selected>{{__('project-submission.Forme de l\'entreprise')}}...</option>
-
-                                                        @foreach ($LEGALFORM as $legal)
-
-                                                            <option value="{{$legal}}">@lang( 'project-submission.' . $legal . '' )</option>
-
-                                                            <p></p>
-                                                        @endforeach
-
-                                                    </select>
-
-
+                                            <div class="row mt-4">
+                                                <div class="col-lg-12">
+                                                    <div class="form-group">
+                                                        <input name="total_jobs" id="total_jobs" min="0" type="number"
+                                                               class="form-control" placeholder="{{__('project-submission.Effectif du projet')}}...">
+                                                    </div>
                                                 </div>
                                             </div>
 
-                                            <div class="col-lg-4">
-                                                <div class="form-group">
-                                                    <input name="company[corporate_name]" id="company_denomination"
-                                                           type="text" class="form-control"
-                                                           placeholder="{{__('project-submission.Dénomination de l\'entreprise')}}...">
+                                            <div class="row mt-4">
+                                                <div class="col-lg-12">
+                                                    <div class="form-group">
+                                                        <select name="state-aid" id="state-aid"
+                                                                class="form-control  logical-parent">
+                                                            <option value="" selected disabled>{{__('project-submission.Avez-vous déjà bénéficié d\'une aide étatique?')}}
+                                                            </option>
+                                                            <option value="0">{{__('project-submission.Non, je n\'ai jamais bénéficié d\'une aide étatique.')}}
+                                                            </option>
+                                                            <option value="1">{{__('project-submission.Oui, j\'ai déjà bénéficié d\'une aide étatique.')}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12 fields-section logical-fields">
+                                                <div class="source-field">
+                                                    <div class="form-group">
+                                                        <select name="statehelp[0][aid-oui]" id="state-aid-oui"
+                                                                class="form-control bootstrap-select" id="kt_form_type">
+                                                            <option disabled selected>{{__('project-submission.Si oui, laquelle?')}}</option>
+
+                                                            @foreach ($AIDEETAT as $aide)
+
+                                                                <option value="{{$aide}}">@lang( 'project-submission.' . $aide . '' )</option>
+
+                                                                <p></p>
+                                                            @endforeach
+
+                                                        </select>
+                                                        {{--                                            <input name="state-aid-oui" id="state-aid-oui" type="text" class="form-control" placeholder="Si oui, laquelle?">--}}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input name="statehelp[0][aide_date]"   id="aide_date" type='number' min='2010'
+                                                               max='2011' class="form-control"
+                                                               placeholder="{{__('project-submission.Dans qu\'elle année?')}}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input name="statehelp[0][aide_montant]" id="aide_montant" type='number' min='0'
+                                                               class="form-control"  placeholder="{{__('project-submission.le montant?')}}">
+                                                    </div>
+                                                    <div class="col-lg-2">
+                                                        <div class="form-group">
+                                                            <input type="button" name="add-field"
+                                                                   class="submitBnt btn btn-custom add-field" value="+">
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="dynamic-fields">
+                                                    <!-- Dynamic fielfd will be cloned here -->
+                                                </div>
+
+                                            </div>
+
+
+
+
+                                            <div class="row mt-4">
+                                                <div class="col-lg-12">
+                                                    <div class="form-group">
+                                                        <select name="company[is_created]" id="company_creation"
+                                                                class="form-control logical-parent">
+                                                            <option value="" selected disabled>{{__('project-submission.Avez-vous déjà créé une entreprise pour votre projet?')}}
+                                                            </option>
+                                                            <option value="1">{{__('project-submission.Oui, j\'ai déjà créé une entreprise pour mon projet.')}}
+                                                            </option>
+                                                            <option value="0">{{__('project-submission.Non, je n\'est pas encore créé une entreprise pour mon projet.')}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
                                                 </div>
                                             </div>
 
-                                            <div class="col-lg-4">
-                                                <div class="form-group">
-                                                    <input name="company[creation_date]" id="company_date" type="date"
-                                                           class="form-control"
-                                                           placeholder="{{__('project-submission.Date de création de l\'entreprise')}}...">
+                                            <div class="logical-fields">
+                                                <div class="row mt-4">
+                                                    <div class="col-lg-4">
+                                                        <div class="form-group">
+                                                            <select name="company[legal_form]" id="company_form"
+                                                                    class="form-control bootstrap-select" id="kt_form_type">
+                                                                <option disabled selected>{{__('project-submission.Forme de l\'entreprise')}}...</option>
+
+                                                                @foreach ($LEGALFORM as $legal)
+
+                                                                    <option value="{{$legal}}">@lang( 'project-submission.' . $legal . '' )</option>
+
+                                                                    <p></p>
+                                                                @endforeach
+
+                                                            </select>
+
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-4">
+                                                        <div class="form-group">
+                                                            <input name="company[corporate_name]" id="company_denomination"
+                                                                   type="text" class="form-control"
+                                                                   placeholder="{{__('project-submission.Dénomination de l\'entreprise')}}...">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-4">
+                                                        <div class="form-group">
+                                                            <input name="company[creation_date]" id="company_date" type="date"
+                                                                   class="form-control"
+                                                                   placeholder="{{__('project-submission.Date de création de l\'entreprise')}}...">
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
 
+
+
+</span>
                                     <div class="row mt-4 text-center">
                                         <div class="col-lg-12">
                                             <input type="button" name="previous"
@@ -1003,22 +1039,77 @@
         var fsElement, dfElement, dfCounter;
         //Clone the degree field and show it
         $('body').on('click', '.add-field', function () {
-            console.log('add')
-            fsElement = $(this).closest('.fields-section');
-            dfElement = fsElement.find('.source-field');
-            dfCounter = dfElement.length;
+            if ($(this).attr("class")=='submitBnt btn btn-custom add-field ml-sf'){
+                fsElement = $(this).closest('.fs');
+                dfElement = fsElement.find('.sf');
+                dfCounter = dfElement.length;
+            }else{
+                fsElement = $(this).closest('.fields-section');
+                dfElement = fsElement.find('.source-field');
+                dfCounter = dfElement.length;
+            }
+
+
             console.log('add', fsElement, dfElement, dfCounter)
             if (dfCounter < 5) {
-                dfElement.last().clone().appendTo(fsElement.find('.dynamic-fields:first')).find("input[type='text']" && "input[type='number']" ).val('');
+                if ($(this).attr("class")=='submitBnt btn btn-custom add-field ml-sf'){
+                    dfElement.last().clone().appendTo(fsElement.find('.df:first')).find("input:not(.add-field)").val('');
+
+                }else {
+                    dfElement.last().clone().appendTo(fsElement.find('.dynamic-fields:first')).find("input:not(.add-field)").val('');
+                }
+
+                function replaceOccurrence(string, regex, n, replace) {
+                    var i = 0;
+                    return string.replace(regex, function(match) {
+                        i+=1;
+                        if(i===n) return replace;
+                        return match;
+                    });
+                }
+
+                if ($(this).attr("id")=='add-deg'){
+                    dfElement.find('input').each(function () {
+                        let nameArr= this.name.split(/member\[(\d+)\]/);
+                        console.log(nameArr.join(''));
+
+                        if (nameArr[2]){
+                            nameArr[2]= nameArr[2].replace(/\[(\d+)\]/, function (str, p1) {
+                                console.log('str');
+                                return '[' + (parseInt(p1, 10) + 1) + ']'
+                            });
+                            nameArr[1]=this.name.substring(0, 9);
+                            // console.log(nameArr,nameArr.join(''));
+                            this.name = nameArr.join('');
+                            this.id = this.id.replace(/\[(\d+)\]/, function (str, p1) {
+                                return '[' + (parseInt(p1, 10) + 1) + ']'
+                            });
+
+                        }
+
+                    });
+
+                }
+                else {
+
                 dfElement.find('input').each(function () {
+
                     this.name = this.name.replace(/\[(\d+)\]/, function (str, p1) {
                         return '[' + (parseInt(p1, 10) + 1) + ']'
                     });
-                });
+                    this.id = this.id.replace(/\[(\d+)\]/, function (str, p1) {
+                        return '[' + (parseInt(p1, 10) + 1) + ']'
+                    });
+
+                });}
                 dfElement.find('select').each(function () {
                     this.name = this.name.replace(/\[(\d+)\]/, function (str, p1) {
                         return '[' + (parseInt(p1, 10) + 1) + ']'
-                    });});
+                    });
+                    this.id = this.id.replace(/\[(\d+)\]/, function (str, p1) {
+                        return '[' + (parseInt(p1, 10) + 1) + ']'
+                    });
+                });
                 $(this).removeClass('add-field').addClass('remove-degree').val('-');
                 if (dfCounter >= 5) {
                     $(this).prop('disabled', true);
@@ -1034,54 +1125,71 @@
             var is_error = false;
             errorsHtml = '<div class="alert alert-danger"><ul>';
             if (current_fs == 0) {
-                if ($("#civility").val() == null) {
+                if ($('[id^="member["][id$="]civility"]').each(function(){
+                    if(this.value == '') {
                     errorsHtml += "<li>{{__('project-submission.Veuillez renseigner votre civilité')}}</li>";
                     is_error = true;
-                }
-                if ($("#first_name").val() == '') {
+                }}));
+                if ($('[id^="member["][id$="]first_name"]').each(function(){
+                    if(this.value == '') {
                     errorsHtml += "<li>{{__('project-submission.Veuillez renseigner votre prénom')}}</li>";
                     is_error = true;
                 }
-                if ($("#last_name").val() == '') {
-                    errorsHtml += "<li>{{__('project-submission.Veuillez renseigner votre nom')}}</li>";
-                    is_error = true;
-                }
-                if ($("#identity_number").val() == '') {
-                    errorsHtml += "<li>{{__('project-submission.Veuillez renseigner votre CIN')}}</li>";
-                    is_error = true;
-                }
-                if ($("#birth_date").val() == '') {
-                    errorsHtml += "<li>{{__('project-submission.Veuillez renseigner votre date de naissance')}}</li>";
-                    is_error = true;
-                }
-                if ($("#marital-status").val() == null) {
-                    errorsHtml += "<li>{{__('project-submission.Veuillez renseigner votre situation familliale')}}</li>";
-                    is_error = true;
-                }
-                if ($("#address").val() == '') {
-                    errorsHtml += "<li>{{__('project-submission.Veuillez renseigner votre adresse')}}</li>";
-                    is_error = true;
-                }
-                if ($("#township_id").val() == null) {
-                    errorsHtml += "<li>{{__('project-submission.Veuillez renseigner votre commune')}}</li>";
-                    is_error = true;
-                }
-                if ($("#email").val() == '') {
-                    errorsHtml += "<li>{{__('project-submission.Veuillez renseigner votre adresse email')}}</li>";
-                    is_error = true;
-                }
-                if ($("#phone").val() == '') {
-                    errorsHtml += "<li>{{__('project-submission.Veuillez renseigner votre numéro de téléphone')}}</li>";
-                    is_error = true;
-                }
-                if ($("#reduced_mobility").val() == null) {
-                    errorsHtml += "<li>{{__('project-submission.Veuillez renseigner votre situation de mobilité')}}</li>";
-                    is_error = true;
-                }
+                }));
+                if ($('[id^="member["][id$="]last_name"]').each(function(){
+                    if(this.value == '') {
+                        errorsHtml += "<li>{{__('project-submission.Veuillez renseigner votre nom')}}</li>";
+                        is_error = true;
+                    }  }));
+                if ($('[id^="member["][id$="]identity_number"]').each(function(){
+                    console.log(this.value)
+                    if(this.value == '') {
+                        errorsHtml += "<li>{{__('project-submission.Veuillez renseigner votre CIN')}}</li>";
+                        is_error = true;
+                    }}));
+                if ($('[id^="member["][id$="]birth_date"]').each(function(){
+
+                    if(this.value == '') {
+                        errorsHtml += "<li>{{__('project-submission.Veuillez renseigner votre date de naissance')}}</li>";
+                        is_error = true;
+                    } }));
+                if ($('[id^="member["][id$="]marital-status"]').each(function(){
+                    if(this.value ==null) {
+                        errorsHtml += "<li>{{__('project-submission.Veuillez renseigner votre situation familliale')}}</li>";
+                        is_error = true;
+                    }}));
+                if ($('[id^="member["][id$="]address"]').each(function(){
+                    if(this.value == '') {
+                        errorsHtml += "<li>{{__('project-submission.Veuillez renseigner votre adresse')}}</li>";
+                        is_error = true;
+                    }}));
+                if ($('[id^="member["][id$="]township_id"]').each(function(){
+                    if(this.value == '') {
+
+                        errorsHtml += "<li>{{__('project-submission.Veuillez renseigner votre commune')}}</li>";
+                        is_error = true;
+                    } }));
+                if ($('[id^="member["][id$="]email"]').each(function(){
+
+                    if(this.value == '') {
+                        errorsHtml += "<li>{{__('project-submission.Veuillez renseigner votre adresse email')}}</li>";
+                        is_error = true;
+                    }}));
+                if ($('[id^="member["][id$="]phone"]').each(function(){
+                    if(this.value == '') {
+                        errorsHtml += "<li>{{__('project-submission.Veuillez renseigner votre numéro de téléphone')}}</li>";
+                        is_error = true;
+                    }}));
+                if ($('[id^="member["][id$="]reduced_mobility"]').each(function(){
+                    if(this.value == '') {
+                        errorsHtml += "<li>{{__('project-submission.Veuillez renseigner votre situation de mobilité')}}</li>";
+                        is_error = true;
+                    } }));
                 if ($('#defaultCheck1').is(":checked") == false) {
-                    errorsHtml += "<li>{{__('project-submission.Veuillez certifie l\'exactitude des données renseignées')}}</li>";
-                    is_error = true;
-                }
+                    if(this.value == '') {
+                        errorsHtml += "<li>{{__('project-submission.Veuillez certifie l\'exactitude des données renseignées')}}</li>";
+                        is_error = true;
+                    } }
             }
             /*else if (current_fs == 1)
             {
@@ -1247,11 +1355,11 @@
         window.addEventListener('load', function() {
 
 
-                $('#chomage_desc').parent().closest('.form-group').hide();
-                $('#informal_activity_desc').parent().closest('.form-group').hide();
-                $('#entre_activity_desc').parent().closest('.form-group').hide();
-                $('#formation_needs_desc').parent().closest('.form-group').hide();
-                $('#project_idea_desc').parent().closest('.form-group').hide();
+            $('#chomage_desc').parent().closest('.form-group').hide();
+            $('#informal_activity_desc').parent().closest('.form-group').hide();
+            $('#entre_activity_desc').parent().closest('.form-group').hide();
+            $('#formation_needs_desc').parent().closest('.form-group').hide();
+            $('#project_idea_desc').parent().closest('.form-group').hide();
         });
 
         $('#chomageSelect').change(function() {
