@@ -102,14 +102,6 @@ class CandidatureController extends Controller
                 }
             }
 
-
-
-
-
-
-
-
-
             if (isset($item['professional_experience'])) {
                 foreach ($item['professional_experience'] as $exp) {
                     if (!$this->input_is_null($exp)) {
@@ -168,16 +160,16 @@ class CandidatureController extends Controller
         }
 
             $otherquestions [] = array(
-                "chomage" => $item["chomage"],
-                "chomage_desc" => $item["chomage_desc"],
-                "informal_activity_desc" => $item["informal_activity_desc"],
-                "informal_activity" => $item["informal_activity"],
-                "entre_activity" => $item["entre_activity"],
-                "entre_activity_desc" => $item["entre_activity_desc"],
-                "project_idea" => $item["project_idea"],
-                "project_idea_desc" => $item["project_idea_desc"],
-                "formation_needs" => $item["formation_needs"],
-                "formation_needs_desc" => $item["formation_needs_desc"],
+                "chomage" => isset ($item["chomage"])?$item["chomage"]:null,
+                "chomage_desc" => isset ($item["chomage_desc"])?:null,
+                "informal_activity_desc" => isset ($item["informal_activity_desc"])?$item["chomage_desc"]:null,
+                "informal_activity" => isset ($item["informal_activity"])?$item["informal_activity_desc"]:null,
+                "entre_activity" => isset ($item["entre_activity"])?$item["informal_activity"]:null,
+                "entre_activity_desc" => isset ($item["entre_activity_desc"])?$item["entre_activity"]:null,
+                "project_idea" => isset ($item["project_idea"])?$item["entre_activity_desc"]:null,
+                "project_idea_desc" => isset ($item["project_idea_desc"])?$item["project_idea"]:null,
+                "formation_needs" => isset ($item["formation_needs"])?$item["project_idea_desc"]:null,
+                "formation_needs_desc" => isset ($item["formation_needs_desc"])?$item["formation_needs"]:null,
 
 
             );
