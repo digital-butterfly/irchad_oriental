@@ -18,6 +18,7 @@
 						Modifier adhérent
 					</h3>
 				</div>
+                <button type="button" class="btn btn-brand btn-bold" onclick="window.print();"><i class="flaticon2-printer"></i></button>
 			</div>
 			<!--begin::Form-->
 			@if ($errors->any())
@@ -29,6 +30,42 @@
 				</ul>
 			</div><br />
 			@endif
+            <div class="kt-portlet kt-portlet--tab">
+
+                <div class="kt-portlet__body">
+
+                    <!--begin::Section-->
+                    @if($data->application!='aucun')
+                    <div class="kt-section">
+                        <div class="kt-section__content kt-section__content--solid">
+                            <div class="kt-widget__content">
+                                <div class="kt-widget__head">
+                                    <a class="kt-widget__title">
+                                        <h3>{{$data->application==='aucun'?$data->application:$data->application[0]->title}}</h3>
+                                    </a>
+
+                                </div>
+
+                                <div class="kt-widget__subhead mb-1">
+                                    <a href="#"><i class="flaticon2-calendar-3"></i>  {{$data->application==='aucun'?$data->application:$data->application[0]->created_at->format('d/m/Y')}}</a>
+                                    <a href="#"><i class="flaticon2-new-email"></i>  {{$data->application==='aucun'?$data->application:$data->application[0]->category_title}}</a>
+                                </div>
+                                <div class="kt-widget__info pt-4">
+                                    <div class="kt-widget__desc">
+                                        {{$data->application==='aucun'?$data->application:$data->application[0]->description }}
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                @endif
+                    <!--end::Section-->
+
+                    <!--end::Section-->
+                </div>
+            </div>
             <form class="kt-form" method="POST" action="{{ route('members.update', $data->id) }}">
                 {{ method_field('PUT') }}
 				<div class="kt-portlet__body">
@@ -67,6 +104,26 @@
 
 
 @section('specific_js')
+    <script>
+        function PrintElem(elem)
+        {
+            var mywindow = window.open('', 'PRINT', 'height=400,width=600');
+
+            mywindow.document.write('<html><head><title>' + document.title  + '</title>');
+            mywindow.document.write('</head><body >');
+            mywindow.document.write('<h1>' + document.title  + '</h1>');
+            mywindow.document.write(document.getElementById(elem).innerHTML);
+            mywindow.document.write('</body></html>');
+
+            mywindow.document.close(); // necessary for IE >= 10
+            mywindow.focus(); // necessary for IE >= 10*/
+
+            mywindow.print();
+            mywindow.close();
+
+            return true;
+        }
+    </script>
 	<script>
         window.addEventListener('load', function() {
 
@@ -198,4 +255,5 @@
 			KTFormRepeater.init();
 		});
 	</script>
+    <script src="https://printjs-4de6.kxcdn.com/print.min.js" type="application/javascript"></script>
 @endsection

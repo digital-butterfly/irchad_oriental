@@ -134,7 +134,7 @@
                         </div>
                     </a> --}}
                     <div class="kt-notification__custom kt-space-between">
-                        <a href="{{ route('logout') }}" class="btn btn-label btn-label-brand btn-sm btn-bold" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Sign Out</a>
+                        <a href="{{ route('logout') }}" class="btn btn-label btn-label-brand btn-sm btn-bold" onclick="event.preventDefault();window.localStorage.clear(); document.getElementById('logout-form').submit();">Sign Out</a>
 
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             @csrf

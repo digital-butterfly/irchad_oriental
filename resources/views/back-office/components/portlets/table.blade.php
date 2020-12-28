@@ -195,7 +195,11 @@
     </div>
     <div class="kt-portlet__body kt-portlet__body--fit">
         <!--begin: Datatable -->
-        <div class="kt-datatable" id="ajax_data"></div>
+        <?php
+        $link = $_SERVER['REQUEST_URI'];
+        $link_array = explode('/',$link);
+        ?>
+        <div class="kt-datatable" id="ajax_data-{{end($link_array)}}"></div>
         <!--end: Datatable -->
     </div>
 </div>

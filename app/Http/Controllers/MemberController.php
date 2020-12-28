@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\exportCondidat;
+use App\ProjectApplication;
+use App\ProjectCategory;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Member;
@@ -158,6 +160,16 @@ class MemberController extends Controller
     public function edit(Member $member)
     {
         $data = $member;
+
+        $data->application=(!ProjectApplication::where('member_id',$member->id)->get()->isEmpty())?ProjectApplication::where('member_id',$member->id)->get():'aucun';
+        if ($data->application!='aucun')
+        {
+            $category = ProjectCategory::find($data->application[0]->category_id);
+
+            $data->application[0]->category_title = is_object($category) == null ? "" : $category->title;
+        }
+
+//        dd($data->application);
         if(isset($data->otherquestions)){
 
 
