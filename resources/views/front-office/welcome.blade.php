@@ -618,7 +618,7 @@
                     <div class="ml-5">
                         <h5 class="f-18">{{__('FAQ.Qui peut soumissionner un projet ?')}}</h5>
                         <p class="faq-answer text-muted">
-                            {{__('FAQ.Tous les jeunes âgés entre 18 et 35 ans, en recherche active d’un emploi et qui ne pratiquent aucune activité dans le secteur public ou privé. Les porteurs de projets doivent obligatoirement résider au sein de la Province de Al Hoceima.')}}
+                            {{__('FAQ.Toute personne majeure âgée entre 18 et 45 ans, en situation d\'inactivité ou de sous-emploi, ou exerçant une activité entreprenariale ne dépassant pas les 12 mois. Elle doit être imprérativement résidante au sein de la Province de Al Hoceima.')}}
                         </p>
                     </div>
                 </div>
@@ -629,10 +629,10 @@
                     </div>
                     <div class="ml-5">
                         <h5 class="f-18">
-                            {{__('FAQ.Qui sont les candidats prioritaires ?')}}
+                            {{__('FAQ.Comment se fait la sélection des projets ?')}}
                         </h5>
                         <p class="faq-answer text-muted">
-                            {{__('FAQ.La priorité est attribué aux jeunes titulaires d’un diplôme universitaire ou de l’Office de la Formation Professionnelle et de la Promotion du Travail (OFPPT), aux jeunes ayant une expérience antérieure dans un domaine particulier et n’ayant jamais bénéficié des avantages du programme de l’INDH.')}}
+                            {{__('FAQ.Après soumission de votre projet, l\'équipe IRCHAD procédera à l\'étude de votre dossier selon les critères de faisabilité et d\'innovation, et ce à travers une comission d\'experts constituée en interne.')}}
 
                         </p>
                     </div>
@@ -643,8 +643,8 @@
                         <i class="mdi mdi-help-box text-custom h3"></i>
                     </div>
                     <div class="ml-5">
-                        <h5 class="f-18">{{__('FAQ.Un projet validé est-il éditable ?')}}</h5>
-                        <p class="faq-answer text-muted">  {{__('FAQ.Oui. Vous pouvez compléter votre dossier ou le modifier tout en étant accompagné par nos experts et nos mentors.')}}</p>
+                        <h5 class="f-18">{{__('FAQ.Quels sont les critères d\'éligibilité fixés pour la sélection de projets ?')}}</h5>
+                        <p class="faq-answer text-muted">  {{__('FAQ.Les projets doivent répondre à des critères d\'éligibilité d\'ordre économique (création de valeur ajoutée, stabilité de revenus...), social (création d\'emplois, conditions de travail, amélioration du statut de la femme...) et environnemental (conservation des ressources naturelles, maintien de la biodiversité...)')}}</p>
                     </div>
                 </div>
                 <div class="mt-5">
@@ -652,9 +652,9 @@
                         <i class="mdi mdi-help-box text-custom h3"></i>
                     </div>
                     <div class="ml-5">
-                        <h5 class="f-18">{{__('FAQ.Qu’est-ce qui est considéré comme un projet?')}}</h5>
+                        <h5 class="f-18">{{__('FAQ.Quels projets sont considérés comme non éligibles?')}}</h5>
                         <p class="faq-answer text-muted">
-                            {{__('FAQ.L’innovation est toute chose nouvellement introduite. Toutes les innovations sont considérées (technologie, concept, procédé, commercialisation etc.)')}}
+                            {{__('FAQ.Ne sont pas éligibles les projets qui nuisent à l\'environnement ou ceux soumis par des fonctionnaires, des agents des établissements publics ou des salariés du secteur privé, ainsi que les projets dont les porteurs ont déjà bénéficié individuellement ou dans le cadre de groupement d\'un financement public y compris dans le cadre d\'autres programmes gouvernementaux.')}}
 
                         </p>
                     </div>
@@ -664,9 +664,9 @@
                         <i class="mdi mdi-help-box text-custom h3"></i>
                     </div>
                     <div class="ml-5">
-                        <h5 class="f-18">{{__('FAQ.Comment se fait la sélection des projets ?')}}</h5>
+                        <h5 class="f-18">{{__('FAQ.Le porteur de projet pourrait-il bénéficier d\'un accompagnement avant la création de son entrepise?')}}</h5>
                         <p class="faq-answer text-muted">
-                            {{__('FAQ.Une fois que vous avez rempli le formulaire d’inscription, vos données sont vérifiées par nos équipes. Lorsqu\'elles seront validées, vous serez convié à l’une de nos plateformes physiques pour un entretien. Si toutes vos informations sont cohérentes avec votre profil et vos idées, des informations d’accès à notre plateforme virtuelle vous seront envoyées. Félicitation, votre projet est désormais sélectionné.')}}
+                            {{__('FAQ.Effectivement, après la sélection de votre projet, l\'équipe IRCHAD procèdera à l\'organisation des sessions à plein temps de renforcement, d\'orientation et de profilage des porteurs de projets. Il s\'agit principalement de l\'accueil, l\'écoute, l\'orientation, la réalisation des études nécessaires (de marché, de montage de projet, de faisabilité, d\'aide à l\'établissement du Business plan ainsi que sur les aspects budgétaires et juridiques).')}}
                         </p>
                     </div>
                 </div>
@@ -679,10 +679,10 @@
                     </div>
                     <div class="ml-5">
                         <h5 class="f-18">
-                            {{__('FAQ.Les porteurs de projets doivent-ils contribuer financièrement au projet ?')}}
+                            {{__('FAQ.Le porteur de projet pourrait-il bénéficier d\'un accompagnement après la création de son entreprise?')}}
                         </h5>
                         <p class="faq-answer text-muted">
-                            {{__('FAQ.Les porteurs de projets doivent contribuer à hauteur de 25% du coût total du projet sous forme de contribution en nature ou en argent.')}}
+                            {{__('FAQ.Le porteur de projet bénéficiera d\'un accompagnement post-création qui se fera à travers un coaching incluant des formations pratiques et un accompagnement individuel et en groupe. Il couvrira en priorité les compétences de gestion essentielles à la bonne conduite du projet, à savoir la gestion financière, la gestion de trésorerie, le marketing, le démarchage d\'opportunités d\'affaires, la commercialisation, l\'accompagnement à la conduite des formalités administratives, ainsi que les aptitudes comportementales (soft-skills).')}}
 
                         </p>
                     </div>
@@ -694,10 +694,10 @@
                     </div>
                     <div class="ml-5">
                         <h5 class="f-18">
-                            {{__('FAQ.A combien s’élève la contribution financière par IRCHAD et l’INDH ?')}}
+                            {{__('FAQ.Mon projet est en activité depuis plus de 12 mois, pourrais-je bénéficier d\'un accompagnement?')}}
                         </h5>
                         <p class="faq-answer text-muted">
-                            {{__('FAQ.La contribution financière de IRCHAD et de l’INDH se limite à 100 000 Dirhams lorsque le porteur de projet est une seule personne. Dans le cas où le projet est fondé par deux personnes ou plus, la contribution s’élève jusqu’à 200 000 Dirhams. Chaque projet doit contribuer à la création d’au moins 5 emplois.')}}
+                            {{__('FAQ.Tout à fait. Si votre projet est en activité depuis plus de 12 mois, vous pouvez bénéficier d\'un accompagnement en post-création (voir Q.6).')}}
 
                         </p>
                     </div>
@@ -709,11 +709,53 @@
                     </div>
                     <div class="ml-5">
                         <h5 class="f-18">
-                            {{__('FAQ.Dois-je céder des parts sociales à IRCHAD et à l’INDH suite à leur contribution au financement du projet ?')}}
+                            {{__('FAQ.Un projet validé est-il éditable ?')}}
 
                         </h5>
                         <p class="faq-answer text-muted">
-                            {{__('FAQ.Aucunement. IRCHAD et l’INDH sont des organismes à but non lucratif et dont la finalité est le dynamisme de la croissance.')}}
+                            {{__('FAQ.Les contributions du poteur de projet sont de l\'ordre de 40% du coût total du projet (20% en numéraire et 20% en nature) et dont l\'appréciation est laissée au CPDH.')}}
+
+                        </p>
+                    </div>
+                </div>     <div class="mt-5">
+                    <div class="faq-icon float-left">
+                        <i class="mdi mdi-help-box text-custom h3"></i>
+                    </div>
+                    <div class="ml-5">
+                        <h5 class="f-18">
+                            {{__('FAQ.A combien s’élève la contribution financière par l’INDH ?')}}
+
+                        </h5>
+                        <p class="faq-answer text-muted">
+                            {{__('FAQ.Un fond d\'amorçage est octroyé l\'INDH aux porteurs de projets plafonné à 100.000,00 DH par projet, représentant 60% du montant de l\'investissement projeté.')}}
+
+                        </p>
+                    </div>
+                </div>     <div class="mt-5">
+                    <div class="faq-icon float-left">
+                        <i class="mdi mdi-help-box text-custom h3"></i>
+                    </div>
+                    <div class="ml-5">
+                        <h5 class="f-18">
+                            {{__('FAQ.Dois-je céder des parts sociales à l’INDH suite à sa contribution au financement du projet ?')}}
+
+                        </h5>
+                        <p class="faq-answer text-muted">
+                            {{__('FAQ.Aucunement. l’INDH est un organisme à but non lucratif et dont la finalité est le dynamisme de la croissance.')}}
+
+                        </p>
+                    </div>
+                </div>     <div class="mt-5">
+                    <div class="faq-icon float-left">
+                        <i class="mdi mdi-help-box text-custom h3"></i>
+                    </div>
+                    <div class="ml-5">
+                        <h5 class="f-18">
+                            {{__('FAQ.Un projet validé est-il éditable ?')}}
+
+                        </h5>
+                        <p class="faq-answer text-muted">
+                            {{__('FAQ.Oui. Vous pouvez compléter votre dossier ou le modifier en prenant contact avec un des agents de l\'équipe IRCHAD.')}}
 
                         </p>
                     </div>
