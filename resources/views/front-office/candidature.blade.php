@@ -1015,7 +1015,7 @@
                 data: formData,
                 success: function (response) {
                     var data = response.responseJSON; //this will get the errors response data.
-                    msgHtml = '<div class="alert alert-success">Votre demande a été envoyé avec succès</div>';
+                    msgHtml = '<div class="alert alert-success">{{__('project-submission.Votre demande a été envoyé avec succès')}}</div>';
                     $("#form-data")[0].reset();
                     $('#form-errors').html(msgHtml);
                     $('#last-fieldset').hide();
@@ -1266,20 +1266,28 @@
             }*/
             else if (current_fs == 2) {
                 if ($("#title").val() == "") {
-                    errorsHtml += '<li>Veuillez rensigner le tite du projet</li>';
+                    errorsHtml += "<li>{{__('project-submission.Veuillez rensigner le titre du projet')}}</li>";
                     is_error = true;
                 }
-                if ($("#market_type").val() == "") {
-                    errorsHtml += '<li>Veuillez renseigner le secteur d\'activité</li>';
+
+                if ($("#category_id").val() ==null) {
+                    errorsHtml += "<li>{{__('project-submission.Veuillez renseigner le secteur d\'activité')}}</li>";
                     is_error = true;
                 }
                 if ($("#total_jobs").val() == "") {
-                    errorsHtml += '<li>Veuillez reseigner l\'effectif du projet</li>';
+                    errorsHtml += "<li>{{__('project-submission.Veuillez reseigner l\'effectif du projet')}}</li>";
                     is_error = true;
                 }
-                if ($("#state-aid").val() == "") {
-                    if ($("#state-aid-oui").val() == "") {
-                        errorsHtml += '<li>Veuillez reseigner l\'aide étatique</li>';
+                if ($("#state-aid").val() == null) {
+                    if ($("#state-aid-oui").val() == null) {
+                        errorsHtml += "<li>{{__('project-submission.Veuillez reseigner l\'aide étatique')}}</li>";
+                        is_error = true;
+                    }
+
+                }
+                if ($("#company_creation").val() == null) {
+                    if ($("#state-aid-oui").val() == null) {
+                        errorsHtml += "<li>{{__('project-submission.Veuillez renseigner si vous avez déjà créé une entreprise pour votre projet')}}</li>";
                         is_error = true;
                     }
 
@@ -1287,26 +1295,30 @@
 
                 if ($("#company_creation").val() == '1') {
                     console.log('test', $("#company_creation").value)
-                    if ($("#company_forme").val() == "") {
-                        errorsHtml += '<li>Veuillez renseigner la forme de l\'entreprise</li>';
+                    if ($("#company_forme").val() == null) {
+                        errorsHtml += "<li>{{__('project-submission.Veuillez renseigner la forme de l\'entreprise')}}</li>";
                         is_error = true;
                     }
                     if ($("#company_denomination").val() == "") {
-                        errorsHtml += '<li>Veuillez renseigner la dénomination de l\'entreprise</li>';
+                        errorsHtml += "<li>{{__('project-submission.Veuillez renseigner la dénomination de l\'entreprise')}}</li>";
+                        is_error = true;
+                    }
+                    if ($("#company_form").val() == "") {
+                        errorsHtml += "<li>{{__('project-submission.Veuillez renseigner la forme de l\'entreprise')}}</li>";
                         is_error = true;
                     }
                     if ($("#company_date").val() == "") {
-                        errorsHtml += '<li>Veuillez renseigner la date de création de l\'entreprise</li>';
+                        errorsHtml += "<li>{{__('project-submission.Veuillez renseigner la date de création de l\'entreprise')}}</li>";
                         is_error = true;
                     }
                 }
 
-                if ($("#state-aid").val() == '1') {
+                if ($("#state-aid").val() == "1") {
                     if ($("#aide_date").val() == "") {
-                        errorsHtml += '<li>Veuillez renseigner la date d\'aide étatique</li>';
+                        errorsHtml += "<li>{{__('project-submission.Veuillez renseigner la date d\'aide étatique')}}</li>";
                         is_error = true;
                     } if ($("#aide_montant").val() == "") {
-                        errorsHtml += '<li>Veuillez renseigner le montant</li>';
+                        errorsHtml += "<li>{{__('project-submission.Veuillez renseigner le montant')}}</li>";
                         is_error = true;
                     }
                 }

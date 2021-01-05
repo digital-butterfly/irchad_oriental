@@ -65,7 +65,7 @@ return [
     'Mission' => 'Mission',
     'Précédent' => 'Précédent',
     'Suivant' => 'Suivant',
-    'Envoyer' => 'ُEnvoyer',
+    'Envoyer' => 'Envoyer',
 
 
 
@@ -236,6 +236,22 @@ return [
     'Veuillez renseigner votre numéro de téléphone'=>'Veuillez renseigner votre numéro de téléphone',
     'Veuillez renseigner votre situation de mobilité'=>'Veuillez renseigner votre situation de mobilité',
     'Veuillez certifie l\'exactitude des données renseignées'=>'Veuillez certifie l\'exactitude des données renseignées',
+
+    'Veuillez rensigner le titre du projet'=>'Veuillez renseigner le titre du projet',
+    'Veuillez renseigner le secteur d\'activité'=>'Veuillez renseigner le secteur d\'activité',
+    'Veuillez reseigner l\'effectif du projet'=>'Veuillez reseigner l\'effectif du projet',
+    'Veuillez reseigner l\'aide étatique'=>'Veuillez reseigner l\'aide étatique',
+    'Veuillez renseigner la forme de l\'entreprise'=>'Veuillez renseigner la forme de l\'entreprise',
+    'Veuillez renseigner la dénomination de l\'entreprise'=>'Veuillez renseigner la dénomination de l\'entreprise',
+    'Veuillez renseigner la date de création de l\'entreprise'=>'Veuillez renseigner la date de création de l\'entreprise',
+    'Veuillez renseigner la date d\'aide étatique'=>'Veuillez renseigner la date d\'aide étatique',
+    'Veuillez renseigner le montant'=>'Veuillez renseigner le montant',
+    'Votre demande a été envoyé avec succès'=>'Votre demande a été envoyé avec succès',
+    'Veuillez renseigner si vous avez déjà créé une entreprise pour votre projet'=>'Veuillez renseigner si vous avez déjà créé une entreprise pour votre projet',
+
+
+
+
 
 
     'Coopérative'=>'Coopérative',

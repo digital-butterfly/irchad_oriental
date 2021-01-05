@@ -200,6 +200,21 @@ return [
     'Veuillez renseigner votre situation de mobilité'=>'في حالة وجود إعاقة المرجو تحديد نوعها',
     'Veuillez certifie l\'exactitude des données renseignées'=>'المرجو الموافقة على صحة البيانات',
 
+
+    'Veuillez rensigner le titre du projet'=>'المرجو ملء عنوان المشروع',
+    'Veuillez renseigner le secteur d\'activité'=>'المرجو ملء  قطاع النشاط',
+    'Veuillez reseigner l\'effectif du projet'=>'المرجو ملءالموارد البشرية العاملة في المشروع',
+    'Veuillez reseigner l\'aide étatique'=>'                                                            المرجو ملء مساعدات الدولة',
+    'Veuillez renseigner la forme de l\'entreprise'=>'المرجو ملءالشكل القانوني',
+    'Veuillez renseigner la dénomination de l\'entreprise'=>' المرجو ملء إسم الشركة',
+    'Veuillez renseigner la date de création de l\'entreprise'=>'المرجو ملء سنة إنشاء الشركة',
+    'Veuillez renseigner la date d\'aide étatique'=>'المرجو ملء سنة الإستفادة من دعم الدولة',
+    'Veuillez renseigner le montant'=>'المرجو ملء المبلغ',
+
+    'Veuillez renseigner si vous avez déjà créé une entreprise pour votre projet'=>'المرجو ملء ما إذا قمتم بإنشاء شركة لمشروعكم',
+    'Votre demande a été envoyé avec succès'=>'لقد تم إرسال طلبكم بنجاح',
+
+
     'Coopérative'=>'تعاونية',
     'S.A.R.L'=>'S.A.R.L',
     'S.A.R.L A.U'=>'S.A.R.L A.U',
