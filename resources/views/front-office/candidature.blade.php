@@ -1295,7 +1295,7 @@
 
                 if ($("#company_creation").val() == '1') {
                     console.log('test', $("#company_creation").value)
-                    if ($("#company_forme").val() == null) {
+                    if ($("#company_form").val() == null) {
                         errorsHtml += "<li>{{__('project-submission.Veuillez renseigner la forme de l\'entreprise')}}</li>";
                         is_error = true;
                     }
@@ -1303,10 +1303,7 @@
                         errorsHtml += "<li>{{__('project-submission.Veuillez renseigner la dénomination de l\'entreprise')}}</li>";
                         is_error = true;
                     }
-                    if ($("#company_form").val() == "") {
-                        errorsHtml += "<li>{{__('project-submission.Veuillez renseigner la forme de l\'entreprise')}}</li>";
-                        is_error = true;
-                    }
+
                     if ($("#company_date").val() == "") {
                         errorsHtml += "<li>{{__('project-submission.Veuillez renseigner la date de création de l\'entreprise')}}</li>";
                         is_error = true;

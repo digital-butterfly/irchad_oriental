@@ -1,65 +1,82 @@
 <!-- START FOOTER -->
 <footer class="section bg-footer">
-    {{-- <div class="container">
+     <div class="container">
         <div class="row">
-            <div class="col-lg-3">
-                <div class="">
-                    <h6 class="footer-heading text-uppercase text-white">Information</h6>
-                    <ul class="list-unstyled footer-link mt-4">
-                        <li><a href="">Pages</a></li>
-                        <li><a href="">Our Team</a></li>
-                        <li><a href="">Feuchers</a></li>
-                        <li><a href="">Pricing</a></li>
-                    </ul>
+            <div class="col-lg-4">
+                <div class="navbar-brand">
+                    <img src="images/front-office/logo-white.svg" alt="Logo Irchad" width="100px">
+                    <img src="images/front-office/client-brand/img-4.png" alt=""  width="150px">
+
                 </div>
             </div>
 
             <div class="col-lg-3">
                 <div class="">
+                    <ul class="list-unstyled footer-link">
 
-                    <h6 class="footer-heading text-uppercase text-white">Ressources</h6>
+                    <h6 class="footer-heading text-uppercase text-white">{{__('footer.Liens rapides')}}</h6>
+                    <li class="nav-item">
+                        <a class="nav-link" href="a-propos">{{__('footer.À Propos')}}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="programme">{{__('footer.Programme')}}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="project-submission">{{__('footer.Soumissionner un projet')}}</a>
+                    </li>
+                    <li class="">
+                        <a class="nav-link" href="faq">{{__('footer.FAQ')}}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact">{{__('footer.Nous Contacter')}}</a>
+                    </li>
+                    </ul>
+
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="">
+                    <h6 class="footer-heading text-uppercase text-white">{{__('footer.CONTACT')}}</h6>
                     <ul class="list-unstyled footer-link mt-4">
-                        <li><a href="">Monitoring Grader </a></li>
-                        <li><a href="">Video Tutorial</a></li>
-                        <li><a href="">Term &amp; Service</a></li>
-                        <li><a href="">Zeeko API</a></li>
+
+
+
+                        <li class="nav-item">
+                        <span class="nav-link contact-info mt-4">{{__('footer.Adresse')}} : Plateforme physique Al Hoceima
+
+
+
+</span>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">{{__('footer.Téléphone')}} : +212 5 39 98 24 03</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">{{__('footer.Email')}} : example@irchad.ma</a>
+                        </li>
+
                     </ul>
                 </div>
             </div>
 
             <div class="col-lg-2">
-                <div class="">
-                    <h6 class="footer-heading text-uppercase text-white">Help</h6>
-                    <ul class="list-unstyled footer-link mt-4">
-                        <li><a href="">Sign Up </a></li>
-                        <li><a href="">Login</a></li>
-                        <li><a href="">Terms of Services</a></li>
-                        <li><a href="">Privacy Policy</a></li>
-                    </ul>
-                </div>
-            </div>
 
-            <div class="col-lg-4">
                 <div class="">
-                    <h6 class="footer-heading text-uppercase text-white">Contact Us</h6>
-                    <p class="contact-info mt-4">Contact us if need help withanything</p>
-                    <p class="contact-info">+01 508-844-4036</p>
                     <div class="mt-5">
                         <ul class="list-inline">
-                            <li class="list-inline-item"><a href="#"><i class="mdi mdi-facebook facebook footer-social-icon"></i></a></li>
-                            <li class="list-inline-item"><a href="#"><i class="mdi mdi-twitter twitter footer-social-icon"></i></a></li>
-                            <li class="list-inline-item"><a href="#"><i class="mdi mdi-google google footer-social-icon"></i></a></li>
-                            <li class="list-inline-item"><a href="#"><i class="mdi mdi-apple apple footer-social-icon"></i></a></li>
+                            <li class="list-inline-item"><a href="https://facebook.com/PlateformeJeunesAlhoceima/" target="_blank"><i class="mdi mdi-facebook facebook footer-social-icon"></i></a></li>
+
                         </ul>
                     </div>
                 </div>
             </div>
 
         </div>
-    </div> --}}
+    </div>
 
     <div class="text-center mt-5">
-        <p class="footer-alt mb-0 f-14">2020 © IRCHAD, All Rights Reserved</p>
+        <p class="footer-alt mb-0 f-14"><script>document.write(new Date().getFullYear()) </script> &copy; {{__('footer.IRCHAD, Tous droits réservés') }}</p>
     </div>
 </footer>
 <!-- END FOOTER -->

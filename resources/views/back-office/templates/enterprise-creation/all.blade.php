@@ -153,7 +153,7 @@
 
                 id = $(this).closest('tr').find('td[data-field="id"] span').html();
 
-                name = $(this).closest('tr').find('td[data-field="id_projet"] span').html();
+                name = $(this).closest('tr').find('td[data-field="title"] span').html();
 
                 $('#kt_modal_1 .modal-body p span').html('l\'entreprise  de <b>' + name+'</b>');
 
