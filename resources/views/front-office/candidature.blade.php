@@ -1121,6 +1121,10 @@
         });
 
         //verificatoin
+        function validateEmail(email) {
+            const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(String(email).toLowerCase());
+        }
         function verification(current_fs) {
             var is_error = false;
             errorsHtml = '<div class="alert alert-danger"><ul>';
@@ -1170,11 +1174,15 @@
                         is_error = true;
                     } }));
                 if ($('[id^="member["][id$="]email"]').each(function(){
-
                     if(this.value == '') {
                         errorsHtml += "<li>{{__('project-submission.Veuillez renseigner votre adresse email')}}</li>";
                         is_error = true;
-                    }}));
+                    }
+                    else if (!validateEmail(this.value)){
+                        errorsHtml += "<li>{{__('project-submission.Veuillez renseigner votre adresse email')}}</li>";
+                        is_error = true;
+                    }
+                }));
                 if ($('[id^="member["][id$="]phone"]').each(function(){
                     if(this.value == '') {
                         errorsHtml += "<li>{{__('project-submission.Veuillez renseigner votre numéro de téléphone')}}</li>";
