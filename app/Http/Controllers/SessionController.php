@@ -310,10 +310,9 @@ class SessionController extends Controller
     }
     public function ajaxProjectlist(Request $request)
     {
-        $ProjectApplication=ProjectApplication::select('id','title AS value','description')->where('Status','=','Accepté')->where(function ($q) use ($request) {
-            $q->where('title', 'LIKE', '%' . $request['ProjectApplication']  . '%')
-                ->orWhere('id', 'LIKE', '%' . $request['ProjectApplication'] . '%');
-        })->get();
+        $ProjectApplication=ProjectApplication::select('id','title AS value','description')->
+        where('id','=', $request['project_application_id'])
+        ->get();
 
 
         return response()->json([$ProjectApplication]);
@@ -321,13 +320,18 @@ class SessionController extends Controller
 
     public function ajaxMemebersProjectList(Request $request)
     {
-        $users= ProjectApplicationMember::select('project_application_id','member_id')->where('project_application_id','=', $request['project_application_id'])->get()->map(function($member){
+        $users= ProjectApplicationMember::select('project_application_id','member_id')->
+            where(function ($q) use ($request) {
+                $q->orWhere('id', 'LIKE', '%' . $request['ProjectApplication'] . '%');
+            })->get()->map(function($member){
             $user=$member->getUser ->only(['id','first_name','last_name']);
+            $project=$member->getProject ->only(['id','title',]);
 
             return [
                 'member_id'=>$user['id'],
                 'value'=>$user['first_name'].' '. $user['last_name'],
-                'project_id'=>$member->project_application_id
+                'project_id'=>$member->project_application_id,
+                'project_title'=>$project['title']
             ];
         });
 

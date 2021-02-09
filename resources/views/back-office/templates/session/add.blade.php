@@ -130,8 +130,8 @@
             var demo1 = function() {
                 var todelet =[];
                 // $('#kt_tagify_1').attr('readonly','')
-                var toEl = document.getElementById('tagifycandidatures');
-                var toEl2 = document.getElementById('kt_tagify_1');
+                var  toEl2= document.getElementById('tagifycandidatures');
+                var  toEl= document.getElementById('kt_tagify_1');
                 var myFunction = function(){
                     console.log(todelet)
                     $("#deteletags").val(JSON.stringify(todelet))
@@ -189,7 +189,7 @@
                 });
                 var tagifyCand = new Tagify(toEl, {
                     delimiters: ", ", // add new tags when a comma or a space character is entered
-                    maxTags: 5,
+                    maxTags: 20,
                     enforceWhitelist: true,
                     // blacklist: [$('#member_id').val()],
                     keepInvalidTags: true, // do not remove invalid tags (but keep them marked as invalid)
@@ -213,11 +213,11 @@
                                 return `<div class='tagify__dropdown__item ${tagData.class ? tagData.class : ""}' tagifySuggestionIdx="${tagData.tagifySuggestionIdx}">
                                     <div class="kt-media-card">
                             <span class="kt-media kt-media--'+(tagData.initialsState?tagData.initialsState:'')+'" >
-                                   <span>${tagData.id}</span>
+                                   <span>${tagData.member_id}</span>
                                </span>
                                 <div class="kt-media-card__info">
                             <a class="kt-media-card__title">${tagData.value}</a>
-                            <span class="kt-media-card__desc">${tagData.description}</span>
+                            <span class="kt-media-card__desc">${tagData.project_title}</span>
                                 </div>
                         </div> </div>`
                             }
@@ -231,7 +231,7 @@
                         tagData.class = 'tagify__tag tagify__tag--brand';
                     },
                     dropdown : {
-                        searchKeys: ["value","id"] ,
+                        searchKeys: ["value","member_id"] ,
                         classname : "color-black",
                         enabled   : 1,
                         maxItems  : 10
@@ -254,7 +254,7 @@
                     // get new whitelist from a delayed mocked request (Promise)
                     $.ajax({
                         headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content},
-                        url : 'admin/projectList', // La ressource ciblée
+                        url : 'admin/MemebersProjectList', // La ressource ciblée
                         method:'POST',
                         data:{'tag':e.detail.value}
 
@@ -265,7 +265,7 @@
                             // and add back the ones already choses as Tags
                             console.log('---->',result)
 
-                            tagifyCand.settings.whitelist.push(...result[0], ...tagifyCand.value)
+                            tagifyCand.settings.whitelist.push(...result, ...tagifyCand.value)
                             // tagify.settings.whitelist.splice(0, result[0].length, ...tagify.value)
 
                             // render the suggestions dropdown.
@@ -302,31 +302,31 @@
                 }
                 function onSelectSuggestion(e){
                     // todelet.push(e.detail.data)
-                    console.log("select:", e.detail)
+                    console.log("select:", e.detail.data.project_id)
 
                     $.ajax({
                         headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content},
                         method:'POST',
-                        url: 'admin/MemebersProjectList', // This is the url that will be requested
+                        url: 'admin/projectList', // This is the url that will be requested
 
                         // This is an object of values that will be passed as GET variables and
                         // available inside changeStatus.php as $_GET['selectFieldValue'] etc...
-                        data: {project_application_id: e.detail.data.id},
+                        data: {project_application_id: e.detail.data.project_id},
 
                         // This is what to do once a successful request has been completed - if
                         // you want to do nothing then simply don't include it. But I suggest you
                         // add something so that your use knows the db has been updated
                         success: function(html){
-                            console.log(html)
-                            console.log( typeof $('#kt_tagify_1').val())
+                            console.log('>>>>>>',html[0])
+                            console.log( typeof $('#tagifycandidatures').val())
                             console.log( typeof html)
                             let oldValue=[]
                             let newValue=[]
                             try {
                                 newValue = JSON.parse(html)
 
-                                if ($('#kt_tagify_1').val()){
-                                    oldValue = JSON.parse(($('#kt_tagify_1').val()))
+                                if ($('#tagifycandidatures').val()){
+                                    oldValue = JSON.parse(($('#tagifycandidatures').val()))
 
                         }
 
@@ -334,8 +334,8 @@
                             } catch (e){
                                 console.error(e)
                             }
-                            console.log([...oldValue,...newValue],'...ohlalal..')
-                            $('#kt_tagify_1').val( JSON.stringify([...oldValue,...newValue]))
+                            console.log([...oldValue,...newValue[0]],'...ohlalal..')
+                            $('#tagifycandidatures').val( JSON.stringify([...oldValue,...newValue[0]]))
                             // tagifyTo.addTags( JSON.parse(html))
                             tagifyTo.loadOriginalValues();
                             // tagifyTo =new Tagify(toEl2)

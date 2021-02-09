@@ -247,6 +247,7 @@ return [
     'Veuillez renseigner la date d\'aide étatique'=>'Veuillez renseigner la date d\'aide étatique',
     'Veuillez renseigner le montant'=>'Veuillez renseigner le montant',
     'Votre demande a été envoyé avec succès'=>'Votre demande a été envoyé avec succès',
+    'Nous tenons à vous informer que nous ne pouvons malheureusement pas donner suite à votre inscription pour le motif suivant : votre âge n’est pas éligible pour ce programme. Votre dossier sera toujours actif, dans l’attente de lancement d’un nouveau programme.'=>'Nous tenons à vous informer que nous ne pouvons malheureusement pas donner suite à votre inscription pour le motif suivant : votre âge n’est pas éligible pour ce programme. Votre dossier sera toujours actif, dans l’attente de lancement d’un nouveau programme.',
     'Veuillez renseigner si vous avez déjà créé une entreprise pour votre projet'=>'Veuillez renseigner si vous avez déjà créé une entreprise pour votre projet',
 
 

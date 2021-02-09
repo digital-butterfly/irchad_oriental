@@ -213,6 +213,7 @@ return [
 
     'Veuillez renseigner si vous avez déjà créé une entreprise pour votre projet'=>'المرجو ملء ما إذا قمتم بإنشاء شركة لمشروعكم',
     'Votre demande a été envoyé avec succès'=>'لقد تم إرسال طلبكم بنجاح',
+    'Nous tenons à vous informer que nous ne pouvons malheureusement pas donner suite à votre inscription pour le motif suivant : votre âge n’est pas éligible pour ce programme. Votre dossier sera toujours actif, dans l’attente de lancement d’un nouveau programme.'=>'يتعدر علينا تسجيلكم في هدا البرنامج نضراً لعدم إستيفائكم للشرط المتعلق بالسن المطلوب. نحيطكم علما أن ملفكم تم الإحتفاض به في إنتضار إدراجكم في برنامج آخر.',
 
 
     'Coopérative'=>'تعاونية',

@@ -1018,8 +1018,13 @@ function fxCIN(){
                 url: route,
                 data: formData,
                 success: function (response) {
-                    var data = response.responseJSON; //this will get the errors response data.
-                    msgHtml = '<div class="alert alert-success">{{__('project-submission.Votre demande a été envoyé avec succès')}}</div>';
+                    var data = response; //this will get the errors response data.
+                    if (data.message=='Projet submited'){
+                        msgHtml = '<div class="alert alert-success">{{__('project-submission.Votre demande a été envoyé avec succès')}}</div>';
+                    }else{
+                        msgHtml = '<div class="alert alert-success">{{__('project-submission.Nous tenons à vous informer que nous ne pouvons malheureusement pas donner suite à votre inscription pour le motif suivant : votre âge n’est pas éligible pour ce programme. Votre dossier sera toujours actif, dans l’attente de lancement d’un nouveau programme.')}}</div>';
+
+                    }
                     $("#form-data")[0].reset();
                     $('#form-errors').html(msgHtml);
                     $('#last-fieldset').hide();

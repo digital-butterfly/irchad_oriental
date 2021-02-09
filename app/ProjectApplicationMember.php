@@ -15,6 +15,10 @@ class ProjectApplicationMember extends Model
 
         return $this->belongsTo('App\Member', 'member_id');
     }
+    public function getProject(){
+
+        return $this->belongsTo('App\ProjectApplication', 'project_application_id');
+    }
 
 //    public function getProjectIns(){
 ////        return $this->hasMany('App\ProjectApplicationMember', 'project_application_id');

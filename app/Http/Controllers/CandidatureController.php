@@ -32,7 +32,7 @@ class CandidatureController extends Controller
     {
         if($type == 'member')
         {
-            dd($data);
+//            dd($data);
 
                 return Validator::make($data, [
                     'first_name.*' => ['required', 'string', 'max:255'],
@@ -68,7 +68,7 @@ class CandidatureController extends Controller
        }
 
 //        dd($validation->fails());
-        if($verification)
+        if($verification->fails())
         {
             //return redirect()->back()->withErrors($validation)->withInput();
             return response()->json(array(
@@ -93,7 +93,7 @@ class CandidatureController extends Controller
         $memarray = array();
         foreach ($request['member'] as $item){
 //            dd($item);
-            dd($item['birth_date']);
+//            dd($item['birth_date']);
             if(isset($item['degrees']))
             {
                 foreach($item['degrees'] as $degree)
@@ -186,6 +186,20 @@ class CandidatureController extends Controller
 
 
             $gender = $item['civility'] == 0 ? 'Homme' : 'Femme';
+//            dd($gender);
+            $today=Carbon::now()->toDateString();
+
+//            dd($today);
+
+//            $eligibale= Carbon::createFromFormat('Y-m-d', );
+            $diff = abs(strtotime($today) - strtotime($item['birth_date']));
+            $years=floor($diff / (365*60*60*24));
+            $months =floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
+            $days= $days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
+
+
+
+//
 
         //inserstion Of member
 //        dd((json_encode($otherquestions)));
@@ -198,6 +212,7 @@ class CandidatureController extends Controller
             'identity_number' => $item['identity_number'],
             'phone' => $item['phone'],
             'birth_date' => $item['birth_date'],
+            'gender'=>$gender,
             'address' => $item['address'],
             'password'=>Hash::make($password),
             'township_id' => $item['township_id'],
@@ -247,9 +262,17 @@ class CandidatureController extends Controller
 
 //        dd($application);
 
+        if ($years>=18 && $years<=45){
+            return response()->json(['message'=> 'Projet submited'],200);
+        }
+        else{
+            $member->update([
+                'status' => 'Rejeté',
+            ]);
+            return response()->json(['message'=> 'Nous tenons à vous informer que nous ne pouvons malheureusement pas donner suite à votre inscription pour le motif suivant : votre âge n’est pas éligible pour ce programme. Votre dossier sera toujours actif, dans l’attente de lancement d’un nouveau programme.'],200);
+        }
 
 
-        return response()->json(['message'=> 'Projet submited'],200);
     }
 
     public function index(){
