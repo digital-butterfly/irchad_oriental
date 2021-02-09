@@ -32,11 +32,13 @@ class CandidatureController extends Controller
     {
         if($type == 'member')
         {
+            dd($data);
 
                 return Validator::make($data, [
                     'first_name.*' => ['required', 'string', 'max:255'],
                     'last_name.*' => ['required', 'string', 'max:255'],
-                    'email.*' => ['required', 'string', 'email', 'max:255', 'unique:members'],
+                    'email' => ['required', 'string', 'email', 'max:255', 'unique:members,email'],
+                    'identity_number' => ['required', 'string', 'max:255', 'unique:members,identity_number'],
                 ]);
 
 
@@ -55,12 +57,18 @@ class CandidatureController extends Controller
 
     public function create(Request $request)
     {
+        $verification = false;
 //        dd($request->toArray());
 //        dd(isset($request['degrees']));
         //validation
-        $validation =  $this->validator($request->all(), 'member');
-//        dd($validation);
-        if($validation->fails())
+       foreach ( $request->all()['member'] as $datamember){
+           $validation =  $this->validator($datamember, 'member');
+           $verification = $validation==true?$validation:$validation;
+
+       }
+
+//        dd($validation->fails());
+        if($verification)
         {
             //return redirect()->back()->withErrors($validation)->withInput();
             return response()->json(array(
@@ -85,6 +93,7 @@ class CandidatureController extends Controller
         $memarray = array();
         foreach ($request['member'] as $item){
 //            dd($item);
+            dd($item['birth_date']);
             if(isset($item['degrees']))
             {
                 foreach($item['degrees'] as $degree)

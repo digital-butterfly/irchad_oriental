@@ -273,8 +273,6 @@
 
 <span class="source-field">
 
-
-
                                             <div class="contact-details-header">
                                                 <div class="contact-icon">
                                                     <i class="pe-7s-id text-custom"></i>
@@ -314,7 +312,7 @@
                                                 <div class="col-lg-4">
                                                     <div class="form-group">
                                                         <input name="member[0][identity_number]" id="member[0]identity_number" type="text"
-                                                               required="" class="form-control"
+                                                               required="" class="form-control"  onblur="this.value =this.value.replace(/[^a-z0-9\s]/gi, '').replace(/[_\s]/g, '')"
                                                                placeholder="{{__('project-submission.Votre numéro de CIN')}}...">
                                                     </div>
                                                 </div>
@@ -906,7 +904,13 @@
             // Return the current index by looking at which section has the class 'current'
             return $('.form-section').index($('.form-section').filter('.active'));
         }
+function fxCIN(){
+    let stripped =$("[id$='identity_number']").val();
+    var string = "F65  326  @@çà('è5";
 
+    console.log(stripped.replace(/[^a-z0-9\s]/gi, '').replace(/[_\s]/g, ''))
+    console.log('...',string.replace(/[^a-z0-9\s]/gi, '').replace(/[_\s]/g, ''))
+}
         //jQuery time
         var current_fs, next_fs, previous_fs; //fieldsets
         /* var left, opacity, scale; */ //fieldset properties which we will animate
