@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Adherensession;
 use App\AdherentSession;
 use App\Formation;
+use App\Member;
 use App\ProjectApplication;
 use App\ProjectApplicationMember;
 use App\ProjectHistory;
@@ -312,7 +313,7 @@ class SessionController extends Controller
     {
         $ProjectApplication=ProjectApplication::select('id','title AS value','description')->
         where('id','=', $request['project_application_id'])
-        ->get();
+            ->get();
 
 
         return response()->json([$ProjectApplication]);
@@ -320,13 +321,56 @@ class SessionController extends Controller
 
     public function ajaxMemebersProjectList(Request $request)
     {
-        $users= ProjectApplicationMember::select('project_application_id','member_id')->
-            where(function ($q) use ($request) {
-                $q->orWhere('id', 'LIKE', '%' . $request['ProjectApplication'] . '%');
-            })->get()->map(function($member){
-            $user=$member->getUser ->only(['id','first_name','last_name']);
-            $project=$member->getProject ->only(['id','title',]);
+        $users= Member::join('projects_applications', 'projects_applications.member_id', '=', 'members.id')->
+//        get();
+//        dd($users);
 
+        where(function ($q) use ($request) {
+            $q->orWhere('members.id', 'LIKE', '%' . $request['ProjectApplication'] . '%');
+        })->get()->map(function($member){
+//
+
+//dd($member->member_id);
+                $user=$member ->only(['id','member_id','first_name','last_name']);
+                $project=$member ->only(['member_id','title',]);
+//            dump($member['title']);
+
+//         dump([
+//             'member_id'=>$member['member_id'],
+//             'value'=>$user['first_name'].' '. $user['last_name'],
+//             'project_id'=>$member->id,
+//             'project_title'=>$project['title']
+//         ]);
+            return [
+                'member_id'=>$user['member_id'],
+                'value'=>$user['first_name'].' '. $user['last_name'],
+                'project_id'=>$member->id,
+                'project_title'=>$project['title']
+            ];
+        });
+   $usersapp= ProjectApplicationMember::select('project_application_id','member_id')->
+
+//        get();
+//        dd($users);
+
+        where(function ($q) use ($request) {
+            $q->orWhere('id', 'LIKE', '%' . $request['ProjectApplication'] . '%');
+        })->get()->map(function($member){
+//                dump($member);
+
+
+//                dd($member);
+                $user=$member->getUser ->only(['id','first_name','last_name']);
+
+                $project=$member->getProject ->only(['id','title',]);
+
+
+//         dd([
+//             'member_id'=>$member['member_id'],
+//             'value'=>$user['first_name'].' '. $user['last_name'],
+//             'project_id'=>$member->id,
+//             'project_title'=>$project['title']
+//         ]);
             return [
                 'member_id'=>$user['id'],
                 'value'=>$user['first_name'].' '. $user['last_name'],
@@ -352,8 +396,12 @@ class SessionController extends Controller
             $MyObject['project_id'] = $value['project_id'];
             $users[] = $MyObject;
         }
+//        $result= [];
+//        array_push($result, );
+//        array_push($result, $usersapp);
+//        $users->push();
 
-        return $users;
+        return $users->merge($usersapp);
 
 
     }
