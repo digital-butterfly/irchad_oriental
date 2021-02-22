@@ -2115,6 +2115,11 @@
         $('#list-members').on('shown.bs.modal', function (e) {
             KTDatatableRemoteAjaxDemo.init();
         })
+        function openModal() {
+
+
+
+        }
         jQuery(document).ready(function() {
 
             KTWizard4.init();
@@ -2238,7 +2243,7 @@
             }, 1000);
 
         $( "<div  class=\"col-lg-2\">\n" +
-            "        <button  onclick='openModal()' id='creatEntbtn' class=\"btn btn-success \">Voir adherant</button>\n" +
+            "        <button  data-toggle='modal' data-target='#kt_modal_4' class=\"btn btn-success \">Voir adherant</button>\n" +
             "        <span class=\"form-text text-muted\"></span>\n" +
             "    </div>" ).insertAfter( $("#member_id").closest('.col-lg-6') );
 
