@@ -2243,7 +2243,7 @@
             }, 1000);
 
         $( "<div  class=\"col-lg-2\">\n" +
-            "        <button  data-toggle='modal' data-target='#kt_modal_4' class=\"btn btn-success \">Voir adherant</button>\n" +
+            "        <a  data-toggle='modal' data-target='#kt_modal_4' class=\"btn btn-success text-white \">Voir adherant</a>\n" +
             "        <span class=\"form-text text-muted\"></span>\n" +
             "    </div>" ).insertAfter( $("#member_id").closest('.col-lg-6') );
 
