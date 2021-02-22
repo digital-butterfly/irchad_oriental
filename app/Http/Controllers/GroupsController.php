@@ -62,7 +62,7 @@ class GroupsController extends Controller
     }
     public function store(Request $request)
     {
-        dd($request->toArray());
+
 
 
             $this->validator($request->all(), 'groups')->validate();
