@@ -151,6 +151,12 @@ class MemberController extends Controller
         $member = Member::find($id);
         return $member;
     }
+    public function showFromCandidature(Request $request)
+    {
+//dd($request->id);
+        $member = Member::find($request->id);
+        return $member;
+    }
 
     /**
      * Add new resource.

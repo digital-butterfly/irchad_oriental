@@ -17,7 +17,7 @@ class AdherentSession extends Model
         'id_projet',
         'id_member',
         'sort',
-        'observation'
+        'observations'
     ];
     /**
      * The attributes that should be cast to native types.
@@ -43,7 +43,7 @@ class AdherentSession extends Model
                 'label' => 'sort'
             ],
             [
-                'name' => 'observation',
+                'name' => 'observations',
                 'type' => 'text',
                 'label' => 'Observation'
             ],

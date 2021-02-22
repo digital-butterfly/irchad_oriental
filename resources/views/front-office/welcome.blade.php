@@ -694,10 +694,10 @@
                     </div>
                     <div class="ml-5">
                         <h5 class="f-18">
-                            7.{{__('FAQ.Mon projet est en activité depuis plus de 12 mois, pourrais-je bénéficier d\'un accompagnement?')}}
+                            7.{{__('FAQ.Mon projet est en activité depuis moin de 12 mois, pourrais-je bénéficier d\'un accompagnement?')}}
                         </h5>
                         <p class="faq-answer text-muted">
-                            {{__('FAQ.Tout à fait. Si votre projet est en activité depuis plus de 12 mois, vous pouvez bénéficier d\'un accompagnement en post-création (voir Q.6).')}}
+                            {{__('FAQ.Tout à fait. Si votre projet est en activité depuis moin de 12 mois, vous pouvez bénéficier d\'un accompagnement en post-création (voir Q.6).')}}
 
                         </p>
                     </div>

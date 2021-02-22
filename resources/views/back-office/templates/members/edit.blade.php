@@ -36,7 +36,7 @@
 
                     <!--begin::Section-->
                     @if($data->application!='aucun')
-                    <div class="kt-section">
+                    <div  id="kt-section" class="kt-section">
                         <div class="kt-section__content kt-section__content--solid">
                             <div class="kt-widget__content">
                                 <div class="kt-widget__head">
@@ -59,6 +59,7 @@
 
                             </div>
                         </div>
+                        <a href="admin/candidatures/{{$data->application[0]->id}}" id='creatEntbtn' class="btn btn-success ">Voir la candidature </a>
                     </div>
                 @endif
                     <!--end::Section-->

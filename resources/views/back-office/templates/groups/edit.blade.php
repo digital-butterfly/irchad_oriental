@@ -15,41 +15,44 @@
 			<div class="kt-portlet__head">
 				<div class="kt-portlet__head-label">
 					<h3 class="kt-portlet__head-title">
-						Ajouter une nouvelle session
+						Modifier Session
 					</h3>
 				</div>
 			</div>
 			<!--begin::Form-->
 			@if ($errors->any())
-				<div class="alert alert-danger">
-					<ul>
-						@foreach ($errors->all() as $error)
-						<li>{{ $error }}</li>
-						@endforeach
-					</ul>
-				</div><br />
+			<div class="alert alert-danger">
+				<ul>
+					@foreach ($errors->all() as $error)
+					<li>{{ $error }}</li>
+					@endforeach
+				</ul>
+			</div><br />
 			@endif
-			<form class="kt-form" method="POST" action="{{ route('session.store') }}">
+            <form id="sessionform" class="kt-form" method="POST" action="{{ route('groups.update', $data->id) }}">
+                {{ method_field('PUT') }}
 				<div class="kt-portlet__body">
 					<div class="kt-section kt-section--first">
-
 						@foreach($fields as $field)
 							@php
 								$field['config']['hotizontalRows'] = true;
 							@endphp
-                            @include(sprintf('back-office.components.form.fields.%s', $field['type']), $field)
+                            @include(sprintf('back-office.components.form.fields.%s', $field['type']), [$field, $data])
 
                         @endforeach
-		            </div>
+
+                    </div>
 	            </div>
 	            <div class="kt-portlet__foot">
 					<div class="kt-form__actions">
-						<button type="submit" class="btn btn-primary">Ajouter</button>
+						<button type="submit" class="btn btn-primary">Appliquer</button>
 						<button onclick="history.go(-1);" type="reset" class="btn btn-secondary">Retour</button>
 					</div>
 				</div>
 				@csrf
-			</form>
+                <input name="deteletags" type="hidden" id="deteletags" value=""/>
+
+            </form>
 			<!--end::Form-->
 		</div>
     </div>
@@ -59,7 +62,7 @@
 
 
 @section('specific_js')
-	<script>
+    <script>
         var KTSelect2 = function() {
             // Private functions
             // $('#candidaturesSelect').attr('multiple','multiple');
@@ -111,39 +114,6 @@
                         return markup;
                     }, // let our custom formatter work
                     minimumInputLength: 1,
-                    templateResult: formatRepo, // omitted for brevity, see the source of this page
-                    templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
-                });
-                $("#id_GroupSelect").select2({
-                    placeholder: "Group",
-                    allowClear: true,
-                    ajax: {
-                        url: 'admin/GroupsList',
-                        headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content},
-                        method:'POST',
-                        data: function (params) {
-                            console.log(params,'passsdd')
-                            return {
-                                generalSearch: params.term, // search term
-                                pagination: params.page
-                            };
-                        },
-                        processResults: function (data, params) {
-                            // parse the results into the format expected by Select2
-                            // since we are using custom formatting functions we do not need to
-                            // alter the remote JSON data, except to indicate that infinite
-                            // scrolling can be used
-                            params.page = params.page || 1;
-                            return {
-                                results: data[0],
-                            };
-                        },
-                        cache: true
-                    },
-                    escapeMarkup: function (markup) {
-                        return markup;
-                    }, // let our custom formatter work
-                    minimumInputLength: 0,
                     templateResult: formatRepo, // omitted for brevity, see the source of this page
                     templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
                 });
@@ -361,7 +331,7 @@
                                 if ($('#tagifycandidatures').val()){
                                     oldValue = JSON.parse(($('#tagifycandidatures').val()))
 
-                        }
+                                }
 
 
                             } catch (e){
@@ -389,62 +359,59 @@
                 }
             };
         }();
-		// Class definition
-		var KTFormRepeater = function() {
+        // Class definition
+        var KTFormRepeater = function() {
 
-			// Private functions
-			var demo1 = function() {
-				var repeater_strengths = $('.kt_repeater_degrees').repeater({
-					initEmpty: false,
+            // Private functions
+            var demo1 = function() {
+                var repeater_strengths = $('.kt_repeater_degrees').repeater({
+                    initEmpty: false,
 
-					defaultValues: {
-						'text-input': 'foo'
-					},
+                    defaultValues: {
+                        'text-input': 'foo'
+                    },
 
-					show: function () {
-						$(this).slideDown();
-					},
+                    show: function () {
+                        $(this).slideDown();
+                    },
 
-					hide: function (deleteElement) {
-						$(this).slideUp(deleteElement);
-					}
-				});
+                    hide: function (deleteElement) {
+                        $(this).slideUp(deleteElement);
+                    }
+                });
 
-				var repeater_weaknesses = $('.kt_repeater_professional_experience').repeater({
-					initEmpty: false,
+                var repeater_weaknesses = $('.kt_repeater_professional_experience').repeater({
+                    initEmpty: false,
 
-					defaultValues: {
-						'text-input': 'foo'
-					},
+                    defaultValues: {
+                        'text-input': 'foo'
+                    },
 
-					show: function () {
-						$(this).slideDown();
-					},
+                    show: function () {
+                        $(this).slideDown();
+                    },
 
-					hide: function (deleteElement) {
-						$(this).slideUp(deleteElement);
-					}
-				});
-			}
+                    hide: function (deleteElement) {
+                        $(this).slideUp(deleteElement);
+                    }
+                });
+            }
 
-			return {
-				// public functions
-				init: function() {
-					demo1();
-				}
-			};
-		}();
+            return {
+                // public functions
+                init: function() {
+                    demo1();
+                }
+            };
+        }();
 
 
 
-		jQuery(document).ready(function() {
-			KTFormRepeater.init();
+        jQuery(document).ready(function() {
+            KTFormRepeater.init();
             KTSelect2.init();
             KTTagifyCandidatures.init();
             // KTTagify.init();
-
-
-
         });
-	</script>
+    </script>
 @endsection

@@ -85,7 +85,9 @@ Route::group(['middleware' => 'auth:user'], function () {
     //Route::post('/admin/list/fiches-projets', 'ProjectSheetController@ajaxList');
 
     Route::resource('admin/members', 'MemberController');
+
     Route::post('/admin/list/members', 'MemberController@ajaxList');
+    Route::get('/admin/list/membersbyid', 'MemberController@showFromCandidature');
 
     Route::resource('admin/candidatures', 'ProjectApplicationController');
     Route::post('/admin/list/candidatures', 'ProjectApplicationController@ajaxList');
@@ -103,9 +105,15 @@ Route::group(['middleware' => 'auth:user'], function () {
     Route::post('/admin/list/Formation', 'FormationController@ajaxList');
     route::post('/admin/FormationList', 'SessionController@ajaxFormationList');
 
+    route::post('/admin/GroupsList', 'GroupsController@ajaxGroupsList');
+
     Route::resource('admin/session', 'SessionController');
 //    Route::resource('admin/session/all-calendar', 'SessionController@allcalendar');
     Route::post('/admin/list/session', 'SessionController@ajaxList');
+
+    Route::resource('admin/groups', 'GroupsController');
+//    Route::resource('admin/groups/all-calendar', 'SessionController@allcalendar');
+    Route::post('/admin/list/groups', 'GroupsController@ajaxList');
 
     Route::resource('admin/funding', 'FundingController');
 
@@ -133,6 +141,8 @@ Route::group(['middleware' => 'auth:user'], function () {
     Route::resource('admin/session-members', 'AdherentSessionController');
     Route::post('/admin/list/adherentsession', 'AdherentSessionController@ajaxList');
     Route::post('/admin/list/adherentsess', 'AdherentSessionController@ajaxListAdhSess');
+
+    Route::post('/admin/list/adherentgroup', 'GroupSessionMembersController@ajaxList');
 
     Route::post('/admin/list/projectadherentsess', 'ProjectApplicationController@ajaxListAdhSess');
     Route::post('/admin/list/projectAppMembers', 'ProjectApplicationController@ajaxListProjectMembers');

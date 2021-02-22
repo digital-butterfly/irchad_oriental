@@ -40,10 +40,15 @@ class Session extends Model
         if ($value!=null){
             $sessionMembers = AdherentSession::where('id_session','=', $value)->get()->map(function($member){
                 $user=$member->getAdhname->only(['id','first_name','last_name']);
+                $proj=$member->getParentProject->only(['id','title']);
+
 
                 return [
                     'member_id'=>$user['id'],
-                    'value'=>$user['first_name'].' '. $user['last_name']
+                    'value'=>$user['first_name'].' '. $user['last_name'],
+                    "project_id"=>$proj['id'],
+                    "project_title"=>$proj['title'],
+                    "id_session"=>$member->id
                 ];
             });
             $sessionProjects= AdherentSession::select('id_session','id_projet')->where('id_session','=', $value)->groupBy('id_session','id_projet')->get()->map(function($project){
@@ -61,6 +66,7 @@ class Session extends Model
             $sessionProjects=null;
         }
         $formation = Formation::all();
+        $group = groups::all();
 
 
 
@@ -69,52 +75,82 @@ class Session extends Model
 
         return [
             [
-                'name' => 'candidatures',
-                'type' => 'taggify',
-                'id'=>'tagifycandidatures',
-                'label' => 'Candidatures',
-                'value'=>$sessionProjects
-            ],
-            [
+                'name' => 'id_Group',
+                'type' => 'select',
+                'label' => 'Group',
+                'options'=>$group,
+                'group'=>'session'
+            ],[
                 'name' => 'members',
                 'type' => 'taggify',
                 'id'=>'kt_tagify_1',
                 'class' => 'kt-callout--dark',
                 'label' => 'Des Adhérent',
-                'value'=> $sessionMembers
+                'value'=> $sessionMembers,
+                'group'=>'session'
 
 //                'value'=> []
             ],
+            [
+                'name' => 'candidatures',
+                'type' => 'taggify',
+                'id'=>'tagifycandidatures',
+                'label' => 'Candidatures',
+                'value'=>$sessionProjects,
+                'group'=>'session'
+            ],
+
             [
                 'name' => 'id_formation',
                 'type' => 'select',
                 'label' => 'Formation',
                 'options'=>$formation,
+
+                'group'=>'session'
             ],
             [
                 'name' => 'max_inscrit',
                 'type' => 'number',
-                'label' => 'Nombre max d\'Inscrit'
+                'label' => 'Nombre max d\'Inscrit',
+                'group'=>'session'
             ],
             [
                 'name' => 'start_date',
                 'type' => 'date',
-                'label' => 'Date début'
+                'label' => 'Date début',
+                'group'=>'session'
             ],  [
                 'name' => 'end_date',
                 'type' => 'date',
-                'label' => 'Date fin'
+                'label' => 'Date fin',
+                'group'=>'session'
             ],
             [
                 'name' => 'sort',
                 'type' => 'select',
                 'label' => 'Sort',
-                'options' => ['En file d\'attente', 'En cours', 'Terminée', 'Annulée']
+                'options' => ['En file d\'attente', 'En cours', 'Terminée', 'Annulée'],
+                'group'=>'session'
             ] ,[
                 'name' => 'observation',
                 'type' => 'textarea',
-                'label' => 'Observation'
+                'label' => 'Observation',
+                 'group'=>'session'
             ],
+            [
+                'name' => 'sort',
+                'type' => 'text',
+                'label' => 'sort',
+                'group'=>'notation'
+            ],
+            [
+                'name' => 'observations',
+                'type' => 'text',
+                'label' => 'Observation',
+                'group'=>'notation'
+            ],
+
+
 
 
 

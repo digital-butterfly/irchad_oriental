@@ -15,7 +15,7 @@
 			<div class="kt-portlet__head">
 				<div class="kt-portlet__head-label">
 					<h3 class="kt-portlet__head-title">
-						Ajouter une nouvelle session
+						Ajouter un groupe
 					</h3>
 				</div>
 			</div>
@@ -29,7 +29,7 @@
 					</ul>
 				</div><br />
 			@endif
-			<form class="kt-form" method="POST" action="{{ route('session.store') }}">
+			<form class="kt-form" method="POST" action="{{ route('groups.store') }}">
 				<div class="kt-portlet__body">
 					<div class="kt-section kt-section--first">
 
@@ -111,39 +111,6 @@
                         return markup;
                     }, // let our custom formatter work
                     minimumInputLength: 1,
-                    templateResult: formatRepo, // omitted for brevity, see the source of this page
-                    templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
-                });
-                $("#id_GroupSelect").select2({
-                    placeholder: "Group",
-                    allowClear: true,
-                    ajax: {
-                        url: 'admin/GroupsList',
-                        headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content},
-                        method:'POST',
-                        data: function (params) {
-                            console.log(params,'passsdd')
-                            return {
-                                generalSearch: params.term, // search term
-                                pagination: params.page
-                            };
-                        },
-                        processResults: function (data, params) {
-                            // parse the results into the format expected by Select2
-                            // since we are using custom formatting functions we do not need to
-                            // alter the remote JSON data, except to indicate that infinite
-                            // scrolling can be used
-                            params.page = params.page || 1;
-                            return {
-                                results: data[0],
-                            };
-                        },
-                        cache: true
-                    },
-                    escapeMarkup: function (markup) {
-                        return markup;
-                    }, // let our custom formatter work
-                    minimumInputLength: 0,
                     templateResult: formatRepo, // omitted for brevity, see the source of this page
                     templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
                 });

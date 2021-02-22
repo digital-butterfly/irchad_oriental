@@ -189,57 +189,6 @@ class ProjectApplication extends Model
 
         return [
             [
-                'name' => 'company',
-                'type' => 'section',
-                'class' => 'kt-callout--primary',
-                'label' => 'Données Entreprise',
-                "sub_fields" => [
-                    [
-                        'name' => 'is_created',
-                        'type' => 'select',
-                        'label' => 'Déja créée',
-                        'options' => ['Oui', 'Non'],
-                    ],
-                    [
-                        'name' => 'legal_form',
-                        'type' => 'select',
-                        'label' => 'Forme juridique',
-                        'options' =>self::LEGALFORM
-
-                    ],
-                    [
-                        'name' => 'capital',
-                        'type' => 'text',
-                        'label' => 'Capital social'
-                    ],
-                    [
-                        'name' => 'creation_date',
-                        'type' => 'date',
-                        'label' => 'Date de création'
-                    ],
-                    [
-                        'name' => 'corporate_name',
-                        'type' => 'text',
-                        'label' => 'Dénomination social'
-                    ],[
-                        'name' => 'corporate_CEO',
-                        'type' => 'text',
-                        'label' => 'Gérant de la société '
-                    ],[
-                        'name' => 'corporate_sig',
-                        'type' => 'text',
-                        'label' => 'Le siège sociale '
-                    ],
-                    [
-                        'name' => 'applied_tax',
-                        'type' => 'select',
-                        'label' => 'Type d\'impôt',
-                        'options' => ['Impôt sur les sociétés', 'Impôt sur le revenu', 'Auto-entrepreneur activité commerciale, industrielle ou artisanale', 'Auto-entrepreneur prestataire de services'],
-                    ],
-                ],
-                'group' => 'Données Entreprise'
-            ],
-            [
                 'name' => 'member_id',
                 'type' => 'text',
                 'class' => 'kt-callout--dark',
@@ -330,6 +279,58 @@ class ProjectApplication extends Model
                 'options' => ['Envoyé au financement', 'Financement accepté','Financement refusé','Financé'],
                 'group' => 'Données Générales'
             ],
+            [
+                'name' => 'company',
+                'type' => 'section',
+                'class' => 'kt-callout--primary',
+                'label' => 'Données Entreprise',
+                "sub_fields" => [
+                    [
+                        'name' => 'is_created',
+                        'type' => 'select',
+                        'label' => 'Déja créée',
+                        'options' => ['Oui', 'Non'],
+                    ],
+                    [
+                        'name' => 'legal_form',
+                        'type' => 'select',
+                        'label' => 'Forme juridique',
+                        'options' =>self::LEGALFORM
+
+                    ],
+                    [
+                        'name' => 'capital',
+                        'type' => 'text',
+                        'label' => 'Capital social'
+                    ],
+                    [
+                        'name' => 'creation_date',
+                        'type' => 'date',
+                        'label' => 'Date de création'
+                    ],
+                    [
+                        'name' => 'corporate_name',
+                        'type' => 'text',
+                        'label' => 'Dénomination social'
+                    ],[
+                        'name' => 'corporate_CEO',
+                        'type' => 'text',
+                        'label' => 'Gérant de la société '
+                    ],[
+                        'name' => 'corporate_sig',
+                        'type' => 'text',
+                        'label' => 'Le siège sociale '
+                    ],
+                    [
+                        'name' => 'applied_tax',
+                        'type' => 'select',
+                        'label' => 'Type d\'impôt',
+                        'options' => ['Impôt sur les sociétés', 'Impôt sur le revenu', 'Auto-entrepreneur activité commerciale, industrielle ou artisanale', 'Auto-entrepreneur prestataire de services'],
+                    ],
+                ],
+                'group' => 'Données Entreprise'
+            ],
+
             [
                 'name' => 'business_model',
                 'type' => 'section',

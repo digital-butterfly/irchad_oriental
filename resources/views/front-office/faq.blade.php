@@ -118,13 +118,13 @@
                                 <div class="card-header" id="headingSeven">
                                 <h2 class="mb-0">
                                     <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
-                                    7.{{__('FAQ.Mon projet est en activité depuis plus de 12 mois, pourrais-je bénéficier d\'un accompagnement?')}}
+                                    7.{{__('FAQ.Mon projet est en activité depuis moin de 12 mois, pourrais-je bénéficier d\'un accompagnement?')}}
                                     </button>
                                 </h2>
                                 </div>
                                 <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#accordionExample">
                                 <div class="card-body">
-                                    {{__('FAQ.Tout à fait. Si votre projet est en activité depuis plus de 12 mois, vous pouvez bénéficier d\'un accompagnement en post-création (voir Q.6).')}}
+                                    {{__('FAQ.Tout à fait. Si votre projet est en activité depuis moin de 12 mois, vous pouvez bénéficier d\'un accompagnement en post-création (voir Q.6).')}}
                                 </div>
                                 </div>
                             </div>

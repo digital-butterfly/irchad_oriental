@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Adherensession;
 use App\AdherentSession;
 use App\Formation;
+use App\groupSessionMembers;
 use App\Member;
 use App\ProjectApplication;
 use App\ProjectApplicationMember;
@@ -65,7 +66,7 @@ class SessionController extends Controller
     }
     public function store(Request $request)
     {
-//        dd($request->toArray());
+
 
         if ($request['projet']!=null){
             if ($request['session']==='auto'){
@@ -89,7 +90,6 @@ class SessionController extends Controller
                                 'id_member' => $value->member_id,
                             ]
                         );
-
                     }
                 }
 //                AdherentSession::updateOrCreate([
@@ -132,8 +132,6 @@ class SessionController extends Controller
             }
             ProjectApplication::findOrFail($request['projet'])->update(['training'=>'Envoyé vers formation']);
 
-
-
         }
         else {
             $this->validator($request->all(), 'session')->validate();
@@ -165,6 +163,24 @@ class SessionController extends Controller
                     );
                 }
             }
+            if ($request['id_Group']!=null){
+                $groups = groupSessionMembers::where('group_id','=',$request['id_Group'])->get();
+                foreach ($groups as $key =>$value)
+                {
+//                dd($value);
+
+                    AdherentSession::updateOrCreate([
+
+                            'id_session'=> $session['id'],
+                            'id_projet' => $value['id_projet'],
+                            'id_member' => $value['id_member'],
+
+                        ]
+                    );
+                }
+            }
+
+
             ProjectHistory::create([
                 'title'=>'Candidature en formation de  '. Formation::findOrFail($request['id_formation'])->only('title')['title'],
                 'id_projet'=>$request['projet'],
@@ -174,10 +190,6 @@ class SessionController extends Controller
             ProjectApplication::findOrFail($request['projet'])->update(['training'=>'Envoyé vers formation']);
 
         }
-
-
-
-
         return redirect()->intended('admin/session');
     }
 

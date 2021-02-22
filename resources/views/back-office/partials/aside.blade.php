@@ -124,6 +124,10 @@
                                                                                                                                                                            class="kt-menu__link "><i
                                         class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span
                                         class="kt-menu__link-text"> Liste des formations</span></a></li>
+                            <li class="kt-menu__item {{ (request()->is('admin/groups')) ? 'kt-menu__item--active kt-menu__item--open' : '' }} " aria-haspopup="true"><a href="admin/groups"
+                                                                                                                                                                          class="kt-menu__link "><i
+                                        class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span
+                                        class="kt-menu__link-text">Groups</span></a></li>
                             <li class="kt-menu__item {{ (request()->is('admin/session')) ? 'kt-menu__item--active kt-menu__item--open' : '' }} " aria-haspopup="true"><a href="admin/session"
                                                                                                                                                                           class="kt-menu__link "><i
                                         class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span

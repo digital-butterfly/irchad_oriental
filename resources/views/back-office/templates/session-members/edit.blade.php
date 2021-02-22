@@ -11,7 +11,7 @@
 
 @section('page_content')
     <div class="kt-container  kt-grid__item kt-grid__item--fluid">
-        <div class="kt-portlet">
+        <div class="kt-portlet" id="membersession">
             <div class="kt-portlet__head">
                 <div class="kt-portlet__head-label">
                     <h3 class="kt-portlet__head-title">

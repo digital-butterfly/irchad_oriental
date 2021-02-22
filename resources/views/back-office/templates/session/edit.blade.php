@@ -34,11 +34,13 @@
 				<div class="kt-portlet__body">
 					<div class="kt-section kt-section--first">
 						@foreach($fields as $field)
-							@php
+                            @if($field['group']=='session')
+
+                            @php
 								$field['config']['hotizontalRows'] = true;
 							@endphp
                             @include(sprintf('back-office.components.form.fields.%s', $field['type']), [$field, $data])
-
+                            @endif
                         @endforeach
 
                     </div>
@@ -56,6 +58,15 @@
 			<!--end::Form-->
 		</div>
     </div>
+    <!--begin::Modal-->
+    <div class="modal fade" id="kt_modal_4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content" id="modal-content">
+
+            </div>
+        </div>
+    </div>
+
 @endsection
 
 
@@ -247,7 +258,7 @@
                 console.log('helloooooooo', tagifyCand)
 
 
-                tagifyCand.on('input', onInput).on('remove', onRemoveTag).on('dropdown:select', onSelectSuggestion)
+                tagifyCand.on('input', onInput).on('remove', onRemoveTag).on('dropdown:select', onSelectSuggestion).on('click',onTagClick)
 
                 function onInput(e){
                     console.log("onInput: ", e.detail);
@@ -348,7 +359,15 @@
                     });
                 }
 
+                function onTagClick(e){
+                    console.log(e)
+                    let member = e.detail.data.id_session;
 
+                    document.getElementById("modal-content").innerHTML=('')
+
+                    $('#kt_modal_4').modal('show')
+
+                }
             }
 
             return {

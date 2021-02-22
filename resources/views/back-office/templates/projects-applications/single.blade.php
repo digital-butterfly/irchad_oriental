@@ -372,7 +372,7 @@
                                                                         $done_fields[] = [];
                                                                     @endphp
 
-                                                                    <div class="kt-portlet kt-portlet--mobile  {{ $parent['class'] }}" id="{{$parent['name']}}">
+                                                                    <div class="kt-portlet kt-portlet--mobile  {{ $parent['class'] }}" id="{{$parent['name']==='member_id'?'member':$parent['name']}}">
                                                                         <div class="kt-portlet__head">
                                                                             <div class="kt-portlet__head-label">
                                                                                 <h3 class="kt-portlet__head-title">
@@ -1111,6 +1111,17 @@
         </div>
 
         <!--end::Modal-->
+        <div class="modal fade" id="kt_modal_4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content" id="modal-content2">
+
+
+                </div>
+
+            </div>
+
+        </div>
+
 
     </div>
 @endsection
@@ -2140,17 +2151,96 @@
 
 
         setTimeout(function(){
+            console.log($('#member_id').val())
             $('.pi').each(function( index ) {
                 console.log($(this).closest('.kt-form__control').find('input').val())
                 if($(this).closest('.kt-form__control').find('.pi').val()===''){
                     console.log( $(this).closest('.kt-form__control').find('.pi'))
                     $(this).closest('.kt-form__control').find('.pi').hide();
                 }
+                $.ajax({
+                    headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content},
+                    method:'GET',
+                    url : '/admin/list/membersbyid',
+                    data:{'id':$('#member_id').val()},
+                        success: function(data) {
+                            console.log(data)
+                            document.getElementById("modal-content2").innerHTML=(
+                                '<div class="modal-body">'+
+                                '<div class="kt-portlet__body">'+
+                               ' <div class="kt-section kt-section--first">'+
+                               ' <div class=" row">'+
+                               ' <label for="first_name" class="col-lg-3 col-form-label">Prénom:</label>'+
+                        '<div class="col-lg-6"> '+ data.first_name+
+                        '<span class="form-text text-muted"></span> </div>'+ ' <div class="kt-section kt-section--first">'+
+                              '</div>'+
+                              '</div>'+
+                               ' <div class=" row">'+
+                               ' <label for="first_name" class="col-lg-3 col-form-label">Nom de famille:</label>'+
+                        '<div class="col-lg-6"> '+ data.last_name+
+                        '<span class="form-text text-muted"></span> </div>'+ ' <div class="kt-section kt-section--first">'+
+                                '</div>'+
+                                '</div>'+
+                               ' <div class=" row">'+
+                               ' <label for="first_name" class="col-lg-3 col-form-label">N° CIN:</label>'+
+                        '<div class="col-lg-6"> '+ data.identity_number+
+                        '<span class="form-text text-muted"></span> </div>'+ ' <div class="kt-section kt-section--first">'+
+                                '</div>'+
+                                '</div>'+
+                                ' <div class=" row">'+
+                               ' <label for="first_name" class="col-lg-3 col-form-label">Telephone:</label>'+
+                        '<div class="col-lg-6"> '+ data.phone+
+                        '<span class="form-text text-muted"></span> </div>'+
+
+                            '</div>'+' <div class=" row">'+
+                               ' <label for="first_name" class="col-lg-3 col-form-label">Sexe:</label>'+
+                        '<div class="col-lg-6"> '+ data.gender +
+                        '<span class="form-text text-muted"></span> </div>'+
+
+                            '</div>'+
+                                ' <div class=" row">'+
+                               ' <label for="first_name" class="col-lg-3 col-form-label">email:</label>'
+                                +
+                        '<div class="col-lg-6"> '+ data.email
+                                +
+                        '<span class="form-text text-muted"></span> ' +
+                                '</div>' +
+                                '</div>'+
+                                '<div class=" row">'+
+                               ' <label for="first_name" class="col-lg-3 col-form-label">Date de naissance: :</label>'+
+                        '<div class="col-lg-6"> '+ data.birth_date +
+                        '<span class="form-text text-muted"></span> ' +
+                                '</div>'+
+                                '</div>'
+                                    +'<div class=" row">'+
+                               ' <label for="first_name" class="col-lg-3 col-form-label">Addresse:</label>'+
+                        '<div class="col-lg-6"> '+ data.address
+                       + '<span class="form-text text-muted"></span> ' +
+                                '</div>'+
+                                '</div>'+
+                                    '<div class="modal-footer">'+
+
+                                '<div class="kt-form__actions">'+
+                               ' <a href="/admin/members/'+data.id+'/edit"  class="btn btn-primary mr-2">Voire le profile complet</a>'+
+                          '<button type="button" class="btn btn-brand" data-dismiss="modal">Close</button></div>'
+                        +'</div>'
+
+
+                            )
+
+
+
+
+                    }})
+
 
             });
             }, 1000);
 
-
+        $( "<div id='creatEnt' class=\"col-lg-2\">\n" +
+            "        <button  onclick='openModal()' id='creatEntbtn' class=\"btn btn-success \">Voir adherant</button>\n" +
+            "        <span class=\"form-text text-muted\"></span>\n" +
+            "    </div>" ).insertAfter( $("#member_id").closest('.col-lg-6') );
 
     </script>
 @endsection
