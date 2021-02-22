@@ -2237,7 +2237,7 @@
             });
             }, 1000);
 
-        $( "<div id='creatEnt' class=\"col-lg-2\">\n" +
+        $( "<div  class=\"col-lg-2\">\n" +
             "        <button  onclick='openModal()' id='creatEntbtn' class=\"btn btn-success \">Voir adherant</button>\n" +
             "        <span class=\"form-text text-muted\"></span>\n" +
             "    </div>" ).insertAfter( $("#member_id").closest('.col-lg-6') );
