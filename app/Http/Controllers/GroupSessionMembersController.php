@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\GroupSessionMembers;
+use App\groupSessionMembers;
 use Illuminate\Http\Request;
 
 class GroupSessionMembersController extends Controller
