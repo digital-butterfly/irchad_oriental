@@ -168,7 +168,7 @@ Route::group(['middleware' => 'auth:user'], function () {
 
 });
 
-
+Route::get('get/{filename}', 'FileController@getFile')->name('getfile');
 
 Route::group(['middleware' => 'auth:member'], function () {
     Route::resource('adherent/', 'AdherentController');

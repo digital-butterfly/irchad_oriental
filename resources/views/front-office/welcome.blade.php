@@ -17,6 +17,7 @@
     </style>
     @endif
 <!-- START HOME -->
+
 <section class="bg-home" id="home">
     <div class="home-bg-overlay"></div>
     <div class="container">
@@ -797,5 +798,65 @@
     </div>
 </section>
 <!-- END SUBSCRIBE -->
+ <div
+      class="modal fade bd-example-modal-lg"
+      id="exampleModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+        
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body px-8">
+            <img
+              src="images/front-office/popup.jpg"
+              class="d-block mx-auto w-100"
+            />
+
+            
+             <div class="w-100 text-center ">
+                 <a  class="btn  btn-info m-2 flex-grow-1 "
+                    href=" {{route('getfile', "concours_d_idées.pdf" )}}"
+                    >معايير الاهلية و المشاريع المستهدفة</a
+                  >
+             </div>
+          </div>
+          
+          <div class="modal-footer px-8 flex flex-wrap">
+        
+     
+          
+              <a  class="btn btn-primary m-2 flex-grow-1"
+                href="{{route('getfile', "form2.docx" )}}"
+                >إستمارة الترشح خاصة بالشركات</a
+              >
+  
+         
+              <a  class="btn btn-primary m-2 flex-grow-1 "
+                href="{{route('getfile', "form3.docx" )}}"
+                >إستمارة الترشح خاصة بالتعاونيات</a
+              >
+  
+                       <a  class="btn  btn-primary m-2 flex-grow-1" 
+                href=" {{route('getfile', "form1.docx" )}}"
+                >استمارة الترشح للمقاول الذاتي والشباب</a
+              >
+        
+          </div>
+        </div>
+      </div>
+    </div>
 
 @endsection
