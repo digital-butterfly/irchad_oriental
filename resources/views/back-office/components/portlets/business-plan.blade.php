@@ -522,7 +522,7 @@
                                     @foreach ($application->financial_data->startup_needs as $item)
                                         @if ($item->label != '' && isset($item->value))
                                             <tr>
-                                                <td>{{ $item->label }}</td>
+                                                <td>{{ $item->label!= 'Autre à préciser' ?$item->label : $item->labelOther }}</td>
                                                 <td>{{ number_format($item->value, 0, ',', ' ') }} MAD</td>
                                             </tr>
                                         @endif
