@@ -20,7 +20,7 @@
     $bp_investment_program_total = 0;
     if (isset($application->financial_data->startup_needs)) {
         foreach ($application->financial_data->startup_needs as $item) {
-            $bp_investment_program_total += $item->count ?? 0;
+            $bp_investment_program_total += $item->value ?? 0;
         }
     }
 
@@ -520,10 +520,10 @@
                             <tbody>
                                 @if (isset($application->financial_data->startup_needs))
                                     @foreach ($application->financial_data->startup_needs as $item)
-                                        @if ($item->label != '' && isset($item->count))
+                                        @if ($item->label != '' && isset($item->value))
                                             <tr>
                                                 <td>{{ $item->label }}</td>
-                                                <td>{{ number_format($item->count, 0, ',', ' ') }} MAD</td>
+                                                <td>{{ number_format($item->value, 0, ',', ' ') }} MAD</td>
                                             </tr>
                                         @endif
                                     @endforeach
