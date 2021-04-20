@@ -37,8 +37,10 @@ class exportCondidat implements FromArray, WithHeadings,WithMapping
                'secteurs',
                'Sous secteurs',
                'Communes',
-               'sheet_id',
                'Titre',
+               'Genre',
+               'CIN',
+               'Tél',
                'description',
                'market_type',
                'business_model',
@@ -112,7 +114,6 @@ class exportCondidat implements FromArray, WithHeadings,WithMapping
     public function map($data):array
     {
         if ($this->type==="Candidatures"){
-//            dd($data);
             return [
 
                 $data->id,
@@ -120,8 +121,10 @@ class exportCondidat implements FromArray, WithHeadings,WithMapping
                 ProjectCategory::findOrFail($data->category_id)->getParent->title,
                 ProjectCategory::findOrFail($data->category_id)->title,
                 Township::findOrFail($data->township_id)->title,
-                $data->sheet_id,
                 $data->title,
+                Member::where('id', $data->member_id)->pluck('gender')->first(),
+                Member::where('id', $data->member_id)->pluck('identity_number')->first(),
+                Member::where('id', $data->member_id)->pluck('phone')->first(),
                 $data->description,
                 $data->market_type,
                 array_values((array)$data->business_model),
