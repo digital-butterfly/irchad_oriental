@@ -798,7 +798,7 @@
     </div>
 </section>
 <!-- END SUBSCRIBE -->
- <div
+ <!-- <div
       class="modal fade bd-example-modal-lg"
       id="exampleModal"
       tabindex="-1"
@@ -809,7 +809,7 @@
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-        
+
             <button
               type="button"
               class="close"
@@ -825,7 +825,7 @@
               class="d-block mx-auto w-100"
             />
 
-            
+
              <div class="w-100 text-center ">
                  <a  class="btn  btn-info m-2 flex-grow-1 "
                     href=" {{route('getfile', "concours_d_idées.pdf" )}}"
@@ -833,30 +833,30 @@
                   >
              </div>
           </div>
-          
+
           <div class="modal-footer px-8 flex flex-wrap">
-        
-     
-          
+
+
+
               <a  class="btn btn-primary m-2 flex-grow-1"
                 href="{{route('getfile', "form2.docx" )}}"
                 >إستمارة الترشح خاصة بالشركات</a
               >
-  
-         
+
+
               <a  class="btn btn-primary m-2 flex-grow-1 "
                 href="{{route('getfile', "form3.docx" )}}"
                 >إستمارة الترشح خاصة بالتعاونيات</a
               >
-  
-                       <a  class="btn  btn-primary m-2 flex-grow-1" 
+
+                       <a  class="btn  btn-primary m-2 flex-grow-1"
                 href=" {{route('getfile', "form1.docx" )}}"
                 >استمارة الترشح للمقاول الذاتي والشباب</a
               >
-        
+
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
 @endsection
