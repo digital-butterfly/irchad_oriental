@@ -37,6 +37,13 @@ class Member extends Authenticatable
         'reduced_mobility',
         'state_help',
         'otherquestions',
+        'informal_activity_desc',
+        'informal_activity',
+        'entre_activity',
+        'project_idea',
+        'formation_needs',
+        'project_idea_desc',
+        'chomage_desc'
     ];
 
 
@@ -162,7 +169,7 @@ class Member extends Authenticatable
                 'name' => 'reduced_mobility',
                 'type' => 'select',
                 'label' => 'Mobilité réduite',
-                'options' => ['Malentendant', 'Malvoyant', 'Déficience Motrice', 'Déficience Mentale']
+                'options' => ['Handicap auditif', 'Handicap vocal', 'Handicap moteur', 'Handicap visuel','Handicap mental']
             ], [
                 'name' => 'chomage',
                 'type' => 'select',
@@ -174,10 +181,10 @@ class Member extends Authenticatable
                 'label' => 'Depuis combien de temps',
             ],
             [
-                'name' => 'informal_activity',
+                'name' => 'entre_activity',
                 'type' => 'select',
                 'label' => 'Exercez-vous une activité informelle',
-                'options' => ['Oui', 'Non',]
+                'options' => ['Oui', 'Non']
             ],
             [
                 'name' => 'informal_activity_desc',
@@ -188,7 +195,7 @@ class Member extends Authenticatable
                 'name' => 'entre_activity',
                 'type' => 'select',
                 'label' => 'Exercez-vous une activité entreprenariale',
-                'options' => ['Oui', 'Non',]
+                'options' => ['Oui', 'Non']
             ],
             [
                 'name' => 'entre_activity_desc',
@@ -204,7 +211,7 @@ class Member extends Authenticatable
             [
                 'name' => 'project_idea_desc',
                 'type' => 'textarea',
-                'label' => 'Depuis combien de temps?',
+                'label' => 'laquelle?',
             ],
             [
                 'name' => 'formation_needs',

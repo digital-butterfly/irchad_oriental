@@ -135,18 +135,26 @@
                 $('#chomage_desc').parent().closest( '.form-group').hide();
             };
 
-            if( $('#informal_activitySelect').val()!='Oui') {
+            if( $('#chomageSelect').val()!='Oui') {
                 $('#informal_activity_desc').parent().closest('.form-group').hide();
             }
             if( $('#entre_activitySelect').val()!='Oui') {
                 $('#entre_activity_desc').parent().closest('.form-group').hide();
             }
             if($('#project_ideaSelect').val()!='Oui') {
-                $('#formation_needs_desc').parent().closest('.form-group').hide();
+                $('#project_idea_desc').parent().closest('.form-group').hide();
             }
             if( $('#formation_needsSelect').val()!='Oui') {
                 $('#project_idea_desc').parent().closest('.form-group').hide();
             }
+        });
+
+        $('#informal_activitySelect').change(function() {
+           if( $('#informal_activitySelect').val()=='Oui'){
+               $('#informal_activity').parent().closest( '.form-group').show();
+           }else {
+               $('#informal_activity').parent().closest( '.form-group').hide();
+           }
         });
 
         $('#chomageSelect').change(function() {
@@ -157,19 +165,11 @@
            }
         });
 
-        $('#informal_activitySelect').change(function() {
-           if( $('#informal_activitySelect').val()=='Oui'){
+        $('#entre_activitySelect').change(function() {
+           if( $('#entre_activitySelect').val()=='Oui'){
                $('#informal_activity_desc').parent().closest( '.form-group').show();
            }else {
                $('#informal_activity_desc').parent().closest( '.form-group').hide();
-           }
-        });
-
-        $('#entre_activitySelect').change(function() {
-           if( $('#entre_activitySelect').val()=='Oui'){
-               $('#entre_activity_desc').parent().closest( '.form-group').show();
-           }else {
-               $('#entre_activity_desc').parent().closest( '.form-group').hide();
            }
         });
 
@@ -255,6 +255,34 @@
 		jQuery(document).ready(function() {
 			KTFormRepeater.init();
 		});
+
+
+
+        window.addEventListener('load',function(){
+            $('#chomageSelect').change(function() {
+           if( $('#chomageSelect').val()=='Oui'){
+               console.log("hhh");
+               $('#chomage_desc').parent().closest( '.form-group').show();
+           }else {
+               $('#chomage_desc').parent().closest( '.form-group').hide();
+           }
+        });
+        // $('#informal_activitySelect').change(function() {
+        //    if( $('#informal_activitySelect').val()=='Oui'){
+        //        $('#informal_activity').parent().closest( '.form-group').show();
+        //    }else {
+        //        $('#informal_activity').parent().closest( '.form-group').hide();
+        //    }
+        // });
+        // })
+        // $('#project_ideaSelect').change(function() {
+        //    if( $('#project_idea_desc').val()=='Oui'){
+        //        $('#project_idea_desc').parent().closest( '.form-group').show();
+        //    }else {
+        //        $('#project_idea_desc').parent().closest( '.form-group').hide();
+        //    }
+        // });
+        })
 	</script>
     <script src="https://printjs-4de6.kxcdn.com/print.min.js" type="application/javascript"></script>
 @endsection

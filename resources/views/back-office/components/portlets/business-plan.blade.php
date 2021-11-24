@@ -1,7 +1,7 @@
 
 
 @php
-
+ 
     // Financial Plan
     $bp_financial_plan_total = 0;
     if(isset($application->financial_data->financial_plan)){
@@ -15,7 +15,6 @@
             $bp_financial_plan_total += $item->value;
         }
     }
-
     // Investment Program
     $bp_investment_program_total = 0;
     if (isset($application->financial_data->startup_needs)) {
@@ -26,15 +25,21 @@
 
     // Parameters
     $bp_turnover_products_total =  0;
+    $bp_turnover_products_totals=0;
     $bp_profit_margin_rate =  0;
+     //dd("hhh"); 
+
     if (isset($application->financial_data->products_turnover_forecast)){
         foreach ($application->financial_data->products_turnover_forecast as $total){
-
           //  dd($total);
-            $bp_turnover_products_total = $bp_turnover_products_total +( $total->rate * $total->value) ;
+            $bp_turnover_products_total = $bp_turnover_products_total +(( $total->rate * $total->value)*(1-($total->duration/100))) ;
+           // dd( $total->rate * $total->value);
+            $bp_turnover_products_totals = $bp_turnover_products_totals +( $total->rate * $total->value) ;
+            
             $bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration;
-
+           
         }
+        //dd($bp_turnover_products_totals);
     }
 //dd($bp_profit_margin_rate);
   //  $bp_turnover_products_total = isset($application->financial_data->products_turnover_forecast) ? $application->financial_data->products_turnover_forecast : 0;
@@ -80,7 +85,7 @@
 
 
     // Turnover
-   $bp_turnover_first_year = $bp_turnover_products_total + $bp_turnover_services_total;
+   $bp_turnover_first_year = $bp_turnover_products_totals;
   //  $bp_turnover_first_year = 0;
     $bp_turnover_second_year = $bp_turnover_first_year + ($bp_turnover_first_year * $bp_evolution_rate / 100);
     $bp_turnover_third_year = $bp_turnover_second_year + ($bp_turnover_second_year * $bp_evolution_rate / 100);
@@ -89,15 +94,15 @@
     /* $bp_purchase_first_year = $bp_turnover_products_total / (1 + ($bp_profit_margin_rate / 100));
     $bp_purchase_second_year = $bp_purchase_first_year + ($bp_purchase_first_year * $bp_evolution_rate / 100);
     $bp_purchase_third_year = $bp_purchase_second_year + ($bp_purchase_second_year * $bp_evolution_rate / 100); */
-    $bp_purchase_first_year = $bp_turnover_products_total * (1 - ($bp_profit_margin_rate / 100));
-    $bp_purchase_second_year = $bp_purchase_first_year + ($bp_purchase_first_year * $bp_evolution_rate / 100);
-    $bp_purchase_third_year = $bp_purchase_second_year + ($bp_purchase_second_year * $bp_evolution_rate / 100);
-
+    $bp_purchase_first_year = $bp_turnover_products_total ;
+    $bp_purchase_second_year = $bp_purchase_first_year *(1+$bp_evolution_rate / 100);
+    $bp_purchase_third_year = $bp_purchase_second_year * ((1+$bp_evolution_rate/100)*(1+$bp_evolution_rate/100));
+      
     // Gross Margin
     $bp_gross_margin_first_year = $bp_turnover_first_year - $bp_purchase_first_year;
     $bp_gross_margin_second_year = $bp_turnover_second_year - $bp_purchase_second_year;
     $bp_gross_margin_third_year = $bp_turnover_third_year - $bp_purchase_third_year;
-
+     //dd($bp_purchase_second_year);
     // Overheads Fixed
     $bp_overheads_fixed_first_year =  0;
     $bp_overheads_fixed_second_year =  0;
@@ -162,7 +167,8 @@
     $bp_amortization_yearly = 0;
     if (isset($application->financial_data->startup_needs)) {
         foreach ($application->financial_data->startup_needs as $item) {
-            (isset($item->value) && isset($item->rate) && isset($item->duration)) ? $bp_amortization_yearly += $item->value * ($item->duration / 100) / (1 + ($item->rate / 100)) : NULL;
+          //  dd( $item);
+            (isset($item->value) && isset($item->rate) && isset($item->duration)) ? $bp_amortization_yearly += $item->value * ($item->rate / 100) / (1 + ($item->duration / 100)) : NULL;
         }
     }
 
@@ -200,119 +206,269 @@
     $bp_corporate_tax_first_year = 0;
     $bp_corporate_tax_second_year = 0;
     $bp_corporate_tax_third_year = 0;
+    $is=0;
+    $rest=0;
     if (($application->company->applied_tax ?? '') == 'Impôt sur les sociétés') {
+       // dd($bp_income_before_taxes_first_year);
         switch (true) {
             case ($bp_income_before_taxes_first_year > 0 && $bp_income_before_taxes_first_year <= 300000):
-                $bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 10 / 100;
+
+                $is=$bp_income_before_taxes_first_year * 10 / 100;
+                $bp_corporate_tax_first_year = $is-$bp_income_before_taxes_first_year * 10 / 100;
                 break;
             case ($bp_income_before_taxes_first_year > 300000 && $bp_income_before_taxes_first_year <= 1000000):
-                $bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 17.5 / 100;
+                 $firstTranche = 300000 - 300000 * 0.1;
+                 $secondTranche = $bp_income_before_taxes_first_year - 300000 - ($bp_income_before_taxes_first_year - 300000) * 0.2;
+                 $bp_corporate_tax_first_year  = $firstTranche + $secondTranche;
+                //$bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 17.5 / 100;
                 break;
             case ($bp_income_before_taxes_first_year > 1000000):
-                $bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 31 / 100;
+
+                     $rest = $bp_income_before_taxes_first_year - 300000;
+                     $firstTranche = 300000 - 300000 * 0.1;
+                     $rest = $rest - 1000000;
+                     $secondTranche = 1000000 - 1000000 * 0.2;
+                            if ($rest < 0) {
+                                $rest = 0;
+                            }
+                  $thirdTranche = $rest - $rest * 0.31;
+                  $bp_corporate_tax_first_year  = $firstTranche + $secondTranche + $thirdTranche;
+                
                 break;
         }
         switch (true) {
-            case ($bp_income_before_taxes_first_year > 0 && $bp_income_before_taxes_first_year <= 300000):
-                $bp_corporate_tax_second_year = $bp_income_before_taxes_second_year * 10 / 100;
+            case ($bp_income_before_taxes_second_year > 0 && $bp_income_before_taxes_second_year<= 300000):
+              $is=$bp_income_before_taxes_second_year * 10 / 100;
+              $bp_corporate_tax_second_year = $is-$bp_income_before_taxes_second_year * 10 / 100;
+               // $bp_corporate_tax_second_year = $bp_income_before_taxes_second_year * 10 / 100;
                 break;
             case ($bp_income_before_taxes_second_year > 300000 && $bp_income_before_taxes_second_year <= 1000000):
-                $bp_corporate_tax_second_year = $bp_income_before_taxes_second_year * 17.5 / 100;
+            $firstTranche = 300000 - 300000 * 0.1;
+            $secondTranche = $bp_income_before_taxes_second_year - 300000 - ($bp_income_before_taxes_second_year - 300000) * 0.2;
+            $bp_corporate_tax_second_year = $firstTranche+$secondTranche;
                 break;
             case ($bp_income_before_taxes_second_year > 1000000):
-                $bp_corporate_tax_second_year = $bp_income_before_taxes_second_year * 31 / 100;
+                $rest = $bp_income_before_taxes_second_year - 300000;
+                     $firstTranche = 300000 - 300000 * 0.1;
+                     $rest = $rest - 1000000;
+                     $secondTranche = 1000000 - 1000000 * 0.2;
+                            if ($rest < 0) {
+                                $rest = 0;
+                            }
+                 $thirdTranche = $rest - $rest * 0.31;
+                   $bp_corporate_tax_second_year = $firstTranche + $secondTranche + $thirdTranche;
+                // = $bp_income_before_taxes_second_year * 31 / 100;
                 break;
         }
         switch (true) {
-            case ($bp_income_before_taxes_first_year > 0 && $bp_income_before_taxes_first_year <= 300000):
-                $bp_corporate_tax_third_year = $bp_income_before_taxes_third_year * 10 / 100;
+            case ($bp_income_before_taxes_third_year> 0 && $bp_income_before_taxes_third_year <= 300000):
+               $is=$bp_income_before_taxes_first_year * 10 / 100;
+               $bp_corporate_tax_third_year  = $is-$bp_income_before_taxes_first_year * 10 / 100;
+               // $bp_corporate_tax_third_year = $bp_income_before_taxes_third_year * 10 / 100;
                 break;
             case ($bp_income_before_taxes_third_year > 300000 && $bp_income_before_taxes_third_year <= 1000000):
-                $bp_corporate_tax_third_year = $bp_income_before_taxes_third_year * 17.5 / 100;
+                   $firstTranche = 300000 - 300000 * 0.1;
+                   $secondTranche = $bp_income_before_taxes_third_year - 300000 - ($bp_income_before_taxes_third_year - 300000) * 0.2;
+                   $bp_corporate_tax_third_year  = $firstTranche+$secondTranche;
+               // $bp_corporate_tax_third_year = $bp_income_before_taxes_third_year * 17.5 / 100;
                 break;
             case ($bp_income_before_taxes_third_year > 1000000):
-                $bp_corporate_tax_third_year = $bp_income_before_taxes_third_year * 31 / 100;
+            $rest = $bp_income_before_taxes_third_year - 300000;
+                     $firstTranche = 300000 - 300000 * 0.1;
+                     $rest = $rest - 1000000;
+                     $secondTranche = 1000000 - 1000000 * 0.2;
+                            if ($rest < 0) {
+                                $rest = 0;
+                            }
+                 $thirdTranche = $rest - $rest * 0.31;
+                 $bp_corporate_tax_third_year = $firstTranche + $secondTranche + $thirdTranche;
+                //$bp_corporate_tax_third_year = $bp_income_before_taxes_third_year * 31 / 100;
                 break;
         }
     }
     elseif (($application->company->applied_tax ?? '') == 'Impôt sur le revenu') {
+      //  dd($bp_income_before_taxes_second_year);
         switch (true) {
             case ($bp_income_before_taxes_first_year > 0 && $bp_income_before_taxes_first_year <= 30000):
-                $bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 0 / 100;
+                $bp_corporate_tax_first_year = $bp_income_before_taxes_first_year;
                 break;
             case ($bp_income_before_taxes_first_year > 30000 && $bp_income_before_taxes_first_year <= 50000):
-                $bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 10 / 100;
+                 $is = $bp_income_before_taxes_first_year * 10 / 100;
+                 $bp_corporate_tax_first_year = $is-$bp_income_before_taxes_first_year * 10 / 100;               
                 break;
             case ($bp_income_before_taxes_first_year > 50000 && $bp_income_before_taxes_first_year <= 60000):
-                $bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 20 / 100;
+                 $firstTranche = 50000 - 50000 * 0.1;
+                 $secondTranche = $bp_income_before_taxes_first_year - 50000 - ($bp_income_before_taxes_first_year - 50000) * 0.2;
+                 $bp_corporate_tax_first_year  = $firstTranche + $secondTranche;
                 break;
             case ($bp_income_before_taxes_first_year > 60000 && $bp_income_before_taxes_first_year <= 80000):
-                $bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 30 / 100;
+                     $rest = $bp_income_before_taxes_first_year - 50000;
+                     $firstTranche = 50000 - 50000 * 0.1;
+                     $rest = $rest - 60000;
+                     $secondTranche = 60000 - 60000 * 0.2;
+                            if ($rest < 0) {
+                                $rest = 0;
+                            }
+                     $thirdTranche = $rest - $rest * 0.31;
+                     $bp_corporate_tax_first_year  = $firstTranche + $secondTranche + $thirdTranche;
                 break;
             case ($bp_income_before_taxes_first_year > 80000 && $bp_income_before_taxes_first_year <= 180000):
-                $bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 34 / 100;
+                      $rest = $bp_income_before_taxes_first_year - 50000;
+                      $firstTranche = 50000 - 50000 * 0.1;
+                      $rest = $rest - 60000;
+                      $secondTranche = 60000 - 60000 * 0.2;
+                      $rest = $rest - 80000;
+                      $thirdTranche = 80000 - 80000 * 0.3;
+                       if ($rest < 0) {
+                        $rest = 0;
+                               }
+                       $fourTranche = $rest - $rest * 0.34;
+                       $bp_corporate_tax_first_year = $firstTranche + $secondTranche + $thirdTranche + $fourTranche;
+               // $bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 34 / 100;
                 break;
             case ($bp_income_before_taxes_first_year > 180000):
-                $bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 38 / 100;
+             $rest = $bp_income_before_taxes_first_year - 50000;
+             $firstTranche = 50000 - 50000 * 0.1;
+             $rest = $rest - 60000;
+             $secondTranche = 60000 - 60000 * 0.2;
+             $rest = $rest - 80000;
+             $thirdTranche = 80000 - 80000 * 0.3;
+             $rest = $rest - 180000;
+             $fourTranche = 180000 - 180000 * 0.34;
+             if ($rest < 0) {
+                 $rest = 0;
+                  }
+              $fiveTranche = $rest - $rest * 0.38;
+              $bp_corporate_tax_first_year = $firstTranche + $secondTranche + $thirdTranche + $fourTranche + $fiveTranche;
+              //$bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 38 / 100;
                 break;
         }
         switch (true) {
             case ($bp_income_before_taxes_second_year > 0 && $bp_income_before_taxes_second_year <= 30000):
-                $bp_corporate_tax_second_year = $bp_income_before_taxes_second_year * 0 / 100;
+                $bp_corporate_tax_second_year = $bp_income_before_taxes_second_year;
                 break;
             case ($bp_income_before_taxes_second_year > 30000 && $bp_income_before_taxes_second_year <= 50000):
-                $bp_corporate_tax_second_year = $bp_income_before_taxes_second_year * 10 / 100;
+                 $is = $bp_income_before_taxes_second_year * 10 / 100;
+                 $bp_corporate_tax_second_year = $is-$bp_income_before_taxes_second_year * 10 / 100;               
                 break;
             case ($bp_income_before_taxes_second_year > 50000 && $bp_income_before_taxes_second_year <= 60000):
-                $bp_corporate_tax_second_year = $bp_income_before_taxes_second_year * 20 / 100;
+                 $firstTranche = 50000 - 50000 * 0.1;
+                 $secondTranche = $bp_income_before_taxes_second_year - 50000 - ($bp_income_before_taxes_second_year - 50000) * 0.2;
+                 $bp_corporate_tax_second_year  = $firstTranche + $secondTranche;
                 break;
             case ($bp_income_before_taxes_second_year > 60000 && $bp_income_before_taxes_second_year <= 80000):
-                $bp_corporate_tax_second_year = $bp_income_before_taxes_second_year * 30 / 100;
+                     $rest = $bp_income_before_taxes_second_year - 50000;
+                     $firstTranche = 50000 - 50000 * 0.1;
+                     $rest = $rest - 60000;
+                     $secondTranche = 60000 - 60000 * 0.2;
+                            if ($rest < 0) {
+                                $rest = 0;
+                            }
+                     $thirdTranche = $rest - $rest * 0.31;
+                     $bp_corporate_tax_second_year  = $firstTranche + $secondTranche + $thirdTranche;
                 break;
             case ($bp_income_before_taxes_second_year > 80000 && $bp_income_before_taxes_second_year <= 180000):
-                $bp_corporate_tax_second_year = $bp_income_before_taxes_second_year * 34 / 100;
+                      $rest = $bp_income_before_taxes_second_year - 50000;
+                      $firstTranche = 50000 - 50000 * 0.1;
+                      $rest = $rest - 60000;
+                      $secondTranche = 60000 - 60000 * 0.2;
+                      $rest = $rest - 80000;
+                      $thirdTranche = 80000 - 80000 * 0.3;
+                       if ($rest < 0) {
+                        $rest = 0;
+                               }
+                       $fourTranche = $rest - $rest * 0.34;
+                       $bp_corporate_tax_second_year = $firstTranche + $secondTranche + $thirdTranche + $fourTranche;
+               // $bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 34 / 100;
                 break;
             case ($bp_income_before_taxes_second_year > 180000):
-                $bp_corporate_tax_second_year = $bp_income_before_taxes_second_year * 38 / 100;
+             $rest = $bp_income_before_taxes_second_year - 50000;
+             $firstTranche = 50000 - 50000 * 0.1;
+             $rest = $rest - 60000;
+             $secondTranche = 60000 - 60000 * 0.2;
+             $rest = $rest - 80000;
+             $thirdTranche = 80000 - 80000 * 0.3;
+             $rest = $rest - 180000;
+             $fourTranche = 180000 - 180000 * 0.34;
+             if ($rest < 0) {
+                 $rest = 0;
+                  }
+              $fiveTranche = $rest - $rest * 0.38;
+              $bp_corporate_tax_second_year = $firstTranche + $secondTranche + $thirdTranche + $fourTranche + $fiveTranche;
+              //$bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 38 / 100;
                 break;
         }
         switch (true) {
             case ($bp_income_before_taxes_third_year > 0 && $bp_income_before_taxes_third_year <= 30000):
-                $bp_corporate_tax_third_year = $bp_income_before_taxes_third_year * 0 / 100;
+                $bp_corporate_tax_third_year = $bp_income_before_taxes_third_year;
                 break;
             case ($bp_income_before_taxes_third_year > 30000 && $bp_income_before_taxes_third_year <= 50000):
-                $bp_corporate_tax_third_year = $bp_income_before_taxes_third_year * 10 / 100;
+                 $is = $bp_income_before_taxes_third_year * 10 / 100;
+                 $bp_corporate_tax_third_year = $is-$bp_income_before_taxes_third_year * 10 / 100;               
                 break;
             case ($bp_income_before_taxes_third_year > 50000 && $bp_income_before_taxes_third_year <= 60000):
-                $bp_corporate_tax_third_year = $bp_income_before_taxes_third_year * 20 / 100;
+                 $firstTranche = 50000 - 50000 * 0.1;
+                 $secondTranche = $bp_income_before_taxes_third_year - 50000 - ($bp_income_before_taxes_third_year - 50000) * 0.2;
+                 $bp_corporate_tax_second_year  = $firstTranche + $secondTranche;
                 break;
             case ($bp_income_before_taxes_third_year > 60000 && $bp_income_before_taxes_third_year <= 80000):
-                $bp_corporate_tax_third_year = $bp_income_before_taxes_third_year * 30 / 100;
+                     $rest = $bp_income_before_taxes_third_year - 50000;
+                     $firstTranche = 50000 - 50000 * 0.1;
+                     $rest = $rest - 60000;
+                     $secondTranche = 60000 - 60000 * 0.2;
+                            if ($rest < 0) {
+                                $rest = 0;
+                            }
+                     $thirdTranche = $rest - $rest * 0.31;
+                     $bp_corporate_tax_third_year  = $firstTranche + $secondTranche + $thirdTranche;
                 break;
             case ($bp_income_before_taxes_third_year > 80000 && $bp_income_before_taxes_third_year <= 180000):
-                $bp_corporate_tax_third_year = $bp_income_before_taxes_third_year * 34 / 100;
+                      $rest = $bp_income_before_taxes_third_year - 50000;
+                      $firstTranche = 50000 - 50000 * 0.1;
+                      $rest = $rest - 60000;
+                      $secondTranche = 60000 - 60000 * 0.2;
+                      $rest = $rest - 80000;
+                      $thirdTranche = 80000 - 80000 * 0.3;
+                       if ($rest < 0) {
+                        $rest = 0;
+                               }
+                       $fourTranche = $rest - $rest * 0.34;
+                       $bp_corporate_tax_third_year = $firstTranche + $secondTranche + $thirdTranche + $fourTranche;
+               // $bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 34 / 100;
                 break;
             case ($bp_income_before_taxes_third_year > 180000):
-                $bp_corporate_tax_third_year = $bp_income_before_taxes_third_year * 38 / 100;
+             $rest = $bp_income_before_taxes_third_year - 50000;
+             $firstTranche = 50000 - 50000 * 0.1;
+             $rest = $rest - 60000;
+             $secondTranche = 60000 - 60000 * 0.2;
+             $rest = $rest - 80000;
+             $thirdTranche = 80000 - 80000 * 0.3;
+             $rest = $rest - 180000;
+             $fourTranche = 180000 - 180000 * 0.34;
+             if ($rest < 0) {
+                 $rest = 0;
+                  }
+              $fiveTranche = $rest - $rest * 0.38;
+              $bp_corporate_tax_third_year = $firstTranche + $secondTranche + $thirdTranche + $fourTranche + $fiveTranche;
+              //$bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 38 / 100;
                 break;
         }
     }
     elseif (($application->company->applied_tax ?? '') == 'Auto-entrepreneur activité commerciale, industrielle ou artisanale') {
-        $bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 0.5 / 100;
-        $bp_corporate_tax_second_year = $bp_income_before_taxes_second_year * 0.5 / 100;
-        $bp_corporate_tax_third_year = $bp_income_before_taxes_third_year * 0.5 / 100;
+        $bp_corporate_tax_first_year =$bp_turnover_first_year  * 0.5 / 100;
+        $bp_corporate_tax_second_year =$bp_turnover_second_year* 0.5 / 100;
+        $bp_corporate_tax_third_year = $bp_turnover_third_year * 0.5 / 100;
     }
     elseif (($application->company->applied_tax ?? '') == 'Auto-entrepreneur prestataire de services') {
-        $bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 1 / 100;
-        $bp_corporate_tax_second_year = $bp_income_before_taxes_second_year * 1 / 100;
-        $bp_corporate_tax_third_year = $bp_income_before_taxes_third_year * 1 / 100;
+        $bp_corporate_tax_first_year = $bp_turnover_first_year * 1 / 100;
+        $bp_corporate_tax_second_year = $bp_turnover_second_year* 1 / 100;
+        $bp_corporate_tax_third_year =$bp_turnover_third_year * 1 / 100;
     }
 
-    // Net Profit
+    // Net Profiti
     $bp_net_profit_first_year = $bp_income_before_taxes_first_year - $bp_corporate_tax_first_year;
     $bp_net_profit_second_year = $bp_income_before_taxes_second_year - $bp_corporate_tax_second_year;
     $bp_net_profit_third_year = $bp_income_before_taxes_third_year - $bp_corporate_tax_third_year;
-
     // Cash Flow
     $bp_cash_flow_first_year = $bp_net_profit_first_year + $bp_amortization_yearly;
     $bp_cash_flow_second_year = $bp_net_profit_second_year + $bp_amortization_yearly;
