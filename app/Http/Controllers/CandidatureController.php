@@ -38,7 +38,7 @@ class CandidatureController extends Controller
                     'first_name.*' => ['required', 'string', 'max:255'],
                     'last_name.*' => ['required', 'string', 'max:255'],
                     'email' => ['required', 'string', 'email', 'max:255', 'unique:members,email'],
-                    'identity_number' => ['required', 'string', 'max:255', 'unique:members,identity_number'],
+                    'identity_number' => ['required', 'string', 'max:255', 'unique:members,identity_number']
                 ]);
 
 
@@ -50,6 +50,7 @@ class CandidatureController extends Controller
                 'township_id' => ['nullable', 'integer', 'exists:townships,id'],
                 'title' => ['required', 'string', 'max:155'],
                 'market_type' => ['nullable', 'string', 'max:155'],
+                'startup_needs.rate'=>['nullable', 'integer']
             ]);
         }
 
