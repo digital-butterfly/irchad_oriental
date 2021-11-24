@@ -267,21 +267,6 @@
                $('#chomage_desc').parent().closest( '.form-group').hide();
            }
         });
-        // $('#informal_activitySelect').change(function() {
-        //    if( $('#informal_activitySelect').val()=='Oui'){
-        //        $('#informal_activity').parent().closest( '.form-group').show();
-        //    }else {
-        //        $('#informal_activity').parent().closest( '.form-group').hide();
-        //    }
-        // });
-        // })
-        // $('#project_ideaSelect').change(function() {
-        //    if( $('#project_idea_desc').val()=='Oui'){
-        //        $('#project_idea_desc').parent().closest( '.form-group').show();
-        //    }else {
-        //        $('#project_idea_desc').parent().closest( '.form-group').hide();
-        //    }
-        // });
         })
 	</script>
     <script src="https://printjs-4de6.kxcdn.com/print.min.js" type="application/javascript"></script>
