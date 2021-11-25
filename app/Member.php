@@ -191,17 +191,17 @@ class Member extends Authenticatable
             [
                 'name' => 'informal_activity_desc',
                 'type' => 'textarea',
-                'label' => 'Quelle la nature ',
+                'label' => ' De quelle nature ? ',
             ],
             [
                 'name' => 'informal_activity_nat',
                 'type' => 'textarea',
-                'label' => ' Depuis combien de temps',
+                'label' => ' Depuis combien de temps ?',
             ],
             [
                 'name' => 'entre_activity',
                 'type' => 'select',
-                'label' => 'Exercez-vous une activité entreprenariale',
+                'label' => 'Exercez-vous une activité entreprenariale ?',
                 'options' => ['Oui', 'Non']
             ],
             [
@@ -217,7 +217,7 @@ class Member extends Authenticatable
             [
                 'name' => 'project_idea',
                 'type' => 'select',
-                'label' => 'Avez-vous une idée de projet',
+                'label' => 'Avez-vous une idée de projet ?',
                 'options' => ['Oui', 'Non',]
             ],
             [

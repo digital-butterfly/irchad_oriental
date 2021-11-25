@@ -131,62 +131,68 @@
 // alert($('#chomageSelect').val())
         // console.log($('#chomageSelect').val())
 
-            if($('#chomageSelect').val()!='Oui'){
+        if($('#chomageSelect').val()!='Oui'){
                 $('#chomage_desc').parent().closest( '.form-group').hide();
             };
 
-            if( $('#chomageSelect').val()!='Oui') {
+            if( $('#informal_activitySelect').val()!='Oui') {
                 $('#informal_activity_desc').parent().closest('.form-group').hide();
+				$('#informal_activity_nat').parent().closest('.form-group').hide();
             }
             if( $('#entre_activitySelect').val()!='Oui') {
                 $('#entre_activity_desc').parent().closest('.form-group').hide();
+				$('#entre_activity_nat').parent().closest('.form-group').hide();
             }
             if($('#project_ideaSelect').val()!='Oui') {
-                $('#project_idea_desc').parent().closest('.form-group').hide();
+                $('#formation_needs_desc').parent().closest('.form-group').hide();
             }
             if( $('#formation_needsSelect').val()!='Oui') {
                 $('#project_idea_desc').parent().closest('.form-group').hide();
             }
         });
 
-        $('#informal_activitySelect').change(function() {
-           if( $('#informal_activitySelect').val()=='Oui'){
-               $('#informal_activity').parent().closest( '.form-group').show();
-           }else {
-               $('#informal_activity').parent().closest( '.form-group').hide();
-           }
+        $('#chomageSelect').change(function() {
+            if( $('#chomageSelect').val()=='Oui'){
+                $('#chomage_desc').parent().closest( '.form-group').show();
+            }else {
+                $('#chomage_desc').parent().closest( '.form-group').hide();
+            }
         });
 
-        $('#chomageSelect').change(function() {
-           if( $('#chomageSelect').val()=='Oui'){
-               $('#chomage_desc').parent().closest( '.form-group').show();
-           }else {
-               $('#chomage_desc').parent().closest( '.form-group').hide();
-           }
+        $('#informal_activitySelect').change(function() {
+            if( $('#informal_activitySelect').val()=='Oui'){
+                $('#informal_activity_desc').parent().closest( '.form-group').show();
+				$('#informal_activity_nat').parent().closest( '.form-group').show();
+            }else {
+                $('#informal_activity_desc').parent().closest( '.form-group').hide();
+				$('#informal_activity_nat').parent().closest( '.form-group').hide();
+            }
         });
 
         $('#entre_activitySelect').change(function() {
-           if( $('#entre_activitySelect').val()=='Oui'){
-               $('#informal_activity_desc').parent().closest( '.form-group').show();
-           }else {
-               $('#informal_activity_desc').parent().closest( '.form-group').hide();
-           }
+            if( $('#entre_activitySelect').val()=='Oui'){
+                $('#entre_activity_desc').parent().closest( '.form-group').show();
+				$('#entre_activity_nat').parent().closest( '.form-group').show();
+            }else {
+                $('#entre_activity_desc').parent().closest( '.form-group').hide();
+				$('#entre_activity_nat').parent().closest( '.form-group').hide();
+            }
         });
 
         $('#project_ideaSelect').change(function() {
-           if( $('#project_ideaSelect').val()=='Oui'){
-               $('#project_idea_desc').parent().closest( '.form-group').show();
-           }else {
-               $('#project_idea_desc').parent().closest( '.form-group').hide();
-           }
+            if( $('#project_ideaSelect').val()=='Oui'){
+                $('#project_idea_desc').parent().closest( '.form-group').show();
+            }else {
+                $('#project_idea_desc').parent().closest( '.form-group').hide();
+            }
         });
 
         $('#formation_needsSelect').change(function() {
-           if( $('#formation_needsSelect').val()=='Oui'){
-               $('#formation_needs_desc').parent().closest( '.form-group').show();
-           }else {
-               $('#formation_needs_desc').parent().closest( '.form-group').hide();
-           }
+            if( $('#formation_needsSelect').val()=='Oui'){
+                $('#formation_needs_desc').parent().closest( '.form-group').show();
+            }else {
+                $('#formation_needs_desc').parent().closest( '.form-group').hide();
+            }
         });
 
 
@@ -258,16 +264,7 @@
 
 
 
-        window.addEventListener('load',function(){
-            $('#chomageSelect').change(function() {
-           if( $('#chomageSelect').val()=='Oui'){
-               console.log("hhh");
-               $('#chomage_desc').parent().closest( '.form-group').show();
-           }else {
-               $('#chomage_desc').parent().closest( '.form-group').hide();
-           }
-        });
-        })
+       
 	</script>
     <script src="https://printjs-4de6.kxcdn.com/print.min.js" type="application/javascript"></script>
 @endsection

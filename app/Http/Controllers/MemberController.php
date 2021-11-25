@@ -109,13 +109,14 @@ class MemberController extends Controller
             "chomage_desc" => $request["chomage_desc"],
             "informal_activity_desc" => $request["informal_activity_desc"],
             "informal_activity" => $request["informal_activity"],
+            "informal_activity_nat" => $request["informal_activity_nat"],
             "entre_activity" => $request["entre_activity"],
             "entre_activity_desc" => $request["entre_activity_desc"],
+            "entre_activity_nat" => $request["entre_activity_nat"],
             "project_idea" => $request["project_idea"],
             "project_idea_desc" => $request["project_idea_desc"],
             "formation_needs" => $request["formation_needs"],
             "formation_needs_desc" => $request["formation_needs_desc"],
-
 
         );
 
@@ -214,8 +215,10 @@ class MemberController extends Controller
             "chomage_desc" => $request["chomage_desc"],
             "informal_activity_desc" => $request["informal_activity_desc"],
             "informal_activity" => $request["informal_activity"],
+            "informal_activity_nat" => $request["informal_activity_nat"],
             "entre_activity" => $request["entre_activity"],
             "entre_activity_desc" => $request["entre_activity_desc"],
+            "entre_activity_nat" => $request["entre_activity_nat"],
             "project_idea" => $request["project_idea"],
             "project_idea_desc" => $request["project_idea_desc"],
             "formation_needs" => $request["formation_needs"],
