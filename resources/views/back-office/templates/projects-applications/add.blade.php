@@ -255,6 +255,66 @@
 						$(this).slideUp(deleteElement);
 					}
 				});
+				var local= $('.kt_repeater_local').repeater({
+					initEmpty: false,
+
+					defaultValues: {
+						'text-input': 'foo'
+					},
+
+					show: function () {
+						$(this).slideDown();
+					},
+
+					hide: function (deleteElement) {
+						$(this).slideUp(deleteElement);
+					}
+				});
+				var list_mat= $('.kt_repeater_list_mat').repeater({
+					initEmpty: false,
+
+					defaultValues: {
+						'text-input': 'foo'
+					},
+
+					show: function () {
+						$(this).slideDown();
+					},
+
+					hide: function (deleteElement) {
+						$(this).slideUp(deleteElement);
+					}
+				});
+				var autorisations_nécessaire= $('.kt_repeater_autorisations_nécessaire').repeater({
+					initEmpty: false,
+
+					defaultValues: {
+						'text-input': 'foo'
+					},
+
+					show: function () {
+						$(this).slideDown();
+					},
+
+					hide: function (deleteElement) {
+						$(this).slideUp(deleteElement);
+					}
+				});
+				var services_turnover_forecast= $('.kt_repeater_services_turnover_forecast').repeater({
+					initEmpty: false,
+
+					defaultValues: {
+						'text-input': 'foo'
+					},
+
+					show: function () {
+						$(this).slideDown();
+					},
+
+					hide: function (deleteElement) {
+						$(this).slideUp(deleteElement);
+					}
+				});
 			}
 
 			return {
@@ -325,7 +385,7 @@
                 });
                 // tagifyTo.settings.whitelist.push(...toEl.value)
                 // console.log('helloooooooo',tagifyTo.settings.whitelist)
-                console.log('helloooooooo', tagifyTo)
+                //console.log('helloooooooo', tagifyTo)
 
 
                 tagifyTo.on('input', onInput).on('remove', onRemoveTag).on('dropdown:select', onSelectSuggestion)

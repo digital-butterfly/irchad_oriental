@@ -44,7 +44,10 @@ class ProjectApplication extends Model
         'funding',
         'created_by',
         'rejected_reason',
-        'updated_by'
+        'updated_by',
+        'credit_banc',
+        'strategie_dist',
+       
     ];
 
     /**
@@ -234,11 +237,25 @@ class ProjectApplication extends Model
                 'type' => 'number',
                 'label' => 'Montant d\'investissement estimatif',
                 'group' => 'Données Générales'
-            ], [
-                'name' => 'market_type',
+            ], 
+             [
+                'name' => 'credit_banc',
                 'type' => 'select',
+                'label' => 'supplément crédit bancaire',
+                'options'=>['Oui','Non'],
+                'group' => 'Données Générales'
+            ],
+            [
+                'name' => 'market_type',
+                'type' => 'text',
                 'label' => 'Marché visé',
-                'options' => ['Marché national', 'Marché international'],
+                'group' => 'Données Générales'
+            ],
+            [
+                'name' => 'strategie_dist',
+                'type' => 'select',
+                'label' => 'Stratégie de distribution',
+                'options'=>['Force','Faiblesse','Menace','Opportunité'],
                 'group' => 'Données Générales'
             ],
             [
@@ -373,8 +390,24 @@ class ProjectApplication extends Model
                         'type' => 'textarea',
                         'label' => 'Stratégie de distribution'
                     ],
+                    [
+                        'name' => 'autorisations_nécessaire',
+                        'type' => 'repeater',
+                        'label' => 'Autorisations nécessaires'
+                    ],
+                    [
+                        'name' => 'local',
+                        'type' => 'repeater',
+                        'label' => 'local',
+                        'config' => ['tripleRepeater' => true, 'attributes' => [['nature',3], ['surface ',2], ['Adresse',0]],'Select'=>false]
+                    ],
+                    [
+                        'name' => 'list_mat',
+                        'type' => 'repeater',
+                        'label' => 'liste de matériel'
+                    ],
                 ],
-                'group' => 'Business Model',
+                'group' => 'Étude Technique',
             ],
             [
                 'name' => 'financial_data',
@@ -401,8 +434,10 @@ class ProjectApplication extends Model
                     ],
                     [
                         'name' => 'services_turnover_forecast',
-                        'type' => 'text',
-                        'label' => 'CA prévisionnel - Services'
+                        'type' => 'repeater',
+                        'label' => 'CA prévisionnel - Services',
+                        'config' => ['tripleRepeater' => true, 'attributes' => [['Service',3], ['Quantité  vendus',3], ['P.U',1]],'Select'=>false]
+
                     ],
                     [
                         'name' => 'products_turnover_forecast',
@@ -445,7 +480,7 @@ class ProjectApplication extends Model
                         'config' => ['doubleRepeater' => true,'attributes' => [['Types de taxes',4], ['Montant ',3]],'Select'=>true, 'options' =>self::TAXES]
                     ],
                 ],
-                'group' => 'Données Financières'
+                'group' => 'Étude Technique'
             ],
             [
                 'class' => 'kt-callout--warning',

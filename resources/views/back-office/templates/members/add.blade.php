@@ -78,9 +78,11 @@
 
             if( $('#informal_activitySelect').val()!='Oui') {
                 $('#informal_activity_desc').parent().closest('.form-group').hide();
+				$('#informal_activity_nat').parent().closest('.form-group').hide();
             }
             if( $('#entre_activitySelect').val()!='Oui') {
                 $('#entre_activity_desc').parent().closest('.form-group').hide();
+				$('#entre_activity_nat').parent().closest('.form-group').hide();
             }
             if($('#project_ideaSelect').val()!='Oui') {
                 $('#formation_needs_desc').parent().closest('.form-group').hide();
@@ -101,16 +103,20 @@
         $('#informal_activitySelect').change(function() {
             if( $('#informal_activitySelect').val()=='Oui'){
                 $('#informal_activity_desc').parent().closest( '.form-group').show();
+				$('#informal_activity_nat').parent().closest( '.form-group').show();
             }else {
                 $('#informal_activity_desc').parent().closest( '.form-group').hide();
+				$('#informal_activity_nat').parent().closest( '.form-group').hide();
             }
         });
 
         $('#entre_activitySelect').change(function() {
             if( $('#entre_activitySelect').val()=='Oui'){
                 $('#entre_activity_desc').parent().closest( '.form-group').show();
+				$('#entre_activity_nat').parent().closest( '.form-group').show();
             }else {
                 $('#entre_activity_desc').parent().closest( '.form-group').hide();
+				$('#entre_activity_nat').parent().closest( '.form-group').hide();
             }
         });
 

@@ -43,7 +43,9 @@ class Member extends Authenticatable
         'project_idea',
         'formation_needs',
         'project_idea_desc',
-        'chomage_desc'
+        'chomage_desc',
+        'informal_activity_nat',
+        'entre_activity_nat'
     ];
 
 
@@ -181,15 +183,20 @@ class Member extends Authenticatable
                 'label' => 'Depuis combien de temps',
             ],
             [
-                'name' => 'entre_activity',
+                'name' => 'informal_activity',
                 'type' => 'select',
                 'label' => 'Exercez-vous une activité informelle',
-                'options' => ['Oui', 'Non']
+                'options' => ['Oui','Non']
             ],
             [
                 'name' => 'informal_activity_desc',
                 'type' => 'textarea',
-                'label' => 'Dans quel secteur',
+                'label' => 'Quelle la nature ',
+            ],
+            [
+                'name' => 'informal_activity_nat',
+                'type' => 'textarea',
+                'label' => ' Depuis combien de temps',
             ],
             [
                 'name' => 'entre_activity',
@@ -201,6 +208,11 @@ class Member extends Authenticatable
                 'name' => 'entre_activity_desc',
                 'type' => 'textarea',
                 'label' => 'Depuis combien de mois?',
+            ],
+            [
+                'name' => 'entre_activity_nat',
+                'type' => 'textarea',
+                'label' => 'De quel secteur ?',
             ],
             [
                 'name' => 'project_idea',

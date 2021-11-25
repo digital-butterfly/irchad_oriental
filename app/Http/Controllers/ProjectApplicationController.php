@@ -62,7 +62,8 @@ class ProjectApplicationController extends Controller
             'financial_plan_loans.*.value' => ['nullable', 'integer'],
             'financial_plan_loans.*.rate' => ['nullable', 'integer'],
             'financial_plan_loans.*.duration' => ['nullable', 'integer'],
-            'services_turnover_forecast' => ['nullable', 'integer'],
+            'services_turnover_forecast.*.count' => ['nullable', 'integer'],
+            'services_turnover_forecast.*.value' => ['nullable', 'integer'],
 //            'products_turnover_forecast' => ['nullable', 'integer'],
             'profit_margin_rate' => ['nullable', 'integer'],
             'evolution_rate' => ['nullable', 'integer'],
@@ -143,6 +144,7 @@ class ProjectApplicationController extends Controller
     {
         $id=0;
         $fields = ProjectApplication::formFields($id);
+       // dd($fields);
         return view('back-office/templates/projects-applications/add', compact("fields"));
     }
 
@@ -168,6 +170,8 @@ class ProjectApplicationController extends Controller
             'title' => $request['title'],
             'description' => $request['description'],
             'market_type' => $request['market_type'],
+            'credit_banc' => $request['credit_banc'],
+            'strategie_dist' => $request['strategie_dist'],
             'business_model' => json_decode(json_encode([
                 'core_business' => $request['core_business'],
                 'primary_target' => $request['primary_target'],
@@ -176,6 +180,9 @@ class ProjectApplicationController extends Controller
                 'advertising' => $request['advertising'],
                 'pricing_strategy' => $request['pricing_strategy'],
                 'distribution_strategy' => $request['distribution_strategy'],
+                'autorisations_nécessaire' => $request['autorisations_nécessaire'],
+                'local' => $request['local'],
+                'list_mat' => $request['list_mat']
             ])),
             'financial_data' => json_decode(json_encode([
                 'financial_plan' => $request['financial_plan'],
