@@ -103,6 +103,7 @@ class MemberController extends Controller
      */
     public function store(Request $request)
     {
+       // dd( $request );
         $this->validator($request->all(), 'member')->validate();
         $otherquestions [] = array(
             "chomage" => $request["chomage"],
@@ -116,9 +117,12 @@ class MemberController extends Controller
             "project_idea" => $request["project_idea"],
             "project_idea_desc" => $request["project_idea_desc"],
             "formation_needs" => $request["formation_needs"],
-            "formation_needs_desc" => $request["formation_needs_desc"],
+            "formation_needs_desc" => $request["formation_needs_desc"]
 
         );
+        // var_dump(json_encode($otherquestions));
+
+        // dd("hello");
 
         $member = Member::create([
             'first_name' => strtolower($request['first_name']),
@@ -135,9 +139,10 @@ class MemberController extends Controller
             'degrees' => json_decode(json_encode($request['degrees'])),
             'professional_experience' => json_decode(json_encode($request['professional_experience'])),
             'reduced_mobility' => $request['reduced_mobility'],
-            'otherquestions' => json_decode(json_encode($otherquestions)),
+            'otherquestions' => json_encode($otherquestions),
 
         ]);
+        
         return redirect()->intended('admin/members');
     }
 
@@ -241,7 +246,7 @@ class MemberController extends Controller
             'professional_experience' => json_decode(json_encode($request['professional_experience'])),
             'state_help' => json_decode(json_encode($request['state_help'])),
             'reduced_mobility' => $request['reduced_mobility'],
-            'otherquestions' => json_decode(json_encode($otherquestions)),
+            'otherquestions' => json_encode($otherquestions),
         ]);
 
         if ($request['password']) {
