@@ -610,7 +610,12 @@
                                                     </div>
                                                     <div class="form-group row">
                                                         <div class="col-lg-6">
-                                                            <input type="text" name="member[0][informal_activity_desc]" id="informal_activity_desc" class="form-control" placeholder="{{__('project-submission.Dans quel secteur?')}}" >
+                                                            <input type="text" name="member[0][informal_activity_nat]" id="informal_activity_nat" class="form-control" placeholder="{{__('project-submission.De quelle nature?')}}" >
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <div class="col-lg-6">
+                                                            <input type="text" name="member[0][informal_activity_desc]" id="informal_activity_desc" class="form-control" placeholder="{{__('project-submission.Depuis combien de mois?')}}" >
                                                         </div>
                                                     </div>
 
@@ -632,6 +637,11 @@
                                                     <div class="form-group row">
                                                         <div class="col-lg-6">
                                                             <input type="text" name="member[0][entre_activity_desc]" id="entre_activity_desc" class="form-control" placeholder="{{__('project-submission.Depuis combien de mois ?')}}" >
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <div class="col-lg-6">
+                                                            <input type="text" name="member[0][entre_activity_nat]" id="entre_activity_nat" class="form-control" placeholder="{{__('project-submission. De quel secteur ?')}}" >
                                                         </div>
                                                     </div>
                                                 </div>
