@@ -180,6 +180,9 @@ class CandidatureController extends Controller
                 "project_idea_desc" => isset ($item["project_idea_desc"])?$item["project_idea_desc"]:null,
                 "formation_needs" => isset ($item["formation_needs"])?$item["formation_needs"]:null,
                 "formation_needs_desc" => isset ($item["formation_needs_desc"])?$item["formation_needs_desc"]:null,
+                "entre_activity_nat" => isset ($item["entre_activity_nat"])?$item["entre_activity_nat"]:null,
+                "informal_activity_nat" => isset ($item["informal_activity_nat"])?$item["informal_activity_nat"]:null,
+
 
 
             );
