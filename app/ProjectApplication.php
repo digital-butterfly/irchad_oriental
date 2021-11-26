@@ -45,8 +45,7 @@ class ProjectApplication extends Model
         'created_by',
         'rejected_reason',
         'updated_by',
-        'credit_banc',
-        'strategie_dist',
+        'credit_banc'
        
     ];
 
@@ -252,13 +251,6 @@ class ProjectApplication extends Model
                 'group' => 'Données Générales'
             ],
             [
-                'name' => 'strategie_dist',
-                'type' => 'select',
-                'label' => 'Stratégie de distribution',
-                'options'=>['Force','Faiblesse','Menace','Opportunité'],
-                'group' => 'Données Générales'
-            ],
-            [
                 'name' => 'status',
                 'type' => 'select',
                 'label' => 'Status',
@@ -355,9 +347,16 @@ class ProjectApplication extends Model
                 'label' => 'Business Model',
                 'sub_fields' => [
                     [
-                        'name' => 'core_business',
-                        'type' => 'textarea',
-                        'label' => 'Produits et services'
+                        'name' => 'core_business_p',
+                        'type' => 'repeater',
+                        'label' => 'Produits ',
+                        'config' => ['doubleRepeater' => true, 'attributes' => [['Description',4], ['Prix estime de vente',2]],'Select'=>false]
+                    ],
+                    [
+                        'name' => 'core_services',
+                        'type' => 'repeater',
+                        'label' => 'Services ',
+                        'config' => ['doubleRepeater' => true, 'attributes' => [['Description',4], ['Prix estime de vente',2]],'Select'=>false]
                     ],
                     [
                         'name' => 'primary_target',
@@ -365,14 +364,23 @@ class ProjectApplication extends Model
                         'label' => 'Principaux clients'
                     ],
                     [
-                        'name' => 'suppliers',
-                        'type' => 'textarea',
-                        'label' => 'Principaux fournisseurs'
+                        'name' => 'suppliers_f',
+                        'type' => 'repeater',
+                        'label' => 'Principaux fournisseurs',
+                        'config' => ['doubleRepeater' => true, 'attributes' => [['Nature des intrants',3], ['localité',2]],'Select'=>false]
+
                     ],
                     [
-                        'name' => 'competition',
-                        'type' => 'textarea',
-                        'label' => 'Principaux concurrents'
+                        'name' => 'competition_c',
+                        'type' => 'repeater',
+                        'label' => 'Principaux concurrents',
+                        'config' => ['doubleRepeater' => true, 'attributes' => [['localité',3], ['Prix de vente',2]],'Select'=>false]
+
+                    ],
+                    [
+                        'name' => 'avg_competi',
+                        'type' => 'text',
+                        'label' => 'Moyen de différenciation par rapport au concurrents'
                     ],
                     [
                         'name' => 'advertising',
@@ -390,6 +398,26 @@ class ProjectApplication extends Model
                         'type' => 'textarea',
                         'label' => 'Stratégie de distribution'
                     ],
+                    [
+                        'name' => 'distribution_strategy_force',
+                        'type' => 'text',
+                        'label' => 'Force'
+                    ],
+                    [
+                        'name' => 'distribution_strategy_menace',
+                        'type' => 'text',
+                        'label' => 'Menace'
+                    ], 
+                    [
+                        'name' => 'distribution_strategy_faiblesse',
+                        'type' => 'text',
+                        'label' => 'Faiblesse'
+                    ], 
+                    [
+                        'name' => 'distribution_strategy_Opportunité',
+                        'type' => 'text',
+                        'label' => 'Opportunité'
+                    ], 
                     [
                         'name' => 'autorisations_nécessaire',
                         'type' => 'repeater',

@@ -45,10 +45,10 @@ class ProjectApplicationController extends Controller
             'title' => ['required', 'string', 'max:155'],
             'description' => ['nullable', 'string', 'max:455'],
             'market_type' => ['nullable', 'string', 'max:155'],
-            'core_business' => ['nullable', 'string', 'max:455'],
+            'core_business_p.*.value' => ['nullable', 'Integer'],
             'primary_target' => ['nullable', 'string', 'max:455'],
             'suppliers' => ['nullable', 'string', 'max:455'],
-            'competition' => ['nullable', 'string', 'max:455'],
+            'competition_c.*.value' => ['nullable', 'Integer'],
             'advertising' => ['nullable', 'string', 'max:455'],
             'pricing_strategy' => ['nullable', 'string', 'max:455'],
             'distribution_strategy' => ['nullable', 'string', 'max:455'],
@@ -173,13 +173,18 @@ class ProjectApplicationController extends Controller
             'credit_banc' => $request['credit_banc'],
             'strategie_dist' => $request['strategie_dist'],
             'business_model' => json_decode(json_encode([
-                'core_business' => $request['core_business'],
+                'core_business_p' => $request['core_business_p'],
+                'core_services' => $request['core_services'],
                 'primary_target' => $request['primary_target'],
-                'suppliers' => $request['suppliers'],
-                'competition' => $request['competition'],
+                'suppliers_f' => $request['suppliers_f'],
+                'competition_c' => $request['competition_c'],
                 'advertising' => $request['advertising'],
                 'pricing_strategy' => $request['pricing_strategy'],
                 'distribution_strategy' => $request['distribution_strategy'],
+                'distribution_strategy_force' => $request['distribution_strategy_force'],
+                'distribution_strategy_menace' => $request['distribution_strategy_menace'],
+                'distribution_strategy_faiblesse' => $request['distribution_strategy_faiblesse'],
+                'distribution_strategy_Opportunité' => $request['distribution_strategy_Opportunité'],
                 'autorisations_nécessaire' => $request['autorisations_nécessaire'],
                 'local' => $request['local'],
                 'list_mat' => $request['list_mat']
@@ -307,9 +312,10 @@ class ProjectApplicationController extends Controller
 //        dd($projectApplicationMembers->toArray());
 //        $data =collect([ProjectApplication::findOrFail($id),$projectApplicationMembers]);
         $data =ProjectApplication::findOrFail($id);
-
+       
 //        dd(array_merge($data->toArray()));
-        $fields = ProjectApplication::formFields($id);
+        $fields = ProjectApplication::formFields($id); 
+       // dd($fields);
         return view('back-office/templates/projects-applications/edit', compact('fields', 'data', 'projectApplicationMembers'));
     }
     /**
@@ -468,15 +474,25 @@ class ProjectApplicationController extends Controller
             'title' => $request['title'],
             'description' => $request['description'],
             'market_type' => $request['market_type'],
+            'credit_banc' => $request['credit_banc'],
+            'strategie_dist' => $request['strategie_dist'],
             'montant_est' => $request['montant_est'],
             'business_model' => json_decode(json_encode([
-                'core_business' => $request['core_business'],
+                'core_business_p' => $request['core_business_p'],
+                'core_services' => $request['core_services'],
                 'primary_target' => $request['primary_target'],
-                'suppliers' => $request['suppliers'],
-                'competition' => $request['competition'],
+                'suppliers_f' => $request['suppliers_f'],
+                'competition_c' => $request['competition_c'],
                 'advertising' => $request['advertising'],
                 'pricing_strategy' => $request['pricing_strategy'],
                 'distribution_strategy' => $request['distribution_strategy'],
+                'distribution_strategy_force' => $request['distribution_strategy_force'],
+                'distribution_strategy_menace' => $request['distribution_strategy_menace'],
+                'distribution_strategy_faiblesse' => $request['distribution_strategy_faiblesse'],
+                'distribution_strategy_Opportunité' => $request['distribution_strategy_Opportunité'],
+                'autorisations_nécessaire' => $request['autorisations_nécessaire'],
+                'local' => $request['local'],
+                'list_mat' => $request['list_mat']
             ])),
             'financial_data' => json_decode(json_encode([
                 'financial_plan' => $request['financial_plan'],

@@ -384,6 +384,126 @@
 						$(this).slideUp(deleteElement);
 					}
 				});
+				var local= $('.kt_repeater_local').repeater({
+					initEmpty: false,
+
+					defaultValues: {
+						'text-input': 'foo'
+					},
+
+					show: function () {
+						$(this).slideDown();
+					},
+
+					hide: function (deleteElement) {
+						$(this).slideUp(deleteElement);
+					}
+				});
+				var list_mat= $('.kt_repeater_list_mat').repeater({
+					initEmpty: false,
+
+					defaultValues: {
+						'text-input': 'foo'
+					},
+
+					show: function () {
+						$(this).slideDown();
+					},
+
+					hide: function (deleteElement) {
+						$(this).slideUp(deleteElement);
+					}
+				});
+				var autorisations_nécessaire= $('.kt_repeater_autorisations_nécessaire').repeater({
+					initEmpty: false,
+
+					defaultValues: {
+						'text-input': 'foo'
+					},
+
+					show: function () {
+						$(this).slideDown();
+					},
+
+					hide: function (deleteElement) {
+						$(this).slideUp(deleteElement);
+					}
+				});
+				var services_turnover_forecast= $('.kt_repeater_services_turnover_forecast').repeater({
+					initEmpty: false,
+
+					defaultValues: {
+						'text-input': 'foo'
+					},
+
+					show: function () {
+						$(this).slideDown();
+					},
+
+					hide: function (deleteElement) {
+						$(this).slideUp(deleteElement);
+					}
+				});
+				var core_business_p= $('.kt_repeater_core_business_p').repeater({
+					initEmpty: false,
+
+					defaultValues: {
+						'text-input': 'foo'
+					},
+
+					show: function () {
+						$(this).slideDown();
+					},
+
+					hide: function (deleteElement) {
+						$(this).slideUp(deleteElement);
+					}
+				});
+				var core_services= $('.kt_repeater_core_services').repeater({
+					initEmpty: false,
+
+					defaultValues: {
+						'text-input': 'foo'
+					},
+
+					show: function () {
+						$(this).slideDown();
+					},
+
+					hide: function (deleteElement) {
+						$(this).slideUp(deleteElement);
+					}
+				});
+				var suppliers_f= $('.kt_repeater_suppliers_f').repeater({
+					initEmpty: false,
+
+					defaultValues: {
+						'text-input': 'foo'
+					},
+
+					show: function () {
+						$(this).slideDown();
+					},
+
+					hide: function (deleteElement) {
+						$(this).slideUp(deleteElement);
+					}
+				});
+				var competition_c= $('.kt_repeater_competition_c').repeater({
+					initEmpty: false,
+
+					defaultValues: {
+						'text-input': 'foo'
+					},
+
+					show: function () {
+						$(this).slideDown();
+					},
+
+					hide: function (deleteElement) {
+						$(this).slideUp(deleteElement);
+					}
+				});
 			}
 
 			return {

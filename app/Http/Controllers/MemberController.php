@@ -195,6 +195,8 @@ class MemberController extends Controller
         $data->entre_activity_desc=json_decode($data->otherquestions)[0]->entre_activity_desc;
         $data->formation_needs_desc=json_decode($data->otherquestions)[0]->formation_needs_desc;
         $data->informal_activity_desc=json_decode($data->otherquestions)[0]->informal_activity_desc;
+        $data->informal_activity_nat=json_decode($data->otherquestions)[0]->informal_activity_nat;
+        $data->entre_activity_nat=json_decode($data->otherquestions)[0]->entre_activity_nat;
         }
 //        dd($data->toArray());
 //       dd ($data->otherquestions=json_decode($data->otherquestions)[0]);
@@ -214,7 +216,7 @@ class MemberController extends Controller
     public function update(Request $request, Member $member)
     {
 //        dd($request->toArray());
-
+          ///  dd($request["informal_activity_nat"]);
         $otherquestions [] = array(
             "chomage" => $request["chomage"],
             "chomage_desc" => $request["chomage_desc"],

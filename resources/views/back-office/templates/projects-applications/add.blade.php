@@ -315,6 +315,66 @@
 						$(this).slideUp(deleteElement);
 					}
 				});
+				var core_business_p= $('.kt_repeater_core_business_p').repeater({
+					initEmpty: false,
+
+					defaultValues: {
+						'text-input': 'foo'
+					},
+
+					show: function () {
+						$(this).slideDown();
+					},
+
+					hide: function (deleteElement) {
+						$(this).slideUp(deleteElement);
+					}
+				});
+				var core_services= $('.kt_repeater_core_services').repeater({
+					initEmpty: false,
+
+					defaultValues: {
+						'text-input': 'foo'
+					},
+
+					show: function () {
+						$(this).slideDown();
+					},
+
+					hide: function (deleteElement) {
+						$(this).slideUp(deleteElement);
+					}
+				});
+				var suppliers_p= $('.kt_repeater_suppliers_p').repeater({
+					initEmpty: false,
+
+					defaultValues: {
+						'text-input': 'foo'
+					},
+
+					show: function () {
+						$(this).slideDown();
+					},
+
+					hide: function (deleteElement) {
+						$(this).slideUp(deleteElement);
+					}
+				});
+				var competition_c= $('.kt_repeater_competition_c').repeater({
+					initEmpty: false,
+
+					defaultValues: {
+						'text-input': 'foo'
+					},
+
+					show: function () {
+						$(this).slideDown();
+					},
+
+					hide: function (deleteElement) {
+						$(this).slideUp(deleteElement);
+					}
+				});
 			}
 
 			return {
