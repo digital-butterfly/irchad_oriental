@@ -300,7 +300,7 @@
 						$(this).slideUp(deleteElement);
 					}
 				});
-				var services_turnover_forecast= $('.kt_repeater_services_turnover_forecast').repeater({
+				var services_turnover_forecast_c= $('.kt_repeater_services_turnover_forecast_c').repeater({
 					initEmpty: false,
 
 					defaultValues: {

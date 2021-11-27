@@ -196,6 +196,7 @@ class MemberController extends Controller
         $data->formation_needs_desc=json_decode($data->otherquestions)[0]->formation_needs_desc;
         $data->informal_activity_desc=json_decode($data->otherquestions)[0]->informal_activity_desc;
         $data->informal_activity_nat=isset(json_decode($data->otherquestions)[0]->informal_activity_nat);
+      //  dd($data->informal_activity_nat);
         $data->entre_activity_nat=isset(json_decode($data->otherquestions)[0]->entre_activity_nat);
         }
 //        dd($data->toArray());

@@ -62,8 +62,8 @@ class ProjectApplicationController extends Controller
             'financial_plan_loans.*.value' => ['nullable', 'integer'],
             'financial_plan_loans.*.rate' => ['nullable', 'integer'],
             'financial_plan_loans.*.duration' => ['nullable', 'integer'],
-            'services_turnover_forecast.*.count' => ['nullable', 'integer'],
-            'services_turnover_forecast.*.value' => ['nullable', 'integer'],
+            'services_turnover_forecast_c.*.count' => ['nullable', 'integer'],
+            'services_turnover_forecast_c.*.value' => ['nullable', 'integer'],
 //            'products_turnover_forecast' => ['nullable', 'integer'],
             'profit_margin_rate' => ['nullable', 'integer'],
             'evolution_rate' => ['nullable', 'integer'],
@@ -171,7 +171,6 @@ class ProjectApplicationController extends Controller
             'description' => $request['description'],
             'market_type' => $request['market_type'],
             'credit_banc' => $request['credit_banc'],
-            'strategie_dist' => $request['strategie_dist'],
             'business_model' => json_decode(json_encode([
                 'core_business_p' => $request['core_business_p'],
                 'core_services' => $request['core_services'],
@@ -197,7 +196,7 @@ class ProjectApplicationController extends Controller
                 'overheads_scalable' => $request['overheads_scalable'],
                 'human_ressources' => $request['human_ressources'],
                 'taxes' => $request['taxes'],
-                'services_turnover_forecast' => $request['services_turnover_forecast'],
+                'services_turnover_forecast_c' => $request['services_turnover_forecast_c'],
                 'products_turnover_forecast' => $request['products_turnover_forecast'],
                 'profit_margin_rate' => $request['profit_margin_rate'],
                 'evolution_rate' => $request['evolution_rate'],
@@ -243,7 +242,7 @@ class ProjectApplicationController extends Controller
      */
     public function show($id)
     {
-
+       //dd("hhhh");
         $application = ProjectApplication::find($id);
 
         $member = Member::find($application->member_id);
@@ -475,7 +474,6 @@ class ProjectApplicationController extends Controller
             'description' => $request['description'],
             'market_type' => $request['market_type'],
             'credit_banc' => $request['credit_banc'],
-            'strategie_dist' => $request['strategie_dist'],
             'montant_est' => $request['montant_est'],
             'business_model' => json_decode(json_encode([
                 'core_business_p' => $request['core_business_p'],
@@ -502,7 +500,7 @@ class ProjectApplicationController extends Controller
                 'overheads_scalable' => $request['overheads_scalable'],
                 'human_ressources' => $request['human_ressources'],
                 'taxes' => $request['taxes'],
-                'services_turnover_forecast' => $request['services_turnover_forecast'],
+                'services_turnover_forecast_c' => $request['services_turnover_forecast_c'],
                 'products_turnover_forecast' => $request['products_turnover_forecast'],
                 'profit_margin_rate' => $request['profit_margin_rate'],
                 'evolution_rate' => $request['evolution_rate'],

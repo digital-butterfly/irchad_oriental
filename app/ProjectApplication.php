@@ -461,7 +461,7 @@ class ProjectApplication extends Model
                         'config' => ['quadrupleRepeater' => true, 'attributes' => [['Organisme de crédit',3], ['Montant',3], ['Taux',1], ['TVA',1]],'Select'=>false]
                     ],
                     [
-                        'name' => 'services_turnover_forecast',
+                        'name' => 'services_turnover_forecast_c',
                         'type' => 'repeater',
                         'label' => 'CA prévisionnel - Services',
                         'config' => ['tripleRepeater' => true, 'attributes' => [['Service',3], ['Quantité  vendus',3], ['P.U',1]],'Select'=>false]

@@ -189,12 +189,12 @@ class Member extends Authenticatable
                 'options' => ['Oui','Non']
             ],
             [
-                'name' => 'informal_activity_desc',
+                'name' => 'informal_activity_nat',
                 'type' => 'textarea',
                 'label' => ' De quelle nature ? ',
             ],
             [
-                'name' => 'informal_activity_nat',
+                'name' => 'informal_activity_desc',
                 'type' => 'textarea',
                 'label' => ' Depuis combien de temps ?',
             ],
