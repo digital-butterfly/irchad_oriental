@@ -345,7 +345,7 @@
 						$(this).slideUp(deleteElement);
 					}
 				});
-				var suppliers_p= $('.kt_repeater_suppliers_p').repeater({
+				var suppliers_f= $('.kt_repeater_suppliers_f').repeater({
 					initEmpty: false,
 
 					defaultValues: {

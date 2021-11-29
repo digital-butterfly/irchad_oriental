@@ -1,7 +1,8 @@
 
 
 @php
- 
+     $bp_evolution_rate = isset($application->financial_data->evolution_rate) ? $application->financial_data->evolution_rate : 0;
+
     // Financial Plan
     $bp_financial_plan_total = 0;
     if(isset($application->financial_data->financial_plan)){
@@ -22,7 +23,21 @@
             $bp_investment_program_total += $item->value ?? 0;
         }
     }
-
+//total charge 
+                                                $total1=0;
+                                                $total2=0;
+                                                $total3=0;
+     if(isset($application->financial_data->overheads_scalable)){
+         foreach ($application->financial_data->overheads_scalable as $item){
+              if ($item->label != NULL) {
+                 $total1=$total1+ $item->value;
+                 $total2+= $item->value + ($item->value * $bp_evolution_rate / 100);
+                 $total3+= ($item->value+  ($item->value * $bp_evolution_rate / 100)) + ($item->value + ($item->value * $bp_evolution_rate / 100)) * $bp_evolution_rate / 100;  
+              }                                          
+            }                                     
+     }
+                                    
+                                    
     // Parameters
     $bp_turnover_products_total =  0;
     $bp_turnover_products_totals=0;
@@ -46,7 +61,6 @@
     $bp_turnover_services_total = isset($application->financial_data->services_turnover_forecast) ? $application->financial_data->services_turnover_forecast : 0 ;
    // $bp_profit_margin_rate = isset($application->financial_data->profit_margin_rate) ? $application->financial_data->profit_margin_rate : 0;
 
-    $bp_evolution_rate = isset($application->financial_data->evolution_rate) ? $application->financial_data->evolution_rate : 0;
 
     // Loans Amortization
     $bp_loan_periodic_rate = 0;
@@ -782,6 +796,12 @@
                                         @endif
                                     @endforeach
                                 @endif
+                                <tr  class="kt-font-bolder">
+                                  <td> Total</td>
+                                  <td>{{ number_format($total1, 0, ',', ' ') }} MAD</td>
+                                  <td>{{  number_format($total2, 0, ',', ' ') }} MAD</td>
+                                  <td>{{ number_format($total3, 0, ',', ' ') }} MAD</td>
+                                </tr> 
                                 <tr class="kt-font-bolder">
                                     <td>VALEUR AJOUTÉE</td>
                                     <td>{{ number_format($bp_added_value_first_year, 0, ',', ' ') }} MAD</td>
@@ -800,6 +820,17 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @if(isset($application->financial_data->human_ressources))
+                                @foreach($application->financial_data->human_ressources as $item)
+                                  <tr>
+                                    <td>Poste</td>
+                                    <td>{{ $item->label }} </td>
+                                    <td>{{$item->count}} </td>
+                                    <td>{{ $item->value}} MAD</td>
+                                </tr>
+                                @endforeach  
+                                @endif
+                               
                                 <tr>
                                     <td>Salaires et traitements</td>
                                     <td>{{ number_format($bp_human_ressources_total, 0, ',', ' ') }} MAD</td>

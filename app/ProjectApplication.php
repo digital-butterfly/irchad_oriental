@@ -350,13 +350,13 @@ class ProjectApplication extends Model
                         'name' => 'core_business_p',
                         'type' => 'repeater',
                         'label' => 'Produits ',
-                        'config' => ['doubleRepeater' => true, 'attributes' => [['Description',4], ['Prix estime de vente',2]],'Select'=>false]
+                        'config' => ['tripleRepeater' => true, 'attributes' => [['Produit',3],['Description',4], ['Prix estime de vente',3]],'Select'=>false]
                     ],
                     [
                         'name' => 'core_services',
                         'type' => 'repeater',
                         'label' => 'Services ',
-                        'config' => ['doubleRepeater' => true, 'attributes' => [['Description',4], ['Prix estime de vente',2]],'Select'=>false]
+                        'config' => ['tripleRepeater' => true, 'attributes' => [['Service',3],['Description',4], ['Prix estime de vente',3]],'Select'=>false]
                     ],
                     [
                         'name' => 'primary_target',
@@ -367,14 +367,14 @@ class ProjectApplication extends Model
                         'name' => 'suppliers_f',
                         'type' => 'repeater',
                         'label' => 'Principaux fournisseurs',
-                        'config' => ['doubleRepeater' => true, 'attributes' => [['Nature des intrants',3], ['localité',2]],'Select'=>false]
+                        'config' => ['tripleRepeater' => true, 'attributes' => [['Fournisseur',3],['Nature des intrants',3], ['localité',2]],'Select'=>false]
 
                     ],
                     [
                         'name' => 'competition_c',
                         'type' => 'repeater',
                         'label' => 'Principaux concurrents',
-                        'config' => ['doubleRepeater' => true, 'attributes' => [['localité',3], ['Prix de vente',2]],'Select'=>false]
+                        'config' => ['tripleRepeater' => true, 'attributes' => [['Concurrent',3],['localité',3], ['Prix de vente',2]],'Select'=>false]
 
                     ],
                     [
@@ -499,7 +499,7 @@ class ProjectApplication extends Model
                         'name' => 'human_ressources',
                         'type' => 'repeater',
                         'label' => 'Ressources humaines',
-                        'config' => ['tripleRepeater' => true, 'attributes' => [['Poste',3], ['Nombre des postes',3], ['Salaire  annuel',1]]]
+                        'config' => ['tripleRepeater' => true, 'attributes' => [['Poste',3], ['Nombre des postes',3], ['Salaire  annuel',2]]]
                     ],
                     [
                         'name' => 'taxes',
