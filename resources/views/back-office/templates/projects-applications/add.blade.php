@@ -285,7 +285,7 @@
 						$(this).slideUp(deleteElement);
 					}
 				});
-				var autorisations_nécessaire= $('.kt_repeater_autorisations_nécessaire').repeater({
+				var autorisations_nécessaire_c= $('.kt_repeater_autorisations_nécessaire_c').repeater({
 					initEmpty: false,
 
 					defaultValues: {
@@ -330,6 +330,21 @@
 						$(this).slideUp(deleteElement);
 					}
 				});
+				var primary_target_c= $('.kt_repeater_primary_target_c').repeater({
+					initEmpty: false,
+
+					defaultValues: {
+						'text-input': 'foo'
+					},
+
+					show: function () {
+						$(this).slideDown();
+					},
+
+					hide: function (deleteElement) {
+						$(this).slideUp(deleteElement);
+					}
+				});
 				var core_services= $('.kt_repeater_core_services').repeater({
 					initEmpty: false,
 
@@ -346,6 +361,66 @@
 					}
 				});
 				var suppliers_f= $('.kt_repeater_suppliers_f').repeater({
+					initEmpty: false,
+
+					defaultValues: {
+						'text-input': 'foo'
+					},
+
+					show: function () {
+						$(this).slideDown();
+					},
+
+					hide: function (deleteElement) {
+						$(this).slideUp(deleteElement);
+					}
+				});
+				var distribution_strategy_menace_p= $('.kt_repeater_distribution_strategy_menace_p').repeater({
+					initEmpty: false,
+
+					defaultValues: {
+						'text-input': 'foo'
+					},
+
+					show: function () {
+						$(this).slideDown();
+					},
+
+					hide: function (deleteElement) {
+						$(this).slideUp(deleteElement);
+					}
+				});
+                var distribution_strategy_force_p= $('.kt_repeater_distribution_strategy_force_p').repeater({
+					initEmpty: false,
+
+					defaultValues: {
+						'text-input': 'foo'
+					},
+
+					show: function () {
+						$(this).slideDown();
+					},
+
+					hide: function (deleteElement) {
+						$(this).slideUp(deleteElement);
+					}
+				});
+                var distribution_strategy_faiblesse_p= $('.kt_repeater_distribution_strategy_faiblesse_p').repeater({
+					initEmpty: false,
+
+					defaultValues: {
+						'text-input': 'foo'
+					},
+
+					show: function () {
+						$(this).slideDown();
+					},
+
+					hide: function (deleteElement) {
+						$(this).slideUp(deleteElement);
+					}
+				});
+              var distribution_strategy_Opportunité_p  = $('.kt_repeater_distribution_strategy_Opportunité_p').repeater({
 					initEmpty: false,
 
 					defaultValues: {

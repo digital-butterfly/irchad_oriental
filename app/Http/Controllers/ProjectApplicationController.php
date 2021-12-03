@@ -171,20 +171,24 @@ class ProjectApplicationController extends Controller
             'description' => $request['description'],
             'market_type' => $request['market_type'],
             'credit_banc' => $request['credit_banc'],
-            'business_model' => json_decode(json_encode([
+            'montant_est' => $request['montant_est'],
+            'business_model' =>json_decode(json_encode( [
+                'context_g' => $request['context_g'],
+                'evolution_m' => $request['evolution_m'],
+                'avg_competi' => $request['avg_competi'],
                 'core_business_p' => $request['core_business_p'],
                 'core_services' => $request['core_services'],
-                'primary_target' => $request['primary_target'],
+                'primary_target_c' => $request['primary_target_c'],
                 'suppliers_f' => $request['suppliers_f'],
                 'competition_c' => $request['competition_c'],
                 'advertising' => $request['advertising'],
                 'pricing_strategy' => $request['pricing_strategy'],
                 'distribution_strategy' => $request['distribution_strategy'],
-                'distribution_strategy_force' => $request['distribution_strategy_force'],
-                'distribution_strategy_menace' => $request['distribution_strategy_menace'],
-                'distribution_strategy_faiblesse' => $request['distribution_strategy_faiblesse'],
-                'distribution_strategy_Opportunité' => $request['distribution_strategy_Opportunité'],
-                'autorisations_nécessaire' => $request['autorisations_nécessaire'],
+                'distribution_strategy_force_p' => $request['distribution_strategy_force_p'],
+                'distribution_strategy_menace_p' => $request['distribution_strategy_menace_p'],
+                'distribution_strategy_faiblesse_p' => $request['distribution_strategy_faiblesse_p'],
+                'distribution_strategy_Opportunité_p' => $request['distribution_strategy_Opportunité_p'],
+                'autorisations_nécessaire_c' => $request['autorisations_nécessaire_c'],
                 'local' => $request['local'],
                 'list_mat' => $request['list_mat']
             ])),
@@ -200,25 +204,31 @@ class ProjectApplicationController extends Controller
                 'products_turnover_forecast' => $request['products_turnover_forecast'],
                 'profit_margin_rate' => $request['profit_margin_rate'],
                 'evolution_rate' => $request['evolution_rate'],
+                'saisonnalite' => $request['saisonnalite'],
+                'duration_différe' => $request['duration_différe'],
             ])),
-            'company' => json_decode(json_encode([
+            'company' => [
                 'legal_form' => $request['legal_form'],
                 'is_created' => $request['is_created'],
                 'capital' => $request['capital'],
                 'creation_date' => $request['creation_date'],
                 'corporate_name' => $request['corporate_name'],
                 'applied_tax' => $request['applied_tax'],
-            ])),
+                'corporate_CEO' => $request['corporate_CEO'],
+                'corporate_sig' => $request['corporate_sig'],
+                'implantation_project' => $request['implantation_project'],
+            ],
             'training_needs' => json_decode(json_encode([
                 'pre_creation_training' => $request['pre_creation_training'],
                 'post_creation_training' => $request['post_creation_training'],
             ])),
-            'status' => $request['status'] != null ? $request['status'] : 'Nouveau',
+            'status' => $request['status'],
             'progress' => $request['progress'],
             'training' => $request['training'],
             'incorporation' => $request['incorporation'],
             'funding' => $request['funding'],
-            'created_by' => Auth::id()
+            'created_by' => Auth::id(),
+            'rejected_reason' => $request['rejected_reason']
         ]);
         if (json_decode($request['members'])) {
             foreach (json_decode($request['members']) as $key =>$value)
@@ -289,6 +299,7 @@ class ProjectApplicationController extends Controller
             }
         }
         $data = (object)$data;
+       //dd( $data);
         $fields = ProjectApplication::formFields($id);
 //        dd($data->toArray());
         return view('back-office/templates/projects-applications/single', compact('histo','application', 'data', 'fields'));
@@ -446,7 +457,7 @@ class ProjectApplicationController extends Controller
      */
     public function update(Request $request, $id)
     {
-//        dd($request->toArray());
+        // dd($request->toArray());
         $application =ProjectApplication::findOrFail($id);
 //        dd($id);
         $validation = $this->validator($request->all(), 'projectApplication');
@@ -475,20 +486,23 @@ class ProjectApplicationController extends Controller
             'market_type' => $request['market_type'],
             'credit_banc' => $request['credit_banc'],
             'montant_est' => $request['montant_est'],
-            'business_model' => json_decode(json_encode([
+            'business_model' =>json_decode(json_encode([
+                'context_g' => $request['context_g'],
+                'evolution_m' => $request['evolution_m'],
+                'avg_competi' => $request['avg_competi'],
                 'core_business_p' => $request['core_business_p'],
                 'core_services' => $request['core_services'],
-                'primary_target' => $request['primary_target'],
+                'primary_target_c' => $request['primary_target_c'],
                 'suppliers_f' => $request['suppliers_f'],
                 'competition_c' => $request['competition_c'],
                 'advertising' => $request['advertising'],
                 'pricing_strategy' => $request['pricing_strategy'],
                 'distribution_strategy' => $request['distribution_strategy'],
-                'distribution_strategy_force' => $request['distribution_strategy_force'],
-                'distribution_strategy_menace' => $request['distribution_strategy_menace'],
-                'distribution_strategy_faiblesse' => $request['distribution_strategy_faiblesse'],
-                'distribution_strategy_Opportunité' => $request['distribution_strategy_Opportunité'],
-                'autorisations_nécessaire' => $request['autorisations_nécessaire'],
+                'distribution_strategy_force_p' => $request['distribution_strategy_force_p'],
+                'distribution_strategy_menace_p' => $request['distribution_strategy_menace_p'],
+                'distribution_strategy_faiblesse_p' => $request['distribution_strategy_faiblesse_p'],
+                'distribution_strategy_Opportunité_p' => $request['distribution_strategy_Opportunité_p'],
+                'autorisations_nécessaire_c' => $request['autorisations_nécessaire_c'],
                 'local' => $request['local'],
                 'list_mat' => $request['list_mat']
             ])),
@@ -504,6 +518,8 @@ class ProjectApplicationController extends Controller
                 'products_turnover_forecast' => $request['products_turnover_forecast'],
                 'profit_margin_rate' => $request['profit_margin_rate'],
                 'evolution_rate' => $request['evolution_rate'],
+                'saisonnalite' => $request['saisonnalite'],
+                'duration_différe' => $request['duration_différe'],
             ])),
             'company' => [
                 'legal_form' => $request['legal_form'],
@@ -514,6 +530,7 @@ class ProjectApplicationController extends Controller
                 'applied_tax' => $request['applied_tax'],
                 'corporate_CEO' => $request['corporate_CEO'],
                 'corporate_sig' => $request['corporate_sig'],
+                'implantation_project' => $request['implantation_project'],
             ],
             'training_needs' => json_decode(json_encode([
                 'pre_creation_training' => $request['pre_creation_training'],
@@ -527,6 +544,7 @@ class ProjectApplicationController extends Controller
             'created_by' => Auth::id(),
             'rejected_reason' => $request['rejected_reason']
         ]);
+       // dd()
 //        dd(json_decode($request['deteletags']));
         if (json_decode($request['deteletags'])) {
             foreach (json_decode($request['deteletags']) as $key => $value) {

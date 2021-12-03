@@ -414,7 +414,7 @@
 						$(this).slideUp(deleteElement);
 					}
 				});
-				var autorisations_nécessaire= $('.kt_repeater_autorisations_nécessaire').repeater({
+				var autorisations_nécessaire_c= $('.kt_repeater_autorisations_nécessaire_c').repeater({
 					initEmpty: false,
 
 					defaultValues: {
@@ -430,6 +430,66 @@
 					}
 				});
 				var services_turnover_forecast_c= $('.kt_repeater_services_turnover_forecast_c').repeater({
+					initEmpty: false,
+
+					defaultValues: {
+						'text-input': 'foo'
+					},
+
+					show: function () {
+						$(this).slideDown();
+					},
+
+					hide: function (deleteElement) {
+						$(this).slideUp(deleteElement);
+					}
+				});
+				var distribution_strategy_menace_p= $('.kt_repeater_distribution_strategy_menace_p').repeater({
+					initEmpty: false,
+
+					defaultValues: {
+						'text-input': 'foo'
+					},
+
+					show: function () {
+						$(this).slideDown();
+					},
+
+					hide: function (deleteElement) {
+						$(this).slideUp(deleteElement);
+					}
+				});
+                var distribution_strategy_force_p= $('.kt_repeater_distribution_strategy_force_p').repeater({
+					initEmpty: false,
+
+					defaultValues: {
+						'text-input': 'foo'
+					},
+
+					show: function () {
+						$(this).slideDown();
+					},
+
+					hide: function (deleteElement) {
+						$(this).slideUp(deleteElement);
+					}
+				});
+                var distribution_strategy_faiblesse_p= $('.kt_repeater_distribution_strategy_faiblesse_p').repeater({
+					initEmpty: false,
+
+					defaultValues: {
+						'text-input': 'foo'
+					},
+
+					show: function () {
+						$(this).slideDown();
+					},
+
+					hide: function (deleteElement) {
+						$(this).slideUp(deleteElement);
+					}
+				});
+              var distribution_strategy_Opportunité_p  = $('.kt_repeater_distribution_strategy_Opportunité_p').repeater({
 					initEmpty: false,
 
 					defaultValues: {

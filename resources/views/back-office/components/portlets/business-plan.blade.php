@@ -23,16 +23,20 @@
             $bp_investment_program_total += $item->value ?? 0;
         }
     }
-//total charge 
+      //total charge 
                                                 $total1=0;
                                                 $total2=0;
                                                 $total3=0;
+                                                $total4=0;
+                                                $total5=0;
      if(isset($application->financial_data->overheads_scalable)){
          foreach ($application->financial_data->overheads_scalable as $item){
               if ($item->label != NULL) {
                  $total1=$total1+ $item->value;
                  $total2+= $item->value + ($item->value * $bp_evolution_rate / 100);
                  $total3+= ($item->value+  ($item->value * $bp_evolution_rate / 100)) + ($item->value + ($item->value * $bp_evolution_rate / 100)) * $bp_evolution_rate / 100;  
+                 $total4+=$total3+ ($item->value + ($item->value * $bp_evolution_rate / 100)) * $bp_evolution_rate / 100;
+                 $total5+=$total4+ ($item->value + ($item->value * $bp_evolution_rate / 100)) * $bp_evolution_rate / 10;
               }                                          
             }                                     
      }
@@ -43,14 +47,11 @@
     $bp_turnover_products_totals=0;
     $bp_profit_margin_rate =  0;
      //dd("hhh"); 
-
+    $saisonalite=isset($application->financial_data->saisonnalite)? $application->financial_data->saisonnalite:0;
     if (isset($application->financial_data->products_turnover_forecast)){
         foreach ($application->financial_data->products_turnover_forecast as $total){
-          //  dd($total);
-            $bp_turnover_products_total = $bp_turnover_products_total +(( $total->rate * $total->value)*(1-($total->duration/100))) ;
-           // dd( $total->rate * $total->value);
-            $bp_turnover_products_totals = $bp_turnover_products_totals +( $total->rate * $total->value) ;
-            
+            $bp_turnover_products_total = $bp_turnover_products_total +(( $total->rate * $total->value*$saisonalite)*(1-($total->duration/100))) ;
+            $bp_turnover_products_totals = $bp_turnover_products_totals +( $total->rate * $total->value*$saisonalite) ;
             $bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration;
            
         }
@@ -61,7 +62,7 @@
     $bp_turnover_services_total = isset($application->financial_data->services_turnover_forecast) ? $application->financial_data->services_turnover_forecast : 0 ;
    // $bp_profit_margin_rate = isset($application->financial_data->profit_margin_rate) ? $application->financial_data->profit_margin_rate : 0;
 
-
+                                                                                                                                                               
     // Loans Amortization
     $bp_loan_periodic_rate = 0;
     $bp_loan_monthly_payment = 0;
@@ -70,6 +71,8 @@
     $bp_loans_first_year_total = 0;
     $bp_loans_second_year_total = 0;
     $bp_loans_third_year_total = 0;
+    $bp_loans_four_year_total = 0;
+    $bp_loans_five_year_total = 0;
     if(isset($application->financial_data->financial_plan_loans))
     {
         foreach ($application->financial_data->financial_plan_loans as $item) {
@@ -93,17 +96,28 @@
             elseif ($i > 24 && $i <= 36) {
                 $bp_loans_third_year_total += ($current_remaining_reimbursment * $bp_loan_periodic_rate / 100);
             }
+            elseif ($i > 36 && $i <= 48) {
+                $bp_loans_four_year_total += ($current_remaining_reimbursment * $bp_loan_periodic_rate / 100);
+            }
+            elseif ($i > 48 && $i <= 60) {
+                $bp_loans_five_year_total += ($current_remaining_reimbursment * $bp_loan_periodic_rate / 100);
+            }
         }
     }
     }
 
 
     // Turnover
-   $bp_turnover_first_year = $bp_turnover_products_totals;
-  //  $bp_turnover_first_year = 0;
+    $bp_turnover_first_year =0;
+    $bp_turnover_second_year=0;
+    $bp_turnover_third_year=0;
+    $bp_turnover_four_year=0;
+    $bp_turnover_five_year=0;
+    $bp_turnover_first_year = $bp_turnover_products_totals;
     $bp_turnover_second_year = $bp_turnover_first_year + ($bp_turnover_first_year * $bp_evolution_rate / 100);
     $bp_turnover_third_year = $bp_turnover_second_year + ($bp_turnover_second_year * $bp_evolution_rate / 100);
-
+    $bp_turnover_four_year = $bp_turnover_third_year + ($bp_turnover_third_year * $bp_evolution_rate / 100);
+    $bp_turnover_five_year = $bp_turnover_four_year + ($bp_turnover_four_year * $bp_evolution_rate / 100);
     // Purchases
     /* $bp_purchase_first_year = $bp_turnover_products_total / (1 + ($bp_profit_margin_rate / 100));
     $bp_purchase_second_year = $bp_purchase_first_year + ($bp_purchase_first_year * $bp_evolution_rate / 100);
@@ -111,22 +125,34 @@
     $bp_purchase_first_year = $bp_turnover_products_total ;
     $bp_purchase_second_year = $bp_purchase_first_year *(1+$bp_evolution_rate / 100);
     $bp_purchase_third_year = $bp_purchase_second_year * ((1+$bp_evolution_rate/100)*(1+$bp_evolution_rate/100));
+    $bp_purchase_four_year = $bp_purchase_third_year  * ((1+$bp_evolution_rate/100)*(1+$bp_evolution_rate/100));
+    $bp_purchase_five_year = $bp_purchase_four_year  * ((1+$bp_evolution_rate/100)*(1+$bp_evolution_rate/100));
+
       
     // Gross Margin
     $bp_gross_margin_first_year = $bp_turnover_first_year - $bp_purchase_first_year;
     $bp_gross_margin_second_year = $bp_turnover_second_year - $bp_purchase_second_year;
     $bp_gross_margin_third_year = $bp_turnover_third_year - $bp_purchase_third_year;
+    $bp_gross_margin_four_year = $bp_turnover_four_year - $bp_purchase_four_year;
+    $bp_gross_margin_five_year = $bp_turnover_five_year - $bp_purchase_five_year; 
+    //dd($bp_gross_margin_four_year);
      //dd($bp_purchase_second_year);
     // Overheads Fixed
     $bp_overheads_fixed_first_year =  0;
     $bp_overheads_fixed_second_year =  0;
     $bp_overheads_fixed_third_year =  0;
+    $bp_overheads_fixed_four_year=0;
+    $bp_overheads_fixed_five_year =0;
     if(isset($application->financial_data->overheads_fixed))
     {
         foreach ($application->financial_data->overheads_fixed as $item) {
         $bp_overheads_fixed_first_year += $item->value;
         $bp_overheads_fixed_second_year += $item->value;
         $bp_overheads_fixed_third_year += $item->value;
+        $bp_overheads_fixed_four_year += $item->value;
+        $bp_overheads_fixed_five_year += $item->value;
+
+
         }
     }
 
@@ -135,11 +161,17 @@
     $bp_overheads_scalable_first_year =  0;
     $bp_overheads_scalable_second_year =  0;
     $bp_overheads_scalable_third_year =  0;
+    $bp_overheads_scalable_four_year=0;
+    $bp_overheads_scalable_five_year=0;
     if(isset($application->financial_data->overheads_scalable)){
         foreach ($application->financial_data->overheads_scalable as $item) {
         $bp_overheads_scalable_first_year += $item->value;
         $bp_overheads_scalable_second_year += ($item->value) + ($item->value * $bp_evolution_rate / 100);
         $bp_overheads_scalable_third_year += (($item->value) + ($item->value * $bp_evolution_rate / 100)) + ((($item->value) + ($item->value * $bp_evolution_rate / 100)) * $bp_evolution_rate / 100);
+        $bp_overheads_scalable_four_year +=$bp_overheads_scalable_third_year+((($item->value) + ($item->value * $bp_evolution_rate / 100)) * $bp_evolution_rate / 100);
+        $bp_overheads_scalable_five_year +=$bp_overheads_scalable_four_year+((($item->value) + ($item->value * $bp_evolution_rate / 100)) * $bp_evolution_rate / 100);
+
+
         }
     }
 
@@ -148,7 +180,9 @@
     $bp_added_value_first_year = $bp_gross_margin_first_year - $bp_overheads_fixed_first_year -  $bp_overheads_scalable_first_year;
     $bp_added_value_second_year = $bp_gross_margin_second_year - $bp_overheads_fixed_second_year - $bp_overheads_scalable_second_year;
     $bp_added_value_third_year = $bp_gross_margin_third_year - $bp_overheads_fixed_third_year - $bp_overheads_scalable_third_year;
-
+    $bp_added_value_four_year = $bp_gross_margin_four_year - $bp_overheads_fixed_four_year - $bp_overheads_scalable_four_year;
+    $bp_added_value_five_year = $bp_gross_margin_third_year - $bp_overheads_fixed_five_year - $bp_overheads_scalable_five_year;
+  
     // Human Ressources
     $bp_human_ressources_total = 0;
     $bp_human_ressources_rows = 0;
@@ -176,7 +210,9 @@
     $gross_surplus_first_year = $bp_added_value_first_year - $bp_human_ressources_total - $bp_human_ressources_social_fees_total - $bp_taxes_total;
     $gross_surplus_second_year = $bp_added_value_second_year - $bp_human_ressources_total - $bp_human_ressources_social_fees_total - $bp_taxes_total;
     $gross_surplus_third_year = $bp_added_value_third_year - $bp_human_ressources_total - $bp_human_ressources_social_fees_total - $bp_taxes_total;
-
+    $gross_surplus_four_year = $bp_added_value_four_year - $bp_human_ressources_total - $bp_human_ressources_social_fees_total - $bp_taxes_total;
+    $gross_surplus_five_year = $bp_added_value_five_year - $bp_human_ressources_total - $bp_human_ressources_social_fees_total - $bp_taxes_total;
+    // dd( $bp_added_value_five_year);
     // Amortization
     $bp_amortization_yearly = 0;
     if (isset($application->financial_data->startup_needs)) {
@@ -190,36 +226,52 @@
     $bp_gross_income_first_year = $gross_surplus_first_year - $bp_amortization_yearly ;
     $bp_gross_income_second_year = $gross_surplus_second_year - $bp_amortization_yearly ;
     $bp_gross_income_third_year = $gross_surplus_third_year - $bp_amortization_yearly ;
-
+    $bp_gross_income_four_year = $gross_surplus_four_year - $bp_amortization_yearly ;
+    $bp_gross_income_five_year = $gross_surplus_five_year - $bp_amortization_yearly ;
+//dd( $bp_gross_income_four_year );
+ 
     // Financial Products
     $bp_financial_products_first_year = 0;
     $bp_financial_products_second_year = 0;
     $bp_financial_products_third_year = 0;
+    $bp_financial_products_four_year = 0;
+    $bp_financial_products_five_year = 0;
 
     // Financial Expenses
     $bp_financial_expenses_first_year = $bp_loans_first_year_total;
     $bp_financial_expenses_second_year = $bp_loans_second_year_total;
     $bp_financial_expenses_third_year = $bp_loans_third_year_total;
+    $bp_financial_expenses_four_year = $bp_loans_four_year_total;
+    $bp_financial_expenses_five_year = $bp_loans_five_year_total;
 
     // Financial Result
     $bp_financial_result_first_year = $bp_financial_products_first_year - $bp_financial_expenses_first_year;
     $bp_financial_result_second_year = $bp_financial_products_second_year - $bp_financial_expenses_second_year;
     $bp_financial_result_third_year = $bp_financial_products_third_year - $bp_financial_expenses_third_year;
+    $bp_financial_result_four_year = $bp_financial_products_four_year - $bp_financial_expenses_third_year;
 
+    $bp_financial_result_five_year = $bp_financial_products_five_year - $bp_financial_expenses_five_year;
     // Current Result
     $bp_current_result_first_year = $bp_gross_income_first_year + $bp_financial_result_first_year;
     $bp_current_result_second_year = $bp_gross_income_second_year + $bp_financial_result_second_year;
     $bp_current_result_third_year = $bp_gross_income_third_year + $bp_financial_result_third_year;
-
+    $bp_current_result_four_year = $bp_gross_income_four_year + $bp_financial_result_four_year;
+    $bp_current_result_five_year = $bp_gross_income_five_year + $bp_financial_result_five_year;
+   // dd(  $bp_current_result_five_year);
+      
     // Income Before Taxes
     $bp_income_before_taxes_first_year = $bp_current_result_first_year;
     $bp_income_before_taxes_second_year = $bp_current_result_second_year;
     $bp_income_before_taxes_third_year = $bp_current_result_third_year;
-
+    $bp_income_before_taxes_four_year = $bp_current_result_four_year;
+    $bp_income_before_taxes_five_year = $bp_current_result_five_year;
+  
     // Corporate Taxe
     $bp_corporate_tax_first_year = 0;
     $bp_corporate_tax_second_year = 0;
     $bp_corporate_tax_third_year = 0;
+    $bp_corporate_tax_four_year=0;
+    $bp_corporate_tax_five_year=0;
     $is=0;
     $rest=0;
     if (($application->company->applied_tax ?? '') == 'Impôt sur les sociétés') {
@@ -296,6 +348,56 @@
                             }
                  $thirdTranche = $rest - $rest * 0.31;
                  $bp_corporate_tax_third_year = $firstTranche + $secondTranche + $thirdTranche;
+                //$bp_corporate_tax_third_year = $bp_income_before_taxes_third_year * 31 / 100;
+                break;
+        }
+        switch (true) {
+            case ($bp_income_before_taxes_four_year> 0 && $bp_income_before_taxes_four_year <= 300000):
+               $is=$bp_income_before_taxes_four_year * 10 / 100;
+               $bp_corporate_tax_four_year  = $is-$bp_income_before_taxes_four_year * 10 / 100;
+               // $bp_corporate_tax_third_year = $bp_income_before_taxes_third_year * 10 / 100;
+                break;
+            case ($bp_income_before_taxes_four_year > 300000 && $bp_income_before_taxes_four_year <= 1000000):
+                   $firstTranche = 300000 - 300000 * 0.1;
+                   $secondTranche = $bp_income_before_taxes_four_year - 300000 - ($bp_income_before_taxes_four_year - 300000) * 0.2;
+                   $bp_corporate_tax_four_year  = $firstTranche+$secondTranche;
+               // $bp_corporate_tax_third_year = $bp_income_before_taxes_third_year * 17.5 / 100;
+                break;
+            case ($bp_income_before_taxes_four_year > 1000000):
+            $rest = $bp_income_before_taxes_four_year - 300000;
+                     $firstTranche = 300000 - 300000 * 0.1;
+                     $rest = $rest - 1000000;
+                     $secondTranche = 1000000 - 1000000 * 0.2;
+                            if ($rest < 0) {
+                                $rest = 0;
+                            }
+                 $thirdTranche = $rest - $rest * 0.31;
+                 $bp_corporate_tax_four_year = $firstTranche + $secondTranche + $thirdTranche;
+                //$bp_corporate_tax_third_year = $bp_income_before_taxes_third_year * 31 / 100;
+                break;
+        }
+        switch (true) {
+            case ($bp_income_before_taxes_five_year> 0 && $bp_income_before_taxes_five_year <= 300000):
+               $is=$bp_income_before_taxes_five_year * 10 / 100;
+               $bp_corporate_tax_five_year  = $is-$bp_income_before_taxes_five_year * 10 / 100;
+               // $bp_corporate_tax_third_year = $bp_income_before_taxes_third_year * 10 / 100;
+                break;
+            case ($bp_income_before_taxes_five_year > 300000 && $bp_income_before_taxes_five_year <= 1000000):
+                   $firstTranche = 300000 - 300000 * 0.1;
+                   $secondTranche = $bp_income_before_taxes_five_year - 300000 - ($bp_income_before_taxes_five_year - 300000) * 0.2;
+                   $bp_corporate_tax_five_year  = $firstTranche+$secondTranche;
+               // $bp_corporate_tax_third_year = $bp_income_before_taxes_third_year * 17.5 / 100;
+                break;
+            case ($bp_income_before_taxes_five_year > 1000000):
+            $rest = $bp_income_before_taxes_five_year - 300000;
+                     $firstTranche = 300000 - 300000 * 0.1;
+                     $rest = $rest - 1000000;
+                     $secondTranche = 1000000 - 1000000 * 0.2;
+                            if ($rest < 0) {
+                                $rest = 0;
+                            }
+                 $thirdTranche = $rest - $rest * 0.31;
+                 $bp_corporate_tax_five_year = $firstTranche + $secondTranche + $thirdTranche;
                 //$bp_corporate_tax_third_year = $bp_income_before_taxes_third_year * 31 / 100;
                 break;
         }
@@ -423,7 +525,7 @@
             case ($bp_income_before_taxes_third_year > 50000 && $bp_income_before_taxes_third_year <= 60000):
                  $firstTranche = 50000 - 50000 * 0.1;
                  $secondTranche = $bp_income_before_taxes_third_year - 50000 - ($bp_income_before_taxes_third_year - 50000) * 0.2;
-                 $bp_corporate_tax_second_year  = $firstTranche + $secondTranche;
+                 $bp_corporate_tax_third_year  = $firstTranche + $secondTranche;
                 break;
             case ($bp_income_before_taxes_third_year > 60000 && $bp_income_before_taxes_third_year <= 80000):
                      $rest = $bp_income_before_taxes_third_year - 50000;
@@ -467,26 +569,149 @@
               //$bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 38 / 100;
                 break;
         }
+        switch (true) {
+            case ($bp_income_before_taxes_four_year > 0 && $bp_income_before_taxes_four_year <= 30000):
+           
+                $bp_corporate_tax_four_year = $bp_income_before_taxes_four_year;
+                break;
+            case ($bp_income_before_taxes_four_year > 30000 && $bp_income_before_taxes_four_year <= 50000):
+                 $is = $bp_income_before_taxes_four_year * 10 / 100;
+                 $bp_corporate_tax_four_year = $is-$bp_income_before_taxes_four_year * 10 / 100;               
+                break;
+            case ($bp_income_before_taxes_four_year > 50000 && $bp_income_before_taxes_four_year <= 60000):
+                 $firstTranche = 50000 - 50000 * 0.1;
+                 $secondTranche = $bp_income_before_taxes_four_year - 50000 - ($bp_income_before_taxes_four_year - 50000) * 0.2;
+                 $bp_corporate_tax_four_year  = $firstTranche + $secondTranche;
+                break;
+            case ($bp_income_before_taxes_four_year > 60000 && $bp_income_before_taxes_four_year <= 80000):
+                     $rest = $bp_income_before_taxes_four_year - 50000;
+                     $firstTranche = 50000 - 50000 * 0.1;
+                     $rest = $rest - 60000;
+                     $secondTranche = 60000 - 60000 * 0.2;
+                            if ($rest < 0) {
+                                $rest = 0;
+                            }
+                     $thirdTranche = $rest - $rest * 0.31;
+                     $bp_corporate_tax_four_year  = $firstTranche + $secondTranche + $thirdTranche;
+                break;
+            case ($bp_income_before_taxes_four_year > 80000 && $bp_income_before_taxes_four_year <= 180000):
+                      $rest = $bp_income_before_taxes_four_year - 50000;
+                      $firstTranche = 50000 - 50000 * 0.1;
+                      $rest = $rest - 60000;
+                      $secondTranche = 60000 - 60000 * 0.2;
+                      $rest = $rest - 80000;
+                      $thirdTranche = 80000 - 80000 * 0.3;
+                       if ($rest < 0) {
+                        $rest = 0;
+                               }
+                       $fourTranche = $rest - $rest * 0.34;
+                       $bp_corporate_tax_four_year = $firstTranche + $secondTranche + $thirdTranche + $fourTranche;
+               // $bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 34 / 100;
+                break;
+            case ($bp_income_before_taxes_four_year > 180000): 
+           
+             $rest = $bp_income_before_taxes_four_year - 50000;
+             $firstTranche = 50000 - 50000 * 0.1;
+             $rest = $rest - 60000;
+             $secondTranche = 60000 - 60000 * 0.2;
+             $rest = $rest - 80000;
+             $thirdTranche = 80000 - 80000 * 0.3;
+             $rest = $rest - 180000;
+             $fourTranche = 180000 - 180000 * 0.34;
+             if ($rest < 0) {
+                 $rest = 0;
+                  }
+            $fiveTranche = $rest - $rest * 0.38;
+            $bp_corporate_tax_four_year = $firstTranche + $secondTranche + $thirdTranche + $fourTranche + $fiveTranche; 
+             //dd($bp_income_before_taxes_four_year);
+              //dd($bp_corporate_tax_four_year);
+              //$bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 38 / 100;
+                break;
+        }
+        switch (true) {
+            case ($bp_income_before_taxes_five_year > 0 && $bp_income_before_taxes_five_year <= 30000):
+                $bp_corporate_tax_five_year = $bp_income_before_taxes_five_year;
+                break;
+            case ($bp_income_before_taxes_five_year > 30000 && $bp_income_before_taxes_five_year <= 50000):
+                 $is = $bp_income_before_taxes_five_year * 10 / 100;
+                 $bp_corporate_tax_five_year = $is-$bp_income_before_taxes_five_year * 10 / 100;               
+                break;
+            case ($bp_income_before_taxes_five_year > 50000 && $bp_income_before_taxes_five_year <= 60000):
+                 $firstTranche = 50000 - 50000 * 0.1;
+                 $secondTranche = $bp_income_before_taxes_five_year - 50000 - ($bp_income_before_taxes_five_year - 50000) * 0.2;
+                 $bp_corporate_tax_five_year  = $firstTranche + $secondTranche;
+                break;
+            case ($bp_income_before_taxes_five_year > 60000 && $bp_income_before_taxes_five_year <= 80000):
+                     $rest = $bp_income_before_taxes_third_year - 50000;
+                     $firstTranche = 50000 - 50000 * 0.1;
+                     $rest = $rest - 60000;
+                     $secondTranche = 60000 - 60000 * 0.2;
+                            if ($rest < 0) {
+                                $rest = 0;
+                            }
+                     $thirdTranche = $rest - $rest * 0.31;
+                     $bp_corporate_tax_five_year  = $firstTranche + $secondTranche + $thirdTranche;
+                break;
+            case ($bp_income_before_taxes_five_year > 80000 && $bp_income_before_taxes_five_year <= 180000):
+                      $rest = $bp_income_before_taxes_third_year - 50000;
+                      $firstTranche = 50000 - 50000 * 0.1;
+                      $rest = $rest - 60000;
+                      $secondTranche = 60000 - 60000 * 0.2;
+                      $rest = $rest - 80000;
+                      $thirdTranche = 80000 - 80000 * 0.3;
+                       if ($rest < 0) {
+                        $rest = 0;
+                               }
+                       $fourTranche = $rest - $rest * 0.34;
+                       $bp_corporate_tax_five_year = $firstTranche + $secondTranche + $thirdTranche + $fourTranche;
+               // $bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 34 / 100;
+                break;
+            case ($bp_income_before_taxes_five_year > 180000):
+             $rest = $bp_income_before_taxes_five_year - 50000;
+             $firstTranche = 50000 - 50000 * 0.1;
+             $rest = $rest - 60000;
+             $secondTranche = 60000 - 60000 * 0.2;
+             $rest = $rest - 80000;
+             $thirdTranche = 80000 - 80000 * 0.3;
+             $rest = $rest - 180000;
+             $fourTranche = 180000 - 180000 * 0.34;
+             if ($rest < 0) {
+                 $rest = 0;
+                  }
+              $fiveTranche = $rest - $rest * 0.38;
+              $bp_corporate_tax_five_year = $firstTranche + $secondTranche + $thirdTranche + $fourTranche + $fiveTranche;
+              //$bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 38 / 100;
+                break;
+        }
     }
     elseif (($application->company->applied_tax ?? '') == 'Auto-entrepreneur activité commerciale, industrielle ou artisanale') {
         $bp_corporate_tax_first_year =$bp_turnover_first_year  * 0.5 / 100;
         $bp_corporate_tax_second_year =$bp_turnover_second_year* 0.5 / 100;
         $bp_corporate_tax_third_year = $bp_turnover_third_year * 0.5 / 100;
+        $bp_corporate_tax_four_year = $bp_turnover_four_year * 0.5 / 100;
+        $bp_corporate_tax_five_year = $bp_turnover_five_year * 0.5 / 100;
     }
     elseif (($application->company->applied_tax ?? '') == 'Auto-entrepreneur prestataire de services') {
         $bp_corporate_tax_first_year = $bp_turnover_first_year * 1 / 100;
         $bp_corporate_tax_second_year = $bp_turnover_second_year* 1 / 100;
         $bp_corporate_tax_third_year =$bp_turnover_third_year * 1 / 100;
+        $bp_corporate_tax_four_year =$bp_turnover_four_year * 1 / 100;
+        $bp_corporate_tax_five_year =$bp_turnover_five_year * 1 / 100;
     }
-
+     //dd( $bp_income_before_taxes_four_year);
     // Net Profiti
     $bp_net_profit_first_year = $bp_income_before_taxes_first_year - $bp_corporate_tax_first_year;
     $bp_net_profit_second_year = $bp_income_before_taxes_second_year - $bp_corporate_tax_second_year;
     $bp_net_profit_third_year = $bp_income_before_taxes_third_year - $bp_corporate_tax_third_year;
+    $bp_net_profit_four_year = $bp_income_before_taxes_four_year - $bp_corporate_tax_four_year;
+    $bp_net_profit_five_year = $bp_income_before_taxes_five_year - $bp_corporate_tax_five_year;
     // Cash Flow
     $bp_cash_flow_first_year = $bp_net_profit_first_year + $bp_amortization_yearly;
     $bp_cash_flow_second_year = $bp_net_profit_second_year + $bp_amortization_yearly;
     $bp_cash_flow_third_year = $bp_net_profit_third_year + $bp_amortization_yearly;
+    $bp_cash_flow_four_year = $bp_net_profit_four_year + $bp_amortization_yearly;
+    $bp_cash_flow_five_year = $bp_net_profit_five_year + $bp_amortization_yearly;
+
 
     // Profitability
     if ($bp_net_profit_first_year - $bp_financial_plan_total > 0) {
@@ -741,6 +966,8 @@
                                     <th>Année 1</th>
                                     <th>Année 2</th>
                                     <th>Année 3</th>
+                                    <th>Année 4</th>
+                                    <th>Année 5</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -749,18 +976,24 @@
                                     <td>{{ number_format($bp_turnover_first_year, 0, ',', ' ') }} MAD</td>
                                     <td>{{ number_format($bp_turnover_second_year, 0, ',', ' ') }} MAD</td>
                                     <td>{{ number_format($bp_turnover_third_year, 0, ',', ' ') }} MAD</td>
+                                    <td>{{ number_format($bp_turnover_four_year, 0, ',', ' ') }} MAD</td>
+                                    <td>{{ number_format($bp_turnover_five_year, 0, ',', ' ') }} MAD</td>
                                 </tr>
                                 <tr>
                                     <td>Achats de matières</td>
                                     <td>{{ number_format($bp_purchase_first_year, 0, ',', ' ') }} MAD</td>
                                     <td>{{ number_format($bp_purchase_second_year, 0, ',', ' ') }} MAD</td>
                                     <td>{{ number_format($bp_purchase_third_year, 0, ',', ' ') }} MAD</td>
+                                    <td>{{ number_format($bp_purchase_four_year, 0, ',', ' ') }} MAD</td>
+                                    <td>{{ number_format($bp_purchase_five_year, 0, ',', ' ') }} MAD</td>
                                 </tr>
                                 <tr class="kt-font-bolder">
                                     <td>MARGE BRUTE</td>
                                     <td>{{ number_format($bp_gross_margin_first_year, 0, ',', ' ') }} MAD</td>
                                     <td>{{ number_format($bp_gross_margin_second_year, 0, ',', ' ') }} MAD</td>
                                     <td>{{ number_format($bp_gross_margin_third_year, 0, ',', ' ') }} MAD</td>
+                                    <td>{{ number_format($bp_gross_margin_four_year, 0, ',', ' ') }} MAD</td>
+                                    <td>{{ number_format($bp_gross_margin_five_year, 0, ',', ' ') }} MAD</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -771,6 +1004,8 @@
                                     <th> </th>
                                     <th> </th>
                                     <th> </th>
+                                    <th> </th>
+                                    <th> </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -778,6 +1013,8 @@
                                     @foreach ($application->financial_data->overheads_fixed as $item)
                                         <tr>
                                             <td>{{ $item->label }}</td>
+                                            <td>{{ number_format($item->value, 0, ',', ' ') }} MAD</td>
+                                            <td>{{ number_format($item->value, 0, ',', ' ') }} MAD</td>
                                             <td>{{ number_format($item->value, 0, ',', ' ') }} MAD</td>
                                             <td>{{ number_format($item->value, 0, ',', ' ') }} MAD</td>
                                             <td>{{ number_format($item->value, 0, ',', ' ') }} MAD</td>
@@ -801,12 +1038,17 @@
                                   <td>{{ number_format($total1, 0, ',', ' ') }} MAD</td>
                                   <td>{{  number_format($total2, 0, ',', ' ') }} MAD</td>
                                   <td>{{ number_format($total3, 0, ',', ' ') }} MAD</td>
+                                  <td>{{  number_format($total4, 0, ',', ' ') }} MAD</td>
+                                  <td>{{ number_format($total5, 0, ',', ' ') }} MAD</td>
                                 </tr> 
                                 <tr class="kt-font-bolder">
                                     <td>VALEUR AJOUTÉE</td>
                                     <td>{{ number_format($bp_added_value_first_year, 0, ',', ' ') }} MAD</td>
                                     <td>{{ number_format($bp_added_value_second_year, 0, ',', ' ') }} MAD</td>
                                     <td>{{ number_format($bp_added_value_third_year, 0, ',', ' ') }} MAD</td>
+                                    <td>{{ number_format($bp_added_value_four_year, 0, ',', ' ') }} MAD</td>
+                                    <td>{{ number_format($bp_added_value_five_year, 0, ',', ' ') }} MAD</td>
+
                                 </tr>
                             </tbody>
                         </table>
@@ -814,6 +1056,8 @@
                             <thead>
                                 <tr>
                                     <th>RESSOURCES HUMAINES</th>
+                                    <th> </th>
+                                    <th> </th>
                                     <th> </th>
                                     <th> </th>
                                     <th> </th>
@@ -836,12 +1080,24 @@
                                     <td>{{ number_format($bp_human_ressources_total, 0, ',', ' ') }} MAD</td>
                                     <td>{{ number_format($bp_human_ressources_total, 0, ',', ' ') }} MAD</td>
                                     <td>{{ number_format($bp_human_ressources_total, 0, ',', ' ') }} MAD</td>
+                                    <td>{{ number_format($bp_human_ressources_total, 0, ',', ' ') }} MAD</td>
+                                    <td>{{ number_format($bp_human_ressources_total, 0, ',', ' ') }} MAD</td>
                                 </tr>
                                 <tr>
                                     <td>Charges sociales</td>
                                     <td>{{ number_format($bp_human_ressources_social_fees_total, 0, ',', ' ') }} MAD</td>
                                     <td>{{ number_format($bp_human_ressources_social_fees_total, 0, ',', ' ') }} MAD</td>
                                     <td>{{ number_format($bp_human_ressources_social_fees_total, 0, ',', ' ') }} MAD</td>
+                                    <td>{{ number_format($bp_human_ressources_social_fees_total, 0, ',', ' ') }} MAD</td>
+                                    <td>{{ number_format($bp_human_ressources_social_fees_total, 0, ',', ' ') }} MAD</td>
+                                </tr>
+                                <tr>
+                                    <td>Assurance accident de travail</td>
+                                    <td>{{ number_format($bp_human_ressources_total*0.3, 0, ',', ' ') }} MAD</td>
+                                    <td>{{ number_format($bp_human_ressources_total*0.3, 0, ',', ' ') }} MAD</td>
+                                    <td>{{ number_format($bp_human_ressources_total*0.3, 0, ',', ' ') }} MAD</td>
+                                    <td>{{ number_format($bp_human_ressources_total*0.3, 0, ',', ' ') }} MAD</td>
+                                    <td>{{ number_format($bp_human_ressources_total*0.3, 0, ',', ' ') }} MAD</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -849,6 +1105,8 @@
                             <thead>
                                 <tr>
                                     <th>TAXES</th>
+                                    <th> </th>
+                                    <th> </th>
                                     <th> </th>
                                     <th> </th>
                                     <th> </th>
@@ -862,6 +1120,8 @@
                                             <td>{{ number_format($item->value, 0, ',', ' ') }} MAD</td>
                                             <td>{{ number_format($item->value, 0, ',', ' ') }} MAD</td>
                                             <td>{{ number_format($item->value, 0, ',', ' ') }} MAD</td>
+                                            <td>{{ number_format($item->value, 0, ',', ' ') }} MAD</td>
+                                            <td>{{ number_format($item->value, 0, ',', ' ') }} MAD</td>
                                         </tr>
                                     @endforeach
                                 @endif
@@ -870,13 +1130,76 @@
                                     <td>{{ number_format($gross_surplus_first_year, 0, ',', ' ') }} MAD</td>
                                     <td>{{ number_format($gross_surplus_second_year, 0, ',', ' ') }} MAD</td>
                                     <td>{{ number_format($gross_surplus_third_year, 0, ',', ' ') }} MAD</td>
+                                    <td>{{ number_format($gross_surplus_four_year, 0, ',', ' ') }} MAD</td>
+                                    <td>{{ number_format($gross_surplus_five_year, 0, ',', ' ') }} MAD</td>
                                 </tr>
+                            </tbody>
+                        </table>
+                       
+                         
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Taxe De Services Communaux</th>
+                                    <th> Montant HT</th>
+                                    <th> Valeur Locative</th>
+                                    <th> Impots et Taxes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                     @if (isset($application->financial_data->overheads_fixed))
+                         @foreach ($application->financial_data->overheads_fixed as $item) 
+                         
+                           @if($item->label=='loyer'|| $item->label=='loyers')
+                                        <tr>
+                                            <td>{{ $item->label }}</td>
+                                            <td>{{ number_format(0, 0, ',', ' ') }} MAD</td>
+                                            <td>{{ number_format($item->value, 0, ',', ' ') }} MAD</td>
+                                            <td>{{ number_format($item->value*0.105, 0, ',', ' ') }} MAD</td>
+                                        </tr>                 
+                             @endif          
+                         @endforeach
+                        @endif    
+                            @if (isset($application->financial_data->startup_needs))
+                                @foreach ($application->financial_data->startup_needs as $item) 
+                                    <?php 
+                                        $imp_project=isset($application->company->implantation_project)?$application->company->implantation_project:'';
+                                       $Montant=0;
+                                       $sum1=0;
+                                         if($imp_project=='Urbain'){
+                                        $Montant=($item->value/(1+($item->duration/100))*0.03)*0.105 ;
+                                        $sum1+=$Montant;
+                                        }else{
+                                        $Montant=($item->value/(1+($item->duration/100))*0.03)*0.065 ;
+                                        $sum1+=$Montant;
+                                        }                 
+                                       ?>
+                                       <tr>
+                                        <td>{{ $item->label }}</td>
+                                        <td>{{ number_format($item->value/(1+($item->duration/100)), 0, ',', ' ') }} MAD</td>
+                                        <td>{{ number_format($item->value/(1+($item->duration/100))*0.03, 0, ',', ' ') }} MAD</td>
+                                        <td>{{ number_format($Montant, 0, ',', ' ') }} MAD</td>
+
+                                       </tr>
+                                       <tr>
+
+                                       </tr>
+                                @endforeach
+                            @endif 
+                                {{-- <tr class="kt-font-bolder">
+                                    <td>Total</td>
+                                    <td>{{ number_format(0, 0, ',', ' ') }} MAD</td>
+                                    <td>{{ number_format(0, 0, ',', ' ') }} MAD</td>
+                                    <td>{{ number_format(, 0, ',', ' ') }} MAD</td>
+                                </tr> --}}
                             </tbody>
                         </table>
                         <table class="table">
                             <thead>
                                 <tr>
                                     <th>AMORTISSEMENT</th>
+                                    <th> </th>
+                                    <th> </th>
                                     <th> </th>
                                     <th> </th>
                                     <th> </th>
@@ -888,12 +1211,17 @@
                                     <td>{{ number_format($bp_amortization_yearly, 0, ',', ' ') }} MAD</td>
                                     <td>{{ number_format($bp_amortization_yearly, 0, ',', ' ') }} MAD</td>
                                     <td>{{ number_format($bp_amortization_yearly, 0, ',', ' ') }} MAD</td>
+                                    <td>{{ number_format($bp_amortization_yearly, 0, ',', ' ') }} MAD</td>
+                                    <td>{{ number_format($bp_amortization_yearly, 0, ',', ' ') }} MAD</td>
+
                                 </tr>
                                 <tr class="kt-font-bolder">
                                     <td>RÉSULTAT BRUT D'EXPLOITATION</td>
                                     <td>{{ number_format($bp_gross_income_first_year, 0, ',', ' ') }} MAD</td>
                                     <td>{{ number_format($bp_gross_income_second_year, 0, ',', ' ') }} MAD</td>
                                     <td>{{ number_format($bp_gross_income_third_year, 0, ',', ' ') }} MAD</td>
+                                    <td>{{ number_format($bp_gross_income_four_year, 0, ',', ' ') }} MAD</td>
+                                    <td>{{ number_format($bp_gross_income_five_year, 0, ',', ' ') }} MAD</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -901,6 +1229,8 @@
                             <thead>
                                 <tr>
                                     <th>FINANCIER</th>
+                                    <th> </th>
+                                    <th> </th>
                                     <th> </th>
                                     <th> </th>
                                     <th> </th>
@@ -912,12 +1242,16 @@
                                     <td>0 MAD</td>
                                     <td>0 MAD</td>
                                     <td>0 MAD</td>
+                                    <td>0 MAD</td>
+                                    <td>0 MAD</td>
                                 </tr>
                                 <tr>
                                     <td>Charges financières</td>
                                     <td>{{ number_format($bp_loans_first_year_total, 0, ',', ' ') }} MAD</td>
                                     <td>{{ number_format($bp_loans_second_year_total, 0, ',', ' ') }} MAD</td>
                                     <td>{{ number_format($bp_loans_third_year_total, 0, ',', ' ') }} MAD</td>
+                                    <td>{{ number_format($bp_loans_four_year_total, 0, ',', ' ') }} MAD</td>
+                                    <td>{{ number_format($bp_loans_five_year_total, 0, ',', ' ') }} MAD</td>
                                 </tr>
                                 {{-- <tr class="kt-font-bolder">
                                     <td>RÉSULTAT FINANCIER</td>
@@ -930,6 +1264,8 @@
                                     <td>{{ number_format($bp_current_result_first_year, 0, ',', ' ') }} MAD</td>
                                     <td>{{ number_format($bp_current_result_second_year, 0, ',', ' ') }} MAD</td>
                                     <td>{{ number_format($bp_current_result_third_year, 0, ',', ' ') }} MAD</td>
+                                    <td>{{ number_format($bp_current_result_four_year, 0, ',', ' ') }} MAD</td>
+                                    <td>{{ number_format($bp_current_result_five_year, 0, ',', ' ') }} MAD</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -937,6 +1273,8 @@
                             <thead>
                                 <tr>
                                     <th>RÉSULTAT</th>
+                                    <th> </th>
+                                    <th> </th>
                                     <th> </th>
                                     <th> </th>
                                     <th> </th>
@@ -948,24 +1286,32 @@
                                     <td>{{ number_format($bp_income_before_taxes_first_year, 0, ',', ' ') }}</td>
                                     <td>{{ number_format($bp_income_before_taxes_second_year, 0, ',', ' ') }}</td>
                                     <td>{{ number_format($bp_income_before_taxes_third_year, 0, ',', ' ') }}</td>
+                                    <td>{{ number_format($bp_income_before_taxes_four_year, 0, ',', ' ') }}</td>
+                                    <td>{{ number_format($bp_income_before_taxes_five_year, 0, ',', ' ') }}</td>
                                 </tr>
                                 <tr>
                                     <td>{{ $application->company->applied_tax ?? 'Impôts' }}</td>
                                     <td>{{ number_format($bp_corporate_tax_first_year, 0, ',', ' ') }}</td>
                                     <td>{{ number_format($bp_corporate_tax_second_year, 0, ',', ' ') }}</td>
                                     <td>{{ number_format($bp_corporate_tax_third_year, 0, ',', ' ') }}</td>
+                                    <td>{{ number_format($bp_corporate_tax_four_year, 0, ',', ' ') }}</td>
+                                    <td>{{ number_format($bp_corporate_tax_five_year, 0, ',', ' ') }}</td>
                                 </tr>
                                 <tr class="kt-font-bolder">
                                     <td>RÉSULTAT NET</td>
                                     <td>{{ number_format($bp_net_profit_first_year, 0, ',', ' ') }}</td>
                                     <td>{{ number_format($bp_net_profit_second_year, 0, ',', ' ') }}</td>
                                     <td>{{ number_format($bp_net_profit_third_year, 0, ',', ' ') }}</td>
+                                    <td>{{ number_format($bp_net_profit_four_year, 0, ',', ' ') }}</td>
+                                    <td>{{ number_format($bp_net_profit_five_year, 0, ',', ' ') }}</td>
                                 </tr>
                                 <tr class="kt-font-bolder">
                                     <td>CAPACITÉ D'AUTOFINANCEMENT</td>
                                     <td>{{ number_format($bp_cash_flow_first_year, 0, ',', ' ') }}</td>
                                     <td>{{ number_format($bp_cash_flow_second_year, 0, ',', ' ') }}</td>
                                     <td>{{ number_format($bp_cash_flow_third_year, 0, ',', ' ') }}</td>
+                                    <td>{{ number_format($bp_cash_flow_four_year, 0, ',', ' ') }}</td>
+                                    <td>{{ number_format($bp_cash_flow_five_year, 0, ',', ' ') }}</td>
                                 </tr>
                             </tbody>
                         </table>

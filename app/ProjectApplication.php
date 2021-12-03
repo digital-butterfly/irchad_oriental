@@ -15,9 +15,10 @@ class ProjectApplication extends Model
     protected $guard = 'user';
 
     const TAXES=['La taxe professionnelle','La taxe des services communaux','La taxe des véhicules','La taxe d’essieu pour les camions'];
-    const INVEST=['Terrain', 'Construction', 'Aménagement', 'Matériel d’exploitation', 'Matériel bureautique', 'Matériel informatique', 'Matériel de transport', 'Autre à préciser'];
+    const INVEST=['Terrain', 'Construction', 'Aménagement', 'Matériel d’exploitation', 'Matériel bureautique', 'Matériel informatique', 'Matériel de transport','Frais preliminaires', 'Autre à préciser'];
     const LEGALFORM=['S.A.R.L','S.A.R.L A.U','S.N.C','Coopérative','A.E'];
     const AIDEETAT=['INDH','DPA','Collectivités territoriales', 'Autre'];
+    const Etat=['Demande','Non demande','Delivre', 'Non delivre'];
 
     /**
      * The attributes that are mass assignable.
@@ -301,6 +302,13 @@ class ProjectApplication extends Model
                         'options' => ['Oui', 'Non'],
                     ],
                     [
+                        'name' => 'implantation_project',
+                        'type' => 'select',
+                        'label' => 'Implantation du projet:',
+                        'options' =>['Urbain','Rural']
+
+                    ],
+                    [
                         'name' => 'legal_form',
                         'type' => 'select',
                         'label' => 'Forme juridique',
@@ -347,6 +355,21 @@ class ProjectApplication extends Model
                 'label' => 'Business Model',
                 'sub_fields' => [
                     [
+                        'name' => 'context_g',
+                        'type' => 'textarea',
+                        'label' => 'Contexte général'
+                    ],
+                    [
+                        'name' => 'evolution_m',
+                        'type' => 'textarea',
+                        'label' => 'Evolutions de Marche'
+                    ],
+                    [
+                        'name' => 'core_business',
+                        'type' => 'text',
+                        'label' => 'Produits ',
+                    ],
+                    [
                         'name' => 'core_business_p',
                         'type' => 'repeater',
                         'label' => 'Produits ',
@@ -360,7 +383,24 @@ class ProjectApplication extends Model
                     ],
                     [
                         'name' => 'primary_target',
-                        'type' => 'textarea',
+                        'type' => 'text',
+                        'label' => 'Principaux clients'
+                    ],
+                    [
+                        'name' => 'suppliers',
+                        'type' => 'text',
+                        'label' => 'Principaux fournisseurs',
+
+                    ],
+                    [
+                        'name' => 'competition',
+                        'type' => 'text',
+                        'label' => 'Principaux concurrents',
+
+                    ],
+                    [
+                        'name' => 'primary_target_c',
+                        'type' => 'repeater',
                         'label' => 'Principaux clients'
                     ],
                     [
@@ -419,29 +459,70 @@ class ProjectApplication extends Model
                         'label' => 'Opportunité'
                     ], 
                     [
+                        'name' => 'distribution_strategy_force_p',
+                        'type' => 'repeater',
+                        'label' => 'Force'
+                    ],
+                    [
+                        'name' => 'distribution_strategy_menace_p',
+                        'type' => 'repeater',
+                        'label' => 'Menace'
+                    ], 
+                    [
+                        'name' => 'distribution_strategy_faiblesse_p',
+                        'type' => 'repeater',
+                        'label' => 'Faiblesse'
+                    ], 
+                    [
+                        'name' => 'distribution_strategy_Opportunité_p',
+                        'type' => 'repeater',
+                        'label' => 'Opportunité'
+                    ], 
+                    
+                   
+                   
+                ],
+                'group' => 'Étude De marché',
+            ],
+            
+            [
+                'name' => 'business_model',
+                'type' => 'section',
+                'class' => 'kt-callout--success',
+                'label' => 'Business Model',
+                'sub_fields' => [
+                    [
                         'name' => 'autorisations_nécessaire',
                         'type' => 'repeater',
-                        'label' => 'Autorisations nécessaires'
+                        'label' => 'Autorisations nécessaires',
+                    ],
+                     [
+                        'name' => 'autorisations_nécessaire_c',
+                        'type' => 'repeater',
+                        'label' => 'Autorisations nécessaires',
+                        'config' => ['tripleRepeater' => true, 'attributes' => [['Nom Autorisation',3], ['Organisme ',2], ['Etat',4]],'Select'=>true, 'options' =>self::Etat],
                     ],
                     [
                         'name' => 'local',
                         'type' => 'repeater',
                         'label' => 'local',
-                        'config' => ['tripleRepeater' => true, 'attributes' => [['nature',3], ['surface ',2], ['Adresse',0]],'Select'=>false]
+                        'config' => ['quadrupleRepeater' => true, 'attributes' => [['Nature de l\'occupation',3], ['Prix de loyer ',2], ['Superficie  ',2], ['Adresse',0]],'Select'=>false]
                     ],
                     [
                         'name' => 'list_mat',
                         'type' => 'repeater',
                         'label' => 'liste de matériel'
+                    ]
                     ],
-                ],
-                'group' => 'Étude Technique',
-            ],
+
+                 'group' => 'Étude Technique',
+             ],
             [
                 'name' => 'financial_data',
                 'type' => 'section',
                 'class' => 'kt-callout--danger',
                 'sub_fields' => [
+                     
                     [
                         'name' => 'startup_needs',
                         'type' => 'repeater',
@@ -458,20 +539,30 @@ class ProjectApplication extends Model
                         'name' => 'financial_plan_loans',
                         'type' => 'repeater',
                         'label' => 'Prêts',
-                        'config' => ['quadrupleRepeater' => true, 'attributes' => [['Organisme de crédit',3], ['Montant',3], ['Taux',1], ['TVA',1]],'Select'=>false]
+                        'config' => ['quadrupleRepeater' => true, 'attributes' => [['Organisme de crédit',3], ['Montant',3], ['Taux',1], ['Durée  du prêts',3]],'Select'=>false]
+                    ],
+                    [
+                        'name' => 'duration_différe',
+                        'type' => 'number',
+                        'label' => 'Durée  du différée'
                     ],
                     [
                         'name' => 'services_turnover_forecast_c',
                         'type' => 'repeater',
                         'label' => 'CA prévisionnel - Services',
-                        'config' => ['tripleRepeater' => true, 'attributes' => [['Service',3], ['Quantité  vendus',3], ['P.U',1]],'Select'=>false]
+                        'config' => ['tripleRepeater' => true, 'attributes' => [['Service',3], ['Quantité  vendus',3], ['P.U',3]],'Select'=>false]
 
+                    ],
+                    [
+                        'name' => 'saisonnalite',
+                        'type' => 'number',
+                        'label' => 'Saisonnalité des ventes par mois'
                     ],
                     [
                         'name' => 'products_turnover_forecast',
                         'type' => 'repeater',
                         'label' => 'CA prévisionnel - Produits',
-                        'config' => ['quadrupleRepeater' => true, 'attributes' => [['Produit',3], ['Quantité  vendus',3], ['P.U',1], ['Taux',1]],'Select'=>false]
+                        'config' => ['quadrupleRepeater' => true, 'attributes' => [['Produit',3], ['Quantité  vendus',3], ['P.U',3], ['Taux',1]],'Select'=>false]
                     ],
 //                    [
 //                        'name' => 'profit_margin_rate',

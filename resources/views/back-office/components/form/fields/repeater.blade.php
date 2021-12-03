@@ -73,6 +73,7 @@
                         </script>
                     @endif
                 @elseif (isset($field['config']['tripleRepeater']))
+                
                     <div class="col-md-{{ $field['config']['attributes'][0][1] ?? '4' }}">
                         <div class="kt-form__group--inline">
                             <div class="kt-form__label">
@@ -106,6 +107,28 @@
                         </div>
                         <div class="d-md-none kt-margin-b-10"></div>
                     </div>
+                    {{-- <div class="col-md-{{ $field['config']['attributes'][3][1] ?? '4' }}">
+                        <div class="kt-form__group--inline">
+                            <div class="kt-form__label">
+                                <label>{{ $field['config']['attributes'][3][0] ?? 'Désignation' }}:</label>
+                            </div>
+                            <div class="kt-form__control">
+
+                                @if($field['config']['Select'])
+                                <select name="label" class="form-control">
+                                    <option value="">---</option>
+                                    @foreach($field['config']['options'] as $value)
+                                    <option value="{{$value}}" >{{$value}}</option>
+                                    @endforeach
+                                </select>
+                                @else
+                                    <input type="text" name="label" class="form-control" placeholder="">
+
+                                @endif
+                            </div>
+                        </div>
+                        <div class="d-md-none kt-margin-b-10"></div>
+                    </div> --}}
                     @if (isset($data) && isset($data->$ref) && $data->$ref != NULL)
                         <script>
                             window.addEventListener('load', function() {
@@ -113,9 +136,9 @@
                                 $repeater.setList([
                                     @foreach ($data->$ref as $item)
                                         {
-                                            'label' :  '{{ $item->label ?? ''}}',
-                                            'count' :  '{{ $item->count ?? ''}}',
-                                            'value' :  '{{ $item->value ?? ''}}',
+                                            'label' :  '{{ $item->label ?? 'a'}}',
+                                            'count' :  '{{ $item->count ?? 'aaa'}}',
+                                            'value' :  '{{ $item->value ?? 'aaa'}}',
                                         },
                                     @endforeach
                                 ]);
@@ -137,7 +160,7 @@
                                     @else
                                         @foreach ($data->$parent_ref->$ref as $item)
                                             {
-                                                'label' :  '{{ $item->label ?? ''}}',
+                                                'label' :  '{{ $item->label ?? '' }}',
                                                 'count' :  '{{ $item->count ?? ''}}',
                                                 'value' :  '{{ $item->value ?? ''}}',
                                             },
@@ -170,8 +193,7 @@
                                     <input type="text" name="label" class="form-control" placeholder="">
 
                                 @endif
-{{--                                <input type="text" name="label" class="form-control" placeholder="">--}}
-                            </div>
+                             </div>
                         </div>
 
                         <div class="d-md-none kt-margin-b-10"></div>
@@ -183,7 +205,7 @@
                                 <label>{{ $field['config']['attributes'][1][0] ?? 'Valeur' }}:</label>
                             </div>
                             <div class="kt-form__control">
-                                <input type="text" name="value" class="form-control" placeholder="">
+                                <input type="text" name="value" id='id_q' class="form-control" placeholder="">
                             </div>
                         </div>
                         <div class="d-md-none kt-margin-b-10"></div>
