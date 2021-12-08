@@ -365,11 +365,6 @@ class ProjectApplication extends Model
                         'label' => 'Evolutions de Marche'
                     ],
                     [
-                        'name' => 'core_business',
-                        'type' => 'text',
-                        'label' => 'Produits ',
-                    ],
-                    [
                         'name' => 'core_business_p',
                         'type' => 'repeater',
                         'label' => 'Produits ',
@@ -380,23 +375,6 @@ class ProjectApplication extends Model
                         'type' => 'repeater',
                         'label' => 'Services ',
                         'config' => ['tripleRepeater' => true, 'attributes' => [['Service',3],['Description',4], ['Prix estime de vente',3]],'Select'=>false]
-                    ],
-                    [
-                        'name' => 'primary_target',
-                        'type' => 'text',
-                        'label' => 'Principaux clients'
-                    ],
-                    [
-                        'name' => 'suppliers',
-                        'type' => 'text',
-                        'label' => 'Principaux fournisseurs',
-
-                    ],
-                    [
-                        'name' => 'competition',
-                        'type' => 'text',
-                        'label' => 'Principaux concurrents',
-
                     ],
                     [
                         'name' => 'primary_target_c',
@@ -439,26 +417,6 @@ class ProjectApplication extends Model
                         'label' => 'Stratégie de distribution'
                     ],
                     [
-                        'name' => 'distribution_strategy_force',
-                        'type' => 'text',
-                        'label' => 'Force'
-                    ],
-                    [
-                        'name' => 'distribution_strategy_menace',
-                        'type' => 'text',
-                        'label' => 'Menace'
-                    ], 
-                    [
-                        'name' => 'distribution_strategy_faiblesse',
-                        'type' => 'text',
-                        'label' => 'Faiblesse'
-                    ], 
-                    [
-                        'name' => 'distribution_strategy_Opportunité',
-                        'type' => 'text',
-                        'label' => 'Opportunité'
-                    ], 
-                    [
                         'name' => 'distribution_strategy_force_p',
                         'type' => 'repeater',
                         'label' => 'Force'
@@ -491,11 +449,7 @@ class ProjectApplication extends Model
                 'class' => 'kt-callout--success',
                 'label' => 'Business Model',
                 'sub_fields' => [
-                    [
-                        'name' => 'autorisations_nécessaire',
-                        'type' => 'repeater',
-                        'label' => 'Autorisations nécessaires',
-                    ],
+                   
                      [
                         'name' => 'autorisations_nécessaire_c',
                         'type' => 'repeater',

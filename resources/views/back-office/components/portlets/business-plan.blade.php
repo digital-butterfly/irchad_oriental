@@ -1349,7 +1349,7 @@
                 </div>
             </div>
         </div>
-        {{-- <div class="kt-section">
+        <div class="kt-section">
             <span class="kt-section__info">
                 Tableau d'amortissement des prêts:
             </span>
@@ -1404,6 +1404,6 @@
             <p>Total interets 1ère année: <strong>{{ $bp_loans_first_year_total }}</strong></p>
             <p>Total interets 2ème année: <strong>{{ $bp_loans_second_year_total }}</strong></p>
             <p>Total interets 3ème année: <strong>{{ $bp_loans_third_year_total }}</strong></p>
-        </div> --}}
+        </div>
     </div>
 </div>
