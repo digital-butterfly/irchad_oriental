@@ -1,10 +1,19 @@
 @php
+$total_mensualite=0;
+$total_rest=0;
+$total_rem=0;
+$total_interets=0;
+$total_van=0;
+$total_van_verify=0;
+          $total_cash=0; 
+          $tri=0;
  $bp_evolution_rate = isset($data ->financial_data->evolution_rate) ? $data ->financial_data->evolution_rate : 0;
 // Financial Plan
+$bp_financial_plan_totals = 0;
 $bp_financial_plan_total = 0;
 if(isset($data->financial_data->financial_plan)){
     foreach ($data ->financial_data->financial_plan as $item) {
-    $bp_financial_plan_total += $item->value;
+    $bp_financial_plan_totals += $item->value;
     }
 }
 
@@ -15,11 +24,17 @@ if (isset($data->financial_data->financial_plan_loans)) {
 }
 // Investment Program
 $bp_investment_program_total = 0;
+$total_taxe_amortisement=0;
 if (isset($data  ->financial_data->startup_needs)) {
     foreach ($data  ->financial_data->startup_needs as $item) {
         $bp_investment_program_total += $item->value ?? 0;
+        if($item->value!=0 && $item->rate!=0){
+           $total_taxe_amortisement+=($item->value/($item->rate/100))/(1+$item->duration/100);
+        }
+       
     }
 }
+//dd( $total_taxe_amortisement);
   //total charge 
    $total1=0;
    $total2=0;
@@ -120,61 +135,154 @@ if(isset($data ->financial_data->financial_plan_loans))
     }
 }
 }
+////////////////////////////////////
+    $Taux_interet=0;
+    $differe=isset($data ->financial_data->duration_différe)?$data ->financial_data->duration_différe:0;
+    $montant=0;
+    $capital_rest=0;
+    $capital_rem=0;
+    $interets=0;
+    $mensualite=0;
+    $monthsCalcul=[];
+    $yearsCalcul=[];
+    $duree_pret=0;
+    
+    if(isset($data ->financial_data->financial_plan_loans))
+    {
+    foreach ($data ->financial_data->financial_plan_loans as $item) {
+      $Taux_interet=$item->rate/100;
+      $montant=$item->value;
+      $duree_pret=$item->duration;
+    }}
+    $months=$duree_pret*12;
+    //$mensualite=($montant*$Taux_interet)/(12*(1-pow(1+$Taux_interet/12,-$months+$differe)));
+    $capital_rest=$montant*(1+$Taux_interet/12
+  );
+//dd($capital_rest);
+    for ($i=0; $i < $months ; $i++) { 
+      $mensualite=($capital_rest*($Taux_interet/12))/(1-pow(1+$Taux_interet/12,-$months+$differe));  
+     
+     //dd($mensualite);
+      if($i>=$differe){
+        $interets=($capital_rest*$Taux_interet)/12;
+        $capital_rem= $mensualite-$interets;
+        $capital_rest= $monthsCalcul[$i-1]->capital_rest-$capital_rem;
+      }else{
+        $interets=0;
+        $capital_rem= 0;
+        $capital_rest= $capital_rest*(1+$Taux_interet/12);  
+      }
+      array_push($monthsCalcul,(object) ["mensualite"=>$mensualite,"interets"=>$interets,"capital_rem"=>$capital_rem,"capital_rest"=>$capital_rest]);
+    }
 
-//
-// $montant=0;
-// $duree_pret=0;
-// $Taux_interet=0;
-// $mensualite=0;
-// $interets=0;
-// $capital_rem=0;
-// $capital_rest=0;
-// $differe=isset($data ->financial_data->duration_différe)?$data ->financial_data->duration_différe:0;
-// if(isset($data ->financial_data->financial_plan_loans))
-// {
-//     foreach ($data ->financial_data->financial_plan_loans as $item) {
-//       $montant=$item->value;
-//       $duree_pret=$item->duration*12;
-//       $Taux_interet=$item->rate;
-//     }
-//     $capital_rest=$montant;
-//     for ($i=1; $i < $duree_pret ; $i++) { 
-//       if($i<12){
-//       $mensualite=($capital_rest*$Taux_interet)/pow((12*(1-(1+$Taux_interet/12)),(-$Taux_interet+$differe));
-//       $interets=($capital_rest*$Taux_interet)/12;
-//       $capital_rem=$mensualite-$interets;
-//       $capital_rest=$capital_rem+$interets;
-//       }elseif ($i > 12 && $i <= 24) {
-//         # code...
-//       }
+
+    for ($i=1; $i <= $duree_pret; $i++) { 
+        $mensualiteYear=0;
+        $interetsYear=0;
+        $capital_remYear=0;
+        $capital_restYear=0;
+
+        for ($j=($i-1)*12; $j < $i*12; $j++) {
+            if($j>=count($monthsCalcul))break;
+            $mensualiteYear += $monthsCalcul[$j]->mensualite;
+            $interetsYear += $monthsCalcul[$j]->interets;
+            $capital_remYear += $monthsCalcul[$j]->capital_rem;
+            $capital_restYear = $monthsCalcul[$j]->capital_rest;
+        }
 
 
+        array_push($yearsCalcul,(object) ["mensualite"=>$mensualiteYear,"interets"=>$interetsYear,"capital_rem"=>$capital_remYear,"capital_rest"=>$capital_restYear]);
+    }
 
-//     }
-
-  
+//   foreach ($monthsCalcul as $key => $monthData) {
+//          dd($monthData->interets);
+// }
+//dd($yearsCalcul);
+//dd($monthsCalcul);
+// foreach ($yearsCalcul as $key => $yearData) {
+//         dd( number_format($yearData->mensualite,10,'',''));
 // }
 //Turnover 
+$taxe_impot_first_year=0;
+$taxe_impot_second_year=0;
+$taxe_impot_third_year=0;
+$taxe_impot_four_year=0;
+$taxe_impot_five_year=0;
+$total_impot_taxe1=0;
+$total_impot_taxe2=0;
+$imp_project=isset($data->company->implantation_project)?$data->company->implantation_project:'';
+                                      //dd($data->company->implantation_project);
+                                      $taxe=0;
+                                       $total_taxe1 =0; 
+                                       $total_taxe2 =0; 
+                                         if($imp_project=='Urbain'){
+                                        $taxe=0.105 ;
+                                        }elseif($imp_project=='Rural'){
+                                        $taxe=0.065 ;
+                                        }
+ if(isset($data->financial_data->overheads_fixed)){
+  foreach ($data->financial_data->overheads_fixed as $item) {
+    if($item->label=='loyer'|| $item->label=='loyers'){
+      $total_impot_taxe1= $item->value*$taxe;
+    }}  
+ } 
+ if(isset($data->financial_data->startup_needs)){
+  foreach ($data->financial_data->startup_needs as $item) {
+    if($item->label !='Frais preliminaires'){
+      $total_impot_taxe2=($item->value/(1+($item->duration/100))*0.03)*$taxe;
+    }}  
+ }  
+ 
+ 
+$taxe_impot_first_year=$total_impot_taxe1+$total_impot_taxe2;
+$taxe_impot_second_year=$total_impot_taxe1+$total_impot_taxe2;
+$taxe_impot_third_year=$total_impot_taxe1+$total_impot_taxe2;
+$taxe_impot_four_year=($total_impot_taxe1*1.1)+$total_impot_taxe2;
+$taxe_impot_five_year=($total_impot_taxe1*1.1)+$total_impot_taxe2;
+                                                     
+///////////
+
+
+
+
 $bp_turnover_first_year =0;
 $bp_turnover_second_year=0;
 $bp_turnover_third_year=0;
 $bp_turnover_four_year=0;
 $bp_turnover_five_year=0;
+if($bp_evolution_rate>0){
 $bp_turnover_first_year = $bp_turnover_products_totals;
 $bp_turnover_second_year = $bp_turnover_first_year + ($bp_turnover_first_year * (1+$bp_evolution_rate / 100));
 $bp_turnover_third_year = $bp_turnover_second_year + ($bp_turnover_second_year * (1+$bp_evolution_rate / 100));
 $bp_turnover_four_year = $bp_turnover_third_year + ($bp_turnover_third_year * (1+$bp_evolution_rate / 100));
 $bp_turnover_five_year = $bp_turnover_four_year + ($bp_turnover_four_year * (1+$bp_evolution_rate / 100));
+}else{
+$bp_turnover_first_year =$bp_turnover_products_totals;
+$bp_turnover_second_year=$bp_turnover_products_totals;
+$bp_turnover_third_year=$bp_turnover_products_totals;
+$bp_turnover_four_year=$bp_turnover_products_totals;
+$bp_turnover_five_year=$bp_turnover_products_totals;
+}
 
+if($bp_evolution_rate>0){
 $bp_purchase_first_year = $bp_turnover_products_total ;
-$bp_purchase_second_year = $bp_purchase_first_year *(1+$bp_evolution_rate / 100);
-$bp_purchase_third_year = $bp_purchase_second_year * ((1+$bp_evolution_rate/100)*(1+$bp_evolution_rate/100));
-$bp_purchase_four_year = $bp_purchase_third_year  * ((1+$bp_evolution_rate/100)*(1+$bp_evolution_rate/100));
-$bp_purchase_five_year = $bp_purchase_four_year  * ((1+$bp_evolution_rate/100)*(1+$bp_evolution_rate/100));
+$bp_purchase_second_year = $bp_purchase_first_year+ ($bp_purchase_first_year *(1+$bp_evolution_rate / 100));
+$bp_purchase_third_year = $bp_purchase_second_year +($bp_purchase_second_year *(1+$bp_evolution_rate/100));
+$bp_purchase_four_year =   $bp_purchase_third_year+($bp_purchase_third_year*(1+$bp_evolution_rate/100));
+$bp_purchase_five_year =  $bp_purchase_four_year+ ($bp_purchase_four_year  *(1+$bp_evolution_rate/100));
+}else{
+  $bp_purchase_first_year = $bp_turnover_products_total ;
+  $bp_purchase_second_year = $bp_turnover_products_total ;
+  $bp_purchase_third_year = $bp_turnover_products_total ;
+  $bp_purchase_four_year = $bp_turnover_products_total ;
+  $bp_purchase_five_year = $bp_turnover_products_total ;
+}
+
 
   
 // Gross Margin
 $bp_gross_margin_first_year = $bp_turnover_first_year - $bp_purchase_first_year;
+//dd($bp_purchase_first_year);
 $bp_gross_margin_second_year = $bp_turnover_second_year - $bp_purchase_second_year;
 $bp_gross_margin_third_year = $bp_turnover_third_year - $bp_purchase_third_year;
 $bp_gross_margin_four_year = $bp_turnover_four_year - $bp_purchase_four_year;
@@ -190,42 +298,68 @@ $bp_overheads_fixed_five_year =0;
 if(isset($data ->financial_data->overheads_fixed))
 {
     foreach ($data ->financial_data->overheads_fixed as $item) {
-    $bp_overheads_fixed_first_year += $item->value;
-    $bp_overheads_fixed_second_year += $item->value;
-    $bp_overheads_fixed_third_year += $item->value;
-    $bp_overheads_fixed_four_year += $item->value;
-    $bp_overheads_fixed_five_year += $item->value;
+    $bp_overheads_fixed_first_year += $item->value*12;
+    $bp_overheads_fixed_second_year += $item->value*12;
+    $bp_overheads_fixed_third_year += $item->value*12;
+    $bp_overheads_fixed_four_year += $item->value *12;
+    $bp_overheads_fixed_five_year += $item->value*12;
 
 
     }
 }
-
+//dd($bp_overheads_fixed_first_year);
 
 // Overheads Scalable
+$total_charge_var=0;
+if(isset($data ->financial_data->overheads_scalable)){
+    foreach ($data ->financial_data->overheads_scalable as $item) {
+      $total_charge_var += $item->value*12;
+}}
 $bp_overheads_scalable_first_year =  0;
 $bp_overheads_scalable_second_year =  0;
 $bp_overheads_scalable_third_year =  0;
 $bp_overheads_scalable_four_year=0;
 $bp_overheads_scalable_five_year=0;
-if(isset($data ->financial_data->overheads_scalable)){
+if($bp_evolution_rate>0){
+  if(isset($data ->financial_data->overheads_scalable)){
     foreach ($data ->financial_data->overheads_scalable as $item) {
-    $bp_overheads_scalable_first_year += $item->value;
-    $bp_overheads_scalable_second_year += ($item->value) + ($item->value * $bp_evolution_rate / 100);
-    $bp_overheads_scalable_third_year += (($item->value) + ($item->value * $bp_evolution_rate / 100)) + ((($item->value) + ($item->value * $bp_evolution_rate / 100)) * $bp_evolution_rate / 100);
-    $bp_overheads_scalable_four_year +=$bp_overheads_scalable_third_year+((($item->value) + ($item->value * $bp_evolution_rate / 100)) * $bp_evolution_rate / 100);
-    $bp_overheads_scalable_five_year +=$bp_overheads_scalable_four_year+((($item->value) + ($item->value * $bp_evolution_rate / 100)) * $bp_evolution_rate / 100);
-
-
+    $bp_overheads_scalable_first_year += $item->value*12;
+    $bp_overheads_scalable_second_year += $bp_overheads_scalable_first_year + ($bp_overheads_scalable_first_year* $bp_evolution_rate / 100);
+    $bp_overheads_scalable_third_year += $bp_overheads_scalable_second_year + ($bp_overheads_scalable_second_year* $bp_evolution_rate / 100);
+    $bp_overheads_scalable_four_year +=$bp_overheads_scalable_third_year+($bp_overheads_scalable_third_year * $bp_evolution_rate / 100);
+    $bp_overheads_scalable_five_year +=$bp_overheads_scalable_four_year+($bp_overheads_scalable_four_year* $bp_evolution_rate / 100);
     }
+}
+}else{   
+$bp_overheads_scalable_first_year =  $total_charge_var;
+$bp_overheads_scalable_second_year =  $total_charge_var;
+$bp_overheads_scalable_third_year =  $total_charge_var;
+$bp_overheads_scalable_four_year=$total_charge_var;
+$bp_overheads_scalable_five_year=$total_charge_var;
 }
 
 
+//autre charge externe
+
+$autre_charge_externe_first_year=0;
+$autre_charge_externe_second_year=0;
+$autre_charge_externe_third_year=0;
+$autre_charge_externe_four_year=0;
+$autre_charge_externe_five_year=0;
+
+$autre_charge_externe_first_year=$bp_overheads_scalable_first_year+$bp_overheads_fixed_first_year ;
+$autre_charge_externe_second_year=$bp_overheads_scalable_second_year+$bp_overheads_fixed_second_year ;
+$autre_charge_externe_third_year=$bp_overheads_scalable_third_year+$bp_overheads_fixed_third_year ;
+$autre_charge_externe_four_year=$bp_overheads_scalable_four_year+$bp_overheads_fixed_four_year ;
+$autre_charge_externe_five_year=$bp_overheads_scalable_five_year+$bp_overheads_fixed_five_year ;
+//dd($bp_overheads_scalable_first_year);
+
 // Added Value
-$bp_added_value_first_year = $bp_gross_margin_first_year - $bp_overheads_fixed_first_year -  $bp_overheads_scalable_first_year;
-$bp_added_value_second_year = $bp_gross_margin_second_year - $bp_overheads_fixed_second_year - $bp_overheads_scalable_second_year;
-$bp_added_value_third_year = $bp_gross_margin_third_year - $bp_overheads_fixed_third_year - $bp_overheads_scalable_third_year;
-$bp_added_value_four_year = $bp_gross_margin_four_year - $bp_overheads_fixed_four_year - $bp_overheads_scalable_four_year;
-$bp_added_value_five_year = $bp_gross_margin_third_year - $bp_overheads_fixed_five_year - $bp_overheads_scalable_five_year;
+$bp_added_value_first_year = $bp_gross_margin_first_year - $autre_charge_externe_first_year;
+$bp_added_value_second_year = $bp_gross_margin_second_year - $autre_charge_externe_second_year;
+$bp_added_value_third_year = $bp_gross_margin_third_year - $autre_charge_externe_third_year;
+$bp_added_value_four_year = $bp_gross_margin_four_year - $autre_charge_externe_four_year;
+$bp_added_value_five_year = $bp_gross_margin_five_year - $autre_charge_externe_five_year;
 
 // Human Ressources
 $bp_human_ressources_total = 0;
@@ -233,14 +367,14 @@ $bp_human_ressources_rows = 0;
 if(isset($data ->financial_data->human_ressources))
 {
     foreach ($data ->financial_data->human_ressources as $item) {
-    $bp_human_ressources_total += ($item->value * $item->count);
+    $bp_human_ressources_total += ($item->value * $item->count*12);
     $bp_human_ressources_rows++;
     }
 }
 
 $bp_human_ressources_social_fees_total = $bp_human_ressources_total * 0.2109;
-
-// Taxes
+$bp_human_ressources_social_assurance=$bp_human_ressources_total*0.03;
+$total_frais_personnel= $bp_human_ressources_total+$bp_human_ressources_social_fees_total +$bp_human_ressources_social_assurance;
 $bp_taxes_total = 0;
 if(isset($data ->financial_data->taxes))
 {
@@ -251,21 +385,29 @@ if(isset($data ->financial_data->taxes))
 
 
 // Gross Surplus
-$gross_surplus_first_year = $bp_added_value_first_year - $bp_human_ressources_total - $bp_human_ressources_social_fees_total - $bp_taxes_total;
-$gross_surplus_second_year = $bp_added_value_second_year - $bp_human_ressources_total - $bp_human_ressources_social_fees_total - $bp_taxes_total;
-$gross_surplus_third_year = $bp_added_value_third_year - $bp_human_ressources_total - $bp_human_ressources_social_fees_total - $bp_taxes_total;
-$gross_surplus_four_year = $bp_added_value_four_year - $bp_human_ressources_total - $bp_human_ressources_social_fees_total - $bp_taxes_total;
-$gross_surplus_five_year = $bp_added_value_five_year - $bp_human_ressources_total - $bp_human_ressources_social_fees_total - $bp_taxes_total;
+$gross_surplus_first_year = $bp_added_value_first_year -$total_frais_personnel- $taxe_impot_first_year;
+$gross_surplus_second_year = $bp_added_value_second_year -$total_frais_personnel- $taxe_impot_second_year;
+$gross_surplus_third_year = $bp_added_value_third_year - $total_frais_personnel- $taxe_impot_third_year;
+$gross_surplus_four_year = $bp_added_value_four_year -  $total_frais_personnel- $taxe_impot_four_year;
+$gross_surplus_five_year = $bp_added_value_five_year - $total_frais_personnel- $taxe_impot_five_year;
+// $gross_surplus_first_year = $bp_gross_margin_first_year - ( $bp_overheads_scalable_first_year+$bp_overheads_fixed_first_year);
+// $gross_surplus_second_year = $bp_added_value_second_year - $bp_human_ressources_total - $bp_human_ressources_social_fees_total - $bp_taxes_total;
+// $gross_surplus_third_year = $bp_added_value_third_year - $bp_human_ressources_total - $bp_human_ressources_social_fees_total - $bp_taxes_total;
+// $gross_surplus_four_year = $bp_added_value_four_year - $bp_human_ressources_total - $bp_human_ressources_social_fees_total - $bp_taxes_total;
+// $gross_surplus_five_year = $bp_added_value_five_year - $bp_human_ressources_total - $bp_human_ressources_social_fees_total - $bp_taxes_total;
+
+
+
 // dd( $bp_added_value_five_year);
 // Amortization
 $bp_amortization_yearly = 0;
 if (isset($data ->financial_data->startup_needs)) {
     foreach ($data ->financial_data->startup_needs as $item) {
       //  dd( $item);
-        (isset($item->value) && isset($item->rate) && isset($item->duration)) ? $bp_amortization_yearly += $item->value * ($item->rate / 100) / (1 + ($item->duration / 100)) : NULL;
+        (isset($item->value) && isset($item->rate) && isset($item->duration)) ? $bp_amortization_yearly += ($item->value/(1+$item->rate/100))*$item->rate/100 : NULL;
     }
 }
-
+//dd($bp_amortization_yearly);
 // Gross Income
 $bp_gross_income_first_year = $gross_surplus_first_year - $bp_amortization_yearly ;
 $bp_gross_income_second_year = $gross_surplus_second_year - $bp_amortization_yearly ;
@@ -280,19 +422,35 @@ $bp_financial_products_second_year = 0;
 $bp_financial_products_third_year = 0;
 $bp_financial_products_four_year = 0;
 $bp_financial_products_five_year = 0;
+$bp_financial_expenses_first_year=0;
+$bp_financial_expenses_second_year=0;
+$bp_financial_expenses_third_year=0;
+$bp_financial_expenses_four_year=0;
+$bp_financial_expenses_five_year=0;
+//dd($yearsCalcul[0]->interets);
+foreach ($yearsCalcul as $key => $yearData) {
+  //dd($key);
+if($key==0){
+  $bp_financial_expenses_first_year = $yearData->interets;
+} elseif ($key==1) {
+  $bp_financial_expenses_second_year = $yearData->interets;
+}elseif ($key==2) {
+  $bp_financial_expenses_third_year = $yearData->interets;
+} elseif ($key==3) {
+  $bp_financial_expenses_four_year = $yearData->interets;
+} elseif($key==4) {
+  $bp_financial_expenses_five_year = $yearData->interets;
+} 
 
+}
 // Financial Expenses
-$bp_financial_expenses_first_year = $bp_loans_first_year_total;
-$bp_financial_expenses_second_year = $bp_loans_second_year_total;
-$bp_financial_expenses_third_year = $bp_loans_third_year_total;
-$bp_financial_expenses_four_year = $bp_loans_four_year_total;
-$bp_financial_expenses_five_year = $bp_loans_five_year_total;
+
 
 // Financial Result
 $bp_financial_result_first_year = $bp_financial_products_first_year - $bp_financial_expenses_first_year;
 $bp_financial_result_second_year = $bp_financial_products_second_year - $bp_financial_expenses_second_year;
 $bp_financial_result_third_year = $bp_financial_products_third_year - $bp_financial_expenses_third_year;
-$bp_financial_result_four_year = $bp_financial_products_four_year - $bp_financial_expenses_third_year;
+$bp_financial_result_four_year = $bp_financial_products_four_year - $bp_financial_expenses_four_year;
 
 $bp_financial_result_five_year = $bp_financial_products_five_year - $bp_financial_expenses_five_year;
 // Current Result
@@ -302,7 +460,7 @@ $bp_current_result_third_year = $bp_gross_income_third_year + $bp_financial_resu
 $bp_current_result_four_year = $bp_gross_income_four_year + $bp_financial_result_four_year;
 $bp_current_result_five_year = $bp_gross_income_five_year + $bp_financial_result_five_year;
 // dd(  $bp_current_result_five_year);
-  
+//dd($bp_financial_result_third_year);  
 // Income Before Taxes
 $bp_income_before_taxes_first_year = $bp_current_result_first_year;
 $bp_income_before_taxes_second_year = $bp_current_result_second_year;
@@ -756,23 +914,31 @@ $bp_cash_flow_third_year = $bp_net_profit_third_year + $bp_amortization_yearly;
 $bp_cash_flow_four_year = $bp_net_profit_four_year + $bp_amortization_yearly;
 $bp_cash_flow_five_year = $bp_net_profit_five_year + $bp_amortization_yearly;
 
-
+$total_achat=0;
+$cumul_first_year= -$bp_investment_program_total+$bp_cash_flow_first_year ;
+$cumul_second_year=$cumul_first_year+$bp_cash_flow_second_year ;
+$cumul_third_year=$cumul_second_year+$bp_cash_flow_third_year ;
+$cumul_four_year=$cumul_third_year+$bp_cash_flow_four_year ;
+$cumul_five_year=-$cumul_four_year+$bp_cash_flow_five_year ;
 // Profitability
-if ($bp_net_profit_first_year - $bp_financial_plan_total > 0) {
+if ( $cumul_first_year> 0) {
     $bp_profitability_status = 'Rentable';
-    $bp_roi_delay = 'Dans une année';
+    $bp_roi_delay = 'Dans 1 ans';
 }
-elseif ($bp_net_profit_first_year + $bp_net_profit_second_year - $bp_financial_plan_total > 0) {
+elseif ($cumul_second_year > 0) {
     $bp_profitability_status = 'Rentable';
-    $bp_roi_delay = 'Dans deux années';
+    $bp_roi_delay = 'Dans 2 ans';
 }
-elseif ($bp_net_profit_first_year + $bp_net_profit_second_year + $bp_net_profit_third_year - $bp_financial_plan_total > 0) {
+elseif ($cumul_third_year > 0) {
     $bp_profitability_status = 'Rentable';
-    $bp_roi_delay = 'Dans trois années';
+    $bp_roi_delay = 'Dans 3 ans';
 }
-else {
+elseif($cumul_four_year>0) {
     $bp_profitability_status = 'Défavorable';
-    $bp_roi_delay = 'Dans plus de 3 ans';
+    $bp_roi_delay = 'Dans 4 ans';
+}else {
+  $bp_profitability_status = 'Défavorable';
+    $bp_roi_delay = 'Dans 5 ans';
 }
 
 @endphp
@@ -799,6 +965,8 @@ else {
     body {
       font-family: "Montserrat", sans-serif;
     }
+  
+
     :root {
       --main-green: #1bbc9b;
       --main-blue: #00003f;
@@ -812,10 +980,23 @@ else {
       width: 842px;
       min-height: 595px;
       background-color: white;
+    } 
+     @media print {
+        body {
+            visibility: hidden;
+
+        }
+
+        body,
+        .printsection{
+            visibility: visible;
+            margin: 0;
+            box-shadow: 0;
+        }
     }
   </style>
   <body class="bg-gray-300 relative">
-    <!-- <button
+    <button
       class="
         fixed
         bottom-10
@@ -830,11 +1011,11 @@ else {
         bg-green-500
         hover:bg-green-700
       "
-      onclick="download()"
+      onclick="window.print();"
     >
       Telecharger
-    </button> -->
-    <div id="0" class="page">
+    </button>
+    <section id="0" class="page printsection">
       <img
         class="absolute top-0 left-0"
         src="{{asset('images/back-office/svg/exen-with-image.svg')}}"
@@ -850,8 +1031,8 @@ else {
 
       <div class="absolute right-0 top-60 space-y-5" style="width: 500px">
         <h3
-          class="text-5xl font-bold"
-          style="color: var(--main-green); max-width: 450px"
+          class="text-2xl font-bold "
+          style="color: var(--main-green);"
         >
         {{$data->title}}
         </h3>
@@ -896,8 +1077,8 @@ else {
           strictement interdite. »
         </p>
       </div>
-    </div>
-    <div id="1" class="page">
+    </section>
+    <div id="1" class="page printsection">
       <div class="flex justify-between absolute right-0 top-0 w-full">
         <div class="flex h-14 items-end justify-end space-x-3">
           <hr
@@ -911,7 +1092,7 @@ else {
             Sommaire
           </h3>
         </div>
-        <img src="corners.svg" alt="" srcset="" />
+        <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
       </div>
 
       <div class="mx-auto space-y-5" style="width: 520px">
@@ -1010,7 +1191,7 @@ else {
         </div>
       </div>
     </div>
-    <div id="2" class="page">
+    <div id="2" class="page printsection">
       <div class="flex justify-between absolute right-0 top-0 w-full">
         <div class="flex h-14 items-end justify-end space-x-3">
           <hr
@@ -1024,7 +1205,7 @@ else {
             LE CONTEXTE GÉNÉRAL
           </h3>
         </div>
-        <img src="corners.svg" alt="" srcset="" />
+        <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
       </div>
 
       <div class="space-y-1">
@@ -1039,17 +1220,7 @@ else {
 
       <div class="bg-gray-100 text-gray-700 mt-6 p-8 space-y-3 text-sm">
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate
-          voluptates repudiandae itaque suscipit assumenda aspernatur tenetur
-          odio neque deleniti dolore odit consequuntur velit ea sint veniam
-          dolores praesentium provident culpa, pariatur eligendi facilis rerum
-          nulla ipsa mollitia. Suscipit ipsam repellendus explicabo, porro
-          repellat asperiores neque maiores facilis. Hic, sed obcaecati.
-        </p>
-        <p>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Asperiores
-          placeat dolore dolores repellat doloremque harum deleniti, a
-          praesentium facilis officia.
+         {{isset($data->business_model->context_g)?$data->business_model->context_g:""}} 
         </p>
       </div>
       <div class="absolute bottom-0 right-0 left-0">
@@ -1080,7 +1251,7 @@ else {
         </div>
       </div>
     </div>
-    <div id="3" class="page">
+    <div id="3" class="page printsection">
       <div class="flex justify-between absolute right-0 top-0 w-full">
         <div class="flex h-14 items-end justify-end space-x-3">
           <span
@@ -1107,7 +1278,7 @@ else {
             Profil de l’entrepreneur
           </h3>
         </div>
-        <img src="corners.svg" alt="" srcset="" />
+        <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
       </div>
 
       <div class="space-y-9">
@@ -1133,7 +1304,7 @@ else {
             </div>
             <div class="flex justify-between p-2">
               <p>Date et lieu de naissance :</p>
-              <p class="font-medium">{{$owner->birth_date}}</p>
+              <p class="font-medium">{{date_format($owner->birth_date, 'd/m/Y')}}</p>
             </div>
             <div class="flex justify-between bg-gray-100 p-2">
               <p>CIN:</p>
@@ -1252,7 +1423,7 @@ else {
       </div>
       
     </div>
-    <div id="4" class="page">
+    <div id="4" class="page printsection">
       <div class="flex justify-between absolute right-0 top-0 w-full">
         <div class="flex h-14 items-end justify-end space-x-3">
           <span
@@ -1279,7 +1450,7 @@ else {
             Presentation du projet 
           </h3>
         </div>
-        <img src="corners.svg" alt="" srcset="" />
+        <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
       </div>
 
       <div class="space-y-9">
@@ -1404,7 +1575,7 @@ else {
       </div>
       
     </div>
-    <div id="5" class="page">
+    <div id="5" class="page printsection">
       <div class="flex justify-between absolute right-0 top-0 w-full">
         <div class="flex h-14 items-end justify-end space-x-3">
           <span
@@ -1431,7 +1602,7 @@ else {
            Etude de marché
           </h3>
         </div>
-        <img src="corners.svg" alt="" srcset="" />
+        <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
       </div>
 
       <div class="space-y-9">
@@ -1534,7 +1705,7 @@ else {
       </div>
       
     </div>
-    <div id="6" class="page">
+    <div id="6" class="page printsection">
       <div class="flex justify-between absolute right-0 top-0 w-full">
         <div class="flex h-14 items-end justify-end space-x-3">
           <span
@@ -1561,7 +1732,7 @@ else {
            Etude de marché
           </h3>
         </div>
-        <img src="corners.svg" alt="" srcset="" />
+        <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
       </div>
 
       <div class="space-y-9">
@@ -1660,7 +1831,7 @@ else {
       </div>
       
     </div>
-    <div id="7" class="page">
+    <div id="7" class="page printsection">
       <div class="flex justify-between absolute right-0 top-0 w-full">
         <div class="flex h-14 items-end justify-end space-x-3">
           <span
@@ -1687,7 +1858,7 @@ else {
            Etude de marché
           </h3>
         </div>
-        <img src="corners.svg" alt="" srcset="" />
+        <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
       </div>
 
       <div class="space-y-9">
@@ -1755,7 +1926,7 @@ else {
       </div>
       
     </div>
-    <div id="8" class="page">
+    <div id="8" class="page printsection">
       <div class="flex justify-between absolute right-0 top-0 w-full">
         <div class="flex h-14 items-end justify-end space-x-3">
           <span
@@ -1782,7 +1953,7 @@ else {
            Etude de marché
           </h3>
         </div>
-        <img src="corners.svg" alt="" srcset="" />
+        <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
       </div>
 
       <div class="space-y-9">
@@ -1796,75 +1967,133 @@ else {
             </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
-          <div class="space-y-4  text-sm font-normal">
-            <div class="grid grid-cols-2 gap-4 ">
-            <div class="p-4 bg-gray-100">
-              <div class="flex justify-between items-center space-x-4 w-80 h-11 "> 
-             <span
-             class="
-              w-12
-              border-0
-              flex
-              items-end
-              justify-self-auto
-              font-semibold
-              text-white
-              pr-1
-              tracking-wider
-             "
-              style="background-color: var(--main-green)"
+        <div class="space-y-4  text-sm font-normal">
+          <div class="grid grid-cols-2 gap-y-5 gap-x-24 mt-5">
+            <div
+              class="pl-6 py-4 bg-gray-100 font-medium space-y-3 relative"
+              style="font-size: 12px"
+            >
+              <h3 style="color: var(--main-dark-green)" class="text-sm">Forces</h3>
+              <ul class="list-inside list-disc space-y-2">
+                @if(isset($data->business_model->distribution_strategy_force_p))
+                @foreach ($data->business_model->distribution_strategy_force_p as $key =>  $field)
+                <li>{{$field->distribution_strategy_force_p ?? " "}}</li>  
+                @endforeach 
+                @endif
+              </ul>
+              <div
+                class="
+                  absolute
+                  -right-8
+                  top-2
+                  h-16
+                  w-16
+                  flex
+                  justify-center
+                  items-center
+                  font-semibold
+                  text-4xl text-white
+                "
+                style="background-color: var(--main-green)"
               >
-              S
-             </span></div>
-                <p><span class="font-semibold" style="color: var(--main-green)">Forces </span></p>
-                <div class="flex  bg-gray-100 p-2">       
-                  <ul class="font-medium">  
-                    @if(isset($data->business_model->distribution_strategy_force_p))
-                    @foreach ($data->business_model->distribution_strategy_force_p as $key =>  $field)
-                    <li> <span class="font-bold p-3">.</span>{{$field->distribution_strategy_force_p ?? " "}}</li>  
-                    @endforeach 
-                    @endif
-                  </ul>
-                </div>
+                <span>S</span>
               </div>
-              <div class="p-4 bg-gray-100">
-                <p><span class="font-semibold" style="color: var(--main-green)">Faiblesse </span></p>
-                <div class="flex  bg-gray-100 p-2">       
-                  <ul class="font-medium">  
-                    @if(isset($data->business_model->distribution_strategy_faiblesse_p))
-                    @foreach ($data->business_model->distribution_strategy_faiblesse_p as $key =>  $field)
-                    <li><span class="font-bold p-3">.</span>{{$field->distribution_strategy_faiblesse_p ?? " "}}</li>  
-                    @endforeach 
-                    @endif
-                  </ul>
-                </div>
-              </div>   
-              <div class="p-4 bg-gray-100">
-                <p><span class="font-semibold" style="color: var(--main-green)">Opportunité </span></p>
-                <div class="flex  bg-gray-100 p-2">       
-                  <ul class="font-medium">  
-                    @if(isset($data->business_model->distribution_strategy_Opportunité_p))
+            </div>
+            <div
+              class="pl-16 py-4 bg-gray-100 font-medium space-y-3 relative"
+              style="font-size: 12px"
+            >
+              <h3 style="color: var(--main-dark-green)" class="text-sm">Faiblesse</h3>
+              <ul class="list-inside list-disc space-y-2">
+                @if(isset($data->business_model->distribution_strategy_faiblesse_p))
+                @foreach ($data->business_model->distribution_strategy_faiblesse_p as $key =>  $field)
+                <li>{{$field->distribution_strategy_faiblesse_p ?? " "}}</li>  
+                @endforeach 
+                @endif
+              </ul>
+    
+              <div
+                class="
+                  absolute
+                  -left-8
+                  top-2
+                  h-16
+                  w-16
+                  flex
+                  justify-center
+                  items-center
+                  font-semibold
+                  text-4xl text-white
+                "
+                style="background-color: var(--main-green)"
+              >
+                <span>W</span>
+              </div>
+            </div>
+            <div
+              class="pl-6 py-4 bg-gray-100 font-medium space-y-3 relative"
+              style="font-size: 12px"
+            >
+              <h3 style="color: var(--main-dark-green)" class="text-sm">Opportunité</h3>
+              <ul class="list-inside list-disc space-y-2">
+                @if(isset($data->business_model->distribution_strategy_Opportunité_p))
                     @foreach ($data->business_model->distribution_strategy_Opportunité_p as $key =>  $field)
-                    <li><span class="font-bold p-3">.</span>{{$field->distribution_strategy_Opportunité_p ?? " "}}</li>  
+                    <li>{{$field->distribution_strategy_Opportunité_p ?? " "}}</li>  
                     @endforeach 
                     @endif
-                  </ul>
-                </div>
-              </div> 
-              <div class="p-4 bg-gray-100">
-                <p><span class="font-semibold" style="color: var(--main-green)">Menaces </span></p>
-                <div class="flex  bg-gray-100 p-2">       
-                  <ul class="font-medium">  
-                    @if(isset($data->business_model->distribution_strategy_menace_p))
-                    @foreach ($data->business_model->distribution_strategy_menace_p as $key =>  $field)
-                    <li><span class="font-bold p-3">.</span> {{$field->distribution_strategy_menace_p ?? " "}}</li>  
-                    @endforeach 
-                    @endif
-                  </ul>
-                </div>
-              </div>    
+              </ul>
+    
+              <div
+                class="
+                  absolute
+                  -right-8
+                  top-2
+                  h-16
+                  w-16
+                  flex
+                  justify-center
+                  items-center
+                  font-semibold
+                  text-4xl text-white
+                "
+                style="background-color: var(--main-green)"
+              >
+                <span>O</span>
+              </div>
+            </div>
+            <div
+              class="pl-16 py-4 bg-gray-100 font-medium space-y-3 relative"
+              style="font-size: 12px"
+            >
+              <h3 style="color: var(--main-dark-green)" class="text-sm">Menaces</h3>
+              <ul class="list-inside list-disc space-y-2">
+                @if(isset($data->business_model->distribution_strategy_menace_p))
+                @foreach ($data->business_model->distribution_strategy_menace_p as $key =>  $field)
+                <li>{{$field->distribution_strategy_menace_p ?? " "}}</li>  
+                @endforeach 
+                @endif
+              </ul>
+    
+              <div
+                class="
+                  absolute
+                  -left-8
+                  top-2
+                  h-16
+                  w-16
+                  flex
+                  justify-center
+                  items-center
+                  font-semibold
+                  text-4xl text-white
+                "
+                style="background-color: var(--main-green)"
+              >
+                <span>T</span>
+              </div>
             </div>
           </div>
+        </div>
         </div>
       </div>
       <div class="absolute bottom-0 right-0 left-0">
@@ -1896,7 +2125,7 @@ else {
       </div>
       
     </div>
-    <div id="9" class="page">
+    <div id="9" class="page printsection">
       <div class="flex justify-between absolute right-0 top-0 w-full">
         <div class="flex h-14 items-end justify-end space-x-3">
           <span
@@ -1923,7 +2152,7 @@ else {
            Etude Technique
           </h3>
         </div>
-        <img src="corners.svg" alt="" srcset="" />
+        <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
       </div>
 
       <div class="space-y-9">
@@ -1940,10 +2169,10 @@ else {
 
           <div class="bg-gray-100 text-gray-700 mt-6 p-8 space-y-3 text-sm">
             <p><span class="font-semibold" style="color: var(--main-green)">L'ensemble des documents juridique: </span></p>
-            <ul class="font-medium">  
+            <ul class="list-inside list-disc space-y-2">  
               @if(isset($data->business_model->autorisations_nécessaire_c))
               @foreach ($data->business_model->autorisations_nécessaire_c as $key =>  $field)
-              <li> <span class="font-bold p-3">.</span>{{$field->label ?? " "}}</li>  
+              <li></span>{{$field->label ?? " "}}</li>  
               @endforeach 
               @endif
             </ul>
@@ -2017,7 +2246,7 @@ else {
       </div>
       
     </div>
-    <div id="10" class="page">
+    <div id="10" class="page printsection">
       <div class="flex justify-between absolute right-0 top-0 w-full">
         <div class="flex h-14 items-end justify-end space-x-3">
           <span
@@ -2044,7 +2273,7 @@ else {
            Etude Technique
           </h3>
         </div>
-        <img src="corners.svg" alt="" srcset="" />
+        <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
       </div>
 
       <div class="space-y-9">
@@ -2062,10 +2291,10 @@ else {
            </p>
           <div class="bg-gray-100 text-gray-700 mt-6 p-8 space-y-3 text-sm">
             <p><span class="font-semibold" style="color: var(--main-green)">Liste de matériel: </span></p>
-            <ul class="font-medium">  
+            <ul class="list-inside list-disc space-y-2">  
               @if(isset($data->business_model->list_mat))
               @foreach ($data->business_model->list_mat as $key =>  $field)
-              <li class="py-2 px-3"> <span class="font-bold p-3">.</span>{{$field->list_mat ?? " "}}</li>  
+              <li class="py-2 px-3"> {{$field->list_mat ?? " "}}</li>  
               @endforeach 
               @endif
             </ul>
@@ -2145,7 +2374,7 @@ else {
       </div>
       
     </div> 
-    <div id="11" class="page">
+    <div id="11" class="page printsection">
       <div class="flex justify-between absolute right-0 top-0 w-full">
         <div class="flex h-14 items-end justify-end space-x-3">
           <span
@@ -2172,7 +2401,7 @@ else {
            Etude Technique
           </h3>
         </div>
-        <img src="corners.svg" alt="" srcset="" />
+        <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
       </div>
 
       <div class="space-y-9">
@@ -2217,7 +2446,7 @@ else {
                     <tr>
                       <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
                       <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
-                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->value /$bp_investment_program_total*100,0, ',', ' ')}}%</td>
+                      <td class="border-2 border-gray-500 text-center">{{ number_format( $bp_investment_program_total!=0? $item->value /$bp_investment_program_total*100:0,0, ',', ' ')}}%</td>
                   </tr> 
                   @endforeach
                  @endif
@@ -2285,7 +2514,7 @@ else {
                     <tr>
                     <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->value /$bp_financial_plan_total*100,0, ',', ' ')}}%</td>
+                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_financial_plan_totals!=0?$item->value /$bp_financial_plan_totals*100:0,0, ',', ' ')}}%</td>
                   </tr> 
                   @endforeach
                  @endif
@@ -2301,7 +2530,7 @@ else {
                       TOTAL
                     </td>
                     <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
-                    <td class="border-2 border-gray-600 text-center bg-green-200">{{ number_format($bp_financial_plan_total, 1, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-600 text-center bg-green-200">{{ number_format($bp_financial_plan_totals, 1, ',', ' ') }} </td>
                     <td class="border-2 border-gray-600 text-center bg-green-200">100 %</td>
                   </tr>
                 </tbody>
@@ -2343,7 +2572,7 @@ else {
       
     </div>
     </div>
-    <div id="12" class="page">
+    <div id="12" class="page printsection">
       <div class="flex justify-between absolute right-0 top-0 w-full">
         <div class="flex h-14 items-end justify-end space-x-3">
           <span
@@ -2361,16 +2590,16 @@ else {
             "
             style="background-color: var(--main-green)"
           >
-            04
+            05
           </span>
           <h3
             class="font-semibold text-lg"
             style="color: var(--main-blue); line-height: 16px"
           >
-           Etude Technique
+          Étude Financière
           </h3>
         </div>
-        <img src="corners.svg" alt="" srcset="" />
+        <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
       </div>
 
       <div class="space-y-9">
@@ -2419,7 +2648,7 @@ else {
                       <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
                       <td class="border-2 border-gray-500 text-center">{{ number_format($item->count,0, ',', ' ')}}</td>
                       <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*$item->count, 0, ',', ' ') }} </td>
-                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*$item->count*$data->financial_data->saisonnalite,0, ',', ' ')}}</td>
+                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*$item->count*$saisonalite,0, ',', ' ')}}</td>
                   </tr> 
                   @endforeach
                  @endif
@@ -2430,7 +2659,7 @@ else {
                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->rate,0, ',', ' ')}}</td>
                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*$item->rate, 0, ',', ' ') }} </td>
-                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*$item->rate*$data->financial_data->saisonnalite,0, ',', ' ')}}</td>
+                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*$item->rate*$saisonalite,0, ',', ' ')}}</td>
                      <?php $total=0; $total=$total+$item->value*$item->rate; ?>
                  </tr> 
                  @endforeach
@@ -2467,27 +2696,30 @@ else {
           </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
-          <div class="inline-block rounded-lg border w-full ">
+          <div class="inline-block rounded-lg border  ">
             <table class="table-fixed border border-gray-900 w-90 text-sm">
               <thead>
                 <tr class="bg-gray-100">
                   <th
                     class="
-                      py-2
-                      pl-4
+                    pl-2
+                    py-2
                       border-2 border-gray-500
-                      w-9/12
                       self-start
                       text-left
                     "
                   >
-                  Annee
+                  Année
                   </th>
-                  <th class="border-2 border-gray-500  px-10 ">1 ere Annee</th>
-                  <th class="border-2 border-gray-500  text-center px-10">2 eme Annee </th>
-                  <th class="border-2 border-gray-500 text-center  px-12">3 eme Annee</th>
-                  <th class="border-2 border-gray-500  text-center w-9/12 px-10">4 eme Annee </th>
-                  <th class="border-2 border-gray-500 text-center w-9/12 px-10">5 eme Annee </th>
+                  <th class="border-2 border-gray-500 text-center pl-2 py-2 ">1 <sup>ère</sup> année
+                  </th>
+                  <th class="border-2 border-gray-500  text-center pl-2 py-2 ">2 <sup>ème</sup> année
+                  </th>
+                  <th class="border-2 border-gray-500  text-center pl-2 py-2 ">3 <sup>ème</sup> année
+                  <th class="border-2 border-gray-500  text-center pl-2 py-2 ">4 <sup>ème</sup> année
+                  </th>
+                  <th class="border-2 border-gray-500  text-center pl-2 py-2 ">5 <sup>ème</sup> année
+                  </th>
                 </tr>
               </thead>
               <tbody class="font-medium">
@@ -2515,27 +2747,84 @@ else {
           </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
-          <div class="inline-block rounded-lg border w-full ">
+          <div class="inline-block rounded-lg border ">
             <table class="table-fixed border border-gray-900 w-90 text-sm">
               <thead>
                 <tr class="bg-gray-100">
                   <th
                     class="
                       py-2
-                      pl-4
+                      pl-2
                       border-2 border-gray-500
-                      w-9/12
                       self-start
                       text-left
                     "
                   >
-                  Annee
+                  Achats
                   </th>
-                  <th class="border-2 border-gray-500 w-6/12 ">1 ere Annee</th>
-                  <th class="border-2 border-gray-500  text-center">2 eme Annee </th>
-                  <th class="border-2 border-gray-500 w-6/12 text-center  px-12">3 eme Annee</th>
-                  <th class="border-2 border-gray-500 w-6/12 text-center w-9/12 px-12">4 eme Annee </th>
-                  <th class="border-2 border-gray-500 w-6/12 text-center w-9/12 px-12">5 eme Annee </th>
+                  <th class="border-2 border-gray-500 text-center">PRIX UNITAIRE(en Mad)
+                  </th>
+                  <th class="border-2 border-gray-500  text-center">Quantité(mois) 
+                  </th>
+                  <th class="border-2 border-gray-500  text-center">Chiffre d'affaires annuel</th>
+                </tr>
+              </thead>
+              <tbody class="font-medium">
+                @if(isset($data->financial_data->products_turnover_forecast))
+                @foreach ($data->financial_data->products_turnover_forecast as $item)
+                  <tr>
+                    <td class="border-2 border-gray-500 "> Achats {{$item->label}} {{ number_format((1-$item->duration/100)*100, 0, ',', ' ') }} % du Chiffres d’affaires</td>
+                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->rate,0, ',', ' ')}}</td>
+                    <td class="border-2 border-gray-500 text-center">{{ number_format(($item->rate * $item->value*$saisonalite)*(1-($item->duration/100)), 0, ',', ' ') }} </td>
+
+                </tr> 
+                <?php   $total_achat= $total_achat+(($item->rate * $item->value*$saisonalite)*(1-($item->duration/100))); ?>
+                @endforeach
+                @endif
+               
+                <tr class="bg-green-200">
+                  <td
+                  colspan="3"
+                    class="
+                      py-1 pl-4
+                      border-2 border-gray-600
+                      font-semibold
+                      text-green-700
+                    "
+                  >
+                    TOTAL
+                  </td>
+                  <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
+                  <td class="border-2 border-gray-600 text-center bg-green-200">{{number_format($total_achat,0,',',' ')}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="inline-block rounded-lg border ">
+            <table class="table-fixed border border-gray-900 w-90 text-sm">
+              <thead>
+                <tr class="bg-gray-100">
+                  <th
+                    class="
+                      py-2
+                      pl-2
+                      border-2 border-gray-500
+                      self-start
+                      text-left
+                    "
+                  >
+                  Année
+                  </th>
+                  <th class="border-2 border-gray-500 text-center">1 <sup>ère</sup> année
+                  </th>
+                  <th class="border-2 border-gray-500  text-center">2 <sup>ème</sup> année
+                  </th>
+                  <th class="border-2 border-gray-500  text-center">3 <sup>ème</sup> année
+                  <th class="border-2 border-gray-500  text-center">4 <sup>ème</sup> année
+                  </th>
+                  <th class="border-2 border-gray-500  text-center">5 <sup>ème</sup> année
+                  </th>
                 </tr>
               </thead>
               <tbody class="font-medium">
@@ -2583,7 +2872,7 @@ else {
       
      </div>
     </div> 
-    <div id="13" class="page">
+    <div id="13" class="page printsection">
       <div class="flex justify-between absolute right-0 top-0 w-full">
         <div class="flex h-14 items-end justify-end space-x-3">
           <span
@@ -2607,10 +2896,10 @@ else {
             class="font-semibold text-lg"
             style="color: var(--main-blue); line-height: 16px"
           >
-           Etude Technique
+          Étude Financière
           </h3>
         </div>
-        <img src="corners.svg" alt="" srcset="" />
+        <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
       </div>
 
       <div class="space-y-9">
@@ -2664,8 +2953,8 @@ else {
                     <tr>
                       <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
                       <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
-                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*12, 0, ',', ' ') }} </td>
-                      <?php  $total_overheads_scalable+=$item->value*12; ?>
+                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*$saisonalite, 0, ',', ' ') }} </td>
+                      <?php  $total_overheads_scalable+=$item->value*$saisonalite; ?>
                   </tr> 
                   @endforeach
                  @endif
@@ -2696,7 +2985,7 @@ else {
               class="uppercase font-bold text-sm"
               style="color: var(--second-blue)"
             >
-            Charges variables
+            Charges fixes
           </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
@@ -2780,7 +3069,7 @@ else {
       
      </div>
     </div>
-    <div id="14" class="page">
+    <div id="14" class="page printsection">
       <div class="flex justify-between absolute right-0 top-0 w-full">
         <div class="flex h-14 items-end justify-end space-x-3">
           <span
@@ -2798,16 +3087,16 @@ else {
             "
             style="background-color: var(--main-green)"
           >
-            04
+            05
           </span>
           <h3
             class="font-semibold text-lg"
             style="color: var(--main-blue); line-height: 16px"
           >
-           Etude Technique
+          Étude Financière
           </h3>
         </div>
-        <img src="corners.svg" alt="" srcset="" />
+        <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
       </div>
 
       <div class="space-y-9">
@@ -2825,15 +3114,7 @@ else {
            <p class="text-gray-500 font-normal"> 
             Une part importante des charges d’exploitation. Elles comprennent non seulement les rémunérations du personnel représentées par les salaires bruts, mais également les différentes charges sociales calculées sur les salaires, dites « charges patronales ».
           </p>
-            <div class="space-y-1">
-              <h5
-                class="uppercase font-bold text-sm"
-                style="color: var(--second-blue)"
-              >
-              Charges variables
-            </h5>
-              <hr class="bg-gray-300" style="height: 2px" />
-            </div>
+
           </div>
             <div class="inline-block rounded-lg border w-full ">
               <table class="table-fixed border border-gray-900 w-90 text-sm">
@@ -2863,8 +3144,8 @@ else {
                       <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
                       <td class="border-2 border-gray-500 text-center">{{ number_format($item->count, 0, ',', ' ') }} </td>
                       <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
-                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*12, 0, ',', ' ') }} </td>
-                      <?php $total_overheads_scalable+=$item->value*12; ?>
+                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*$item->count*12, 0, ',', ' ') }} </td>
+                      <?php $total_overheads_scalable+=$item->value*$item->count*12; ?>
                   </tr> 
                   @endforeach
                  @endif
@@ -2984,7 +3265,7 @@ else {
       
      </div>
     </div>
-    <div id="15" class="page">
+    <div id="15" class="page printsection">
       <div class="flex justify-between absolute right-0 top-0 w-full">
         <div class="flex h-14 items-end justify-end space-x-3">
           <span
@@ -3002,13 +3283,14 @@ else {
             "
             style="background-color: var(--main-green)"
           >
-            04
+            05
           </span>
           <h3
             class="font-semibold text-lg"
             style="color: var(--main-blue); line-height: 16px"
           >
-           Etude Technique
+          Étude Financière
+
           </h3>
         </div>
         <img src="corners.svg" alt="" srcset="" />
@@ -3148,7 +3430,7 @@ else {
                     DESIGNATION
                     </th>
                     <th class="border-2 border-gray-500 w-6/12 text-center">MONTANT HT</th>
-                    <th class="border-2 border-gray-500 w-6/12 text-center">DURÉE </th>
+                    <th class="border-2 border-gray-500 w-6/12 text-center">TAUX</th>
                     <th class="border-2 border-gray-500  text-center">AMORTISSEMENT</th>
                   </tr>
                 </thead>
@@ -3158,10 +3440,17 @@ else {
                  @foreach ($data->financial_data->startup_needs as $item)
                    <tr>
                      <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
-                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
-                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->rate/100, 2, ',', ' ') }} </td>
-                     <td class="border-2 border-gray-500 text-center">{{ number_format(($item->value/($item->rate/100))/(1+$item->duration/100), 0, ',', ' ') }} </td>
-                     <?php $total_taxe_amortisement+=($item->value/($item->rate/100))/(1+$item->duration/100);  ?>
+                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->value/(1+$item->rate/100), 0, ',', ' ') }} </td>
+                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->rate ,0, ',', ' ')}} % </td>
+                     @if($item->value!=0 && $item->rate!=0)
+                     <td class="border-2 border-gray-500 text-center">{{ number_format(($item->value/(1+$item->rate/100))*$item->rate/100, 0, ',', ' ') }} </td>      
+                     
+                      <?php $total_taxe_amortisement+=($item->value/(1+$item->rate/100))*$item->rate/100;?>
+                     @else
+                     <td class="border-2 border-gray-500 text-center">{{ number_format(0, 0, ',', ' ') }} </td>
+                     @endif
+                     
+                    
                  </tr> 
                  @endforeach
                 @endif
@@ -3220,7 +3509,7 @@ else {
       
      </div>
     </div>
-    <div id="16" class="page">
+    <div id="16" class="page printsection">
       <div class="flex justify-between absolute right-0 top-0 w-full">
         <div class="flex h-14 items-end justify-end space-x-3">
           <span
@@ -3238,16 +3527,17 @@ else {
             "
             style="background-color: var(--main-green)"
           >
-            04
+            05
           </span>
           <h3
             class="font-semibold text-lg"
             style="color: var(--main-blue); line-height: 16px"
           >
-           Etude Technique
+          Étude Financière
+
           </h3>
         </div>
-        <img src="corners.svg" alt="" srcset="" />
+        <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
       </div>
 
       <div class="space-y-9">
@@ -3285,7 +3575,30 @@ else {
                 </div>
               </div>  
               @endforeach
+                  
+              @else
+                  
+              <div class="p-4 bg-gray-100">
+                <div class="flex justify-between bg-gray-100 p-2">       
+                  <p>Montant du prêt ( MAD ):</p>
+                  <p class="font-medium"></p>
+                </div>
+                <div class="flex justify-between bg-gray-100 p-2">
+                  <p>Durée du prêt ( mois ):</p>
+                  <p class="font-medium"></p>
+                </div>
+                <div class="flex justify-between bg-gray-100 p-2">
+                  <p>Taux d’intérêt ( % ):</p>
+                  <p class="font-medium"></p>
+                </div>
+                <div class="flex justify-between bg-gray-100 p-2">
+                  <p>Durée de différé ( mois ):
+                  </p>
+                  <p class="font-medium"></p>
+                </div>
+              </div> 
               @endif
+              
             </div>
           </div>
         </div>
@@ -3299,47 +3612,38 @@ else {
                       py-2
                       pl-4
                       border-2 border-gray-500
-                      w-9/12
+                      w-6/12 
                       self-start
                       text-left
                     "
                   >
                   Date
                   </th>
-                  <th class="border-2 border-gray-500 w-6/12 text-center">Mensualité
+                  <th class="border-2 border-gray-500  text-center">Mensualité
                   </th>
-                  <th class="border-2 border-gray-500 w-6/12 text-center">Intérêts
+                  <th class="border-2 border-gray-500 text-center">Intérêts
                   </th>
                   <th class="border-2 border-gray-500  text-center">Capital remboursé
                   </th>
-                  <th class="border-2 border-gray-500  text-center">Capital restant
+                  <th class="border-2 border-gray-500    text-center">Capital restant
                   </th>
                 </tr>
               </thead>
               <tbody class="font-medium">
+                @foreach ($yearsCalcul as  $key => $item)
                  <tr>
-                   <td class="border-2 border-gray-500 py-1 pl-4">1 ere annee</td>
-                   <td class="border-2 border-gray-500 text-center">{{ number_format(0, 0, ',', ' ') }} </td>
-                   <td class="border-2 border-gray-500 text-center">{{ number_format(0, 2, ',', ' ') }} </td>
-                   <td class="border-2 border-gray-500 text-center">{{ number_format(0, 0, ',', ' ') }} </td>
-                   <td class="border-2 border-gray-500 text-center">{{ number_format(0, 0, ',', ' ') }} </td>
+                   <td class="border-2 border-gray-500 py-1 pl-4">{{$key +1}} <sup>ère</sup> année</td>
+                   <td class="border-2 border-gray-500 text-center">{{ number_format($item->mensualite, 0, ',', ' ') }} </td>
+                   <td class="border-2 border-gray-500 text-center">{{ number_format($item->interets, 0, ',', ' ') }} </td>
+                   <td class="border-2 border-gray-500 text-center">{{ number_format($item->capital_rem, 0, ',', ' ') }} </td>
+                   <td class="border-2 border-gray-500 text-center">{{ number_format($item->capital_rest, 0, ',', ' ') }} </td>
+                   <?php $total_mensualite+= $item->mensualite; 
+                         $total_interets+= $item->interets; 
+                         $total_rem+= $item->capital_rem; 
+                         $total_rest+= $item->capital_rest; 
+                   ?>
                </tr> 
-                 <tr>
-                   <td class="border-2 border-gray-500 py-1 pl-4"> 2 eme annee</td>
-                   <td class="border-2 border-gray-500 text-center">{{ number_format(0, 0, ',', ' ') }} </td>
-                   <td class="border-2 border-gray-500 text-center">{{ number_format(0, 2, ',', ' ') }} </td>
-                   <td class="border-2 border-gray-500 text-center">{{ number_format(0, 0, ',', ' ') }} </td>
-                   <td class="border-2 border-gray-500 text-center">{{ number_format(0, 0, ',', ' ') }} </td>
-
-               </tr> 
-
-                 <tr>
-                   <td class="border-2 border-gray-500 py-1 pl-4">3 eme annee</td>
-                   <td class="border-2 border-gray-500 text-center">{{ number_format(0, 0, ',', ' ') }} </td>
-                   <td class="border-2 border-gray-500 text-center">{{ number_format(0, 2, ',', ' ') }} </td>
-                   <td class="border-2 border-gray-500 text-center">{{ number_format(0, 0, ',', ' ') }} </td>
-                   <td class="border-2 border-gray-500 text-center">{{ number_format(0, 0, ',', ' ') }} </td>
-               </tr> 
+               @endforeach 
                 <tr class="bg-green-100">
                   <td
                     class="
@@ -3354,10 +3658,10 @@ else {
                
                   <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
     
-                  <td class="border-2 border-gray-600 text-center bg-green-100">{{number_format($total_taxe_amortisement,0,',','')}}</td>
-                  <td class="border-2 border-gray-600 text-center bg-green-100">{{number_format($total_taxe_amortisement,0,',','')}}</td>
-                  <td class="border-2 border-gray-600 text-center bg-green-100">{{number_format($total_taxe_amortisement,0,',','')}}</td>
-                  <td class="border-2 border-gray-600 text-center bg-green-100">{{number_format($total_taxe_amortisement,0,',','')}}</td>
+                  <td class="border-2 border-gray-600 text-center bg-green-100">{{number_format($total_mensualite,0,',','')}}</td>
+                  <td class="border-2 border-gray-600 text-center bg-green-100">{{number_format($total_interets,0,',','')}}</td>
+                  <td class="border-2 border-gray-600 text-center bg-green-100">{{number_format($total_rem,0,',','')}}</td>
+                  <td class="border-2 border-gray-600 text-center bg-green-100">{{number_format($total_rest,0,',','')}}</td>
 
 
 
@@ -3396,7 +3700,133 @@ else {
       </div>
       
     </div>
-    <div id="16" class="page">
+    <div id="17" class="page printsection">
+        <div class="flex justify-between absolute right-0 top-0 w-full">
+          <div class="flex h-14 items-end justify-end space-x-3">
+            <span
+              class="
+                w-10
+                h-full
+                border-0
+                flex
+                items-end
+                justify-end
+                font-semibold
+                text-white
+                pr-1
+                tracking-wider
+              "
+              style="background-color: var(--main-green)"
+            >
+              05
+            </span>
+            <h3
+              class="font-semibold text-lg"
+              style="color: var(--main-blue); line-height: 16px"
+            >
+            Étude Financière
+
+            </h3>
+          </div>
+          <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
+        </div>
+
+        <div class="space-y-9">
+          <div class="space-y-4">
+            <div class="space-y-1">
+              <h5
+                class="uppercase font-bold text-sm"
+                style="color: var(--second-blue)"
+              >
+              L’IMPÔT SUR LES SOCIÉTÉS
+              </h5>
+              <hr class="bg-gray-300" style="height: 2px" />
+            </div>
+            <p class="text-gray-500 font-normal">C’est un impôt qui s'applique sur les bénéfices réalisés par les sociétés
+            </p>
+          </div>
+          <div class="space-y-4">
+            <div class="inline-block rounded-lg border w-full ">
+              <table class="table-fixed border border-gray-900 w-90 text-sm">
+                <thead>
+                  <tr class="bg-gray-100">
+                    <th
+                      class="
+                        border-2 border-gray-500
+                        self-start
+                        text-left
+                        pl-2
+                        py-4
+                        w-5/12
+                      "
+                    >
+                    Année
+                    </th>
+                    <th class="border-2 border-gray-500 text-center">1 <sup>ère</sup> année
+                    </th>
+                    <th class="border-2 border-gray-500  text-center">2 <sup>ème</sup> année
+                    </th>
+                    <th class="border-2 border-gray-500  text-center">3 <sup>ème</sup> année
+                    <th class="border-2 border-gray-500  text-center">4 <sup>ème</sup> année
+                    </th>
+                    <th class="border-2 border-gray-500  text-center">5 <sup>ème</sup> année
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="font-medium">
+                  <tr>
+                    <td class="border-2 border-gray-500 py-1 pl-4">RÉSULTAT BRUT </td>
+                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_income_before_taxes_first_year, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_income_before_taxes_second_year, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_income_before_taxes_third_year, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_income_before_taxes_four_year, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_income_before_taxes_five_year, 0, ',', ' ') }} </td>
+                </tr> 
+                  <tr>
+                    <td class="border-2 border-gray-500 py-1 pl-4"> IMPÔT SUR LES SOCIÉTÉS
+                    </td>
+                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_corporate_tax_first_year, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_corporate_tax_second_year, 2, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_corporate_tax_third_year, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_corporate_tax_four_year, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_corporate_tax_five_year, 0, ',', ' ') }} </td>
+
+                  </tr> 
+                </tbody>
+              </table>
+            </div> 
+          </div>
+        </div>
+        <div class="absolute bottom-0 right-0 left-0">
+          <img
+          class="absolute bottom-0 right-0 left-0"
+          src="{{asset('images/back-office/svg/footer.svg')}}"
+          alt="" 
+          srcset=""
+          />
+
+          <div
+            class="
+              py-2
+              flex
+              justify-between
+              items-center
+              pl-16
+              pr-36
+              text-white text-xs
+              font-medium
+              relative
+              z-10
+            "
+          >
+            <span>{{$owner->first_name}} {{$owner->last_name}}</span>
+            <span>{{$data->title}}</span>
+            <span>Business Plan</span>
+          </div>
+        </div>
+      
+    </div>
+    <div id="18" class="page printsection">
       <div class="flex justify-between absolute right-0 top-0 w-full">
         <div class="flex h-14 items-end justify-end space-x-3">
           <span
@@ -3414,16 +3844,17 @@ else {
             "
             style="background-color: var(--main-green)"
           >
-            04
+            05
           </span>
           <h3
             class="font-semibold text-lg"
             style="color: var(--main-blue); line-height: 16px"
           >
-           Etude Technique
+          Étude Financière
+
           </h3>
         </div>
-        <img src="corners.svg" alt="" srcset="" />
+        <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
       </div>
 
       <div class="space-y-9">
@@ -3433,12 +3864,10 @@ else {
               class="uppercase font-bold text-sm"
               style="color: var(--second-blue)"
             >
-            L’IMPÔT SUR LES SOCIÉTÉS
+            CPC PRÉVISIONNEL
             </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
-          <p class="text-gray-500 font-normal">C’est un impôt qui s'applique sur les bénéfices réalisés par les sociétés
-          </p>
         </div>
         <div class="space-y-4">
           <div class="inline-block rounded-lg border w-full ">
@@ -3452,44 +3881,469 @@ else {
                       text-left
                       pl-2
                       py-4
+                      w-4/12
                     "
                   >
-                  Annee
+                  Elements
                   </th>
-                  <th class="border-2 border-gray-500 text-center">1 er annee
+                        <th class="border-2 border-gray-500 text-center">1 <sup>ère</sup> année
+                        </th>
+                        <th class="border-2 border-gray-500  text-center">2 <sup>ème</sup> année
+                        </th>
+                        <th class="border-2 border-gray-500  text-center">3 <sup>ème</sup> année
+                        <th class="border-2 border-gray-500  text-center">4 <sup>ème</sup> année
+                        </th>
+                        <th class="border-2 border-gray-500  text-center">5 <sup>ème</sup> année
+                        </th>
+                </tr>
+              </thead>
+              <tbody class="font-medium">
+                        <tr>
+                          <td class="border-2 border-gray-500 py-1 pl-4 bg-green-200">CHIFFRE D'affaires</td>
+                          <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_turnover_first_year, 0, ',', ' ') }} </td>
+                          <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_turnover_second_year, 0, ',', ' ') }} </td>
+                          <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_turnover_third_year, 0, ',', ' ') }} </td>
+                          <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_turnover_four_year, 0, ',', ' ') }} </td>
+                          <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_turnover_five_year, 0, ',', ' ') }} </td>
+                      </tr> 
+                        <tr>
+                          <td class="border-2 border-gray-500 py-1 pl-4"> Achats de matières premières
+
+                          </td>
+                          <td class="border-2 border-gray-500 text-center">{{ number_format($bp_purchase_first_year, 0, ',', ' ') }} </td>
+                          <td class="border-2 border-gray-500 text-center">{{ number_format($bp_purchase_second_year, 0, ',', ' ') }} </td>
+                          <td class="border-2 border-gray-500 text-center">{{ number_format($bp_purchase_third_year, 0, ',', ' ') }} </td>
+                          <td class="border-2 border-gray-500 text-center">{{ number_format($bp_purchase_four_year, 0, ',', ' ') }} </td>
+                          <td class="border-2 border-gray-500 text-center">{{ number_format($bp_purchase_five_year, 0, ',', ' ') }} </td>
+
+                        </tr> 
+                        <tr>
+                          <td class="border-2 border-gray-500 py-1 pl-4 bg-green-200"> MARGE BRUTE
+
+                        </td>
+                          <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_gross_margin_first_year, 0, ',', ' ') }} </td>
+                          <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_gross_margin_second_year, 0, ',', ' ') }} </td>
+                          <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_gross_margin_third_year, 0, ',', ' ') }} </td>
+                          <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_gross_margin_four_year, 0, ',', ' ') }} </td>
+                          <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_gross_margin_five_year, 0, ',', ' ') }} </td>
+
+                      </tr>
+                      <tr>
+                        <td class="border-2 border-gray-500 py-1 pl-4"> Autre charges externes
+
+                      </td>
+                        <td class="border-2 border-gray-500 text-center">{{ number_format($autre_charge_externe_first_year, 0, ',', ' ') }} </td>
+                        <td class="border-2 border-gray-500 text-center">{{ number_format($autre_charge_externe_second_year, 0, ',', ' ') }} </td>
+                        <td class="border-2 border-gray-500 text-center">{{ number_format($autre_charge_externe_third_year, 0, ',', ' ') }} </td>
+                        <td class="border-2 border-gray-500 text-center">{{ number_format($autre_charge_externe_four_year, 0, ',', ' ') }} </td>
+                        <td class="border-2 border-gray-500 text-center">{{ number_format($autre_charge_externe_five_year, 0, ',', ' ') }} </td>
+
+                    </tr>
+                      <tr>
+                        <td class="border-2 border-gray-500 py-1 pl-4 bg-green-200"> VALEUR AJOUTÉE
+                      </td>
+                        <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_added_value_first_year, 0, ',', ' ') }} </td>
+                        <td class="border-2 border-gray-500 text-center  bg-green-200">{{ number_format($bp_added_value_second_year, 0, ',', ' ') }} </td>
+                        <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_added_value_third_year, 0, ',', ' ') }} </td>
+                        <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_added_value_four_year, 0, ',', ' ') }} </td>
+                        <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_added_value_five_year, 0, ',', ' ') }} </td>
+
+                    </tr>
+                    <tr>
+                      <td class="border-2 border-gray-500 py-1 pl-4"> Charges du personnel
+                    </td>
+                      <td class="border-2 border-gray-500 text-center">{{ number_format($total_frais_personnel, 0, ',', ' ') }} </td>
+                      <td class="border-2 border-gray-500 text-center">{{ number_format($total_frais_personnel, 0, ',', ' ') }} </td>
+                      <td class="border-2 border-gray-500 text-center">{{ number_format($total_frais_personnel*(1+0.05), 0, ',', ' ') }} </td>
+                      <td class="border-2 border-gray-500 text-center">{{ number_format($total_frais_personnel*(1+0.05), 0, ',', ' ') }} </td>
+                      <td class="border-2 border-gray-500 text-center">{{ number_format($total_frais_personnel*(1+0.05), 0, ',', ' ') }} </td>
+
+                  </tr>
+                  <tr>
+                    <td class="border-2 border-gray-500 py-1 pl-4"> Impôts et Taxes
+                  </td>
+                    <td class="border-2 border-gray-500 text-center">{{ number_format($taxe_impot_first_year, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 text-center">{{ number_format($taxe_impot_second_year, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 text-center">{{ number_format($taxe_impot_third_year, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 text-center">{{ number_format($taxe_impot_four_year, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 text-center">{{ number_format($taxe_impot_five_year, 0, ',', ' ') }} </td>
+
+                </tr>
+                <tr>
+                  <td class="border-2 border-gray-500 py-1 pl-4  bg-green-200"> EXCÉDENT BRUT D'EXPLOITATION
+                </td>
+                  <td class="border-2 border-gray-500 text-center  bg-green-200">{{ number_format($gross_surplus_first_year, 0, ',', ' ') }} </td>
+                  <td class="border-2 border-gray-500 text-center  bg-green-200">{{ number_format($gross_surplus_second_year, 0, ',', ' ') }} </td>
+                  <td class="border-2 border-gray-500 text-center  bg-green-200">{{ number_format($gross_surplus_third_year, 0, ',', ' ') }} </td>
+                  <td class="border-2 border-gray-500 text-center  bg-green-200">{{ number_format($gross_surplus_four_year, 0, ',', ' ') }} </td>
+                  <td class="border-2 border-gray-500 text-center  bg-green-200">{{ number_format($gross_surplus_five_year, 0, ',', ' ') }} </td>
+
+              </tr>
+              <tr>
+                <td class="border-2 border-gray-500 py-1 pl-4"> Dotation aux amortissements
+              </td>
+                <td class="border-2 border-gray-500 text-center">{{ number_format($bp_amortization_yearly, 0, ',', ' ') }} </td>
+                <td class="border-2 border-gray-500 text-center">{{ number_format($bp_amortization_yearly, 0, ',', ' ') }} </td>
+                <td class="border-2 border-gray-500 text-center">{{ number_format($bp_amortization_yearly, 0, ',', ' ') }} </td>
+                <td class="border-2 border-gray-500 text-center">{{ number_format($bp_amortization_yearly, 0, ',', ' ') }} </td>
+                <td class="border-2 border-gray-500 text-center">{{ number_format($bp_amortization_yearly, 0, ',', ' ') }} </td>
+
+            </tr>
+              <tr>
+                <td class="border-2 border-gray-500 py-1 pl-4 bg-green-200"> RÉSULTAT BRUT D'EXPLOITATION
+
+              </td>
+                <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_gross_income_first_year , 0, ',', ' ') }} </td>
+                <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_gross_income_second_year, 0, ',', ' ') }} </td>
+                <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_gross_income_third_year , 0, ',', ' ') }} </td>
+                <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_gross_income_four_year, 0, ',', ' ') }} </td>
+                <td class="border-2 border-gray-500 text-center  bg-green-200">{{ number_format($bp_gross_income_five_year , 0, ',', ' ') }} </td>
+
+            </tr>
+            <tr>
+              <td class="border-2 border-gray-500 py-1 pl-4 bg-green-200"> Résultat financier
+
+            </td>
+              <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_financial_result_first_year, 0, ',', ' ') }} </td>
+              <td class="border-2 border-gray-500 text-center  bg-green-200">{{ number_format($bp_financial_result_second_year, 0, ',', ' ') }} </td>
+              <td class="border-2 border-gray-500 text-center  bg-green-200">{{ number_format($bp_financial_result_third_year, 0, ',', ' ') }} </td>
+              <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_financial_result_four_year, 0, ',', ' ') }} </td>
+              <td class="border-2 border-gray-500 text-center  bg-green-200">{{ number_format($bp_financial_result_five_year, 0, ',', ' ') }} </td>
+
+          </tr>
+            <tr>
+                <td class="border-2 border-gray-500 py-1 pl-4   bg-green-200"> Résultat courant
+
+              </td>
+                <td class="border-2 border-gray-500 text-center  bg-green-200">{{ number_format($bp_current_result_first_year, 0, ',', ' ') }} </td>
+                <td class="border-2 border-gray-500 text-center  bg-green-200">{{ number_format($bp_current_result_second_year, 0, ',', ' ') }} </td>
+                <td class="border-2 border-gray-500 text-center  bg-green-200">{{ number_format($bp_current_result_third_year, 0, ',', ' ') }} </td>
+                <td class="border-2 border-gray-500 text-center  bg-green-200">{{ number_format($bp_current_result_four_year, 0, ',', ' ') }} </td>
+                <td class="border-2 border-gray-500 text-center   bg-green-200" >{{ number_format($bp_current_result_five_year, 0, ',', ' ') }} </td>
+
+              </tr>
+                        <tr>
+                        <td class="border-2 border-gray-500 py-1 pl-4  bg-green-200"> Résultat non courant
+
+                          </td>
+                            <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format(0, 0, ',', ' ') }} </td>
+                            <td class="border-2 border-gray-500 text-center  bg-green-200">{{ number_format(0, 0, ',', ' ') }} </td>
+                            <td class="border-2 border-gray-500 text-center bg-green-200" >{{ number_format(0, 0, ',', ' ') }} </td>
+                            <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format(0, 0, ',', ' ') }} </td>
+                            <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format(0, 0, ',', ' ') }} </td>
+
+                          </tr>
+                                  <tr>
+                                    <td class="border-2 border-gray-500 py-1 pl-4 bg-green-200"> Résultat brut
+
+                                    </td>
+                                    <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_income_before_taxes_first_year, 0, ',', ' ') }} </td>
+                                    <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_income_before_taxes_second_year, 0, ',', ' ') }} </td>
+                                    <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_income_before_taxes_third_year, 0, ',', ' ') }} </td>
+                                    <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_income_before_taxes_four_year, 0, ',', ' ') }} </td>
+                                    <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_income_before_taxes_five_year, 0, ',', ' ') }} </td>
+
+                                  </tr>
+                                  <tr>
+                                    <td class="border-2 border-gray-500 py-1 pl-4"> {{isset($data ->company->applied_tax)?$data ->company->applied_tax :""}}
+
+                                    </td>
+                                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_corporate_tax_first_year, 0, ',', ' ') }} </td>
+                                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_corporate_tax_second_year, 0, ',', ' ') }} </td>
+                                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_corporate_tax_third_year, 0, ',', ' ') }} </td>
+                                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_corporate_tax_four_year, 0, ',', ' ') }} </td>
+                                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_corporate_tax_five_year, 0, ',', ' ') }} </td>
+
+                                  </tr>
+                                  <tr>
+                                    <td class="border-2 border-gray-500 py-1 pl-4 bg-green-200"> RÉSULTAT NET
+
+                                    </td>
+                                    <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_net_profit_first_year , 0, ',', ' ') }} </td>
+                                    <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_net_profit_second_year, 0, ',', ' ') }} </td>
+                                    <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_net_profit_third_year, 0, ',', ' ') }} </td>
+                                    <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_net_profit_four_year, 0, ',', ' ') }} </td>
+                                    <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_net_profit_five_year, 0, ',', ' ') }} </td>
+
+                                  </tr><tr>
+                                    <td class="border-2 border-gray-500 py-1 pl-4 bg-green-200"> CASH-FLOW
+
+                                  </td>
+                                    <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_cash_flow_first_year, 0, ',', ' ') }} </td>
+                                    <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_cash_flow_second_year, 0, ',', ' ') }} </td>
+                                    <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_cash_flow_third_year, 0, ',', ' ') }} </td>
+                                    <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_cash_flow_four_year, 0, ',', ' ') }} </td>
+                                    <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_cash_flow_five_year, 0, ',', ' ') }} </td>
+                                 </tr>
+              </tbody>
+            </table>
+          </div> 
+        </div>
+      </div>
+      <div class="absolute bottom-0 right-0 left-0">
+        <img
+        class="absolute bottom-0 right-0 left-0"
+        src="{{asset('images/back-office/svg/footer.svg')}}"
+        alt="" 
+        srcset=""
+        />
+
+        <div
+          class="
+            py-2
+            flex
+            justify-between
+            items-center
+            pl-16
+            pr-36
+            text-white text-xs
+            font-medium
+            relative
+            z-10
+          "
+        >
+          <span>{{$owner->first_name}} {{$owner->last_name}}</span>
+          <span>{{$data->title}}</span>
+          <span>Business Plan</span>
+        </div>
+      </div>
+      
+    </div>
+    <div id="19" class="page printsection">
+      <div class="flex justify-between absolute right-0 top-0 w-full">
+        <div class="flex h-14 items-end justify-end space-x-3">
+          <span
+            class="
+              w-10
+              h-full
+              border-0
+              flex
+              items-end
+              justify-end
+              font-semibold
+              text-white
+              pr-1
+              tracking-wider
+            "
+            style="background-color: var(--main-green)"
+          >
+            05
+          </span>
+          <h3
+            class="font-semibold text-lg"
+            style="color: var(--main-blue); line-height: 16px"
+          >
+          Étude Financière
+          </h3>
+        </div>
+        <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
+      </div>
+
+      <div class="space-y-9">
+        <div class="space-y-4">
+          <div class="space-y-1">
+            <h5
+              class="uppercase font-bold text-sm"
+              style="color: var(--second-blue)"
+            >
+            LA RENTABILITÉ FINANCIÈRE
+
+            </h5>
+            <hr class="bg-gray-300" style="height: 2px" />
+          </div>
+          <p class="text-gray-500 font-normal">La rentabilité financière mesure la capacité des capitaux investis par les actionnaires et associés (capitaux propres) à dégager un certain niveau de profit.
+
+          </p>
+        </div>
+        <div class="space-y-4">
+          <div class="inline-block rounded-lg border w-full ">
+            <table class="table-fixed border border-gray-900 w-88 text-sm">
+              <thead>
+                <tr class="bg-gray-100">
+                  <th
+                    class="
+                      border-2 border-gray-500
+                      self-start
+                      text-left
+                      pl-2
+                      py-4
+                    "
+                  >
+                  PERIODES
                   </th>
-                  <th class="border-2 border-gray-500  text-center">2 eme annee
+                  <th
+                    class="
+                      border-2 border-gray-500
+                      self-start
+                      text-left
+                    "
+                  >
+                  INVISTISSEMENT INITIAL
                   </th>
-                  <th class="border-2 border-gray-500  text-center">3 eme annee
+                  <th class="border-2 border-gray-500 text-center">1 <sup>ère</sup> année
                   </th>
-                  <th class="border-2 border-gray-500  text-center">4 eme annee
+                  <th class="border-2 border-gray-500  text-center">2 <sup>ème</sup> année
                   </th>
-                  <th class="border-2 border-gray-500  text-center">5 eme annee
+                  <th class="border-2 border-gray-500  text-center">3 <sup>ème</sup> année
+                  <th class="border-2 border-gray-500  text-center">4 <sup>ème</sup> année
+                  </th>
+                  <th class="border-2 border-gray-500  text-center">5 <sup>ème</sup> année
                   </th>
                 </tr>
               </thead>
               <tbody class="font-medium">
                  <tr>
-                   <td class="border-2 border-gray-500 py-1 pl-4">RÉSULTAT BRUT </td>
-                   <td class="border-2 border-gray-500 text-center">{{ number_format($gross_surplus_first_year, 0, ',', ' ') }} </td>
-                   <td class="border-2 border-gray-500 text-center">{{ number_format($gross_surplus_second_year, 0, ',', ' ') }} </td>
-                   <td class="border-2 border-gray-500 text-center">{{ number_format($gross_surplus_third_year, 0, ',', ' ') }} </td>
-                   <td class="border-2 border-gray-500 text-center">{{ number_format($gross_surplus_four_year, 0, ',', ' ') }} </td>
-                   <td class="border-2 border-gray-500 text-center">{{ number_format($gross_surplus_five_year, 0, ',', ' ') }} </td>
-               </tr> 
+                   <td class="border-2 border-gray-500 py-2 w-2/12  pl-4 bg-green-200">CASH-FLOW </td>
+                   <td class="border-2 border-gray-500 text-center">{{ number_format(-$bp_investment_program_total, 0, ',', ' ') }} </td>
+                   <td class="border-2 border-gray-500 text-center">{{ number_format($bp_cash_flow_first_year, 0, ',', ' ') }} </td>
+                   <td class="border-2 border-gray-500 text-center">{{ number_format($bp_cash_flow_second_year, 0, ',', ' ') }} </td>
+                   <td class="border-2 border-gray-500 text-center">{{ number_format($bp_cash_flow_third_year, 0, ',', ' ') }} </td>
+                   <td class="border-2 border-gray-500 text-center">{{ number_format($bp_cash_flow_four_year, 0, ',', ' ') }} </td>   
+                   <td class="border-2 border-gray-500 text-center">{{ number_format($bp_cash_flow_five_year, 0, ',', ' ') }} </td>       
                  <tr>
-                   <td class="border-2 border-gray-500 py-1 pl-4"> IMPÔT SUR LES SOCIÉTÉS
+                   <td colspan="2" class="border-2 border-gray-500 py-1 pl-4 bg-green-200"> CUMUL
+
                   </td>
-                   <td class="border-2 border-gray-500 text-center">{{ number_format(0, 0, ',', ' ') }} </td>
-                   <td class="border-2 border-gray-500 text-center">{{ number_format(0, 2, ',', ' ') }} </td>
-                   <td class="border-2 border-gray-500 text-center">{{ number_format(0, 0, ',', ' ') }} </td>
-                   <td class="border-2 border-gray-500 text-center">{{ number_format(0, 0, ',', ' ') }} </td>
-                   <td class="border-2 border-gray-500 text-center">{{ number_format(0, 0, ',', ' ') }} </td>
+                   <td class="border-2 border-gray-500 text-center">{{ number_format($cumul_first_year, 0, ',', ' ') }} </td>
+                   <td class="border-2 border-gray-500 text-center">{{ number_format($cumul_second_year, 0, ',', ' ') }} </td>
+                   <td class="border-2 border-gray-500 text-center">{{ number_format($cumul_third_year, 0, ',', ' ') }} </td>
+                   <td class="border-2 border-gray-500 text-center">{{ number_format($cumul_four_year, 0, ',', ' ') }} </td>
+                   <td class="border-2 border-gray-500 text-center">{{ number_format($cumul_five_year, 0, ',', ' ') }} </td>
 
                 </tr> 
               </tbody>
             </table>
           </div> 
+          <?php
+         
+          $total_van=-$bp_investment_program_total+($bp_cash_flow_first_year*(pow(1+0.1,-1)))+($bp_cash_flow_second_year*pow(1+0.1,-2))+($bp_cash_flow_third_year*pow(1+0.1,-3))+($bp_cash_flow_four_year*pow(1+0.1,-4))+($bp_cash_flow_five_year*pow(1+0.1,-5)) ;
+          for ($i=1; $i<300 ; $i++) { 
+             $total_cash+=$bp_cash_flow_first_year*(pow(1+0.1,-$i));
+             $total_van_verify = -$bp_investment_program_total+$total_cash;
+            if($total_van_verify >0){
+              $tri=pow(1+0.1,-$i);
+            }
+          }
+          ?>
+
+          <div class="inline-block rounded-lg border w-full ">
+            <table class="table-fixed border border-gray-900 w-90 text-sm">
+              <tbody class="font-medium">
+                
+                 <tr>
+                   <td class="border-2 border-gray-500  w-1/6 px-4  py-2  bg-green-200 ">LE TAUX DE RENTABILITÉ INTERNE (TRI)
+                   </td>
+                   <td class="border-2 border-gray-500 w-1/6 py-4 pl-4 text-center ">{{$tri}}% </td>
+                  
+               </tr> 
+                <tr>
+                   <td class="border-2 border-gray-500 py-1 pl-4 bg-green-200"> LA VALEUR ACTUELLE NETTE (VAN)
+                  </td>
+                   <td class="border-2 border-gray-500 text-center">{{ number_format($total_van, 0, ',', ' ') }} </td>
+                </tr> 
+                <tr>
+                  <td class="border-2 border-gray-500 py-1 pl-4 bg-green-200"> LE DÉLAI DE RÉCUPÉRATION (DRCI)
+                 </td>
+                  <td class="border-2 border-gray-500 text-center">{{ $bp_roi_delay }} </td>
+               
+               </tr> 
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="absolute bottom-0 right-0 left-0">
+        <img
+        class="absolute bottom-0 right-0 left-0"
+        src="{{asset('images/back-office/svg/footer.svg')}}"
+        alt="" 
+        srcset=""
+        />
+
+        <div
+          class="
+            py-2
+            flex
+            justify-between
+            items-center
+            pl-16
+            pr-36
+            text-white text-xs
+            font-medium
+            relative
+            z-10
+          "
+        >
+          <span>{{$owner->first_name}} {{$owner->last_name}}</span>
+          <span>{{$data->title}}</span>
+          <span>Business Plan</span>
+        </div>
+      </div>
+      
+    </div>
+    <div id="20" class="page printsection">
+      <div class="flex justify-between absolute right-0 top-0 w-full">
+        <div class="flex h-14 items-end justify-end space-x-3">
+          <span
+            class="
+              w-10
+              h-full
+              border-0
+              flex
+              items-end
+              justify-end
+              font-semibold
+              text-white
+              pr-1
+              tracking-wider
+            "
+            style="background-color: var(--main-green)"
+          >
+            05
+          </span>
+          <h3
+            class="font-semibold text-lg"
+            style="color: var(--main-blue); line-height: 16px"
+          >
+          Conclusion
+          </h3>
+        </div>
+        <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
+      </div>
+
+      <div class="space-y-9">
+        <div class="space-y-4">
+          <div class="space-y-1">
+            <h5
+              class="uppercase font-bold text-sm"
+              style="color: var(--second-blue)"
+            >
+            Conclusion
+
+            </h5>
+            <hr class="bg-gray-300" style="height: 2px" />
+          </div>
+        </div>
+        <div class="space-y-4">
+          <div class="bg-gray-100 text-gray-700 mt-6 p-8 space-y-3 text-sm ">
+            <img
+                class="left-0 top-0"
+                src="{{asset('images/back-office/svg/Group.svg')}}"
+                alt="" 
+                srcset=""
+        />
+            <p>
+              Le projet que propose Mr EL MORABET Abdechakir de mettre en œuvre s’inscrit dans les objectifs stratégiques du programme de l’INDH.  La réalisation de ce projet va lui permettre d’intégrer le monde de l’entrepreneuriat en exploitant les opportunités offertes ainsi que son relationnel avec les clients et d’améliorer son revenu .
+
+            </p>
+            <img
+            class=" bottom-0 right-0 left-0"
+            src="{{asset('images/back-office/svg/Group.svg')}}"
+            alt="" 
+            srcset=""
+    />
+          </div>
+          
         </div>
       </div>
       <div class="absolute bottom-0 right-0 left-0">
