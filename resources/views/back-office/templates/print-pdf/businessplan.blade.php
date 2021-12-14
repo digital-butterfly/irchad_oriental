@@ -922,13 +922,15 @@ $cumul_third_year=$cumul_second_year+$bp_cash_flow_third_year ;
 $cumul_four_year=$cumul_third_year+$bp_cash_flow_four_year ;
 $cumul_five_year=-$cumul_four_year+$bp_cash_flow_five_year ;
 // Profitability
-if ( $cumul_first_year> 0) {
+
+$bp_roi_delay=" ";
+if ( $cumul_first_year>0) {
     $bp_profitability_status = 'Rentable';
     $bp_roi_delay = 'Dans 1 ans';
 }
 elseif ($cumul_second_year > 0) {
     $bp_profitability_status = 'Rentable';
-    $bp_roi_delay = 'Dans 2 ans';
+    $bp_roi_delay = 'Dans 2 ans';                                              
 }
 elseif ($cumul_third_year > 0) {
     $bp_profitability_status = 'Rentable';
@@ -937,7 +939,7 @@ elseif ($cumul_third_year > 0) {
 elseif($cumul_four_year>0) {
     $bp_profitability_status = 'Défavorable';
     $bp_roi_delay = 'Dans 4 ans';
-}else {
+}elseif($cumul_five_year>0) {
   $bp_profitability_status = 'Défavorable';
     $bp_roi_delay = 'Dans 5 ans';
 }
@@ -1878,6 +1880,7 @@ elseif($cumul_four_year>0) {
             <p>
              {{isset($data->business_model->pricing_strategy)?$data->business_model->pricing_strategy: " "}}
             </p>
+            <p>{{isset($data->business_model->pricing_strategy_disc)?$data->business_model->pricing_strategy_disc: " "}}</p>
           </div>
         </div>
         <div class="space-y-4">
@@ -4375,7 +4378,14 @@ elseif($cumul_four_year>0) {
       </div>
       
     </div>
+<script>
 
+
+
+
+
+
+</script>
 
 
 

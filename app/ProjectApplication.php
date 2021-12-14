@@ -411,6 +411,12 @@ class ProjectApplication extends Model
                         'label' => 'Stratégie de prix',
                         'options' => ['Écrémage', 'Alignement','Pénétration'],
                     ],
+                     [
+                        'name' => 'pricing_strategy_disc',
+                        'type' => 'textarea',
+                        'label' => 'Description du stratégie de prix',
+                       
+                    ],
                     [
                         'name' => 'distribution_strategy',
                         'type' => 'textarea',
@@ -493,7 +499,7 @@ class ProjectApplication extends Model
                         'name' => 'financial_plan_loans',
                         'type' => 'repeater',
                         'label' => 'Prêts',
-                        'config' => ['quadrupleRepeater' => true, 'attributes' => [['Organisme de crédit',3], ['Montant',3], ['Taux',1], ['Durée  du prêts',3]],'Select'=>false]
+                        'config' => ['quadrupleRepeater' => true, 'attributes' => [['Organisme de crédit',3], ['Montant',3], ['Taux',1], ['Durée  du prêts en année',3]],'Select'=>false]
                     ],
                     [
                         'name' => 'duration_différe',
