@@ -155,12 +155,13 @@ if(isset($data ->financial_data->financial_plan_loans))
       $duree_pret=$item->duration;
     }}
     $months=$duree_pret*12;
-    //$mensualite=($montant*$Taux_interet)/(12*(1-pow(1+$Taux_interet/12,-$months+$differe)));
-    $capital_rest=$montant*(1+$Taux_interet/12
-  );
-//dd($capital_rest);
+     //$mensualite=($montant*$Taux_interet)/(12*(1-pow(1+$Taux_interet/12,-$months+$differe)));
+     $capital_rest_fee=0;
+     $capital_rest_fee=$montant*(1+$Taux_interet*$differe/12);
+     $capital_rest=$montant*(1+$Taux_interet/12);
+     //dd($capital_rest);
     for ($i=0; $i < $months ; $i++) { 
-      $mensualite=($capital_rest*($Taux_interet/12))/(1-pow(1+$Taux_interet/12,-$months+$differe));  
+      $mensualite=($capital_rest_fee*($Taux_interet/12))/(1-pow(1+$Taux_interet/12,-$months+$differe));  
      
      //dd($mensualite);
       if($i>=$differe){
@@ -3625,8 +3626,7 @@ elseif($cumul_four_year>0) {
                   </th>
                   <th class="border-2 border-gray-500  text-center">Capital remboursé
                   </th>
-                  <th class="border-2 border-gray-500    text-center">Capital restant
-                  </th>
+                  <th class="border-2 border-gray-500    text-center">Capital restant dû
                 </tr>
               </thead>
               <tbody class="font-medium">
@@ -3661,7 +3661,7 @@ elseif($cumul_four_year>0) {
                   <td class="border-2 border-gray-600 text-center bg-green-100">{{number_format($total_mensualite,0,',','')}}</td>
                   <td class="border-2 border-gray-600 text-center bg-green-100">{{number_format($total_interets,0,',','')}}</td>
                   <td class="border-2 border-gray-600 text-center bg-green-100">{{number_format($total_rem,0,',','')}}</td>
-                  <td class="border-2 border-gray-600 text-center bg-green-100">{{number_format($total_rest,0,',','')}}</td>
+                  <td class="border-2 border-gray-600 text-center bg-green-100">{{number_format(0,0,',','')}}</td>
 
 
 
@@ -3899,7 +3899,7 @@ elseif($cumul_four_year>0) {
               </thead>
               <tbody class="font-medium">
                         <tr>
-                          <td class="border-2 border-gray-500 py-1 pl-4 bg-green-200">CHIFFRE D'affaires</td>
+                          <td class="border-2 border-gray-500 py-1 pl-4 bg-green-200">CHIFFRE D'AFFAIRES</td>
                           <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_turnover_first_year, 0, ',', ' ') }} </td>
                           <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_turnover_second_year, 0, ',', ' ') }} </td>
                           <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_turnover_third_year, 0, ',', ' ') }} </td>
@@ -4001,7 +4001,7 @@ elseif($cumul_four_year>0) {
 
             </tr>
             <tr>
-              <td class="border-2 border-gray-500 py-1 pl-4 bg-green-200"> Résultat financier
+              <td class="border-2 border-gray-500 py-1 pl-4 bg-green-200"> RÉSULTAT FINANCIER 
 
             </td>
               <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_financial_result_first_year, 0, ',', ' ') }} </td>
@@ -4012,7 +4012,7 @@ elseif($cumul_four_year>0) {
 
           </tr>
             <tr>
-                <td class="border-2 border-gray-500 py-1 pl-4   bg-green-200"> Résultat courant
+                <td class="border-2 border-gray-500 py-1 pl-4   bg-green-200"> RÉSULTAT COURANT
 
               </td>
                 <td class="border-2 border-gray-500 text-center  bg-green-200">{{ number_format($bp_current_result_first_year, 0, ',', ' ') }} </td>
@@ -4023,7 +4023,7 @@ elseif($cumul_four_year>0) {
 
               </tr>
                         <tr>
-                        <td class="border-2 border-gray-500 py-1 pl-4  bg-green-200"> Résultat non courant
+                        <td class="border-2 border-gray-500 py-1 pl-4  bg-green-200"> RÉSULTAT NON COURANT
 
                           </td>
                             <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format(0, 0, ',', ' ') }} </td>
@@ -4034,7 +4034,7 @@ elseif($cumul_four_year>0) {
 
                           </tr>
                                   <tr>
-                                    <td class="border-2 border-gray-500 py-1 pl-4 bg-green-200"> Résultat brut
+                                    <td class="border-2 border-gray-500 py-1 pl-4 bg-green-200"> RÉSULTAT BRUT
 
                                     </td>
                                     <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_income_before_taxes_first_year, 0, ',', ' ') }} </td>
@@ -4325,20 +4325,20 @@ elseif($cumul_four_year>0) {
           </div>
         </div>
         <div class="space-y-4">
-          <div class="bg-gray-100 text-gray-700 mt-6 p-8 space-y-3 text-sm ">
+          <div class="bg-gray-100 text-gray-700 mt-6 p-8 space-y-3 text-sm  relative">
             <img
                 class="left-0 top-0"
                 src="{{asset('images/back-office/svg/Group.svg')}}"
                 alt="" 
                 srcset=""
         />
-            <p>
+            <p class="align-middle text-center">
               Le projet que propose Mr EL MORABET Abdechakir de mettre en œuvre s’inscrit dans les objectifs stratégiques du programme de l’INDH.  La réalisation de ce projet va lui permettre d’intégrer le monde de l’entrepreneuriat en exploitant les opportunités offertes ainsi que son relationnel avec les clients et d’améliorer son revenu .
 
             </p>
             <img
-            class=" bottom-0 right-0 left-0"
-            src="{{asset('images/back-office/svg/Group.svg')}}"
+            class="absolute bottom-0 right-2"
+            src="{{asset('images/back-office/svg/quote-down.svg')}}"
             alt="" 
             srcset=""
     />
@@ -4346,7 +4346,7 @@ elseif($cumul_four_year>0) {
           
         </div>
       </div>
-      <div class="absolute bottom-0 right-0 left-0">
+      <div class="absolute bottom-1 right-0 left-0">
         <img
         class="absolute bottom-0 right-0 left-0"
         src="{{asset('images/back-office/svg/footer.svg')}}"
