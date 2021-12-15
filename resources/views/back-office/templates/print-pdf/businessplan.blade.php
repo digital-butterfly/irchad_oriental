@@ -154,24 +154,27 @@ if(isset($data ->financial_data->financial_plan_loans))
       $montant=$item->value;
       $duree_pret=$item->duration;
     }}
+    //dd($montant);
     $months=$duree_pret*12;
      //$mensualite=($montant*$Taux_interet)/(12*(1-pow(1+$Taux_interet/12,-$months+$differe)));
      $capital_rest_fee=0;
      $capital_rest_fee=$montant*(1+$Taux_interet*$differe/12);
-     $capital_rest=$montant*(1+$Taux_interet/12);
+     $capital_rest_zero=round($montant,2);
      //dd($capital_rest);
     for ($i=0; $i < $months ; $i++) { 
-      $mensualite=($capital_rest_fee*($Taux_interet/12))/(1-pow(1+$Taux_interet/12,-$months+$differe));  
+      $mensualite=round(($capital_rest_fee*($Taux_interet/12))/(1-pow(1+$Taux_interet/12,-$months+$differe)),2);  
      
      //dd($mensualite);
       if($i>=$differe){
-        $interets=($capital_rest*$Taux_interet)/12;
-        $capital_rem= $mensualite-$interets;
-        $capital_rest= $monthsCalcul[$i-1]->capital_rest-$capital_rem;
+        $i==0 ? $capital_rest=$montant : $capital_rest=$capital_rest;
+        $interets=round(($capital_rest*$Taux_interet)/12,2);
+        $capital_rem= round($mensualite-$interets,2);
+        $capital_rest= round($capital_rest,2)-($mensualite-$interets) ;
       }else{
+        $i==0 ? $capital_rest= $capital_rest_zero : $capital_rest=$capital_rest;
         $interets=0;
         $capital_rem= 0;
-        $capital_rest= $capital_rest*(1+$Taux_interet/12);  
+        $capital_rest= round(($capital_rest*(1+$Taux_interet/12)),2);  
       }
       array_push($monthsCalcul,(object) ["mensualite"=>$mensualite,"interets"=>$interets,"capital_rem"=>$capital_rem,"capital_rest"=>$capital_rest]);
     }
@@ -199,7 +202,7 @@ if(isset($data ->financial_data->financial_plan_loans))
 //          dd($monthData->interets);
 // }
 //dd($yearsCalcul);
-//dd($monthsCalcul);
+dd($monthsCalcul);
 // foreach ($yearsCalcul as $key => $yearData) {
 //         dd( number_format($yearData->mensualite,10,'',''));
 // }
