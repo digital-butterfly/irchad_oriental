@@ -202,7 +202,7 @@ if(isset($data ->financial_data->financial_plan_loans))
 //          dd($monthData->interets);
 // }
 //dd($yearsCalcul);
-dd($monthsCalcul);
+//dd($monthsCalcul);
 // foreach ($yearsCalcul as $key => $yearData) {
 //         dd( number_format($yearData->mensualite,10,'',''));
 // }
