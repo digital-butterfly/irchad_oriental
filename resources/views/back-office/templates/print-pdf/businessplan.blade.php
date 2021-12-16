@@ -162,16 +162,18 @@ if(isset($data ->financial_data->financial_plan_loans))
      $capital_rest_zero=round($montant,2);
      //dd($capital_rest);
     for ($i=0; $i < $months ; $i++) { 
-      $mensualite=round(($capital_rest_fee*($Taux_interet/12))/(1-pow(1+$Taux_interet/12,-$months+$differe)),2);  
+      
      
      //dd($mensualite);
       if($i>=$differe){
+        $mensualite=round(($capital_rest_fee*($Taux_interet/12))/(1-pow(1+$Taux_interet/12,-$months+$differe)),2);  
         $i==0 ? $capital_rest=$montant : $capital_rest=$capital_rest;
         $interets=round(($capital_rest*$Taux_interet)/12,2);
         $capital_rem= round($mensualite-$interets,2);
         $capital_rest= round($capital_rest,2)-($mensualite-$interets) ;
       }else{
         $i==0 ? $capital_rest= $capital_rest_zero : $capital_rest=$capital_rest;
+        $mensualite=0;
         $interets=0;
         $capital_rem= 0;
         $capital_rest= round(($capital_rest*(1+$Taux_interet/12)),2);  
@@ -956,7 +958,7 @@ elseif($cumul_four_year>0) {
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
+        <title>Business Plan</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
@@ -985,24 +987,25 @@ elseif($cumul_four_year>0) {
       padding: 90px 50px 90px;
       width: 842px;
       min-height: 595px;
+
       background-color: white;
-    } 
-     @media print {
-        body {
-            visibility: hidden;
-
-        }
-
-        body,
-        .printsection{
-            visibility: visible;
-            margin: 0;
-            box-shadow: 0;
-        }
+      page-break-after: always;
+    }
+    @media print {
+      @page {
+        size: landscape;
+      }
+      #download-button{
+        display:none;
+      }
+      .print_h{
+        background-color:black !important;
+      }
     }
   </style>
   <body class="bg-gray-300 relative">
     <button
+      id="download-button"
       class="
         fixed
         bottom-10
@@ -1103,7 +1106,7 @@ elseif($cumul_four_year>0) {
 
       <div class="mx-auto space-y-5" style="width: 520px">
         <div class="space-y-3">
-          <div class="flex space-x-5 font-bold text-2xl items-center">
+          <div class="flex space-x-5 font-bold text-2xl items-center " id="print">
             <h3 class="tracking-wide text-4xl" style="color: var(--main-green)">
               01
             </h3>
@@ -1201,7 +1204,7 @@ elseif($cumul_four_year>0) {
       <div class="flex justify-between absolute right-0 top-0 w-full">
         <div class="flex h-14 items-end justify-end space-x-3">
           <hr
-            class="w-10 h-full border-0"
+            class="w-10 h-full border-0 print_h"
             style="background-color: var(--main-green)"
           />
           <h3
@@ -1261,6 +1264,7 @@ elseif($cumul_four_year>0) {
       <div class="flex justify-between absolute right-0 top-0 w-full">
         <div class="flex h-14 items-end justify-end space-x-3">
           <span
+            id="print"
             class="
               w-10
               h-full
@@ -1273,7 +1277,7 @@ elseif($cumul_four_year>0) {
               pr-1
               tracking-wider
             "
-            style="background-color: var(--main-green)"
+            style="background-color:#1bbc9b"
           >
             01
           </span>
@@ -1338,22 +1342,29 @@ elseif($cumul_four_year>0) {
           </div>
 
           <div class="space-y-3 text-sm font-normal">
-            <div class="flex justify-between p-2 font-semibold">
+            <div class="grid grid-cols-3 justify-between p-2 font-semibold">
               <p>Type de diplome :</p>
               <p>Etablissement</p>
               <p>Annee d'obtention</p>
             </div>
             @foreach ($owner->degrees as $key => $degree)
-            <div class="flex justify-between bg-gray-100 p-2">
-              
+            <div class="grid  grid-cols-3 justify-between bg-gray-100 p-2">
+              @if(isset($degree->label))
               <p>{{$degree->label}}</p>
+              @else
+              <p>--</p>
+               @endif 
+                @if (isset($degree->value))
+              <p id="testt"> {{$degree->value}}</p>
+               @else
+              <p>--</p>
+              @endif
               @if (isset($degree->count))
               <p>{{$degree->count}}</p>
+               @else
+              <p>--</p>
               @endif
-              @if (isset($degree->value))
-              <p> {{$degree->value}}</p>
-              @endif
-
+            
             </div>
             @endforeach
           </div>
@@ -1370,7 +1381,7 @@ elseif($cumul_four_year>0) {
           </div>
 
           <div class="space-y-3 text-sm font-normal">
-            <div class="flex justify-between p-2 font-semibold">
+            <div class="grid grid-cols-5 justify-between p-2 font-semibold">
               <p>Poste</p>
               <p>Organisme</p>
               <p>Mission</p>
@@ -1378,16 +1389,33 @@ elseif($cumul_four_year>0) {
               <p>Au</p>
             </div>
             @foreach ($owner->professional_experience as $key => $experience)
-            <div class="flex justify-between bg-gray-100 p-2">
-              <p>{{ isset($experience->label)?$experience->label :" "}}</p>
+            <div class="grid grid-cols-5  justify-between p-2 bg-gray-100">
+             @if(isset($experience->label))
+              <p>{{$experience->label}}</p>
+              @else
+              <p>--</p>
+               @endif 
+                @if (isset($experience->duration))
+              <p id="testt"> {{$experience->duration}}</p>
+               @else
+              <p>--</p>
+              @endif
+              @if (isset($experience->organisme))
+                <p>{{$experience->organisme}}</p>
+               @else
+              <p>--</p>
+              @endif
+              @if (isset($experience->value))
+                <p>{{$experience->value}}</p>
+               @else
+              <p>--</p>
+              @endif
+              @if (isset($experience->rate))
+                <p>{{$experience->rate}}</p>
+               @else
+              <p>--</p>
+              @endif
              
-              <p>{{isset($experience->duration)? $experience->duration:" " }}.</p>
-             
-              <p>{{isset($experience->organisme)? $experience->organisme:" " }}</p>
-              
-              <p> {{isset($experience->value)?$experience->value:" "}}</p>
-            
-              <p>{{isset($experience->rate)?$experience->rate:" "}}</p>
             </div>
             @endforeach
             {{-- <div class="flex justify-between p-2">
@@ -2703,14 +2731,14 @@ elseif($cumul_four_year>0) {
           </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
-          <div class="inline-block rounded-lg border  ">
-            <table class="table-fixed border border-gray-900 w-90 text-sm">
+          <div class="inline-block rounded-lg border  w-full">
+            <table class="table-fixed border border-gray-900 w-full text-sm">
               <thead>
                 <tr class="bg-gray-100">
                   <th
                     class="
-                    pl-2
-                    py-2
+                   
+                  
                       border-2 border-gray-500
                       self-start
                       text-left
@@ -2731,7 +2759,7 @@ elseif($cumul_four_year>0) {
               </thead>
               <tbody class="font-medium">
                   <tr>
-                    <td class="border-2 border-gray-500 py-1 pl-4"> chiffre d'affaires annuel</td>
+                    <td class="border-2 border-gray-500 "> chiffre d'affaires annuel</td>
                     <td class="border-2 border-gray-500 text-center">{{ number_format($bp_turnover_first_year, 0, ',', ' ') }} </td>
                     <td class="border-2 border-gray-500 text-center">{{ number_format($bp_turnover_second_year,0, ',', ' ')}}</td>
                     <td class="border-2 border-gray-500 text-center">{{ number_format($bp_turnover_third_year, 0, ',', ' ') }} </td>
@@ -2754,8 +2782,8 @@ elseif($cumul_four_year>0) {
           </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
-          <div class="inline-block rounded-lg border ">
-            <table class="table-fixed border border-gray-900 w-90 text-sm">
+          <div class="inline-block rounded-lg border w-full ">
+            <table class="table-fixed border border-gray-900 w-full text-sm">
               <thead>
                 <tr class="bg-gray-100">
                   <th
@@ -2808,8 +2836,8 @@ elseif($cumul_four_year>0) {
               </tbody>
             </table>
           </div>
-          <div class="inline-block rounded-lg border ">
-            <table class="table-fixed border border-gray-900 w-90 text-sm">
+          <div class="inline-block rounded-lg border w-full">
+            <table class="table-fixed border border-gray-900 w-full text-sm">
               <thead>
                 <tr class="bg-gray-100">
                   <th
@@ -2836,7 +2864,7 @@ elseif($cumul_four_year>0) {
               </thead>
               <tbody class="font-medium">
                   <tr>
-                    <td class="border-2 border-gray-500 py-1 pl-4"> Achats 50% du Chiffres d’affaires</td>
+                    <td class="border-2 border-gray-500"> Achats 50% du Chiffres d’affaires</td>
                     <td class="border-2 border-gray-500 text-center">{{ number_format($bp_purchase_first_year, 0, ',', ' ') }} </td>
                     <td class="border-2 border-gray-500 text-center">{{ number_format($bp_purchase_second_year,0, ',', ' ')}}</td>
                     <td class="border-2 border-gray-500 text-center">{{ number_format($bp_purchase_third_year, 0, ',', ' ') }} </td>
@@ -4333,12 +4361,12 @@ elseif($cumul_four_year>0) {
         <div class="space-y-4">
           <div class="bg-gray-100 text-gray-700 mt-6 p-8 space-y-3 text-sm  relative">
             <img
-                class="left-0 top-0"
+                class="absolute left-2 top-0"
                 src="{{asset('images/back-office/svg/Group.svg')}}"
                 alt="" 
                 srcset=""
         />
-            <p class="align-middle text-center">
+            <p class="align-middle">
               Le projet que propose Mr EL MORABET Abdechakir de mettre en œuvre s’inscrit dans les objectifs stratégiques du programme de l’INDH.  La réalisation de ce projet va lui permettre d’intégrer le monde de l’entrepreneuriat en exploitant les opportunités offertes ainsi que son relationnel avec les clients et d’améliorer son revenu .
 
             </p>
@@ -4391,17 +4419,6 @@ elseif($cumul_four_year>0) {
 </script>
 
 
-
-
-
-
-
-
-
-
-
-
-
   </body>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.0/html2pdf.bundle.min.js"></script>
   <script>
@@ -4417,6 +4434,13 @@ elseif($cumul_four_year>0) {
 
       html2pdf().from(element).save("myfile.pdf");
     }
+window.addEventListener('load',function(){
+ //var element_caracter=document.getElementById("testt").innerText;
+    //console.log(element_caracter.replace(/'/g, "h"));
+  //  element_caracter.replace(/'/g, "&#039");
+})
+   
+
   </script>
 
 </html>
