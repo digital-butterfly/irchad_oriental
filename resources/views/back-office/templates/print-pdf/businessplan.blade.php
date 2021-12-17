@@ -970,6 +970,7 @@ elseif($cumul_four_year>0) {
     </head>
 </head>
 <style>
+ 
     body {
       font-family: "Montserrat", sans-serif;
     }
@@ -987,21 +988,58 @@ elseif($cumul_four_year>0) {
       padding: 90px 50px 90px;
       width: 842px;
       min-height: 595px;
-
+        
       background-color: white;
       page-break-after: always;
     }
+
+
+
+
+
+
     @media print {
       @page {
         size: landscape;
+        margin: 0mm;
       }
+
       #download-button{
-        display:none;
+       display:none;
       }
-      .print_h{
-        background-color:black !important;
+      
+      body{
+        background-color: white !important ;
       }
+     .print-full-width{
+      width: 100%;
+      height:97.5%;
+      margin-top:0;
+     }
+     .print-add-break{
+       page-break-after: always;
+     }
+     .img_full_width{
+       width:100%;
+       margin-top:30px;
+     }
+     .display_full{
+         display:block;
+     }
+     .display_none{
+       display:none; 
+     }
+     .img_full{
+       height:100%
+     }
+     .bottom_print{
+       bottom:20%;
+       width:100%;
+       font-size: 20%;
+
+     }
     }
+   
   </style>
   <body class="bg-gray-300 relative">
     <button
@@ -1024,9 +1062,9 @@ elseif($cumul_four_year>0) {
     >
       Telecharger
     </button>
-    <section id="0" class="page printsection">
+    <div id="0" class="page printsection print-add-break print-full-width">
       <img
-        class="absolute top-0 left-0"
+        class="absolute top-0 left-0 img_full"
         src="{{asset('images/back-office/svg/exen-with-image.svg')}}"
         alt=""
         srcset=""
@@ -1068,7 +1106,7 @@ elseif($cumul_four_year>0) {
           style="color: var(--main-blue)"
         >
           <h3 class="font-semibold text">{{$owner->first_name}} {{$owner->last_name}}</h3>
-          <p class="">
+          <p class=" print:bg-blue-800 ">
             Le secteur d’activité :
             <span class="font-semibold" style="color: var(--main-green)"
               >{{$categories->title}}</span
@@ -1078,7 +1116,7 @@ elseif($cumul_four_year>0) {
       </div>
 
       <div class="absolute right-0 bottom-0" style="width: 460px">
-        <p class="text-gray-500 pb-5 pr-5" style="font-size: 10px">
+        <p class="text-gray-500 pb-5 pr-5 bottom_print" style="font-size: 10px">
           « Ce document est la propriété du cabinet Exen Consulting. Il est
           strictement réservé à l'usage de la personne ou de l'entité à qui il
           est destiné et peut contenir de l'information privilégiée et
@@ -1086,8 +1124,8 @@ elseif($cumul_four_year>0) {
           strictement interdite. »
         </p>
       </div>
-    </section>
-    <div id="1" class="page printsection">
+    </div>
+    <div id="1" class="page printsection print-add-break print-full-width">
       <div class="flex justify-between absolute right-0 top-0 w-full">
         <div class="flex h-14 items-end justify-end space-x-3">
           <hr
@@ -1103,7 +1141,6 @@ elseif($cumul_four_year>0) {
         </div>
         <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
       </div>
-
       <div class="mx-auto space-y-5" style="width: 520px">
         <div class="space-y-3">
           <div class="flex space-x-5 font-bold text-2xl items-center " id="print">
@@ -1174,7 +1211,7 @@ elseif($cumul_four_year>0) {
       </div>
       <div class="absolute bottom-0 right-0 left-0">
         <img
-        class="absolute bottom-0 right-0 left-0"
+        class="absolute bottom-0 right-0 left-0  img_full_width"
         src="{{asset('images/back-office/svg/footer.svg')}}"
         alt="" 
         srcset=""
@@ -1200,9 +1237,9 @@ elseif($cumul_four_year>0) {
         </div>
       </div>
     </div>
-    <div id="2" class="page printsection">
+    <div id="2" class="page printsection print-add-break print-full-width">
       <div class="flex justify-between absolute right-0 top-0 w-full">
-        <div class="flex h-14 items-end justify-end space-x-3">
+        <div class="flex h-14 items-end justify-end space-x-3 print_h">
           <hr
             class="w-10 h-full border-0 print_h"
             style="background-color: var(--main-green)"
@@ -1234,7 +1271,7 @@ elseif($cumul_four_year>0) {
       </div>
       <div class="absolute bottom-0 right-0 left-0">
         <img
-        class="absolute bottom-0 right-0 left-0"
+        class="absolute bottom-0 right-0 left-0 img_full_width"
         src="{{asset('images/back-office/svg/footer.svg')}}"
         alt="" 
         srcset=""
@@ -1260,7 +1297,7 @@ elseif($cumul_four_year>0) {
         </div>
       </div>
     </div>
-    <div id="3" class="page printsection">
+    <div id="3" class="page printsection print-add-break print-full-width">
       <div class="flex justify-between absolute right-0 top-0 w-full">
         <div class="flex h-14 items-end justify-end space-x-3">
           <span
@@ -1276,6 +1313,7 @@ elseif($cumul_four_year>0) {
               text-white
               pr-1
               tracking-wider
+              print_h
             "
             style="background-color:#1bbc9b"
           >
@@ -1291,7 +1329,7 @@ elseif($cumul_four_year>0) {
         <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
       </div>
 
-      <div class="space-y-9">
+      <div class="space-y-9 print-add-break">
         <div class="space-y-4">
           <div class="space-y-1">
             <h5
@@ -1324,13 +1362,13 @@ elseif($cumul_four_year>0) {
               <p>Numero de telephone :</p>
               <p class="font-medium">{{$owner->phone}}</p>
             </div>
-            <div class="flex justify-between bg-gray-100 p-2">
+            <div class="flex justify-between bg-gray-100 p-2 print-add-break">
               <p>E-mail :</p>
               <p class="font-medium">{{  strpos($owner->email, '@noemail') !== false?'':$owner->email}}</p>
             </div>
           </div>
         </div>
-        <div class="space-y-4">
+        <div class="space-y-4 ">
           <div class="space-y-1">
             <h5
               class="uppercase font-bold text-sm"
@@ -1369,7 +1407,7 @@ elseif($cumul_four_year>0) {
             @endforeach
           </div>
         </div>
-        <div class="space-y-4">
+        <div class="space-y-4 ">
           <div class="space-y-1">
             <h5
               class="uppercase font-bold text-sm"
@@ -1430,7 +1468,7 @@ elseif($cumul_four_year>0) {
       </div>
       <div class="absolute bottom-0 right-0 left-0">
         <img
-        class="absolute bottom-0 right-0 left-0"
+        class="absolute bottom-0 right-0 left-0 img_full_width"
         src="{{asset('images/back-office/svg/footer.svg')}}"
         alt="" 
         srcset=""
@@ -1457,7 +1495,7 @@ elseif($cumul_four_year>0) {
       </div>
       
     </div>
-    <div id="4" class="page printsection">
+    <div id="4" class="page printsection print-add-break print-full-width">
       <div class="flex justify-between absolute right-0 top-0 w-full">
         <div class="flex h-14 items-end justify-end space-x-3">
           <span
@@ -1582,7 +1620,7 @@ elseif($cumul_four_year>0) {
       </div>
       <div class="absolute bottom-0 right-0 left-0">
         <img
-        class="absolute bottom-0 right-0 left-0"
+        class="absolute bottom-0 right-0 left-0 img_full_width"
         src="{{asset('images/back-office/svg/footer.svg')}}"
         alt="" 
         srcset=""
@@ -1609,7 +1647,7 @@ elseif($cumul_four_year>0) {
       </div>
       
     </div>
-    <div id="5" class="page printsection">
+    <div id="5" class="page printsection print-add-break print-full-width">
       <div class="flex justify-between absolute right-0 top-0 w-full">
         <div class="flex h-14 items-end justify-end space-x-3">
           <span
@@ -1712,7 +1750,7 @@ elseif($cumul_four_year>0) {
       </div>
       <div class="absolute bottom-0 right-0 left-0">
         <img
-        class="absolute bottom-0 right-0 left-0"
+        class="absolute bottom-0 right-0 left-0 img_full_width"
         src="{{asset('images/back-office/svg/footer.svg')}}"
         alt="" 
         srcset=""
@@ -1739,7 +1777,7 @@ elseif($cumul_four_year>0) {
       </div>
       
     </div>
-    <div id="6" class="page printsection">
+    <div id="6" class="page printsection print-add-break print-full-width">
       <div class="flex justify-between absolute right-0 top-0 w-full">
         <div class="flex h-14 items-end justify-end space-x-3">
           <span
@@ -1836,9 +1874,9 @@ elseif($cumul_four_year>0) {
           </div>
         </div>
       </div>
-      <div class="absolute bottom-0 right-0 left-0">
+      <div class="absolute bottom-0 right-0 left-0 ">
         <img
-        class="absolute bottom-0 right-0 left-0"
+        class="absolute bottom-0 right-0 left-0 img_full_width"
         src="{{asset('images/back-office/svg/footer.svg')}}"
         alt="" 
         srcset=""
@@ -1865,7 +1903,7 @@ elseif($cumul_four_year>0) {
       </div>
       
     </div>
-    <div id="7" class="page printsection">
+    <div id="7" class="page printsection print-add-break print-full-width">
       <div class="flex justify-between absolute right-0 top-0 w-full">
         <div class="flex h-14 items-end justify-end space-x-3">
           <span
@@ -1934,7 +1972,7 @@ elseif($cumul_four_year>0) {
       </div>
       <div class="absolute bottom-0 right-0 left-0">
         <img
-        class="absolute bottom-0 right-0 left-0"
+        class="absolute bottom-0 right-0 left-0 img_full_width"
         src="{{asset('images/back-office/svg/footer.svg')}}"
         alt="" 
         srcset=""
@@ -1961,7 +1999,7 @@ elseif($cumul_four_year>0) {
       </div>
       
     </div>
-    <div id="8" class="page printsection">
+    <div id="8" class="page printsection print-add-break print-full-width">
       <div class="flex justify-between absolute right-0 top-0 w-full">
         <div class="flex h-14 items-end justify-end space-x-3">
           <span
@@ -2133,7 +2171,7 @@ elseif($cumul_four_year>0) {
       </div>
       <div class="absolute bottom-0 right-0 left-0">
         <img
-        class="absolute bottom-0 right-0 left-0"
+        class="absolute bottom-0 right-0 left-0 img_full_width"
         src="{{asset('images/back-office/svg/footer.svg')}}"
         alt="" 
         srcset=""
@@ -2160,7 +2198,7 @@ elseif($cumul_four_year>0) {
       </div>
       
     </div>
-    <div id="9" class="page printsection">
+    <div id="9" class="page printsection print-add-break print-full-width">
       <div class="flex justify-between absolute right-0 top-0 w-full">
         <div class="flex h-14 items-end justify-end space-x-3">
           <span
@@ -2254,7 +2292,7 @@ elseif($cumul_four_year>0) {
       </div>
       <div class="absolute bottom-0 right-0 left-0">
         <img
-        class="absolute bottom-0 right-0 left-0"
+        class="absolute bottom-0 right-0 left-0 img_full_width"
         src="{{asset('images/back-office/svg/footer.svg')}}"
         alt="" 
         srcset=""
@@ -2281,7 +2319,7 @@ elseif($cumul_four_year>0) {
       </div>
       
     </div>
-    <div id="10" class="page printsection">
+    <div id="10" class="page printsection print-add-break print-full-width">
       <div class="flex justify-between absolute right-0 top-0 w-full">
         <div class="flex h-14 items-end justify-end space-x-3">
           <span
@@ -2382,7 +2420,7 @@ elseif($cumul_four_year>0) {
       </div>
       <div class="absolute bottom-0 right-0 left-0">
         <img
-        class="absolute bottom-0 right-0 left-0"
+        class="absolute bottom-0 right-0 left-0 img_full_width"
         src="{{asset('images/back-office/svg/footer.svg')}}"
         alt="" 
         srcset=""
@@ -2409,7 +2447,7 @@ elseif($cumul_four_year>0) {
       </div>
       
     </div> 
-    <div id="11" class="page printsection">
+    <div id="11" class="page printsection print-add-break print-full-width">
       <div class="flex justify-between absolute right-0 top-0 w-full">
         <div class="flex h-14 items-end justify-end space-x-3">
           <span
@@ -2577,9 +2615,9 @@ elseif($cumul_four_year>0) {
         </div>   
       </div>
       </div>
-      <div class="absolute bottom-0 right-0 left-0">
+      <div class="absolute bottom-0 right-0 left-0 ">
         <img
-        class="absolute bottom-0 right-0 left-0"
+        class="absolute bottom-0 right-0 left-0 img_full_width"
         src="{{asset('images/back-office/svg/footer.svg')}}"
         alt="" 
         srcset=""
@@ -2607,7 +2645,7 @@ elseif($cumul_four_year>0) {
       
     </div>
     </div>
-    <div id="12" class="page printsection">
+    <div id="12" class="page printsection print-add-break print-full-width">
       <div class="flex justify-between absolute right-0 top-0 w-full">
         <div class="flex h-14 items-end justify-end space-x-3">
           <span
@@ -2721,7 +2759,7 @@ elseif($cumul_four_year>0) {
       </div>
       <br>
       <div class="space-y-9">
-        <div class="space-y-4">
+        <div class="space-y-4 ">
           <div class="space-y-1">
             <h5
               class="uppercase font-bold text-sm"
@@ -2731,8 +2769,8 @@ elseif($cumul_four_year>0) {
           </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
-          <div class="inline-block rounded-lg border  w-full">
-            <table class="table-fixed border border-gray-900 w-full text-sm">
+          <div class="inline-block rounded-lg border  w-full  ">
+            <table class="table-fixed border border-gray-900 w-full text-sm ">
               <thead>
                 <tr class="bg-gray-100">
                   <th
@@ -2771,7 +2809,7 @@ elseif($cumul_four_year>0) {
             </table>
           </div>
       </div>
-      <div class="space-y-9">
+      <div class="space-y-9  print_full_witdh display_none">
         <div class="space-y-4">
           <div class="space-y-1">
             <h5
@@ -2837,7 +2875,7 @@ elseif($cumul_four_year>0) {
             </table>
           </div>
           <div class="inline-block rounded-lg border w-full">
-            <table class="table-fixed border border-gray-900 w-full text-sm">
+            <table class="table-fixed border border-gray-900 w-full text-sm print-add-break">
               <thead>
                 <tr class="bg-gray-100">
                   <th
@@ -2877,9 +2915,9 @@ elseif($cumul_four_year>0) {
           </div>
       </div>
       </div>
-      <div class="absolute bottom-0 right-0 left-0">
+      <div class="absolute bottom-0 right-0 left-0 ">
         <img
-        class="absolute bottom-0 right-0 left-0"
+        class="absolute bottom-0 right-0 left-0 img_full_width"
         src="{{asset('images/back-office/svg/footer.svg')}}"
         alt="" 
         srcset=""
@@ -2907,7 +2945,143 @@ elseif($cumul_four_year>0) {
       
      </div>
     </div> 
-    <div id="13" class="page printsection">
+<div id="13" class="page printsection print-add-break hidden print-full-width display_full">
+   <div class="space-y-9  print_full_witdh ">
+        <div class="space-y-4">
+          <div class="space-y-1">
+            <h5
+              class="uppercase font-bold text-sm"
+              style="color: var(--second-blue)"
+            >
+            L’ÉVOLUTION DES ACHATS HT est de<span class="text-green-500">{{isset($data ->financial_data->evolution_rate)?$data ->financial_data->evolution_rate:0}}</span>% SUR 5 ANS
+          </h5>
+            <hr class="bg-gray-300" style="height: 2px" />
+          </div>
+          <div class="inline-block rounded-lg border w-full ">
+            <table class="table-fixed border border-gray-900 w-full text-sm">
+              <thead>
+                <tr class="bg-gray-100">
+                  <th
+                    class="
+                      py-2
+                      pl-2
+                      border-2 border-gray-500
+                      self-start
+                      text-left
+                    "
+                  >
+                  Achats
+                  </th>
+                  <th class="border-2 border-gray-500 text-center">PRIX UNITAIRE(en Mad)
+                  </th>
+                  <th class="border-2 border-gray-500  text-center">Quantité(mois) 
+                  </th>
+                  <th class="border-2 border-gray-500  text-center">Chiffre d'affaires annuel</th>
+                </tr>
+              </thead>
+              <tbody class="font-medium">
+                @if(isset($data->financial_data->products_turnover_forecast))
+                @foreach ($data->financial_data->products_turnover_forecast as $item)
+                  <tr>
+                    <td class="border-2 border-gray-500 "> Achats {{$item->label}} {{ number_format((1-$item->duration/100)*100, 0, ',', ' ') }} % du Chiffres d’affaires</td>
+                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->rate,0, ',', ' ')}}</td>
+                    <td class="border-2 border-gray-500 text-center">{{ number_format(($item->rate * $item->value*$saisonalite)*(1-($item->duration/100)), 0, ',', ' ') }} </td>
+
+                </tr> 
+                <?php   $total_achat= $total_achat+(($item->rate * $item->value*$saisonalite)*(1-($item->duration/100))); ?>
+                @endforeach
+                @endif
+               
+                <tr class="bg-green-200">
+                  <td
+                  colspan="3"
+                    class="
+                      py-1 pl-4
+                      border-2 border-gray-600
+                      font-semibold
+                      text-green-700
+                    "
+                  >
+                    TOTAL
+                  </td>
+                  <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
+                  <td class="border-2 border-gray-600 text-center bg-green-200">{{number_format($total_achat,0,',',' ')}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="inline-block rounded-lg border w-full">
+            <table class="table-fixed border border-gray-900 w-full text-sm print-add-break">
+              <thead>
+                <tr class="bg-gray-100">
+                  <th
+                    class="
+                      py-2
+                      pl-2
+                      border-2 border-gray-500
+                      self-start
+                      text-left
+                    "
+                  >
+                  Année
+                  </th>
+                  <th class="border-2 border-gray-500 text-center">1 <sup>ère</sup> année
+                  </th>
+                  <th class="border-2 border-gray-500  text-center">2 <sup>ème</sup> année
+                  </th>
+                  <th class="border-2 border-gray-500  text-center">3 <sup>ème</sup> année
+                  <th class="border-2 border-gray-500  text-center">4 <sup>ème</sup> année
+                  </th>
+                  <th class="border-2 border-gray-500  text-center">5 <sup>ème</sup> année
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="font-medium">
+                  <tr>
+                    <td class="border-2 border-gray-500"> Achats 50% du Chiffres d’affaires</td>
+                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_purchase_first_year, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_purchase_second_year,0, ',', ' ')}}</td>
+                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_purchase_third_year, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_purchase_four_year,0, ',', ' ')}}</td>
+                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_purchase_five_year,0, ',', ' ')}}</td>
+
+                </tr> 
+              </tbody>
+            </table>
+          </div>
+      </div>
+      </div>
+      <div class="absolute bottom-0 right-0 left-0 ">
+        <img
+        class="absolute bottom-0 right-0 left-0 img_full_width"
+        src="{{asset('images/back-office/svg/footer.svg')}}"
+        alt="" 
+        srcset=""
+        />
+
+        <div
+          class="
+            py-2
+            flex
+            justify-between
+            items-center
+            pl-16
+            pr-36
+            text-white text-xs
+            font-medium
+            relative
+            z-10
+          "
+        >
+          <span>{{$owner->first_name}} {{$owner->last_name}}</span>
+          <span>{{$data->title}}</span>
+          <span>Business Plan</span>
+        </div>
+      </div>
+</div>
+    
+    <div id="13" class="page printsection print-add-break print-full-width">
       <div class="flex justify-between absolute right-0 top-0 w-full">
         <div class="flex h-14 items-end justify-end space-x-3">
           <span
@@ -3074,9 +3248,9 @@ elseif($cumul_four_year>0) {
             </table>
           </div> 
       </div>
-      <div class="absolute bottom-0 right-0 left-0">
+      <div class="absolute bottom-0 right-0 left-0 ">
         <img
-        class="absolute bottom-0 right-0 left-0"
+        class="absolute bottom-0 right-0 left-0 img_full_width"
         src="{{asset('images/back-office/svg/footer.svg')}}"
         alt="" 
         srcset=""
@@ -3104,7 +3278,7 @@ elseif($cumul_four_year>0) {
       
      </div>
     </div>
-    <div id="14" class="page printsection">
+    <div id="14" class="page printsection print-add-break print-full-width">
       <div class="flex justify-between absolute right-0 top-0 w-full">
         <div class="flex h-14 items-end justify-end space-x-3">
           <span
@@ -3272,7 +3446,7 @@ elseif($cumul_four_year>0) {
       <br>
       <div class="absolute bottom-0 right-0 left-0">
         <img
-        class="absolute bottom-0 right-0 left-0"
+        class="absolute bottom-0 right-0 left-0 img_full_width"
         src="{{asset('images/back-office/svg/footer.svg')}}"
         alt="" 
         srcset=""
@@ -3300,7 +3474,7 @@ elseif($cumul_four_year>0) {
       
      </div>
     </div>
-    <div id="15" class="page printsection">
+    <div id="15" class="page printsection print-add-break print-full-width">
       <div class="flex justify-between absolute right-0 top-0 w-full">
         <div class="flex h-14 items-end justify-end space-x-3">
           <span
@@ -3514,9 +3688,9 @@ elseif($cumul_four_year>0) {
            
       </div>
       <br>
-      <div class="absolute bottom-0 right-0 left-0">
+      <div class="absolute bottom-0 right-0 left-0 ">
         <img
-        class="absolute bottom-0 right-0 left-0"
+        class="absolute bottom-0 right-0 left-0 img_full_width"
         src="{{asset('images/back-office/svg/footer.svg')}}"
         alt="" 
         srcset=""
@@ -3544,7 +3718,7 @@ elseif($cumul_four_year>0) {
       
      </div>
     </div>
-    <div id="16" class="page printsection">
+    <div id="16" class="page printsection print-add-break print-full-width">
       <div class="flex justify-between absolute right-0 top-0 w-full">
         <div class="flex h-14 items-end justify-end space-x-3">
           <span
@@ -3639,7 +3813,7 @@ elseif($cumul_four_year>0) {
         </div>
         <div class="space-y-4">
           <div class="inline-block rounded-lg border w-full ">
-            <table class="table-fixed border border-gray-900 w-90 text-sm">
+            <table class="table-fixed border border-gray-900 w-full text-sm">
               <thead>
                 <tr class="bg-gray-100">
                   <th
@@ -3707,7 +3881,7 @@ elseif($cumul_four_year>0) {
       </div>
       <div class="absolute bottom-0 right-0 left-0">
         <img
-        class="absolute bottom-0 right-0 left-0"
+        class="absolute bottom-0 right-0 left-0 img_full_width"
         src="{{asset('images/back-office/svg/footer.svg')}}"
         alt="" 
         srcset=""
@@ -3734,7 +3908,7 @@ elseif($cumul_four_year>0) {
       </div>
       
     </div>
-    <div id="17" class="page printsection">
+    <div id="17" class="page printsection print-add-break print-full-width">
         <div class="flex justify-between absolute right-0 top-0 w-full">
           <div class="flex h-14 items-end justify-end space-x-3">
             <span
@@ -3781,7 +3955,7 @@ elseif($cumul_four_year>0) {
           </div>
           <div class="space-y-4">
             <div class="inline-block rounded-lg border w-full ">
-              <table class="table-fixed border border-gray-900 w-90 text-sm">
+              <table class="table-fixed border border-gray-900 w-full text-sm">
                 <thead>
                   <tr class="bg-gray-100">
                     <th
@@ -3831,9 +4005,9 @@ elseif($cumul_four_year>0) {
             </div> 
           </div>
         </div>
-        <div class="absolute bottom-0 right-0 left-0">
+        <div class="absolute bottom-0 right-0 left-0 ">
           <img
-          class="absolute bottom-0 right-0 left-0"
+          class="absolute bottom-0 right-0 left-0 img_full_width"
           src="{{asset('images/back-office/svg/footer.svg')}}"
           alt="" 
           srcset=""
@@ -3860,7 +4034,7 @@ elseif($cumul_four_year>0) {
         </div>
       
     </div>
-    <div id="18" class="page printsection">
+    <div id="18" class="page printsection print-add-break print-full-width">
       <div class="flex justify-between absolute right-0 top-0 w-full">
         <div class="flex h-14 items-end justify-end space-x-3">
           <span
@@ -3905,7 +4079,7 @@ elseif($cumul_four_year>0) {
         </div>
         <div class="space-y-4">
           <div class="inline-block rounded-lg border w-full ">
-            <table class="table-fixed border border-gray-900 w-90 text-sm">
+            <table class="table-fixed border border-gray-900 w-full text-sm">
               <thead>
                 <tr class="bg-gray-100">
                   <th
@@ -4114,9 +4288,9 @@ elseif($cumul_four_year>0) {
           </div> 
         </div>
       </div>
-      <div class="absolute bottom-0 right-0 left-0">
+      <div class="absolute bottom-0 right-0 left-0 ">
         <img
-        class="absolute bottom-0 right-0 left-0"
+        class="absolute bottom-0 right-0 left-0 img_full_width"
         src="{{asset('images/back-office/svg/footer.svg')}}"
         alt="" 
         srcset=""
@@ -4143,7 +4317,7 @@ elseif($cumul_four_year>0) {
       </div>
       
     </div>
-    <div id="19" class="page printsection">
+    <div id="19" class="page printsection print-add-break print-full-width">
       <div class="flex justify-between absolute right-0 top-0 w-full">
         <div class="flex h-14 items-end justify-end space-x-3">
           <span
@@ -4191,7 +4365,7 @@ elseif($cumul_four_year>0) {
         </div>
         <div class="space-y-4">
           <div class="inline-block rounded-lg border w-full ">
-            <table class="table-fixed border border-gray-900 w-88 text-sm">
+            <table class="table-fixed border border-gray-900 w-full text-sm">
               <thead>
                 <tr class="bg-gray-100">
                   <th
@@ -4208,8 +4382,9 @@ elseif($cumul_four_year>0) {
                   <th
                     class="
                       border-2 border-gray-500
-                      self-start
-                      text-left
+                     text-center
+                     pl-2
+                     py-1
                     "
                   >
                   INVISTISSEMENT INITIAL
@@ -4227,8 +4402,8 @@ elseif($cumul_four_year>0) {
               </thead>
               <tbody class="font-medium">
                  <tr>
-                   <td class="border-2 border-gray-500 py-2 w-2/12  pl-4 bg-green-200">CASH-FLOW </td>
-                   <td class="border-2 border-gray-500 text-center">{{ number_format(-$bp_investment_program_total, 0, ',', ' ') }} </td>
+                   <td class="border-2 border-gray-500   bg-green-200">CASH-FLOW </td>
+                   <td class="border-2 border-gray-500 pl-2 text-center">{{ number_format(-$bp_investment_program_total, 0, ',', ' ') }} </td>
                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_cash_flow_first_year, 0, ',', ' ') }} </td>
                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_cash_flow_second_year, 0, ',', ' ') }} </td>
                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_cash_flow_third_year, 0, ',', ' ') }} </td>
@@ -4286,9 +4461,9 @@ elseif($cumul_four_year>0) {
           </div>
         </div>
       </div>
-      <div class="absolute bottom-0 right-0 left-0">
+      <div class="absolute bottom-0 right-0 left-0 ">
         <img
-        class="absolute bottom-0 right-0 left-0"
+        class="absolute bottom-0 right-0 left-0 img_full_width"
         src="{{asset('images/back-office/svg/footer.svg')}}"
         alt="" 
         srcset=""
@@ -4315,7 +4490,7 @@ elseif($cumul_four_year>0) {
       </div>
       
     </div>
-    <div id="20" class="page printsection">
+    <div id="20" class="page printsection print-full-width">
       <div class="flex justify-between absolute right-0 top-0 w-full">
         <div class="flex h-14 items-end justify-end space-x-3">
           <span
@@ -4375,38 +4550,38 @@ elseif($cumul_four_year>0) {
             src="{{asset('images/back-office/svg/quote-down.svg')}}"
             alt="" 
             srcset=""
-    />
-          </div>
-          
-        </div>
-      </div>
-      <div class="absolute bottom-1 right-0 left-0">
-        <img
-        class="absolute bottom-0 right-0 left-0"
-        src="{{asset('images/back-office/svg/footer.svg')}}"
-        alt="" 
-        srcset=""
         />
+              </div>
+              
+            </div>
+          </div>
+          <div class="absolute bottom-1 right-0 left-0 ">
+            <img
+            class="absolute bottom-0 right-0 left-0 img_full_width"
+            src="{{asset('images/back-office/svg/footer.svg')}}"
+            alt="" 
+            srcset=""
+            />
 
-        <div
-          class="
-            py-2
-            flex
-            justify-between
-            items-center
-            pl-16
-            pr-36
-            text-white text-xs
-            font-medium
-            relative
-            z-10
-          "
-        >
-          <span>{{$owner->first_name}} {{$owner->last_name}}</span>
-          <span>{{$data->title}}</span>
-          <span>Business Plan</span>
-        </div>
-      </div>
+            <div
+              class="
+                py-2
+                flex
+                justify-between
+                items-center
+                pl-16
+                pr-36
+                text-white text-xs
+                font-medium
+                relative
+                z-10
+              "
+            >
+              <span>{{$owner->first_name}} {{$owner->last_name}}</span>
+              <span>{{$data->title}}</span>
+              <span>Business Plan</span>
+            </div>
+          </div>
       
     </div>
 <script>
@@ -4434,10 +4609,27 @@ elseif($cumul_four_year>0) {
 
       html2pdf().from(element).save("myfile.pdf");
     }
+
 window.addEventListener('load',function(){
- //var element_caracter=document.getElementById("testt").innerText;
-    //console.log(element_caracter.replace(/'/g, "h"));
-  //  element_caracter.replace(/'/g, "&#039");
+    let stop = false 
+    const interval = setInterval(function(){
+    if(!stop){
+    var d=document.querySelectorAll('p');
+    var l=document.querySelectorAll('li');
+    //console.log("===================>",d);
+    d.forEach(el=> {
+        el.value = el.value.replace("&#039;","'")
+     });
+      l.forEach(el=> {
+        el.value = el.value.replace("&#039;","'")
+     });
+        }
+    },100)
+    setTimeout(function(){
+        stop =true
+    clearInterval(interval)
+    },3000)
+ 
 })
    
 

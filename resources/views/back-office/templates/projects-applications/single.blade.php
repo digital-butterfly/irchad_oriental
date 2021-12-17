@@ -2780,10 +2780,37 @@
                 }
             };
         }();
+       
 
 		jQuery(document).ready(function() {
 			KTFormRepeater.init();
 			KTTagify.init();
 		});
+
+
 	</script>
 @endsection
+<script>
+
+
+window.addEventListener('load',function(){
+    let stop = false 
+
+    const interval = setInterval(function(){
+        if(!stop){
+    var d=document.querySelectorAll('input');
+    d.forEach(el=> {
+        el.value = el.value.replace("&#039;","'")
+     });
+        }
+    },100)
+    setTimeout(function(){
+        stop =true
+    clearInterval(interval)
+    },3000)
+ 
+})
+
+
+
+</script>
