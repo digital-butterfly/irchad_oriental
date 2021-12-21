@@ -224,12 +224,12 @@
                                     </div>
                                     <div class="kt-wizard-v4__nav-label">
                                         <div class="kt-wizard-v4__nav-label-title">
-                                            Business Plan
+                                           Soumission
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="kt-wizard-v4__nav-item" data-ktwizard-type="step">
+                            {{-- <div class="kt-wizard-v4__nav-item" data-ktwizard-type="step">
                                 <div class="kt-wizard-v4__nav-body">
                                     <div class="kt-wizard-v4__nav-number">
                                         3
@@ -240,7 +240,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
 
@@ -429,12 +429,12 @@
                                             <!--end: Form Wizard Step 1-->
 
                                             <!--begin: Form Wizard Step 2-->
-                                            <div class="kt-wizard-v4__content" data-ktwizard-type="step-content">
+                                            {{-- <div class="kt-wizard-v4__content" data-ktwizard-type="step-content">
                                                 <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid printable-bp">
 
                                                     @include('back-office.components.portlets.business-plan')
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                             <!--end: Form Wizard Step 2-->
 
                                             <!--begin: Form Wizard Step 3-->
@@ -1804,7 +1804,6 @@
 
             var initSubmit = function() {
                 var btn = formEl.find('[data-ktwizard-type="action-submit"]');
-
                 btn.on('click', function(e) {
                     e.preventDefault();
 

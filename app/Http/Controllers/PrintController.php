@@ -5,7 +5,7 @@ use App\Member;
 use App\ProjectApplication;
 use App\ProjectCategory;
 use App\Township;
-
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class PrintController extends Controller
@@ -13,14 +13,23 @@ class PrintController extends Controller
     public function Businessplan(Request $request,$id)
     {
 
+        
          $townships = Township::all();
          $categories = ProjectCategory::all();
-
          $data = ProjectApplication::findOrFail($id);
          $members =$data->subMembers;
          $owner =$data->getAdhname;
-
-
+         $startup_needs=ProjectApplication::select('financial_data',ProjectApplication::raw('count(*) as total'))->groupBy('financial_data')->where('id', $id)->get();
+         $startup_needarray=[];
+         foreach ($startup_needs as $startup_need){
+               //dd($startup_needd->total);
+              foreach ($startup_need->financial_data->startup_needs as $startup_needd){     
+              $arrytwer['name']=$startup_needd->label;
+              $arrytwer['value']=1;
+             // dd($startup_needd->label);
+            array_push($startup_needarray, $arrytwer);
+            }
+           }
         $township = $townships->filter(function ($value, $key) use( $data ) {
             
     return $value->id == $data->township_id;
@@ -44,7 +53,7 @@ class PrintController extends Controller
         
         
 
-                return view('back-office/templates/print-pdf/businessplan',compact('data','township','categories','owner','members'));
+                return view('back-office/templates/print-pdf/businessplan',compact('data','township','categories','owner','members','startup_needarray'));
 
     }
 }

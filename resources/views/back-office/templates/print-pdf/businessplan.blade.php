@@ -1,4 +1,5 @@
 @php
+$dataPlan =[];
 $total_mensualite=0;
 $total_rest=0;
 $total_rem=0;
@@ -13,13 +14,16 @@ $bp_financial_plan_totals = 0;
 $bp_financial_plan_total = 0;
 if(isset($data->financial_data->financial_plan)){
     foreach ($data ->financial_data->financial_plan as $item) {
-    $bp_financial_plan_totals += $item->value;
+    $bp_financial_plan_totals += $item->value; 
+        $arrytwer['name']=$item->label;
+        $arrytwer['value']=1;
+        array_push($dataPlan, $arrytwer);
     }
 }
-
+//$coount=0; 
 if (isset($data->financial_data->financial_plan_loans)) {
     foreach ($data->financial_data->financial_plan_loans as $item) {
-        $bp_financial_plan_total += $item->value;
+        $bp_financial_plan_total += $item->value;    
     }
 }
 // Investment Program
@@ -967,6 +971,8 @@ elseif($cumul_four_year>0) {
         <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
         <link rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link href="css/back-office/pages/wizard/wizard-4.css" rel="stylesheet" type="text/css" />
+     <link href="css/back-office/pages/invoices/invoice-5.css" rel="stylesheet" type="text/css" />
     </head>
 </head>
 <style>
@@ -995,33 +1001,37 @@ elseif($cumul_four_year>0) {
 
 
 
-
-
+.canvasjs-chart-credit{
+  display:none;
+}
+.canvasjs-chart-tooltip{
+    display:none;
+}
 
     @media print {
       @page {
         size: landscape;
         margin: 0mm;
       }
-
       #download-button{
        display:none;
-      }
-      
+      }   
       body{
         background-color: white !important ;
       }
      .print-full-width{
       width: 100%;
-      height:97.5%;
+      height:100%;
       margin-top:0;
+      margin-bottom:0;
      }
      .print-add-break{
        page-break-after: always;
      }
      .img_full_width{
-       width:100%;
-       margin-top:30px;
+       width:100%;  
+        margin-top:0;
+      margin-bottom:0; 
      }
      .display_full{
          display:block;
@@ -1060,7 +1070,7 @@ elseif($cumul_four_year>0) {
       "
       onclick="window.print();"
     >
-      Telecharger
+      <span type="button" class="btn btn-brand btn-bold" ><i class="flaticon2-printer"></i></span>
     </button>
     <div id="0" class="page printsection print-add-break print-full-width">
       <img
@@ -1159,7 +1169,7 @@ elseif($cumul_four_year>0) {
               02
             </h3>
             <h5 style="color: var(--main-blue)" class="font-semibold">
-              présentation du projet
+              Présentation du projet
             </h5>
           </div>
           <hr class="bg-gray-200" style="height: 2px" />
@@ -2542,7 +2552,8 @@ elseif($cumul_four_year>0) {
               </table>
             </div>
           </div>
-          <div class="p-4 bg-gray-100">
+          <div class="pl-4">
+          <div class="bg-gray-100 top-0" id="chart1" style="height: 200px; width: 100%; "></div>
           </div>
         </div>   
       </div>
@@ -2610,7 +2621,8 @@ elseif($cumul_four_year>0) {
               </table>
             </div>
           </div>
-          <div class="p-4 bg-gray-100">
+          <div class="pl-4">
+           <div class="bg-gray-100" id="chart2" style="height: 200px; width: 100%;"></div>
           </div>
         </div>   
       </div>
@@ -4541,8 +4553,18 @@ elseif($cumul_four_year>0) {
                 alt="" 
                 srcset=""
         />
+        <?php  
+        $gender="";
+         if(isset($owner->gender)){
+            if($owner->gender=='Homme'){
+             $gender="Mr";
+            }else{
+              $gender="Mme";
+            }
+        }
+         ?>
             <p class="align-middle">
-              Le projet que propose Mr EL MORABET Abdechakir de mettre en œuvre s’inscrit dans les objectifs stratégiques du programme de l’INDH.  La réalisation de ce projet va lui permettre d’intégrer le monde de l’entrepreneuriat en exploitant les opportunités offertes ainsi que son relationnel avec les clients et d’améliorer son revenu .
+              Le projet que propose {{$gender}} {{$owner->first_name}} {{$owner->last_name}} de mettre en œuvre s’inscrit dans les objectifs stratégiques du programme de l’INDH.  La réalisation de ce projet va lui permettre d’intégrer le monde de l’entrepreneuriat en exploitant les opportunités offertes ainsi que son relationnel avec les clients et d’améliorer son revenu .
 
             </p>
             <img
@@ -4584,19 +4606,76 @@ elseif($cumul_four_year>0) {
           </div>
       
     </div>
-<script>
-
-
-
-
-
-
-</script>
-
-
   </body>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.0/html2pdf.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.2.2/dist/echarts.min.js"></script>
   <script>
+var chartDom = document.getElementById('chart1');
+var chartDomOne = document.getElementById('chart2');
+var myChart = echarts.init(chartDom);
+var chartDomOne = echarts.init(chartDomOne);
+var optionTwo;
+var option;
+option = {
+color:[
+                "#0E6251",
+               "#148B73",
+               "#1BBC9B",              
+      ],
+  title: {
+    text: '',
+    subtext: '',
+    left: ''
+  },
+  tooltip: {
+    trigger: 'item'
+  },
+  legend: {
+    orient: 'vertical',
+    left: 'left',
+    data: ['CityA', 'CityB', 'CityD', 'CityC', 'CityE']
+  },
+  series: [
+    {
+      type:'pie',
+      radius: '65%',
+      selectedMode: 'single',
+      data:<?php echo json_encode(  $startup_needarray, JSON_NUMERIC_CHECK); ?>, 
+    }
+  ]
+};
+optionTwo = {
+color:[
+                "#0E6251",
+               "#148B73",
+               "#1BBC9B",              
+      ],
+  title: {
+    text: '',
+    subtext: '',
+    left: ''
+  },
+  tooltip: {
+    trigger: 'item'
+  },
+  legend: {
+    orient: 'vertical',
+    left: 'left',
+    data: ['CityA', 'CityB', 'CityD', 'CityC', 'CityE']
+  },
+  series: [
+    {
+      type:'pie',
+      radius: '65%',
+      selectedMode: 'single',
+      data:<?php echo json_encode( $dataPlan , JSON_NUMERIC_CHECK); ?>, 
+    }
+  ]
+};
+
+option && myChart.setOption(option);
+optionTwo && chartDomOne.setOption(optionTwo);
+
     function download() {
       var element = document.getElementById("test");
       var opt = {
