@@ -238,7 +238,7 @@ class ProjectApplication extends Model
                 'label' => 'Montant d\'investissement estimatif',
                 'group' => 'Données Générales'
             ], 
-             [
+            [
                 'name' => 'credit_banc',
                 'type' => 'select',
                 'label' => 'supplément crédit bancaire',

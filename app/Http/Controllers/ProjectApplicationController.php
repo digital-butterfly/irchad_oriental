@@ -183,6 +183,7 @@ class ProjectApplicationController extends Controller
                 'competition_c' => $request['competition_c'],
                 'advertising' => $request['advertising'],
                 'pricing_strategy' => $request['pricing_strategy'],
+                'pricing_strategy_disc' => $request['pricing_strategy_disc'],
                 'distribution_strategy' => $request['distribution_strategy'],
                 'distribution_strategy_force_p' => $request['distribution_strategy_force_p'],
                 'distribution_strategy_menace_p' => $request['distribution_strategy_menace_p'],
@@ -388,13 +389,13 @@ class ProjectApplicationController extends Controller
     public function ajaxListAdhSess(Request $request)
 
     {
-//        dump(                        $request->sort['field'] != 'title' ? $request->sort['field'] : 'first_name'
+//dump(                        $request->sort['field'] != 'title' ? $request->sort['field'] : 'first_name'
         $query = $request->get('query');
 
         $search_term = isset($query['generalSearch']) ? $query['generalSearch'] : '' ;
         $role_filter = isset($query['Type']) ? $query['Type'] : '' ;;
 
-//        dd($request['query']['id_projet']);
+//dd($request['query']['id_projet']);
         $members=
             new AdherentSessionCollection(AdherentSession::join('members','members.id','=','adherent_sessions.id_member')->where('id_member','=',$request['query']['id_projet'])
                 ->join('projects_applications', 'projects_applications.id', '=', 'adherent_sessions.id_projet')
@@ -403,11 +404,10 @@ class ProjectApplicationController extends Controller
                 ->selectRaw(' adherent_sessions.* ,sessions.title, sessions.start_date, sessions.end_date ')
 
                 ->where(function ($q) use ($search_term,$request) {
-                    $q->where('adherent_sessions.id', 'LIKE', '%' .$search_term  . '%')
+                       $q->where('adherent_sessions.id', 'LIKE', '%' .$search_term  . '%')
                         ->orWhere('members.first_name', 'LIKE', '%' . $search_term . '%')
                         ->orWhere('members.last_name', 'LIKE', '%' . $search_term . '%')
                         ->orWhere('adherent_sessions.id', 'LIKE', '%' . $search_term . '%');
-
                 })->
                 where(function ($q) use ($role_filter) {
                     $role_filter ? $q->whereRaw('LOWER(status) = ?', [$role_filter]) : NULL;
@@ -422,7 +422,7 @@ class ProjectApplicationController extends Controller
                     $page = $request->pagination['page']
                 )
             );
-//        dd($members);
+//dd($members);
         return $members;
     }
 
@@ -497,6 +497,7 @@ class ProjectApplicationController extends Controller
                 'competition_c' => $request['competition_c'],
                 'advertising' => $request['advertising'],
                 'pricing_strategy' => $request['pricing_strategy'],
+                   'pricing_strategy_disc' => $request['pricing_strategy_disc'],
                 'distribution_strategy' => $request['distribution_strategy'],
                 'distribution_strategy_force_p' => $request['distribution_strategy_force_p'],
                 'distribution_strategy_menace_p' => $request['distribution_strategy_menace_p'],

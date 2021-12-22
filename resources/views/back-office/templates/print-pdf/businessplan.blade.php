@@ -973,6 +973,8 @@ elseif($cumul_four_year>0) {
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
       <link href="css/back-office/pages/wizard/wizard-4.css" rel="stylesheet" type="text/css" />
      <link href="css/back-office/pages/invoices/invoice-5.css" rel="stylesheet" type="text/css" />
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" type="text/css" />
+     
     </head>
 </head>
 <style>
@@ -1055,11 +1057,12 @@ elseif($cumul_four_year>0) {
     <button
       id="download-button"
       class="
+        p-4
         fixed
         bottom-10
         right-5
         z-10
-        px-4
+        px-3
         py-2
         rounded-md
         text-sm
@@ -1070,7 +1073,7 @@ elseif($cumul_four_year>0) {
       "
       onclick="window.print();"
     >
-      <span type="button" class="btn btn-brand btn-bold" ><i class="flaticon2-printer"></i></span>
+      <span type="button" class="btn btn-brand btn-bold p-1" ><i class="fas fa-download"></i></span>
     </button>
     <div id="0" class="page printsection print-add-break print-full-width">
       <img
