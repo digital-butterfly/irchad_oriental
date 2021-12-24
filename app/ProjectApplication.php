@@ -14,7 +14,7 @@ class ProjectApplication extends Model
 
     protected $guard = 'user';
 
-    const TAXES=['La taxe professionnelle','La taxe des services communaux','La taxe des véhicules','La taxe d’essieu pour les camions'];
+    const TAXES=['La taxe professionnelle','La taxe des véhicules','La taxe d’essieu pour les camions'];
     const INVEST=['Terrain', 'Construction', 'Aménagement', 'Matériel d’exploitation', 'Matériel bureautique', 'Matériel informatique', 'Matériel de transport','Frais preliminaires', 'Autre à préciser'];
     const LEGALFORM=['S.A.R.L','S.A.R.L A.U','S.N.C','Coopérative','A.E'];
     const AIDEETAT=['INDH','DPA','Collectivités territoriales', 'Autre'];
@@ -460,7 +460,7 @@ class ProjectApplication extends Model
                         'name' => 'autorisations_nécessaire_c',
                         'type' => 'repeater',
                         'label' => 'Autorisations nécessaires',
-                        'config' => ['tripleRepeater' => true, 'attributes' => [['Nom Autorisation',3], ['Organisme ',2], ['Etat',4]],'Select'=>true, 'options' =>self::Etat],
+                        'config' => ['tripleRepeater' => true, 'attributes' => [['Nom Autorisation',3], ['Organisme ',2], ['Etat',3]],'Select'=>true, 'options' =>self::Etat],
                     ],
                     [
                         'name' => 'local',
@@ -522,7 +522,7 @@ class ProjectApplication extends Model
                         'name' => 'products_turnover_forecast',
                         'type' => 'repeater',
                         'label' => 'CA prévisionnel - Produits',
-                        'config' => ['quadrupleRepeater' => true, 'attributes' => [['Produit',3], ['Quantité  vendus',3], ['P.U',3], ['Taux',1]],'Select'=>false]
+                        'config' => ['quadrupleRepeaterofme' => true, 'attributes' => [['Produit',3], ['Quantité  vendus (en mois)',3], ['P.U',3], ['Taux',1],['Saisonnalité(en mois)',3]],'Select'=>false]
                     ],
 //                    [
 //                        'name' => 'profit_margin_rate',
@@ -537,26 +537,26 @@ class ProjectApplication extends Model
                     [
                         'name' => 'overheads_fixed',
                         'type' => 'repeater',
-                        'label' => 'Charges annuelles constantes',
-                        'config' => ['doubleRepeater' => true, 'attributes' => [['Intitulé de la charge',4], ['Montant ',3]],'Select'=>false]
+                        'label' => 'Charge Mensuel constantes',
+                        'config' => ['doubleRepeater' => true, 'attributes' => [['Intitulé de la charge',4], ['Montant Mensuel ',3]],'Select'=>false]
                     ],
                     [
                         'name' => 'overheads_scalable',
                         'type' => 'repeater',
-                        'label' => 'Charges annuelles évolutives',
-                        'config' => ['doubleRepeater' => true, 'attributes' => [['Intitulé de la charge',4], ['Montant ',3]],'Select'=>false,]
+                        'label' => 'Charge Mensuel  évolutives',
+                        'config' => ['doubleRepeater' => true, 'attributes' => [['Intitulé de la charge',4], ['Montant Mensuel',3]],'Select'=>false,]
                     ],
                     [
                         'name' => 'human_ressources',
                         'type' => 'repeater',
                         'label' => 'Ressources humaines',
-                        'config' => ['tripleRepeater' => true, 'attributes' => [['Poste',3], ['Nombre des postes',3], ['Salaire  annuel',2]]]
+                        'config' => ['quadrupleRepeater' => true, 'attributes' => [['Poste:',3], ['Nombre des postes',3], ['Salaire Mensuel',3], ['Durée du travail (en mois)',3]],'Select'=>false]
                     ],
                     [
                         'name' => 'taxes',
                         'type' => 'repeater',
                         'label' => 'Taxes',
-                        'config' => ['doubleRepeater' => true,'attributes' => [['Types de taxes',4], ['Montant ',3]],'Select'=>true, 'options' =>self::TAXES]
+                        'config' => ['doubleRepeater' => true,'attributes' => [['Types detaxes ',4], ['Montant ',3]],'Select'=>true, 'options' =>self::TAXES]
                     ],
                 ],
                 'group' => 'Étude Technique'

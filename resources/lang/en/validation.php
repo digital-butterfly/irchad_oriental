@@ -26,7 +26,7 @@ return [
     'between' => [
         'numeric' => 'The :attribute must be between :min and :max.',
         'file' => 'The :attribute must be between :min and :max kilobytes.',
-        'string' => 'The :attribute must be between :min and :max characters.',
+        'string' => ':attribute Doit être un entre:min and :max characters.',
         'array' => 'The :attribute must have between :min and :max items.',
     ],
     'boolean' => 'The :attribute field must be true or false.',
@@ -47,19 +47,19 @@ return [
     'gt' => [
         'numeric' => 'The :attribute must be greater than :value.',
         'file' => 'The :attribute must be greater than :value kilobytes.',
-        'string' => 'The :attribute must be greater than :value characters.',
+        'string' => ' :attribute doit être supérieur à :value characters.',
         'array' => 'The :attribute must have more than :value items.',
     ],
     'gte' => [
         'numeric' => 'The :attribute must be greater than or equal :value.',
         'file' => 'The :attribute must be greater than or equal :value kilobytes.',
-        'string' => 'The :attribute must be greater than or equal :value characters.',
+        'string' => ' :attribute doit être supérieur à ou egal :value characters.',
         'array' => 'The :attribute must have :value items or more.',
     ],
     'image' => 'The :attribute must be an image.',
     'in' => 'The selected :attribute is invalid.',
     'in_array' => 'The :attribute field does not exist in :other.',
-    'integer' => 'The :attribute must be an integer.',
+    'integer' => ' :attribute Doit être un entier.',
     'ip' => 'The :attribute must be a valid IP address.',
     'ipv4' => 'The :attribute must be a valid IPv4 address.',
     'ipv6' => 'The :attribute must be a valid IPv6 address.',
@@ -67,19 +67,19 @@ return [
     'lt' => [
         'numeric' => 'The :attribute must be less than :value.',
         'file' => 'The :attribute must be less than :value kilobytes.',
-        'string' => 'The :attribute must be less than :value characters.',
+        'string' => ' :attribute doit être inférieur à:value characters.',
         'array' => 'The :attribute must have less than :value items.',
     ],
     'lte' => [
         'numeric' => 'The :attribute must be less than or equal :value.',
         'file' => 'The :attribute must be less than or equal :value kilobytes.',
-        'string' => 'The :attribute must be less than or equal :value characters.',
+        'string' => ' :attribute doit être inférieur à ou égal :value characters.',
         'array' => 'The :attribute must not have more than :value items.',
     ],
     'max' => [
         'numeric' => 'The :attribute may not be greater than :max.',
         'file' => 'The :attribute may not be greater than :max kilobytes.',
-        'string' => 'The :attribute may not be greater than :max characters.',
+        'string' => ' :attribute ne peut pas être supérieur à :max characters.',
         'array' => 'The :attribute may not have more than :max items.',
     ],
     'mimes' => 'The :attribute must be a file of type: :values.',
@@ -87,16 +87,16 @@ return [
     'min' => [
         'numeric' => 'The :attribute must be at least :min.',
         'file' => 'The :attribute must be at least :min kilobytes.',
-        'string' => 'The :attribute must be at least :min characters.',
+        'string' => 'The :attribute doit être au moins :min characters.',
         'array' => 'The :attribute must have at least :min items.',
     ],
     'not_in' => 'The selected :attribute is invalid.',
     'not_regex' => 'The :attribute format is invalid.',
-    'numeric' => 'The :attribute must be a number.',
-    'password' => 'The password is incorrect.',
+    'numeric' => 'The :attribute Doit être un nombre.',
+    'password' => 'Le mot de pase  est un incorrect.',
     'present' => 'The :attribute field must be present.',
     'regex' => 'The :attribute format is invalid.',
-    'required' => 'The :attribute field is required.',
+    'required' => ' :attribute  est un champs obligatoire.',
     'required_if' => 'The :attribute field is required when :other is :value.',
     'required_unless' => 'The :attribute field is required unless :other is in :values.',
     'required_with' => 'The :attribute field is required when :values is present.',
@@ -105,7 +105,7 @@ return [
     'required_without_all' => 'The :attribute field is required when none of :values are present.',
     'same' => 'The :attribute and :other must match.',
     'size' => [
-        'numeric' => 'The :attribute must be :size.',
+        'numeric' => 'The :attribute Doit être  :size.',
         'file' => 'The :attribute must be :size kilobytes.',
         'string' => 'The :attribute must be :size characters.',
         'array' => 'The :attribute must contain :size items.',
@@ -135,6 +135,9 @@ return [
         ],
     ],
 
+
+   
+
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Attributes
@@ -145,7 +148,52 @@ return [
     | of "email". This simply helps us make our message more expressive.
     |
     */
+  'attributes' => [
+        'first_name'=> 'prénom',
+        'last_name'=> 'nom',
+        'phone'=> 'Téléphone',
+        'identity_number'=> 'CIN',
+        'member_id'=> 'ID Adhérent',
+        'category_id'=> "Secteur d'activité",
+        'township_id'=> 'Commune du projet',
+        'title'=> 'Titre du projet',
 
-    'attributes' => [],
 
+        'services_turnover_forecast.*.count'=>"Quantité vendue (CA prévisionnel - Services)",
+        'services_turnover_forecast.*.value'=>"P.U (CA prévisionnel - Services)",
+
+
+        'products_turnover_forecast.*.count'=>"Quantité vendue (CA prévisionnel - Produits)",
+        'products_turnover_forecast.*.value'=>"P.U (CA prévisionnel - Produits)",
+
+
+        'startup_needs.*.value'=>"Montant (Programme d'investissement)",
+        'startup_needs.*.rate'=>"Taux d'amortis (Programme d'investissement)",
+        'startup_needs.*.duration'=>"TVA (Programme d'investissement)",
+
+
+        'financial_plan.*.value'=>"Montant (Plan de financement hors prêts)",
+
+
+        'financial_plan_loans.*.value'=>"Montant (Prêts)",
+        'financial_plan_loans.*.rate'=>"Taux d'Amortissement (Prêts)",
+        'financial_plan_loans.*.duration'=>"TVA (Prêts)",
+
+
+        'overheads_fixed.*.value'=>"Montant (Charges annuelles constantes)",
+
+
+        'overheads_scalable.*.value'=>"Montant (Charges annuelles variables)",
+
+
+        'human_ressources.*.count'=>"Nombre des postes (Ressources humaines)",
+        'human_ressources.*.value'=>"Salaire annuel (Ressources humaines)",
+
+
+        'human_ressources.*.value'=>"Salaire annuel (Ressources humaines)",
+
+
+        'taxes.*.value'=>"Montant (Taxes)",
+
+    ],
 ];

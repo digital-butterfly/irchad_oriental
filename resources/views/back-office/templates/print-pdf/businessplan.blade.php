@@ -1,4 +1,7 @@
 @php
+$total_taxes =0;
+$m=0;
+ $total_overheads_scalablee=0;
 $dataPlan =[];
 $total_mensualite=0;
 $total_rest=0;
@@ -71,7 +74,7 @@ $saisonalite=isset($data ->financial_data->saisonnalite)? $data ->financial_data
 if (isset($data ->financial_data->products_turnover_forecast)){
     foreach ($data ->financial_data->products_turnover_forecast as $total){
         $bp_turnover_products_total = $bp_turnover_products_total +(( $total->rate * $total->value*$saisonalite)*(1-($total->duration/100))) ;
-        $total_p = $total_p +( $total->rate * $total->value*$saisonalite) ;
+        $total_p = $total_p + $total->organisme!=0 ? ( $total->rate * $total->value*$total->organisme):( $total->rate * $total->value*$saisonalite) ;
         $bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration;  
     }
   }
@@ -377,7 +380,12 @@ $bp_human_ressources_rows = 0;
 if(isset($data ->financial_data->human_ressources))
 {
     foreach ($data ->financial_data->human_ressources as $item) {
-    $bp_human_ressources_total += ($item->value * $item->count*12);
+     if($item->duration==0){
+       $bp_human_ressources_total += ($item->value * $item->rate*12);
+     }else{
+       $bp_human_ressources_total += ($item->value * $item->rate*$item->duration);
+     }
+    
     $bp_human_ressources_rows++;
     }
 }
@@ -2747,8 +2755,8 @@ elseif($cumul_four_year>0) {
                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->rate,0, ',', ' ')}}</td>
                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*$item->rate, 0, ',', ' ') }} </td>
-                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*$item->rate*$saisonalite,0, ',', ' ')}}</td>
-                     <?php $total=0; $total=$total+$item->value*$item->rate; ?>
+                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*$item->organisme != 0 ?$item->value*$item->rate*$item->value*$item->organisme:$item->value*$item->rate*$saisonalite,0, ',', ' ')}}</td>
+                     <?php $total=0; $total=$total+ $item->value*$item->organisme!=null ? $item->value*$item->rate*$item->value*$item->organisme: $item->value*$item->rate*$saisonalite; ?>
                  </tr> 
                  @endforeach
                 @endif
@@ -3362,17 +3370,33 @@ elseif($cumul_four_year>0) {
                   </tr>
                 </thead>
                 <tbody class="font-medium">
+             
                   @if(isset($data->financial_data->human_ressources))
-                  @foreach ($data->financial_data->human_ressources as $item)
+                  @foreach ($data->financial_data->human_ressources as $item) 
+                    <?php //dd($total_overheads_scalable);
+                     ?>
                     <tr>
                       <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
-                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->count, 0, ',', ' ') }} </td>
                       <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
-                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*$item->count*12, 0, ',', ' ') }} </td>
-                      <?php $total_overheads_scalable+=$item->value*$item->count*12; ?>
+                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->rate, 0, ',', ' ') }} </td>
+                       <?php 
+                     
+                       if($item->duration==0){
+                         $m=$item->value*$item->rate*12;
+                       }else{
+                        $m=$item->value*$item->rate*$item->duration;
+                       }
+                      
+                      ?>
+                      <td class="border-2 border-gray-500 text-center">{{ number_format(isset($item->duration)?$item->value*$item->rate*$item->duration:$item->value*$item->rate*12, 0, ',', ' ') }} </td>
+                      <?php $total_overheads_scalablee+=$m; 
+                      //dd($total_overheads_scalablee);
+                      
+                      ?>
                   </tr> 
                   @endforeach
                  @endif
+                 
                   <tr class="bg-green-100">
                     <td
                     colspan="2"
@@ -3388,7 +3412,7 @@ elseif($cumul_four_year>0) {
                  
                     <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
                     <td class="border-2 border-gray-600 text-center bg-white"></td>
-                    <td class="border-2 border-gray-600 text-center bg-green-100">{{$total_overheads_scalable}}</td>
+                    <td class="border-2 border-gray-600 text-center bg-green-100">{{ number_format($total_overheads_scalablee, 0, ',', ' ') }}</td>
 
 
                   </tr>
@@ -3408,7 +3432,7 @@ elseif($cumul_four_year>0) {
                     
                     <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
                     <td class="border-2 border-gray-600 text-center bg-white"> </td>
-                    <td class="border-2 border-gray-600 text-center bg-green-100">{{$total_overheads_scalable*0.2109}}</td>
+                    <td class="border-2 border-gray-600 text-center bg-green-100">{{ number_format($total_overheads_scalablee*0.2109, 0, ',', ' ') }}</td>
 
 
                   </tr>
@@ -3428,7 +3452,7 @@ elseif($cumul_four_year>0) {
                     </td>
                     <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
                     <td class="border-2 border-gray-600 text-center bg-white"> </td>
-                    <td class="border-2 border-gray-600 text-center bg-green-100">{{$total_overheads_scalable*0.03}}</td>
+                    <td class="border-2 border-gray-600 text-center bg-green-100">{{ number_format($total_overheads_scalablee*0.03, 0, ',', ' ') }}</td>
                   
 
 
@@ -3450,7 +3474,7 @@ elseif($cumul_four_year>0) {
                     <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
                     <td class="border-2 border-gray-600 text-center bg-white"> </td>
                     
-                    <td class="border-2 border-gray-600 text-center bg-green-100">{{$total_overheads_scalable+($total_overheads_scalable*0.2109)+($total_overheads_scalable*0.03)}}</td>
+                    <td class="border-2 border-gray-600 text-center bg-green-100"> {{ number_format($total_overheads_scalablee+($total_overheads_scalablee*0.2109)+($total_overheads_scalablee*0.03), 0, ',', ' ') }}</td>
 
 
                   </tr>
@@ -3612,6 +3636,62 @@ elseif($cumul_four_year>0) {
                     <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
       
                     <td class="border-2 border-gray-600 text-center bg-green-100">{{number_format($total_taxe1 + $total_taxe2,0,',','')}}</td>
+
+
+                  </tr>
+                </tbody>
+              </table>
+            </div> 
+            <div class="inline-block rounded-lg border w-full ">
+              <table class="table-fixed border border-gray-900 w-full text-sm">
+                <thead>
+                  <tr class="bg-gray-100">
+                    <th
+                      class="
+                        py-2
+                        pl-4
+                        border-2 border-gray-500
+                        w-9/12
+                        self-start
+                        text-left
+                      "
+                    >
+                    TAXES
+                    </th>
+                    <th class="border-2 border-gray-500 w-6/12 text-center">MONTANT</th>
+                  </tr>
+                </thead>
+                <tbody class="font-medium">
+                 <tr>
+                      <td class="border-2 border-gray-500 py-1 pl-4">Taxe des services communaux</td>
+                      <td class="border-2 border-gray-500 text-center">{{ number_format($total_taxe1 + $total_taxe2, 0, ',', ' ') }} </td>
+                      <?php   $total_taxe1 +=$item->value*$taxe; ?>
+                  </tr> 
+                  @if(isset($data->financial_data->taxes))
+                  @foreach ($data->financial_data->taxes as $item)              
+                    <tr>
+                      <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
+                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
+                      <?php   $total_taxes +=$item->value; ?>
+                  </tr> 
+                  @endforeach
+                 @endif
+                  <tr class="bg-green-100">
+                    <td
+                    colspan="1"
+                      class="
+                        py-1 pl-4
+                        border-2 border-gray-600
+                        font-semibold
+                        text-green-700
+                      "
+                    >
+                      TOTAL
+                    </td>
+                 
+                    <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
+      
+                    <td class="border-2 border-gray-600 text-center bg-green-100">{{number_format($total_taxes+$total_taxe1 + $total_taxe2,0,',','')}}</td>
 
 
                   </tr>
@@ -4009,7 +4089,7 @@ elseif($cumul_four_year>0) {
                     <td class="border-2 border-gray-500 py-1 pl-4"> IMPÔT SUR LES SOCIÉTÉS
                     </td>
                     <td class="border-2 border-gray-500 text-center">{{ number_format($bp_corporate_tax_first_year, 0, ',', ' ') }} </td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_corporate_tax_second_year, 2, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_corporate_tax_second_year, 0, ',', ' ') }} </td>
                     <td class="border-2 border-gray-500 text-center">{{ number_format($bp_corporate_tax_third_year, 0, ',', ' ') }} </td>
                     <td class="border-2 border-gray-500 text-center">{{ number_format($bp_corporate_tax_four_year, 0, ',', ' ') }} </td>
                     <td class="border-2 border-gray-500 text-center">{{ number_format($bp_corporate_tax_five_year, 0, ',', ' ') }} </td>

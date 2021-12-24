@@ -72,7 +72,36 @@ class ProjectApplicationController extends Controller
             'human_ressources.*.count' => ['nullable', 'integer'],
             'human_ressources.*.value' => ['nullable', 'integer'],
             'taxes.*.value' => ['nullable', 'integer'],
-        ]);
+        ], [
+            'evolution_rate.integer' => 'Taux d\'évolution annuelle   doit être un chiffre',
+            'startup_needs.*.value.integer' => 'Programme d\'investissement : le champ Montant doit être un chiffre',
+            'core_business_p.*.value.integer' => 'Produits : le champ Prix estime de vente doit être un chiffre',
+            'competition_c.*.value.integer' => 'Principaux concurrents: le champ Prix estime de vente doit être un chiffre',
+            'startup_needs.*.rate.integer' => 'Programme d\'investissement : le champ Taux d\'Amortissement doit être un chiffre',
+            'startup_needs.*.duration.integer' => 'Programme d\'investissement : le champ TVA doit être un chiffre',
+            'financial_plan.*.value.integer' => 'Plan de financement hors prêts : le champ Montant doit être un chiffre',
+            'financial_plan_loans.*.value.integer' => 'Prêts : le champ Montant doit être un chiffre',
+            'financial_plan_loans.*.rate.integer' => 'Prêts : le champ Taux d\'Amortissement doit être un chiffre',
+            'financial_plan_loans.*.duration.integer' => 'Prêts : le champ TVA doit être un chiffre',
+
+            'products_turnover_forecast.*.rate.integer' => 'CA prévisionnel - Produits : le champ P.U doit être un chiffre',
+             'products_turnover_forecast.*.value.integer' => 'CA prévisionnel - Produits : le champ Quantité vendus doit être un chiffre',
+
+            'services_turnover_forecast_c.*.value.integer' => 'CA prévisionnel - Services : le champ P.U doit être un chiffre',
+            'services_turnover_forecast_c.*.count.integer' => 'CA prévisionnel - Services : le champ Quantité vendus doit être un chiffre',
+
+            'overheads_fixed.*.value.integer' => 'Charge mensuel constantes : le champ Montant doit être un chiffre',
+
+            'overheads_scalable.*.value.integer' => 'Charges mensuel variables : le champ Montant doit être un chiffre',
+
+            'human_ressources.*.count.integer' => 'Ressources humaines : le champ Nombre des postes doit être un chiffre',
+            'human_ressources.*.value.integer' => 'Ressources humaines : le champ Salaire annuel doit être un chiffre',
+
+            'taxes.*.value.integer' => 'Taxes : le champ Montant doit être un chiffre',
+        ]
+    
+    
+    );
     }
 
     /**
