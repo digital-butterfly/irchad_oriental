@@ -522,7 +522,7 @@ class ProjectApplication extends Model
                         'name' => 'products_turnover_forecast',
                         'type' => 'repeater',
                         'label' => 'CA prévisionnel - Produits',
-                        'config' => ['quadrupleRepeaterofme' => true, 'attributes' => [['Produit',3], ['Quantité  vendus (en mois)',3], ['P.U',3], ['Taux',1],['Saisonnalité(en mois)',3]],'Select'=>false]
+                        'config' => ['quintupleRepeater' => true, 'attributes' => [['Produit',3], ['Quantité/Nombre vendus (en mois)',3], ['P.U',3], ['Taux',1],['Saisonnalité(en mois)',3]],'Select'=>false]
                     ],
 //                    [
 //                        'name' => 'profit_margin_rate',
