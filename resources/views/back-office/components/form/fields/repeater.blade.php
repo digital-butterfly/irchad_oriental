@@ -135,9 +135,9 @@
                                 $repeater.setList([
                                     @foreach ($data->$ref as $item)
                                         {
-                                            'label' :  '{{ $item->label ?? 'a'}}',
-                                            'count' :  '{{ $item->count ?? 'aaa'}}',
-                                            'value' :  '{{ $item->value ?? 'aaa'}}',
+                                            'label' :  '{{ $item->label ?? ' '}}',
+                                            'count' :  '{{ $item->count ?? ' '}}',
+                                            'value' :  '{{ $item->value ?? ' '}}',
                                         },
                                     @endforeach
                                 ]);
@@ -204,7 +204,7 @@
                                 <label>{{ $field['config']['attributes'][1][0] ?? 'Valeur' }}:</label>
                             </div>
                             <div class="kt-form__control">
-                                <input type="text" name="value" id='id_q' class="form-control" placeholder="">
+                                <input type="text" name="value" id='montant_id' class="form-control" placeholder="">
                             </div>
                         </div>
                         <div class="d-md-none kt-margin-b-10"></div>

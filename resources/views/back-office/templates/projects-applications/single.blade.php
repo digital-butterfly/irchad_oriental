@@ -1,3 +1,5 @@
+
+
 @extends('back-office.layouts.layout-default')
 
 
@@ -229,18 +231,6 @@
                                     </div>
                                 </div>
                             </div>
-                            {{-- <div class="kt-wizard-v4__nav-item" data-ktwizard-type="step">
-                                <div class="kt-wizard-v4__nav-body">
-                                    <div class="kt-wizard-v4__nav-number">
-                                        3
-                                    </div>
-                                    <div class="kt-wizard-v4__nav-label">
-                                        <div class="kt-wizard-v4__nav-label-title">
-                                            Soumission
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> --}}
                         </div>
                     </div>
 
@@ -2789,6 +2779,33 @@
 
 	</script>
 @endsection
+@php
+$total=0;
+$total1=0;
+$total2=0;
+if(isset($data->financial_data->startup_needs)){
+    foreach($data->financial_data->startup_needs as $data){
+   $total+=$data->value;
+    }
+    
+   //sdd($total);
+}
+if(isset($data->financial_data->financial_plan)){
+    foreach($data->financial_data->financial_plan as $data){
+   $total1+=$data->value;
+    }  
+}
+if(isset($data->financial_data->financial_plan_loans)){
+    foreach($data->financial_data->financial_plan_loans as $data){
+   $total2+=$data->value;
+    }  
+}
+@endphp
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js"></script>
+<script
+  src="https://code.jquery.com/jquery-3.6.0.js"
+  integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+  crossorigin="anonymous"></script>
 <script>
 
 
@@ -2807,9 +2824,29 @@ window.addEventListener('load',function(){
         stop =true
     clearInterval(interval)
     },3000)
- 
+  
 })
 
+window.addEventListener('load',function(){
+var element= '<?php echo $total ?>';
+var elementT= '<?php echo $total1+$total2; ?>';
+console.log(elementT);
+// var total=0;
+ //element.forEach(element=> {
+  //   total+=element.value;
+   //console.log(total);
+
+ //});
+   // var value1 = $( this ).val()0.4;
+   // var value2 = $( this ).val()0.6;
+   
+    $('#total_invest').val(element);
+    $('##total_plan').val(elementT);
+    $('#total_plan').prop('disabled', true);
+    $("#total_invest").prop('disabled', true);
+
+  })
 
 
-</script>
+
+    </script>

@@ -484,6 +484,7 @@
         // Class initialization on page load
         jQuery(document).ready(function() {
             KTDashboard.init();
+             console.log("helooooooooooooooo");
 
             $('.kt-widget__action button[title="Delete"]').click(function() {
 
@@ -501,7 +502,27 @@
                 });
 
             });
+
+
         });
 
+
+
     </script>
+
 @endsection
+
+  <script>
+
+    $('#total_plan').change(function() {
+   // var value1 = $( this ).val()0.4;
+   // var value2 = $( this ).val()0.6;
+    console.log("helooooooooooooooo");
+    //$('#Montant_p').val(value1);
+    //$("#Montant_p").prop('disabled', true);
+   // $('#Montant_accorde').val(value2);
+   // $("#Montant_accorde").prop('disabled', true);
+
+  })
+
+    </script>

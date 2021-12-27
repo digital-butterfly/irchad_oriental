@@ -14,12 +14,12 @@ class ProjectApplication extends Model
 
     protected $guard = 'user';
 
-    const TAXES=['La taxe professionnelle','La taxe des véhicules','La taxe d’essieu pour les camions'];
-    const INVEST=['Terrain', 'Construction', 'Aménagement', 'Matériel d’exploitation', 'Matériel bureautique', 'Matériel informatique', 'Matériel de transport','Frais preliminaires', 'Autre à préciser'];
+    const TAXES=[' Taxe professionnelle','Taxe  speciale sur véhicules','Taxe d’essieu pour les camions','Taxe de promotion touristique'];
+    const INVEST=[ 'Frais preliminaires', ' Immobilisations Incorporelle ','Terrain','Construction et / ou Aménagement', 'Matériel et Outillage ', 'Mobilier et Matériel de bureau', 'Matériel informatique', 'Matériel de transport', 'Matériel de manutention ',  'Fonds de roulement de démarrage','Autre à préciser'];
     const LEGALFORM=['S.A.R.L','S.A.R.L A.U','S.N.C','Coopérative','A.E'];
     const AIDEETAT=['INDH','DPA','Collectivités territoriales', 'Autre'];
     const Etat=['Demande','Non demande','Delivre', 'Non delivre'];
-    const Rubr=['Apport Personnel','Subvention INDH','Apport En Numéraire ', 'Apport En Nature'];
+    const Rubr=['Apport Personnel','Subvention INDH','Apport en Numéraire ', 'Apport en Nature'];
 
     /**
      * The attributes that are mass assignable.
@@ -217,14 +217,14 @@ class ProjectApplication extends Model
             [
                 'name' => 'township_id',
                 'type' => 'select',
-                'label' => 'Commune du projet',
+                'label' => 'lieu du projet',
                 'options' => $townships_options,
                 'group' => 'Données Générales'
             ],
             [
                 'name' => 'title',
                 'type' => 'text',
-                'label' => 'Titre du projet',
+                'label' => 'Intitule du projet',
                 'group' => 'Données Générales'
             ],
             [
@@ -236,26 +236,26 @@ class ProjectApplication extends Model
             [
                 'name' => 'montant_est',
                 'type' => 'number',
-                'label' => 'Montant d\'investissement estimatif',
+                'label' => 'Montant estimatif de l\'investissement',
                 'group' => 'Données Générales'
             ], 
             [
                 'name' => 'credit_banc',
                 'type' => 'select',
-                'label' => 'supplément crédit bancaire',
+                'label' => 'complément crédit bancaire',
                 'options'=>['Oui','Non'],
                 'group' => 'Données Générales'
             ],
             [
                 'name' => 'market_type',
                 'type' => 'text',
-                'label' => 'Marché visé',
+                'label' => 'Marché cible',
                 'group' => 'Données Générales'
             ],
             [
                 'name' => 'status',
                 'type' => 'select',
-                'label' => 'Status',
+                'label' => 'Statut Du PDP',
                 'options' => ['Nouveau', 'Accepté','En cours', 'En attente de formation','En attente de financement', 'Rejeté','Business plan achevé', 'Incubé'],
                 'group' => 'Données Générales'
             ],[
@@ -329,7 +329,7 @@ class ProjectApplication extends Model
                     [
                         'name' => 'corporate_name',
                         'type' => 'text',
-                        'label' => 'Dénomination social'
+                        'label' => 'Dénomination sociale'
                     ],[
                         'name' => 'corporate_CEO',
                         'type' => 'text',
@@ -337,7 +337,7 @@ class ProjectApplication extends Model
                     ],[
                         'name' => 'corporate_sig',
                         'type' => 'text',
-                        'label' => 'Le siège sociale '
+                        'label' => 'Siège social '
                     ],
                     [
                         'name' => 'applied_tax',
@@ -363,19 +363,19 @@ class ProjectApplication extends Model
                     [
                         'name' => 'evolution_m',
                         'type' => 'textarea',
-                        'label' => 'Evolutions de Marche'
+                        'label' => 'Evolutions du Marche'
                     ],
                     [
                         'name' => 'core_business_p',
                         'type' => 'repeater',
                         'label' => 'Produits ',
-                        'config' => ['tripleRepeater' => true, 'attributes' => [['Produit',3],['Description',4], ['Prix estime de vente',3]],'Select'=>false]
+                        'config' => ['tripleRepeater' => true, 'attributes' => [['Produit',3],['Description',4], ['Prix de vente estimatif',3]],'Select'=>false]
                     ],
                     [
                         'name' => 'core_services',
                         'type' => 'repeater',
                         'label' => 'Services ',
-                        'config' => ['tripleRepeater' => true, 'attributes' => [['Service',3],['Description',4], ['Prix estime de vente',3]],'Select'=>false]
+                        'config' => ['tripleRepeater' => true, 'attributes' => [['Service',3],['Description',4], ['Prix de la prestation',3]],'Select'=>false]
                     ],
                     [
                         'name' => 'primary_target_c',
@@ -386,7 +386,7 @@ class ProjectApplication extends Model
                         'name' => 'suppliers_f',
                         'type' => 'repeater',
                         'label' => 'Principaux fournisseurs',
-                        'config' => ['tripleRepeater' => true, 'attributes' => [['Fournisseur',3],['Nature des intrants',3], ['localité',2]],'Select'=>false]
+                        'config' => ['tripleRepeater' => true, 'attributes' => [['Fournisseur',3],['Nature des intrants',3], ['ville',2]],'Select'=>false]
 
                     ],
                     [
@@ -399,12 +399,12 @@ class ProjectApplication extends Model
                     [
                         'name' => 'avg_competi',
                         'type' => 'text',
-                        'label' => 'Moyen de différenciation par rapport au concurrents'
+                        'label' => 'Critéres de différenciation par rapport au concurrents'
                     ],
                     [
                         'name' => 'advertising',
                         'type' => 'textarea',
-                        'label' => 'Stratégie  marketing et publicité'
+                        'label' => 'Stratégie  marketing et Comerciale'
                     ],
                     [
                         'name' => 'pricing_strategy',
@@ -415,7 +415,7 @@ class ProjectApplication extends Model
                      [
                         'name' => 'pricing_strategy_disc',
                         'type' => 'textarea',
-                        'label' => 'Description du stratégie de prix',
+                        'label' => 'Description  de la stratégie de prix',
                        
                     ],
                     [
@@ -426,28 +426,28 @@ class ProjectApplication extends Model
                     [
                         'name' => 'distribution_strategy_force_p',
                         'type' => 'repeater',
-                        'label' => 'Force'
+                        'label' => 'Forces'
                     ],
                     [
                         'name' => 'distribution_strategy_menace_p',
                         'type' => 'repeater',
-                        'label' => 'Menace'
+                        'label' => 'Menaces'
                     ], 
                     [
                         'name' => 'distribution_strategy_faiblesse_p',
                         'type' => 'repeater',
-                        'label' => 'Faiblesse'
+                        'label' => 'Faiblesses'
                     ], 
                     [
                         'name' => 'distribution_strategy_Opportunité_p',
                         'type' => 'repeater',
-                        'label' => 'Opportunité'
+                        'label' => 'Opportunités'
                     ], 
                     
                    
                    
                 ],
-                'group' => 'Étude De marché',
+                'group' => 'Étude du marché',
             ],
             
             [
@@ -461,18 +461,18 @@ class ProjectApplication extends Model
                         'name' => 'autorisations_nécessaire_c',
                         'type' => 'repeater',
                         'label' => 'Autorisations nécessaires',
-                        'config' => ['tripleRepeater' => true, 'attributes' => [['Nom Autorisation',3], ['Organisme ',2], ['Etat',3]],'Select'=>true, 'options' =>self::Etat],
+                        'config' => ['tripleRepeater' => true, 'attributes' => [['Type d\'Autorisation',4], ['Administration Ou Organisme',4], ['Etat',3]],'Select'=>true, 'options' =>self::Etat],
                     ],
                     [
                         'name' => 'local',
                         'type' => 'repeater',
                         'label' => 'local',
-                        'config' => ['quadrupleRepeater' => true, 'attributes' => [['Nature de l\'occupation',3], ['Prix de loyer ',2], ['Superficie  ',2], ['Adresse',0]],'Select'=>false]
+                        'config' => ['quadrupleRepeater' => true, 'attributes' => [['Mode d\'occupation',3], ['Adresse ',2], ['Superficie  ',2], ['Loyer',0]],'Select'=>false]
                     ],
                     [
                         'name' => 'list_mat',
                         'type' => 'repeater',
-                        'label' => 'liste de matériel'
+                        'label' => 'liste du matériel'
                     ]
                     ],
 
@@ -491,16 +491,26 @@ class ProjectApplication extends Model
                         'config' => ['quadrupleRepeater' => true, 'attributes' => [['Rubrique d\'investissement',3], ['Montant ',2], ['Taux d\'amortis',2], ['TVA',1]],'Select'=>true,'options'=>self::INVEST]
                     ],
                     [
+                        'name' => 'total_invest',
+                        'type' => 'text',
+                        'label' => 'Total du Programme d\'investissement'
+                    ],
+                    [
                         'name' => 'financial_plan',
                         'type' => 'repeater',
-                        'label' => 'Plan de financement hors prêts',
+                        'label' => 'Plan de financement hors crédit',
                         'config' => ['doubleRepeater' => true, 'attributes' => [['Rubrique de financement',4], ['Montant',2]],'Select'=>true,'options'=>self::Rubr]
                     ],
                     [
                         'name' => 'financial_plan_loans',
                         'type' => 'repeater',
                         'label' => 'Prêts',
-                        'config' => ['quadrupleRepeater' => true, 'attributes' => [['Organisme de crédit',3], ['Montant',3], ['Taux',1], ['Durée  du prêts en année',3]],'Select'=>false]
+                        'config' => ['quadrupleRepeater' => true, 'attributes' => [['Organisme de crédit',3], ['Montant',3], ['Taux d\'intérêts',3], ['Durée  du prêt en année',3]],'Select'=>false]
+                    ],
+                      [
+                        'name' => 'total_plan',
+                        'type' => 'text',
+                        'label' => 'Total  Plan de financement '
                     ],
                     [
                         'name' => 'duration_différe',
@@ -511,7 +521,7 @@ class ProjectApplication extends Model
                         'name' => 'services_turnover_forecast_c',
                         'type' => 'repeater',
                         'label' => 'CA prévisionnel - Services',
-                        'config' => ['tripleRepeater' => true, 'attributes' => [['Service',3], ['Quantité/Nombre vendus (en mois)',4], ['P.U',3]],'Select'=>false]
+                        'config' => ['quadrupleRepeater' => true, 'attributes' => [['Service',3], ['Quantité/Nombre(par mois)',4], ['Prix',3],['Saisonnalité(en mois)',3]],'Select'=>false]
 
                     ],
                     [
@@ -523,7 +533,7 @@ class ProjectApplication extends Model
                         'name' => 'products_turnover_forecast',
                         'type' => 'repeater',
                         'label' => 'CA prévisionnel - Produits',
-                        'config' => ['quintupleRepeater' => true, 'attributes' => [['Produit',3], ['Quantité/Nombre vendus (en mois)',4], ['P.U',3], ['Taux',1],['Saisonnalité(en mois)',3]],'Select'=>false]
+                        'config' => ['quintupleRepeater' => true, 'attributes' => [['Produit',3], ['Quantité/Nombre(par mois)',4], ['Prix unitaire',2], ['Taux (achats/ CA)',3],['Saisonnalité(en mois)',3]],'Select'=>false]
                     ],
 //                    [
 //                        'name' => 'profit_margin_rate',
@@ -538,26 +548,26 @@ class ProjectApplication extends Model
                     [
                         'name' => 'overheads_fixed',
                         'type' => 'repeater',
-                        'label' => 'Charge Mensuel constantes',
-                        'config' => ['doubleRepeater' => true, 'attributes' => [['Intitulé de la charge',4], ['Montant Mensuel ',3]],'Select'=>false]
+                        'label' => 'Charges Mensuelles fixes',
+                        'config' => ['doubleRepeater' => true, 'attributes' => [['Nature de la charge',4], ['Montant Mensuel ',3]],'Select'=>false]
                     ],
                     [
                         'name' => 'overheads_scalable',
                         'type' => 'repeater',
-                        'label' => 'Charge Mensuel  évolutives',
-                        'config' => ['doubleRepeater' => true, 'attributes' => [['Intitulé de la charge',4], ['Montant Mensuel',3]],'Select'=>false,]
+                        'label' => 'Charges Mensuelles  variables',
+                        'config' => ['doubleRepeater' => true, 'attributes' => [['Nature de la charge',4], ['Montant Mensuel',3]],'Select'=>false,]
                     ],
                     [
                         'name' => 'human_ressources',
                         'type' => 'repeater',
                         'label' => 'Ressources humaines',
-                        'config' => ['quadrupleRepeater' => true, 'attributes' => [['Poste:',3], ['Nombre des postes',3], ['Salaire Mensuel',3], ['Durée du travail (en mois)',3]],'Select'=>false]
+                        'config' => ['quadrupleRepeater' => true, 'attributes' => [['Fonction',3], ['Nombre',2], ['Salaire Mensuel',3], ['Durée de travail (en mois)',3]],'Select'=>false]
                     ],
                     [
                         'name' => 'taxes',
                         'type' => 'repeater',
-                        'label' => 'Taxes',
-                        'config' => ['doubleRepeater' => true,'attributes' => [['Types detaxes ',4], ['Montant ',3]],'Select'=>true, 'options' =>self::TAXES]
+                        'label' => 'Impôts et Taxes',
+                        'config' => ['doubleRepeater' => true,'attributes' => [['Types de taxes ',4], ['Montant ',3]],'Select'=>true, 'options' =>self::TAXES]
                     ],
                 ],
                 'group' => 'Étude Technique'

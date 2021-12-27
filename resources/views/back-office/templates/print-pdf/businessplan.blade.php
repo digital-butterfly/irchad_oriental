@@ -88,7 +88,15 @@ if (isset($data ->financial_data->products_turnover_forecast)){
     if (isset($data ->financial_data->services_turnover_forecast_c)){
     foreach ($data ->financial_data->services_turnover_forecast_c as $total){
         //$bp_turnover_products_total = $bp_turnover_products_total +(( $total->rate * $total->value*$saisonalite)*(1-($total->duration/100))) ;
-         $total_s = $total_s +( $total->count * $total->value* $saisonalite) ;
+        if(isset($total->rate)){
+          if(isset( $total->duration)){
+           $total_s = $total_s +( $total->rate * $total->value*$total->duration) ;  
+          }else{
+            $total_s = $total_s +( $total->rate * $total->value* $saisonalite) ; 
+          }
+         
+        }
+         
         //$bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration;  
     }
 }
@@ -1145,7 +1153,7 @@ elseif($cumul_four_year>0) {
         >
           <h3 class="font-semibold text">{{$owner->first_name}} {{$owner->last_name}}</h3>
           <p class=" print:bg-blue-800 ">
-            Le secteur d’activité :
+            Secteur d’activité :
             <span class="font-semibold" style="color: var(--main-green)"
               >{{$categories->title}}</span
             >
@@ -1286,7 +1294,7 @@ elseif($cumul_four_year>0) {
             class="font-semibold text-lg"
             style="color: var(--main-blue); line-height: 16px"
           >
-            LE CONTEXTE GÉNÉRAL
+            CONTEXTE GÉNÉRAL
           </h3>
         </div>
         <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
@@ -1381,11 +1389,11 @@ elseif($cumul_four_year>0) {
 
           <div class="space-y-3 text-sm font-normal">
             <div class="flex justify-between p-2">
-              <p>Le nom complet :</p>
+              <p>Nom Prénom :</p>
               <p class="font-medium">{{$owner->first_name}} {{$owner->last_name}}</p>
             </div>
             <div class="flex justify-between bg-gray-100 p-2">
-              <p>L'adresse :</p>
+              <p>Adresse :</p>
               <p class="font-medium"> {{$owner->address}}</p>
             </div>
             <div class="flex justify-between p-2">
@@ -1397,7 +1405,7 @@ elseif($cumul_four_year>0) {
               <p class="font-medium">{{$owner->identity_number}}</p>
             </div>
             <div class="flex justify-between p-2">
-              <p>Numero de telephone :</p>
+              <p>Numéro de telephone :</p>
               <p class="font-medium">{{$owner->phone}}</p>
             </div>
             <div class="flex justify-between bg-gray-100 p-2 print-add-break">
@@ -1419,9 +1427,9 @@ elseif($cumul_four_year>0) {
 
           <div class="space-y-3 text-sm font-normal">
             <div class="grid grid-cols-3 justify-between p-2 font-semibold">
-              <p>Type de diplome :</p>
+              <p>Diplôme ou niveau d'étude:</p>
               <p>Etablissement</p>
-              <p>Annee d'obtention</p>
+              <p>Année d'obtention</p>
             </div>
             @foreach ($owner->degrees as $key => $degree)
             <div class="grid  grid-cols-3 justify-between bg-gray-100 p-2">
@@ -1451,16 +1459,16 @@ elseif($cumul_four_year>0) {
               class="uppercase font-bold text-sm"
               style="color: var(--second-blue)"
             >
-              Expériences
+              Expériences professionnelles
             </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
 
           <div class="space-y-3 text-sm font-normal">
             <div class="grid grid-cols-5 justify-between p-2 font-semibold">
-              <p>Poste</p>
-              <p>Organisme</p>
-              <p>Mission</p>
+              <p>Fonction</p>
+              <p>Etablissement</p>
+              <p>Missions</p>
               <p>Du</p>
               <p>Au</p>
             </div>
@@ -1557,7 +1565,7 @@ elseif($cumul_four_year>0) {
             class="font-semibold text-lg"
             style="color: var(--main-blue); line-height: 16px"
           >
-            Presentation du projet 
+            Présentation du projet 
           </h3>
         </div>
         <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
@@ -1570,26 +1578,26 @@ elseif($cumul_four_year>0) {
               class="uppercase font-bold text-sm"
               style="color: var(--second-blue)"
             >
-             Le Projet
+              Projet
             </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
 
           <div class="space-y-3 text-sm font-normal">
             <div class="flex justify-between p-2">
-              <p>La raison sociale :</p>
+              <p> raison sociale :</p>
               <p class="font-medium">{{ $data->company->corporate_name ?? ''}}</p>
             </div>
             <div class="flex justify-between bg-gray-100 p-2">
-              <p>La forme juridique:</p>
+              <p> forme juridique:</p>
               <p class="font-medium"> {{ $data->company->legal_form ?? ''}}</p>
             </div>
             <div class="flex justify-between p-2">
-              <p>Commune du projet :</p>
+              <p>Lieu du projet :</p>
               <p class="font-medium">{{$township->title}}</p>
             </div>
             <div class="flex justify-between bg-gray-100 p-2">
-              <p>Le marché cible:</p>
+              <p>marché cible:</p>
               <p class="font-medium">{{$data->market_type ?? ''}}</p>
             </div>
           </div>
@@ -1621,7 +1629,7 @@ elseif($cumul_four_year>0) {
                   <p class="font-medium">{{$field->count ?? " "}}</p>
                 </div>
                 <div class="flex justify-between bg-gray-100 p-2">
-                  <p>Prix de vente prévu   :</p>
+                  <p>Prix de vente    :</p>
                   <p class="font-medium">{{$field->value ?? " "}}</p>
                 </div>
               </div>  
@@ -1646,7 +1654,7 @@ elseif($cumul_four_year>0) {
                   <p class="font-medium">{{$field->count ?? " "}}</p>
                 </div>
                 <div class="flex justify-between bg-gray-100 p-2">
-                  <p>Prix de vente prévu   :</p>
+                  <p>Prix de vente   :</p>
                   <p class="font-medium">{{$field->value ?? " "}}</p>
                 </div>
               </div>  
@@ -1722,7 +1730,7 @@ elseif($cumul_four_year>0) {
               class="uppercase font-bold text-sm"
               style="color: var(--second-blue)"
             >
-           L'evolution du  marché
+           evolution du  marché
             </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
@@ -1776,7 +1784,7 @@ elseif($cumul_four_year>0) {
                   <p class="font-medium">{{$field->count ?? " "}}</p>
                 </div>
                 <div class="flex justify-between bg-gray-100 p-2">
-                  <p>localité:</p>
+                  <p>ville:</p>
                   <p class="font-medium">{{$field->value ?? " "}}</p>
                 </div>
               </div>  
@@ -1900,7 +1908,7 @@ elseif($cumul_four_year>0) {
               class="uppercase font-bold text-sm"
               style="color: var(--second-blue)"
             >
-            Stratégie de communication
+            Stratégie marketing et Comerciale
             </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
@@ -2114,7 +2122,7 @@ elseif($cumul_four_year>0) {
               class="pl-16 py-4 bg-gray-100 font-medium space-y-3 relative"
               style="font-size: 12px"
             >
-              <h3 style="color: var(--main-dark-green)" class="text-sm">Faiblesse</h3>
+              <h3 style="color: var(--main-dark-green)" class="text-sm">Faiblesses</h3>
               <ul class="list-inside list-disc space-y-2">
                 @if(isset($data->business_model->distribution_strategy_faiblesse_p))
                 @foreach ($data->business_model->distribution_strategy_faiblesse_p as $key =>  $field)
@@ -2145,7 +2153,7 @@ elseif($cumul_four_year>0) {
               class="pl-6 py-4 bg-gray-100 font-medium space-y-3 relative"
               style="font-size: 12px"
             >
-              <h3 style="color: var(--main-dark-green)" class="text-sm">Opportunité</h3>
+              <h3 style="color: var(--main-dark-green)" class="text-sm">Opportunités</h3>
               <ul class="list-inside list-disc space-y-2">
                 @if(isset($data->business_model->distribution_strategy_Opportunité_p))
                     @foreach ($data->business_model->distribution_strategy_Opportunité_p as $key =>  $field)
@@ -2306,8 +2314,12 @@ elseif($cumul_four_year>0) {
               <div class="p-4 bg-gray-100">
                 <p><span class="font-semibold" style="color: var(--main-green)">local </span></p>
                 <div class="flex justify-between bg-gray-100 p-2">       
-                  <p>Nature de l'occupation:</p>
+                  <p>Mode d'occupation:</p>
                   <p class="font-medium">{{$field->label ?? " "}}</p>
+                </div>
+                <div class="flex justify-between bg-gray-100 p-2">
+                  <p>Adresse:</p>
+                  <p class="font-medium">{{$field->duration ?? " "}}</p>
                 </div>
                 <div class="flex justify-between bg-gray-100 p-2">
                   <p>Superficie:</p>
@@ -2317,10 +2329,7 @@ elseif($cumul_four_year>0) {
                   <p>loyer mensuel:</p>
                   <p class="font-medium">{{$field->value ?? " "}}</p>
                 </div>
-                <div class="flex justify-between bg-gray-100 p-2">
-                  <p>Adresse:</p>
-                  <p class="font-medium">{{$field->duration ?? " "}}</p>
-                </div>
+                
               </div>  
               @endforeach
               @endif
@@ -2394,14 +2403,14 @@ elseif($cumul_four_year>0) {
               class="uppercase font-bold text-sm"
               style="color: var(--second-blue)"
             >
-            liste matériel
+            liste du matériel
           </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
            <p class="text-gray-500 font-normal"> L’activité nécessitera les moyens d’équipements suivants :
            </p>
           <div class="bg-gray-100 text-gray-700 mt-6 p-8 space-y-3 text-sm">
-            <p><span class="font-semibold" style="color: var(--main-green)">Liste de matériel: </span></p>
+            <p><span class="font-semibold" style="color: var(--main-green)">Liste du matériel: </span></p>
             <ul class="list-inside list-disc space-y-2">  
               @if(isset($data->business_model->list_mat))
               @foreach ($data->business_model->list_mat as $key =>  $field)
@@ -2417,7 +2426,7 @@ elseif($cumul_four_year>0) {
               class="uppercase font-bold text-sm"
               style="color: var(--second-blue)"
             >
-            LES RESSOURCES HUMAINES
+            RESSOURCES HUMAINES
           </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
@@ -2437,7 +2446,7 @@ elseif($cumul_four_year>0) {
                       text-left
                     "
                   >
-                    La Fonction
+                     Fonction
                   </th>
                   <th class="border-2 border-gray-600 w-1/4 text-center">Effectif</th>
                 </tr>
@@ -2447,7 +2456,7 @@ elseif($cumul_four_year>0) {
                 @foreach ($data->financial_data->human_ressources as $item)
                 <tr>
                   <td class="border-2 border-gray-600 py-1 pl-4">{{isset($item->label)?$item->label:""}}</td>
-                  <td class="border-2 border-gray-600 text-center">{{isset($item->count)?$item->count:""}}</td>
+                  <td class="border-2 border-gray-600 text-center">{{isset($item->value)?$item->value:""}}</td>
                 </tr>
                 @endforeach
                 @endif
@@ -2547,7 +2556,7 @@ elseif($cumul_four_year>0) {
                     >
                     DESIGNATION
                     </th>
-                    <th class="border-2 border-gray-500 w-7/12 text-center">MONTATNT(EN MAD TTC)</th>
+                    <th class="border-2 border-gray-500 w-7/12 text-center">MONTANT</th>
                     <th class="border-2 border-gray-500 w-3/12 text-center">POIDS</th>
                   </tr>
                 </thead>
@@ -2616,7 +2625,7 @@ elseif($cumul_four_year>0) {
                     >
                     DESIGNATION
                     </th>
-                    <th class="border-2 border-gray-500 w-7/12 text-center">MONTATNT(EN MAD TTC)</th>
+                    <th class="border-2 border-gray-500 w-7/12 text-center">MONTANT</th>
                     <th class="border-2 border-gray-500 w-3/12 text-center">POIDS</th>
                   </tr>
                 </thead>
@@ -2722,13 +2731,13 @@ elseif($cumul_four_year>0) {
               class="uppercase font-bold text-sm"
               style="color: var(--second-blue)"
             >
-            LE CHIFFRE D’AFFAIRES PRÉVISIONNEL
+            CHIFFRE D’AFFAIRES PRÉVISIONNEL
 
           </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
            <p class="text-gray-500 font-normal"> 
-            Le chiffre d’affaires prévisionnel regroupe l’ensemble des ventes prévues par l’entreprise (ventes de biens et / ou de services) pour une saisonalite de <span class="text-green-500">{{$saisonalite}}</span>  mois .
+            Le chiffre d’affaires prévisionnel regroupe le montant  des ventes prévues par l’entreprise (ventes de biens et / ou prestations de services).
            </p>
           </div>
             <div class="inline-block rounded-lg border w-full ">
@@ -2745,10 +2754,10 @@ elseif($cumul_four_year>0) {
                         text-left
                       "
                     >
-                    Le produit ou Le service 
+                     produit et /ou  service 
                     </th>
-                    <th class="border-2 border-gray-500 w-6/12 text-center">PRIX Unitaire (en Mad)</th>
-                    <th class="border-2 border-gray-500  text-center">Quantité(mois)</th>
+                    <th class="border-2 border-gray-500 w-6/12 text-center">PRIX </th>
+                    <th class="border-2 border-gray-500  text-center">Quantité /Nombre (mois)</th>
                     <th class="border-2 border-gray-500 w-6/12 text-center  px-12">Chiffre d'affaires mensuel</th>
                     <th class="border-2 border-gray-500 w-6/12 text-center w-9/12 px-12">Chiffre d'affaires annuel</th>
                   </tr>
@@ -2759,9 +2768,16 @@ elseif($cumul_four_year>0) {
                     <tr>
                       <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
                       <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
-                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->count,0, ',', ' ')}}</td>
-                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*$item->count, 0, ',', ' ') }} </td>
-                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*$item->count*$saisonalite,0, ',', ' ')}}</td>
+                      @if(isset($item->rate))
+                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->rate,0, ',', ' ')}}</td>
+                     
+                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*$item->rate, 0, ',', ' ') }} </td>
+                       @if(isset($item->duration))
+                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*$item->rate*$item->duration,0, ',', ' ')}}</td>
+                      @else
+                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*$item->rate*$saisonalite,0, ',', ' ')}}</td>
+                      @endif
+                       @endif
                   </tr> 
                   @endforeach
                  @endif
@@ -2811,7 +2827,7 @@ elseif($cumul_four_year>0) {
               class="uppercase font-bold text-sm"
               style="color: var(--second-blue)"
             >
-            L’ÉVOLUTION DU CHIFFRE D'AFFAIRES HT est de <span class="text-green-500">{{isset($data ->financial_data->evolution_rate)?$data ->financial_data->evolution_rate:0}}</span>% SUR 5 ANS
+            ÉVOLUTION DU CHIFFRE D'AFFAIRES HT  (<span class="text-green-500">{{isset($data ->financial_data->evolution_rate)?$data ->financial_data->evolution_rate:0}}</span>%)  SUR 5 ANS
           </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
@@ -2862,7 +2878,7 @@ elseif($cumul_four_year>0) {
               class="uppercase font-bold text-sm"
               style="color: var(--second-blue)"
             >
-            L’ÉVOLUTION DES ACHATS HT est de<span class="text-green-500">{{isset($data ->financial_data->evolution_rate)?$data ->financial_data->evolution_rate:0}}</span>% SUR 5 ANS
+            ÉVOLUTION DES ACHATS HT (<span class="text-green-500">{{isset($data ->financial_data->evolution_rate)?$data ->financial_data->evolution_rate:0}}</span>%) SUR 5 ANS
           </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
@@ -2881,18 +2897,18 @@ elseif($cumul_four_year>0) {
                   >
                   Achats
                   </th>
-                  <th class="border-2 border-gray-500 text-center">PRIX UNITAIRE(en Mad)
+                  <th class="border-2 border-gray-500 text-center">PRIX 
                   </th>
-                  <th class="border-2 border-gray-500  text-center">Quantité(mois) 
+                  <th class="border-2 border-gray-500  text-center">Quantité/ Nombre(mois) 
                   </th>
-                  <th class="border-2 border-gray-500  text-center">Chiffre d'affaires annuel</th>
+                  <th class="border-2 border-gray-500  text-center">Montant annuel</th>
                 </tr>
               </thead>
               <tbody class="font-medium">
                 @if(isset($data->financial_data->products_turnover_forecast))
                 @foreach ($data->financial_data->products_turnover_forecast as $item)
                   <tr>
-                    <td class="border-2 border-gray-500 "> Achat <span class="bg-red-200">{{$item->label}}</span> {{ number_format((1-$item->duration/100)*100, 0, ',', ' ') }} % du Chiffres d’affaires</td>
+                    <td class="border-2 border-gray-500 "> Achat <span class="bg-red-200">{{$item->label}}</span> ({{ number_format((1-$item->duration/100)*100, 0, ',', ' ') }}% du Chiffres d’affaires) </td>
                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->rate, 0, ',', ' ') }} </td>
                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->value,0, ',', ' ')}}</td>
                  @if(isset($item->organisme))
@@ -3170,7 +3186,7 @@ elseif($cumul_four_year>0) {
               class="uppercase font-bold text-sm"
               style="color: var(--second-blue)"
             >
-            LES CHARGES PRÉVISIONNELLES
+             CHARGES PRÉVISIONNELLES
 
           </h5>
             <hr class="bg-gray-300" style="height: 2px" />
@@ -3203,7 +3219,7 @@ elseif($cumul_four_year>0) {
                     >
                     DESIGNATION
                     </th>
-                    <th class="border-2 border-gray-500 w-6/12 text-center">MONTANT MENSUEL HT</th>
+                    <th class="border-2 border-gray-500 w-6/12 text-center">MONTANT MENSUEL </th>
                     <th class="border-2 border-gray-500  text-center">MONTANT ANNUEL</th>
                   </tr>
                 </thead>
@@ -3266,7 +3282,7 @@ elseif($cumul_four_year>0) {
                   >
                   DESIGNATION
                   </th>
-                  <th class="border-2 border-gray-500 w-6/12 text-center">MONTANT MENSUEL HT</th>
+                  <th class="border-2 border-gray-500 w-6/12 text-center">MONTANT MENSUEL</th>
                   <th class="border-2 border-gray-500  text-center">MONTANT ANNUEL</th>
                 </tr>
               </thead>
@@ -3367,7 +3383,7 @@ elseif($cumul_four_year>0) {
               class="uppercase font-bold text-sm"
               style="color: var(--second-blue)"
             >
-            LES CHARGES du personnel
+            Remunération du personnel
 
           </h5>
             <hr class="bg-gray-300" style="height: 2px" />
@@ -3394,7 +3410,7 @@ elseif($cumul_four_year>0) {
                     DESIGNATION
                     </th>
                     <th class="border-2 border-gray-500 w-6/12 text-center">Effectif</th>
-                    <th class="border-2 border-gray-500 w-6/12 text-center">MONTANT MENSUEL HT</th>
+                    <th class="border-2 border-gray-500 w-6/12 text-center">SALAIRE</th>
                     <th class="border-2 border-gray-500  text-center">MONTANT ANNUEL</th>
                   </tr>
                 </thead>
@@ -3457,7 +3473,7 @@ elseif($cumul_four_year>0) {
                         text-green-700
                       "
                     >
-                    LES CHARGES SOCIALES (21,09%)
+                     CHARGES SOCIALES (21,09%)
 
                     </td>
                     
@@ -3478,7 +3494,7 @@ elseif($cumul_four_year>0) {
                         text-green-700
                       "
                     >
-                    ASSURANCE ACCIDENTS DE TRAVAIL (3% de la masse salariale)
+                    ASSURANCE ACCIDENT DE TRAVAIL (3% de la masse salariale)
 
                     </td>
                     <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
@@ -3498,7 +3514,7 @@ elseif($cumul_four_year>0) {
                         text-green-700
                       "
                     >
-                    TOTAL FRAIS DU PERSONNEL
+                    TOTAL 
 
 
                     </td>
@@ -3608,7 +3624,7 @@ elseif($cumul_four_year>0) {
                     </th>
                     <th class="border-2 border-gray-500 w-6/12 text-center">MONTANT HT</th>
                     <th class="border-2 border-gray-500 w-6/12 text-center">VALEUR LOCATIVE</th>
-                    <th class="border-2 border-gray-500  text-center">IMPOTS & TAXES</th>
+                    <th class="border-2 border-gray-500  text-center"> TAXES</th>
                   </tr>
                 </thead>
                 <tbody class="font-medium">
@@ -3687,7 +3703,7 @@ elseif($cumul_four_year>0) {
                         text-left
                       "
                     >
-                    TAXES
+                    IMPOTS & TAXES
                     </th>
                     <th class="border-2 border-gray-500 w-6/12 text-center">MONTANT</th>
                   </tr>
@@ -3899,7 +3915,7 @@ elseif($cumul_four_year>0) {
                   <p class="font-medium">{{$field->duration ?? " "}}</p>
                 </div>
                 <div class="flex justify-between bg-gray-100 p-2">
-                  <p>Taux d’intérêt ( % ):</p>
+                  <p>Taux d’intérêts ( % ):</p>
                   <p class="font-medium">{{$field->rate ?? " "}}</p>
                 </div>
                 <div class="flex justify-between bg-gray-100 p-2">
@@ -3951,7 +3967,7 @@ elseif($cumul_four_year>0) {
                       text-left
                     "
                   >
-                  Date
+                  Période
                   </th>
                   <th class="border-2 border-gray-500  text-center">Mensualité
                   </th>
@@ -4071,7 +4087,7 @@ elseif($cumul_four_year>0) {
                 class="uppercase font-bold text-sm"
                 style="color: var(--second-blue)"
               >
-              L’IMPÔT SUR LES SOCIÉTÉS
+              IMPÔT SUR LES SOCIÉTÉS
               </h5>
               <hr class="bg-gray-300" style="height: 2px" />
             </div>
@@ -4197,7 +4213,7 @@ elseif($cumul_four_year>0) {
               class="uppercase font-bold text-sm"
               style="color: var(--second-blue)"
             >
-            CPC PRÉVISIONNEL
+            compte PRÉVISIONNEL des produits et charges 
             </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
@@ -4479,7 +4495,7 @@ elseif($cumul_four_year>0) {
               class="uppercase font-bold text-sm"
               style="color: var(--second-blue)"
             >
-            LA RENTABILITÉ FINANCIÈRE
+            RENTABILITÉ FINANCIÈRE
 
             </h5>
             <hr class="bg-gray-300" style="height: 2px" />
@@ -4567,18 +4583,18 @@ elseif($cumul_four_year>0) {
               <tbody class="font-medium">
                 
                  <tr>
-                   <td class="border-2 border-gray-500  w-1/6 px-4  py-2  bg-green-200 ">LE TAUX DE RENTABILITÉ INTERNE (TRI)
+                   <td class="border-2 border-gray-500  w-1/6 px-4  py-2  bg-green-200 ">TAUX DE RENTABILITÉ INTERNE (TRI)
                    </td>
                    <td class="border-2 border-gray-500 w-1/6 py-4 pl-4 text-center ">{{$tri}}% </td>
                   
                </tr> 
                 <tr>
-                   <td class="border-2 border-gray-500 py-1 pl-4 bg-green-200"> LA VALEUR ACTUELLE NETTE (VAN)
+                   <td class="border-2 border-gray-500 py-1 pl-4 bg-green-200"> VALEUR ACTUELLE NETTE (VAN)
                   </td>
                    <td class="border-2 border-gray-500 text-center">{{ number_format($total_van, 0, ',', ' ') }} </td>
                 </tr> 
                 <tr>
-                  <td class="border-2 border-gray-500 py-1 pl-4 bg-green-200"> LE DÉLAI DE RÉCUPÉRATION (DRCI)
+                  <td class="border-2 border-gray-500 py-1 pl-4 bg-green-200"> DÉLAI DE RÉCUPÉRATION (DRCI)
                  </td>
                   <td class="border-2 border-gray-500 text-center">{{ $bp_roi_delay }} </td>
                
