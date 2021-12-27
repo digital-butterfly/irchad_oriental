@@ -48,7 +48,7 @@ if (isset($data  ->financial_data->startup_needs)) {
    $total3=0;
    $total4=0;
    $total5=0;
- if(isset($data  ->financial_data->overheads_scalable)){
+ if(isset($data ->financial_data->overheads_scalable)){
      foreach ($data  ->financial_data->overheads_scalable as $item){
           if ($item->label != NULL) {
              $total1=$total1+ $item->value;
@@ -107,7 +107,7 @@ if (isset($data ->financial_data->products_turnover_forecast)){
   }
 if (isset($data ->financial_data->services_turnover_forecast_c)){
     foreach ($data ->financial_data->services_turnover_forecast_c as $total){
-      $total_mensuel_s = $total_mensuel_s +( $total->count * $total->value) ;
+      $total_mensuel_s = $total_mensuel_s +( $total->rate * $total->value) ;
     }
 }
 
@@ -256,9 +256,12 @@ $imp_project=isset($data->company->implantation_project)?$data->company->implant
  } 
  if(isset($data->financial_data->startup_needs)){
   foreach ($data->financial_data->startup_needs as $item) {
-    if($item->label !='Frais preliminaires'){
+    if(isset($item->label)){
+      if($item->label !='Frais preliminaires'){
       $total_impot_taxe2+=($item->value/(1+($item->duration/100))*0.03)*$taxe;
     }}  
+    }
+    
  }  
  //dd($total_impot_taxe2);
  $total_autre_taxe=0;

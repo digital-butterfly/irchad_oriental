@@ -490,11 +490,11 @@ class ProjectApplication extends Model
                         'label' => 'Programme d\'investissement',
                         'config' => ['quadrupleRepeater' => true, 'attributes' => [['Rubrique d\'investissement',3], ['Montant ',2], ['Taux d\'amortis',2], ['TVA',1]],'Select'=>true,'options'=>self::INVEST]
                     ],
-                    [
-                        'name' => 'total_invest',
-                        'type' => 'text',
-                        'label' => 'Total du Programme d\'investissement'
-                    ],
+                    // [
+                    //     'name' => 'total_invest',
+                    //     'type' => 'text',
+                    //     'label' => 'Total du Programme d\'investissement'
+                    // ],
                     [
                         'name' => 'financial_plan',
                         'type' => 'repeater',
@@ -507,11 +507,11 @@ class ProjectApplication extends Model
                         'label' => 'Prêts',
                         'config' => ['quadrupleRepeater' => true, 'attributes' => [['Organisme de crédit',3], ['Montant',3], ['Taux d\'intérêts',3], ['Durée  du prêt en année',3]],'Select'=>false]
                     ],
-                      [
-                        'name' => 'total_plan',
-                        'type' => 'text',
-                        'label' => 'Total  Plan de financement '
-                    ],
+                    //   [
+                    //     'name' => 'total_plan',
+                    //     'type' => 'text',
+                    //     'label' => 'Total  Plan de financement '
+                    // ],
                     [
                         'name' => 'duration_différe',
                         'type' => 'number',
