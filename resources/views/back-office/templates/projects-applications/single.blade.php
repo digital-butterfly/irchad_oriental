@@ -2840,10 +2840,10 @@ console.log(elementT);
    // var value1 = $( this ).val()0.4;
    // var value2 = $( this ).val()0.6;
    
-    $('#total_invest').val(element);
-    $('##total_plan').val(elementT);
-    $('#total_plan').prop('disabled', true);
-    $("#total_invest").prop('disabled', true);
+    // $('#total_invest').val(element);
+    // $('##total_plan').val(elementT);
+    // $('#total_plan').prop('disabled', true);
+    // $("#total_invest").prop('disabled', true);
 
   })
 
