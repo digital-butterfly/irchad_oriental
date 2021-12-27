@@ -2773,8 +2773,8 @@ elseif($cumul_four_year>0) {
                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->value,0, ',', ' ')}}</td>
                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*$item->rate, 0, ',', ' ') }} </td>
                      @if(isset($item->organisme))
-                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->organisme != 0 ?$item->value*$item->rate*$item->value*$item->organisme:$item->value*$item->rate*$saisonalite,0, ',', ' ')}}</td>
-                     <?php $total=0; $total+= $item->value*$item->rate*$item->value*$item->organisme; ?>
+                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*$item->rate*$item->organisme,0, ',', ' ')}}</td>
+                     <?php $total=0; $total+= $item->value*$item->rate*$item->organisme; ?>
                     
                     @else
                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*$item->rate*$saisonalite,0, ',', ' ')}}</td>
