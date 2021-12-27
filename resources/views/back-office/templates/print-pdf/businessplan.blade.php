@@ -74,7 +74,7 @@ $saisonalite=isset($data ->financial_data->saisonnalite)? $data ->financial_data
 if (isset($data ->financial_data->products_turnover_forecast)){
     foreach ($data ->financial_data->products_turnover_forecast as $total){
       if(isset($total->organisme)){
-        $bp_turnover_products_total = $bp_turnover_products_total +(( $total->rate * $total->value*$saisonalite)*(1-($total->duration/100))) ;
+        $bp_turnover_products_total = $bp_turnover_products_total +(( $total->rate * $total->value*$total->organisme)*(1-($total->duration/100))) ;
         $total_p += $total->organisme!=0 ? ( $total->rate * $total->value*$total->organisme):( $total->rate * $total->value*$saisonalite) ;
         $bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration;  
     }else{
@@ -2892,13 +2892,18 @@ elseif($cumul_four_year>0) {
                 @if(isset($data->financial_data->products_turnover_forecast))
                 @foreach ($data->financial_data->products_turnover_forecast as $item)
                   <tr>
-                    <td class="border-2 border-gray-500 "> Achats {{$item->label}} {{ number_format((1-$item->duration/100)*100, 0, ',', ' ') }} % du Chiffres d’affaires</td>
+                    <td class="border-2 border-gray-500 "> Achat <span class="bg-red-200">{{$item->label}}</span> {{ number_format((1-$item->duration/100)*100, 0, ',', ' ') }} % du Chiffres d’affaires</td>
                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->rate, 0, ',', ' ') }} </td>
                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->value,0, ',', ' ')}}</td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format(($item->rate * $item->value*$saisonalite)*(1-($item->duration/100)), 0, ',', ' ') }} </td>
-
-                </tr> 
-                <?php   $total_achat= $total_achat+(($item->rate * $item->value*$saisonalite)*(1-($item->duration/100))); ?>
+                 @if(isset($item->organisme))
+                      <td class="border-2 border-gray-500 text-center">{{ number_format(($item->rate * $item->value*$item->organisme)*(1-($item->duration/100)), 0, ',', ' ') }} </td>
+                  </tr> 
+                  <?php   $total_achat+=(($item->rate * $item->value*$item->organisme)*(1-($item->duration/100))); ?>
+                  @else
+                  <td class="border-2 border-gray-500 text-center">{{ number_format(($item->rate * $item->value*$saisonalite)*(1-($item->duration/100)), 0, ',', ' ') }} </td>
+                    </tr> 
+                  <?php   $total_achat+=(($item->rate * $item->value*$saisonalite)*(1-($item->duration/100))); ?>
+                @endif
                 @endforeach
                 @endif
                
@@ -3032,6 +3037,7 @@ elseif($cumul_four_year>0) {
                     <td class="border-2 border-gray-500 "> Achats {{$item->label}} {{ number_format((1-$item->duration/100)*100, 0, ',', ' ') }} % du Chiffres d’affaires</td>
                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->rate,0, ',', ' ')}}</td>
+
                     <td class="border-2 border-gray-500 text-center">{{ number_format(($item->rate * $item->value*$saisonalite)*(1-($item->duration/100)), 0, ',', ' ') }} </td>
 
                 </tr> 
@@ -4547,13 +4553,13 @@ elseif($cumul_four_year>0) {
           $total_van=-$bp_investment_program_total+($bp_cash_flow_first_year*(pow(1+0.1,-1)))+($bp_cash_flow_second_year*pow(1+0.1,-2))+($bp_cash_flow_third_year*pow(1+0.1,-3))+($bp_cash_flow_four_year*pow(1+0.1,-4))+($bp_cash_flow_five_year*pow(1+0.1,-5)) ;
           for ($i=1; $i<1000 ; $i++) { 
              $total_cash+=$bp_cash_flow_first_year*(pow(1.1,-$i));
-             $total_van_verify = -$bp_investment_program_total+$total_cash;
+             $total_van_verify+= (-$bp_investment_program_total)+$total_cash;
             if($total_van_verify >0){
               $tri=pow(1.1,-$i);
               break;
             }
           }
-         // dd($total_van_verify);
+        // dd($total_van_verify);
           ?>
 
           <div class="inline-block rounded-lg border w-full ">

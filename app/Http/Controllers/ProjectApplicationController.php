@@ -72,6 +72,9 @@ class ProjectApplicationController extends Controller
             'human_ressources.*.count' => ['nullable', 'integer'],
             'human_ressources.*.value' => ['nullable', 'integer'],
             'taxes.*.value' => ['nullable', 'integer'],
+             'products_turnover_forecast.*.organisme' => ['nullable', 'integer', 'max:12'],
+            'saisonnalite' => ['nullable', 'integer', 'max:12'],
+
         ], [
             'evolution_rate.integer' => 'Taux d\'évolution annuelle   doit être un chiffre',
             'startup_needs.*.value.integer' => 'Programme d\'investissement : le champ Montant doit être un chiffre',
@@ -86,6 +89,7 @@ class ProjectApplicationController extends Controller
 
             'products_turnover_forecast.*.rate.integer' => 'CA prévisionnel - Produits : le champ P.U doit être un chiffre',
              'products_turnover_forecast.*.value.integer' => 'CA prévisionnel - Produits : le champ Quantité vendus doit être un chiffre',
+             'products_turnover_forecast.*.organisme.integer' => 'CA prévisionnel - Produits : le champ Saisonnalité  doit être un chiffre',
 
             'services_turnover_forecast_c.*.value.integer' => 'CA prévisionnel - Services : le champ P.U doit être un chiffre',
             'services_turnover_forecast_c.*.count.integer' => 'CA prévisionnel - Services : le champ Quantité vendus doit être un chiffre',

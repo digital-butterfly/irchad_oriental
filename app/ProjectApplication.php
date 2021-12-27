@@ -19,6 +19,7 @@ class ProjectApplication extends Model
     const LEGALFORM=['S.A.R.L','S.A.R.L A.U','S.N.C','Coopérative','A.E'];
     const AIDEETAT=['INDH','DPA','Collectivités territoriales', 'Autre'];
     const Etat=['Demande','Non demande','Delivre', 'Non delivre'];
+    const Rubr=['Apport Personnel','Subvention INDH','Apport En Numéraire ', 'Apport En Nature'];
 
     /**
      * The attributes that are mass assignable.
@@ -493,7 +494,7 @@ class ProjectApplication extends Model
                         'name' => 'financial_plan',
                         'type' => 'repeater',
                         'label' => 'Plan de financement hors prêts',
-                        'config' => ['doubleRepeater' => true, 'attributes' => [['Rubrique de financement',4], ['Montant',2]],'Select'=>false]
+                        'config' => ['doubleRepeater' => true, 'attributes' => [['Rubrique de financement',4], ['Montant',2]],'Select'=>true,'options'=>self::Rubr]
                     ],
                     [
                         'name' => 'financial_plan_loans',
@@ -504,13 +505,13 @@ class ProjectApplication extends Model
                     [
                         'name' => 'duration_différe',
                         'type' => 'number',
-                        'label' => 'Durée  du différée'
+                        'label' => 'Durée  du différée (en mois)'
                     ],
                     [
                         'name' => 'services_turnover_forecast_c',
                         'type' => 'repeater',
                         'label' => 'CA prévisionnel - Services',
-                        'config' => ['tripleRepeater' => true, 'attributes' => [['Service',3], ['Quantité  vendus',3], ['P.U',3]],'Select'=>false]
+                        'config' => ['tripleRepeater' => true, 'attributes' => [['Service',3], ['Quantité/Nombre vendus (en mois)',4], ['P.U',3]],'Select'=>false]
 
                     ],
                     [
@@ -522,7 +523,7 @@ class ProjectApplication extends Model
                         'name' => 'products_turnover_forecast',
                         'type' => 'repeater',
                         'label' => 'CA prévisionnel - Produits',
-                        'config' => ['quintupleRepeater' => true, 'attributes' => [['Produit',3], ['Quantité/Nombre vendus (en mois)',3], ['P.U',3], ['Taux',1],['Saisonnalité(en mois)',3]],'Select'=>false]
+                        'config' => ['quintupleRepeater' => true, 'attributes' => [['Produit',3], ['Quantité/Nombre vendus (en mois)',4], ['P.U',3], ['Taux',1],['Saisonnalité(en mois)',3]],'Select'=>false]
                     ],
 //                    [
 //                        'name' => 'profit_margin_rate',

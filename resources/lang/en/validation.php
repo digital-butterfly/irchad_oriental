@@ -77,7 +77,7 @@ return [
         'array' => 'The :attribute must not have more than :value items.',
     ],
     'max' => [
-        'numeric' => 'The :attribute may not be greater than :max.',
+        'numeric' => ' :attribute ne peut pas être supérieur à :max.',
         'file' => 'The :attribute may not be greater than :max kilobytes.',
         'string' => ' :attribute ne peut pas être supérieur à :max characters.',
         'array' => 'The :attribute may not have more than :max items.',
@@ -157,7 +157,7 @@ return [
         'category_id'=> "Secteur d'activité",
         'township_id'=> 'Commune du projet',
         'title'=> 'Titre du projet',
-
+        'saisonnalite'=> 'Saisonnalité',
 
         'services_turnover_forecast.*.count'=>"Quantité vendue (CA prévisionnel - Services)",
         'services_turnover_forecast.*.value'=>"P.U (CA prévisionnel - Services)",
@@ -165,6 +165,7 @@ return [
 
         'products_turnover_forecast.*.count'=>"Quantité vendue (CA prévisionnel - Produits)",
         'products_turnover_forecast.*.value'=>"P.U (CA prévisionnel - Produits)",
+        'products_turnover_forecast.*.organisme'=>"Saisonnalité (CA prévisionnel - Produits)",
 
 
         'startup_needs.*.value'=>"Montant (Programme d'investissement)",
