@@ -1,25 +1,9 @@
 
 
-{{-- <div class="{{ (isset($field['config']) && $field['config']['hotizontalRows']) ? 'col-lg-6' : '' }}">
-
-    <span class="form-text text-muted"></span>
-</div> --}}
 @php
     $ref = $field['name'];
     isset($field['parent_name']) ? $parent_ref = $field['parent_name'] : $parent_ref = NULL;
-
 @endphp
-@php
-@endphp
-@php
-@endphp
-@php
-    // die();
-@endphp
-
-
-
-
 
 <div class="kt_repeater_{{ $field['name'] }}">
 
@@ -58,7 +42,7 @@
                                     @if (!is_array($data->$parent_ref->$ref))
                                         @foreach ($data->$parent_ref->$ref as $item)
                                             {
-                                                '{{ $field['name'] }}' :  '{{ $item->$ref ?? '' }}',
+                                                '{{ $field['name'] }}' :  '{{ $item->$ref ?? old($field['name']) }}',
                                             },
                                         @endforeach
                                     @else
@@ -136,8 +120,8 @@
                                     @foreach ($data->$ref as $item)
                                         {
                                             'label' :  '{{ $item->label ?? ' '}}',
-                                            'count' :  '{{ $item->count ?? ' '}}',
-                                            'value' :  '{{ $item->value ?? ' '}}',
+                                            'count' :  '{{ $item->count ?? ''}}',
+                                            'value' :  '{{ $item->value ?? ''}}',
                                         },
                                     @endforeach
                                 ]);

@@ -14,7 +14,7 @@ class ProjectApplication extends Model
 
     protected $guard = 'user';
 
-    const TAXES=[' Taxe professionnelle','Taxe  speciale sur véhicules','Taxe d’essieu pour les camions','Taxe de promotion touristique'];
+    const TAXES=[' Taxe professionnelle','Taxe  speciale sur véhicules','Taxe de promotion touristique'];
     const INVEST=[ 'Frais preliminaires', ' Immobilisations Incorporelle ','Terrain','Construction et / ou Aménagement', 'Matériel et Outillage ', 'Mobilier et Matériel de bureau', 'Matériel informatique', 'Matériel de transport', 'Matériel de manutention ',  'Fonds de roulement de démarrage','Autre à préciser'];
     const LEGALFORM=['S.A.R.L','S.A.R.L A.U','S.N.C','Coopérative','A.E'];
     const AIDEETAT=['INDH','DPA','Collectivités territoriales', 'Autre'];
@@ -428,11 +428,7 @@ class ProjectApplication extends Model
                         'type' => 'repeater',
                         'label' => 'Forces'
                     ],
-                    [
-                        'name' => 'distribution_strategy_menace_p',
-                        'type' => 'repeater',
-                        'label' => 'Menaces'
-                    ], 
+                   
                     [
                         'name' => 'distribution_strategy_faiblesse_p',
                         'type' => 'repeater',
@@ -443,7 +439,11 @@ class ProjectApplication extends Model
                         'type' => 'repeater',
                         'label' => 'Opportunités'
                     ], 
-                    
+                     [
+                        'name' => 'distribution_strategy_menace_p',
+                        'type' => 'repeater',
+                        'label' => 'Menaces'
+                    ], 
                    
                    
                 ],
@@ -516,6 +516,16 @@ class ProjectApplication extends Model
                         'name' => 'duration_différe',
                         'type' => 'number',
                         'label' => 'Durée  du différée (en mois)'
+                    ],  
+                      [
+                        'name' => 'saisonnalite',
+                        'type' => 'number',
+                        'label' => 'Durée de travail'
+                    ],  
+                     [
+                        'name' => 'evolution_rate',
+                        'type' => 'text',
+                        'label' => 'Taux d\'évolution annuelle'
                     ],
                     [
                         'name' => 'services_turnover_forecast_c',
@@ -524,27 +534,19 @@ class ProjectApplication extends Model
                         'config' => ['quadrupleRepeater' => true, 'attributes' => [['Service',3], ['Quantité/Nombre(par mois)',4], ['Prix',3],['Saisonnalité(en mois)',3]],'Select'=>false]
 
                     ],
-                    [
-                        'name' => 'saisonnalite',
-                        'type' => 'number',
-                        'label' => 'Saisonnalité des ventes par mois'
-                    ],
+                
                     [
                         'name' => 'products_turnover_forecast',
                         'type' => 'repeater',
                         'label' => 'CA prévisionnel - Produits',
-                        'config' => ['quintupleRepeater' => true, 'attributes' => [['Produit',3], ['Quantité/Nombre(par mois)',4], ['Prix unitaire',2], ['Taux (achats/ CA)',3],['Saisonnalité(en mois)',3]],'Select'=>false]
+                        'config' => ['quintupleRepeater' => true, 'attributes' => [['Produit',3], ['Quantité/Nombre(par mois)',4], ['Prix unitaire',2], ['Taux de marge',3],['Saisonnalité(en mois)',3]],'Select'=>false]
                     ],
 //                    [
 //                        'name' => 'profit_margin_rate',
 //                        'type' => 'text',
 //                        'label' => 'Taux de marge'
 //                    ],
-                    [
-                        'name' => 'evolution_rate',
-                        'type' => 'text',
-                        'label' => 'Taux d\'évolution annuelle'
-                    ],
+                 
                     [
                         'name' => 'overheads_fixed',
                         'type' => 'repeater',

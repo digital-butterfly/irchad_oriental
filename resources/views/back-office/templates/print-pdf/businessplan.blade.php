@@ -75,7 +75,7 @@ if (isset($data ->financial_data->products_turnover_forecast)){
     foreach ($data ->financial_data->products_turnover_forecast as $total){
       if(isset($total->organisme)){
         $bp_turnover_products_total = $bp_turnover_products_total +(( $total->rate * $total->value*$total->organisme)*(1-($total->duration/100))) ;
-        $total_p += $total->organisme!=0 ? ( $total->rate * $total->value*$total->organisme):( $total->rate * $total->value*$saisonalite) ;
+        $total_p += $total->rate * $total->value*$total->organisme;
         $bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration;  
     }else{
         $bp_turnover_products_total = $bp_turnover_products_total +(( $total->rate * $total->value*$saisonalite)*(1-($total->duration/100))) ;
@@ -102,12 +102,17 @@ if (isset($data ->financial_data->products_turnover_forecast)){
 }
 if (isset($data ->financial_data->products_turnover_forecast)){
     foreach ($data ->financial_data->products_turnover_forecast as $total){
+        if(isset( $total->rate)){
         $total_mensuel_p = $total_mensuel_p+( $total->rate * $total->value) ;
+        }
     }
   }
 if (isset($data ->financial_data->services_turnover_forecast_c)){
     foreach ($data ->financial_data->services_turnover_forecast_c as $total){
+      if(isset( $total->rate)){
       $total_mensuel_s = $total_mensuel_s +( $total->rate * $total->value) ;
+      }
+      
     }
 }
 
@@ -522,7 +527,7 @@ $bp_corporate_tax_four_year=0;
 $bp_corporate_tax_five_year=0;
 $is=0;
 $rest=0;
-if (($data ->company->applied_tax ?? '') == 'Impôt sur les sociétés') {
+if (($data ->company->applied_tax ?? '') == 'IS') {
    // dd($bp_income_before_taxes_first_year);
     switch (true) {
         case ($bp_income_before_taxes_first_year > 0 && $bp_income_before_taxes_first_year <= 300000):
@@ -650,7 +655,7 @@ if (($data ->company->applied_tax ?? '') == 'Impôt sur les sociétés') {
             break;
     }
 }
-elseif (($data ->company->applied_tax ?? '') == 'Impôt sur le revenu') {
+elseif (($data ->company->applied_tax ?? '') == 'IR') {
   //  dd($bp_income_before_taxes_second_year);
     switch (true) {
         case ($bp_income_before_taxes_first_year > 0 && $bp_income_before_taxes_first_year <= 30000):

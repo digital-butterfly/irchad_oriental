@@ -513,6 +513,84 @@
 @endsection
 
   <script>
+ window.addEventListener('load',function(){
+    //alert("hani")
+    if(document.querySelector('#legal_formSelect').value=='S.A.R.L' || document.querySelector('#legal_formSelect').value=='S.A.R.L A.U'){
+        console.log("hello me");
+        var newOptions = {"IS": "IS"};
+        $("#applied_taxSelect").empty();
+            $.each(newOptions, function(key,value) {
+            $("#applied_taxSelect").append($("<option></option>")
+            .attr("value", value).text(key));
+        });
+    }else if(document.querySelector('#legal_formSelect').value=='S.N.C'){
+        var newOptions = {"IS": "IS","IR(personne physique)":"IR(personne physique)"};
+        $("#applied_taxSelect").empty();
+         $.each(newOptions, function(key,value) {
+         $("#applied_taxSelect").append($("<option></option>")
+         .attr("value", value).text(key));
+        });
+    }else if(document.querySelector('#legal_formSelect').value=='Coopérative'){
+        var newOptions = {"IS": "IS","IR(personne physique)":"IR(personne physique)","Exonéré":"Exonéré"};
+        $("#applied_taxSelect").empty();
+         $.each(newOptions, function(key,value) {
+         $("#applied_taxSelect").append($("<option></option>")
+         .attr("value", value).text(key)); 
+        });
+    }else{
+        var newOptions = {"IR(entrepreneur)": "IR(entrepreneur)"};
+        $("#applied_taxSelect").empty();
+         $.each(newOptions, function(key,value) {
+         $("#applied_taxSelect").append($("<option></option>")
+         .attr("value", value).text(key)); 
+        });
+    }
+   });
+   $('#legal_formSelect').on('change',function () {
+
+if(this.value=='S.A.R.L' || this.value=='S.A.R.L A.U'){console.log("hello me");
+var newOptions = {"IS": "IS"};
+$("#applied_taxSelect").empty();
+     $.each(newOptions, function(key,value) {
+     $("#applied_taxSelect").append($("<option></option>")
+     .attr("value", value).text(key));
+});
+}else if(this.value=='S.N.C'){
+    var newOptions = {"IS": "IS","IR(personne physique)":"IR(personne physique)"};
+    $("#applied_taxSelect").empty();
+     $.each(newOptions, function(key,value) {
+     $("#applied_taxSelect").append($("<option></option>")
+     .attr("value", value).text(key));
+});
+}else if(this.value=='Coopérative'){
+    var newOptions = {"IS": "IS","IR(personne physique)":"IR(personne physique)","Exonéré":"Exonéré"};
+    $("#applied_taxSelect").empty();
+     $.each(newOptions, function(key,value) {
+     $("#applied_taxSelect").append($("<option></option>")
+     .attr("value", value).text(key)); 
+    });
+}else{
+    var newOptions = {"IR(entrepreneur)": "IR(entrepreneur)"};
+    $("#applied_taxSelect").empty();
+     $.each(newOptions, function(key,value) {
+     $("#applied_taxSelect").append($("<option></option>")
+     .attr("value", value).text(key)); 
+    });
+}
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
 
     $('#total_plan').change(function() {
    // var value1 = $( this ).val()0.4;
