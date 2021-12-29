@@ -199,11 +199,11 @@ if(isset($data ->financial_data->financial_plan_loans))
         $capital_rem= round($mensualite-$interets,2);
         $capital_rest= round($capital_rest,2)-($mensualite-$interets) ;
       }else{
-        $i==0 ? $capital_rest= $capital_rest_zero : $capital_rest=$capital_rest;
+       $i==0 ? $capital_rest= $capital_rest_zero+round(($capital_rest_zero*$Taux_interet*1/12),2) : $capital_rest=0;
         $mensualite=0;
         $interets=0;
         $capital_rem= 0;
-        $capital_rest= round(($capital_rest*(1+$Taux_interet/12)),2);  
+        $capital_rest=$capital_rest_zero+round(($capital_rest_zero*(($Taux_interet)*($i+1)/12)),2);  
       }
       array_push($monthsCalcul,(object) ["mensualite"=>$mensualite,"interets"=>$interets,"capital_rem"=>$capital_rem,"capital_rest"=>$capital_rest]);
     }

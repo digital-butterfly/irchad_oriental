@@ -230,6 +230,8 @@ class ProjectApplicationController extends Controller
                 'financial_plan' => $request['financial_plan'],
                 'financial_plan_loans' => $request['financial_plan_loans'],
                 'startup_needs' => $request['startup_needs'],
+                'total_invest' => $request['total_invest'],
+                'total_plan' => $request['total_plan'],
                 'overheads_fixed' => $request['overheads_fixed'],
                 'overheads_scalable' => $request['overheads_scalable'],
                 'human_ressources' => $request['human_ressources'],
@@ -286,9 +288,9 @@ class ProjectApplicationController extends Controller
      */
     public function show($id)
     {
-       //dd("hhhh");
+       $messageError='';
         $application = ProjectApplication::find($id);
-
+        //dd($application );
         $member = Member::find($application->member_id);
 
         $category = ProjectCategory::find($application->category_id);
@@ -333,10 +335,37 @@ class ProjectApplicationController extends Controller
             }
         }
         $data = (object)$data;
-       //dd( $data);
+      // dd( $data);
         $fields = ProjectApplication::formFields($id);
-//        dd($data->toArray());
-        return view('back-office/templates/projects-applications/single', compact('histo','application', 'data', 'fields'));
+        //     $total=0;
+        //     $total1=0;
+        //     $total2=0;
+        //     $some_total=0;
+        //     if(isset($data->financial_data->startup_needs)){
+        //         foreach($application->financial_data->startup_needs as $data){
+        //     $total+=$data->value;
+        //         }
+                
+        //     //sdd($total);
+        //     }
+        //     if(isset($application->financial_data->financial_plan)){
+        //         foreach($application->financial_data->financial_plan as $data){
+        //     $total1+=$data->value;
+        //     //dd($data->value);
+        //     }  
+        //     }
+        //     if(isset($application->financial_data->financial_plan_loans)){
+        //     foreach($application->financial_data->financial_plan_loans as $data){
+        //     $total2+=$data->value;
+        //         }  
+        //     }
+        //     $some_total=$total2+$total1;
+        //     if($some_total!=$total){
+        //         $messageError=' le programme d\'investissement  n\'est pas egual a le plan financement!';
+        //     } 
+
+//     dd($data->toArray());
+        return view('back-office/templates/projects-applications/single', compact('histo','application', 'data', 'fields','messageError'));
     }
 
     /**
@@ -544,6 +573,8 @@ class ProjectApplicationController extends Controller
                 'financial_plan' => $request['financial_plan'],
                 'financial_plan_loans' => $request['financial_plan_loans'],
                 'startup_needs' => $request['startup_needs'],
+                'total_invest' => $request['total_invest'],
+                'total_plan' => $request['total_plan'],
                 'overheads_fixed' => $request['overheads_fixed'],
                 'overheads_scalable' => $request['overheads_scalable'],
                 'human_ressources' => $request['human_ressources'],

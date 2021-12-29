@@ -1,8 +1,6 @@
 
 
 @extends('back-office.layouts.layout-default')
-
-
 @section('specific_css')
     <link href="css/back-office/pages/wizard/wizard-4.css" rel="stylesheet" type="text/css" />
     <link href="css/back-office/pages/invoices/invoice-5.css" rel="stylesheet" type="text/css" />
@@ -279,7 +277,12 @@
                                                         </ul>
                                                     </div><br />
                                                 @endif
-
+                                             
+                                              <div class="alert alert-danger" id="alert_id">
+                                                        <ul>
+                                                         <li> le programme d'investissement  n'est pas egual a le plan financement!</li>
+                                                        </ul>
+                                                    </div><br/>
 
                                                 <div class="kt-portlet__body">
                                                     {{--                                                    <div class="kt-portlet kt-callout kt-callout--dark">--}}
@@ -2783,24 +2786,38 @@
 $total=0;
 $total1=0;
 $total2=0;
-if(isset($data->financial_data->startup_needs)){
-    foreach($data->financial_data->startup_needs as $data){
+$some_total=0;
+$messageError='';
+if(isset($application->financial_data->startup_needs)){
+    foreach($application->financial_data->startup_needs as $data){
    $total+=$data->value;
     }
     
    //sdd($total);
 }
-if(isset($data->financial_data->financial_plan)){
-    foreach($data->financial_data->financial_plan as $data){
+if(isset($application->financial_data->financial_plan)){
+    foreach($application->financial_data->financial_plan as $data){
    $total1+=$data->value;
-    }  
+   //dd($data->value);
+   }  
 }
-if(isset($data->financial_data->financial_plan_loans)){
-    foreach($data->financial_data->financial_plan_loans as $data){
+if(isset($application->financial_data->financial_plan_loans)){
+   foreach($application->financial_data->financial_plan_loans as $data){
    $total2+=$data->value;
     }  
 }
+ $some_total=$total2+$total1;
+if($some_total>$total){
+    $messageError=' le programme d\'investissement  n\'est pas egual a le plan financement!';
+} 
+//dd($some_total);
 @endphp
+@section('page_content')
+                                                        <div class="alert alert-danger">
+                                                        <p> {{$messageError}}</p>
+                                                    </div><br />
+                                               
+@endsection
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js"></script>
 <script
   src="https://code.jquery.com/jquery-3.6.0.js"
@@ -2828,9 +2845,10 @@ window.addEventListener('load',function(){
 })
 
 window.addEventListener('load',function(){
+     
 var element= '<?php echo $total ?>';
-var elementT= '<?php echo $total1+$total2; ?>';
-console.log(elementT);
+var test= '<?php echo $some_total ?>';
+console.log(test);
 // var total=0;
  //element.forEach(element=> {
   //   total+=element.value;
@@ -2840,10 +2858,17 @@ console.log(elementT);
    // var value1 = $( this ).val()0.4;
    // var value2 = $( this ).val()0.6;
    
-    // $('#total_invest').val(element);
-    // $('##total_plan').val(elementT);
-    // $('#total_plan').prop('disabled', true);
-    // $("#total_invest").prop('disabled', true);
+   if(element!=test){
+     $('#alert_id').show();  
+   }else{
+        $('#alert_id').hide();  
+        console.log(test);
+   }
+
+      $('#total_invest').val(element);
+      $('#total_plan').val(test);
+      $('#total_plan').prop('disabled', true);
+      $("#total_invest").prop('disabled', true);
 
   })
 

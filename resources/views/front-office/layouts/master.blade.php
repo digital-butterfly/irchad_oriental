@@ -67,12 +67,100 @@
             z-index: 9;
             top: 90px;
         }
+ .modal-content {
+    background-color: #795af1;
+    margin: auto;
+    padding: 0 20px 20px 20px;
+    max-width: 550px;
+    border: 1px solid #888;
+    width: 80%;
+    z-index: 9999;
+}
+
+
+
+.modal {
+      position: fixed;
+    z-index: 9999;
+    padding-top: 120px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+   
+}
+
+.img{
+    position:relative;
+   width:100%
+   
+
+   
+
+}
     </style>
 
 </head>
 
 <body>
-{{--{{app()->getLocale()}}--}}
+   <div id="myModal" class="modal">
+
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span class="close">&times;</span>
+       <a href="#"><img src="images/front-office/popup1.png" class="img"></a>
+            <div class="card text-center flex flex-col " style="background:white; margin:3px; padding:4px;  border-radius : 5px;">
+              <div class="flex news-body ">
+               
+               
+               
+               
+                <a style=" margin:4px; padding:10px;"
+                href="{{ route('getfile','doc1.docx') }}" download   
+                >
+                 <b class="font-19-700 text-left " style="padding:10px;" >إستمارة الترشح خاصة بالتعاونيات</b>
+                  <img src="images/front-office/telechargement.svg" alt="" class="ml3" />
+                </a>
+                 
+                 
+              </div>
+            </div>
+       <div class="card text-center flex flex-col "style="background:white; margin:3px; padding:4px;  border-radius : 5px;">
+              <div class="flex news-body ">
+                <a style=" margin:4px;"
+                href="{{ route('getfile','doc2.docx') }}" download
+                  class="primary-title font-13-500 flex flex-row align-center"
+                >
+                 <b class="font-19-700 text-left"  style="padding:10px;">إستمارة الترشح خاصة بالشركات</b>
+                  <img src="images/front-office/telechargement.svg" alt="" class="ml3" />
+                </a>
+                 
+                 
+              </div>
+            </div>
+            <div class="card text-center flex flex-col " style="background:white; margin:3px; padding:4px;  border-radius : 5px;">
+              <div class="flex news-body ">
+               
+               
+               
+               
+                <a style=" margin:4px;"
+                href="{{ route('getfile','doc3.docx') }}" download
+                  class="primary-title font-13-500 flex flex-row align-center"
+                >
+                 <b class="font-19-700 text-left"  style="padding:10px;">استمارة الترشخ خاصة بالمقاول الذاتي والشباب</b>
+                  <img src="images/front-office/telechargement.svg" alt="" class="ml3" />
+                </a>
+                 
+                 
+              </div>
+            </div>
+      </div>
+    
+    </div>
+ 
 
     @include('front-office.partials.header')
 <div class="container">
@@ -118,7 +206,27 @@
     <script src="js/front-office/app.js"></script>
 
     @yield('custom-js')
+    <script>
+      var modal = document.getElementById("myModal");
+      // Get the button that opens the modal
 
+      // Get the <span> element that closes the modal
+      var span = document.getElementsByClassName("close")[0];
+      // When the user clicks the button, open the modal 
+   
+        modal.style.display = "flex";
+
+      // When the user clicks on <span> (x), close the modal
+      span.addEventListener("click", function () {
+        modal.style.display = "none";
+      });
+
+      window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      }
+ </script>
 </body>
 
 </html>
