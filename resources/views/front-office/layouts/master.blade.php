@@ -110,13 +110,9 @@
       <!-- Modal content -->
       <div class="modal-content">
         <span class="close">&times;</span>
-       <a href="#"><img src="images/front-office/popup1.png" class="img"></a>
+       <a href="{{ route('getfile','Annonce_concours_pour_sélectionner_les_idées_de_projets_générateurs_de _revenus.pdf') }}"><img src="images/front-office/popup2.png" class="img"></a>
             <div class="card text-center flex flex-col " style="background:white; margin:3px; padding:4px;  border-radius : 5px;">
-              <div class="flex news-body ">
-               
-               
-               
-               
+              <div class="flex news-body">
                 <a style=" margin:4px; padding:10px;"
                 href="{{ route('getfile','doc1.docx') }}" download   
                 >
