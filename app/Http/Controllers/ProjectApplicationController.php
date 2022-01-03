@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 use Carbon\Carbon;
 use App\exportCondidat;
+use App\Http\Controllers\FileController;
 
 
 
@@ -195,12 +196,16 @@ class ProjectApplicationController extends Controller
         {
             return redirect()->back()->withErrors($validation)->withInput();
         }
+       $t=new FileController();
+       $t-> fileUpload( $request['list_mat_file']);
+      // dd($t);
         $application = ProjectApplication::create([
             'member_id' => $request['member_id'],
             'category_id' => $request['category_id'],
             'township_id' => $request['township_id'],
             'sheet_id' => $request['sheet_id'],
             'title' => $request['title'],
+             'list_mat_file' => $request['list_mat_file'],
             'description' => $request['description'],
             'market_type' => $request['market_type'],
             'credit_banc' => $request['credit_banc'],
@@ -224,7 +229,8 @@ class ProjectApplicationController extends Controller
                 'distribution_strategy_Opportunité_p' => $request['distribution_strategy_Opportunité_p'],
                 'autorisations_nécessaire_c' => $request['autorisations_nécessaire_c'],
                 'local' => $request['local'],
-                'list_mat' => $request['list_mat']
+                'list_mat' => $request['list_mat'],
+
             ])),
             'financial_data' => json_decode(json_encode([
                 'financial_plan' => $request['financial_plan'],
@@ -537,13 +543,24 @@ class ProjectApplicationController extends Controller
 
             ]);
         }
-//dd($request->toArray());
+//dd($request->toArray());$t=new FileController();
+ $filename ='';
+        if($request->file('file')) {
+        
+         $img_ext = $request->file('file')->getClientOriginalExtension();
+          $filename = 'annex' . time() . '.' . $img_ext;
+          $path = $request->file('file')->move(public_path('download'), $filename);//image save public folder
+       //dd( $filename);
+  }
+       ///dd($t);
+
         $application->update([
             'member_id' => $request['member_id'],
             'category_id' => $request['category_id'],
             'township_id' => $request['township_id'],
             'sheet_id' => $request['sheet_id'],
             'title' => $request['title'],
+            'list_mat_file' => $filename ,
             'description' => $request['description'],
             'market_type' => $request['market_type'],
             'credit_banc' => $request['credit_banc'],
@@ -567,7 +584,9 @@ class ProjectApplicationController extends Controller
                 'distribution_strategy_Opportunité_p' => $request['distribution_strategy_Opportunité_p'],
                 'autorisations_nécessaire_c' => $request['autorisations_nécessaire_c'],
                 'local' => $request['local'],
-                'list_mat' => $request['list_mat']
+                'list_mat' => $request['list_mat'],
+               
+               
             ])),
             'financial_data' => json_decode(json_encode([
                 'financial_plan' => $request['financial_plan'],

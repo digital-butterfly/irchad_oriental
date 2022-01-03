@@ -1008,13 +1008,19 @@ elseif($cumul_four_year>0) {
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
             rel="stylesheet">
-        <link rel="stylesheet" href="/main.css">
-        <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-        <link rel="stylesheet"
+      <link rel="stylesheet" href="/main.css">
+      <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+      <link rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-      <link href="css/back-office/pages/wizard/wizard-4.css" rel="stylesheet" type="text/css" />
-     <link href="css/back-office/pages/invoices/invoice-5.css" rel="stylesheet" type="text/css" />
+       <link href="css/back-office/pages/wizard/wizard-4.css" rel="stylesheet" type="text/css" />
+       <link href="css/back-office/pages/invoices/invoice-5.css" rel="stylesheet" type="text/css" />
       <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" type="text/css" />
+      <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.9.0/libs/jszip.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.9.0/dist/pptxgen.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.9.0/dist/pptxgen.bundle.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.js"></script>
+
      
     </head>
 </head>
@@ -1112,11 +1118,12 @@ elseif($cumul_four_year>0) {
         bg-green-500
         hover:bg-green-700
       "
-      onclick="window.print();"
-    >
+       onclick="window.print()"
+  type="button"
+      >
       <span type="button" class="btn btn-brand btn-bold p-1" ><i class="fas fa-download"></i></span>
     </button>
-    <div id="0" class="page printsection print-add-break print-full-width">
+    <div  class="page printsection print-add-break print-full-width">
       <img
         class="absolute top-0 left-0 img_full"
         src="{{asset('images/back-office/svg/exen-with-image.svg')}}"
@@ -1179,6 +1186,7 @@ elseif($cumul_four_year>0) {
         </p>
       </div>
     </div>
+   
     <div id="1" class="page printsection print-add-break print-full-width">
       <div class="flex justify-between absolute right-0 top-0 w-full">
         <div class="flex h-14 items-end justify-end space-x-3">
@@ -3020,7 +3028,7 @@ elseif($cumul_four_year>0) {
       
      </div>
     </div> 
-<div id="13" class="page printsection print-add-break hidden print-full-width display_full">
+    <div id="13" class="page printsection print-add-break hidden print-full-width display_full">
    <div class="space-y-9  print_full_witdh ">
         <div class="space-y-4">
           <div class="space-y-1">
@@ -3155,7 +3163,7 @@ elseif($cumul_four_year>0) {
           <span>Business Plan</span>
         </div>
       </div>
-</div>
+     </div>
     
     <div id="13" class="page printsection print-add-break print-full-width">
       <div class="flex justify-between absolute right-0 top-0 w-full">
@@ -3798,7 +3806,7 @@ elseif($cumul_four_year>0) {
                  @foreach ($data->financial_data->startup_needs as $item)
                    <tr>
                      <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
-                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->value/(1+$item->rate/100), 0, ',', ' ') }} </td>
+                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->value/(1+$item->duration/100), 0, ',', ' ') }} </td>
                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->rate ,0, ',', ' ')}} % </td>
                      @if($item->value!=0 && $item->rate!=0)
                      <td class="border-2 border-gray-500 text-center">{{ number_format(($item->value/(1+$item->rate/100))*$item->rate/100, 0, ',', ' ') }} </td>      
@@ -4228,7 +4236,7 @@ elseif($cumul_four_year>0) {
         </div>
         <div class="space-y-4">
           <div class="inline-block rounded-lg border w-full ">
-            <table class="table-fixed border border-gray-900 w-full text-sm">
+            <table class="table-fixed border border-gray-900 w-full text-sm" id="tableId">
               <thead>
                 <tr class="bg-gray-100">
                   <th
@@ -4849,9 +4857,7 @@ window.addEventListener('load',function(){
     },3000)
  
 })
-   
 
-  </script>
-
+</script>
 </html>
 

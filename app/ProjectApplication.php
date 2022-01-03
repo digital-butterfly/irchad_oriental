@@ -47,7 +47,8 @@ class ProjectApplication extends Model
         'created_by',
         'rejected_reason',
         'updated_by',
-        'credit_banc'
+        'credit_banc',
+        'list_mat_file'
        
     ];
 
@@ -192,11 +193,20 @@ class ProjectApplication extends Model
         }
 
         return [
+            
+                  
+           
             [
                 'name' => 'member_id',
                 'type' => 'text',
                 'class' => 'kt-callout--dark',
                 'label' => 'ID Adhérent',
+                'group' => 'Données Générales'
+            ],
+            [
+                'name' => 'list_mat_file',
+                'type' => 'file',
+                'label' => 'listes ',
                 'group' => 'Données Générales'
             ],[
                 'name' => 'members',

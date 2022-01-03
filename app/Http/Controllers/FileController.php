@@ -17,4 +17,20 @@ class FileController extends Controller
 
 return response()->download($file, "$filename", $headers);
     }
+
+  public function fileUpload(Request $request){
+     // dd($request->list_mat_file);
+
+//
+       $fileName = time().'.'.$request->list_mat_file->extension();  
+   
+        $request->list_mat_file->move(public_path('uploads'), $fileName);
+   
+        return back()
+            ->with('success','You have successfully upload file.')
+            ->with('file',$fileName);
+           
+        
+   }
+
 }

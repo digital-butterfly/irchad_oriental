@@ -261,7 +261,7 @@
 
                                     <!--begin: Form Wizard Form-->
                                     <div class="kt-form" id="kt_form">
-                                        <form id="candidaturesform" class="" method="POST" action="{{ route('candidatures.update', $data->id) }}">
+                                        <form id="candidaturesform" class="" method="POST" action="{{ route('candidatures.update', $data->id) }}" enctype="multipart/form-data">
                                         {{ method_field('PUT') }}
 
 
@@ -278,7 +278,7 @@
                                                     </div><br />
                                                 @endif
                                              
-                                              <div class="alert alert-danger" id="alert_id">
+                                              <div class="alert alert-danger" id="alert_id" style="display:none;">
                                                         <ul>
                                                          <li> le programme d'investissement  n'est pas egual a le plan financement!</li>
                                                         </ul>
@@ -986,7 +986,7 @@
                         </button>
                     </div>
 
-                    <form id="sendformation" class="kt-form" method="POST" action="{{ route('session.store') }}">
+                    <form id="sendformation" class="kt-form" method="POST" action="{{ route('session.store') }}" enctype="multipart/form-data">
 
 
                         <div class="kt-portlet__body">
