@@ -544,14 +544,19 @@ class ProjectApplicationController extends Controller
             ]);
         }
 //dd($request->toArray());$t=new FileController();
+$files=$request->file('file');
+$fille_db='';
+//dd($files);
  $filename ='';
         if($request->file('file')) {
-        
-         $img_ext = $request->file('file')->getClientOriginalExtension();
-          $filename = 'annex' . time() . '.' . $img_ext;
-          $path = $request->file('file')->move(public_path('download'), $filename);//image save public folder
-       //dd( $filename);
-  }
+        foreach ($files as $key=> $file) {
+          $img_ext = $file->getClientOriginalExtension();
+          $filename = 'annex' . time() . $key.'.' . $img_ext;
+          $path = $file->move(public_path('download'), $filename);//image save public folder
+          $fille_db.=','.$filename;
+          } 
+  } 
+//dd($fille_db);
        ///dd($t);
 
         $application->update([
@@ -560,11 +565,11 @@ class ProjectApplicationController extends Controller
             'township_id' => $request['township_id'],
             'sheet_id' => $request['sheet_id'],
             'title' => $request['title'],
-            'list_mat_file' => $filename ,
             'description' => $request['description'],
             'market_type' => $request['market_type'],
             'credit_banc' => $request['credit_banc'],
             'montant_est' => $request['montant_est'],
+            'list_mat_file' => $fille_db,
             'business_model' =>json_decode(json_encode([
                 'context_g' => $request['context_g'],
                 'evolution_m' => $request['evolution_m'],

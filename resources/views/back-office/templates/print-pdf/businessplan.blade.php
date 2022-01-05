@@ -1,4 +1,5 @@
 @php
+$files[]='';
 $total_taxes =0;
 $m=0;
  $total_overheads_scalablee=0;
@@ -295,10 +296,10 @@ $bp_turnover_four_year=0;
 $bp_turnover_five_year=0;
 if($bp_evolution_rate>0){
 $bp_turnover_first_year = $bp_turnover_products_totals;
-$bp_turnover_second_year = $bp_turnover_first_year + ($bp_turnover_first_year * (1+$bp_evolution_rate / 100));
-$bp_turnover_third_year = $bp_turnover_second_year + ($bp_turnover_second_year * (1+$bp_evolution_rate / 100));
-$bp_turnover_four_year = $bp_turnover_third_year + ($bp_turnover_third_year * (1+$bp_evolution_rate / 100));
-$bp_turnover_five_year = $bp_turnover_four_year + ($bp_turnover_four_year * (1+$bp_evolution_rate / 100));
+$bp_turnover_second_year = ($bp_turnover_first_year * (1+$bp_evolution_rate / 100));
+$bp_turnover_third_year =  ($bp_turnover_second_year * (1+$bp_evolution_rate / 100));
+$bp_turnover_four_year =  ($bp_turnover_third_year * (1+$bp_evolution_rate / 100));
+$bp_turnover_five_year = ($bp_turnover_four_year * (1+$bp_evolution_rate / 100));
 }else{
 $bp_turnover_first_year =$bp_turnover_products_totals;
 $bp_turnover_second_year=$bp_turnover_products_totals;
@@ -309,10 +310,10 @@ $bp_turnover_five_year=$bp_turnover_products_totals;
 
 if($bp_evolution_rate>0){
 $bp_purchase_first_year = $bp_turnover_products_total ;
-$bp_purchase_second_year = $bp_purchase_first_year+ ($bp_purchase_first_year *(1+$bp_evolution_rate / 100));
-$bp_purchase_third_year = $bp_purchase_second_year +($bp_purchase_second_year *(1+$bp_evolution_rate/100));
-$bp_purchase_four_year =   $bp_purchase_third_year+($bp_purchase_third_year*(1+$bp_evolution_rate/100));
-$bp_purchase_five_year =  $bp_purchase_four_year+ ($bp_purchase_four_year  *(1+$bp_evolution_rate/100));
+$bp_purchase_second_year =  ($bp_purchase_first_year *(1+$bp_evolution_rate / 100));
+$bp_purchase_third_year = ($bp_purchase_second_year *(1+$bp_evolution_rate/100));
+$bp_purchase_four_year =   ($bp_purchase_third_year*(1+$bp_evolution_rate/100));
+$bp_purchase_five_year =  ($bp_purchase_four_year  *(1+$bp_evolution_rate/100));
 }else{
   $bp_purchase_first_year = $bp_turnover_products_total ;
   $bp_purchase_second_year = $bp_turnover_products_total ;
@@ -367,10 +368,10 @@ if($bp_evolution_rate>0){
   if(isset($data ->financial_data->overheads_scalable)){
     foreach ($data ->financial_data->overheads_scalable as $item) {
     $bp_overheads_scalable_first_year += $item->value*12;
-    $bp_overheads_scalable_second_year += $bp_overheads_scalable_first_year + ($bp_overheads_scalable_first_year* $bp_evolution_rate / 100);
-    $bp_overheads_scalable_third_year += $bp_overheads_scalable_second_year + ($bp_overheads_scalable_second_year* $bp_evolution_rate / 100);
-    $bp_overheads_scalable_four_year +=$bp_overheads_scalable_third_year+($bp_overheads_scalable_third_year * $bp_evolution_rate / 100);
-    $bp_overheads_scalable_five_year +=$bp_overheads_scalable_four_year+($bp_overheads_scalable_four_year* $bp_evolution_rate / 100);
+    $bp_overheads_scalable_second_year += ($bp_overheads_scalable_first_year* $bp_evolution_rate / 100);
+    $bp_overheads_scalable_third_year += ($bp_overheads_scalable_second_year* $bp_evolution_rate / 100);
+    $bp_overheads_scalable_four_year +=($bp_overheads_scalable_third_year * $bp_evolution_rate / 100);
+    $bp_overheads_scalable_five_year +=($bp_overheads_scalable_four_year* $bp_evolution_rate / 100);
     }
 }
 }else{   
@@ -533,124 +534,111 @@ if (($data ->company->applied_tax ?? '') == 'IS') {
         case ($bp_income_before_taxes_first_year > 0 && $bp_income_before_taxes_first_year <= 300000):
 
             $is=$bp_income_before_taxes_first_year * 10 / 100;
-            $bp_corporate_tax_first_year = $is-$bp_income_before_taxes_first_year * 10 / 100;
+            $bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 10 / 100;
+           // dd( $bp_income_before_taxes_first_year);
             break;
         case ($bp_income_before_taxes_first_year > 300000 && $bp_income_before_taxes_first_year <= 1000000):
-             $firstTranche = 300000 - 300000 * 0.1;
-             $secondTranche = $bp_income_before_taxes_first_year - 300000 - ($bp_income_before_taxes_first_year - 300000) * 0.2;
-             $bp_corporate_tax_first_year  = $firstTranche + $secondTranche;
+            //  $firstTranche = 300000 - 300000 * 0.1;
+            //$secondTranche = $bp_income_before_taxes_first_year  * 0.2;
+             $bp_corporate_tax_first_year  =  $bp_income_before_taxes_first_year  * 0.2;
             //$bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 17.5 / 100;
             break;
         case ($bp_income_before_taxes_first_year > 1000000):
 
-                 $rest = $bp_income_before_taxes_first_year - 300000;
-                 $firstTranche = 300000 - 300000 * 0.1;
-                 $rest = $rest - 1000000;
-                 $secondTranche = 1000000 - 1000000 * 0.2;
-                        if ($rest < 0) {
-                            $rest = 0;
-                        }
-              $thirdTranche = $rest - $rest * 0.31;
-              $bp_corporate_tax_first_year  = $firstTranche + $secondTranche + $thirdTranche;
+              //    $rest = $bp_income_before_taxes_first_year - 300000;
+              //    $firstTranche = 300000 - 300000 * 0.1;
+              //    $rest = $rest - 1000000;
+              //    $secondTranche = 1000000 - 1000000 * 0.2;
+              //           if ($rest < 0) {
+              //               $rest = 0;
+              //           }
+              // $thirdTranche = $rest - $rest * 0.31;
+              $bp_corporate_tax_first_year  = $bp_income_before_taxes_first_year* 0.31;
             
             break;
     }
     switch (true) {
         case ($bp_income_before_taxes_second_year > 0 && $bp_income_before_taxes_second_year<= 300000):
-          $is=$bp_income_before_taxes_second_year * 10 / 100;
-          $bp_corporate_tax_second_year = $is-$bp_income_before_taxes_second_year * 10 / 100;
-           // $bp_corporate_tax_second_year = $bp_income_before_taxes_second_year * 10 / 100;
+          $bp_corporate_tax_second_year = $bp_income_before_taxes_second_year * 10 / 100;
             break;
         case ($bp_income_before_taxes_second_year > 300000 && $bp_income_before_taxes_second_year <= 1000000):
-        $firstTranche = 300000 - 300000 * 0.1;
-        $secondTranche = $bp_income_before_taxes_second_year - 300000 - ($bp_income_before_taxes_second_year - 300000) * 0.2;
-        $bp_corporate_tax_second_year = $firstTranche+$secondTranche;
+        $bp_corporate_tax_second_year = $bp_income_before_taxes_second_year *0.2;
             break;
         case ($bp_income_before_taxes_second_year > 1000000):
-            $rest = $bp_income_before_taxes_second_year - 300000;
-                 $firstTranche = 300000 - 300000 * 0.1;
-                 $rest = $rest - 1000000;
-                 $secondTranche = 1000000 - 1000000 * 0.2;
-                        if ($rest < 0) {
-                            $rest = 0;
-                        }
-             $thirdTranche = $rest - $rest * 0.31;
-               $bp_corporate_tax_second_year = $firstTranche + $secondTranche + $thirdTranche;
-            // = $bp_income_before_taxes_second_year * 31 / 100;
+               $bp_corporate_tax_second_year = $bp_income_before_taxes_second_year *0.31;
             break;
     }
     switch (true) {
         case ($bp_income_before_taxes_third_year> 0 && $bp_income_before_taxes_third_year <= 300000):
-           $is=$bp_income_before_taxes_first_year * 10 / 100;
-           $bp_corporate_tax_third_year  = $is-$bp_income_before_taxes_first_year * 10 / 100;
-           // $bp_corporate_tax_third_year = $bp_income_before_taxes_third_year * 10 / 100;
+          // $is=$bp_income_before_taxes_first_year * 10 / 100;
+           $bp_corporate_tax_third_year  = $bp_income_before_taxes_first_year * 10 / 100;
             break;
         case ($bp_income_before_taxes_third_year > 300000 && $bp_income_before_taxes_third_year <= 1000000):
-               $firstTranche = 300000 - 300000 * 0.1;
-               $secondTranche = $bp_income_before_taxes_third_year - 300000 - ($bp_income_before_taxes_third_year - 300000) * 0.2;
-               $bp_corporate_tax_third_year  = $firstTranche+$secondTranche;
+              //  $firstTranche = 300000 - 300000 * 0.1;
+              //  $secondTranche = $bp_income_before_taxes_third_year - 300000 - ($bp_income_before_taxes_third_year - 300000) * 0.2;
+               $bp_corporate_tax_third_year  = $bp_income_before_taxes_third_year*0.2;
            // $bp_corporate_tax_third_year = $bp_income_before_taxes_third_year * 17.5 / 100;
             break;
         case ($bp_income_before_taxes_third_year > 1000000):
-        $rest = $bp_income_before_taxes_third_year - 300000;
-                 $firstTranche = 300000 - 300000 * 0.1;
-                 $rest = $rest - 1000000;
-                 $secondTranche = 1000000 - 1000000 * 0.2;
-                        if ($rest < 0) {
-                            $rest = 0;
-                        }
-             $thirdTranche = $rest - $rest * 0.31;
-             $bp_corporate_tax_third_year = $firstTranche + $secondTranche + $thirdTranche;
+        // $rest = $bp_income_before_taxes_third_year - 300000;
+        //          $firstTranche = 300000 - 300000 * 0.1;
+        //          $rest = $rest - 1000000;
+        //          $secondTranche = 1000000 - 1000000 * 0.2;
+        //                 if ($rest < 0) {
+        //                     $rest = 0;
+        //                 }
+        //      $thirdTranche = $rest - $rest * 0.31;
+             $bp_corporate_tax_third_year = $bp_income_before_taxes_third_year*0.31;
             //$bp_corporate_tax_third_year = $bp_income_before_taxes_third_year * 31 / 100;
             break;
     }
     switch (true) {
         case ($bp_income_before_taxes_four_year> 0 && $bp_income_before_taxes_four_year <= 300000):
            $is=$bp_income_before_taxes_four_year * 10 / 100;
-           $bp_corporate_tax_four_year  = $is-$bp_income_before_taxes_four_year * 10 / 100;
+           $bp_corporate_tax_four_year  = $bp_income_before_taxes_four_year * 10 / 100;
            // $bp_corporate_tax_third_year = $bp_income_before_taxes_third_year * 10 / 100;
             break;
         case ($bp_income_before_taxes_four_year > 300000 && $bp_income_before_taxes_four_year <= 1000000):
-               $firstTranche = 300000 - 300000 * 0.1;
-               $secondTranche = $bp_income_before_taxes_four_year - 300000 - ($bp_income_before_taxes_four_year - 300000) * 0.2;
-               $bp_corporate_tax_four_year  = $firstTranche+$secondTranche;
+              //  $firstTranche = 300000 - 300000 * 0.1;
+              //  $secondTranche = $bp_income_before_taxes_four_year - 300000 - ($bp_income_before_taxes_four_year - 300000) * 0.2;
+               $bp_corporate_tax_four_year  = $bp_income_before_taxes_four_year*0.2;
            // $bp_corporate_tax_third_year = $bp_income_before_taxes_third_year * 17.5 / 100;
             break;
         case ($bp_income_before_taxes_four_year > 1000000):
-        $rest = $bp_income_before_taxes_four_year - 300000;
-                 $firstTranche = 300000 - 300000 * 0.1;
-                 $rest = $rest - 1000000;
-                 $secondTranche = 1000000 - 1000000 * 0.2;
-                        if ($rest < 0) {
-                            $rest = 0;
-                        }
-             $thirdTranche = $rest - $rest * 0.31;
-             $bp_corporate_tax_four_year = $firstTranche + $secondTranche + $thirdTranche;
+        // $rest = $bp_income_before_taxes_four_year - 300000;
+        //          $firstTranche = 300000 - 300000 * 0.1;
+        //          $rest = $rest - 1000000;
+        //          $secondTranche = 1000000 - 1000000 * 0.2;
+        //                 if ($rest < 0) {
+        //                     $rest = 0;
+        //                 }
+        //      $thirdTranche = $rest - $rest * 0.31;
+             $bp_corporate_tax_four_year = $bp_income_before_taxes_four_year*0.31;
             //$bp_corporate_tax_third_year = $bp_income_before_taxes_third_year * 31 / 100;
             break;
     }
     switch (true) {
         case ($bp_income_before_taxes_five_year> 0 && $bp_income_before_taxes_five_year <= 300000):
            $is=$bp_income_before_taxes_five_year * 10 / 100;
-           $bp_corporate_tax_five_year  = $is-$bp_income_before_taxes_five_year * 10 / 100;
+           $bp_corporate_tax_five_year  = $bp_income_before_taxes_five_year * 10 / 100;
            // $bp_corporate_tax_third_year = $bp_income_before_taxes_third_year * 10 / 100;
             break;
         case ($bp_income_before_taxes_five_year > 300000 && $bp_income_before_taxes_five_year <= 1000000):
-               $firstTranche = 300000 - 300000 * 0.1;
-               $secondTranche = $bp_income_before_taxes_five_year - 300000 - ($bp_income_before_taxes_five_year - 300000) * 0.2;
-               $bp_corporate_tax_five_year  = $firstTranche+$secondTranche;
+              //  $firstTranche = 300000 - 300000 * 0.1;
+              //  $secondTranche = $bp_income_before_taxes_five_year - 300000 - ($bp_income_before_taxes_five_year - 300000) * 0.2;
+               $bp_corporate_tax_five_year  = $bp_income_before_taxes_five_year*0.2;
            // $bp_corporate_tax_third_year = $bp_income_before_taxes_third_year * 17.5 / 100;
             break;
         case ($bp_income_before_taxes_five_year > 1000000):
-        $rest = $bp_income_before_taxes_five_year - 300000;
-                 $firstTranche = 300000 - 300000 * 0.1;
-                 $rest = $rest - 1000000;
-                 $secondTranche = 1000000 - 1000000 * 0.2;
-                        if ($rest < 0) {
-                            $rest = 0;
-                        }
-             $thirdTranche = $rest - $rest * 0.31;
-             $bp_corporate_tax_five_year = $firstTranche + $secondTranche + $thirdTranche;
+        // $rest = $bp_income_before_taxes_five_year - 300000;
+        //          $firstTranche = 300000 - 300000 * 0.1;
+        //          $rest = $rest - 1000000;
+        //          $secondTranche = 1000000 - 1000000 * 0.2;
+        //                 if ($rest < 0) {
+        //                     $rest = 0;
+        //                 }
+        //      $thirdTranche = $rest - $rest * 0.31;
+             $bp_corporate_tax_five_year =  $bp_income_before_taxes_five_year*0.31;
             //$bp_corporate_tax_third_year = $bp_income_before_taxes_third_year * 31 / 100;
             break;
     }
@@ -1056,7 +1044,6 @@ elseif($cumul_four_year>0) {
 .canvasjs-chart-tooltip{
     display:none;
 }
-
     @media print {
       @page {
         size: landscape;
@@ -1095,6 +1082,12 @@ elseif($cumul_four_year>0) {
        bottom:20%;
        width:100%;
        font-size: 20%;
+
+     }
+     .div_file{
+      width:500px;
+      height: 500px; 
+      object-fit: cover;
 
      }
     }
@@ -2303,7 +2296,7 @@ elseif($cumul_four_year>0) {
           </div>
 
           <div class="bg-gray-100 text-gray-700 mt-6 p-8 space-y-3 text-sm">
-            <p><span class="font-semibold" style="color: var(--main-green)">L'ensemble des documents juridique: </span></p>
+            <p><span class="font-semibold" style="color: var(--main-green)">L'ensemble des documents juridiques: </span></p>
             <ul class="list-inside list-disc space-y-2">  
               @if(isset($data->business_model->autorisations_nécessaire_c))
               @foreach ($data->business_model->autorisations_nécessaire_c as $key =>  $field)
@@ -2331,7 +2324,7 @@ elseif($cumul_four_year>0) {
                 <p><span class="font-semibold" style="color: var(--main-green)">local </span></p>
                 <div class="flex justify-between bg-gray-100 p-2">       
                   <p>Mode d'occupation:</p>
-                  <p class="font-medium">{{$field->label ?? " "}}</p>
+                  <p class="font-medium ">{{$field->label ?? " "}}</p>
                 </div>
                 <div class="flex justify-between bg-gray-100 p-2">
                   <p>Adresse:</p>
@@ -2342,7 +2335,7 @@ elseif($cumul_four_year>0) {
                   <p class="font-medium">{{$field->rate?? " "}}</p>
                 </div>
                 <div class="flex justify-between bg-gray-100 p-2">
-                  <p>loyer mensuel:</p>
+                  <p>loyer mensuel (en cas de location):</p>
                   <p class="font-medium">{{$field->value ?? " "}}</p>
                 </div>
                 
@@ -2894,7 +2887,7 @@ elseif($cumul_four_year>0) {
               class="uppercase font-bold text-sm"
               style="color: var(--second-blue)"
             >
-            ÉVOLUTION DES ACHATS HT (<span class="text-green-500">{{isset($data ->financial_data->evolution_rate)?$data ->financial_data->evolution_rate:0}}</span>%) SUR 5 ANS
+   ACHATS
           </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
@@ -2957,6 +2950,15 @@ elseif($cumul_four_year>0) {
               </tbody>
             </table>
           </div>
+          <div class="space-y-1">
+            <h5
+              class="uppercase font-bold text-sm"
+              style="color: var(--second-blue)"
+            >
+            ÉVOLUTION DES ACHATS HT (<span class="text-green-500">{{isset($data ->financial_data->evolution_rate)?$data ->financial_data->evolution_rate:0}}</span>%) SUR 5 ANS
+          </h5>
+            <hr class="bg-gray-300" style="height: 2px" />
+          </div>
           <div class="inline-block rounded-lg border w-full">
             <table class="table-fixed border border-gray-900 w-full text-sm print-add-break">
               <thead>
@@ -2985,7 +2987,7 @@ elseif($cumul_four_year>0) {
               </thead>
               <tbody class="font-medium">
                   <tr>
-                    <td class="border-2 border-gray-500"> Achats 50% du Chiffres d’affaires</td>
+                    <td class="border-2 border-gray-500"> Evolution des achats </td>
                     <td class="border-2 border-gray-500 text-center">{{ number_format($bp_purchase_first_year, 0, ',', ' ') }} </td>
                     <td class="border-2 border-gray-500 text-center">{{ number_format($bp_purchase_second_year,0, ',', ' ')}}</td>
                     <td class="border-2 border-gray-500 text-center">{{ number_format($bp_purchase_third_year, 0, ',', ' ') }} </td>
@@ -3028,8 +3030,8 @@ elseif($cumul_four_year>0) {
       
      </div>
     </div> 
-    <div id="13" class="page printsection print-add-break hidden print-full-width display_full">
-   <div class="space-y-9  print_full_witdh ">
+   <div id="13" class="page printsection print-add-break hidden print-full-width display_full">
+      <div class="space-y-9  print_full_witdh ">
         <div class="space-y-4">
           <div class="space-y-1">
             <h5
@@ -3059,6 +3061,7 @@ elseif($cumul_four_year>0) {
                   </th>
                   <th class="border-2 border-gray-500  text-center">Quantité(mois) 
                   </th>
+                  <th class="border-2 border-gray-500  text-center">Chiffre d'affaires annuel</th>
                   <th class="border-2 border-gray-500  text-center">Chiffre d'affaires annuel</th>
                 </tr>
               </thead>
@@ -3118,6 +3121,7 @@ elseif($cumul_four_year>0) {
                   <th class="border-2 border-gray-500  text-center">4 <sup>ème</sup> année
                   </th>
                   <th class="border-2 border-gray-500  text-center">5 <sup>ème</sup> année
+                    <th class="border-2 border-gray-500  text-center">5 <sup>ème</sup> année
                   </th>
                 </tr>
               </thead>
@@ -3129,6 +3133,7 @@ elseif($cumul_four_year>0) {
                     <td class="border-2 border-gray-500 text-center">{{ number_format($bp_purchase_third_year, 0, ',', ' ') }} </td>
                     <td class="border-2 border-gray-500 text-center">{{ number_format($bp_purchase_four_year,0, ',', ' ')}}</td>
                     <td class="border-2 border-gray-500 text-center">{{ number_format($bp_purchase_five_year,0, ',', ' ')}}</td>
+                    <td class="border-2 border-gray-500 text-center">tttt</td>
 
                 </tr> 
               </tbody>
@@ -3764,7 +3769,7 @@ elseif($cumul_four_year>0) {
             </p>
       </div>
       <br>
-      <div class="space-y-9">
+      <div class="space-y-9 display_none" >
         <div class="space-y-4">
           <div class="space-y-1">
             <h5
@@ -3874,6 +3879,146 @@ elseif($cumul_four_year>0) {
       </div>
       
      </div>
+    </div>
+     <div id="16" class="page printsection print-add-break print-full-width hidden display_full" >
+      <div class="flex justify-between absolute right-0 top-0 w-full">
+        <div class="flex h-14 items-end justify-end space-x-3">
+          <span
+            class="
+              w-10
+              h-full
+              border-0
+              flex
+              items-end
+              justify-end
+              font-semibold
+              text-white
+              pr-1
+              tracking-wider
+            "
+            style="background-color: var(--main-green)"
+          >
+            05
+          </span>
+          <h3
+            class="font-semibold text-lg"
+            style="color: var(--main-blue); line-height: 16px"
+          >
+          Étude Financière
+
+          </h3>
+        </div>
+        <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
+      </div>
+
+      <div class="space-y-9">
+        <div class="space-y-4">
+          <div class="space-y-1">
+            <h5
+              class="uppercase font-bold text-sm"
+              style="color: var(--second-blue)"
+            >
+            TABLEAU D'AMORTISSEMENT
+
+          </h5>
+            <hr class="bg-gray-300" style="height: 2px" />
+          </div>
+           <p class="text-gray-500 font-normal"> 
+            L'amortissement est la constatation comptable qui définit la perte de valeur d'un bien immobilisé de l'entreprise, du fait de l'usure du temps ou de l'obsolescence.
+          </div>
+            <div class="inline-block rounded-lg border w-full ">
+              <table class="table-fixed border border-gray-900 w-90 text-sm">
+                <thead>
+                  <tr class="bg-gray-100">
+                    <th
+                      class="
+                        py-2
+                        pl-4
+                        border-2 border-gray-500
+                        w-9/12
+                        self-start
+                        text-left
+                      "
+                    >
+                    DESIGNATION
+                    </th>
+                    <th class="border-2 border-gray-500 w-6/12 text-center">MONTANT HT</th>
+                    <th class="border-2 border-gray-500 w-6/12 text-center">TAUX</th>
+                    <th class="border-2 border-gray-500  text-center">AMORTISSEMENT</th>
+                  </tr>
+                </thead>
+                <tbody class="font-medium">
+                  <?php $total_taxe_amortisement=0; ?>
+                 @if(isset($data->financial_data->startup_needs))
+                 @foreach ($data->financial_data->startup_needs as $item)
+                   <tr>
+                     <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
+                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->value/(1+$item->duration/100), 0, ',', ' ') }} </td>
+                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->rate ,0, ',', ' ')}} % </td>
+                     @if($item->value!=0 && $item->rate!=0)
+                     <td class="border-2 border-gray-500 text-center">{{ number_format(($item->value/(1+$item->rate/100))*$item->rate/100, 0, ',', ' ') }} </td>      
+                     
+                      <?php $total_taxe_amortisement+=($item->value/(1+$item->rate/100))*$item->rate/100;?>
+                     @else
+                     <td class="border-2 border-gray-500 text-center">{{ number_format(0, 0, ',', ' ') }} </td>
+                     @endif
+                     
+                    
+                 </tr> 
+                 @endforeach
+                @endif
+                  <tr class="bg-green-100">
+                    <td
+                    colspan="3"
+                      class="
+                        py-1 pl-4
+                        border-2 border-gray-600
+                        font-semibold
+                        text-green-700
+                      "
+                    >
+                      TOTAL 
+                    </td>
+                 
+                    <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
+      
+                    <td class="border-2 border-gray-600 text-center bg-green-100">{{number_format($total_taxe_amortisement,0,',',' ')}}</td>
+
+
+                  </tr>
+                </tbody>
+              </table>
+            </div> 
+           
+      </div>
+      <div class="absolute bottom-0 right-0 left-0">
+        <img
+        class="absolute bottom-0 right-0 left-0 img_full_width"
+        src="{{asset('images/back-office/svg/footer.svg')}}"
+        alt="" 
+        srcset=""
+        />
+
+        <div
+          class="
+            py-2
+            flex
+            justify-between
+            items-center
+            pl-16
+            pr-36
+            text-white text-xs
+            font-medium
+            relative
+            z-10
+          "
+        >
+          <span>{{$owner->first_name}} {{$owner->last_name}}</span>
+          <span>{{$data->title}}</span>
+          <span>Business Plan</span>
+        </div>
+      </div>
+      
     </div>
     <div id="16" class="page printsection print-add-break print-full-width">
       <div class="flex justify-between absolute right-0 top-0 w-full">
@@ -4065,6 +4210,7 @@ elseif($cumul_four_year>0) {
       </div>
       
     </div>
+   
     <div id="17" class="page printsection print-add-break print-full-width">
         <div class="flex justify-between absolute right-0 top-0 w-full">
           <div class="flex h-14 items-end justify-end space-x-3">
@@ -4753,6 +4899,93 @@ elseif($cumul_four_year>0) {
           </div>
       
     </div>
+    @if(isset($data->list_mat_file))
+    <?php  $files=explode(',',$data->list_mat_file);?>
+    @foreach ($files as $item) 
+    @if($item!='')
+    <div id="20" class="page printsection print-full-width ">
+            <div class="flex justify-between absolute right-0 top-0 w-full">
+                  <div class="flex h-14 items-end justify-end space-x-3">
+                    <span
+                      class="
+                        w-10
+                        h-full
+                        border-0
+                        flex
+                        items-end
+                        justify-end
+                        font-semibold
+                        text-white
+                        pr-1
+                        tracking-wider
+                      "
+                      style="background-color: var(--main-green)"
+                    >
+                      06
+                    </span>
+                    <h3
+                      class="font-semibold text-lg"
+                      style="color: var(--main-blue); line-height: 16px"
+                    >
+                    Annexes
+                    </h3>
+                </div>
+                <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
+            </div>
+              <div class="space-y-9">
+                  <div class="space-y-4">
+                    <div class="space-y-1">
+                      <h5
+                        class="uppercase font-bold text-sm"
+                        style="color: var(--second-blue)">
+                      Annexes
+                      </h5>
+                      <hr class="bg-gray-300" style="height: 2px" />
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <div class=" mt-6 p-8 space-y-3 text-sm  relative">
+                      
+                      <img
+                        class="relative w-100 div_file "
+                        src="{{asset('download/'.$item)}}"
+                        alt="" 
+                      srcset=""
+                      />
+                    </div>           
+          
+                  </div>
+            </div>
+            <div class="absolute bottom-1 right-0 left-0 ">
+                  <img
+                  class="absolute bottom-0 right-0 left-0 img_full_width"
+                  src="{{asset('images/back-office/svg/footer.svg')}}"
+                  alt="" 
+                  srcset=""
+                  />
+                  <div
+                    class="
+                      py-2
+                      flex
+                      justify-between
+                      items-center
+                      pl-16
+                      pr-36
+                      text-white text-xs
+                      font-medium
+                      relative
+                      z-10"
+                  >
+                    <span>{{$owner->first_name}} {{$owner->last_name}}</span>
+                    <span>{{$data->title}}</span>
+                    <span>Business Plan</span>
+              </div>
+            </div>  
+    </div>
+
+    @endif
+    @endforeach
+    @endif
   </body>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.0/html2pdf.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/echarts@5.2.2/dist/echarts.min.js"></script>

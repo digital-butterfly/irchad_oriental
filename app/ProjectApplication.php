@@ -48,7 +48,8 @@ class ProjectApplication extends Model
         'rejected_reason',
         'updated_by',
         'credit_banc',
-        'list_mat_file'
+        'list_mat_file',
+        
        
     ];
 
@@ -192,10 +193,7 @@ class ProjectApplication extends Model
             $diff =$allmembers->values();
         }
 
-        return [
-            
-                  
-           
+        return [          
             [
                 'name' => 'member_id',
                 'type' => 'text',
@@ -203,12 +201,7 @@ class ProjectApplication extends Model
                 'label' => 'ID Adhérent',
                 'group' => 'Données Générales'
             ],
-            [
-                'name' => 'list_mat_file',
-                'type' => 'file',
-                'label' => 'listes ',
-                'group' => 'Données Générales'
-            ],[
+        [
                 'name' => 'members',
                 'type' => 'taggify',
                 'id'=>'kt_tagify_1',
@@ -408,7 +401,7 @@ class ProjectApplication extends Model
                     ],
                     [
                         'name' => 'avg_competi',
-                        'type' => 'text',
+                        'type' => 'textarea',
                         'label' => 'Critéres de différenciation par rapport au concurrents'
                     ],
                     [
@@ -488,6 +481,12 @@ class ProjectApplication extends Model
 
                  'group' => 'Étude Technique',
              ],
+             [
+                'name' => 'list_mat_file',
+                'type' => 'file',
+                'label' => 'fichier de liste  du matériel ',
+                'group' => 'Étude Technique'
+            ],
             [
                 'name' => 'financial_data',
                 'type' => 'section',

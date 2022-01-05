@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Township;
+use App\User;
 
 class Member extends Authenticatable
 {
@@ -45,7 +46,8 @@ class Member extends Authenticatable
         'project_idea_desc',
         'chomage_desc',
         'informal_activity_nat',
-        'entre_activity_nat'
+        'entre_activity_nat',
+        'cree_par'
     ];
 
 
@@ -88,6 +90,16 @@ class Member extends Authenticatable
                 'title' => $township->title
             ]);
         }
+        //$users_options = [];
+
+    //     $users = User::all();
+
+    //     foreach($users as $township) {
+    //      array_push($townships_options, (object)[
+    //     'id' => $township->id,
+    //     'title' => $township->title
+    //       ]);
+    //   }
 
         return [
             [
@@ -235,6 +247,11 @@ class Member extends Authenticatable
                 'name' => 'formation_needs_desc',
                 'type' => 'textarea',
                 'label' => 'laquelle',
+            ],
+            [
+                'name' => 'cree_par',
+                'type' => 'text',
+                'label' => 'Créé par ',
             ],
         ];
     }

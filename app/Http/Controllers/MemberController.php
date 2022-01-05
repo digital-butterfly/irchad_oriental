@@ -8,6 +8,7 @@ use App\ProjectCategory;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Member;
+use App\User;
 use App\Http\Resources\MemberCollection;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
@@ -22,6 +23,7 @@ class MemberController extends Controller
      * @param  string  $type
      * @return \Illuminate\Contracts\Validation\Validator
      */
+
     protected function validator(array $data, $type)
     {
         return Validator::make($data, [
@@ -89,10 +91,13 @@ class MemberController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+   
     public function create()
     {
         $fields = Member::formFields();
-        return view('back-office/templates/members/add', compact("fields"));
+        return view('back-office/templates/members/add', compact("fields")); 
+        $user= new User(); 
+     
     }
 
     /**
@@ -102,7 +107,7 @@ class MemberController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   
        // dd( $request );
         $this->validator($request->all(), 'member')->validate();
         $otherquestions [] = array(
@@ -140,6 +145,8 @@ class MemberController extends Controller
             'professional_experience' => json_decode(json_encode($request['professional_experience'])),
             'reduced_mobility' => $request['reduced_mobility'],
             'otherquestions' => json_encode($otherquestions),
+            'cree_par' => $request['cree_par'],
+           
 
         ]);
         
@@ -250,6 +257,7 @@ class MemberController extends Controller
             'state_help' => json_decode(json_encode($request['state_help'])),
             'reduced_mobility' => $request['reduced_mobility'],
             'otherquestions' => json_encode($otherquestions),
+            'cree_par' => $request['cree_par'],
         ]);
 
         if ($request['password']) {
