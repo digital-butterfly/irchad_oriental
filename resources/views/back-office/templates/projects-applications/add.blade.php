@@ -114,7 +114,21 @@
 						$(this).slideUp(deleteElement);
 					}
 				});
+                 var primary_target_client_d= $('.kt_repeater_primary_target_client_d').repeater({
+					initEmpty: false,
 
+					defaultValues: {
+						'text-input': 'foo'
+					},
+
+					show: function () {
+						$(this).slideDown();
+					},
+
+					hide: function (deleteElement) {
+						$(this).slideUp(deleteElement);
+					}
+				});
 				var financial_plan_loans = $('.kt_repeater_financial_plan_loans').repeater({
 					initEmpty: false,
 

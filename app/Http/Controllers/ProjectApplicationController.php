@@ -533,6 +533,7 @@ class ProjectApplicationController extends Controller
     {
         // dd($request->toArray());
         $application =ProjectApplication::findOrFail($id);
+       // dd($application->list_mat_file);
 //        dd($id);
         $validation = $this->validator($request->all(), 'projectApplication');
         if($validation->fails())
@@ -549,22 +550,22 @@ class ProjectApplicationController extends Controller
 
             ]);
         }
-//dd($request->toArray());$t=new FileController();
-$files=$request->file('file');
-$fille_db='';
-//dd($files);
+        
+ $fille_db='';
  $filename ='';
+   if($request->file('file')){  
+     $files=$request->file('file');
+   // dd($request->file('file'));
         if($request->file('file')) {
-        foreach ($files as $key=> $file) {
-          $img_ext = $file->getClientOriginalExtension();
-          $filename = 'annex' . time() . $key.'.' . $img_ext;
-          $path = $file->storeAs('public', $filename);//image save public folder
-          $fille_db.=','.$filename;
-          } 
-  } 
-//dd($fille_db);
-       ///dd($t);
-
+                foreach ($files as $key=> $file) {
+                $img_ext = $file->getClientOriginalExtension();
+                $filename = 'annex' . time() . $key.'.' . $img_ext;
+                $path = $file->storeAs('public', $filename);//image save public folder
+                $fille_db.=','.$filename;
+                } 
+        } 
+}
+  // if(old())  
         $application->update([
             'member_id' => $request['member_id'],
             'category_id' => $request['category_id'],
@@ -575,7 +576,7 @@ $fille_db='';
             'market_type' => $request['market_type'],
             'credit_banc' => $request['credit_banc'],
             'montant_est' => $request['montant_est'],
-            'list_mat_file' => $fille_db,
+            'list_mat_file' => $fille_db!=''? $fille_db: $application->list_mat_file,
             'business_model' =>json_decode(json_encode([
                 'context_g' => $request['context_g'],
                 'evolution_m' => $request['evolution_m'],

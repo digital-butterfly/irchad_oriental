@@ -388,7 +388,7 @@ class ProjectApplication extends Model
                      [
                         'name' => 'primary_target_client_d',
                         'type' => 'repeater',
-                        'label' => 'details client',
+                        'label' => 'Details client',
                         'config' => ['tripleRepeater' => true, 'attributes' => [['client',3],['Produit/Service',3], ['Marché ',2]],'Select'=>false]
 
                     ],
@@ -396,7 +396,7 @@ class ProjectApplication extends Model
                         'name' => 'suppliers_f',
                         'type' => 'repeater',
                         'label' => 'Principaux fournisseurs',
-                        'config' => ['tripleRepeater' => true, 'attributes' => [['Fournisseur',3],['Nature des intrants',3], ['ville',2]],'Select'=>false]
+                        'config' => ['tripleRepeater' => true, 'attributes' => [['Fournisseur',3],['Nature des intrants',3], ['ville/pays',2]],'Select'=>false]
 
                     ],
                     [

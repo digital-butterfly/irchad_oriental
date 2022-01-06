@@ -14,13 +14,14 @@
             $field_value = $data->{$field['name']};
         }
     }
+  // dd( $data->{$field['name']} );
 @endphp
 <form enctype="multipart/form-data" method="post" action="{{ route('session.store') }}" >
 <div class="form-group {{ (isset($field['config']) && $field['config']['hotizontalRows']) ? 'row' : '' }}">
     <label for="{{ $field['name'] }}" class="{{ (isset($field['config']) && $field['config']['hotizontalRows']) ? 'col-lg-3 col-form-label' : '' }}">{{ $field['label'] }}:</label>
     <div class="{{ (isset($field['config']) && $field['config']['hotizontalRows']) ? 'col-lg-6' : 'w-100' }}">
-        <input type="file" id="{{ $field['name'] }}" name="file[]" class="form-control" placeholder="{{ $field['label'] }}" value="{{ old($field['name']) ?? $field_value }}" multiple>
-        <span class="form-text text-muted"></span>
+        <input type="file" id="{{ $field['name'] }}" name="file[]" class="form-control" placeholder="{{ $field['label'] }}"  multiple >
+        <span class="form-text text-muted">{{$field_value }}</span>
     </div>
 </div>
 </form>
