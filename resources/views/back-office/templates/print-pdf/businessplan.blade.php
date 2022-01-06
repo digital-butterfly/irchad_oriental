@@ -1782,7 +1782,7 @@ elseif($cumul_four_year>0) {
                      Client
                   </th>
                   <th class="border-2 border-gray-600 w-1/4 text-center">Produit/Service</th>
-                    <th class="border-2 border-gray-600 w-1/4 text-center">marche</th>
+                    <th class="border-2 border-gray-600 w-1/4 text-center">Marché </th>
                 </tr>
               </thead>
               <tbody class="font-medium">
@@ -1854,7 +1854,7 @@ elseif($cumul_four_year>0) {
                   >
                     Fournisseur
                   </th>
-                  <th class="border-2 border-gray-600 w-1/4 text-center">Nature des intrant</th>
+                  <th class="border-2 border-gray-600 w-1/4 text-center">Nature des intrants</th>
                     <th class="border-2 border-gray-600 w-1/4 text-center">ville</th>
                 </tr>
               </thead>
@@ -3164,7 +3164,6 @@ elseif($cumul_four_year>0) {
                   <th class="border-2 border-gray-500  text-center">Quantité(mois) 
                   </th>
                   <th class="border-2 border-gray-500  text-center">Chiffre d'affaires annuel</th>
-                  <th class="border-2 border-gray-500  text-center">Chiffre d'affaires annuel</th>
                 </tr>
               </thead>
               <tbody class="font-medium">
@@ -3223,7 +3222,6 @@ elseif($cumul_four_year>0) {
                   <th class="border-2 border-gray-500  text-center">4 <sup>ème</sup> année
                   </th>
                   <th class="border-2 border-gray-500  text-center">5 <sup>ème</sup> année
-                    <th class="border-2 border-gray-500  text-center">5 <sup>ème</sup> année
                   </th>
                 </tr>
               </thead>
@@ -3235,7 +3233,6 @@ elseif($cumul_four_year>0) {
                     <td class="border-2 border-gray-500 text-center">{{ number_format($bp_purchase_third_year, 0, ',', ' ') }} </td>
                     <td class="border-2 border-gray-500 text-center">{{ number_format($bp_purchase_four_year,0, ',', ' ')}}</td>
                     <td class="border-2 border-gray-500 text-center">{{ number_format($bp_purchase_five_year,0, ',', ' ')}}</td>
-                    <td class="border-2 border-gray-500 text-center">tttt</td>
 
                 </tr> 
               </tbody>
@@ -3327,7 +3324,7 @@ elseif($cumul_four_year>0) {
             </div>
           </div>
             <div class="inline-block rounded-lg border w-full ">
-              <table class="table-fixed border border-gray-900 w-90 text-sm">
+              <table class="table-fixed border border-gray-900 w-full text-sm">
                 <thead>
                   <tr class="bg-gray-100">
                     <th
@@ -3335,14 +3332,13 @@ elseif($cumul_four_year>0) {
                         py-2
                         pl-4
                         border-2 border-gray-500
-                        w-9/12
                         self-start
                         text-left
                       "
                     >
                     DESIGNATION
                     </th>
-                    <th class="border-2 border-gray-500 w-6/12 text-center">MONTANT MENSUEL </th>
+                    <th class="border-2 border-gray-500  text-center">MONTANT MENSUEL </th>
                     <th class="border-2 border-gray-500  text-center">MONTANT ANNUEL</th>
                   </tr>
                 </thead>
@@ -3390,7 +3386,7 @@ elseif($cumul_four_year>0) {
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
           <div class="inline-block rounded-lg border w-full ">
-            <table class="table-fixed border border-gray-900 w-90 text-sm">
+            <table class="table-fixed border border-gray-900 w-full text-sm">
               <thead>
                 <tr class="bg-gray-100">
                   <th
@@ -3398,14 +3394,13 @@ elseif($cumul_four_year>0) {
                       py-2
                       pl-4
                       border-2 border-gray-500
-                      w-9/12
                       self-start
                       text-left
                     "
                   >
                   DESIGNATION
                   </th>
-                  <th class="border-2 border-gray-500 w-6/12 text-center">MONTANT MENSUEL</th>
+                  <th class="border-2 border-gray-500  text-center">MONTANT MENSUEL</th>
                   <th class="border-2 border-gray-500  text-center">MONTANT ANNUEL</th>
                 </tr>
               </thead>
@@ -3525,7 +3520,7 @@ elseif($cumul_four_year>0) {
 
           </div>
             <div class="inline-block rounded-lg border w-full ">
-              <table class="table-fixed border border-gray-900 w-90 text-sm">
+              <table class="table-fixed border border-gray-900 w-full text-sm">
                 <thead>
                   <tr class="bg-gray-100">
                     <th
@@ -3533,15 +3528,15 @@ elseif($cumul_four_year>0) {
                         py-2
                         pl-4
                         border-2 border-gray-500
-                        w-9/12
+                    
                         self-start
                         text-left
                       "
                     >
                     DESIGNATION
                     </th>
-                    <th class="border-2 border-gray-500 w-6/12 text-center">Effectif</th>
-                    <th class="border-2 border-gray-500 w-6/12 text-center">SALAIRE</th>
+                    <th class="border-2 border-gray-500 text-center">Effectif</th>
+                    <th class="border-2 border-gray-500 text-center">SALAIRE</th>
                     <th class="border-2 border-gray-500  text-center">MONTANT ANNUEL</th>
                   </tr>
                 </thead>
@@ -3549,8 +3544,6 @@ elseif($cumul_four_year>0) {
              
                   @if(isset($data->financial_data->human_ressources))
                   @foreach ($data->financial_data->human_ressources as $item) 
-                    <?php //dd($total_overheads_scalable);
-                     ?>
                     <tr>
                       <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
                       <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
@@ -3577,7 +3570,7 @@ elseif($cumul_four_year>0) {
                  
                   <tr class="bg-green-100">
                     <td
-                    colspan="2"
+                    colspan="3"
                       class="
                         py-1 pl-4
                         border-2 border-gray-600
@@ -3589,14 +3582,14 @@ elseif($cumul_four_year>0) {
                     </td>
                  
                     <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
-                    <td class="border-2 border-gray-600 text-center bg-white"></td>
+                    {{-- <td class="border-2 border-gray-600 text-center bg-white"></td> --}}
                     <td class="border-2 border-gray-600 text-center bg-green-100">{{ number_format($total_overheads_scalablee, 0, ',', ' ') }}</td>
 
 
                   </tr>
                   <tr class="bg-green-100">
                     <td
-                    colspan="2"
+                    colspan="3"
                       class="
                         py-1 pl-4
                         border-2 border-gray-600
@@ -3609,7 +3602,7 @@ elseif($cumul_four_year>0) {
                     </td>
                     
                     <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
-                    <td class="border-2 border-gray-600 text-center bg-white"> </td>
+                    {{-- <td class="border-2 border-gray-600 text-center bg-white"> </td> --}}
                     <td class="border-2 border-gray-600 text-center bg-green-100">{{ number_format($total_overheads_scalablee*0.2109, 0, ',', ' ') }}</td>
 
 
@@ -3617,7 +3610,7 @@ elseif($cumul_four_year>0) {
                   <tr class="bg-green-100">
                    
                     <td
-                    colspan="2"
+                    colspan="3"
                       class="
                         py-1 pl-4
                         border-2 border-gray-600
@@ -3629,7 +3622,7 @@ elseif($cumul_four_year>0) {
 
                     </td>
                     <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
-                    <td class="border-2 border-gray-600 text-center bg-white"> </td>
+
                     <td class="border-2 border-gray-600 text-center bg-green-100">{{ number_format($total_overheads_scalablee*0.03, 0, ',', ' ') }}</td>
                   
 
@@ -3637,7 +3630,7 @@ elseif($cumul_four_year>0) {
                   </tr>
                   <tr class="bg-green-100">
                     <td
-                    colspan="2"
+                    colspan="3"
                       class="
                         py-1 pl-4
                         border-2 border-gray-600
@@ -3650,7 +3643,7 @@ elseif($cumul_four_year>0) {
 
                     </td>
                     <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
-                    <td class="border-2 border-gray-600 text-center bg-white"> </td>
+  
                     
                     <td class="border-2 border-gray-600 text-center bg-green-100"> {{ number_format($total_overheads_scalablee+($total_overheads_scalablee*0.2109)+($total_overheads_scalablee*0.03), 0, ',', ' ') }}</td>
 
@@ -3828,14 +3821,13 @@ elseif($cumul_four_year>0) {
                         py-2
                         pl-4
                         border-2 border-gray-500
-                        w-9/12
                         self-start
                         text-left
                       "
                     >
                     IMPOTS & TAXES
                     </th>
-                    <th class="border-2 border-gray-500 w-6/12 text-center">MONTANT</th>
+                    <th class="border-2 border-gray-500 text-center">MONTANT</th>
                   </tr>
                 </thead>
                 <tbody class="font-medium">
@@ -3894,7 +3886,7 @@ elseif($cumul_four_year>0) {
             L'amortissement est la constatation comptable qui définit la perte de valeur d'un bien immobilisé de l'entreprise, du fait de l'usure du temps ou de l'obsolescence.
           </div>
             <div class="inline-block rounded-lg border w-full ">
-              <table class="table-fixed border border-gray-900 w-90 text-sm">
+              <table class="table-fixed border border-gray-900 w-full text-sm">
                 <thead>
                   <tr class="bg-gray-100">
                     <th
@@ -3902,15 +3894,14 @@ elseif($cumul_four_year>0) {
                         py-2
                         pl-4
                         border-2 border-gray-500
-                        w-9/12
                         self-start
                         text-left
                       "
                     >
                     DESIGNATION
                     </th>
-                    <th class="border-2 border-gray-500 w-6/12 text-center">MONTANT HT</th>
-                    <th class="border-2 border-gray-500 w-6/12 text-center">TAUX</th>
+                    <th class="border-2 border-gray-500  text-center">MONTANT HT</th>
+                    <th class="border-2 border-gray-500  text-center">TAUX</th>
                     <th class="border-2 border-gray-500  text-center">AMORTISSEMENT</th>
                   </tr>
                 </thead>
@@ -4036,7 +4027,7 @@ elseif($cumul_four_year>0) {
             L'amortissement est la constatation comptable qui définit la perte de valeur d'un bien immobilisé de l'entreprise, du fait de l'usure du temps ou de l'obsolescence.
           </div>
             <div class="inline-block rounded-lg border w-full ">
-              <table class="table-fixed border border-gray-900 w-90 text-sm">
+              <table class="table-fixed border border-gray-900 w-full text-sm">
                 <thead>
                   <tr class="bg-gray-100">
                     <th
@@ -4044,15 +4035,14 @@ elseif($cumul_four_year>0) {
                         py-2
                         pl-4
                         border-2 border-gray-500
-                        w-9/12
                         self-start
                         text-left
                       "
                     >
                     DESIGNATION
                     </th>
-                    <th class="border-2 border-gray-500 w-6/12 text-center">MONTANT HT</th>
-                    <th class="border-2 border-gray-500 w-6/12 text-center">TAUX</th>
+                    <th class="border-2 border-gray-500  text-center">MONTANT HT</th>
+                    <th class="border-2 border-gray-500  text-center">TAUX</th>
                     <th class="border-2 border-gray-500  text-center">AMORTISSEMENT</th>
                   </tr>
                 </thead>
@@ -4232,7 +4222,6 @@ elseif($cumul_four_year>0) {
                       py-2
                       pl-4
                       border-2 border-gray-500
-                      w-6/12 
                       self-start
                       text-left
                     "
@@ -4281,9 +4270,6 @@ elseif($cumul_four_year>0) {
                   <td class="border-2 border-gray-600 text-center bg-green-100">{{number_format($total_interets,0,',',' ')}}</td>
                   <td class="border-2 border-gray-600 text-center bg-green-100">{{number_format($total_rem,0,',',' ')}}</td>
                   <td class="border-2 border-gray-600 text-center bg-green-100">{{number_format(0,0,',',' ')}}</td>
-
-
-
                 </tr>
               </tbody>
             </table>
@@ -5057,7 +5043,7 @@ elseif($cumul_four_year>0) {
                       
                       <img
                         class="relative w-100 div_file "
-                        src="{{asset('download/'.$item)}}"
+                        src="{{asset('storage/'.$item)}}"
                         alt="" 
                       srcset=""
                       />

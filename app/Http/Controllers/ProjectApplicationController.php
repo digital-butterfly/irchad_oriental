@@ -200,7 +200,7 @@ class ProjectApplicationController extends Controller
         foreach ($files as $key=> $file) {
           $img_ext = $file->getClientOriginalExtension();
           $filename = 'annex' . time() . $key.'.' . $img_ext;
-          $path = $file->move(public_path('download'), $filename);//image save public folder
+          $path = $file->storeAs('public', $filename);//image save public folder
           $fille_db.=','.$filename;
           } 
   } 
@@ -558,7 +558,7 @@ $fille_db='';
         foreach ($files as $key=> $file) {
           $img_ext = $file->getClientOriginalExtension();
           $filename = 'annex' . time() . $key.'.' . $img_ext;
-          $path = $file->move(public_path('download'), $filename);//image save public folder
+          $path = $file->storeAs('public', $filename);//image save public folder
           $fille_db.=','.$filename;
           } 
   } 

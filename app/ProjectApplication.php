@@ -389,7 +389,7 @@ class ProjectApplication extends Model
                         'name' => 'primary_target_client_d',
                         'type' => 'repeater',
                         'label' => 'details client',
-                        'config' => ['tripleRepeater' => true, 'attributes' => [['client',3],['Produit/Service',3], ['marche',2]],'Select'=>false]
+                        'config' => ['tripleRepeater' => true, 'attributes' => [['client',3],['Produit/Service',3], ['Marché ',2]],'Select'=>false]
 
                     ],
                     [
@@ -403,7 +403,7 @@ class ProjectApplication extends Model
                         'name' => 'competition_c',
                         'type' => 'repeater',
                         'label' => 'Principaux concurrents',
-                        'config' => ['tripleRepeater' => true, 'attributes' => [['Concurrent',3],['localité',3], ['Prix de vente',2]],'Select'=>false]
+                        'config' => ['tripleRepeater' => true, 'attributes' => [['Concurrent',3],['Produit/Service',3], ['ville/pays',2]],'Select'=>false]
 
                     ],
                     [
@@ -522,17 +522,28 @@ class ProjectApplication extends Model
                         'type' => 'repeater',
                         'label' => 'Prêts',
                         'config' => ['quadrupleRepeater' => true, 'attributes' => [['Organisme de crédit',3], ['Montant',3], ['Taux d\'intérêts',3], ['Durée  du prêt en année',3]],'Select'=>false]
+                    ], 
+                     [
+                        'name' => 'duration_différe',
+                        'type' => 'number',
+                        'label' => 'Durée  du différée (en mois)'
                     ],
                       [
                         'name' => 'total_plan',
                         'type' => 'text',
                         'label' => 'Total  Plan de financement '
                     ],
-                    [
-                        'name' => 'duration_différe',
-                        'type' => 'number',
-                        'label' => 'Durée  du différée (en mois)'
-                    ],  
+                      
+                ],
+            'group' => 'Étude Technique'
+          ],
+            [
+                'name' => 'financial_data',
+                'type' => 'section',
+                'class' => 'kt-callout--danger kt-separator kt-separator--border-dashed kt-separator--space-lg' ,
+                'sub_fields' => [
+                     
+                    
                       [
                         'name' => 'saisonnalite',
                         'type' => 'number',
@@ -550,30 +561,24 @@ class ProjectApplication extends Model
                         'config' => ['quadrupleRepeater' => true, 'attributes' => [['Service',3], ['Quantité/Nombre(par mois)',4], ['Prix',3],['Saisonnalité(en mois)',3]],'Select'=>false]
 
                     ],
-                
                     [
                         'name' => 'products_turnover_forecast',
                         'type' => 'repeater',
                         'label' => 'CA prévisionnel - Produits',
                         'config' => ['quintupleRepeater' => true, 'attributes' => [['Produit',3], ['Quantité/Nombre(par mois)',4], ['Prix unitaire',2], ['Taux de marge',3],['Saisonnalité(en mois)',3]],'Select'=>false]
                     ],
-//                    [
-//                        'name' => 'profit_margin_rate',
-//                        'type' => 'text',
-//                        'label' => 'Taux de marge'
-//                    ],
                  
                     [
                         'name' => 'overheads_fixed',
                         'type' => 'repeater',
                         'label' => 'Charges Mensuelles fixes',
-                        'config' => ['AddDoubleRepeater' => true, 'attributes' => [['Nature de la charge',4], ['Montant',4],['Type',3]],'Select'=>true,'options'=>['mensuel','annuel']]
+                        'config' => ['AddDoubleRepeater' => true, 'attributes' => [['Nature de la charge',4], ['Montant',4],[' Mensuel/Annuel',3]],'Select'=>true,'options'=>['Mensuel','Annuel']]
                     ],
                     [
                         'name' => 'overheads_scalable',
                         'type' => 'repeater',
                         'label' => 'Charges Mensuelles  variables',
-                        'config' => ['doubleRepeater' => true, 'attributes' => [['Nature de la charge',4], ['Montant Mensuel',3]],'Select'=>false,]
+                      'config' => ['AddDoubleRepeater' => true, 'attributes' => [['Nature de la charge',4], ['Montant',4],[' Mensuel/Annuel',3]],'Select'=>true,'options'=>['Mensuel','Annuel']]
                     ],
                     [
                         'name' => 'human_ressources',
