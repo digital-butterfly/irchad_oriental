@@ -178,27 +178,20 @@ class ProjectApplicationController extends Controller
     {
         $id=0;
         $fields = ProjectApplication::formFields($id);
-       // dd($fields);
+      // dd($fields);
         return view('back-office/templates/projects-applications/add', compact("fields"));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+  
     public function store(Request $request)
     {
+        //dd("hhh");
 
         $validation = $this->validator($request->all(), 'projectApplication');
         if($validation->fails())
         {
             return redirect()->back()->withErrors($validation)->withInput();
         }
-       $t=new FileController();
-       $t-> fileUpload( $request['list_mat_file']);
-      // dd($t);
         $application = ProjectApplication::create([
             'member_id' => $request['member_id'],
             'category_id' => $request['category_id'],
@@ -217,6 +210,7 @@ class ProjectApplicationController extends Controller
                 'core_business_p' => $request['core_business_p'],
                 'core_services' => $request['core_services'],
                 'primary_target_c' => $request['primary_target_c'],
+                'primary_target_client_d' => $request['primary_target_client_d'],
                 'suppliers_f' => $request['suppliers_f'],
                 'competition_c' => $request['competition_c'],
                 'advertising' => $request['advertising'],
@@ -577,6 +571,7 @@ $fille_db='';
                 'core_business_p' => $request['core_business_p'],
                 'core_services' => $request['core_services'],
                 'primary_target_c' => $request['primary_target_c'],
+                'primary_target_client_d' => $request['primary_target_client_d'],
                 'suppliers_f' => $request['suppliers_f'],
                 'competition_c' => $request['competition_c'],
                 'advertising' => $request['advertising'],

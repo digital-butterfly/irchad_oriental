@@ -1621,38 +1621,44 @@ elseif($cumul_four_year>0) {
             </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
-          <h6
-          class="uppercase font-bold text-sm"
-          style="color: var(--second-blue)"
-        >
+         
+          <div class="space-y-4  text-sm font-normal">
+            <div class="grid grid-cols-2 gap-2  ">
+             
+              <div class="p-4 bg-gray-100">
+                      <h6
+                class="uppercase font-bold text-sm"
+                style="color: var(--second-blue)"
+              >
           Produits
         </h6>
-          <div class="space-y-4  text-sm font-normal">
-            <div class="grid grid-cols-2 gap-4  ">
               @if(isset($data->business_model->core_business_p))
               @foreach ($data->business_model->core_business_p  as $key =>  $field)
-              <div class="p-4 bg-gray-100">
-                <p><span class="font-semibold" style="color: var(--main-green)">{{$field->label ?? " "}} </span></p>
-                <div class="flex justify-between bg-gray-100 p-2">       
-                  <p>Quantité prévue par mois  :</p>
-                  <p class="font-medium">{{$field->count ?? " "}}</p>
-                </div>
-                <div class="flex justify-between bg-gray-100 p-2">
-                  <p>Prix de vente    :</p>
-                  <p class="font-medium">{{$field->value ?? " "}}</p>
-                </div>
+                <ul class="list-inside list-disc space-y-2">  
+                  <li class="py-2 px-3">{{ $field->label}} </li>
+                </ul>
+                @endforeach
+              @endif 
               </div>  
-              @endforeach
-              @endif
-            </div>
-          </div>
-          <h6
+              <div class="p-4 bg-gray-100"> 
+                <h6
           class="uppercase font-bold text-sm"
           style="color: var(--second-blue)"
         >
           Services
-        </h6>
-          <div class="space-y-4  text-sm font-normal">
+        </h6> @if(isset($data->business_model->core_services))
+              @foreach ($data->business_model->core_services  as $key =>  $field)
+                <ul class="list-inside list-disc space-y-2">  
+                  <li class="py-2 px-3">{{ $field->label}} </li>
+                </ul>
+               @endforeach
+              @endif 
+              </div>
+              
+            </div>
+          </div>
+        
+          {{-- <div class="space-y-4  text-sm font-normal">
             <div class="grid grid-cols-2 gap-4  ">
               @if(isset($data->business_model->core_services))
               @foreach ($data->business_model->core_services  as $key =>  $field)
@@ -1670,7 +1676,7 @@ elseif($cumul_four_year>0) {
               @endforeach
               @endif
             </div>
-          </div>
+          </div> --}}
         </div>
       </div>
       <div class="absolute bottom-0 right-0 left-0">
@@ -1760,7 +1766,39 @@ elseif($cumul_four_year>0) {
             </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
-          <div class="space-y-4  text-sm font-normal">
+          <div class="inline-block rounded-lg border mt-5">
+            <table class="table-fixed border border-gray-900 w-full text-sm">
+              <thead>
+                <tr class="bg-gray-100">
+                  <th
+                    class="
+                      py-2
+                      pl-4
+                      border-2 border-gray-600
+                      self-start
+                      text-left
+                    "
+                  >
+                     Client
+                  </th>
+                  <th class="border-2 border-gray-600 w-1/4 text-center">Produit/Service</th>
+                    <th class="border-2 border-gray-600 w-1/4 text-center">marche</th>
+                </tr>
+              </thead>
+              <tbody class="font-medium">
+                @if(isset($data->business_model->primary_target_client_d))
+                @foreach ($data->business_model->primary_target_client_d as $item)
+                <tr>
+                  <td class="border-2 border-gray-600 ">{{isset($item->label)?$item->label:""}}</td>
+                  <td class="border-2 border-gray-600 text-center">{{isset($item->count)?$item->count:""}}</td>
+                   <td class="border-2 border-gray-600 text-center">{{isset($item->value)?$item->value:""}}</td>
+                </tr>
+                @endforeach
+                @endif
+              </tbody>
+            </table>
+          </div>
+          {{-- <div class="space-y-4  text-sm font-normal">
             <div class="grid grid-cols-2 gap-4  ">
               @if(isset($data->business_model->primary_target_c))
               @foreach ($data->business_model->primary_target_c  as $key =>  $field)
@@ -1770,7 +1808,7 @@ elseif($cumul_four_year>0) {
               @endforeach
               @endif
             </div>
-          </div>
+          </div> --}}
         </div>
         <div class="space-y-4">
           <div class="space-y-1">
@@ -1782,7 +1820,7 @@ elseif($cumul_four_year>0) {
             </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
-          <div class="space-y-4  text-sm font-normal">
+          {{-- <div class="space-y-4  text-sm font-normal">
             <div class="grid grid-cols-2 gap-4  ">
               @if(isset($data->business_model->suppliers_f))
               @foreach ($data->business_model->suppliers_f  as $key =>  $field)
@@ -1800,6 +1838,38 @@ elseif($cumul_four_year>0) {
               @endforeach
               @endif
             </div>
+          </div> --}}
+           <div class="inline-block rounded-lg border mt-5">
+            <table class="table-fixed border border-gray-900 w-full text-sm">
+              <thead>
+                <tr class="bg-gray-100">
+                  <th
+                    class="
+                      py-2
+                      pl-4
+                      border-2 border-gray-600
+                      self-start
+                      text-left
+                    "
+                  >
+                    Fournisseur
+                  </th>
+                  <th class="border-2 border-gray-600 w-1/4 text-center">Nature des intrant</th>
+                    <th class="border-2 border-gray-600 w-1/4 text-center">ville</th>
+                </tr>
+              </thead>
+              <tbody class="font-medium">
+                @if(isset($data->business_model->suppliers_f))
+                @foreach ($data->business_model->suppliers_f as $item)
+                <tr>
+                  <td class="border-2 border-gray-600 ">{{isset($item->label)?$item->label:""}}</td>
+                  <td class="border-2 border-gray-600 text-center">{{isset($item->count)?$item->count:""}}</td>
+                   <td class="border-2 border-gray-600 text-center">{{isset($item->value)?$item->value:""}}</td>
+                </tr>
+                @endforeach
+                @endif
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
@@ -1874,7 +1944,7 @@ elseif($cumul_four_year>0) {
             </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
-          <div class="space-y-4  text-sm font-normal">
+          {{-- <div class="space-y-4  text-sm font-normal">
             <div class="grid grid-cols-2 gap-4  ">
               @if(isset($data->business_model->competition_c))
               @foreach ($data->business_model->competition_c  as $key =>  $field)
@@ -1892,6 +1962,38 @@ elseif($cumul_four_year>0) {
               @endforeach
               @endif
             </div>
+          </div> --}}
+           <div class="inline-block rounded-lg border mt-5">
+            <table class="table-fixed border border-gray-900 w-full text-sm">
+              <thead>
+                <tr class="bg-gray-100">
+                  <th
+                    class="
+                      py-2
+                      pl-4
+                      border-2 border-gray-600
+                      self-start
+                      text-left
+                    "
+                  >
+                     Concurrent
+                  </th>
+                  <th class="border-2 border-gray-600 w-1/4 text-center">Produit/Service</th>
+                    <th class="border-2 border-gray-600 w-1/4 text-center">ville/pays</th>
+                </tr>
+              </thead>
+              <tbody class="font-medium">
+                @if(isset($data->business_model->competition_c))
+                @foreach ($data->business_model->competition_c as $item)
+                <tr>
+                  <td class="border-2 border-gray-600 ">{{isset($item->label)?$item->label:""}}</td>
+                  <td class="border-2 border-gray-600 text-center">{{isset($item->count)?$item->count:""}}</td>
+                   <td class="border-2 border-gray-600 text-center">{{isset($item->value)?$item->value:""}}</td>
+                </tr>
+                @endforeach
+                @endif
+              </tbody>
+            </table>
           </div>
         </div>
         <div class="space-y-4">
@@ -2316,11 +2418,11 @@ elseif($cumul_four_year>0) {
             </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
-          <div class="space-y-4  text-sm font-normal">
-            <div class="grid grid-cols-2 gap-4  ">
+          <div class="space-y-5  text-sm font-normal">
+        
               @if(isset($data->business_model->local))
               @foreach ($data->business_model->local  as $key =>  $field)
-              <div class="p-4 bg-gray-100">
+              <div class="bg-gray-100 text-gray-700 mt-6 p-4 space-y-3 text-sm">
                 <p><span class="font-semibold" style="color: var(--main-green)">local </span></p>
                 <div class="flex justify-between bg-gray-100 p-2">       
                   <p>Mode d'occupation:</p>
@@ -2342,7 +2444,7 @@ elseif($cumul_four_year>0) {
               </div>  
               @endforeach
               @endif
-            </div>
+           
           </div>
         </div>
       </div>
@@ -3313,7 +3415,12 @@ elseif($cumul_four_year>0) {
                   <tr>
                     <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
+                   
+                     @if($item->otherValue=='mensuel')
                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*12, 0, ',', ' ') }} </td>
+                    @else
+                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
+                    @endif
                     <?php   $total_overheads_fixed+=$item->value*12; ?>
                 </tr> 
                 @endforeach
@@ -3628,7 +3735,7 @@ elseif($cumul_four_year>0) {
             Le porteur de projet va payer la taxe de services communaux annuellement comme suit :
           </div>
             <div class="inline-block rounded-lg border w-full ">
-              <table class="table-fixed border border-gray-900 w-90 text-sm">
+              <table class="table-auto border border-gray-900 w-full text-sm">
                 <thead>
                   <tr class="bg-gray-100">
                     <th
@@ -3636,15 +3743,14 @@ elseif($cumul_four_year>0) {
                         py-2
                         pl-4
                         border-2 border-gray-500
-                        w-9/12
                         self-start
                         text-left
                       "
                     >
                     DESIGNATION
                     </th>
-                    <th class="border-2 border-gray-500 w-6/12 text-center">MONTANT HT</th>
-                    <th class="border-2 border-gray-500 w-6/12 text-center">VALEUR LOCATIVE</th>
+                    <th class="border-2 border-gray-500  text-center">MONTANT HT</th>
+                    <th class="border-2 border-gray-500 text-center">VALEUR LOCATIVE</th>
                     <th class="border-2 border-gray-500  text-center"> TAXES</th>
                   </tr>
                 </thead>
@@ -3677,7 +3783,7 @@ elseif($cumul_four_year>0) {
                  @endif
                  @if(isset($data->financial_data->startup_needs))
                  @foreach ($data->financial_data->startup_needs as $item)
-                 @if($item->label !='Frais preliminaires')
+                 @if($item->label !='Frais preliminaires' && $item->label !='Matériel de transport' )
                    <tr>
                      <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->value/(1+($item->duration/100)), 0, ',', ' ') }} </td>
@@ -5075,12 +5181,16 @@ window.addEventListener('load',function(){
     if(!stop){
     var d=document.querySelectorAll('p');
     var l=document.querySelectorAll('li');
+     var tailwind=document.querySelectorAll('td');
     //console.log("===================>",d);
     d.forEach(el=> {
         el.value = el.value.replace("&#039;","'")
      });
       l.forEach(el=> {
         el.value = el.value.replace("&#039;","'")
+     });
+     l.forEach(el=> {
+        el.value = el.value.replace("&amp;amp;#039;","'")
      });
         }
     },100)

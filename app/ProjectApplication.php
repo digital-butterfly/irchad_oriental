@@ -385,6 +385,13 @@ class ProjectApplication extends Model
                         'type' => 'repeater',
                         'label' => 'Principaux clients'
                     ],
+                     [
+                        'name' => 'primary_target_client_d',
+                        'type' => 'repeater',
+                        'label' => 'details client',
+                        'config' => ['tripleRepeater' => true, 'attributes' => [['client',3],['Produit/Service',3], ['marche',2]],'Select'=>false]
+
+                    ],
                     [
                         'name' => 'suppliers_f',
                         'type' => 'repeater',
@@ -560,7 +567,7 @@ class ProjectApplication extends Model
                         'name' => 'overheads_fixed',
                         'type' => 'repeater',
                         'label' => 'Charges Mensuelles fixes',
-                        'config' => ['doubleRepeater' => true, 'attributes' => [['Nature de la charge',4], ['Montant Mensuel ',3]],'Select'=>false]
+                        'config' => ['AddDoubleRepeater' => true, 'attributes' => [['Nature de la charge',4], ['Nature de la charge',4],['Montant Mensuel ',3]],'Select'=>true,'options'=>['mensuel','annuel']]
                     ],
                     [
                         'name' => 'overheads_scalable',
