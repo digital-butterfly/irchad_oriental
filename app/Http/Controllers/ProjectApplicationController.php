@@ -44,15 +44,15 @@ class ProjectApplicationController extends Controller
             'category_id' => ['required', 'integer', 'exists:projects_categories,id'],
             'township_id' => ['required', 'integer', 'exists:townships,id'],
             'title' => ['required', 'string', 'max:155'],
-            'description' => ['nullable', 'string', 'max:455'],
-            'market_type' => ['nullable', 'string', 'max:155'],
+            'description' => ['nullable', 'string'],
+            'market_type' => ['nullable', 'string'],
             'core_business_p.*.value' => ['nullable', 'Integer'],
-            'primary_target' => ['nullable', 'string', 'max:455'],
-            'suppliers' => ['nullable', 'string', 'max:455'],
+            'primary_target' => ['nullable', 'string'],
+            'suppliers' => ['nullable', 'string'],
             'competition_c.*.value' => ['nullable', 'Integer'],
-            'advertising' => ['nullable', 'string', 'max:455'],
-            'pricing_strategy' => ['nullable', 'string', 'max:455'],
-            'distribution_strategy' => ['nullable', 'string', 'max:455'],
+            'advertising' => ['nullable', 'string'],
+            'pricing_strategy' => ['nullable', 'string'],
+            'distribution_strategy' => ['nullable', 'string'],
             'startup_needs.*.value' => ['nullable', 'integer'],
             'startup_needs.*.rate' => ['nullable', 'integer'],
             'startup_needs.*.duration' => ['nullable', 'integer'],
@@ -192,13 +192,25 @@ class ProjectApplicationController extends Controller
         {
             return redirect()->back()->withErrors($validation)->withInput();
         }
+        $files=$request->file('file');
+        $fille_db='';
+//dd($files);
+        $filename ='';
+        if($request->file('file')) {
+        foreach ($files as $key=> $file) {
+          $img_ext = $file->getClientOriginalExtension();
+          $filename = 'annex' . time() . $key.'.' . $img_ext;
+          $path = $file->move(public_path('download'), $filename);//image save public folder
+          $fille_db.=','.$filename;
+          } 
+  } 
         $application = ProjectApplication::create([
             'member_id' => $request['member_id'],
             'category_id' => $request['category_id'],
             'township_id' => $request['township_id'],
             'sheet_id' => $request['sheet_id'],
             'title' => $request['title'],
-             'list_mat_file' => $request['list_mat_file'],
+             'list_mat_file' => $fille_db,
             'description' => $request['description'],
             'market_type' => $request['market_type'],
             'credit_banc' => $request['credit_banc'],

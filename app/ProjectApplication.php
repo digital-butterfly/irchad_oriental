@@ -567,7 +567,7 @@ class ProjectApplication extends Model
                         'name' => 'overheads_fixed',
                         'type' => 'repeater',
                         'label' => 'Charges Mensuelles fixes',
-                        'config' => ['AddDoubleRepeater' => true, 'attributes' => [['Nature de la charge',4], ['Nature de la charge',4],['Montant Mensuel ',3]],'Select'=>true,'options'=>['mensuel','annuel']]
+                        'config' => ['AddDoubleRepeater' => true, 'attributes' => [['Nature de la charge',4], ['Montant',4],['Type',3]],'Select'=>true,'options'=>['mensuel','annuel']]
                     ],
                     [
                         'name' => 'overheads_scalable',
