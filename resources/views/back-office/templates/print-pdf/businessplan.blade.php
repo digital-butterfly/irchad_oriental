@@ -3415,12 +3415,15 @@ elseif($cumul_four_year>0) {
                   <tr>
                     <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
-                   
+                   @if(isset($item->otherValue))
                      @if($item->otherValue=='mensuel')
                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*12, 0, ',', ' ') }} </td>
                     @else
                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
                     @endif
+                   @else
+                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
+                  @endif
                     <?php   $total_overheads_fixed+=$item->value*12; ?>
                 </tr> 
                 @endforeach
