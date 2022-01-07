@@ -64,6 +64,8 @@ if (isset($data  ->financial_data->startup_needs)) {
                                 
 // Parameters
 $bp_turnover_products_total =  0;
+$bp_turnover_products_total1 =  0;
+$bp_turnover_products_total2 =  0;
 $bp_turnover_products_totals=0;
 $total_mensuel_p=0;
 $total_mensuel_s=0;
@@ -74,49 +76,86 @@ $bp_profit_margin_rate =  0;
 $saisonalite=isset($data ->financial_data->saisonnalite)? $data ->financial_data->saisonnalite:0;
 if (isset($data ->financial_data->products_turnover_forecast)){
     foreach ($data ->financial_data->products_turnover_forecast as $total){
-      if(isset($total->organisme)){
-        $bp_turnover_products_total = $bp_turnover_products_total +(( $total->rate * $total->value*$total->organisme)*(1-($total->duration/100))) ;
+      if(isset($total->otherValue)){
+         if(isset($total->organisme)){
+        $bp_turnover_products_total1 = $bp_turnover_products_total1 +(($total->otherValue *$total->organisme)*(1-($total->duration/100))) ;
+        $total_p +=$total->otherValue*$total->organisme;
+        $bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration;  
+        }else{
+        $bp_turnover_products_total1 = $bp_turnover_products_total1 +(( $total->otherValue*$saisonalite)*(1-($total->duration/100))) ;
+        $total_p += ( $total->otherValue *$saisonalite) ;
+        $bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration; 
+        }
+      }else{
+        if(isset($total->organisme)){
+        $bp_turnover_products_total1 = $bp_turnover_products_total1 +(( $total->rate * $total->value*$total->organisme)*(1-($total->duration/100))) ;
         $total_p += $total->rate * $total->value*$total->organisme;
         $bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration;  
-    }else{
-        $bp_turnover_products_total = $bp_turnover_products_total +(( $total->rate * $total->value*$saisonalite)*(1-($total->duration/100))) ;
+        }else{
+        $bp_turnover_products_total1 = $bp_turnover_products_total1 +(( $total->rate * $total->value*$saisonalite)*(1-($total->duration/100))) ;
         $total_p += ( $total->rate * $total->value*$saisonalite) ;
         $bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration; 
-    }
-      }      
+        }
+      }
+    
+    }      
   }
   //dd($total_p);
     if (isset($data ->financial_data->services_turnover_forecast_c)){
     foreach ($data ->financial_data->services_turnover_forecast_c as $total){
-        //$bp_turnover_products_total = $bp_turnover_products_total +(( $total->rate * $total->value*$saisonalite)*(1-($total->duration/100))) ;
-        if(isset($total->rate)){
+        if(isset($total->otherValue)){
+          $bp_turnover_products_total2 = $bp_turnover_products_total2 +(($total->otherValue *$total->organisme)*(1-($total->duration/100))) ;
           if(isset( $total->duration)){
-           $total_s = $total_s +( $total->rate * $total->value*$total->duration) ;  
+           $total_s = $total_s +($total->otherValue*$total->duration) ;  
           }else{
-            $total_s = $total_s +( $total->rate * $total->value* $saisonalite) ; 
+            $total_s = $total_s +( $total->otherValue* $saisonalite) ; 
           }
+        }else{
+
+          if(isset($total->rate)){
+                if(isset( $total->organisme)){
+                $bp_turnover_products_total2 = $bp_turnover_products_total2 +(($total->rate *$total->value*$total->organisme)*(1-($total->duration/100))) ;
+                $total_s = $total_s +( $total->rate * $total->value*$total->organisme) ;  
+                }else{
+                  $total_s = $total_s +( $total->rate * $total->value* $saisonalite) ; 
+                }
          
+          }
+
         }
+        
          
         //$bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration;  
     }
 }
 if (isset($data ->financial_data->products_turnover_forecast)){
     foreach ($data ->financial_data->products_turnover_forecast as $total){
-        if(isset( $total->rate)){
-        $total_mensuel_p = $total_mensuel_p+( $total->rate * $total->value) ;
+      if(isset($total->otherValue)){
+        if(isset( $total->organisme)){
+        $total_mensuel_p = $total_mensuel_p+$total->otherValue;
+        }
+        }else{
+          if(isset( $total->rate)){
+           $total_mensuel_p = $total_mensuel_p+( $total->rate * $total->value) ;
+        }
         }
     }
   }
 if (isset($data ->financial_data->services_turnover_forecast_c)){
     foreach ($data ->financial_data->services_turnover_forecast_c as $total){
-      if(isset( $total->rate)){
-      $total_mensuel_s = $total_mensuel_s +( $total->rate * $total->value) ;
+      if(isset($total->otherValue)){
+        if(isset( $total->organisme)){
+        $total_mensuel_p = $total_mensuel_p+$total->otherValue;
+        }}else{
+         if(isset( $total->rate)){
+         $total_mensuel_s = $total_mensuel_s +( $total->rate * $total->value) ;
+      }
       }
       
     }
 }
-
+//dd($total_s);
+$bp_turnover_products_total= $bp_turnover_products_total2+ $bp_turnover_products_total1;
 $bp_turnover_products_totals=$total_s+$total_p;
 $total_mensuel=$total_mensuel_p+$total_mensuel_s;
 //dd($total_s);
@@ -2652,7 +2691,7 @@ elseif($cumul_four_year>0) {
         <div class="grid grid-cols-2 gap-4 ">
           <div class=" bg-white"> 
               <div class="inline-block rounded-lg border ">
-              <table class="table-fixed border border-gray-900 w-90 text-sm">
+              <table class="table-fixed border border-gray-900 w-full text-sm">
                 <thead>
                   <tr class="bg-gray-100">
                     <th
@@ -2660,15 +2699,14 @@ elseif($cumul_four_year>0) {
                         py-2
                         pl-4
                         border-2 border-gray-500
-                        w-9/12
                         self-start
                         text-left
                       "
                     >
                     DESIGNATION
                     </th>
-                    <th class="border-2 border-gray-500 w-7/12 text-center">MONTANT</th>
-                    <th class="border-2 border-gray-500 w-3/12 text-center">POIDS</th>
+                    <th class="border-2 border-gray-500 text-center">MONTANT</th>
+                    <th class="border-2 border-gray-500  text-center">POIDS</th>
                   </tr>
                 </thead>
                 <tbody class="font-medium">
@@ -2724,7 +2762,7 @@ elseif($cumul_four_year>0) {
         <div class="grid grid-cols-2 gap-4 ">
           <div class=" bg-white"> 
               <div class="inline-block rounded-lg border ">
-              <table class="table-fixed border border-gray-900 w-90 text-sm">
+              <table class="table-fixed border border-gray-900 w-full text-sm">
                 <thead>
                   <tr class="bg-gray-100">
                     <th
@@ -2732,15 +2770,14 @@ elseif($cumul_four_year>0) {
                         py-2
                         pl-4
                         border-2 border-gray-500
-                        w-9/12
                         self-start
                         text-left
                       "
                     >
                     DESIGNATION
                     </th>
-                    <th class="border-2 border-gray-500 w-7/12 text-center">MONTANT</th>
-                    <th class="border-2 border-gray-500 w-3/12 text-center">POIDS</th>
+                    <th class="border-2 border-gray-500 text-center">MONTANT</th>
+                    <th class="border-2 border-gray-500  text-center">POIDS</th>
                   </tr>
                 </thead>
                 <tbody class="font-medium">
@@ -2880,37 +2917,74 @@ elseif($cumul_four_year>0) {
                   @if(isset($data->financial_data->services_turnover_forecast_c))
                   @foreach ($data->financial_data->services_turnover_forecast_c as $item)
                     <tr>
-                      <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
-                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
-                      @if(isset($item->rate))
-                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->rate,0, ',', ' ')}}</td>
-                     
-                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*$item->rate, 0, ',', ' ') }} </td>
-                       @if(isset($item->duration))
-                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*$item->rate*$item->duration,0, ',', ' ')}}</td>
-                      @else
-                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*$item->rate*$saisonalite,0, ',', ' ')}}</td>
-                      @endif
-                       @endif
+                  @if(isset($item->otherValue))
+                       <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
+                     <td class="border-2 border-gray-500 text-center">{{ number_format(0, 0, ',', ' ') }} </td>
+                     <td class="border-2 border-gray-500 text-center">{{ number_format(0,0, ',', ' ')}}</td>
+                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->otherValue, 0, ',', ' ') }}</td>
+                     @if(isset($item->organisme))
+                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->otherValue*$item->organisme,0, ',', ' ')}}</td>
+                     <?php $total=0; $total+= $item->value*$item->rate*$item->organisme; ?>
+                    
+                    @else
+                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->otherValue*$saisonalite,0, ',', ' ')}}</td>
+                     <?php $total=0; $total+=  $item->value*$item->rate*$saisonalite; ?>
+                     @endif
+                    </tr> 
+                   @else
+                     <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
+                     @if(isset($item->rate))
+                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->rate, 0, ',', ' ') }} </td>
+                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->value,0, ',', ' ')}}</td>
+                       <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*$item->rate, 0, ',', ' ') }}</td>
+                        @if(isset($item->organisme))
+                        <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*$item->rate*$item->organisme,0, ',', ' ')}}</td>
+                        <?php $total=0; $total+= $item->value*$item->rate*$item->organisme; ?>
+                        
+                        @else
+                        <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*$item->rate*$saisonalite,0, ',', ' ')}}</td>
+                        <?php $total=0; $total+=  $item->value*$item->rate*$saisonalite; ?>
+                        @endif
+                        @endif
+                        </tr>  
+                 @endif
                   </tr> 
                   @endforeach
                  @endif
                  @if(isset($data->financial_data->products_turnover_forecast))
                  @foreach ($data->financial_data->products_turnover_forecast as $item)
                    <tr>
-                     <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
-                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->rate, 0, ',', ' ') }} </td>
-                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->value,0, ',', ' ')}}</td>
-                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*$item->rate, 0, ',', ' ') }} </td>
+                  @if(isset($item->otherValue))
+                       <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
+                     <td class="border-2 border-gray-500 text-center">{{ number_format(0, 0, ',', ' ') }} </td>
+                     <td class="border-2 border-gray-500 text-center">{{ number_format(0,0, ',', ' ')}}</td>
+                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->otherValue, 0, ',', ' ') }}</td>
                      @if(isset($item->organisme))
-                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*$item->rate*$item->organisme,0, ',', ' ')}}</td>
+                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->otherValue*$item->organisme,0, ',', ' ')}}</td>
                      <?php $total=0; $total+= $item->value*$item->rate*$item->organisme; ?>
                     
                     @else
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*$item->rate*$saisonalite,0, ',', ' ')}}</td>
+                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->otherValue*$saisonalite,0, ',', ' ')}}</td>
                      <?php $total=0; $total+=  $item->value*$item->rate*$saisonalite; ?>
                      @endif
                     </tr> 
+                   @else
+                          <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
+                                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->rate, 0, ',', ' ') }} </td>
+                                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->value,0, ',', ' ')}}</td>
+                                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*$item->rate, 0, ',', ' ') }}</td>
+                                    @if(isset($item->organisme))
+                                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*$item->rate*$item->organisme,0, ',', ' ')}}</td>
+                                    <?php $total=0; $total+= $item->value*$item->rate*$item->organisme; ?>
+                                    
+                                    @else
+                                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*$item->rate*$saisonalite,0, ',', ' ')}}</td>
+                                    <?php $total=0; $total+=  $item->value*$item->rate*$saisonalite; ?>
+                                    @endif
+                                    </tr> 
+                                
+                               
+                   @endif 
                  @endforeach
                 @endif
                   <tr class="bg-green-200">
@@ -3036,7 +3110,23 @@ elseif($cumul_four_year>0) {
                 @endif
                 @endforeach
                 @endif
-               
+               @if(isset($data->financial_data->services_turnover_forecast_c))
+                @foreach ($data->financial_data->services_turnover_forecast_c as $item)
+                  <tr>
+                    <td class="border-2 border-gray-500 "> Achat <span class="bg-red-200">{{$item->label}}</span> ({{ number_format((1-$item->duration/100)*100, 0, ',', ' ') }}% du Chiffres d’affaires) </td>
+                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->rate, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->value,0, ',', ' ')}}</td>
+                 @if(isset($item->organisme))
+                      <td class="border-2 border-gray-500 text-center">{{ number_format(($item->rate * $item->value*$item->organisme)*(1-($item->duration/100)), 0, ',', ' ') }} </td>
+                  </tr> 
+                  <?php   $total_achat+=(($item->rate * $item->value*$item->organisme)*(1-($item->duration/100))); ?>
+                  @else
+                  <td class="border-2 border-gray-500 text-center">{{ number_format(($item->rate * $item->value*$saisonalite)*(1-($item->duration/100)), 0, ',', ' ') }} </td>
+                    </tr> 
+                  <?php   $total_achat+=(($item->rate * $item->value*$saisonalite)*(1-($item->duration/100))); ?>
+                @endif
+                @endforeach
+                @endif
                 <tr class="bg-green-200">
                   <td
                   colspan="3"
