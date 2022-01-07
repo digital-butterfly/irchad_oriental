@@ -559,16 +559,15 @@ class ProjectApplication extends Model
                         'name' => 'services_turnover_forecast_c',
                         'type' => 'repeater',
                         'label' => 'CA prévisionnel - Services',
-                        'config' => ['quadrupleRepeater' => true, 'attributes' => [['Service',3], ['Quantité/Nombre(par mois)',4], ['Prix',3],['Saisonnalité(en mois)',3]],'Select'=>false]
+                        'config' => ['sextupleRepeater' => true, 'attributes' => [['Service',3], ['Quantité/Nombre(par mois)',4], ['Prix',2],['Taux de marge',3],['Chiffre d\'affaires mensuel',4],['Saisonnalité(en mois)',3]],'Select'=>false]
 
                     ],
                     [
                         'name' => 'products_turnover_forecast',
                         'type' => 'repeater',
                         'label' => 'CA prévisionnel - Produits',
-                        'config' => ['quintupleRepeater' => true, 'attributes' => [['Produit',3], ['Quantité/Nombre(par mois)',4], ['Prix unitaire',2], ['Taux de marge',3],['Saisonnalité(en mois)',3]],'Select'=>false]
+                        'config' => ['sextupleRepeater' => true, 'attributes' => [['Produit',3], ['Quantité/Nombre(par mois)',4], ['Prix unitaire',2], ['Taux de marge',3],['Chiffre d\'affaires mensuerl',3],['Saisonnalité(en mois)',3],],'Select'=>false]
                     ],
-                 
                     [
                         'name' => 'overheads_fixed',
                         'type' => 'repeater',

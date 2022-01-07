@@ -38,7 +38,7 @@
         <div data-repeater-list="{{ $field['name'] }}" class="col-lg-9">
             <div data-repeater-item="" class="form-group row align-items-center">
 
-                @if (!(isset($field['config']['doubleRepeater'])) && !(isset($field['config']['tripleRepeater'])) && !(isset($field['config']['quadrupleRepeater']))&& !(isset($field['config']['quintupleRepeater'])) && !(isset($field['config']['quadrupleRepeaterofme']))&& !(isset($field['config']['AddDoubleRepeater'])))
+                @if (!(isset($field['config']['doubleRepeater'])) && !(isset($field['config']['tripleRepeater'])) && !(isset($field['config']['quadrupleRepeater']))&& !(isset($field['config']['quintupleRepeater'])) && !(isset($field['config']['quadrupleRepeaterofme']))&& !(isset($field['config']['AddDoubleRepeater']))&& !(isset($field['config']['sextupleRepeater'])))
                     <div class="col-md-8">
                         <div class="kt-form__group--inline">
                             <div class="kt-form__control">
@@ -686,7 +686,7 @@
 
                         </script>
                     @endif --}}
- {{-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! --}}
+ {{-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! --}}
 
                     @if ($repeater_values)
                                         <script>
@@ -718,6 +718,183 @@
                                             });
                                         </script>
                                     @endif   
+       @elseif (isset($field['config']['sextupleRepeater']))
+                    <div class="col-md-{{ $field['config']['attributes'][0][1] ?? '3' }}">
+                        <div class="kt-form__group--inline">
+                            <div class="kt-form__label">
+                                <label>{{ $field['config']['attributes'][0][0] ?? 'Désignation' }}:</label>
+                            </div>
+                            <div class="kt-form__control">
+                                @if($field['config']['Select'])
+                                    <select class="form-control sel" name="label"  onchange="$(this).val()==='Autre à préciser'?$(this).closest('.kt-form__control').find('.pi').show():$(this).closest('.kt-form__control').find('.pi').hide()">
+                                        <option value="">---</option>
+                                        @foreach($field['config']['options'] as $value)
+                                            <option value="{{$value}}" >{{$value}}</option>
+                                        @endforeach
+                                    </select>
+
+                                    <input type="text"  name="labelOther" class="pi form-control" placeholder=""  style="display: block">
+                                    <?php
+//                                    dd ($data)
+                                    ?>
+                                @else
+                                    <input type="text" name="label" class="form-control" placeholder="">
+
+                                @endif
+{{--                                <input type="text" name="label" class="form-control" placeholder="">--}}
+                            </div>
+                        </div>
+
+                        <div class="d-md-none kt-margin-b-10"></div>
+
+                    </div>
+                    <div class="col-md-{{ $field['config']['attributes'][1][1] ?? '3' }}">
+                        <div class="kt-form__group--inline">
+                            <div class="kt-form__label">
+                                <label>{{ $field['config']['attributes'][1][0] ?? 'Valeur' }}:</label>
+                            </div>
+                            <div class="kt-form__control">
+                                <input type="text" name="value" class="form-control" placeholder="">
+                            </div>
+                        </div>
+                        <div class="d-md-none kt-margin-b-10"></div>
+                    </div>
+                    <div class="col-md-{{ $field['config']['attributes'][2][1] ?? '1' }}">
+                        <div class="kt-form__group--inline">
+                            <div class="kt-form__label">
+                                <label class="kt-label m-label--single">{{ $field['config']['attributes'][2][0] ?? 'Taux' }}:</label>
+                            </div>
+                            <div class="kt-form__control">
+                                <input type="text" name="rate" class="form-control" placeholder="">
+                            </div>
+                        </div>
+                        <div class="d-md-none kt-margin-b-10"></div>
+                    </div>
+                    <div class="col-md-{{ $field['config']['attributes'][3][1] ?? '1' }}">
+                        <div class="kt-form__group--inline">
+                            <div class="kt-form__label">
+                                <label class="kt-label m-label--single">{{ $field['config']['attributes'][3][0] ?? 'Années' }}:</label>
+                            </div>
+                            <div class="kt-form__control">
+                                <input type="text" name="duration" class="form-control" placeholder="">
+                            </div>
+                        </div>
+                        <div class="d-md-none kt-margin-b-10"></div>
+                    </div>
+                       <div class="col-md-{{ $field['config']['attributes'][4][1] ?? '1' }}">
+                        <div class="kt-form__group--inline">
+                            <div class="kt-form__label">
+                                <label class="kt-label m-label--single">{{ $field['config']['attributes'][4][0] ?? 'Années' }}:</label>
+                            </div>
+                            <div class="kt-form__control">
+                                <input type="text" name="otherValue" class="form-control" placeholder=""></input>
+                            </div>
+                        </div>
+                        <div class="d-md-none kt-margin-b-10"></div>
+                    </div>
+                    <div class="col-md-{{ $field['config']['attributes'][4][1] ?? '1' }}">
+                        <div class="kt-form__group--inline">
+                            <div class="kt-form__label">
+                                <label class="kt-label m-label--single">{{ $field['config']['attributes'][5][0] ?? 'Années' }}:</label>
+                            </div>
+                            <div class="kt-form__control">
+                                <input type="text" name="organisme" class="form-control" placeholder=""></input>
+                            </div>
+                        </div>
+                        <div class="d-md-none kt-margin-b-10"></div>
+                    </div>
+                
+{{-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!--}}
+                    {{-- @if (isset($data) && isset($data->$ref) && $data->$ref != NULL)
+                        <script>
+                            window.addEventListener('load', function() {
+                                var $repeater = $('.kt_repeater_{{ $field['name'] }}').repeater();
+                                $repeater.setList([
+                                    @foreach ($data->$ref as $item)
+
+                                        {
+                                            'label' :  '{{ $item->label ?? '' }}',
+                                            'value' :  '{{ $item->value ?? '' }}',
+                                            'rate' :  '{{ $item->rate ?? '' }}',
+                                            'duration' : '{{ $item->duration ?? '' }}', 
+                                            'organisme' :  '{{ $item->organisme ?? '' }}',
+                                        },
+
+                                    @endforeach
+                                ]);
+
+                            });
+                        </script>
+                    @elseif (isset($data) && isset($data->$parent_ref) && isset($data->$parent_ref->$ref) && $data->$parent_ref->$ref != NULL)
+                        <script>
+                            window.addEventListener('load', function() {
+
+                                var $repeater = $('.kt_repeater_{{ $field['name'] }}').repeater();
+
+                                $repeater.setList([
+                                    @if (!is_array($data->$parent_ref->$ref))
+                                        @foreach ($data->$parent_ref->$ref as $item)
+                                            {
+                                                'label' :  '{{ $item->label ?? '' }}',
+                                                   'organisme' :  '{{ $item->organisme ?? '' }}',
+                                                'value' :  '{{ $item->value ?? '' }}',
+                                                'rate' :  '{{ $item->rate ?? '' }}',
+                                                'duration' :  '{{ $item->duration ?? '' }}',
+                                            },
+                                        @endforeach
+                                    @else
+                                        @foreach ($data->$parent_ref->$ref as $item)
+                                            {
+                                                'label' :  '{{ $item->label ?? '' }}',
+                                                  'organisme' :  '{{ $item->organisme ?? '' }}',
+                                                'value' :  '{{ $item->value ?? '' }}',
+                                                'rate' :  '{{ $item->rate ?? '' }}',
+                                                'duration' :  '{{ $item->duration ?? '' }}',
+                                            },
+                                        @endforeach
+                                    @endif
+                                ]);
+
+                                // if($('.pi').val()!=''){
+                                //     $('.pi').show()
+                                // }
+                            });
+
+                        </script>
+                    @endif --}}
+ {{-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! --}}
+
+                    @if ($repeater_values)
+                                        <script>
+                                            window.addEventListener('load', function() {
+                                                var $repeater = $('.kt_repeater_{{ $field['name'] }}').repeater();
+                                                $repeater.setList([
+                                                    @foreach ($repeater_values as $item)
+                                                        {
+                                                            'label' :  '{{ $item->label ?? '' }}',
+                                                            'organisme' :  '{{ $item->organisme ?? '' }}',
+                                                            'value' :  '{{ $item->value ?? '' }}',
+                                                            'rate' :  '{{ $item->rate ?? '' }}',
+                                                            'duration' : '{{ $item->duration ?? '' }}',
+                                                            'otherValue' : '{{ $item->otherValue ?? '' }}',
+                                                        },
+                                                    @endforeach
+                                                ]);
+                                                let field = @JSON($field);
+                                                if (field.items_errors) {
+                                                    let error_key;
+                                                    @foreach ($repeater_values as $key => $item)
+                                                        error_key = field.items_errors[{{$key}}];
+                                                        if(error_key) {
+                                                            Object.keys(error_key).forEach((key) => {
+                                                                $(`input[name^="${field.name}[{{$key}}][${key}]"]`).addClass('is-invalid');
+                                                            })
+                                                        }
+                                                    @endforeach
+                                                }
+                                            });
+                                        </script>
+                                    @endif                      
                 @else
                     <div class="col-md-{{ $field['config']['attributes'][0][1] ?? '3' }}">
                         <div class="kt-form__group--inline">
@@ -752,7 +929,7 @@
                         </div>
                         <div class="d-md-none kt-margin-b-10"></div>
                     </div>
-  {{-- ..................................................................... --}}
+  {{-- ............................................................................................................... --}}
                     {{-- @if (isset($data) && (is_array($data) || is_object($data)) && isset($data->$ref) && $data->$ref != NULL)
                         <script>
                             window.addEventListener('load', function() {

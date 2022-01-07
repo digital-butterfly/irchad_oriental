@@ -2674,8 +2674,11 @@ elseif($cumul_four_year>0) {
                 <tbody class="font-medium">
                   @if(isset($data->financial_data->startup_needs))
                   @foreach ($data->financial_data->startup_needs as $item)
-                    <tr>
-                      <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
+                 
+                    <tr> 
+                      @if(isset($item->label))
+                      <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td> 
+                      @endif
                       <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
                       <td class="border-2 border-gray-500 text-center">{{ number_format( $bp_investment_program_total!=0? $item->value /$bp_investment_program_total*100:0,0, ',', ' ')}}%</td>
                   </tr> 
@@ -5033,7 +5036,6 @@ elseif($cumul_four_year>0) {
                       <h5
                         class="uppercase font-bold text-sm"
                         style="color: var(--second-blue)">
-                      Annexes
                       </h5>
                       <hr class="bg-gray-300" style="height: 2px" />
                     </div>
