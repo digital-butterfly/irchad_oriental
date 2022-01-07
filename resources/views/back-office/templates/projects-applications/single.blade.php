@@ -280,7 +280,7 @@
                                              
                                               <div class="alert alert-danger" id="alert_id" style="display:none;">
                                                         <ul>
-                                                         <li> le programme d'investissement  n'est pas egual a le plan financement!</li>
+                                                         <li>le programme d'investissement n'est pas égal a le plan financement!</li>
                                                         </ul>
                                                     </div><br/>
 

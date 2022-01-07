@@ -533,6 +533,7 @@ class ProjectApplication extends Model
                         'type' => 'text',
                         'label' => 'Total  Plan de financement '
                     ],
+                    
                       
                 ],
             'group' => 'Étude Technique'
@@ -571,13 +572,13 @@ class ProjectApplication extends Model
                     [
                         'name' => 'overheads_fixed',
                         'type' => 'repeater',
-                        'label' => 'Charges Mensuelles fixes',
+                        'label' => 'Charges fixes',
                         'config' => ['AddDoubleRepeater' => true, 'attributes' => [['Nature de la charge',4], ['Montant',4],[' Mensuel/Annuel',3]],'Select'=>true,'options'=>['Mensuel','Annuel']]
                     ],
                     [
                         'name' => 'overheads_scalable',
                         'type' => 'repeater',
-                        'label' => 'Charges Mensuelles  variables',
+                        'label' => 'Charges variables',
                       'config' => ['AddDoubleRepeater' => true, 'attributes' => [['Nature de la charge',4], ['Montant',4],[' Mensuel/Annuel',3]],'Select'=>true,'options'=>['Mensuel','Annuel']]
                     ],
                     [

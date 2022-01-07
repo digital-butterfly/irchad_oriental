@@ -2629,7 +2629,7 @@ elseif($cumul_four_year>0) {
             class="font-semibold text-lg"
             style="color: var(--main-blue); line-height: 16px"
           >
-           Etude Technique
+       Étude Financière
           </h3>
         </div>
         <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />

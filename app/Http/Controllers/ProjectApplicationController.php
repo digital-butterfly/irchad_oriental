@@ -75,6 +75,7 @@ class ProjectApplicationController extends Controller
             'taxes.*.value' => ['nullable', 'integer'],
              'products_turnover_forecast.*.organisme' => ['nullable', 'integer', 'max:12'],
             'saisonnalite' => ['nullable', 'integer', 'max:12'],
+            'duration_différe' => ['nullable', 'integer', 'max:24'],
 
         ], [
             'evolution_rate.integer' => 'Taux d\'évolution annuelle   doit être un chiffre',
