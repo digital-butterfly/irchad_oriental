@@ -1353,7 +1353,7 @@ elseif($cumul_four_year>0) {
           class="uppercase font-bold text-sm"
           style="color: var(--second-blue)"
         >
-          résumé du projet
+
         </h5>
         <hr class="bg-gray-300" style="height: 2px" />
       </div>
@@ -3078,7 +3078,7 @@ elseif($cumul_four_year>0) {
                     class="
                       py-2
                       pl-2
-                      border-2 border-gray-500
+                      border-2 border-gra y-500
                       self-start
                       text-left
                     "
@@ -3095,36 +3095,68 @@ elseif($cumul_four_year>0) {
               <tbody class="font-medium">
                 @if(isset($data->financial_data->products_turnover_forecast))
                 @foreach ($data->financial_data->products_turnover_forecast as $item)
+                @if(isset($item->otherValue))
                   <tr>
                     <td class="border-2 border-gray-500 "> Achat <span class="bg-red-200">{{$item->label}}</span> ({{ number_format((1-$item->duration/100)*100, 0, ',', ' ') }}% du Chiffres d’affaires) </td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->rate, 0, ',', ' ') }} </td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->value,0, ',', ' ')}}</td>
+                    <td class="border-2 border-gray-500 text-center">{{ number_format(0, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 text-center">{{ number_format(0,0, ',', ' ')}}</td>
                  @if(isset($item->organisme))
-                      <td class="border-2 border-gray-500 text-center">{{ number_format(($item->rate * $item->value*$item->organisme)*(1-($item->duration/100)), 0, ',', ' ') }} </td>
+                      <td class="border-2 border-gray-500 text-center">{{ number_format(($item->otherValue*$item->organisme)*(1-($item->duration/100)), 0, ',', ' ') }} </td>
                   </tr> 
-                  <?php   $total_achat+=(($item->rate * $item->value*$item->organisme)*(1-($item->duration/100))); ?>
+                  <?php   $total_achat+=(($item->otherValue*$item->organisme)*(1-($item->duration/100))); ?>
                   @else
-                  <td class="border-2 border-gray-500 text-center">{{ number_format(($item->rate * $item->value*$saisonalite)*(1-($item->duration/100)), 0, ',', ' ') }} </td>
+                  <td class="border-2 border-gray-500 text-center">{{ number_format(($item->otherValue*$saisonalite)*(1-($item->duration/100)), 0, ',', ' ') }} </td>
                     </tr> 
-                  <?php   $total_achat+=(($item->rate * $item->value*$saisonalite)*(1-($item->duration/100))); ?>
+                  <?php   $total_achat+=(($item->otherValue*$saisonalite)*(1-($item->duration/100))); ?>
                 @endif
+                @else
+                <tr>
+                  <td class="border-2 border-gray-500 "> Achat <span class="bg-red-200">{{$item->label}}</span> ({{ number_format((1-$item->duration/100)*100, 0, ',', ' ') }}% du Chiffres d’affaires) </td>
+                  <td class="border-2 border-gray-500 text-center">{{ number_format($item->rate, 0, ',', ' ') }} </td>
+                  <td class="border-2 border-gray-500 text-center">{{ number_format($item->value,0, ',', ' ')}}</td>
+               @if(isset($item->organisme))
+                    <td class="border-2 border-gray-500 text-center">{{ number_format(($item->rate * $item->value*$item->organisme)*(1-($item->duration/100)), 0, ',', ' ') }} </td>
+                </tr> 
+                <?php   $total_achat+=(($item->rate * $item->value*$item->organisme)*(1-($item->duration/100))); ?>
+                @else
+                <td class="border-2 border-gray-500 text-center">{{ number_format(($item->rate * $item->value*$saisonalite)*(1-($item->duration/100)), 0, ',', ' ') }} </td>
+                  </tr> 
+                <?php   $total_achat+=(($item->rate * $item->value*$saisonalite)*(1-($item->duration/100))); ?>
+              @endif
+              @endif
                 @endforeach
                 @endif
                @if(isset($data->financial_data->services_turnover_forecast_c))
                 @foreach ($data->financial_data->services_turnover_forecast_c as $item)
+                @if(isset($item->otherValue))
                   <tr>
                     <td class="border-2 border-gray-500 "> Achat <span class="bg-red-200">{{$item->label}}</span> ({{ number_format((1-$item->duration/100)*100, 0, ',', ' ') }}% du Chiffres d’affaires) </td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->rate, 0, ',', ' ') }} </td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->value,0, ',', ' ')}}</td>
+                    <td class="border-2 border-gray-500 text-center">{{ number_format(0, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 text-center">{{ number_format(0,0, ',', ' ')}}</td>
                  @if(isset($item->organisme))
-                      <td class="border-2 border-gray-500 text-center">{{ number_format(($item->rate * $item->value*$item->organisme)*(1-($item->duration/100)), 0, ',', ' ') }} </td>
+                      <td class="border-2 border-gray-500 text-center">{{ number_format(($item->otherValue*$item->organisme)*(1-($item->duration/100)), 0, ',', ' ') }} </td>
                   </tr> 
-                  <?php   $total_achat+=(($item->rate * $item->value*$item->organisme)*(1-($item->duration/100))); ?>
+                  <?php   $total_achat+=(($item->otherValue*$item->organisme)*(1-($item->duration/100))); ?>
                   @else
-                  <td class="border-2 border-gray-500 text-center">{{ number_format(($item->rate * $item->value*$saisonalite)*(1-($item->duration/100)), 0, ',', ' ') }} </td>
+                  <td class="border-2 border-gray-500 text-center">{{ number_format(($item->otherValue*$saisonalite)*(1-($item->duration/100)), 0, ',', ' ') }} </td>
                     </tr> 
-                  <?php   $total_achat+=(($item->rate * $item->value*$saisonalite)*(1-($item->duration/100))); ?>
+                  <?php   $total_achat+=(( $item->otherValue*$saisonalite)*(1-($item->duration/100))); ?>
                 @endif
+                @else
+                <tr>
+                  <td class="border-2 border-gray-500 "> Achat <span class="bg-red-200">{{$item->label}}</span> ({{ number_format((1-$item->duration/100)*100, 0, ',', ' ') }}% du Chiffres d’affaires) </td>
+                  <td class="border-2 border-gray-500 text-center">{{ number_format($item->rate, 0, ',', ' ') }} </td>
+                  <td class="border-2 border-gray-500 text-center">{{ number_format($item->value,0, ',', ' ')}}</td>
+               @if(isset($item->organisme))
+                    <td class="border-2 border-gray-500 text-center">{{ number_format(($item->rate * $item->value*$item->organisme)*(1-($item->duration/100)), 0, ',', ' ') }} </td>
+                </tr> 
+                <?php   $total_achat+=(($item->rate * $item->value*$item->organisme)*(1-($item->duration/100))); ?>
+                @else
+                <td class="border-2 border-gray-500 text-center">{{ number_format(($item->rate * $item->value*$saisonalite)*(1-($item->duration/100)), 0, ',', ' ') }} </td>
+                  </tr> 
+                <?php   $total_achat+=(($item->rate * $item->value*$saisonalite)*(1-($item->duration/100))); ?>
+              @endif
+              @endif
                 @endforeach
                 @endif
                 <tr class="bg-green-200">
