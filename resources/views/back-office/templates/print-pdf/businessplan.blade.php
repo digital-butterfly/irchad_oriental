@@ -104,27 +104,28 @@ if (isset($data ->financial_data->products_turnover_forecast)){
   //dd($total_p);
     if (isset($data ->financial_data->services_turnover_forecast_c)){
     foreach ($data ->financial_data->services_turnover_forecast_c as $total){
-        if(isset($total->otherValue)){
-          $bp_turnover_products_total2 = $bp_turnover_products_total2 +(($total->otherValue *$total->organisme)*(1-($total->duration/100))) ;
-          if(isset( $total->duration)){
-           $total_s = $total_s +($total->otherValue*$total->duration) ;  
-          }else{
-            $total_s = $total_s +( $total->otherValue* $saisonalite) ; 
-          }
+         if(isset($total->otherValue)){
+         if(isset($total->organisme)){
+        $bp_turnover_products_total2 = $bp_turnover_products_total1 +(($total->otherValue *$total->organisme)*(1-($total->duration/100))) ;
+        $total_s +=$total->otherValue*$total->organisme;
+        $bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration;  
         }else{
-
-          if(isset($total->rate)){
-                if(isset( $total->organisme)){
-                $bp_turnover_products_total2 = $bp_turnover_products_total2 +(($total->rate *$total->value*$total->organisme)*(1-($total->duration/100))) ;
-                $total_s = $total_s +( $total->rate * $total->value*$total->organisme) ;  
-                }else{
-                  $total_s = $total_s +( $total->rate * $total->value* $saisonalite) ; 
-                }
-         
-          }
-
+        $bp_turnover_products_total2 = $bp_turnover_products_total1 +(( $total->otherValue*$saisonalite)*(1-($total->duration/100))) ;
+        $total_s += ( $total->otherValue *$saisonalite) ;
+        $bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration; 
         }
-        
+      }else{
+        if(isset($total->organisme)){
+        $bp_turnover_products_total2 = $bp_turnover_products_total1 +(( $total->rate * $total->value*$total->organisme)*(1-($total->duration/100))) ;
+        $total_p += $total->rate * $total->value*$total->organisme;
+        $bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration;  
+        }else{
+        $bp_turnover_products_total2 = $bp_turnover_products_total1 +(( $total->rate * $total->value*$saisonalite)*(1-($total->duration/100))) ;
+        $total_s += ( $total->rate * $total->value*$saisonalite) ;
+        $bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration; 
+        }
+      }
+    
          
         //$bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration;  
     }
@@ -2717,9 +2718,9 @@ elseif($cumul_four_year>0) {
                     <tr> 
                       @if(isset($item->label))
                       <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td> 
-                      @endif
                       <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
-                      <td class="border-2 border-gray-500 text-center">{{ number_format( $bp_investment_program_total!=0? $item->value /$bp_investment_program_total*100:0,0, ',', ' ')}}%</td>
+                      <td class="border-2 border-gray-500 text-center">{{ number_format( $bp_investment_program_total!=0? $item->value /$bp_investment_program_total*100:0,0, ',', ' ')}}%</td>   
+                       @endif
                   </tr> 
                   @endforeach
                  @endif
@@ -3911,7 +3912,7 @@ elseif($cumul_four_year>0) {
                  @foreach ($data->financial_data->startup_needs as $item)
                  @if($item->label !='Frais preliminaires' && $item->label !='Matériel de transport' )
                    <tr>
-                     <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
+                     <td class="border-2 border-gray-500 py-1 pl-4">{{isset($item->label)?$item->label:''}}</td>
                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->value/(1+($item->duration/100)), 0, ',', ' ') }} </td>
                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->value/(1+($item->duration/100))*0.03, 0, ',', ' ') }} </td>
                      <td class="border-2 border-gray-500 text-center">{{ number_format(($item->value/(1+($item->duration/100))*0.03)*$taxe, 0, ',', ' ') }} </td>
