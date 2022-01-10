@@ -106,21 +106,21 @@ if (isset($data ->financial_data->products_turnover_forecast)){
     foreach ($data ->financial_data->services_turnover_forecast_c as $total){
          if(isset($total->otherValue)){
          if(isset($total->organisme)){
-        $bp_turnover_products_total2 = $bp_turnover_products_total1 +(($total->otherValue *$total->organisme)*(1-($total->duration/100))) ;
+        $bp_turnover_products_total2 = $bp_turnover_products_total2 +(($total->otherValue *$total->organisme)*(1-($total->duration/100))) ;
         $total_s +=$total->otherValue*$total->organisme;
         $bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration;  
         }else{
-        $bp_turnover_products_total2 = $bp_turnover_products_total1 +(( $total->otherValue*$saisonalite)*(1-($total->duration/100))) ;
+        $bp_turnover_products_total2 = $bp_turnover_products_total2 +(( $total->otherValue*$saisonalite)*(1-($total->duration/100))) ;
         $total_s += ( $total->otherValue *$saisonalite) ;
         $bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration; 
         }
       }else{
         if(isset($total->organisme)){
-        $bp_turnover_products_total2 = $bp_turnover_products_total1 +(( $total->rate * $total->value*$total->organisme)*(1-($total->duration/100))) ;
+        $bp_turnover_products_total2 = $bp_turnover_products_total2+(( $total->rate * $total->value*$total->organisme)*(1-($total->duration/100))) ;
         $total_p += $total->rate * $total->value*$total->organisme;
         $bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration;  
         }else{
-        $bp_turnover_products_total2 = $bp_turnover_products_total1 +(( $total->rate * $total->value*$saisonalite)*(1-($total->duration/100))) ;
+        $bp_turnover_products_total2 = $bp_turnover_products_total2 +(( $total->rate * $total->value*$saisonalite)*(1-($total->duration/100))) ;
         $total_s += ( $total->rate * $total->value*$saisonalite) ;
         $bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration; 
         }
@@ -576,7 +576,9 @@ if (($data ->company->applied_tax ?? '') == 'IS') {
 
             $is=$bp_income_before_taxes_first_year * 10 / 100;
             $bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 10 / 100;
-           // dd( $bp_income_before_taxes_first_year);
+            if($bp_corporate_tax_first_year <3000){
+              $bp_corporate_tax_first_year =3000;
+            }
             break;
         case ($bp_income_before_taxes_first_year > 300000 && $bp_income_before_taxes_first_year <= 1000000):
             //  $firstTranche = 300000 - 300000 * 0.1;
@@ -612,7 +614,7 @@ if (($data ->company->applied_tax ?? '') == 'IS') {
     switch (true) {
         case ($bp_income_before_taxes_third_year> 0 && $bp_income_before_taxes_third_year <= 300000):
           // $is=$bp_income_before_taxes_first_year * 10 / 100;
-           $bp_corporate_tax_third_year  = $bp_income_before_taxes_first_year * 10 / 100;
+           $bp_corporate_tax_third_year  = $bp_income_before_taxes_third_year * 10 / 100;
             break;
         case ($bp_income_before_taxes_third_year > 300000 && $bp_income_before_taxes_third_year <= 1000000):
               //  $firstTranche = 300000 - 300000 * 0.1;
@@ -1361,7 +1363,7 @@ elseif($cumul_four_year>0) {
       </div>
 
       <div class="bg-gray-100 text-gray-700 mt-6 p-8 space-y-3 text-sm">
-        <p>
+        <p class="text-justify">
          {{isset($data->business_model->context_g)?$data->business_model->context_g:""}} 
         </p>
       </div>
@@ -1792,7 +1794,7 @@ elseif($cumul_four_year>0) {
           </div>
 
           <div class="bg-gray-100 text-gray-700 mt-6 p-8 space-y-3 text-sm">
-            <p>
+            <p  class="text-justify">
               {{isset($data->business_model->evolution_m)?$data->business_model->evolution_m: " "}}
             </p>
           </div>
@@ -3099,7 +3101,7 @@ elseif($cumul_four_year>0) {
                 @foreach ($data->financial_data->products_turnover_forecast as $item)
                 @if(isset($item->otherValue))
                   <tr>
-                    <td class="border-2 border-gray-500 "> Achat <span class="bg-red-200">{{$item->label}}</span> ({{ number_format((1-$item->duration/100)*100, 0, ',', ' ') }}% du Chiffres d’affaires) </td>
+                    <td class="border-2 border-gray-500 "> Achat <span class="bg-red-200">{{$item->label}}</span> ({{ number_format( isset($item->duration)?(1-$item->duration/100)*100 : 0, 0, ',', ' ') }}% du Chiffres d’affaires) </td>
                     <td class="border-2 border-gray-500 text-center">{{ number_format(0, 0, ',', ' ') }} </td>
                     <td class="border-2 border-gray-500 text-center">{{ number_format(0,0, ',', ' ')}}</td>
                  @if(isset($item->organisme))
@@ -3113,7 +3115,7 @@ elseif($cumul_four_year>0) {
                 @endif
                 @else
                 <tr>
-                  <td class="border-2 border-gray-500 "> Achat <span class="bg-red-200">{{$item->label}}</span> ({{ number_format((1-$item->duration/100)*100, 0, ',', ' ') }}% du Chiffres d’affaires) </td>
+                  <td class="border-2 border-gray-500 "> Achat <span class="bg-red-200">{{$item->label}}</span> ({{ number_format(isset($item->duration)?(1-$item->duration/100)*100 : 0, 0, ',', ' ') }}% du Chiffres d’affaires) </td>
                   <td class="border-2 border-gray-500 text-center">{{ number_format($item->rate, 0, ',', ' ') }} </td>
                   <td class="border-2 border-gray-500 text-center">{{ number_format($item->value,0, ',', ' ')}}</td>
                @if(isset($item->organisme))
@@ -3132,7 +3134,7 @@ elseif($cumul_four_year>0) {
                 @foreach ($data->financial_data->services_turnover_forecast_c as $item)
                 @if(isset($item->otherValue))
                   <tr>
-                    <td class="border-2 border-gray-500 "> Achat <span class="bg-red-200">{{$item->label}}</span> ({{ number_format((1-$item->duration/100)*100, 0, ',', ' ') }}% du Chiffres d’affaires) </td>
+                    <td class="border-2 border-gray-500 "> Achat <span class="bg-red-200">{{$item->label}}</span> ({{ number_format(isset($item->duration)?(1-$item->duration/100)*100 : 0, 0, ',', ' ') }}% du Chiffres d’affaires) </td>
                     <td class="border-2 border-gray-500 text-center">{{ number_format(0, 0, ',', ' ') }} </td>
                     <td class="border-2 border-gray-500 text-center">{{ number_format(0,0, ',', ' ')}}</td>
                  @if(isset($item->organisme))
@@ -3146,7 +3148,7 @@ elseif($cumul_four_year>0) {
                 @endif
                 @else
                 <tr>
-                  <td class="border-2 border-gray-500 "> Achat <span class="bg-red-200">{{$item->label}}</span> ({{ number_format((1-$item->duration/100)*100, 0, ',', ' ') }}% du Chiffres d’affaires) </td>
+                  <td class="border-2 border-gray-500 "> Achat <span class="bg-red-200">{{$item->label}}</span> ({{ number_format(isset($item->duration)?(1-$item->duration/100)*100 : 0, 0, ',', ' ') }}% du Chiffres d’affaires) </td>
                   <td class="border-2 border-gray-500 text-center">{{ number_format($item->rate, 0, ',', ' ') }} </td>
                   <td class="border-2 border-gray-500 text-center">{{ number_format($item->value,0, ',', ' ')}}</td>
                @if(isset($item->organisme))
@@ -3440,13 +3442,88 @@ elseif($cumul_four_year>0) {
           </div>
            <p class="text-gray-500 font-normal"> 
             Les charges que l'entreprise devra supporter au cours de ses 5 premières années d'activité sont très variées et dépendent de la nature de l'activité, mais aussi du lieu d'implantation, de la structure juridique choisie ou d'autres paramètres externes au projet.           </p>
+            <div class="space-y-9">
+        <div class="space-y-4">
+          <div class="space-y-1">
+            <h5
+              class="uppercase font-bold text-sm"
+              style="color: var(--second-blue)"
+            >
+            Charges fixes
+          </h5>
+            <hr class="bg-gray-300" style="height: 2px" />
+          </div>
+          <div class="inline-block rounded-lg border w-full ">
+            <table class="table-fixed border border-gray-900 w-full text-sm">
+              <thead>
+                <tr class="bg-gray-100">
+                  <th
+                    class="
+                      py-2
+                      pl-4
+                      border-2 border-gray-500
+                      self-start
+                      text-left
+                    "
+                  >
+                  DESIGNATION
+                  </th>
+                  <th class="border-2 border-gray-500  text-center">MONTANT MENSUEL</th>
+                  <th class="border-2 border-gray-500  text-center">MONTANT ANNUEL</th>
+                </tr>
+              </thead>
+              <tbody class="font-medium">
+                @if(isset($data->financial_data->overheads_fixed))
+                @foreach ($data->financial_data->overheads_fixed as $item)
+                  <tr>
+                    <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
+                    <?php  //dd($total_overheads_fixed);?>
+                   @if(isset($item->otherValue))
+                     @if($item->otherValue=='Mensuel')
+                     <td class="border-2 border-gray-500 text-center">-- </td>
+                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*12, 0, ',', ' ') }} </td>
+                      <?php   $total_overheads_fixed+=$item->value*12;?>
+                    @elseif($item->otherValue=='Annuel')
+                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
+                      <?php   $total_overheads_fixed+=$item->value; ?>
+                    @endif
+                   @else
+                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
+                    <?php   $total_overheads_fixed+=$item->value; ?>
+                  @endif
+                    
+                </tr> 
+                @endforeach
+               @endif
+                <tr class="bg-green-200">
+                  <td
+                  colspan="2"
+                    class="
+                      py-1 pl-4
+                      border-2 border-gray-600
+                      font-semibold
+                      text-green-700
+                    "
+                  >
+                    TOTAL
+                  </td>
+                  <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
+                  <td class="border-2 border-gray-600 text-center bg-green-200">{{ number_format($total_overheads_fixed, 0, ',', ' ')}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div> 
+      </div>
+           
             <div class="space-y-1">
               <h5
                 class="uppercase font-bold text-sm"
                 style="color: var(--second-blue)"
               >
               Charges variables
-            </h5>
+               </h5>
               <hr class="bg-gray-300" style="height: 2px" />
             </div>
           </div>
@@ -3498,81 +3575,9 @@ elseif($cumul_four_year>0) {
                   </tr>
                 </tbody>
               </table>
-            </div> 
+           </div> 
       </div>
       <br>
-      <div class="space-y-9">
-        <div class="space-y-4">
-          <div class="space-y-1">
-            <h5
-              class="uppercase font-bold text-sm"
-              style="color: var(--second-blue)"
-            >
-            Charges fixes
-          </h5>
-            <hr class="bg-gray-300" style="height: 2px" />
-          </div>
-          <div class="inline-block rounded-lg border w-full ">
-            <table class="table-fixed border border-gray-900 w-full text-sm">
-              <thead>
-                <tr class="bg-gray-100">
-                  <th
-                    class="
-                      py-2
-                      pl-4
-                      border-2 border-gray-500
-                      self-start
-                      text-left
-                    "
-                  >
-                  DESIGNATION
-                  </th>
-                  <th class="border-2 border-gray-500  text-center">MONTANT MENSUEL</th>
-                  <th class="border-2 border-gray-500  text-center">MONTANT ANNUEL</th>
-                </tr>
-              </thead>
-              <tbody class="font-medium">
-                @if(isset($data->financial_data->overheads_fixed))
-                @foreach ($data->financial_data->overheads_fixed as $item)
-                  <tr>
-                    <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
-                    <?php  //dd($total_overheads_fixed);?>
-                   @if(isset($item->otherValue))
-                     @if($item->otherValue=='Mensuel')
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*12, 0, ',', ' ') }} </td>
-                      <?php   $total_overheads_fixed+=$item->value*12;?>
-                    @elseif($item->otherValue=='Annuel')
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
-                      <?php   $total_overheads_fixed+=$item->value; ?>
-                    @endif
-                   @else
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
-                    <?php   $total_overheads_fixed+=$item->value; ?>
-                  @endif
-                    
-                </tr> 
-                @endforeach
-               @endif
-                <tr class="bg-green-200">
-                  <td
-                  colspan="2"
-                    class="
-                      py-1 pl-4
-                      border-2 border-gray-600
-                      font-semibold
-                      text-green-700
-                    "
-                  >
-                    TOTAL
-                  </td>
-                  <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
-                  <td class="border-2 border-gray-600 text-center bg-green-200">{{ number_format($total_overheads_fixed, 0, ',', ' ')}}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div> 
-      </div>
       <div class="absolute bottom-0 right-0 left-0 ">
         <img
         class="absolute bottom-0 right-0 left-0 img_full_width"
@@ -3896,14 +3901,14 @@ elseif($cumul_four_year>0) {
                                        ?>
                   @if(isset($data->financial_data->overheads_fixed ))
                   @foreach ($data->financial_data->overheads_fixed as $item)
-                  @if($item->label=='loyer'|| $item->label=='loyers')               
+                  @if($item->label=='loyer'|| $item->label=='loyers'|| $item->label=='Loyer')               
          
                     <tr>
                       <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
                       <td class="border-2 border-gray-500 text-center">{{ number_format(0, 0, ',', ' ') }} </td>
-                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
-                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*$taxe, 0, ',', ' ') }} </td>
-                      <?php   $total_taxe1 +=$item->value*$taxe; ?>
+                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*12, 0, ',', ' ') }} </td>
+                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*12*$taxe, 0, ',', ' ') }} </td>
+                      <?php   $total_taxe1 +=$item->value*12*$taxe; ?>
                   </tr> 
                    @endif   
                   @endforeach
@@ -4045,7 +4050,7 @@ elseif($cumul_four_year>0) {
                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->value/(1+$item->duration/100), 0, ',', ' ') }} </td>
                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->rate ,0, ',', ' ')}} % </td>
                      @if($item->value!=0 && $item->rate!=0)
-                     <td class="border-2 border-gray-500 text-center">{{ number_format(($item->value/(1+$item->rate/100))*$item->rate/100, 0, ',', ' ') }} </td>      
+                     <td class="border-2 border-gray-500 text-center">{{ number_format(($item->value/(1+$item->duration/100))*$item->rate/100, 0, ',', ' ') }} </td>      
                      
                       <?php $total_taxe_amortisement+=($item->value/(1+$item->rate/100))*$item->rate/100;?>
                      @else
@@ -5082,10 +5087,15 @@ elseif($cumul_four_year>0) {
             }
         }
          ?>
-            <p class="align-middle">
-              Le projet que propose {{$gender}} {{$owner->first_name}} {{$owner->last_name}} de mettre en œuvre s’inscrit dans les objectifs stratégiques du programme de l’INDH.  La réalisation de ce projet va lui permettre d’intégrer le monde de l’entrepreneuriat en exploitant les opportunités offertes ainsi que son relationnel avec les clients et d’améliorer son revenu .
-
+            <p class="align-middle  text-justify">
+              Le projet que se propose {{$gender}} {{$owner->first_name}} {{$owner->last_name}} de mettre en œuvre s’inscrit dans les objectifs stratégiques du programme de l’INDH. </p>
+             <p class="align-middle  text-justify">
+             La réalisation de ce projet lui permettra d’intégrer le monde de l’entrepreneuriat en exploitant les opportunités offertes ainsi que son relationnel avec les clients et d’améliorer son revenu .
             </p>
+            <p class="align-middle  text-justify">
+             Les prévisions d’activités ont été construites sur des hypothèses réalistes qui ont montré des résultats assurant la rémunération de l’investisseur .
+            </p>
+
             <img
             class="absolute bottom-0 right-2"
             src="{{asset('images/back-office/svg/quote-down.svg')}}"
