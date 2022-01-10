@@ -49,7 +49,7 @@ class ProjectApplicationController extends Controller
             'core_business_p.*.value' => ['nullable', 'Integer'],
             'primary_target' => ['nullable', 'string'],
             'suppliers' => ['nullable', 'string'],
-            'competition_c.*.value' => ['nullable', 'Integer'],
+            // 'competition_c.*.value' => ['nullable', 'Integer'],
             'advertising' => ['nullable', 'string'],
             'pricing_strategy' => ['nullable', 'string'],
             'distribution_strategy' => ['nullable', 'string'],

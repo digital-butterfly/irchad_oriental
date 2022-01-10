@@ -2469,7 +2469,7 @@ elseif($cumul_four_year>0) {
                 </div>
                 <div class="flex justify-between bg-gray-100 p-2">
                   <p>Adresse:</p>
-                  <p class="font-medium">{{$field->duration ?? " "}}</p>
+                  <p class="font-medium">{{$field->value ?? " "}}</p>
                 </div>
                 <div class="flex justify-between bg-gray-100 p-2">
                   <p>Superficie:</p>
@@ -2477,7 +2477,7 @@ elseif($cumul_four_year>0) {
                 </div>
                 <div class="flex justify-between bg-gray-100 p-2">
                   <p>loyer mensuel (en cas de location):</p>
-                  <p class="font-medium">{{$field->value ?? " "}}</p>
+                  <p class="font-medium">{{$field->duration ?? " "}}</p>
                 </div>
                 
               </div>  
@@ -4961,13 +4961,13 @@ elseif($cumul_four_year>0) {
           ?>
 
           <div class="inline-block rounded-lg border w-full ">
-            <table class="table-fixed border border-gray-900 w-90 text-sm">
+            <table class="table-fixed border border-gray-900 w-full text-sm">
               <tbody class="font-medium">
                 
                  <tr>
-                   <td class="border-2 border-gray-500  w-1/6 px-4  py-2  bg-green-200 ">TAUX DE RENTABILITÉ INTERNE (TRI)
+                   <td class="border-2 border-gray-500   bg-green-200 ">TAUX DE RENTABILITÉ INTERNE (TRI)
                    </td>
-                   <td class="border-2 border-gray-500 w-1/6 py-4 pl-4 text-center ">{{$tri}}% </td>
+                   <td class="border-2 border-gray-500 text-center ">{{ number_format($tri*100, 0, ',', ' ') }}% </td>
                   
                </tr> 
                 <tr>
