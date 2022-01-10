@@ -1,4 +1,5 @@
 @php
+ $total_overheads_fixed=0;
 $files[]='';
 $total_taxes =0;
 $m=0;
@@ -3535,16 +3536,20 @@ elseif($cumul_four_year>0) {
                   <tr>
                     <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
+                    <?php  //dd($total_overheads_fixed);?>
                    @if(isset($item->otherValue))
-                     @if($item->otherValue=='mensuel')
+                     @if($item->otherValue=='Mensuel')
                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*12, 0, ',', ' ') }} </td>
-                    @else
+                      <?php   $total_overheads_fixed+=$item->value*12;?>
+                    @elseif($item->otherValue=='Annuel')
                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
+                      <?php   $total_overheads_fixed+=$item->value; ?>
                     @endif
                    @else
                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
+                    <?php   $total_overheads_fixed+=$item->value; ?>
                   @endif
-                    <?php   $total_overheads_fixed+=$item->value*12; ?>
+                    
                 </tr> 
                 @endforeach
                @endif
