@@ -74,26 +74,32 @@ $total_mensuel=0;
 $total_p=0;
 $total_s=0;
 $bp_profit_margin_rate =  0;
+$achat_t=0;
 $saisonalite=isset($data ->financial_data->saisonnalite)? $data ->financial_data->saisonnalite:0;
 if (isset($data ->financial_data->products_turnover_forecast)){
     foreach ($data ->financial_data->products_turnover_forecast as $total){
+      if(isset($total->duration)){
+        $achat_t=(1-($total->duration/100));
+      }else{
+       $achat_t=0; 
+      }
       if(isset($total->otherValue)){
          if(isset($total->organisme)){
-        $bp_turnover_products_total1 = $bp_turnover_products_total1 +(($total->otherValue *$total->organisme)*(1-($total->duration/100))) ;
+        $bp_turnover_products_total1 = $bp_turnover_products_total1 +(($total->otherValue *$total->organisme)*$achat_t) ;
         $total_p +=$total->otherValue*$total->organisme;
         $bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration;  
         }else{
-        $bp_turnover_products_total1 = $bp_turnover_products_total1 +(( $total->otherValue*$saisonalite)*(1-($total->duration/100))) ;
+        $bp_turnover_products_total1 = $bp_turnover_products_total1 +(( $total->otherValue*$saisonalite)* $achat_t) ;
         $total_p += ( $total->otherValue *$saisonalite) ;
         $bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration; 
         }
       }else{
         if(isset($total->organisme)){
-        $bp_turnover_products_total1 = $bp_turnover_products_total1 +(( $total->rate * $total->value*$total->organisme)*(1-($total->duration/100))) ;
+        $bp_turnover_products_total1 = $bp_turnover_products_total1 +(( $total->rate * $total->value*$total->organisme)*$achat_t) ;
         $total_p += $total->rate * $total->value*$total->organisme;
         $bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration;  
         }else{
-        $bp_turnover_products_total1 = $bp_turnover_products_total1 +(( $total->rate * $total->value*$saisonalite)*(1-($total->duration/100))) ;
+        $bp_turnover_products_total1 = $bp_turnover_products_total1 +(( $total->rate * $total->value*$saisonalite)* $achat_t) ;
         $total_p += ( $total->rate * $total->value*$saisonalite) ;
         $bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration; 
         }
@@ -104,23 +110,28 @@ if (isset($data ->financial_data->products_turnover_forecast)){
   //dd($total_p);
     if (isset($data ->financial_data->services_turnover_forecast_c)){
     foreach ($data ->financial_data->services_turnover_forecast_c as $total){
+        if(isset($total->duration)){
+        $achat_t=(1-($total->duration/100));
+      }else{
+       $achat_t=0; 
+      }
          if(isset($total->otherValue)){
          if(isset($total->organisme)){
-        $bp_turnover_products_total2 = $bp_turnover_products_total2 +(($total->otherValue *$total->organisme)*(1-($total->duration/100))) ;
+        $bp_turnover_products_total2 = $bp_turnover_products_total2 +(($total->otherValue *$total->organisme)* $achat_t) ;
         $total_s +=$total->otherValue*$total->organisme;
         $bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration;  
         }else{
-        $bp_turnover_products_total2 = $bp_turnover_products_total2 +(( $total->otherValue*$saisonalite)*(1-($total->duration/100))) ;
+        $bp_turnover_products_total2 = $bp_turnover_products_total2 +(( $total->otherValue*$saisonalite)*  $achat_t) ;
         $total_s += ( $total->otherValue *$saisonalite) ;
         $bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration; 
         }
       }else{
         if(isset($total->organisme)){
-        $bp_turnover_products_total2 = $bp_turnover_products_total2+(( $total->rate * $total->value*$total->organisme)*(1-($total->duration/100))) ;
+        $bp_turnover_products_total2 = $bp_turnover_products_total2+(( $total->rate * $total->value*$total->organisme)* $achat_t) ;
         $total_p += $total->rate * $total->value*$total->organisme;
         $bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration;  
         }else{
-        $bp_turnover_products_total2 = $bp_turnover_products_total2 +(( $total->rate * $total->value*$saisonalite)*(1-($total->duration/100))) ;
+        $bp_turnover_products_total2 = $bp_turnover_products_total2 +(( $total->rate * $total->value*$saisonalite)* $achat_t) ;
         $total_s += ( $total->rate * $total->value*$saisonalite) ;
         $bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration; 
         }
