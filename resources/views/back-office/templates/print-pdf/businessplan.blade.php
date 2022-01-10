@@ -394,14 +394,20 @@ $bp_overheads_fixed_five_year =0;
 if(isset($data ->financial_data->overheads_fixed))
 {
     foreach ($data ->financial_data->overheads_fixed as $item) {
+      if($item->otherValue=='Annuel'){
+     $bp_overheads_fixed_first_year += $item->value;
+    $bp_overheads_fixed_second_year += $item->value;
+    $bp_overheads_fixed_third_year += $item->value;
+    $bp_overheads_fixed_four_year += $item->value ;
+    $bp_overheads_fixed_five_year += $item->value;
+      }elseif($item->otherValue=='Mensuel'){
     $bp_overheads_fixed_first_year += $item->value*12;
     $bp_overheads_fixed_second_year += $item->value*12;
     $bp_overheads_fixed_third_year += $item->value*12;
     $bp_overheads_fixed_four_year += $item->value *12;
     $bp_overheads_fixed_five_year += $item->value*12;
-
-
     }
+}
 }
 //dd($bp_overheads_fixed_first_year);
 
@@ -409,7 +415,11 @@ if(isset($data ->financial_data->overheads_fixed))
 $total_charge_var=0;
 if(isset($data ->financial_data->overheads_scalable)){
     foreach ($data ->financial_data->overheads_scalable as $item) {
-      $total_charge_var += $item->value*12;
+        if($item->otherValue=='Annuel'){
+      $total_charge_var += $item->value;
+      }elseif($item->otherValue=='Mensuel'){
+        $total_charge_var += $item->value*12;
+      }
 }}
 $bp_overheads_scalable_first_year =  0;
 $bp_overheads_scalable_second_year =  0;
@@ -419,11 +429,16 @@ $bp_overheads_scalable_five_year=0;
 if($bp_evolution_rate>0){
   if(isset($data ->financial_data->overheads_scalable)){
     foreach ($data ->financial_data->overheads_scalable as $item) {
-    $bp_overheads_scalable_first_year += $item->value*12;
-    $bp_overheads_scalable_second_year += ($bp_overheads_scalable_first_year* $bp_evolution_rate / 100);
-    $bp_overheads_scalable_third_year += ($bp_overheads_scalable_second_year* $bp_evolution_rate / 100);
-    $bp_overheads_scalable_four_year +=($bp_overheads_scalable_third_year * $bp_evolution_rate / 100);
-    $bp_overheads_scalable_five_year +=($bp_overheads_scalable_four_year* $bp_evolution_rate / 100);
+      if($item->otherValue=='Annuel'){
+   $bp_overheads_scalable_first_year += $item->value;
+      }elseif($item->otherValue=='Mensuel'){
+  $bp_overheads_scalable_first_year += $item->value*$saisonalite;
+      }
+   
+    $bp_overheads_scalable_second_year = ($bp_overheads_scalable_first_year* $bp_evolution_rate / 100);
+    $bp_overheads_scalable_third_year = ($bp_overheads_scalable_second_year* $bp_evolution_rate / 100);
+    $bp_overheads_scalable_four_year =($bp_overheads_scalable_third_year * $bp_evolution_rate / 100);
+    $bp_overheads_scalable_five_year =($bp_overheads_scalable_four_year* $bp_evolution_rate / 100);
     }
 }
 }else{   
@@ -3578,9 +3593,22 @@ elseif($cumul_four_year>0) {
                   @foreach ($data->financial_data->overheads_scalable as $item)
                     <tr>
                       <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
-                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
-                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*$saisonalite, 0, ',', ' ') }} </td>
-                      <?php  $total_overheads_scalable+=$item->value*$saisonalite; ?>
+                         @if(isset($item->otherValue))
+                     @if($item->otherValue=='Mensuel')
+                  <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*$saisonalite, 0, ',', ' ') }} </td>
+                          <?php  $total_overheads_scalable+=$item->value*$saisonalite; ?>
+                    @elseif($item->otherValue=='Annuel')
+                    <td class="border-2 border-gray-500 text-center">-- </td>
+                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
+                      <?php   $total_overheads_scalable+=$item->value; ?>
+                    @endif
+                   @else
+                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
+                    <?php    $total_overheads_scalable+=$item->value; ?>
+                  @endif
+                     
                   </tr> 
                   @endforeach
                  @endif
@@ -4078,7 +4106,7 @@ elseif($cumul_four_year>0) {
                      @if($item->value!=0 && $item->rate!=0)
                      <td class="border-2 border-gray-500 text-center">{{ number_format(($item->value/(1+$item->duration/100))*$item->rate/100, 0, ',', ' ') }} </td>      
                      
-                      <?php $total_taxe_amortisement+=($item->value/(1+$item->rate/100))*$item->rate/100;?>
+                      <?php $total_taxe_amortisement+=($item->value/(1+$item->duration/100))*$item->rate/100;?>
                      @else
                      <td class="border-2 border-gray-500 text-center">{{ number_format(0, 0, ',', ' ') }} </td>
                      @endif
@@ -4217,7 +4245,7 @@ elseif($cumul_four_year>0) {
                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->value/(1+$item->duration/100), 0, ',', ' ') }} </td>
                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->rate ,0, ',', ' ')}} % </td>
                      @if($item->value!=0 && $item->rate!=0)
-                     <td class="border-2 border-gray-500 text-center">{{ number_format(($item->value/(1+$item->rate/100))*$item->rate/100, 0, ',', ' ') }} </td>      
+                     <td class="border-2 border-gray-500 text-center">{{ number_format(($item->value/(1+$item->duration/100))*$item->rate/100, 0, ',', ' ') }} </td>      
                      
                       <?php $total_taxe_amortisement+=($item->value/(1+$item->rate/100))*$item->rate/100;?>
                      @else
