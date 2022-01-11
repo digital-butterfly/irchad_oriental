@@ -308,20 +308,19 @@ $imp_project=isset($data->company->implantation_project)?$data->company->implant
                                         }
  if(isset($data->financial_data->overheads_fixed)){
   foreach ($data->financial_data->overheads_fixed as $item) {
-    if($item->label=='loyer'|| $item->label=='loyers'){
-      $total_impot_taxe1= $item->value*$taxe;
+    if($item->label=='loyer'|| $item->label=='loyers'|| $item->label=='Loyer'){
+      $total_impot_taxe1= $item->value*12*$taxe;
     }}  
  } 
+ 
  if(isset($data->financial_data->startup_needs)){
   foreach ($data->financial_data->startup_needs as $item) {
     if(isset($item->label)){
-      if($item->label !='Frais preliminaires'){
+      if($item->label !='Frais preliminaires' && $item->label !='Matériel de transport' ){
       $total_impot_taxe2+=($item->value/(1+($item->duration/100))*0.03)*$taxe;
     }}  
-    }
-    
+    }  
  }  
- //dd($total_impot_taxe2);
  $total_autre_taxe=0;
  if(isset($data->financial_data->taxes)){
    foreach ($data->financial_data->taxes as $item) {
@@ -329,7 +328,7 @@ $imp_project=isset($data->company->implantation_project)?$data->company->implant
    }
  }
                   
- 
+
 $taxe_impot_first_year=$total_impot_taxe1+$total_impot_taxe2+ $total_autre_taxe;
 $taxe_impot_second_year=$total_impot_taxe1+$total_impot_taxe2+ $total_autre_taxe;
 $taxe_impot_third_year=$total_impot_taxe1+$total_impot_taxe2 + $total_autre_taxe;
@@ -362,10 +361,10 @@ $bp_turnover_five_year=$bp_turnover_products_totals;
 
 if($bp_evolution_rate>0){
 $bp_purchase_first_year = $bp_turnover_products_total ;
-$bp_purchase_second_year =  ($bp_purchase_first_year *(1+$bp_evolution_rate / 100));
-$bp_purchase_third_year = ($bp_purchase_second_year *(1+$bp_evolution_rate/100));
-$bp_purchase_four_year =   ($bp_purchase_third_year*(1+$bp_evolution_rate/100));
-$bp_purchase_five_year =  ($bp_purchase_four_year  *(1+$bp_evolution_rate/100));
+$bp_purchase_second_year = $bp_purchase_first_year *(1+$bp_evolution_rate/100);
+$bp_purchase_third_year = $bp_purchase_second_year *(1+$bp_evolution_rate/100);
+$bp_purchase_four_year =  $bp_purchase_third_year*(1+$bp_evolution_rate/100);
+$bp_purchase_five_year =  $bp_purchase_four_year  *(1+$bp_evolution_rate/100);
 }else{
   $bp_purchase_first_year = $bp_turnover_products_total ;
   $bp_purchase_second_year = $bp_turnover_products_total ;
@@ -523,7 +522,7 @@ $bp_amortization_yearly = 0;
 if (isset($data ->financial_data->startup_needs)) {
     foreach ($data ->financial_data->startup_needs as $item) {
       //  dd( $item);
-        (isset($item->value) && isset($item->rate) && isset($item->duration)) ? $bp_amortization_yearly += ($item->value/(1+$item->rate/100))*$item->rate/100 : NULL;
+        (isset($item->value) && isset($item->rate) && isset($item->duration)) ? $bp_amortization_yearly += ($item->value/(1+$item->duration/100))*$item->rate/100 : NULL;
     }
 }
 //dd($bp_amortization_yearly);
@@ -3521,7 +3520,7 @@ elseif($cumul_four_year>0) {
                     <?php  //dd($total_overheads_fixed);?>
                    @if(isset($item->otherValue))
                      @if($item->otherValue=='Mensuel')
-                     <td class="border-2 border-gray-500 text-center">-- </td>
+                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*12, 0, ',', ' ') }} </td>
                       <?php   $total_overheads_fixed+=$item->value*12;?>
                     @elseif($item->otherValue=='Annuel')
