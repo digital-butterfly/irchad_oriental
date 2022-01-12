@@ -21,6 +21,13 @@ if(isset($data->financial_data->financial_plan)){
     foreach ($data ->financial_data->financial_plan as $item) {
     $bp_financial_plan_totals += $item->value; 
     }}
+if(isset($data->financial_data->financial_plan_loans)){
+    foreach ($data ->financial_data->financial_plan_loans as $item) {
+        $arrytwer['name']=$item->label;
+        $arrytwer['value']= number_format($bp_financial_plan_totals !=0?$item->value/$bp_financial_plan_totals *100:0,0, ',', ' ');
+        array_push($dataPlan, $arrytwer);
+    $bp_financial_plan_totals += $item->value; 
+    }}
 if(isset($data->financial_data->financial_plan)){
     foreach ($data ->financial_data->financial_plan as $item) {
         $arrytwer['name']=$item->label;
@@ -299,6 +306,7 @@ $taxe_impot_four_year=0;
 $taxe_impot_five_year=0;
 $total_impot_taxe1=0;
 $total_impot_taxe2=0;
+$total_impot_loyer=0;
 $imp_project=isset($data->company->implantation_project)?$data->company->implantation_project:'';
                                       //dd($data->company->implantation_project);
                                       $taxe=0;
@@ -315,7 +323,12 @@ $imp_project=isset($data->company->implantation_project)?$data->company->implant
       $total_impot_taxe1= $item->value*12*$taxe;
     }}  
  } 
- 
+  if(isset($data->financial_data->overheads_fixed)){
+  foreach ($data->financial_data->overheads_fixed as $item) {
+    if($item->label=='loyer'|| $item->label=='loyers'|| $item->label=='Loyer'){
+      $total_impot_loyer= $item->value*12;
+    }}  
+ } 
  if(isset($data->financial_data->startup_needs)){
   foreach ($data->financial_data->startup_needs as $item) {
     if(isset($item->label)){
@@ -385,9 +398,7 @@ $bp_gross_margin_second_year = $bp_turnover_second_year - $bp_purchase_second_ye
 $bp_gross_margin_third_year = $bp_turnover_third_year - $bp_purchase_third_year;
 $bp_gross_margin_four_year = $bp_turnover_four_year - $bp_purchase_four_year;
 $bp_gross_margin_five_year = $bp_turnover_five_year - $bp_purchase_five_year; 
-//dd($bp_gross_margin_four_year);
- //dd($bp_purchase_second_year);
-// Overheads Fixed
+
 $bp_overheads_fixed_first_year =  0;
 $bp_overheads_fixed_second_year =  0;
 $bp_overheads_fixed_third_year =  0;
@@ -396,8 +407,8 @@ $bp_overheads_fixed_five_year =0;
 if(isset($data ->financial_data->overheads_fixed))
 {
     foreach ($data ->financial_data->overheads_fixed as $item) {
-    if($item->label!='loyer'|| $item->label!='loyers'|| $item->label!='Loyer'){
-     if($item->otherValue=='Annuel'){
+    if($item->label!='loyer'){
+    if($item->otherValue=='Annuel'){
      $bp_overheads_fixed_first_year += $item->value;
     $bp_overheads_fixed_second_year += $item->value;
     $bp_overheads_fixed_third_year += $item->value;
@@ -462,11 +473,11 @@ $autre_charge_externe_third_year=0;
 $autre_charge_externe_four_year=0;
 $autre_charge_externe_five_year=0;
 
-$autre_charge_externe_first_year=$bp_overheads_scalable_first_year+$bp_overheads_fixed_first_year ;
-$autre_charge_externe_second_year=$bp_overheads_scalable_second_year+$bp_overheads_fixed_second_year ;
-$autre_charge_externe_third_year=$bp_overheads_scalable_third_year+$bp_overheads_fixed_third_year ;
-$autre_charge_externe_four_year=$bp_overheads_scalable_four_year+$bp_overheads_fixed_four_year+$total_impot_taxe1*1.1 ;
-$autre_charge_externe_five_year=$bp_overheads_scalable_five_year+$bp_overheads_fixed_five_year+$total_impot_taxe1*1.1  ;
+$autre_charge_externe_first_year=$bp_overheads_scalable_first_year+$bp_overheads_fixed_first_year+$total_impot_loyer;
+$autre_charge_externe_second_year=$bp_overheads_scalable_second_year+$bp_overheads_fixed_second_year+$total_impot_loyer ;
+$autre_charge_externe_third_year=$bp_overheads_scalable_third_year+$bp_overheads_fixed_third_year+$total_impot_loyer ;
+$autre_charge_externe_four_year=$bp_overheads_scalable_four_year+$bp_overheads_fixed_four_year+$total_impot_loyer*1.1 ;
+$autre_charge_externe_five_year=$bp_overheads_scalable_five_year+$bp_overheads_fixed_five_year+$total_impot_loyer*1.1  ;
 //dd($bp_overheads_scalable_first_year);
 
 // Added Value
@@ -2817,6 +2828,15 @@ elseif($cumul_four_year>0) {
                 <tbody class="font-medium">
                   @if(isset($data->financial_data->financial_plan))
                   @foreach ($data->financial_data->financial_plan as $item)
+                    <tr>
+                    <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
+                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_financial_plan_totals!=0?$item->value /$bp_financial_plan_totals*100:0,0, ',', ' ')}}%</td>
+                  </tr> 
+                  @endforeach
+                 @endif
+                    @if(isset($data->financial_data->financial_plan_loans))
+                  @foreach ($data->financial_data->financial_plan_loans as $item)
                     <tr>
                     <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
