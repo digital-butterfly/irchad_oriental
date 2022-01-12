@@ -21,20 +21,24 @@ class PrintController extends Controller
          $owner =$data->getAdhname;
          $startup_needs=ProjectApplication::select('financial_data',ProjectApplication::raw('count(*) as total'))->groupBy('financial_data')->where('id', $id)->get();
          $startup_needarray=[];
+         $total_startupneeds=0;
+         if(isset($startup_needs)){
+         foreach ($startup_needs as $startup_need){
+         if(isset($startup_need->financial_data->startup_needs )){
+             foreach ($startup_need->financial_data->startup_needs as $startup_needd){
+             $total_startupneeds+= $startup_needd->value;
+         }}}}
+         //dd($total_startupneeds);
          if(isset($startup_needs)){
            foreach ($startup_needs as $startup_need){
             if(isset($startup_need->financial_data->startup_needs )){
              foreach ($startup_need->financial_data->startup_needs as $startup_needd){    
               if(isset($startup_needd->label)){
               $arrytwer['name']=$startup_needd->label;
-              $arrytwer['value']=1;  
+              $arrytwer['value']= number_format($total_startupneeds!=0?$startup_needd->value/$total_startupneeds*100:0,0, ',', ' ');  
                array_push($startup_needarray, $arrytwer);
               }  
             }
-              
-              
-             // dd($startup_needd->label);
-           
             }
            }   
          }

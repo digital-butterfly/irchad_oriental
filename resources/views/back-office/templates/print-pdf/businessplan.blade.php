@@ -20,8 +20,11 @@ $bp_financial_plan_total = 0;
 if(isset($data->financial_data->financial_plan)){
     foreach ($data ->financial_data->financial_plan as $item) {
     $bp_financial_plan_totals += $item->value; 
+    }}
+if(isset($data->financial_data->financial_plan)){
+    foreach ($data ->financial_data->financial_plan as $item) {
         $arrytwer['name']=$item->label;
-        $arrytwer['value']=1;
+        $arrytwer['value']= number_format($bp_financial_plan_totals !=0?$item->value/$bp_financial_plan_totals *100:0,0, ',', ' ');
         array_push($dataPlan, $arrytwer);
     }
 }
