@@ -521,9 +521,9 @@ if(isset($data ->financial_data->taxes))
 // Gross Surplus
 $gross_surplus_first_year = $bp_added_value_first_year -$total_frais_personnel- $taxe_impot_first_year;
 $gross_surplus_second_year = $bp_added_value_second_year -$total_frais_personnel- $taxe_impot_second_year;
-$gross_surplus_third_year = $bp_added_value_third_year - $total_frais_personnel- $taxe_impot_third_year;
-$gross_surplus_four_year = $bp_added_value_four_year -  $total_frais_personnel- $taxe_impot_four_year;
-$gross_surplus_five_year = $bp_added_value_five_year - $total_frais_personnel- $taxe_impot_five_year;
+$gross_surplus_third_year = $bp_added_value_third_year - $total_frais_personnel*1.05- $taxe_impot_third_year;
+$gross_surplus_four_year = $bp_added_value_four_year -  $total_frais_personnel*1.05- $taxe_impot_four_year;
+$gross_surplus_five_year = $bp_added_value_five_year - $total_frais_personnel*1.05- $taxe_impot_five_year;
 // $gross_surplus_first_year = $bp_gross_margin_first_year - ( $bp_overheads_scalable_first_year+$bp_overheads_fixed_first_year);
 // $gross_surplus_second_year = $bp_added_value_second_year - $bp_human_ressources_total - $bp_human_ressources_social_fees_total - $bp_taxes_total;
 // $gross_surplus_third_year = $bp_added_value_third_year - $bp_human_ressources_total - $bp_human_ressources_social_fees_total - $bp_taxes_total;
@@ -1042,7 +1042,7 @@ $cumul_first_year= -$bp_investment_program_total+$bp_cash_flow_first_year ;
 $cumul_second_year=$cumul_first_year+$bp_cash_flow_second_year ;
 $cumul_third_year=$cumul_second_year+$bp_cash_flow_third_year ;
 $cumul_four_year=$cumul_third_year+$bp_cash_flow_four_year ;
-$cumul_five_year=-$cumul_four_year+$bp_cash_flow_five_year ;
+$cumul_five_year=$cumul_four_year+$bp_cash_flow_five_year ;
 // Profitability
 
 $bp_roi_delay=" ";
@@ -1258,7 +1258,7 @@ elseif($cumul_four_year>0) {
           « Ce document est la propriété du cabinet Exen Consulting. Il est
           strictement réservé à l'usage de la personne ou de l'entité à qui il
           est destiné et peut contenir de l'information privilégiée et
-          confidentielle. Toute reproduction ou diffision de ce document est
+          confidentielle. Toute reproduction ou diffusion de ce document est
           strictement interdite. »
         </p>
       </div>
@@ -1483,7 +1483,7 @@ elseif($cumul_four_year>0) {
           <div class="space-y-3 text-sm font-normal">
             <div class="flex justify-between p-2">
               <p>Nom Prénom :</p>
-              <p class="font-medium">{{$owner->first_name}} {{$owner->last_name}}</p>
+              <p class="font-medium">{{ ucfirst($owner->first_name)}} {{ ucfirst($owner->last_name)}}</p>
             </div>
             <div class="flex justify-between bg-gray-100 p-2">
               <p>Adresse :</p>
@@ -1561,7 +1561,7 @@ elseif($cumul_four_year>0) {
             <div class="grid grid-cols-5 justify-between p-2 font-semibold">
               <p>Fonction</p>
               <p>Etablissement</p>
-              <p>Missions</p>
+              <p>Tâches effectuées</p>
               <p>Du</p>
               <p>Au</p>
             </div>
@@ -2736,7 +2736,7 @@ elseif($cumul_four_year>0) {
         <div class="grid grid-cols-2 gap-4 ">
           <div class=" bg-white"> 
               <div class="inline-block rounded-lg border ">
-              <table class="table-fixed border border-gray-900 w-full text-sm">
+              <table class="table-fixed border border-gray-900 w-90 text-sm">
                 <thead>
                   <tr class="bg-gray-100">
                     <th
@@ -2760,7 +2760,7 @@ elseif($cumul_four_year>0) {
                  
                     <tr> 
                       @if(isset($item->label))
-                      <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td> 
+                      <td class="border-2 border-gray-500 w-6/12 py-1 pl-4">{{$item->label}}</td> 
                       <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
                       <td class="border-2 border-gray-500 text-center">{{ number_format( $bp_investment_program_total!=0? $item->value /$bp_investment_program_total*100:0,0, ',', ' ')}}%</td>   
                        @endif
@@ -3160,8 +3160,8 @@ elseif($cumul_four_year>0) {
 
                   <tr>
                     <td class="border-2 border-gray-500 "> Achat <span class="bg-red-200">{{$item->label}}</span> ({{ number_format( $achat*100, 0, ',', ' ') }}% du Chiffres d’affaires) </td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format(0, 0, ',', ' ') }} </td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format(0,0, ',', ' ')}}</td>
+                    <td class="border-2 border-gray-500 text-center">--</td>
+                    <td class="border-2 border-gray-500 text-center">--</td>
                  @if(isset($item->organisme))
                       <td class="border-2 border-gray-500 text-center">{{ number_format(($item->otherValue*$item->organisme)*$achat, 0, ',', ' ') }} </td>
                   </tr> 
@@ -3200,8 +3200,8 @@ elseif($cumul_four_year>0) {
                 @if(isset($item->otherValue))
                   <tr>
                     <td class="border-2 border-gray-500 "> Achat <span class="bg-red-200">{{$item->label}}</span> ({{ number_format( $achat*100 , 0, ',', ' ') }}% du Chiffres d’affaires) </td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format(0, 0, ',', ' ') }} </td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format(0,0, ',', ' ')}}</td>
+                    <td class="border-2 border-gray-500 text-center">-- </td>
+                    <td class="border-2 border-gray-500 text-center">--</td>
                  @if(isset($item->organisme))
                       <td class="border-2 border-gray-500 text-center">{{ number_format(($item->otherValue*$item->organisme)* $achat, 0, ',', ' ') }} </td>
                   </tr> 
@@ -3549,7 +3549,7 @@ elseif($cumul_four_year>0) {
                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*12, 0, ',', ' ') }} </td>
                       <?php   $total_overheads_fixed+=$item->value*12;?>
                     @elseif($item->otherValue=='Annuel')
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 text-center">--</td>
                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
                       <?php   $total_overheads_fixed+=$item->value; ?>
                     @endif
@@ -4241,11 +4241,12 @@ elseif($cumul_four_year>0) {
             L'amortissement est la constatation comptable qui définit la perte de valeur d'un bien immobilisé de l'entreprise, du fait de l'usure du temps ou de l'obsolescence.
           </div>
             <div class="inline-block rounded-lg border w-full ">
-              <table class="table-fixed border border-gray-900 w-full text-sm">
+              <table class="table-fixed border border-gray-900 w-90 text-sm">
                 <thead>
                   <tr class="bg-gray-100">
                     <th
                       class="
+                        6/12-w 
                         py-2
                         pl-4
                         border-2 border-gray-500
