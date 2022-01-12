@@ -407,7 +407,8 @@ $bp_overheads_fixed_five_year =0;
 if(isset($data ->financial_data->overheads_fixed))
 {
     foreach ($data ->financial_data->overheads_fixed as $item) {
-    if($item->label!='loyer'){
+      if(isset($item->otherValue)){
+         if($item->label!='loyer'){
     if($item->otherValue=='Annuel'){
      $bp_overheads_fixed_first_year += $item->value;
     $bp_overheads_fixed_second_year += $item->value;
@@ -421,7 +422,9 @@ if(isset($data ->financial_data->overheads_fixed))
     $bp_overheads_fixed_four_year += $item->value *12;
     $bp_overheads_fixed_five_year += $item->value*12;
     }
-       }
+       } 
+      }
+  
      
 }
 }
@@ -431,11 +434,14 @@ if(isset($data ->financial_data->overheads_fixed))
 $total_charge_var=0;
 if(isset($data ->financial_data->overheads_scalable)){
     foreach ($data ->financial_data->overheads_scalable as $item) {
-        if($item->otherValue=='Annuel'){
+      if(isset($item->otherValue)){
+            if($item->otherValue=='Annuel'){
       $total_charge_var += $item->value;
       }elseif($item->otherValue=='Mensuel'){
         $total_charge_var += $item->value*12;
       }
+      }
+    
 }}
 $bp_overheads_scalable_first_year =  0;
 $bp_overheads_scalable_second_year =  0;
@@ -445,7 +451,8 @@ $bp_overheads_scalable_five_year=0;
 if($bp_evolution_rate>0){
   if(isset($data ->financial_data->overheads_scalable)){
     foreach ($data ->financial_data->overheads_scalable as $item) {
-      if($item->otherValue=='Annuel'){
+      if(isset($item->otherValue)){
+           if($item->otherValue=='Annuel'){
    $bp_overheads_scalable_first_year += $item->value;
       }elseif($item->otherValue=='Mensuel'){
   $bp_overheads_scalable_first_year += $item->value*$saisonalite;
@@ -454,6 +461,8 @@ if($bp_evolution_rate>0){
     $bp_overheads_scalable_third_year = $bp_overheads_scalable_second_year*(1+$bp_evolution_rate / 100);
     $bp_overheads_scalable_four_year =  $bp_overheads_scalable_third_year *(1+$bp_evolution_rate / 100);
     $bp_overheads_scalable_five_year =  $bp_overheads_scalable_four_year* (1+$bp_evolution_rate / 100);
+      }
+   
     }
 }
 }else{   
