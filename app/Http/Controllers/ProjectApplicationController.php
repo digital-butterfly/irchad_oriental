@@ -347,7 +347,63 @@ class ProjectApplicationController extends Controller
                 }
             }
         }
-        $data = (object)$data;
+    $data = (object)$data;
+
+    $saisonalite=0;
+    $saisonalite=isset($data ->financial_data->saisonnalite)? $data ->financial_data->saisonnalite:0;
+      $tota_ca=0;
+      $total_p=0;
+      $total_s=0;
+      $achat_t=0;
+     if (isset($data ->financial_data->products_turnover_forecast)){
+    foreach ($data ->financial_data->products_turnover_forecast as $total){
+      if(isset($total->duration)){
+        $achat_t=(1-($total->duration/100));
+      }else{
+       $achat_t=0; 
+      }
+      if(isset($total->otherValue)){
+         if(isset($total->organisme)){
+        $total_p +=$total->otherValue*$total->organisme;
+        }else{
+        $bp_turnover_products_total1 = $bp_turnover_products_total1 +(( $total->otherValue*$saisonalite)* $achat_t) ;
+        $total_p += ( $total->otherValue *$saisonalite) ;
+        $bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration; 
+        }
+      }else{
+        if(isset($total->organisme)){
+        $total_p += $total->rate * $total->value*$total->organisme;
+        }else{
+        $total_p += ( $total->rate * $total->value*$saisonalite) ;
+        }
+      }
+    
+    }      
+  }
+    if (isset($data ->financial_data->services_turnover_forecast_c)){
+    foreach ($data ->financial_data->services_turnover_forecast_c as $total){
+        if(isset($total->duration)){
+        $achat_t=(1-($total->duration/100));
+      }else{
+       $achat_t=0; 
+      }
+         if(isset($total->otherValue)){
+         if(isset($total->organisme)){
+        $total_s +=$total->otherValue*$total->organisme;
+        }else{
+        $total_s += ( $total->otherValue *$saisonalite) ;
+        }
+      }else{
+        if(isset($total->organisme)){
+        $total_s += $total->rate * $total->value*$total->organisme;
+        }else{
+        $total_s += ( $total->rate * $total->value*$saisonalite) ;
+        }
+      }
+    }
+}
+  $total_ca=$total_p+$total_s;
+ // dd( $total_ca);
       // dd( $data);
         $fields = ProjectApplication::formFields($id);
         //     $total=0;
@@ -378,7 +434,7 @@ class ProjectApplicationController extends Controller
         //     } 
 
 //     dd($data->toArray());
-        return view('back-office/templates/projects-applications/single', compact('histo','application', 'data', 'fields','messageError'));
+        return view('back-office/templates/projects-applications/single', compact('histo','application', 'data', 'fields','messageError','total_ca'));
     }
 
     /**

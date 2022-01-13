@@ -526,7 +526,7 @@ class ProjectApplication extends Model
                      [
                         'name' => 'duration_différe',
                         'type' => 'number',
-                        'label' => 'Durée  du différée (en mois)'
+                        'label' => 'Durée  du différé (en mois)'
                     ],
                       [
                         'name' => 'total_plan',
@@ -541,15 +541,8 @@ class ProjectApplication extends Model
             [
                 'name' => 'financial_data',
                 'type' => 'section',
-                'class' => 'kt-callout--danger kt-separator kt-separator--border-dashed kt-separator--space-lg' ,
+                'class' => 'kt-callout--danger' ,
                 'sub_fields' => [
-                     
-                    
-                      [
-                        'name' => 'saisonnalite',
-                        'type' => 'number',
-                        'label' => 'Durée de travail'
-                    ],  
                      [
                         'name' => 'evolution_rate',
                         'type' => 'text',
@@ -568,6 +561,17 @@ class ProjectApplication extends Model
                         'label' => 'CA prévisionnel - Produits',
                         'config' => ['sextupleRepeater' => true, 'attributes' => [['Produit',3], ['Quantité/Nombre(par mois)',4], ['Prix unitaire',2], ['Taux de marge',3],['Chiffre d\'affaires mensuerl',3],['Saisonnalité(en mois)',3],],'Select'=>false]
                     ],
+                        [
+                        'name' => 'ca_produit-service',
+                        'type' => 'text',
+                        'label' => 'Chiffre d\'affaires annuel'
+                    ],    
+                      [
+                        'name' => 'saisonnalite',
+                        'type' => 'number',
+                        'label' => 'Durée d\'activite '
+                    ], 
+                    
                     [
                         'name' => 'overheads_fixed',
                         'type' => 'repeater',
@@ -593,7 +597,7 @@ class ProjectApplication extends Model
                         'config' => ['doubleRepeater' => true,'attributes' => [['Types de taxes ',4], ['Montant ',3]],'Select'=>true, 'options' =>self::TAXES]
                     ],
                 ],
-                'group' => 'Étude Technique'
+                'group' => 'Prévision'
             ],
             [
                 'class' => 'kt-callout--warning',

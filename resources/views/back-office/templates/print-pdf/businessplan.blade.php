@@ -137,12 +137,18 @@ if (isset($data ->financial_data->products_turnover_forecast)){
         }
       }else{
         if(isset($total->organisme)){
-        $bp_turnover_products_total2 = $bp_turnover_products_total2+(( $total->rate * $total->value*$total->organisme)* $achat_t) ;
-        $total_p += $total->rate * $total->value*$total->organisme;
+          if(isset($total->rate)){
+          $bp_turnover_products_total2 = $bp_turnover_products_total2+(( $total->rate * $total->value*$total->organisme)* $achat_t) ;
+          $total_s += $total->rate * $total->value*$total->organisme;  
+          }
+        
         $bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration;  
         }else{
-        $bp_turnover_products_total2 = $bp_turnover_products_total2 +(( $total->rate * $total->value*$saisonalite)* $achat_t) ;
-        $total_s += ( $total->rate * $total->value*$saisonalite) ;
+          if(isset($total->rate)){
+         $bp_turnover_products_total2 = $bp_turnover_products_total2 +(( $total->rate * $total->value*$saisonalite)* $achat_t) ;
+         $total_s += ( $total->rate * $total->value*$saisonalite) ;
+          }
+
         $bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration; 
         }
       }
@@ -1723,7 +1729,7 @@ elseif($cumul_four_year>0) {
                 class="uppercase font-bold text-sm"
                 style="color: var(--second-blue)"
               >
-          Produits
+          Produits/ Services
         </h6>
               @if(isset($data->business_model->core_business_p))
               @foreach ($data->business_model->core_business_p  as $key =>  $field)
@@ -1732,17 +1738,33 @@ elseif($cumul_four_year>0) {
                 </ul>
                 @endforeach
               @endif 
+              @if(isset($data->business_model->core_services))
+              @foreach ($data->business_model->core_services  as $key =>  $field)
+                <ul class="list-inside list-disc space-y-2">  
+                  <li class="py-2 px-3">{{ $field->label}} </li>
+                </ul>
+               @endforeach
+              @endif 
+              
               </div>  
               <div class="p-4 bg-gray-100"> 
                 <h6
           class="uppercase font-bold text-sm"
           style="color: var(--second-blue)"
         >
-          Services
-        </h6> @if(isset($data->business_model->core_services))
+          description
+        </h6>
+         @if(isset($data->business_model->core_business_p))
+              @foreach ($data->business_model->core_business_p as $key =>  $field)
+                <ul class="list-inside list-disc space-y-2">  
+                  <li class="py-2 px-3">{{ $field->count}} </li>
+                </ul>
+               @endforeach
+              @endif 
+              @if(isset($data->business_model->core_services))
               @foreach ($data->business_model->core_services  as $key =>  $field)
                 <ul class="list-inside list-disc space-y-2">  
-                  <li class="py-2 px-3">{{ $field->label}} </li>
+                  <li class="py-2 px-3">{{ $field->count}} </li>
                 </ul>
                @endforeach
               @endif 
@@ -1948,7 +1970,7 @@ elseif($cumul_four_year>0) {
                     Fournisseur
                   </th>
                   <th class="border-2 border-gray-600 w-1/4 text-center">Nature des intrants</th>
-                    <th class="border-2 border-gray-600 w-1/4 text-center">ville</th>
+                    <th class="border-2 border-gray-600 w-1/4 text-center">ville/pays</th>
                 </tr>
               </thead>
               <tbody class="font-medium">

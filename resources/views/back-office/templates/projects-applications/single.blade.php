@@ -192,8 +192,6 @@
 
                     <!--begin: Form Wizard Nav -->
                     <div class="kt-wizard-v4__nav">
-
-                        <!--doc: Remove "kt-wizard-v4__nav-items--clickable" class and also set 'clickableSteps: false' in the JS init to disable manually clicking step titles -->
                         <div class="kt-wizard-v4__nav-items kt-wizard-v4__nav-items--clickable">
                             <div class="kt-wizard-v4__nav-item" data-ktwizard-type="step" data-ktwizard-state="current">
                                 <div class="kt-wizard-v4__nav-body">
@@ -211,12 +209,32 @@
 
                                             <span class="kt-badge kt-badge--unified-dark kt-badge--lg kt-badge--rounded " id="formation-top" style="font-size: 2.0rem !important;" data-placement="bottom" data-toggle="kt-popover" title="Formation" data-content="Aucun status" data-original-title="Popover title"><i class="flaticon-book"></i></span>
 
-                                            <span class="kt-badge kt-badge--unified-dark kt-badge--lg kt-badge--rounded " id="financement-top" style="font-size: 2.0rem !important;" data-placement="bottom" data-toggle="kt-popover" title="Financement" data-content="Aucun status" data-original-title="Popover title"><i class="flaticon-coins
-"></i></span>
+                                            <span class="kt-badge kt-badge--unified-dark kt-badge--lg kt-badge--rounded " id="financement-top" style="font-size: 2.0rem !important;" data-placement="bottom" data-toggle="kt-popover" title="Financement" data-content="Aucun status" data-original-title="Popover title"><i class="flaticon-coins"></i></span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                             {{-- <div class="kt-wizard-v4__nav-item" data-ktwizard-type="step">
+                                <div class="kt-wizard-v4__nav-body">
+                                    <div class="kt-wizard-v4__nav-number">
+                                        2
+                                    </div>
+                                    <div class="kt-wizard-v4__nav-label">
+                                        <div class="kt-wizard-v4__nav-label-title">
+                                           fiche synthetique
+                                        </div>
+                                                 <div class="kt-section__content kt-section__content--solid ">
+                                            <span class="kt-badge  kt-badge--unified-dark kt-badge--lg kt-badge--rounded " id="status-top" style="font-size: 2.0rem !important;" data-placement="bottom" data-toggle="kt-popover" title="Status de Candidatures " data-content="Aucun status" data-original-title="Popover title"><i class="flaticon-list"></i></span>
+
+                                            <span class="kt-badge kt-badge--unified-dark kt-badge--lg kt-badge--rounded " id="entreprise-top" style="font-size: 2.0rem !important;" data-placement="bottom" data-toggle="kt-popover" title="Création d'entreprise" data-content="Aucun status" data-original-title="Popover title"><i class="flaticon-profile-1"></i></span>
+
+                                            <span class="kt-badge kt-badge--unified-dark kt-badge--lg kt-badge--rounded " id="formation-top" style="font-size: 2.0rem !important;" data-placement="bottom" data-toggle="kt-popover" title="Formation" data-content="Aucun status" data-original-title="Popover title"><i class="flaticon-book"></i></span>
+
+                                            <span class="kt-badge kt-badge--unified-dark kt-badge--lg kt-badge--rounded " id="financement-top" style="font-size: 2.0rem !important;" data-placement="bottom" data-toggle="kt-popover" title="Financement" data-content="Aucun status" data-original-title="Popover title"><i class="flaticon-coins"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> --}}
                             <div class="kt-wizard-v4__nav-item" data-ktwizard-type="step">
                                 <div class="kt-wizard-v4__nav-body">
                                     <div class="kt-wizard-v4__nav-number">
@@ -415,6 +433,12 @@
                                                         <button type="submit" class="btn btn-primary kt-align-center">Enregistrer les modifications</button>
                                                     </div>
                                                 </div>
+                                                
+                                                <div class="kt-portlet__foot sticky-save">
+                                                <div class="kt-form__actions">
+                                                    <button type="submit" class="btn btn-primary kt-align-center">Enregistrer les modifications</button>
+                                                </div>
+                                            </div>
                                             @csrf
 
                                             <!--end::Form-->
@@ -1099,8 +1123,7 @@
 
 
 
-
-
+                                     
 
 
                 </div>
@@ -2862,6 +2885,7 @@ window.addEventListener('load',function(){
 window.addEventListener('load',function(){
      
 var element= '<?php echo $total ?>';
+var total= '<?php echo  $total_ca ?>';
 var test= '<?php echo $some_total ?>';
 console.log(test);
 // var total=0;
@@ -2881,7 +2905,9 @@ console.log(test);
    }
 
       $('#total_invest').val(element);
+      $('#ca_produit-service').val(total);
       $('#total_plan').val(test);
+      $('#ca_produit-service').prop('disabled', true);
       $('#total_plan').prop('disabled', true);
       $("#total_invest").prop('disabled', true);
 
@@ -2894,7 +2920,7 @@ console.log(test);
         var newOptions = {"IS": "IS"};
         $("#applied_taxSelect").empty();
             $.each(newOptions, function(key,value) {
-            $("#applied_taxSelect").append($("<option></option>")
+            $("#applied_taxSelect").append($("<option></option>") 
             .attr("value", value).text(key));
         });
     }else if(document.querySelector('#legal_formSelect').value=='S.N.C'){
@@ -2957,4 +2983,22 @@ $("#applied_taxSelect").empty();
   });
 
 
+    </script>
+   <script>
+        $(window).scroll(function(){
+            var scrollPos = $(window).scrollTop();
+            var docHeight = $(document).height();
+
+            if (scrollPos > 500 && scrollPos < docHeight-1200 ){
+                $('.sticky-save').css({"background": "white", "position" : "fixed", "width":"100vw", "bottom":"0", "left":"0", "padding":"20px"});
+                $('.sticky-save').find('button').css({"margin-left": "auto", "margin-right": "140px"});
+            }
+            else if (scrollPos > 500+80 && scrollPos < docHeight-1200+80) {
+                return;
+            }
+            else {
+                $('.sticky-save').css({"background": "", "position" : "", "width":"","bottom":"", "left":""});
+                $('.sticky-save').find('button').css({"margin-left": "", "margin-right": ""});
+            }
+        });
     </script>
