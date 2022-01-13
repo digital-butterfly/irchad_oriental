@@ -372,9 +372,11 @@ class ProjectApplicationController extends Controller
         }
       }else{
         if(isset($total->organisme)){
-        $total_p += $total->rate * $total->value*$total->organisme;
+        if(isset($total->rate)){       
+        $total_p += $total->rate * $total->value*$total->organisme;}
         }else{
-        $total_p += ( $total->rate * $total->value*$saisonalite) ;
+           if(isset($total->rate)){   
+        $total_p += ( $total->rate * $total->value*$saisonalite) ;}
         }
       }
     
@@ -395,9 +397,11 @@ class ProjectApplicationController extends Controller
         }
       }else{
         if(isset($total->organisme)){
-        $total_s += $total->rate * $total->value*$total->organisme;
+              if(isset($total->rate)){
+        $total_s += $total->rate * $total->value*$total->organisme;}
         }else{
-        $total_s += ( $total->rate * $total->value*$saisonalite) ;
+              if(isset($total->rate)){
+        $total_s += ( $total->rate * $total->value*$saisonalite) ;}
         }
       }
     }
