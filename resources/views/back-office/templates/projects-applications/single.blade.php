@@ -214,7 +214,7 @@
                                     </div>
                                 </div>
                             </div>
-                             {{-- <div class="kt-wizard-v4__nav-item" data-ktwizard-type="step">
+                             <div class="kt-wizard-v4__nav-item" data-ktwizard-type="step">
                                 <div class="kt-wizard-v4__nav-body">
                                     <div class="kt-wizard-v4__nav-number">
                                         2
@@ -234,7 +234,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div> --}}
+                            </div>
                             <div class="kt-wizard-v4__nav-item" data-ktwizard-type="step">
                                 <div class="kt-wizard-v4__nav-body">
                                     <div class="kt-wizard-v4__nav-number">
@@ -381,6 +381,10 @@
                                                         @endphp
                                                         @foreach($fields as $parent)
                                                             @if (isset($parent['group']))
+                                                                @if ($parent['group']!='donne_general_arab')
+                                                                    @if ($parent['group']!='entreprise_arab')
+                                                                    @if ($parent['group']!='etude_marche_arab')
+                                                                     @if ($parent['group']!='etude_technique_arab')
                                                                 @if (!(in_array($parent['group'], $done_groups)))
                                                                     @php
                                                                         $done_groups[] = $parent['group'];
@@ -422,8 +426,11 @@
                                                                                 @endif
                                                                             @endforeach                                                                        </div>
                                                                     </div>
-
+                                                                     @endif
+                                                                  @endif
+                                                                     @endif
                                                                 @endif
+                                                                 @endif
                                                             @endif
                                                         @endforeach
                                                     </div>
@@ -438,6 +445,11 @@
                                                 <div class="kt-form__actions">
                                                     <button type="submit" class="btn btn-primary kt-align-center">Enregistrer les modifications</button>
                                                 </div>
+
+
+
+
+                                                
                                             </div>
                                             @csrf
 
@@ -446,12 +458,67 @@
                                             <!--end: Form Wizard Step 1-->
 
                                             <!--begin: Form Wizard Step 2-->
-                                            {{-- <div class="kt-wizard-v4__content" data-ktwizard-type="step-content">
+                                            <div class="kt-wizard-v4__content" data-ktwizard-type="step-content">
                                                 <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid printable-bp">
+                                                    <div class="kt-section kt-section--second">
 
-                                                    @include('back-office.components.portlets.business-plan')
+                                                    {{-- @include('back-office.components.portlets.business-plan') --}}
+                                                                 @php $done_groups = []; 
+                                                    //dd($fields); 
+                                                    @endphp
+                                                    @foreach ($fields as $parent)
+                                                    @php   @endphp
+                                                        @if (isset($parent['group']))
+                                                         @if ($parent['group']=='entreprise_arab' ||$parent['group']=='donne_general_arab' ||$parent['group']=='etude_marche_arab'||$parent['group']=='etude_technique_arab')
+                                                            @if (!in_array($parent['group'], $done_groups))
+                                                                @php
+                                                                    $done_groups[] = $parent['group'];
+                                                                    $done_fields[] = [];
+                                                                   // 
+                                                                @endphp
+                                                                <div class="kt-portlet kt-portlet--mobile  text-right  {{ $parent['class'] }}" id="{{ $parent['name'] === 'member_id' ? 'member' : $parent['name'] }}">
+                                                                    <div class="kt-portlet__head">
+                                                                        <div style=" text-align:right;">
+                                                                            <h3 >
+                                                                                {{ $parent['label'] }}
+                                                                            </h3>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="kt-portlet__body  " style=" text-align:right;">
+                                                                        @foreach ($fields as $child)
+                                                                            @if (isset($child['group']) && $child['group'] == $parent['group'])
+                                                                                @if (!isset($child['sub_fields']))
+                                                                                    @if (!in_array($child['name'], $done_fields))
+                                                                                    @php
+                                                                                   
+                                                                                        $done_fields[] = $child['name'];
+                                                                                        $child['config']['hotizontalRows'] = true;
+                                                                                    @endphp
+                                                                                    @include(sprintf('back-office.components.form.fields.%s', $child['type']), $field = $child)
+                                                                                @endif
+                                                                                @else
+                                                                                    @foreach ($child['sub_fields'] as $subchild)
+                                                                                        @if (!in_array($subchild['name'], $done_fields))
+                                                                                            @php
+                                                                                          //   dd( $subchild);
+                                                                                                $done_fields[] = $subchild['name'];
+                                                                                                $subchild['config']['hotizontalRows'] = true;
+                                                                                                $subchild['parent_name'] = $child['name'];
+                                                                                            @endphp
+                                                                                            @include(sprintf('back-office.components.form.fields.%s', $subchild['type']), $field = $subchild)                                                                                        @endif
+                                                                                    @endforeach
+                                                                                @endif
+                                                                            @endif
+                                                                        @endforeach
+                                                                    </div>
+                                                                </div>
+                                                            @endif
+                                                              @endif
+                                                        @endif
+                                                    @endforeach
                                                 </div>
-                                            </div> --}}
+                                            </div>
+                                            </div>
                                             <!--end: Form Wizard Step 2-->
 
                                             <!--begin: Form Wizard Step 3-->

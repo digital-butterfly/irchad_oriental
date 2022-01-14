@@ -352,32 +352,116 @@ class ProjectApplication extends Model
                     ],
                 ],
                 'group' => 'Données Entreprise'
-            ],
-            // [
-            //   'name' => 'company_arab',
-            //     'type' => 'section',
-            //     'class' => 'kt-callout--primary',
-            //     'label' => 'test',
-            //     "sub_fields" => [
-            //         [
-            //             'name' => 'legal_form_arabe',
-            //             'type' => 'text',
-            //             'label' => 'الشكل القانوني'
+            ],  
+            [
+              'name' => 'company_arab',
+                'type' => 'section',
+                'class' => 'kt-callout--dark text-right',
+                'label' => 'تقديم حامل المشروع',
+                "sub_fields" => [
+                    [
+                        'name' => 'nom_arabe',
+                        'type' => 'text',
+                        'label' => 'اسم الكامل',
+                        'class' => 'text-right',
 
-            //         ],
-            //         [
-            //             'name' => 'implantation_arabe',
-            //             'type' => 'text',
-            //             'label' => 'توطين المقاولة  '
-            //         ],
-            //         [
-            //             'name' => 'produit_service_arabe',
-            //             'type' => 'repeater',
-            //             'label' => 'المنتوج أو الخدمة  '
-            //         ],
-            //     ],
-            //     'group' =>'entreprise_arab'
-            // ],
+                    ],
+                           [
+                        'name' => 'activite_arabe',
+                        'type' => 'text',
+                        'label' => 'القطاع'
+
+                    ],
+                           [
+                        'name' => 'desc_porteur_arabe',
+                        'type' => 'textarea',
+                        'label' => 'وصف المشروع'
+
+                    ],
+                           [
+                        'name' => 'desc_porteur_arabe',
+                        'type' => 'textarea',
+                        'label' => 'تقديم حامل المشروع'
+
+                    ],
+                ],
+                'group' =>'donne_general_arab'
+            ],
+            [
+              'name' => 'company_arab',
+                'type' => 'section',
+                'class' => 'kt-callout--primary ',
+                'label' => 'تقديم المشروع',
+                "sub_fields" => [
+                    [
+                        'name' => 'legal_form_arabe',
+                        'type' => 'text',
+                        'label' => 'الشكل القانوني'
+
+                    ],
+                    [
+                        'name' => 'implantation_arabe',
+                        'type' => 'text',
+                        'label' => 'توطين المقاولة  '
+                    ],
+                    [
+                        'name' => 'produit_service_arabe',
+                        'type' => 'repeater',
+                        'label' => 'المنتوج أو الخدمة  '
+                    ],
+                ],
+                'group' =>'entreprise_arab'
+            ],
+            [
+              'name' => 'business_model_arab',
+                'type' => 'section',
+                'class' => 'kt-callout--danger',
+                'label' => 'دراسة السوق',
+                "sub_fields" => [
+                    [
+                        'name' => 'fournisseur_arabe',
+                        'type' => 'text',
+                        'label' => 'الموردون'
+
+                    ],
+                    [
+                        'name' => 'client_arabe',
+                        'type' => 'text',
+                        'label' => ' الزبناء '
+                    ],
+                    [
+                        'name' => 'concurent_arabe',
+                        'type' => 'repeater',
+                        'label' => 'المنافسون  '
+                    ],
+                       [
+                        'name' => 'autorisation_arabe',
+                        'type' => 'repeater',
+                        'label' => 'الرخص الإدارية اللازمة'
+                    ],
+                ],
+                'group' =>'etude_marche_arab'
+            ],
+            [
+              'name' => 'business_model_arab',
+                'type' => 'section',
+                'class' => 'kt-callout--warning',
+                'label' => 'الدراسة التقنية للمشروع',
+                "sub_fields" => [
+                    [
+                        'name' => 'list_mat_arabe',
+                        'type' => 'text',
+                        'label' => 'لوازم و أدوات الاشتغال'
+                    ],
+                    [
+                        'name' => 'local_arabe',
+                        'type' => 'repeater',
+                        'label' => ' كراء مقر المشروع  ',
+                        'config' => ['tripleRepeater' => true, 'attributes' => [['الموقع',3],['المساحة',4], ['سومةالكراء',3]],'Select'=>false]
+                    ]
+                ],
+                'group' =>'etude_technique_arab'
+            ],
             [
                 'name' => 'business_model',
                 'type' => 'section',

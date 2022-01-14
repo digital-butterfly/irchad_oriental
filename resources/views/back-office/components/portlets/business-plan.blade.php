@@ -1,33 +1,9 @@
- <div class="kt-form" id="kt_form">
+                                 <div class="kt-form" id="kt_form">
                                         <form id="candidaturesform" class="" method="POST" action="{{ route('candidatures.update', $data->id) }}" enctype="multipart/form-data">
                                         {{ method_field('PUT') }}
-
-
-                                        <!--begin: Form Wizard Step 1-->
-                                            <div class="kt-wizard-v4__content" data-ktwizard-type="step-content"  data-ktwizard-state="current">
-                                                <!--begin::Form-->
-                                                @if ($errors->any())
-                                                    <div class="alert alert-danger">
-                                                        <ul>
-                                                            @foreach ($errors->all() as $error)
-                                                                <li>{{ $error }}</li>
-                                                            @endforeach
-                                                        </ul>
-                                                    </div><br />
-                                                @endif
-                                             
-                                              <div class="alert alert-danger" id="alert_id" style="display:none;">
-                                                        <ul>
-                                                         <li>le programme d'investissement n'est pas égal a le plan financement!</li>
-                                                        </ul>
-                                                    </div><br/>
-
+                            
                                                 <div class="kt-portlet__body">
-                                            
                                                     <div class="kt-section kt-section--first">
-
-
-
                                                         @php
                                                             $done_groups = [];
                                                         @endphp
@@ -38,7 +14,7 @@
                                                                         $done_groups[] = $parent['group'];
                                                                         $done_fields[] = [];
                                                                     @endphp
-
+                                                                        <?php //dd($data->id); ?>
                                                                     <div class="kt-portlet kt-portlet--mobile  {{ $parent['class'] }}" id="{{$parent['name']==='member_id'?'member':$parent['name']}}">
                                                                         <div class="kt-portlet__head">
                                                                             <div class="kt-portlet__head-label">
@@ -72,22 +48,14 @@
                                                                                         @endforeach
                                                                                     @endif
                                                                                 @endif
-                                                                            @endforeach                                                                        </div>
+                                                                            @endforeach                                                                        
+                                                                        </div>
                                                                     </div>
-
                                                                 @endif
                                                             @endif
                                                         @endforeach
                                                     </div>
                                                 </div>
-                                              
-                                                
-                                               
                                             @csrf
-
-                                            <!--end::Form-->
-                                            </div>
-
                                         </form>
-                                        <!--end: Form Actions -->
                                     </div>
