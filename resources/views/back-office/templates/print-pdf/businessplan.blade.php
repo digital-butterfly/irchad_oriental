@@ -1224,12 +1224,12 @@ elseif($cumul_four_year>0) {
         alt=""
         srcset=""
       />
-      <img
+      {{-- <img
         src="{{asset('images/back-office/svg/mobadara-logo.png')}}"
         class="absolute right-5 top-4"
         alt=""
         srcset=""
-      />
+      /> --}}
 
       <div class="absolute right-0 top-60 space-y-5" style="width: 500px">
         <h3
@@ -2514,15 +2514,38 @@ elseif($cumul_four_year>0) {
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
 
-          <div class="bg-gray-100 text-gray-700 mt-6 p-8 space-y-3 text-sm">
-            <p><span class="font-semibold" style="color: var(--main-green)">L'ensemble des documents juridiques: </span></p>
-            <ul class="list-inside list-disc space-y-2">  
-              @if(isset($data->business_model->autorisations_nécessaire_c))
-              @foreach ($data->business_model->autorisations_nécessaire_c as $key =>  $field)
-              <li></span>{{$field->label ?? " "}}</li>  
-              @endforeach 
-              @endif
-            </ul>
+          <div >
+            {{-- <p><span class="font-semibold" style="color: var(--main-green)">L'ensemble des documents juridiques: </span></p> --}}
+              <table class="table-fixed border border-gray-900 w-full text-sm">
+              <thead>
+                <tr class="bg-gray-100">
+                  <th
+                    class="
+                      py-2
+                      pl-4
+                      border-2 border-gray-600
+                      self-start
+                      text-left
+                    "
+                  >
+                     Type d'Autorisation
+                  </th>
+                  <th class="border-2 border-gray-600 w-1/4 text-center">Établissement</th>
+                    <th class="border-2 border-gray-600 w-1/4 text-center">Statut</th>
+                </tr>
+              </thead>
+              <tbody class="font-medium">
+                @if(isset($data->business_model->autorisations_nécessaire_c))
+                @foreach ($data->business_model->autorisations_nécessaire_c as $item)
+                <tr>
+                  <td class="border-2 border-gray-600 ">{{isset($item->label)?$item->label:""}}</td>
+                  <td class="border-2 border-gray-600 text-center">{{isset($item->count)?$item->count:""}}</td>
+                   <td class="border-2 border-gray-600 text-center">{{isset($item->value)?$item->value:""}}</td>
+                </tr>
+                @endforeach
+                @endif
+              </tbody>
+            </table>
           </div>
         </div>
         <div class="space-y-4">
@@ -5199,8 +5222,8 @@ elseif($cumul_four_year>0) {
             }
         }
          ?>
-            <p class="align-middle  text-justify">
-              Le projet que se propose {{$gender}} {{$owner->first_name}} {{$owner->last_name}} de mettre en œuvre s’inscrit dans les objectifs stratégiques du programme de l’INDH. </p>
+            {{-- <p class="align-middle  text-justify">
+              Le projet que se propose {{$gender}} {{$owner->first_name}} {{$owner->last_name}} de mettre en œuvre s’inscrit dans les objectifs stratégiques du programme de l’INDH. </p> --}}
              <p class="align-middle  text-justify">
              La réalisation de ce projet lui permettra d’intégrer le monde de l’entrepreneuriat en exploitant les opportunités offertes ainsi que son relationnel avec les clients et d’améliorer son revenu .
             </p>

@@ -39,6 +39,7 @@ class ProjectApplication extends Model
         'financial_data',
         'training_needs',
         'company',
+        'company_arab',
         'status',
         'progress',
         'training',
@@ -65,6 +66,7 @@ class ProjectApplication extends Model
         'financial_data'=> 'object',
         'training_needs'=> 'object',
         'company'=> 'object',
+        'company_arab'=> 'object',
         'start_date' => 'datetime:d-m-Y',
         'end_date' => 'datetime:d-m-Y',
 
@@ -351,7 +353,31 @@ class ProjectApplication extends Model
                 ],
                 'group' => 'Données Entreprise'
             ],
+            // [
+            //   'name' => 'company_arab',
+            //     'type' => 'section',
+            //     'class' => 'kt-callout--primary',
+            //     'label' => 'test',
+            //     "sub_fields" => [
+            //         [
+            //             'name' => 'legal_form_arabe',
+            //             'type' => 'text',
+            //             'label' => 'الشكل القانوني'
 
+            //         ],
+            //         [
+            //             'name' => 'implantation_arabe',
+            //             'type' => 'text',
+            //             'label' => 'توطين المقاولة  '
+            //         ],
+            //         [
+            //             'name' => 'produit_service_arabe',
+            //             'type' => 'repeater',
+            //             'label' => 'المنتوج أو الخدمة  '
+            //         ],
+            //     ],
+            //     'group' =>'entreprise_arab'
+            // ],
             [
                 'name' => 'business_model',
                 'type' => 'section',
@@ -471,7 +497,7 @@ class ProjectApplication extends Model
                         'name' => 'autorisations_nécessaire_c',
                         'type' => 'repeater',
                         'label' => 'Autorisations nécessaires',
-                        'config' => ['tripleRepeater' => true, 'attributes' => [['Type d\'Autorisation',4], ['Administration Ou Organisme',4], ['Etat',3]],'Select'=>true, 'options' =>self::Etat],
+                        'config' => ['tripleRepeater' => true, 'attributes' => [['Type d\'Autorisation',4], ['Établissement',4], ['Statut',3]],'Select'=>true, 'options' =>self::Etat],
                     ],
                     [
                         'name' => 'local',
