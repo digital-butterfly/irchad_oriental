@@ -50,6 +50,7 @@ class ProjectApplication extends Model
         'updated_by',
         'credit_banc',
         'list_mat_file',
+        'business_model_arab'
         
        
     ];
@@ -67,6 +68,7 @@ class ProjectApplication extends Model
         'training_needs'=> 'object',
         'company'=> 'object',
         'company_arab'=> 'object',
+        'business_model_arab'=> 'object',
         'start_date' => 'datetime:d-m-Y',
         'end_date' => 'datetime:d-m-Y',
 
@@ -373,8 +375,8 @@ class ProjectApplication extends Model
 
                     ],
                            [
-                        'name' => 'desc_porteur_arabe',
-                        'type' => 'textarea',
+                        'name' => 'desc_projet_arabe',
+                        'type' => 'text',
                         'label' => 'وصف المشروع'
 
                     ],
@@ -420,13 +422,13 @@ class ProjectApplication extends Model
                 "sub_fields" => [
                     [
                         'name' => 'fournisseur_arabe',
-                        'type' => 'text',
+                        'type' => 'repeater',
                         'label' => 'الموردون'
 
                     ],
                     [
                         'name' => 'client_arabe',
-                        'type' => 'text',
+                        'type' => 'repeater',
                         'label' => ' الزبناء '
                     ],
                     [
@@ -450,7 +452,7 @@ class ProjectApplication extends Model
                 "sub_fields" => [
                     [
                         'name' => 'list_mat_arabe',
-                        'type' => 'text',
+                        'type' => 'repeater',
                         'label' => 'لوازم و أدوات الاشتغال'
                     ],
                     [

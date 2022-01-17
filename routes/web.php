@@ -90,6 +90,7 @@ Route::group(['middleware' => 'auth:user'], function () {
     Route::get('/admin/list/membersbyid', 'MemberController@showFromCandidature');
 
     Route::resource('admin/candidatures', 'ProjectApplicationController');
+    Route::post('admin/candidaturest', 'ProjectApplicationController@Two');
     Route::post('/admin/list/candidatures', 'ProjectApplicationController@ajaxList');
 
     Route::resource('admin/create-enterprise', 'IncorporationController');
@@ -187,3 +188,4 @@ Route::get('locale/{locale}', function ($locale){
     return redirect()->back();
 });
 Route::get('/admin/print-business-plan/{id}', 'PrintController@Businessplan')->name('printbusinessplan');
+Route::get('/admin/print-business-plan-arabe/{id}', 'PrintController@BusinessplanTwo')->name('printbusinessplanTwo');

@@ -626,6 +626,7 @@ class ProjectApplicationController extends Controller
         } 
 }
   // if(old())  
+  dd($request);
         $application->update([
             'member_id' => $request['member_id'],
             'category_id' => $request['category_id'],
@@ -649,7 +650,7 @@ class ProjectApplicationController extends Controller
                 'competition_c' => $request['competition_c'],
                 'advertising' => $request['advertising'],
                 'pricing_strategy' => $request['pricing_strategy'],
-                   'pricing_strategy_disc' => $request['pricing_strategy_disc'],
+                'pricing_strategy_disc' => $request['pricing_strategy_disc'],
                 'distribution_strategy' => $request['distribution_strategy'],
                 'distribution_strategy_force_p' => $request['distribution_strategy_force_p'],
                 'distribution_strategy_menace_p' => $request['distribution_strategy_menace_p'],
@@ -689,6 +690,24 @@ class ProjectApplicationController extends Controller
                 'corporate_sig' => $request['corporate_sig'],
                 'implantation_project' => $request['implantation_project'],
             ],
+              'company_arab' => [
+                'nom_arabe' => $request['nom_arabe'],
+                'activite_arabe' => $request['activite_arabe'],
+                'desc_porteur_arabe' => $request['desc_porteur_arabe'],
+                'desc_projet_arabe' => $request['desc_projet_arabe'],
+                'legal_form_arabe' => $request['legal_form_arabe'],
+                'implantation_arabe' => $request['implantation_arabe'],
+                'produit_service_arabe' => $request['produit_service_arabe']
+            ],
+                'business_model_arab' => [
+                'fournisseur_arabe' => $request['fournisseur_arabe'],
+                'client_arabe' => $request['client_arabe'],
+                'concurent_arabe' => $request['concurent_arabe'],
+                'autorisation_arabe' => $request['autorisation_arabe'],
+                'list_mat_arabe' => $request['list_mat_arabe'],
+                'local_arabe' => $request['local_arabe'],
+
+            ],
             'training_needs' => json_decode(json_encode([
                 'pre_creation_training' => $request['pre_creation_training'],
                 'post_creation_training' => $request['post_creation_training'],
@@ -701,7 +720,7 @@ class ProjectApplicationController extends Controller
             'created_by' => Auth::id(),
             'rejected_reason' => $request['rejected_reason']
         ]);
-       // dd()
+        dd(  $application);
 //        dd(json_decode($request['deteletags']));
         if (json_decode($request['deteletags'])) {
             foreach (json_decode($request['deteletags']) as $key => $value) {
@@ -719,6 +738,91 @@ class ProjectApplicationController extends Controller
             }
         }
         return redirect()->intended('admin/candidatures/'.$id);
+    }
+        /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+
+     public function Two(Request $request, $id)
+    {
+        // dd($request->toArray());
+        $application =ProjectApplication::findOrFail($id);
+         // dd($application->list_mat_file);
+         //        dd($id);
+        // $validation = $this->validator($request->all(), 'projectApplication');
+        // if($validation->fails())
+        // {
+        //     return redirect()->back()->withErrors($validation)->withInput();
+        // }
+            //        dd($request->toArray());
+//        dd($id);
+        if ($application->status!==$request['status']){
+            ProjectHistory::create([
+                'title'=>'Candidature '. $request['status'],
+                'id_projet'=>$id,
+                'updatedBy'=>Auth::id()
+
+            ]);
+        }
+        
+        $fille_db='';
+        $filename ='';
+        if($request->file('file')){  
+            $files=$request->file('file');
+        // dd($request->file('file'));
+                if($request->file('file')) {
+                        foreach ($files as $key=> $file) {
+                        $img_ext = $file->getClientOriginalExtension();
+                        $filename = 'annex' . time() . $key.'.' . $img_ext;
+                        $path = $file->storeAs('public', $filename);//image save public folder
+                        $fille_db.=','.$filename;
+                        } 
+                } 
+        }
+  // if(old())  
+ // dd($request);
+        $application->update([
+              'company_arab' => [
+                'nom_arabe' => $request['nom_arabe'],
+                'activite_arabe' => $request['activite_arabe'],
+                'desc_porteur_arabe' => $request['desc_porteur_arabe'],
+                'desc_projet_arabe' => $request['desc_projet_arabe'],
+                'legal_form_arabe' => $request['legal_form_arabe'],
+                'implantation_arabe' => $request['implantation_arabe'],
+                'produit_service_arabe' => $request['produit_service_arabe']
+            ],
+                'business_model_arab' => [
+                'fournisseur_arabe' => $request['fournisseur_arabe'],
+                'client_arabe' => $request['client_arabe'],
+                'concurent_arabe' => $request['concurent_arabe'],
+                'autorisation_arabe' => $request['autorisation_arabe'],
+                'list_mat_arabe' => $request['list_mat_arabe'],
+                'local_arabe' => $request['local_arabe'],
+
+            ]
+        ]);
+        dd(  $application);
+//        dd(json_decode($request['deteletags']));
+        if (json_decode($request['deteletags'])) {
+            foreach (json_decode($request['deteletags']) as $key => $value) {
+                ProjectApplicationMember::where('member_id', '=', $value->member_id)->where('project_application_id', '=', $id)->delete();
+            }
+        }
+        if (json_decode($request['members'])) {
+            foreach (json_decode($request['members']) as $key =>$value)
+            {
+
+                ProjectApplicationMember::updateOrCreate([
+                        'member_id' => $value->member_id,
+                        'project_application_id' => $id,]
+                );
+            }
+        }
+        return redirect()->intended('admin/candidaturest/'.$id);
     }
 
     /**

@@ -435,11 +435,11 @@
                                                         @endforeach
                                                     </div>
                                                 </div>
-                                                <div class="kt-portlet__foot">
+                                                {{-- <div class="kt-portlet__foot">
                                                     <div class="kt-form__actions">
                                                         <button type="submit" class="btn btn-primary kt-align-center">Enregistrer les modifications</button>
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                                 
                                                 <div class="kt-portlet__foot sticky-save">
                                                 <div class="kt-form__actions">
@@ -459,7 +459,16 @@
 
                                             <!--begin: Form Wizard Step 2-->
                                             <div class="kt-wizard-v4__content" data-ktwizard-type="step-content">
+                                              <div class="kt-form__actions">
+                                               <a href="/admin/print-business-plan-arabe/{{Route::current()->parameters['candidature']}}"class="kt-widget__title">
+                                                 <span type="button" class="btn btn-brand btn-bold" ><i class="flaticon2-printer"></i></span>
+                                               </a>
+                                                </div> 
+                                                 <form id="candidaturesform" class="" method="POST" action="{{ route('candidatures.update', $data->id) }}" enctype="multipart/form-data">
+                                                   {{ method_field('PUT') }}
                                                 <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid printable-bp">
+                                                
+
                                                     <div class="kt-section kt-section--second">
 
                                                     {{-- @include('back-office.components.portlets.business-plan') --}}
@@ -476,7 +485,7 @@
                                                                     $done_fields[] = [];
                                                                    // 
                                                                 @endphp
-                                                                <div class="kt-portlet kt-portlet--mobile  text-right  {{ $parent['class'] }}" id="{{ $parent['name'] === 'member_id' ? 'member' : $parent['name'] }}">
+                                                                <div class="kt-portlet kt-portlet--mobile  text-right  {{ $parent['class'] }}" id="{{ $parent['name'] === 'member_id' ? 'member' : $parent['name'] }}" >
                                                                     <div class="kt-portlet__head">
                                                                         <div style=" text-align:right;">
                                                                             <h3 >
@@ -517,8 +526,15 @@
                                                         @endif
                                                     @endforeach
                                                 </div>
+                                                <div class="kt-portlet__foot sticky-save">
+                                                <div class="kt-form__actions">
+                                                    <button type="submit" class="btn btn-primary kt-align-center">Enregistrer les modifications</button>
+                                                </div>
                                             </div>
+                                             @csrf
+                                        </form>
                                             </div>
+
                                             <!--end: Form Wizard Step 2-->
 
                                             <!--begin: Form Wizard Step 3-->
@@ -692,7 +708,8 @@
                                             <input name="deteletags" type="hidden" id="deteletags" value=""/>
 
                                             @csrf
-                                        </form>
+                                             @csrf
+                                        </form> </form>
                                         <!--end: Form Actions -->
                                     </div>
                                     <!--end: Form Wizard Form-->
@@ -2619,6 +2636,21 @@
 						$(this).slideUp(deleteElement);
 					}
 				});
+                    var services_turnover_forecast_c= $('.kt_repeater_services_turnover_forecast_c').repeater({
+					initEmpty: false,
+
+					defaultValues: {
+						'text-input': 'foo'
+					},
+
+					show: function () {
+						$(this).slideDown();
+					},
+
+					hide: function (deleteElement) {
+						$(this).slideUp(deleteElement);
+					}
+				});
                 var distribution_strategy_menace_p= $('.kt_repeater_distribution_strategy_menace_p').repeater({
 					initEmpty: false,
 
@@ -2635,6 +2667,111 @@
 					}
 				});
                 var distribution_strategy_force_p= $('.kt_repeater_distribution_strategy_force_p').repeater({
+					initEmpty: false,
+
+					defaultValues: {
+						'text-input': 'foo'
+					},
+
+					show: function () {
+						$(this).slideDown();
+					},
+
+					hide: function (deleteElement) {
+						$(this).slideUp(deleteElement);
+					}
+				});
+                    var fournisseur_arabe= $('.kt_repeater_fournisseur_arabe').repeater({
+					initEmpty: false,
+
+					defaultValues: {
+						'text-input': 'foo'
+					},
+
+					show: function () {
+						$(this).slideDown();
+					},
+
+					hide: function (deleteElement) {
+						$(this).slideUp(deleteElement);
+					}
+				});
+                   var autorisation_arabe= $('.kt_repeater_autorisation_arabe').repeater({
+					initEmpty: false,
+
+					defaultValues: {
+						'text-input': 'foo'
+					},
+
+					show: function () {
+						$(this).slideDown();
+					},
+
+					hide: function (deleteElement) {
+						$(this).slideUp(deleteElement);
+					}
+				});
+                     var concurent_arabe= $('.kt_repeater_concurent_arabe').repeater({
+					initEmpty: false,
+
+					defaultValues: {
+						'text-input': 'foo'
+					},
+
+					show: function () {
+						$(this).slideDown();
+					},
+
+					hide: function (deleteElement) {
+						$(this).slideUp(deleteElement);
+					}
+				});
+                  var client_arabe= $('.kt_repeater_client_arabe').repeater({
+					initEmpty: false,
+
+					defaultValues: {
+						'text-input': 'foo'
+					},
+
+					show: function () {
+						$(this).slideDown();
+					},
+
+					hide: function (deleteElement) {
+						$(this).slideUp(deleteElement);
+					}
+				});
+                  var local_arabe= $('.kt_repeater_local_arabe').repeater({
+					initEmpty: false,
+
+					defaultValues: {
+						'text-input': 'foo'
+					},
+
+					show: function () {
+						$(this).slideDown();
+					},
+
+					hide: function (deleteElement) {
+						$(this).slideUp(deleteElement);
+					}
+				});
+                 var produit_service_arabe= $('.kt_repeater_produit_service_arabe').repeater({
+					initEmpty: false,
+
+					defaultValues: {
+						'text-input': 'foo'
+					},
+
+					show: function () {
+						$(this).slideDown();
+					},
+
+					hide: function (deleteElement) {
+						$(this).slideUp(deleteElement);
+					}
+				});
+                     var list_mat_arabe= $('.kt_repeater_list_mat_arabe').repeater({
 					initEmpty: false,
 
 					defaultValues: {
