@@ -465,7 +465,7 @@
                                                </a>
                                                 </div> 
                                                  <form id="candidaturesform" class="" method="POST" action="{{ route('candidature.myfunction', $data->id) }}" enctype="multipart/form-data">
-                                                   {{ method_field('PUT') }}
+                                                 @method('PUT')
                                                 <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid printable-bp">
                                                 
 
@@ -528,11 +528,12 @@
                                                 </div>
                                                    </div>
                                                         </div>
-                                                <div class="kt-portlet__foot sticky-save">
+                                                {{-- <div class="kt-portlet__foot sticky-save">
                                                 <div class="kt-form__actions">
-                                                    <button type="submit" class="btn btn-primary kt-align-center">Enregistrer les modifications</button>
+                                                    {{-- <button type="submit" class="btn btn-primary kt-align-center">Enregistrer les modifications</button> --}}
                                              
-                                              </div> 
+                                              </div>  
+                                                 </div> 
                                                 @csrf  
                                               </form>
                                             </div>

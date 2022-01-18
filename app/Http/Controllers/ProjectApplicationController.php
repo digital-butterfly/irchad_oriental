@@ -747,7 +747,7 @@ class ProjectApplicationController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     public function Two(Request $request, $id)
+     public function myfunction(Request $request, $id)
     {
         // dd($request->toArray());
         $application =ProjectApplication::findOrFail($id);
@@ -822,7 +822,7 @@ class ProjectApplicationController extends Controller
                 );
             }
         }
-        return redirect()->intended('admin/candidaturest/'.$id);
+        return redirect()->intended('admin/candidatures/'.$id);
     }
 
     /**
