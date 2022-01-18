@@ -626,7 +626,7 @@ class ProjectApplicationController extends Controller
         } 
 }
   // if(old())  
-  dd($request);
+// dd($request);
         $application->update([
             'member_id' => $request['member_id'],
             'category_id' => $request['category_id'],
@@ -720,7 +720,7 @@ class ProjectApplicationController extends Controller
             'created_by' => Auth::id(),
             'rejected_reason' => $request['rejected_reason']
         ]);
-        dd(  $application);
+       // dd(  $application);
 //        dd(json_decode($request['deteletags']));
         if (json_decode($request['deteletags'])) {
             foreach (json_decode($request['deteletags']) as $key => $value) {
