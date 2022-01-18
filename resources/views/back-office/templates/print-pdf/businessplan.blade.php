@@ -1541,6 +1541,7 @@ elseif($cumul_four_year>0) {
               <p>Etablissement</p>
               <p>Année d'obtention</p>
             </div>
+            @if(isset($owner->degrees))
             @foreach ($owner->degrees as $key => $degree)
             <div class="grid  grid-cols-3 justify-between bg-gray-100 p-2">
               @if(isset($degree->label))
@@ -1561,6 +1562,7 @@ elseif($cumul_four_year>0) {
             
             </div>
             @endforeach
+            @endif
           </div>
         </div>
         <div class="space-y-4 ">

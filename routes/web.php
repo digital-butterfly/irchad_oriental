@@ -90,7 +90,8 @@ Route::group(['middleware' => 'auth:user'], function () {
     Route::get('/admin/list/membersbyid', 'MemberController@showFromCandidature');
 
     Route::resource('admin/candidatures', 'ProjectApplicationController');
-    Route::post('admin/candidaturest', 'ProjectApplicationController@Two');
+//Route::post('admin/candidature', 'ProjectApplicationController@myfunction');
+    Route::post('candidature', ['as' => 'candidature.myfunction', 'uses' =>  'App\Http\Controllers\ProjectApplicationController@myfunction']);
     Route::post('/admin/list/candidatures', 'ProjectApplicationController@ajaxList');
 
     Route::resource('admin/create-enterprise', 'IncorporationController');

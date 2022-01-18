@@ -464,7 +464,7 @@
                                                  <span type="button" class="btn btn-brand btn-bold" ><i class="flaticon2-printer"></i></span>
                                                </a>
                                                 </div> 
-                                                 <form id="candidaturesform" class="" method="POST" action="{{ route('candidatures.update', $data->id) }}" enctype="multipart/form-data">
+                                                 <form id="candidaturesform" class="" method="POST" action="{{ route('candidature.myfunction', $data->id) }}" enctype="multipart/form-data">
                                                    {{ method_field('PUT') }}
                                                 <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid printable-bp">
                                                 
@@ -486,14 +486,14 @@
                                                                    // 
                                                                 @endphp
                                                                 <div class="kt-portlet kt-portlet--mobile  text-right  {{ $parent['class'] }}" id="{{ $parent['name'] === 'member_id' ? 'member' : $parent['name'] }}" >
-                                                                    <div class="kt-portlet__head">
+                                                                    <div class="kt-portlet__head"dir="rtl">
                                                                         <div style=" text-align:right;">
-                                                                            <h3 >
+                                                                            <h3  >
                                                                                 {{ $parent['label'] }}
                                                                             </h3>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="kt-portlet__body  " style=" text-align:right;">
+                                                                    <div class="kt-portlet__body  " style=" text-align:right;" dir="rtl">
                                                                         @foreach ($fields as $child)
                                                                             @if (isset($child['group']) && $child['group'] == $parent['group'])
                                                                                 @if (!isset($child['sub_fields']))

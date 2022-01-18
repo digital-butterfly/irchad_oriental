@@ -1339,9 +1339,7 @@ elseif($cumul_four_year>0) {
                               <li> الموردون</li>
                               <li> الموردون</li>
                                <li> الموردون</li>
-
-              </ul>
-              
+              </ul>  
             </div>
           </div>
         </div>
@@ -1564,7 +1562,7 @@ elseif($cumul_four_year>0) {
       
     </div>
     <div id="2" class="page printsection print-add-break print-full-width">
-      <div class="flex justify-between absolute right-0 top-0 w-full">
+      <div class="flex justify-between absolute right-0 top-0 w-full" dir="rtl">
         <div class="flex h-14 items-end justify-end space-x-3">
           <span
             class="
@@ -1581,36 +1579,31 @@ elseif($cumul_four_year>0) {
             "
             style="background-color: var(--main-green)"
           >
-            04
+            02
           </span>
-          <h3
-            class="font-semibold text-lg"
-            style="color: var(--main-blue); line-height: 16px"
-          >
-       Étude Financière
-          </h3>
         </div>
-        <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
+        <img src="{{asset('images/back-office/svg/quote-arab.svg')}}" alt="" srcset="" />
       </div>
 
-      <div class="space-y-9">
+      <div class="space-y-9" dir="rtl">
         <div class="space-y-4">
           <div class="space-y-1">
             <h5
               class="uppercase font-bold text-sm"
               style="color: var(--second-blue)"
             >
-            PROGRAMME D’INVESTISSEMENT
-
+برنامج الاستثمار
           </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
-           <p class="text-gray-500 font-normal"> Synthèse du programme d’investissement:
-           </p>
-        <div class="grid grid-cols-2 gap-4 ">
+        <div class="grid grid-cols-2 gap-4 " dir="rtl">
+        <div class="pl-4">
+          <div class="bg-gray-100 top-0" id="chart1" style="height: 200px; width: 100%; "></div>
+          </div>
           <div class=" bg-white"> 
+            <div class=" flex  justify-between bg-gray-100  p-2 m-1"> <p>برنامج الاستثمار</p> <span class="bg-green-100 text-left w-50 border-0 ">1245688 </span></div>
               <div class="inline-block rounded-lg border ">
-              <table class="table-fixed border border-gray-900 w-90 text-sm">
+              <table class="table-fixed border border-gray-900 w-90 text-sm" dir="rtl">
                 <thead>
                   <tr class="bg-gray-100">
                     <th
@@ -1622,10 +1615,10 @@ elseif($cumul_four_year>0) {
                         text-left
                       "
                     >
-                    DESIGNATION
+                  العناصر
                     </th>
-                    <th class="border-2 border-gray-500 text-center">MONTANT</th>
-                    <th class="border-2 border-gray-500  text-center">POIDS</th>
+                    <th class="border-2 border-gray-500 text-center">القيمة</th>
+                    <th class="border-2 border-gray-500  text-center">النسبة%</th>
                   </tr>
                 </thead>
                 <tbody class="font-medium">
@@ -1635,7 +1628,7 @@ elseif($cumul_four_year>0) {
                     <tr> 
                       @if(isset($item->label))
                       <td class="border-2 border-gray-500 w-6/12 py-1 pl-4">{{$item->label}}</td> 
-                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
+                      <td class="border-2 border-gray-500 text-center" >{{ number_format($item->value, 0, ',', ' ') }} </td>
                       <td class="border-2 border-gray-500 text-center">{{ number_format( $bp_investment_program_total!=0? $item->value /$bp_investment_program_total*100:0,0, ',', ' ')}}%</td>   
                        @endif
                   </tr> 
@@ -1650,7 +1643,7 @@ elseif($cumul_four_year>0) {
                         text-green-700
                       "
                     >
-                      TOTAL
+                   المجموع
                     </td>
                     <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
                     <td class="border-2 border-gray-600 text-center bg-green-200">{{number_format($bp_investment_program_total, 0, ',', ' ')}}</td>
@@ -1660,9 +1653,7 @@ elseif($cumul_four_year>0) {
               </table>
             </div>
           </div>
-          <div class="pl-4">
-          <div class="bg-gray-100 top-0" id="chart1" style="height: 200px; width: 100%; "></div>
-          </div>
+          
         </div>   
       </div>
       <div class="space-y-9">
@@ -1672,16 +1663,17 @@ elseif($cumul_four_year>0) {
               class="uppercase font-bold text-sm"
               style="color: var(--second-blue)"
             >
-            Plan de financement
-          </h5>
+خطة التمويل          </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
-           <p class="text-gray-500 font-normal"> Plan de financement :
-           </p>
-        <div class="grid grid-cols-2 gap-4 ">
+        <div class="grid grid-cols-2 gap-4 " dir="rtl">
+         <div class="pl-4">
+           <div class="bg-gray-100" id="chart2" style="height: 200px; width: 100%;"></div>
+          </div>
           <div class=" bg-white"> 
-              <div class="inline-block rounded-lg border ">
-              <table class="table-fixed border border-gray-900 w-full text-sm">
+          <div class=" flex  justify-between bg-gray-100  p-2 m-1"> <p>برنامج الاستثمار</p><span class="bg-green-100 text-left w-50 border-0">1245688 </span></div>
+              <div class="inline-block rounded-lg border" dir="ltr">
+              <table class="table-fixed border border-gray-900 w-full text-sm" dir="rtl">
                 <thead>
                   <tr class="bg-gray-100">
                     <th
@@ -1693,10 +1685,10 @@ elseif($cumul_four_year>0) {
                         text-left
                       "
                     >
-                    DESIGNATION
+                  العناصر
                     </th>
-                    <th class="border-2 border-gray-500 text-center">MONTANT</th>
-                    <th class="border-2 border-gray-500  text-center">POIDS</th>
+                    <th class="border-2 border-gray-500 text-center">القيمة</th>
+                    <th class="border-2 border-gray-500  text-center">النسبة</th>
                   </tr>
                 </thead>
                 <tbody class="font-medium">
@@ -1727,7 +1719,7 @@ elseif($cumul_four_year>0) {
                         text-green-700
                       "
                     >
-                      TOTAL
+                    المجموع
                     </td>
                     <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
                     <td class="border-2 border-gray-600 text-center bg-green-200">{{ number_format($bp_financial_plan_totals, 0, ',', ' ') }} </td>
@@ -1737,9 +1729,7 @@ elseif($cumul_four_year>0) {
               </table>
             </div>
           </div>
-          <div class="pl-4">
-           <div class="bg-gray-100" id="chart2" style="height: 200px; width: 100%;"></div>
-          </div>
+         
         </div>   
       </div>
       </div>
@@ -1774,7 +1764,7 @@ elseif($cumul_four_year>0) {
     </div>
     </div>
     <div id="3" class="page printsection print-add-break print-full-width">
-      <div class="flex justify-between absolute right-0 top-0 w-full">
+      <div class="flex justify-between absolute right-0 top-0 w-full" dir="rtl">
         <div class="flex h-14 items-end justify-end space-x-3">
           <span
             class="
@@ -1791,63 +1781,52 @@ elseif($cumul_four_year>0) {
             "
             style="background-color: var(--main-green)"
           >
-            05
+            03
           </span>
-          <h3
-            class="font-semibold text-lg"
-            style="color: var(--main-blue); line-height: 16px"
-          >
-          Étude Financière
-          </h3>
         </div>
-        <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
+        <img src="{{asset('images/back-office/svg/quote-arab.svg')}}" alt="" srcset="" />
       </div>
 
-      <div class="space-y-9">
+      <div class="space-y-9" dir="rtl">
         <div class="space-y-4">
           <div class="space-y-1">
             <h5
               class="uppercase font-bold text-sm"
               style="color: var(--second-blue)"
             >
-            CHIFFRE D’AFFAIRES PRÉVISIONNEL
+           رقم المعاملات
 
           </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
-           <p class="text-gray-500 font-normal"> 
-            Le chiffre d’affaires prévisionnel regroupe le montant  des ventes prévues par l’entreprise (ventes de biens et / ou prestations de services).
-           </p>
           </div>
             <div class="inline-block rounded-lg border w-full ">
-              <table class="table-fixed border border-gray-900 w-90 text-sm">
+              <table class="table-fixed border border-gray-900 w-90 text-sm" dir="rtl">
                 <thead>
                   <tr class="bg-gray-100">
                     <th
                       class="
-                        py-2
-                        pl-4
                         border-2 border-gray-500
-                        w-9/12
+                        w-3/12
                         self-start
-                        text-left
+                        text-center
                       "
                     >
-                     produit et /ou  service 
+                    المنتوج اوالخدمة
                     </th>
-                    <th class="border-2 border-gray-500 w-6/12 text-center">PRIX </th>
-                    <th class="border-2 border-gray-500  text-center">Quantité /Nombre (mois)</th>
-                    <th class="border-2 border-gray-500 w-6/12 text-center  px-12">Chiffre d'affaires mensuel</th>
-                    <th class="border-2 border-gray-500 w-6/12 text-center w-9/12 px-12">Chiffre d'affaires annuel</th>
+                    <th class="border-2 border-gray-500 text-center" dir="rtl">الثمن بالدرهم</th>
+                    <th class="border-2 border-gray-500  text-center" dir="rtl">الكمية / الرقم شهريا</th>
+                    <th class="border-2 border-gray-500 text-center  px-12"  dir="rtl">الدخل الشهري بالدرهم</th>
+                    <th class="border-2 border-gray-500 text-center  px-12">الدخل السنوي بالدرهم</th>
                   </tr>
                 </thead>
-                <tbody class="font-medium">
+                <tbody class="font-medium" dir="rtl">
                   @if(isset($data->financial_data->services_turnover_forecast_c))
                   @foreach ($data->financial_data->services_turnover_forecast_c as $item)
                     <tr>
                   @if(isset($item->otherValue))
                        <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
-                     <td class="border-2 border-gray-500 text-center">{{ number_format(0, 0, ',', ' ') }} </td>
+                     <td class="border-2 border-gray-500 text-center" dir="ltr"> <p dir="ltr">{{ number_format(0, 0, ',', ' ') }} </p></td>
                      <td class="border-2 border-gray-500 text-center">{{ number_format(0,0, ',', ' ')}}</td>
                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->otherValue, 0, ',', ' ') }}</td>
                      @if(isset($item->organisme))
@@ -1925,7 +1904,7 @@ elseif($cumul_four_year>0) {
                         text-green-700
                       "
                     >
-                      TOTAL
+                  المجموع
                     </td>
                     <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
                     <td class="border-2 border-gray-600 text-center bg-green-200">{{ number_format($total_mensuel,0, ',', ' ')}}</td>
@@ -1937,238 +1916,35 @@ elseif($cumul_four_year>0) {
       </div>
       <br>
       <div class="space-y-9">
-        <div class="space-y-4 ">
-          <div class="space-y-1">
-            <h5
-              class="uppercase font-bold text-sm"
-              style="color: var(--second-blue)"
-            >
-            ÉVOLUTION DU CHIFFRE D'AFFAIRES HT  (<span class="text-green-500">{{isset($data ->financial_data->evolution_rate)?$data ->financial_data->evolution_rate:0}}</span>%)  SUR 5 ANS
-          </h5>
-            <hr class="bg-gray-300" style="height: 2px" />
+        <div class=" flex justify-between  print_full_witdh ">
+            <div class="">
+              <div class="space-y-1">
+                <h5
+                  class="uppercase font-bold text-sm"
+                  style="color: var(--second-blue)"
+                >
+تطور قيمة المداخيل على مدى خمس سنوات    </h5>
+                <hr class="bg-gray-300" style="height: 2px" />
+              </div>
+              <div class=" bg-gray-100 ">
+                test
+              </div>
           </div>
-          <div class="inline-block rounded-lg border  w-full  ">
-            <table class="table-fixed border border-gray-900 w-full text-sm ">
-              <thead>
-                <tr class="bg-gray-100">
-                  <th
-                    class="
-                   
-                  
-                      border-2 border-gray-500
-                      self-start
-                      text-left
-                    "
-                  >
-                  Année
-                  </th>
-                  <th class="border-2 border-gray-500 text-center pl-2 py-2 ">1 <sup>ère</sup> année
-                  </th>
-                  <th class="border-2 border-gray-500  text-center pl-2 py-2 ">2 <sup>ème</sup> année
-                  </th>
-                  <th class="border-2 border-gray-500  text-center pl-2 py-2 ">3 <sup>ème</sup> année
-                  <th class="border-2 border-gray-500  text-center pl-2 py-2 ">4 <sup>ème</sup> année
-                  </th>
-                  <th class="border-2 border-gray-500  text-center pl-2 py-2 ">5 <sup>ème</sup> année
-                  </th>
-                </tr>
-              </thead>
-              <tbody class="font-medium">
-                  <tr>
-                    <td class="border-2 border-gray-500 "> chiffre d'affaires annuel</td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_turnover_first_year, 0, ',', ' ') }} </td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_turnover_second_year,0, ',', ' ')}}</td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_turnover_third_year, 0, ',', ' ') }} </td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_turnover_four_year,0, ',', ' ')}}</td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_turnover_five_year,0, ',', ' ')}}</td>
-
-                </tr> 
-              </tbody>
-            </table>
+          <div class="">
+              <div class="space-y-1">
+                <h5
+                  class="uppercase font-bold text-sm"
+                  style="color: var(--second-blue)"
+                >
+              تطور صافي العائد على مدى خمس سنوات
+              </h5>
+                <hr class="bg-gray-300" style="height: 2px" />
+              </div>
+              <div class=" bg-gray-100 ">
+                test
+              </div>
           </div>
-      </div>
-      <div class="space-y-9  print_full_witdh display_none">
-        <div class="space-y-4">
-          <div class="space-y-1">
-            <h5
-              class="uppercase font-bold text-sm"
-              style="color: var(--second-blue)"
-            >
-      ACHATS
-          </h5>
-            <hr class="bg-gray-300" style="height: 2px" />
-          </div>
-          <div class="inline-block rounded-lg border w-full ">
-            <table class="table-fixed border border-gray-900 w-full text-sm">
-              <thead>
-                <tr class="bg-gray-100">
-                  <th
-                    class="
-                      py-2
-                      pl-2
-                      border-2 border-gra y-500
-                      self-start
-                      text-left
-                    "
-                  >
-                  Achats
-                  </th>
-                  <th class="border-2 border-gray-500 text-center">PRIX 
-                  </th>
-                  <th class="border-2 border-gray-500  text-center">Quantité/ Nombre(mois) 
-                  </th>
-                  <th class="border-2 border-gray-500  text-center">Montant annuel</th>
-                </tr>
-              </thead>
-              <tbody class="font-medium">
-                @if(isset($data->financial_data->products_turnover_forecast))
-                @foreach ($data->financial_data->products_turnover_forecast as $item)
-                <?php 
-                if(isset($item->duration)){
-                  $achat=(1-$item->duration/100);
-                }else{
-                   $achat=0;
-                }
-                ?>
-                @if(isset($item->otherValue))
-
-                  <tr>
-                    <td class="border-2 border-gray-500 "> Achat <span class="bg-red-200">{{$item->label}}</span> ({{ number_format( $achat*100, 0, ',', ' ') }}% du Chiffres d’affaires) </td>
-                    <td class="border-2 border-gray-500 text-center">--</td>
-                    <td class="border-2 border-gray-500 text-center">--</td>
-                 @if(isset($item->organisme))
-                      <td class="border-2 border-gray-500 text-center">{{ number_format(($item->otherValue*$item->organisme)*$achat, 0, ',', ' ') }} </td>
-                  </tr> 
-                  <?php   $total_achat+=(($item->otherValue*$item->organisme)* $achat); ?>
-                  @else
-                  <td class="border-2 border-gray-500 text-center">{{ number_format(($item->otherValue*$saisonalite)*$achat, 0, ',', ' ') }} </td>
-                    </tr> 
-                  <?php   $total_achat+=(($item->otherValue*$saisonalite)* $achat); ?>
-                @endif
-                @else
-                <tr>
-                  <td class="border-2 border-gray-500 "> Achat <span class="bg-red-200">{{$item->label}}</span> ({{ number_format( $achat*100, 0, ',', ' ') }}% du Chiffres d’affaires) </td>
-                  <td class="border-2 border-gray-500 text-center">{{ number_format($item->rate, 0, ',', ' ') }} </td>
-                  <td class="border-2 border-gray-500 text-center">{{ number_format($item->value,0, ',', ' ')}}</td>
-               @if(isset($item->organisme))
-                    <td class="border-2 border-gray-500 text-center">{{ number_format(isset($item->rate)?($item->rate * $item->value*$item->organisme)* $achat:0, 0, ',', ' ') }} </td>
-                </tr> 
-                <?php   $total_achat+=isset($item->rate)?(($item->rate * $item->value*$item->organisme)* $achat):0; ?>
-                @else
-                <td class="border-2 border-gray-500 text-center">{{ number_format(isset($item->rate)?($item->rate * $item->value*$saisonalite)* $achat:0, 0, ',', ' ') }} </td>
-                  </tr> 
-                <?php   $total_achat+=isset($item->rate)?(($item->rate * $item->value*$saisonalite)* $achat):0; ?>
-              @endif
-              @endif
-                @endforeach
-                @endif
-               @if(isset($data->financial_data->services_turnover_forecast_c))
-                @foreach ($data->financial_data->services_turnover_forecast_c as $item)
-                <?php 
-                if(isset($item->duration)){
-                  $achat=(1-$item->duration/100);
-                }else{
-                   $achat=0;
-                }
-                ?>
-                @if(isset($item->otherValue))
-                  <tr>
-                    <td class="border-2 border-gray-500 "> Achat <span class="bg-red-200">{{$item->label}}</span> ({{ number_format( $achat*100 , 0, ',', ' ') }}% du Chiffres d’affaires) </td>
-                    <td class="border-2 border-gray-500 text-center">-- </td>
-                    <td class="border-2 border-gray-500 text-center">--</td>
-                 @if(isset($item->organisme))
-                      <td class="border-2 border-gray-500 text-center">{{ number_format(($item->otherValue*$item->organisme)* $achat, 0, ',', ' ') }} </td>
-                  </tr> 
-                  <?php   $total_achat+=(($item->otherValue*$item->organisme)* $achat); ?>
-                  @else
-                  <td class="border-2 border-gray-500 text-center">{{ number_format(($item->otherValue*$saisonalite)* $achat, 0, ',', ' ') }} </td>
-                    </tr> 
-                  <?php   $total_achat+=(( $item->otherValue*$saisonalite)* $achat); ?>
-                @endif
-                @else
-                <tr>
-                  <td class="border-2 border-gray-500 "> Achat <span class="bg-red-200">{{$item->label}}</span> ({{ number_format( $achat*100, 0, ',', ' ') }}% du Chiffres d’affaires) </td>
-                  <td class="border-2 border-gray-500 text-center">{{ number_format(isset($item->rate)?$item->rate:0, 0, ',', ' ') }} </td>
-                  <td class="border-2 border-gray-500 text-center">{{ number_format($item->value,0, ',', ' ')}}</td>
-               @if(isset($item->organisme))
-                    <td class="border-2 border-gray-500 text-center">{{ number_format(isset($item->rate)?($item->rate * $item->value*$item->organisme)* $achat:0, 0, ',', ' ') }} </td>
-                </tr> 
-                <?php   $total_achat+=isset($item->rate)?(($item->rate * $item->value*$item->organisme)* $achat):0; ?>
-                @else
-                <td class="border-2 border-gray-500 text-center">{{ number_format(isset($item->rate)?($item->rate * $item->value*$saisonalite)* $achat:0, 0, ',', ' ') }} </td>
-                  </tr> 
-                <?php   $total_achat+=isset($item->rate)?(($item->rate * $item->value*$saisonalite)* $achat):0; ?>
-              @endif
-              @endif
-                @endforeach
-                @endif
-                <tr class="bg-green-200">
-                  <td
-                  colspan="3"
-                    class="
-                      py-1 pl-4
-                      border-2 border-gray-600
-                      font-semibold
-                      text-green-700
-                    "
-                  >
-                    TOTAL
-                  </td>
-                  <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
-                  <td class="border-2 border-gray-600 text-center bg-green-200">{{number_format($total_achat,0,',',' ')}}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="space-y-1">
-            <h5
-              class="uppercase font-bold text-sm"
-              style="color: var(--second-blue)"
-            >
-            ÉVOLUTION DES ACHATS HT (<span class="text-green-500">{{isset($data ->financial_data->evolution_rate)?$data ->financial_data->evolution_rate:0}}</span>%) SUR 5 ANS
-          </h5>
-            <hr class="bg-gray-300" style="height: 2px" />
-          </div>
-          <div class="inline-block rounded-lg border w-full">
-            <table class="table-fixed border border-gray-900 w-full text-sm print-add-break">
-              <thead>
-                <tr class="bg-gray-100">
-                  <th
-                    class="
-                      py-2
-                      pl-2
-                      border-2 border-gray-500
-                      self-start
-                      text-left
-                    "
-                  >
-                  Année
-                  </th>
-                  <th class="border-2 border-gray-500 text-center">1 <sup>ère</sup> année
-                  </th>
-                  <th class="border-2 border-gray-500  text-center">2 <sup>ème</sup> année
-                  </th>
-                  <th class="border-2 border-gray-500  text-center">3 <sup>ème</sup> année
-                  <th class="border-2 border-gray-500  text-center">4 <sup>ème</sup> année
-                  </th>
-                  <th class="border-2 border-gray-500  text-center">5 <sup>ème</sup> année
-                  </th>
-                </tr>
-              </thead>
-              <tbody class="font-medium">
-                  <tr>
-                    <td class="border-2 border-gray-500"> Evolution des achats </td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_purchase_first_year, 0, ',', ' ') }} </td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_purchase_second_year,0, ',', ' ')}}</td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_purchase_third_year, 0, ',', ' ') }} </td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_purchase_four_year,0, ',', ' ')}}</td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_purchase_five_year,0, ',', ' ')}}</td>
-
-                </tr> 
-              </tbody>
-            </table>
-          </div>
-      </div>
+        </div>
       </div>
       <div class="absolute bottom-0 right-0 left-0 ">
         <img
@@ -2200,148 +1976,12 @@ elseif($cumul_four_year>0) {
       
      </div>
     </div> 
-   <div id="4" class="page printsection print-add-break hidden print-full-width display_full">
-      <div class="space-y-9  print_full_witdh ">
-        <div class="space-y-4">
-          <div class="space-y-1">
-            <h5
-              class="uppercase font-bold text-sm"
-              style="color: var(--second-blue)"
-            >
-            L’ÉVOLUTION DES ACHATS HT est de<span class="text-green-500">{{isset($data ->financial_data->evolution_rate)?$data ->financial_data->evolution_rate:0}}</span>% SUR 5 ANS
-          </h5>
-            <hr class="bg-gray-300" style="height: 2px" />
-          </div>
-          <div class="inline-block rounded-lg border w-full ">
-            <table class="table-fixed border border-gray-900 w-full text-sm">
-              <thead>
-                <tr class="bg-gray-100">
-                  <th
-                    class="
-                      py-2
-                      pl-2
-                      border-2 border-gray-500
-                      self-start
-                      text-left
-                    "
-                  >
-                  Achats
-                  </th>
-                  <th class="border-2 border-gray-500 text-center">PRIX UNITAIRE(en Mad)
-                  </th>
-                  <th class="border-2 border-gray-500  text-center">Quantité(mois) 
-                  </th>
-                  <th class="border-2 border-gray-500  text-center">Chiffre d'affaires annuel</th>
-                </tr>
-              </thead>
-              <tbody class="font-medium">
-                @if(isset($data->financial_data->products_turnover_forecast))
-                @foreach ($data->financial_data->products_turnover_forecast as $item)
-                  <tr>
-                    <td class="border-2 border-gray-500 "> Achats {{$item->label}} {{ number_format((1-$item->duration/100)*100, 0, ',', ' ') }} % du Chiffres d’affaires</td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->rate,0, ',', ' ')}}</td>
-
-                    <td class="border-2 border-gray-500 text-center">{{ number_format(($item->rate * $item->value*$saisonalite)*(1-($item->duration/100)), 0, ',', ' ') }} </td>
-
-                </tr> 
-                <?php   $total_achat= $total_achat+(($item->rate * $item->value*$saisonalite)*(1-($item->duration/100))); ?>
-                @endforeach
-                @endif
-               
-                <tr class="bg-green-200">
-                  <td
-                  colspan="3"
-                    class="
-                      py-1 pl-4
-                      border-2 border-gray-600
-                      font-semibold
-                      text-green-700
-                    "
-                  >
-                    TOTAL
-                  </td>
-                  <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
-                  <td class="border-2 border-gray-600 text-center bg-green-200">{{number_format($total_achat,0,',',' ')}}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="inline-block rounded-lg border w-full">
-            <table class="table-fixed border border-gray-900 w-full text-sm print-add-break">
-              <thead>
-                <tr class="bg-gray-100">
-                  <th
-                    class="
-                      py-2
-                      pl-2
-                      border-2 border-gray-500
-                      self-start
-                      text-left
-                    "
-                  >
-                  Année
-                  </th>
-                  <th class="border-2 border-gray-500 text-center">1 <sup>ère</sup> année
-                  </th>
-                  <th class="border-2 border-gray-500  text-center">2 <sup>ème</sup> année
-                  </th>
-                  <th class="border-2 border-gray-500  text-center">3 <sup>ème</sup> année
-                  <th class="border-2 border-gray-500  text-center">4 <sup>ème</sup> année
-                  </th>
-                  <th class="border-2 border-gray-500  text-center">5 <sup>ème</sup> année
-                  </th>
-                </tr>
-              </thead>
-              <tbody class="font-medium">
-                  <tr>
-                    <td class="border-2 border-gray-500"> Achats 50% du Chiffres d’affaires</td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_purchase_first_year, 0, ',', ' ') }} </td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_purchase_second_year,0, ',', ' ')}}</td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_purchase_third_year, 0, ',', ' ') }} </td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_purchase_four_year,0, ',', ' ')}}</td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_purchase_five_year,0, ',', ' ')}}</td>
-
-                </tr> 
-              </tbody>
-            </table>
-          </div>
-      </div>
-      </div>
-      <div class="absolute bottom-0 right-0 left-0 ">
-        <img
-        class="absolute bottom-0 right-0 left-0 img_full_width"
-        src="{{asset('images/back-office/svg/footer.svg')}}"
-        alt="" 
-        srcset=""
-        />
-
-        <div
-          class="
-            py-2
-            flex
-            justify-between
-            items-center
-            pl-16
-            pr-36
-            text-white text-xs
-            font-medium
-            relative
-            z-10
-          "
-        >
-          <span>{{$owner->first_name}} {{$owner->last_name}}</span>
-          <span>{{$data->title}}</span>
-          <span>Business Plan</span>
-        </div>
-      </div>
-   </div>
     @if(isset($data->list_mat_file))
     <?php  $files=explode(',',$data->list_mat_file);?>
     @foreach ($files as $item) 
     @if($item!='')
     <div id="5" class="page printsection print-full-width ">
-            <div class="flex justify-between absolute right-0 top-0 w-full">
+            <div class="flex justify-between absolute right-0 top-0 w-full" dir="rtl">
                   <div class="flex h-14 items-end justify-end space-x-3">
                     <span
                       class="
@@ -2358,16 +1998,10 @@ elseif($cumul_four_year>0) {
                       "
                       style="background-color: var(--main-green)"
                     >
-                      06
+                      04
                     </span>
-                    <h3
-                      class="font-semibold text-lg"
-                      style="color: var(--main-blue); line-height: 16px"
-                    >
-                    Annexes
-                    </h3>
                 </div>
-                <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
+                <img src="{{asset('images/back-office/svg/quote-arab.svg')}}" alt="" srcset="" />
             </div>
               <div class="space-y-9">
                   <div class="space-y-4">
