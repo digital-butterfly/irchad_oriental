@@ -690,24 +690,24 @@ class ProjectApplicationController extends Controller
                 'corporate_sig' => $request['corporate_sig'],
                 'implantation_project' => $request['implantation_project'],
             ],
-              'company_arab' => [
-                'nom_arabe' => $request['nom_arabe'],
-                'activite_arabe' => $request['activite_arabe'],
-                'desc_porteur_arabe' => $request['desc_porteur_arabe'],
-                'desc_projet_arabe' => $request['desc_projet_arabe'],
-                'legal_form_arabe' => $request['legal_form_arabe'],
-                'implantation_arabe' => $request['implantation_arabe'],
-                'produit_service_arabe' => $request['produit_service_arabe']
-            ],
-                'business_model_arab' => [
-                'fournisseur_arabe' => $request['fournisseur_arabe'],
-                'client_arabe' => $request['client_arabe'],
-                'concurent_arabe' => $request['concurent_arabe'],
-                'autorisation_arabe' => $request['autorisation_arabe'],
-                'list_mat_arabe' => $request['list_mat_arabe'],
-                'local_arabe' => $request['local_arabe'],
+            //   'company_arab' => [
+            //     'nom_arabe' => $request['nom_arabe'],
+            //     'activite_arabe' => $request['activite_arabe'],
+            //     'desc_porteur_arabe' => $request['desc_porteur_arabe'],
+            //     'desc_projet_arabe' => $request['desc_projet_arabe'],
+            //     'legal_form_arabe' => $request['legal_form_arabe'],
+            //     'implantation_arabe' => $request['implantation_arabe'],
+            //     'produit_service_arabe' => $request['produit_service_arabe']
+            // ],
+            //     'business_model_arab' => [
+            //     'fournisseur_arabe' => $request['fournisseur_arabe'],
+            //     'client_arabe' => $request['client_arabe'],
+            //     'concurent_arabe' => $request['concurent_arabe'],
+            //     'autorisation_arabe' => $request['autorisation_arabe'],
+            //     'list_mat_arabe' => $request['list_mat_arabe'],
+            //     'local_arabe' => $request['local_arabe'],
 
-            ],
+            // ],
             'training_needs' => json_decode(json_encode([
                 'pre_creation_training' => $request['pre_creation_training'],
                 'post_creation_training' => $request['post_creation_training'],
