@@ -464,11 +464,9 @@
                                                  <span type="button" class="btn btn-brand btn-bold" ><i class="flaticon2-printer"></i></span>
                                                </a>
                                                 </div> 
-                                                 <form id="candidaturesform" class="" method="POST" action="{{ route('candidature.myfunction', $data->id) }}" enctype="multipart/form-data">
+                                                 <form id="candidaturesform"method="POST"  class="" action="{{ route('candidature.update', $data->id) }}" enctype="multipart/form-data">
                                                  @method('PUT')
                                                 <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid printable-bp">
-                                                
-
                                                     <div class="kt-section kt-section--second">
 
                                                     {{-- @include('back-office.components.portlets.business-plan') --}}
@@ -528,12 +526,11 @@
                                                 </div>
                                                    </div>
                                                         </div>
-                                                {{-- <div class="kt-portlet__foot sticky-save">
+                                                <div class="kt-portlet__foot sticky-save">
                                                 <div class="kt-form__actions">
-                                                    {{-- <button type="submit" class="btn btn-primary kt-align-center">Enregistrer les modifications</button> --}}
+                                                    <button type="submit" class="btn btn-primary kt-align-center">Enregistrer les modifications</button>
                                              
-                                              </div>  
-                                                 </div> 
+                                              </div> 
                                                 @csrf  
                                               </form>
                                             </div>
