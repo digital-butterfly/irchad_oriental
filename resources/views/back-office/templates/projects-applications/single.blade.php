@@ -526,14 +526,19 @@
                                                         @endif
                                                     @endforeach
                                                 </div>
+                                                   </div>
+                                                        </div>
                                                 <div class="kt-portlet__foot sticky-save">
                                                 <div class="kt-form__actions">
                                                     <button type="submit" class="btn btn-primary kt-align-center">Enregistrer les modifications</button>
-                                                </div>
+                                             
+                                              </div> 
+                                                @csrf  
+                                              </form>
                                             </div>
-                                             @csrf
-                                        </form>
-                                            </div>
+                                           
+                                       
+
 
                                             <!--end: Form Wizard Step 2-->
 
