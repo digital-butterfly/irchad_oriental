@@ -771,7 +771,7 @@ class FicheSynthetique extends Controller
         $filename ='';
         if($request->file('file')){  
             $files=$request->file('file');
-        // dd($request->file('file'));
+       // dd($request->file('file'));
                 if($request->file('file')) {
                         foreach ($files as $key=> $file) {
                         $img_ext = $file->getClientOriginalExtension();
@@ -785,6 +785,7 @@ class FicheSynthetique extends Controller
  // dd($request);
         $application->update([
               'company_arab' => [
+                'nom_projet' => $request['nom_projet'],
                 'nom_arabe' => $request['nom_arabe'],
                 'activite_arabe' => $request['activite_arabe'],
                 'desc_porteur_arabe' => $request['desc_porteur_arabe'],
@@ -800,6 +801,8 @@ class FicheSynthetique extends Controller
                 'autorisation_arabe' => $request['autorisation_arabe'],
                 'list_mat_arabe' => $request['list_mat_arabe'],
                 'local_arabe' => $request['local_arabe'],
+                'nombre_ress' => $request['nombre_ress'],
+                'fiche_syn' => $fille_db!=''? $fille_db: $application->list_mat_file,
 
             ]
         ]);

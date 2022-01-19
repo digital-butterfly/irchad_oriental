@@ -354,6 +354,13 @@ class ProjectApplicationController extends Controller
       $total_p=0;
       $total_s=0;
       $achat_t=0;
+      $nombre=0; 
+     if(isset($data->financial_data->human_ressources)){
+         foreach($data->financial_data->human_ressources as $total) {
+            $nombre+=$total->value; 
+         }
+       
+     } 
      if (isset($data ->financial_data->products_turnover_forecast)){
     foreach ($data ->financial_data->products_turnover_forecast as $total){
       if(isset($total->duration)){
@@ -437,7 +444,7 @@ class ProjectApplicationController extends Controller
         //     } 
 
 //     dd($data->toArray());
-        return view('back-office/templates/projects-applications/single', compact('histo','application', 'data', 'fields','messageError','total_ca'));
+        return view('back-office/templates/projects-applications/single', compact('histo','application', 'data', 'fields','messageError','total_ca','nombre'));
     }
 
     /**

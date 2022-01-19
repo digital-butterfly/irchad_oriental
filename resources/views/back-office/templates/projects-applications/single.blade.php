@@ -221,7 +221,7 @@
                                     </div>
                                     <div class="kt-wizard-v4__nav-label">
                                         <div class="kt-wizard-v4__nav-label-title">
-                                           fiche synthetique
+                                        fiche synthètique
                                         </div>
                                                  <div class="kt-section__content kt-section__content--solid ">
                                             <span class="kt-badge  kt-badge--unified-dark kt-badge--lg kt-badge--rounded " id="status-top" style="font-size: 2.0rem !important;" data-placement="bottom" data-toggle="kt-popover" title="Status de Candidatures " data-content="Aucun status" data-original-title="Popover title"><i class="flaticon-list"></i></span>
@@ -523,16 +523,21 @@
                                                               @endif
                                                         @endif
                                                     @endforeach
-                                                </div>
-                                                   </div>
-                                                        </div>
-                                                <div class="kt-portlet__foot sticky-save">
+                                                </div>   
+                                                  <div class="kt-portlet__foot sticky-save">
                                                 <div class="kt-form__actions">
                                                     <button type="submit" class="btn btn-primary kt-align-center">Enregistrer les modifications</button>
+                                              @csrf  
+                                                   </div>
+
+                                                
+                                                        </div>
                                              
+                                              
+                                               </form>  
                                               </div> 
-                                                @csrf  
-                                              </form>
+                                               
+                                            
                                             </div>
                                            
                                        
@@ -3094,6 +3099,7 @@ window.addEventListener('load',function(){
 var element= '<?php echo $total ?>';
 var total= '<?php echo  $total_ca ?>';
 var test= '<?php echo $some_total ?>';
+var nombre= '<?php echo $nombre ?>';
 console.log(test);
 // var total=0;
  //element.forEach(element=> {
@@ -3110,7 +3116,7 @@ console.log(test);
         $('#alert_id').hide();  
         console.log(test);
    }
-
+      $('#nombre_ress').val(nombre);
       $('#total_invest').val(element);
       $('#ca_produit-service').val(total);
       $('#total_plan').val(test);

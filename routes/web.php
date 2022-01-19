@@ -91,6 +91,7 @@ Route::group(['middleware' => 'auth:user'], function () {
 
     Route::resource('admin/candidatures', 'ProjectApplicationController');
     Route::resource('admin/candidature', 'FicheSynthetique');
+      Route::post('admin/candidature', 'FicheSynthetique@update');
    // Route::post('candidature', ['as' => 'candidature.myfunction', 'uses' =>  'App\Http\Controllers\FicheSynthetique@update']);
     Route::post('/admin/list/candidatures', 'ProjectApplicationController@ajaxList');
 

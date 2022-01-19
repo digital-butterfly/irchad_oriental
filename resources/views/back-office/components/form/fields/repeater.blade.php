@@ -83,10 +83,13 @@
                         </script>
                     @endif
                 @elseif (isset($field['config']['tripleRepeater']))
+            
                 
-                    <div class="col-md-{{ $field['config']['attributes'][0][1] ?? '4' }}">
+                    <div class="col-md-{{ $field['config']['attributes'][0][1] ?? '4' }}">    
+                   
                         <div class="kt-form__group--inline">
                             <div class="kt-form__label">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
                                 <label>{{ $field['config']['attributes'][0][0] ?? 'Désignation' }}:</label>
                             </div>
                             <div class="kt-form__control">
@@ -217,9 +220,8 @@
                     @endif
                     {{-- *************************************************************************************************** --}}
                        @elseif (isset($field['config']['AddDoubleRepeater']))
-   
                     <div class="col-md-{{ $field['config']['attributes'][0][1] ?? '4' }}">
-                        <div class="kt-form__group--inline">
+                        <div class="kt-form__group--inline">  
                             <div class="kt-form__label">
                                 <label>{{ $field['config']['attributes'][0][0] ?? 'Désignation' }}:</label>
                             </div>

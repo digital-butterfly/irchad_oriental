@@ -507,14 +507,18 @@ $bp_added_value_five_year = $bp_gross_margin_five_year - $autre_charge_externe_f
 // Human Ressources
 $bp_human_ressources_total = 0;
 $bp_human_ressources_rows = 0;
+$nombre_salary=0;
 if(isset($data ->financial_data->human_ressources))
 {
     foreach ($data ->financial_data->human_ressources as $item) {
       if(isset($item->duration)){
          if($item->duration==0){
+           $nombre_salary+=$item->value;
        $bp_human_ressources_total += ($item->value * $item->rate*12);
      }else{
        $bp_human_ressources_total += ($item->value * $item->rate*$item->duration);
+      $nombre_salary+=$item->value;
+
      }
     
     $bp_human_ressources_rows++;
@@ -1092,7 +1096,7 @@ elseif($cumul_four_year>0) {
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Business Plan</title>
+        <title>fiche synthètique</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
@@ -1236,7 +1240,7 @@ elseif($cumul_four_year>0) {
           class="text-3xl font-bold text-center		"
           style="color: var(--main-green);"
         >
-        {{$data->title}}
+        {{$data->company_arab->nom_projet}}
         </h3>
         <div
           class="w-full h-5 relative "
@@ -1379,16 +1383,16 @@ elseif($cumul_four_year>0) {
               @foreach ($data->business_model_arab->local_arabe as $item)
          
              <p class="font-medium "style="color: var(--second-blue)">الموقع</p>
-             <p class="font-medium ">لوازم و أدوات الاشتغال</p>
+             <p class="font-medium ">{{$item->label}}</p>
             </div>
              <div class="flex justify-between p-2" dir="rtl"> 
              <p class="font-medium "style="color: var(--second-blue)"> 
               المساحة:</p>
-             <p class="font-medium ">لوازم و أدوات الاشتغال</p>
+             <p class="font-medium "> {{$item->count}}</p>
             </div>
              <div class="flex justify-between p-2" dir="rtl"> 
              <p class="font-medium "style="color: var(--second-blue)"> سومةالكراء</p>
-             <p class="font-medium ">لوازم و أدوات الاشتغال</p> 
+             <p class="font-medium "> {{$item->value}}  </p> 
               @endforeach   
            @endif
             </div>
@@ -1404,6 +1408,13 @@ elseif($cumul_four_year>0) {
             </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
+                <div class="bg-gray-100 pr-5 flex rounded-md justify-between items-center">
+              <button class="py-1 px-4  rounded-md bg-green-500 text-white">
+                {{$nombre_salary}}
+              </button>
+        
+              <p> الموارد البشرية    </p>
+            </div>  
         </div>
         </div>
        <div>
@@ -1615,7 +1626,7 @@ elseif($cumul_four_year>0) {
             <div class="bg-gray-100 pr-5 flex rounded-md justify-between items-center " dir="rtl">   
             <p>برنامج الاستثمار
             </p>
-              <button class="py-3 px-4 rounded-md bg-green-500 text-white">
+              <button class="py-1 px-4 rounded-md bg-green-500 text-white">
                 {{$bp_investment_program_total}}
               </button>
             </div>
@@ -1623,9 +1634,9 @@ elseif($cumul_four_year>0) {
               <table class="table-fixed border border-gray-900 w-full text-sm" >
                 <thead>
                   <tr class="bg-gray-100" dir="rtl">
-                 
+                  <th class="border-2 border-gray-500  text-center">النسبة%</th>  
                     <th class="border-2 border-gray-500 text-center">القيمة</th>
-                    <th class="border-2 border-gray-500  text-center">النسبة%</th>   
+                    
                     <th
                       class="
                         py-2
@@ -1646,9 +1657,9 @@ elseif($cumul_four_year>0) {
                     <tr> 
                       @if(isset($item->label))
                       
+                      <td class="border-2 border-gray-500 text-center">{{ number_format( $bp_investment_program_total!=0? $item->value /$bp_investment_program_total*100:0,0, ',', ' ')}}%</td>        
                       <td class="border-2 border-gray-500 text-center" >{{ number_format($item->value, 0, ',', ' ') }} </td>
-                      <td class="border-2 border-gray-500 text-center">{{ number_format( $bp_investment_program_total!=0? $item->value /$bp_investment_program_total*100:0,0, ',', ' ')}}%</td> 
-                       <td class="border-2 border-gray-500 w-6/12 py-1 pl-4">{{$item->label}}</td>  
+                      <td class="border-2 border-gray-500 w-6/12 py-1 pl-4">{{$item->label}}</td>  
                        @endif
                   </tr> 
                   @endforeach
@@ -1656,8 +1667,9 @@ elseif($cumul_four_year>0) {
                   <tr class="bg-green-200">
           
                     <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
+                       <td class="border-2 border-gray-600 text-center bg-green-200">100 %</td> 
                     <td class="border-2 border-gray-600 text-center bg-green-200"> <p  dir="rtl">{{number_format($bp_investment_program_total, 0, ',', ' ')}} </p></td>
-                    <td class="border-2 border-gray-600 text-center bg-green-200">100 %</td>     
+                     
                       <td
                       class="
                       py-1 pl-4
@@ -1692,10 +1704,10 @@ elseif($cumul_four_year>0) {
         
           <div class=" bg-white"> 
             <div class="bg-gray-100 pr-5 flex rounded-md justify-between items-center">
-              <button class="py-2 px-4 rounded-md bg-green-500 text-white">
+              <button class="py-1 px-4  rounded-md bg-green-500 text-white">
                 {{$bp_financial_plan_totals}}
               </button>
-              <p>رﺎﻤﺜﺘﺳﺎﻟا ﺞﻣﺎﻧﺮﺑ</p>
+              <p>خطة التمويل </p>
             </div>              
             <div class="inline-block rounded-lg border">
               <table class="table-fixed border border-gray-900 w-full text-sm">
@@ -1730,13 +1742,17 @@ elseif($cumul_four_year>0) {
                     @if(isset($data->financial_data->financial_plan_loans))
                   @foreach ($data->financial_data->financial_plan_loans as $item)
                     <tr>
+                   
+                   
+                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_financial_plan_totals!=0?$item->value /$bp_financial_plan_totals*100:0,0, ',', ' ')}}%</td> 
+                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
                     <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_financial_plan_totals!=0?$item->value /$bp_financial_plan_totals*100:0,0, ',', ' ')}}%</td>
                   </tr> 
                   @endforeach
                  @endif
-                  <tr class="bg-green-200">
+                  <tr class="bg-green-200">  
+                  <td class="border-2 border-gray-600 text-center bg-green-200">100 %</td>
+                  <td class="border-2 border-gray-600 text-center bg-green-200">{{ number_format($bp_financial_plan_totals, 0, ',', ' ') }} </td>
                     <td
                       class="
                       py-1 pl-4
@@ -1748,8 +1764,8 @@ elseif($cumul_four_year>0) {
                     المجموع
                     </td>
                     <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
-                    <td class="border-2 border-gray-600 text-center bg-green-200">{{ number_format($bp_financial_plan_totals, 0, ',', ' ') }} </td>
-                    <td class="border-2 border-gray-600 text-center bg-green-200">100 %</td>
+                  
+                    
                   </tr>
                 </tbody>
               </table>
@@ -1815,7 +1831,7 @@ elseif($cumul_four_year>0) {
         <img src="{{asset('images/back-office/svg/quote-arab.svg')}}" alt="" srcset="" />
       </div>
 
-      <div class="space-y-9" dir="rtl">
+      <div class="space-y-9" >
         <div class="space-y-4">
           <div class="space-y-1">
             <h5
@@ -1829,10 +1845,16 @@ elseif($cumul_four_year>0) {
           </div>
           </div>
             <div class="inline-block rounded-lg border w-full ">
-              <table class="table-fixed border border-gray-900 w-90 text-sm" dir="rtl">
+              <table class="table-fixed border border-gray-900 w-90 text-sm">
                 <thead>
                   <tr class="bg-gray-100">
-                    <th
+                  
+                    <th class="border-2 border-gray-500 text-center  px-12">الدخل السنوي بالدرهم</th>
+                                      <th class="border-2 border-gray-500 text-center  px-12"  >الدخل الشهري بالدرهم</th>
+
+                   <th class="border-2 border-gray-500  text-center">الكمية / الرقم شهريا</th>
+                    <th class="border-2 border-gray-500 text-center" >الثمن بالدرهم</th>
+                      <th
                       class="
                         border-2 border-gray-500
                         w-3/12
@@ -1842,36 +1864,29 @@ elseif($cumul_four_year>0) {
                     >
                     المنتوج اوالخدمة
                     </th>
-                    <th class="border-2 border-gray-500 text-center" dir="rtl">الثمن بالدرهم</th>
-                    <th class="border-2 border-gray-500  text-center" dir="rtl">الكمية / الرقم شهريا</th>
-                    <th class="border-2 border-gray-500 text-center  px-12"  dir="rtl">الدخل الشهري بالدرهم</th>
-                    <th class="border-2 border-gray-500 text-center  px-12">الدخل السنوي بالدرهم</th>
                   </tr>
                 </thead>
-                <tbody class="font-medium" dir="rtl">
+                <tbody class="font-medium" >
                   @if(isset($data->financial_data->services_turnover_forecast_c))
                   @foreach ($data->financial_data->services_turnover_forecast_c as $item)
                     <tr>
                   @if(isset($item->otherValue))
-                       <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
-                     <td class="border-2 border-gray-500 text-center" dir="ltr"> <p dir="ltr">{{ number_format(0, 0, ',', ' ') }} </p></td>
-                     <td class="border-2 border-gray-500 text-center">{{ number_format(0,0, ',', ' ')}}</td>
-                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->otherValue, 0, ',', ' ') }}</td>
                      @if(isset($item->organisme))
                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->otherValue*$item->organisme,0, ',', ' ')}}</td>
-                     <?php $total=0; $total+= $item->value*$item->rate*$item->organisme; ?>
+                     <?php $total=0; $total+= $item->otherValue*$item->organisme; ?>
                     
                     @else
                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->otherValue*$saisonalite,0, ',', ' ')}}</td>
-                     <?php $total=0; $total+=  $item->value*$item->rate*$saisonalite; ?>
+                     <?php $total=0; $total+= $item->otherValue*$saisonalite; ?>
                      @endif
-                    </tr> 
+                       <td class="border-2 border-gray-500 text-center">{{ number_format($item->otherValue, 0, ',', ' ') }}</td>
+                       <td class="border-2 border-gray-500 text-center" dir="ltr"> <p dir="ltr">{{ number_format(0, 0, ',', ' ') }} </p></td>
+                       <td class="border-2 border-gray-500 text-center">{{ number_format(0,0, ',', ' ')}}</td>
+                       <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
                    @else
-                     <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
+                   
                      @if(isset($item->rate))
-                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->rate, 0, ',', ' ') }} </td>
-                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->value,0, ',', ' ')}}</td>
-                       <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*$item->rate, 0, ',', ' ') }}</td>
+                  
                         @if(isset($item->organisme))
                         <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*$item->rate*$item->organisme,0, ',', ' ')}}</td>
                         <?php $total=0; $total+= isset($item->rate)?$item->value*$item->rate*$item->organisme:0; ?>
@@ -1881,7 +1896,10 @@ elseif($cumul_four_year>0) {
                         <?php $total=0; $total+= isset($item->rate)? $item->value*$item->rate*$saisonalite:0; ?>
                         @endif
                         @endif
-                        </tr>  
+                         <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*$item->rate, 0, ',', ' ') }}</td>
+                         <td class="border-2 border-gray-500 text-center">{{ number_format($item->rate, 0, ',', ' ') }} </td>
+                         <td class="border-2 border-gray-500 text-center">{{ number_format($item->value,0, ',', ' ')}}</td>
+                        <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td> 
                  @endif
                   </tr> 
                   @endforeach
@@ -1890,10 +1908,9 @@ elseif($cumul_four_year>0) {
                  @foreach ($data->financial_data->products_turnover_forecast as $item)
                    <tr>
                   @if(isset($item->otherValue))
-                       <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
-                     <td class="border-2 border-gray-500 text-center">{{ number_format(0, 0, ',', ' ') }} </td>
-                     <td class="border-2 border-gray-500 text-center">{{ number_format(0,0, ',', ' ')}}</td>
-                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->otherValue, 0, ',', ' ') }}</td>
+                      
+                   
+                   
                      @if(isset($item->organisme))
                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->otherValue*$item->organisme,0, ',', ' ')}}</td>
                      <?php $total=0; $total+=isset($item->rate)? $item->value*$item->rate*$item->organisme:0; ?>
@@ -1901,13 +1918,17 @@ elseif($cumul_four_year>0) {
                     @else
                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->otherValue*$saisonalite,0, ',', ' ')}}</td>
                      <?php $total=0; $total+= isset($item->rate) ?$item->value*$item->rate*$saisonalite:0; ?>
-                     @endif
-                    </tr> 
+                     @endif  
+                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->otherValue, 0, ',', ' ') }}</td>
+                       <td class="border-2 border-gray-500 text-center">{{ number_format(0,0, ',', ' ')}}</td>
+                       <td class="border-2 border-gray-500 text-center">{{ number_format(0, 0, ',', ' ') }} </td>
+                      <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
+
                    @else
-                          <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
-                                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->rate, 0, ',', ' ') }} </td>
-                                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->value,0, ',', ' ')}}</td>
-                                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*$item->rate, 0, ',', ' ') }}</td>
+                         
+                                   
+                                  
+                                   
                                     @if(isset($item->organisme))
                                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*$item->rate*$item->organisme,0, ',', ' ')}}</td>
                                     <?php $total=0; $total+= isset($item->rate)?$item->value*$item->rate*$item->organisme:0; ?>
@@ -1916,14 +1937,21 @@ elseif($cumul_four_year>0) {
                                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*$item->rate*$saisonalite,0, ',', ' ')}}</td>
                                     <?php $total=0; $total+=isset($item->rate)?$item->value*$item->rate*$saisonalite:0; ?>
                                     @endif
-                                    </tr> 
-                                
-                               
-                   @endif 
+                         <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*$item->rate, 0, ',', ' ') }}</td>            
+                        <td class="border-2 border-gray-500 text-center">{{ number_format($item->value,0, ',', ' ')}}</td>            
+                        <td class="border-2 border-gray-500 text-center">{{ number_format($item->rate, 0, ',', ' ') }} </td>         
+                      <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
+                   @endif   
+                   </tr> 
                  @endforeach
                 @endif
                   <tr class="bg-green-200">
-                    <td
+               
+                    <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
+                   
+                    <td class="border-2 border-gray-600 text-center bg-green-200">{{ number_format($bp_turnover_products_totals,0, ',', ' ')}}</td>  
+                     <td class="border-2 border-gray-600 text-center bg-green-200">{{ number_format($total_mensuel,0, ',', ' ')}}</td>
+                       <td
                     colspan="3"
                       class="
                         py-1 pl-4
@@ -1931,12 +1959,10 @@ elseif($cumul_four_year>0) {
                         font-semibold
                         text-green-700
                       "
+                      dir="rtl"
                     >
                   المجموع
                     </td>
-                    <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
-                    <td class="border-2 border-gray-600 text-center bg-green-200">{{ number_format($total_mensuel,0, ',', ' ')}}</td>
-                    <td class="border-2 border-gray-600 text-center bg-green-200">{{ number_format($bp_turnover_products_totals,0, ',', ' ')}}</td>
                   </tr>
                 </tbody>
               </table>
@@ -1944,45 +1970,55 @@ elseif($cumul_four_year>0) {
       </div>
       <br>
       <div class="space-y-9">
-        <div class=" grid grid-cols-2 gap-10 print_full_witdh ">
-            <div class=" ">
+        <div class=" grid grid-cols-2 gap-10  ">
+            <div class="">
               <div class="space-y-1">
                 <h5
                   class="uppercase font-bold text-sm"
                   style="color: var(--second-blue)"
+                   dir="rtl"
                 >
-تطور قيمة المداخيل على مدى خمس سنوات    </h5>
+                  تطور قيمة المداخيل على مدى خمس سنوات    </h5>
                 <hr class="bg-gray-300" style="height: 2px" />
               </div>
               <br>
-              <div class=" bg-gray-100">
-                <div class="relative text-xs">
+              <div class=" bg-gray-100 p-6 ">
+                <div class="relative " style="font-size: 12px;">
                 <img src="{{asset('images/back-office/svg/evolution.svg')}}" class="">
                 <div class="flex pt-8 font-semibold whitespace-nowrap">
-                  <p class=" -ml-3 -mt-2 transform rotate-45">Lorem, ipsum.</p>
-                  <p class="-ml-3 transform rotate-45">Lorem, ipsum.</p>
-                  <p class="-ml-3 transform rotate-45">Lorem, ipsum.</p>
-                  <p class="-ml-3 -mt-1 transform rotate-45">Lorem, ipsum.</p>
-                  <p class="-ml-3 transform rotate-45">Lorem, ipsum.</p>
+                  <p class=" ml-4 -mt-2 transform rotate-45">{{number_format($bp_turnover_first_year,0, ',', ' ')}}</p>
+                  <p class="  ml-4 -mt-2 transform rotate-45">{{number_format($bp_turnover_second_year,0, ',', ' ')}}</p>
+                  <p class=" ml-4 -mt-2 transform rotate-45">{{number_format($bp_turnover_third_year,0, ',', ' ')}}</p>
+                  <p class=" ml-4 -mt-2 transform rotate-45">{{number_format($bp_turnover_four_year,0, ',', ' ')}}</p>
+                  <p class=" ml-4 -mt-2 transform rotate-45">{{number_format($bp_turnover_five_year,0, ',', ' ')}}</p>
                 </div>
               </div>
             </div>
           </div>
-          <div class="">
+        <div class="">
               <div class="space-y-1">
                 <h5
                   class="uppercase font-bold text-sm"
                   style="color: var(--second-blue)"
+                  dir="rtl"
                 >
-              تطور صافي العائد على مدى خمس سنوات
-              </h5>
+                  تطور صافي العائد على مدى خمس سنوات  </h5>
                 <hr class="bg-gray-300" style="height: 2px" />
               </div>
-              <div class=" bg-gray-100 ">
-                test
+              <br>
+              <div class=" bg-gray-100 p-6 ">
+                <div class="relative " style="font-size: 12px;">
+                <img src="{{asset('images/back-office/svg/evolution.svg')}}" class="">
+                <div class="flex pt-8 font-semibold whitespace-nowrap">
+                  <p class=" ml-4 -mt-2 transform rotate-45">{{number_format($bp_net_profit_first_year,0, ',', ' ')}}</p>
+                  <p class="ml-4 -mt-2 transform rotate-45">{{number_format($bp_net_profit_second_year,0, ',', ' ')}}</p>
+                  <p class="ml-4 -mt-2 transform rotate-45">{{number_format($bp_net_profit_third_year,0, ',', ' ')}}</p>
+                  <p class="ml-4 -mt-2 transform rotate-45">{{number_format($bp_net_profit_four_year,0, ',', ' ')}}</p>
+                  <p class="ml-4 -mt-2 transform rotate-45">{{number_format($bp_net_profit_five_year,0, ',', ' ')}}</p>
+                </div>
               </div>
-          </div>
-        </div>
+            </div>
+            </div>
       </div>
       <div class="absolute bottom-0 right-0 left-0 ">
         <img
@@ -2014,8 +2050,8 @@ elseif($cumul_four_year>0) {
       
      </div>
     </div> 
-    @if(isset($data->list_mat_file))
-    <?php  $files=explode(',',$data->list_mat_file);?>
+    @if(isset($data->business_model_arab->fiche_syn))
+    <?php  $files=explode(',',$data->business_model_arab->fiche_syn);?>
     @foreach ($files as $item) 
     @if($item!='')
     <div id="5" class="page printsection print-full-width ">

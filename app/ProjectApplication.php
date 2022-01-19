@@ -361,6 +361,13 @@ class ProjectApplication extends Model
                 'class' => 'kt-callout--dark text-right',
                 'label' => 'تقديم حامل المشروع',
                 "sub_fields" => [
+                       [
+                        'name' => 'nom_projet',
+                        'type' => 'text',
+                        'label' => 'اسم المشروع',
+                        'class' => 'text-right',
+
+                    ],
                     [
                         'name' => 'nom_arabe',
                         'type' => 'text',
@@ -460,7 +467,17 @@ class ProjectApplication extends Model
                         'type' => 'repeater',
                         'label' => ' كراء مقر المشروع  ',
                         'config' => ['tripleRepeater' => true, 'attributes' => [['الموقع',3],['المساحة',4], ['سومةالكراء',3]],'Select'=>false]
-                    ]
+                    ],
+                      [
+                        'name' => 'nombre_ress',
+                        'type' => 'text',
+                        'label' => ' الموارد البشرية  ',
+                    ],
+                      [
+                        'name' => 'fiche_syn',
+                        'type' => 'file',
+                        'label' => '  تحميل الوثائق ',
+                      ],
                 ],
                 'group' =>'etude_technique_arab'
             ],
