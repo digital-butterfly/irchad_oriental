@@ -843,15 +843,4 @@ class FicheSynthetique extends Controller
 
 
 
-
-
-    public function exportExcel(Request $request)
-    {
-
-        $projectApplicatoin=   json_decode(ProjectApplication::all()->where('status',$request['status']));
-//        $arrays = new exportCondidat((array) json_decode(ProjectApplication::all()->where('status', $request['Status'])));
-//        dd($request->toArray());
-        return Excel::download(new exportCondidat($request['Status'],$request['Type']), Carbon::now().'-back-up.xlsx');
-
-    }
 }

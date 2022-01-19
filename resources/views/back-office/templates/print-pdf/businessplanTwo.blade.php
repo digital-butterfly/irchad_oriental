@@ -1260,9 +1260,9 @@ elseif($cumul_four_year>0) {
           class=" "
           style="color: var(--main-blue)"
         >
-          <h3 class="font-semibold text text-right"> :القطاع</h3><br>
+          <h3 class="font-semibold text text-right">  القطاع : {{$data->company_arab->activite_arabe}}</h3><br>
           <p class=" text-gray-500  text-right" style="font-size: 10px">
-       أداة لقياس الزوايا ورسمها
+            {{$data->company_arab->desc_projet_arabe}}
           </p>
         </div>
       </div>
@@ -1313,32 +1313,36 @@ elseif($cumul_four_year>0) {
           </div>
 
           <div class="space-y-3 text-sm font-normal">
-            <div class="flex justify-between bg-gray-100 p-2" dir="rtl"> 
-            <p class="font-medium "style="color: var(--main-green)">الموردون</p>
-              <ul class="list-inside list-disc space-y-2 text-right" >
-                              <li> الموردون</li>
-                              <li> الموردون</li>
-                               <li> الموردون</li>
-
+            <div class="grid grid-cols-8 bg-gray-100 p-2" dir="rtl"> 
+            <p class="font-medium col-span-3"style="color: var(--main-green)">الموردون</p>
+              <ul class=" col-span-5 list-inside list-disc space-y-2 text-right" >
+                @if (isset($data->business_model_arab->fournisseur_arabe))
+                @foreach ($data->business_model_arab->fournisseur_arabe as $item)
+                 <li> {{$item->fournisseur_arabe}}</li>
+             @endforeach   
+             @endif
               </ul>
              
             </div>
-             <div class="flex justify-between bg-gray-100 p-2" dir="rtl">
-              <p class="font-medium "style="color: var(--main-green)">الزبناء </p> 
-                 <ul class="list-inside list-disc space-y-2 text-right" >
-                              <li> الموردون</li>
-                              <li> الموردون</li>
-                               <li> الموردون</li>
-
+             <div class="grid grid-cols-8 bg-gray-100 p-2" dir="rtl">
+              <p class="font-medium col-span-3 "style="color: var(--main-green)">الزبناء </p> 
+                 <ul class=" col-span-5 list-inside list-disc space-y-2 text-right" >
+                  @if (isset($data->business_model_arab->client_arabe))
+                  @foreach ($data->business_model_arab->client_arabe as $item)
+                   <li> {{$item->client_arabe }}</li>
+               @endforeach   
+               @endif
               </ul>
              
             </div>
-             <div class="flex justify-between bg-gray-100 p-2" dir="rtl">
+             <div class=" flex justify-between bg-gray-100 p-2" dir="rtl">
               <p class="font-medium "style="color: var(--main-green)">المنافسون </p>
                  <ul class="list-inside list-disc space-y-2 text-right" >
-                              <li> الموردون</li>
-                              <li> الموردون</li>
-                               <li> الموردون</li>
+                  @if (isset($data->business_model_arab->concurent_arabe))
+                  @foreach ($data->business_model_arab->concurent_arabe as $item)
+                   <li> {{$item->concurent_arabe }}</li>
+               @endforeach   
+               @endif        
               </ul>  
             </div>
           </div>
@@ -1355,12 +1359,14 @@ elseif($cumul_four_year>0) {
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
            <div class="space-y-3 text-sm font-normal  bg-gray-100 ">
-           <div class="flex justify-start md:justify-betweenp-2" dir="rtl"> 
-            <p class="font-medium "style="color: var(--main-green)">لوازم و أدوات الاشتغال</p>
-              <ul class="list-inside list-disc space-y-2 text-right" >
-                              <li> الموردون</li>
-                              <li> الموردون</li>
-                               <li> الموردون</li>
+           <div class="grid grid-cols-8 md:justify-betweenp-2" dir="rtl"> 
+            <p class="font-medium col-span-3 "style="color: var(--main-green)">لوازم و أدوات الاشتغال</p>
+              <ul class="col-span-5 list-inside list-disc space-y-2 text-right" >
+                @if (isset($data->business_model_arab->list_mat_arabe))
+                @foreach ($data->business_model_arab->list_mat_arabe as $item)
+                 <li> {{$item->list_mat_arabe }}</li>
+             @endforeach   
+             @endif
 
               </ul>
              
@@ -1369,16 +1375,22 @@ elseif($cumul_four_year>0) {
             <div class="space-y-3 text-sm font-normal bg-gray-100">
             <p class="font-medium text-right"style="color: var(--main-green)">لوازم و أدوات الاشتغال</p>
             <div class="flex justify-between p-2" dir="rtl"> 
-             <p class="font-medium "style="color: var(--second-blue)">لوازم و أدوات الاشتغال</p>
+              @if (isset($data->business_model_arab->local_arabe))
+              @foreach ($data->business_model_arab->local_arabe as $item)
+         
+             <p class="font-medium "style="color: var(--second-blue)">الموقع</p>
              <p class="font-medium ">لوازم و أدوات الاشتغال</p>
             </div>
              <div class="flex justify-between p-2" dir="rtl"> 
-             <p class="font-medium "style="color: var(--second-blue)">لوازم و أدوات الاشتغال</p>
+             <p class="font-medium "style="color: var(--second-blue)"> 
+              المساحة:</p>
              <p class="font-medium ">لوازم و أدوات الاشتغال</p>
             </div>
              <div class="flex justify-between p-2" dir="rtl"> 
-             <p class="font-medium "style="color: var(--second-blue)">لوازم و أدوات الاشتغال</p>
-             <p class="font-medium ">لوازم و أدوات الاشتغال</p>
+             <p class="font-medium "style="color: var(--second-blue)"> سومةالكراء</p>
+             <p class="font-medium ">لوازم و أدوات الاشتغال</p> 
+              @endforeach   
+           @endif
             </div>
            </div>
          </div>  
@@ -1407,7 +1419,7 @@ elseif($cumul_four_year>0) {
             <hr class="bg-gray-300" style="height: 2px" />
              <div class="space-y-3 text-sm font-normal bg-gray-100 ">
              <p class="text-justify p-3 text-right">
-              المحتوى) ويُستخدم في صناعات المطابع ودور النشر. كان لوريم إيبسوم ولايزال المعيار للنص الشكلي منذ القرن الخامس عشر عندما قامت مطبعة مجهولة برص مجموعة من الأحرف بشكل عشوائي أخذتها من نص، لتكوّن كتيّب بمثابة دليل أو مرجع شكلي لهذه الأحرف. خمسة قرون من الزمن لم تقضي على هذا النص، بل انه حتى صار مستخدماً وبشكله الأصلي في الطباعة والتنضيد الإلكتروني. انتشر بشكل كبير في ستينيّات هذا القرن مع إصدار رقائق "ليتراسيت" (Letraset) البلاستيكية تحوي مقاطع من هذا النص، وعاد لينتشر مرة أخرى مؤخراَ مع ظهور برامج النشر الإلكتروني مثل "ألدوس بايج مايكر" (Aldus PageMaker) والتي حوت أيضاً على نسخ من نص لوريم إيبس
+              {{$data->company_arab->desc_porteur_arabe}}
           </p></div>
           </div>
         </div>
@@ -1424,19 +1436,17 @@ elseif($cumul_four_year>0) {
           <div class="space-y-3 text-sm font-normal">
             <div class="flex justify-between bg-gray-100 p-2" dir="rtl"> 
             <p class="font-medium "style="color: var(--main-green)">: الشكل القانوني</p>
-              <p> الشكل القانوني</p>
+              <p>  {{$data->company_arab->legal_form_arabe}}</p>
              
             </div>
              <div class="flex justify-between bg-gray-100 p-2" dir="rtl">
               <p class="font-medium "style="color: var(--main-green)">: توطين المقاولة</p> 
-              <p> الشكل القانوني</p>
+              <p>  {{$data->company_arab->implantation_arabe}}</p>
              
             </div>
              <div class="flex justify-between bg-gray-100 p-2" dir="rtl">
               <p class="font-medium "style="color: var(--main-green)">المنتوج أو الخدمة </p>
-              <p> الشكل القانوني</p>
-              
-            </div>
+                <p> {{isset($data->company_arab->produit_service_arabee)?$data->company_arab->produit_service_arabee:""}}</p></div>
           </div>
         </div> 
         <div class="space-y-4 ">
@@ -1451,9 +1461,12 @@ elseif($cumul_four_year>0) {
           </div>
            <div class="space-y-3 text-sm font-normal text-right bg-gray-100" dir="rtl">
                            <ul class="list-inside list-disc space-y-2 text-right">
-                              <li class="text-right">لرخص الإدارية اللازمة</li>
-                               <li>لرخص الإدارية اللازمة</li>
-                               <li>لرخص الإدارية اللازمة</li>
+                              @if (isset($data->business_model_arab->autorisation_arabe))
+                                 @foreach ($data->business_model_arab->autorisation_arabe as $item)
+                                  <li> {{$item->autorisation_arabe }}</li>
+                              @endforeach   
+                              @endif
+                            
                             </ul>  
            </div>
          </div>
@@ -1585,9 +1598,9 @@ elseif($cumul_four_year>0) {
         <img src="{{asset('images/back-office/svg/quote-arab.svg')}}" alt="" srcset="" />
       </div>
 
-      <div class="space-y-9" dir="rtl">
+      <div class="space-y-9">
         <div class="space-y-4">
-          <div class="space-y-1">
+          <div class="space-y-1" dir="rtl">
             <h5
               class="uppercase font-bold text-sm"
               style="color: var(--second-blue)"
@@ -1596,16 +1609,23 @@ elseif($cumul_four_year>0) {
           </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
-        <div class="grid grid-cols-2 gap-4 " dir="rtl">
-        <div class="pl-4">
-          <div class="bg-gray-100 top-0" id="chart1" style="height: 200px; width: 100%; "></div>
-          </div>
+        <div class="grid grid-cols-2 gap-4 " >
+        
           <div class=" bg-white"> 
-            <div class=" flex  justify-between bg-gray-100  p-2 m-1"> <p>برنامج الاستثمار</p> <span class="bg-green-100 text-left w-50 border-0 ">1245688 </span></div>
-              <div class="inline-block rounded-lg border ">
-              <table class="table-fixed border border-gray-900 w-90 text-sm" dir="rtl">
+            <div class="bg-gray-100 pr-5 flex rounded-md justify-between items-center " dir="rtl">   
+            <p>برنامج الاستثمار
+            </p>
+              <button class="py-3 px-4 rounded-md bg-green-500 text-white">
+                {{$bp_investment_program_total}}
+              </button>
+            </div>
+            <div class="inline-block rounded-lg border ">
+              <table class="table-fixed border border-gray-900 w-full text-sm" >
                 <thead>
-                  <tr class="bg-gray-100">
+                  <tr class="bg-gray-100" dir="rtl">
+                 
+                    <th class="border-2 border-gray-500 text-center">القيمة</th>
+                    <th class="border-2 border-gray-500  text-center">النسبة%</th>   
                     <th
                       class="
                         py-2
@@ -1617,8 +1637,6 @@ elseif($cumul_four_year>0) {
                     >
                   العناصر
                     </th>
-                    <th class="border-2 border-gray-500 text-center">القيمة</th>
-                    <th class="border-2 border-gray-500  text-center">النسبة%</th>
                   </tr>
                 </thead>
                 <tbody class="font-medium">
@@ -1627,15 +1645,20 @@ elseif($cumul_four_year>0) {
                  
                     <tr> 
                       @if(isset($item->label))
-                      <td class="border-2 border-gray-500 w-6/12 py-1 pl-4">{{$item->label}}</td> 
+                      
                       <td class="border-2 border-gray-500 text-center" >{{ number_format($item->value, 0, ',', ' ') }} </td>
-                      <td class="border-2 border-gray-500 text-center">{{ number_format( $bp_investment_program_total!=0? $item->value /$bp_investment_program_total*100:0,0, ',', ' ')}}%</td>   
+                      <td class="border-2 border-gray-500 text-center">{{ number_format( $bp_investment_program_total!=0? $item->value /$bp_investment_program_total*100:0,0, ',', ' ')}}%</td> 
+                       <td class="border-2 border-gray-500 w-6/12 py-1 pl-4">{{$item->label}}</td>  
                        @endif
                   </tr> 
                   @endforeach
                  @endif
                   <tr class="bg-green-200">
-                    <td
+          
+                    <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
+                    <td class="border-2 border-gray-600 text-center bg-green-200"> <p  dir="rtl">{{number_format($bp_investment_program_total, 0, ',', ' ')}} </p></td>
+                    <td class="border-2 border-gray-600 text-center bg-green-200">100 %</td>     
+                      <td
                       class="
                       py-1 pl-4
                         border-2 border-gray-600
@@ -1645,20 +1668,19 @@ elseif($cumul_four_year>0) {
                     >
                    المجموع
                     </td>
-                    <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
-                    <td class="border-2 border-gray-600 text-center bg-green-200">{{number_format($bp_investment_program_total, 0, ',', ' ')}}</td>
-                    <td class="border-2 border-gray-600 text-center bg-green-200">100 %</td>
                   </tr>
                 </tbody>
               </table>
             </div>
           </div>
-          
+          <div class="pl-4">
+          <div class="bg-gray-100 top-0" id="chart1" style="height: 200px; width: 100%; "></div>
+          </div>
         </div>   
       </div>
       <div class="space-y-9">
         <div class="space-y-4">
-          <div class="space-y-1">
+          <div class="space-y-1" dir="rtl">
             <h5
               class="uppercase font-bold text-sm"
               style="color: var(--second-blue)"
@@ -1666,16 +1688,22 @@ elseif($cumul_four_year>0) {
 خطة التمويل          </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
-        <div class="grid grid-cols-2 gap-4 " dir="rtl">
-         <div class="pl-4">
-           <div class="bg-gray-100" id="chart2" style="height: 200px; width: 100%;"></div>
-          </div>
+        <div class="grid grid-cols-2 gap-4 ">
+        
           <div class=" bg-white"> 
-          <div class=" flex  justify-between bg-gray-100  p-2 m-1"> <p>برنامج الاستثمار</p><span class="bg-green-100 text-left w-50 border-0">1245688 </span></div>
-              <div class="inline-block rounded-lg border" dir="ltr">
-              <table class="table-fixed border border-gray-900 w-full text-sm" dir="rtl">
+            <div class="bg-gray-100 pr-5 flex rounded-md justify-between items-center">
+              <button class="py-2 px-4 rounded-md bg-green-500 text-white">
+                {{$bp_financial_plan_totals}}
+              </button>
+              <p>رﺎﻤﺜﺘﺳﺎﻟا ﺞﻣﺎﻧﺮﺑ</p>
+            </div>              
+            <div class="inline-block rounded-lg border">
+              <table class="table-fixed border border-gray-900 w-full text-sm">
                 <thead>
                   <tr class="bg-gray-100">
+                  <th class="border-2 border-gray-500  text-center">النسبة</th>  
+                    <th class="border-2 border-gray-500 text-center">القيمة</th>
+                    
                     <th
                       class="
                         py-2
@@ -1687,17 +1715,15 @@ elseif($cumul_four_year>0) {
                     >
                   العناصر
                     </th>
-                    <th class="border-2 border-gray-500 text-center">القيمة</th>
-                    <th class="border-2 border-gray-500  text-center">النسبة</th>
                   </tr>
                 </thead>
                 <tbody class="font-medium">
                   @if(isset($data->financial_data->financial_plan))
                   @foreach ($data->financial_data->financial_plan as $item)
-                    <tr>
-                    <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
+                    <tr>                
                     <td class="border-2 border-gray-500 text-center">{{ number_format($bp_financial_plan_totals!=0?$item->value /$bp_financial_plan_totals*100:0,0, ',', ' ')}}%</td>
+                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
                   </tr> 
                   @endforeach
                  @endif
@@ -1729,7 +1755,9 @@ elseif($cumul_four_year>0) {
               </table>
             </div>
           </div>
-         
+          <div class="pl-4">
+            <div class="bg-gray-100" id="chart2" style="height: 200px; width: 100%;"></div>
+           </div>
         </div>   
       </div>
       </div>
@@ -1916,8 +1944,8 @@ elseif($cumul_four_year>0) {
       </div>
       <br>
       <div class="space-y-9">
-        <div class=" flex justify-between  print_full_witdh ">
-            <div class="">
+        <div class=" grid grid-cols-2 gap-10 print_full_witdh ">
+            <div class=" ">
               <div class="space-y-1">
                 <h5
                   class="uppercase font-bold text-sm"
@@ -1926,9 +1954,19 @@ elseif($cumul_four_year>0) {
 تطور قيمة المداخيل على مدى خمس سنوات    </h5>
                 <hr class="bg-gray-300" style="height: 2px" />
               </div>
-              <div class=" bg-gray-100 ">
-                test
+              <br>
+              <div class=" bg-gray-100">
+                <div class="relative text-xs">
+                <img src="{{asset('images/back-office/svg/evolution.svg')}}" class="">
+                <div class="flex pt-8 font-semibold whitespace-nowrap">
+                  <p class=" -ml-3 -mt-2 transform rotate-45">Lorem, ipsum.</p>
+                  <p class="-ml-3 transform rotate-45">Lorem, ipsum.</p>
+                  <p class="-ml-3 transform rotate-45">Lorem, ipsum.</p>
+                  <p class="-ml-3 -mt-1 transform rotate-45">Lorem, ipsum.</p>
+                  <p class="-ml-3 transform rotate-45">Lorem, ipsum.</p>
+                </div>
               </div>
+            </div>
           </div>
           <div class="">
               <div class="space-y-1">

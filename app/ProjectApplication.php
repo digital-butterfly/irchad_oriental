@@ -407,8 +407,8 @@ class ProjectApplication extends Model
                         'label' => 'توطين المقاولة  '
                     ],
                     [
-                        'name' => 'produit_service_arabe',
-                        'type' => 'repeater',
+                        'name' => 'produit_service_arabee',
+                        'type' => 'textarea',
                         'label' => 'المنتوج أو الخدمة  '
                     ],
                 ],
