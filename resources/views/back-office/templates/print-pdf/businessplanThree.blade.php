@@ -24,14 +24,14 @@ if(isset($data->financial_data->financial_plan)){
     }}
 if(isset($data->financial_data->financial_plan_loans)){
     foreach ($data ->financial_data->financial_plan_loans as $item) {
-       isset($item->label)?$arrytwer['name']=$item->label:$arrytwer['name']='';
+        $arrytwer['name']=$item->label;
         $arrytwer['value']= number_format($bp_financial_plan_totals !=0?$item->value/$bp_financial_plan_totals *100:0,0, ',', ' ');
         array_push($dataPlan, $arrytwer);
     $bp_financial_plan_totals += $item->value; 
     }}
 if(isset($data->financial_data->financial_plan)){
     foreach ($data ->financial_data->financial_plan as $item) {
-         isset($item->label)?$arrytwer['name']=$item->label:$arrytwer['name']='';
+        $arrytwer['name']=$item->label;
         $arrytwer['value']= number_format($bp_financial_plan_totals !=0?$item->value/$bp_financial_plan_totals *100:0,0, ',', ' ');
         array_push($dataPlan, $arrytwer);
     }
@@ -1225,12 +1225,12 @@ elseif($cumul_four_year>0) {
         alt=""
         srcset=""
       />
-      <img
+      {{-- <img
         src="{{asset('images/back-office/svg/mobadara-logo.png')}}"
         class="absolute right-5 top-4"
         alt=""
         srcset=""
-      />
+      /> --}}
 
       <div class="absolute right-0 top-60 space-y-5" style="width: 500px">
         <h3
@@ -1500,7 +1500,7 @@ elseif($cumul_four_year>0) {
 
           <div class="space-y-3 text-sm font-normal">
             <div class="flex justify-between  bg-gray-100  p-2  right-0">
-              <p>Nom D'associé:</p> 
+              <p>Noms sous Adhérent:</p> 
               <p class="font-medium right-0">
               @foreach ($members as $member )
                {{ucfirst( $member->first_name)}} {{ ucfirst($member->last_name)}}  @endforeach</p>
@@ -1756,6 +1756,7 @@ elseif($cumul_four_year>0) {
                 </ul>
                @endforeach
               @endif 
+              
               </div>  
               <div class="p-4 bg-gray-100"> 
                 <h6
@@ -1778,7 +1779,8 @@ elseif($cumul_four_year>0) {
                 </ul>
                @endforeach
               @endif 
-              </div>  
+              </div>
+              
             </div>
           </div>
         
@@ -2328,75 +2330,14 @@ elseif($cumul_four_year>0) {
         <div class="space-y-4  text-sm font-normal">
           <div class="grid grid-cols-2 gap-y-5 gap-x-24 mt-5">
             <div
-              class="pl-6 py-4 bg-gray-100 font-medium space-y-4 relative"
-              style="font-size: 12px"
-              >
-              <h3 style="color: var(--main-dark-green)" class="text-sm">Forces</h3>
-              <ul class="list-inside list-disc space-y-2">
-                @if(isset($data->business_model->distribution_strategy_force_p))
-                @foreach ($data->business_model->distribution_strategy_force_p as $key =>  $field)
-                <li class=" p-2 text-xs ">{{$field->distribution_strategy_force_p ?? " "}}</li>  
-                @endforeach 
-                @endif
-              </ul>
-              <div
-                class="
-                  absolute
-                  -right-8
-                  top-2
-                  h-16
-                  w-16
-                  flex
-                  justify-center
-                  items-center
-                  font-semibold
-                  text-4xl text-white
-                "
-                style="background-color: var(--main-green)"
-              >
-                <span>S</span>
-              </div>
-            </div>
-            <div
-              class="pl-16 py-4 bg-gray-100 font-medium space-y-4 relative"
+              class="pl-6 py-4 bg-gray-100 font-medium space-y-3 relative"
               style="font-size: 12px"
             >
-              <h3 style="color: var(--main-dark-green)" class="text-sm">Faiblesses</h3>
-              <ul class="list-inside list-disc space-y-2">
-                @if(isset($data->business_model->distribution_strategy_faiblesse_p))
-                @foreach ($data->business_model->distribution_strategy_faiblesse_p as $key =>  $field)
-                <li class=" p-2 text-xs ">{{$field->distribution_strategy_faiblesse_p ?? " "}}</li>  
-                @endforeach 
-                @endif
-              </ul>
-    
-              <div
-                class="
-                  absolute
-                  -left-8
-                  top-2
-                  h-16
-                  w-16
-                  flex
-                  justify-center
-                  items-center
-                  font-semibold
-                  text-4xl text-white
-                "
-                style="background-color: var(--main-green)"
-              >
-                <span>W</span>
-              </div>
-            </div>
-          <div
-              class="pl-6 py-4 bg-gray-100 font-medium space-y-4 relative"
-              style="font-size: 12px"
-              >
               <h3 style="color: var(--main-dark-green)" class="text-sm">Forces</h3>
               <ul class="list-inside list-disc space-y-2">
                 @if(isset($data->business_model->distribution_strategy_force_p))
                 @foreach ($data->business_model->distribution_strategy_force_p as $key =>  $field)
-                <li class="p-3" style="font-size:14px;">{{$field->distribution_strategy_force_p ?? " "}}</li>  
+                <li class="p-2"  style="font-size: 14px">{{$field->distribution_strategy_force_p ?? " "}}</li>  
                 @endforeach 
                 @endif
               </ul>
@@ -2422,11 +2363,73 @@ elseif($cumul_four_year>0) {
               class="pl-16 py-4 bg-gray-100 font-medium space-y-3 relative"
               style="font-size: 12px"
             >
+              <h3 style="color: var(--main-dark-green)" class="text-sm">Faiblesses</h3>
+              <ul class="list-inside list-disc space-y-2">
+                @if(isset($data->business_model->distribution_strategy_faiblesse_p))
+                @foreach ($data->business_model->distribution_strategy_faiblesse_p as $key =>  $field)
+                <li class="p-2" style="font-size: 14px" >{{$field->distribution_strategy_faiblesse_p ?? " "}}</li>  
+                @endforeach 
+                @endif
+              </ul>
+    
+              <div
+                class="
+                  absolute
+                  -left-8
+                  top-2
+                  h-16
+                  w-16
+                  flex
+                  justify-center
+                  items-center
+                  font-semibold
+                  text-4xl text-white
+                "
+                style="background-color: var(--main-green)"
+              >
+                <span>W</span>
+              </div>
+            </div>
+            <div
+              class="pl-6 py-4 bg-gray-100 font-medium space-y-3 relative"
+              style="font-size: 12px"
+            >
+              <h3 style="color: var(--main-dark-green)" class="text-sm">Opportunités</h3>
+              <ul class="list-inside list-disc space-y-2">
+                @if(isset($data->business_model->distribution_strategy_Opportunité_p))
+                    @foreach ($data->business_model->distribution_strategy_Opportunité_p as $key =>  $field)
+                    <li class="p-2"  style="font-size: 14px">{{$field->distribution_strategy_Opportunité_p ?? " "}}</li>  
+                    @endforeach 
+                    @endif
+              </ul>
+    
+              <div
+                class="
+                  absolute
+                  -right-8
+                  top-2
+                  h-16
+                  w-16
+                  flex
+                  justify-center
+                  items-center
+                  font-semibold
+                  text-4xl text-white
+                "
+                style="background-color: var(--main-green)"
+              >
+                <span>O</span>
+              </div>
+            </div>
+            <div
+              class="pl-16 py-4 bg-gray-100 font-medium space-y-3 relative"
+              style="font-size: 12px"
+            >
               <h3 style="color: var(--main-dark-green)" class="text-sm">Menaces</h3>
-              <ul class="list-inside list-disc space-y-4">
+              <ul class="list-inside list-disc space-y-2">
                 @if(isset($data->business_model->distribution_strategy_menace_p))
                 @foreach ($data->business_model->distribution_strategy_menace_p as $key =>  $field)
-                <li class=" p-2 text-xs ">{{$field->distribution_strategy_menace_p ?? " "}}</li>  
+                <li class="p-2"  style="font-size: 14px"s>{{$field->distribution_strategy_menace_p ?? " "}}</li>  
                 @endforeach 
                 @endif
               </ul>
@@ -4059,9 +4062,6 @@ elseif($cumul_four_year>0) {
                  @endif
                  @if(isset($data->financial_data->startup_needs))
                  @foreach ($data->financial_data->startup_needs as $item)
-                 @if (isset($item->label))
-                     
-                
                  @if($item->label !='Frais preliminaires' && $item->label !='Matériel de transport' )
                    <tr>
                      <td class="border-2 border-gray-500 py-1 pl-4">{{isset($item->label)?$item->label:''}}</td>
@@ -4069,8 +4069,7 @@ elseif($cumul_four_year>0) {
                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->value/(1+($item->duration/100))*0.03, 0, ',', ' ') }} </td>
                      <td class="border-2 border-gray-500 text-center">{{ number_format(($item->value/(1+($item->duration/100))*0.03)*$taxe, 0, ',', ' ') }} </td>
                      <?php $total_taxe2+=($item->value/(1+($item->duration/100))*0.03)*$taxe;  ?>
-                 </tr>
-                  @endif
+                 </tr> 
                  @endif
                  @endforeach
                 @endif
@@ -5236,8 +5235,8 @@ elseif($cumul_four_year>0) {
             }
         }
          ?>
-            <p class="align-middle  text-justify">
-              Le projet que se propose {{$gender}} {{ ucfirst($owner->first_name)}} {{ ucfirst($owner->last_name)}}de mettre en œuvre s’inscrit dans les objectifs stratégiques du programme de l’INDH. </p>
+            {{-- <p class="align-middle  text-justify">
+              Le projet que se propose {{$gender}} {{$owner->first_name}} {{$owner->last_name}} de mettre en œuvre s’inscrit dans les objectifs stratégiques du programme de l’INDH. </p> --}}
              <p class="align-middle  text-justify">
              La réalisation de ce projet lui permettra d’intégrer le monde de l’entrepreneuriat en exploitant les opportunités offertes ainsi que son relationnel avec les clients et d’améliorer son revenu .
             </p>

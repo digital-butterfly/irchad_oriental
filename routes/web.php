@@ -191,3 +191,5 @@ Route::get('locale/{locale}', function ($locale){
 });
 Route::get('/admin/print-business-plan/{id}', 'PrintController@Businessplan')->name('printbusinessplan');
 Route::get('/admin/print-business-plan-arabe/{id}', 'PrintController@BusinessplanTwo')->name('printbusinessplanTwo');
+Route::get('/admin/print-business-plan-Two/{id}', 'PrintController@BusinessplanThree')->name('printbusinessplanThree');
+

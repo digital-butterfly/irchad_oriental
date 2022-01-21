@@ -1668,7 +1668,7 @@ elseif($cumul_four_year>0) {
           
                     <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
                        <td class="border-2 border-gray-600 text-center bg-green-200">100 %</td> 
-                    <td class="border-2 border-gray-600 text-center bg-green-200"> <p  dir="rtl">{{number_format($bp_investment_program_total, 0, ',', ' ')}} </p></td>
+                    <td class="border-2 border-gray-600 text-center bg-green-200"> <p>{{number_format($bp_investment_program_total, 0, ',', ' ')}} </p></td>
                      
                       <td
                       class="
@@ -1837,7 +1837,7 @@ elseif($cumul_four_year>0) {
             <h5
               class="uppercase font-bold text-sm"
               style="color: var(--second-blue)"
-            >
+           dir="rtl" >
            رقم المعاملات
 
           </h5>

@@ -252,6 +252,7 @@ class MemberController extends Controller
             'birth_date' => $request['birth_date'],
             'address' => $request['address'],
             'township_id' => $request['township_id'],
+              'gender' => $request['gender'],
             'degrees' => json_decode(json_encode($request['degrees'])),
             'professional_experience' => json_decode(json_encode($request['professional_experience'])),
             'state_help' => json_decode(json_encode($request['state_help'])),

@@ -86,6 +86,10 @@
                                             {{ $application->title }}
                                              <span type="button" class="btn btn-brand btn-bold" ><i class="flaticon2-printer"></i></span>
                                         </a>
+                                         <a href="/admin/print-business-plan-Two/{{Route::current()->parameters['candidature']}}"class="kt-widget__title">
+                                         Banque
+                                             <span type="button" class="btn btn-brand btn-bold" ><i class="flaticon2-printer"></i></span>
+                                        </a>
                                         {{-- <div class="kt-widget__action">
                                             <button type="button" class="btn btn-label-danger btn-sm btn-upper">Rejeter</button>
                                             <button type="button" class="btn btn-label-success btn-sm btn-upper">Valider</button>
@@ -3082,7 +3086,12 @@ window.addEventListener('load',function(){
     const interval = setInterval(function(){
         if(!stop){
     var d=document.querySelectorAll('input');
+    var t=document.querySelectorAll('textarea');
+    console.log(t);
     d.forEach(el=> {
+        el.value = el.value.replace("&#039;","'")
+     });
+    t.forEach(el=> {
         el.value = el.value.replace("&#039;","'")
      });
         }
@@ -3091,7 +3100,7 @@ window.addEventListener('load',function(){
         stop =true
     clearInterval(interval)
     },3000)
-  
+
 })
 
 window.addEventListener('load',function(){
@@ -3116,6 +3125,7 @@ console.log(test);
         $('#alert_id').hide();  
         console.log(test);
    }
+   // console.log($('#overheads_fixed').val());
       $('#nombre_ress').val(nombre);
       $('#total_invest').val(element);
       $('#ca_produit-service').val(total);
