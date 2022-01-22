@@ -196,6 +196,7 @@ class ProjectApplicationController extends Controller
         $fille_db='';
 //dd($files);
         $filename ='';
+        
         if($request->file('file')) {
         foreach ($files as $key=> $file) {
           $img_ext = $file->getClientOriginalExtension();
@@ -620,9 +621,10 @@ class ProjectApplicationController extends Controller
         
  $fille_db='';
  $filename ='';
+ // dd($request->file);
    if($request->file('file')){  
      $files=$request->file('file');
-   // dd($request->file('file'));
+ 
         if($request->file('file')) {
                 foreach ($files as $key=> $file) {
                 $img_ext = $file->getClientOriginalExtension();

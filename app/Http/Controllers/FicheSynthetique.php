@@ -768,11 +768,12 @@ class FicheSynthetique extends Controller
         }
         
         $fille_db='';
-        $filename ='';
-        if($request->file('file')){  
-            $files=$request->file('file');
-       // dd($request->file('file'));
-                if($request->file('file')) {
+        $filename =''; 
+        //dd($application->business_model_arab->fiche_syn);
+              if($request->file('files')){  
+            $files=$request->file('files');
+    
+                if($request->file('files')) {
                         foreach ($files as $key=> $file) {
                         $img_ext = $file->getClientOriginalExtension();
                         $filename = 'annex' . time() . $key.'.' . $img_ext;
@@ -780,9 +781,11 @@ class FicheSynthetique extends Controller
                         $fille_db.=','.$filename;
                         } 
                 } 
-        }
+        } 
+    
+     
   // if(old())  
- // dd($request);
+ //dd($request);
         $application->update([
               'company_arab' => [
                 'nom_projet' => $request['nom_projet'],
@@ -802,7 +805,7 @@ class FicheSynthetique extends Controller
                 'list_mat_arabe' => $request['list_mat_arabe'],
                 'local_arabe' => $request['local_arabe'],
                 'nombre_ress' => $request['nombre_ress'],
-                'fiche_syn' => $fille_db!=''? $fille_db: $application->list_mat_file,
+                'fiche_syn' => $fille_db!=''? $fille_db: $application->business_model_arab->fiche_syn,
 
             ]
         ]);

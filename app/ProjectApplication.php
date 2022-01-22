@@ -14,7 +14,7 @@ class ProjectApplication extends Model
     protected $guard = 'user';
     const fix = ['Assurances', 'Frais financiers', 'Téléphone, internet', 'Carburant, transports', 'Frais de déplacement', 'Eau, électricité', 'Fournitures divers', 'Entretien matériel', 'Nettoyage des locaux', 'Publicité et communication', 'Loyer et charges locatives', 'Transport','Salaire employé (Brut)','Rémunération dirigeante (Brut)', 'Autre à préciser'];
     const TAXES=['Taxe professionnelle','Taxe speciale sur véhicules','Taxe de promotion touristique'];
-    const INVEST=[ 'Frais preliminaires', 'Immobilisations Incorporelle','Terrain','Construction et / ou Aménagement', 'Mobilier et Matériel de bureau', 'Matériel et Outillage','Matériel informatique', 'Matériel de transport', 'Matériel de manutention ',  'Fonds de roulement de démarrage','Autre à préciser'];
+    const INVEST=[ 'Frais preliminaires', 'Immobilisations Incorporelle','Terrain','Construction et / ou Aménagement', 'Mobilier et Matériel de bureau', 'Matériel et Outillage','Matériel informatique', 'Matériel de transport', 'Matériel de manutention',  'Fonds de roulement de démarrage','Autre à préciser'];
     const LEGALFORM=['S.A.R.L','S.A.R.L A.U','S.N.C','Coopérative','A.E'];
     const AIDEETAT=['INDH','DPA','Collectivités territoriales', 'Autre'];
     const Etat=['Demande','Non demande','Delivre', 'Non delivre'];
@@ -474,7 +474,7 @@ class ProjectApplication extends Model
                     ],
                       [
                         'name' => 'fiche_syn',
-                        'type' => 'file',
+                        'type' => 'filee',
                         'label' => '  المرفقات ',
                       ],
                 ],

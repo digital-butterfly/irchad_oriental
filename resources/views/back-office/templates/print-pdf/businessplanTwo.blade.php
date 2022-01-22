@@ -1240,7 +1240,7 @@ elseif($cumul_four_year>0) {
           class="text-3xl font-bold text-center		"
           style="color: var(--main-green);"
         >
-        {{$data->company_arab->nom_projet}}
+        {{isset($data->company_arab->nom_projet)?$data->company_arab->nom_projet:" "}}
         </h3>
         <div
           class="w-full h-5 relative "
