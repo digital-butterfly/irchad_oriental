@@ -1500,7 +1500,7 @@ elseif($cumul_four_year>0) {
 
           <div class="space-y-3 text-sm font-normal">
             <div class="flex justify-between  bg-gray-100  p-2  right-0">
-              <p>Nom D'associé:</p> 
+              <p>Noms sous Adhérent:</p> 
               <p class="font-medium right-0">
               @foreach ($members as $member )
                {{ucfirst( $member->first_name)}} {{ ucfirst($member->last_name)}}  @endforeach</p>

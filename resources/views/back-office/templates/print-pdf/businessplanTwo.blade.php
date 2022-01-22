@@ -1264,9 +1264,9 @@ elseif($cumul_four_year>0) {
           class=" "
           style="color: var(--main-blue)"
         >
-          <h3 class="font-semibold text text-right">  القطاع : {{$data->company_arab->activite_arabe}}</h3><br>
+          <h3 class="font-semibold text text-right">  القطاع : {{ isset($data->company_arab->activite_arabe)?$data->company_arab->activite_arabe:''}}</h3><br>
           <p class=" text-gray-500  text-right" style="font-size: 10px">
-            {{$data->company_arab->desc_projet_arabe}}
+            {{isset($data->company_arab->desc_projet_arabe)?$data->company_arab->desc_projet_arabe:""}}
           </p>
         </div>
       </div>
@@ -1430,7 +1430,7 @@ elseif($cumul_four_year>0) {
             <hr class="bg-gray-300" style="height: 2px" />
              <div class="space-y-3 text-sm font-normal bg-gray-100 ">
              <p class="text-justify p-3 text-right">
-              {{$data->company_arab->desc_porteur_arabe}}
+              {{isset($data->company_arab->desc_porteur_arabe)?$data->company_arab->desc_porteur_arabe:""}}
           </p></div>
           </div>
         </div>
@@ -1447,12 +1447,12 @@ elseif($cumul_four_year>0) {
           <div class="space-y-3 text-sm font-normal">
             <div class="flex justify-between bg-gray-100 p-2" dir="rtl"> 
             <p class="font-medium "style="color: var(--main-green)">: الشكل القانوني</p>
-              <p>  {{$data->company_arab->legal_form_arabe}}</p>
+              <p>  {{isset($data->company_arab->legal_form_arabe)?$data->company_arab->legal_form_arabe:""}}</p>
              
             </div>
              <div class="flex justify-between bg-gray-100 p-2" dir="rtl">
               <p class="font-medium "style="color: var(--main-green)">: توطين المقاولة</p> 
-              <p>  {{$data->company_arab->implantation_arabe}}</p>
+              <p>  {{isset($data->company_arab->implantation_arabe)?$data->company_arab->implantation_arabe:""}}</p>
              
             </div>
              <div class="flex justify-between bg-gray-100 p-2" dir="rtl">
