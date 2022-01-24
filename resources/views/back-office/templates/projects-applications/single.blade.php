@@ -2913,118 +2913,110 @@
 			};
 		}();
         var KTTagify = function() {
+                    var subMembers = function () {
+                        var input = document.getElementById("kt_tagify_members");
+                        var primaryID = $("#member_id").val();
+                        var wl = [];
 
-            // Private functions
-            var demo1 = function() {
-                var todelet =[];
-                var toEl = document.getElementById('kt_tagify_1');
+                        $.ajax({
+                            headers: {
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content,
+                            },
+                            url: "/admin/existantIDs",
+                            method: "GET",
+                        })
+                        .then(function (result) {
+                            result.map((el) => {
+                                if (el.id != primaryID) {
+                                    wl.push({
+                                        value: el.id,
+                                        name: el.first_name + " " + el.last_name,
+                                    });
+                                }
+                            });
 
+                            var tagify = new Tagify(input, {
+                                enforceWhitelist: true,
+                                whitelist: wl,
+                                templates: {
+                                    tag: function (tagData) {
+                                        try {
+                                            return `<tag title='${tagData.value}' contenteditable='false' spellcheck="false" class='tagify__tag tagify__tag--brand tagify--noAnim ${tagData.class ? tagData.class : ""}' ${this.getAttributes(tagData)}>
+                                                        <x title='remove tag' class='tagify__tag__removeBtn'></x>
+                                                        <div>
+                                                            <span class='tagify__tag-text'>${tagData.name} (${tagData.value})</span>
+                                                        </div>
+                                                    </tag>`;
+                                        } catch (err) { console.log("error on tag"); }
+                                    },
+                                    dropdownItem: function (tagData) {
+                                        try {
+                                            return `<div class='tagify__dropdown__item ${tagData.class ? tagData.class : ""}' tagifySuggestionIdx="${tagData.tagifySuggestionIdx}">
+                                                        <div class="kt-media-card">
+                                                            <div class="kt-media-card__info">
+                                                                <a class="kt-media-card__title">${tagData.value}</a>
+                                                                <span class="kt-media-card__desc">${tagData.name}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>`;
+                                        } catch (err) { console.log("error dorpdown"); }
+                                    },
+                                },
+                                dropdown: {
+                                    searchKeys: ["value", "name"],
+                                    classname: "color-blue",
+                                    enabled: 1,
+                                    maxItems: 10,
+                                },
+                            });
 
+                            tagify.on("remove", onRemoveTag);
 
-                var tagifyTo = new Tagify(toEl, {
-                    delimiters: ", ", // add new tags when a comma or a space character is entered
-                    maxTags: 5,
-                    enforceWhitelist: true,
-                    // blacklist: [$('#member_id').val()],
-                    // keepInvalidTags: true, // do not remove invalid tags (but keep them marked as invalid)
-                    whitelist: toEl.value ? JSON.parse(toEl.value) : [],
-                    templates: {
-                        tag : function(tagData){
-                            console.log('conx',tagData)
-                            try{
-                                return `<tag title='${tagData.member_id}' contenteditable='false' spellcheck="false" class='tagify__tag tagify__tag--brand tagify--noAnim ${tagData.class ? tagData.class : ""}' ${this.getAttributes(tagData)}>
-                                        <x title='remove tag' class='tagify__tag__removeBtn'></x>
-                                        <div>
-                                            <span class='tagify__tag-text'>${tagData.value}</span>
-                                        </div>
-                                    </tag>`
+                            function onRemoveTag(e) {
+                                $("input#deleteTags").val($("input#deleteTags").val() + JSON.stringify(e.detail.data) + ",");
                             }
-                            catch(err){}
+                        });
+                    };
+
+                    return {
+                        init: function () {
+                            subMembers();
                         },
-                        dropdownItem : function(tagData){
-                            try{
-                                return `<div class='tagify__dropdown__item ${tagData.class ? tagData.class : ""}' tagifySuggestionIdx="${tagData.tagifySuggestionIdx}">
-                                    <div class="kt-media-card">
-                            <span class="kt-media kt-media--'+(tagData.initialsState?tagData.initialsState:'')+'" >
-                                   <span>${tagData.member_id}</span>
-                               </span>
-                                <div class="kt-media-card__info">
-                            <a class="kt-media-card__title">${tagData.value}</a>
-                                </div>
-                        </div> </div>`
-                            }
-                            catch(err){}
-                        }
+                    };
+                }
 
+                function getUrlVars()
+                {
+                    var vars = [], hash;
+                    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+                    for(var i = 0; i < hashes.length; i++)
+                    {
+                        hash = hashes[i].split('=');
+                        vars.push(hash[0]);
+                        vars[hash[0]] = hash[1];
+                    }
+                    return vars;
+                }
 
-                    },
-
-                    transformTag: function(tagData) {
-                        tagData.class = 'tagify__tag tagify__tag--brand';
-                    },
-                    dropdown : {
-                        searchKeys: ["value","member_id"] ,
-                        classname : "color-blue",
-                        enabled   : 1,
-                        maxItems  : 10
+                jQuery(document).ready(function()
+                {
+                    if(getUrlVars()["member_id"]) {
+                        $('input#member_id').val(getUrlVars()["member_id"]) ;
                     }
 
-
-                });
-                // tagifyTo.settings.whitelist.push(...toEl.value)
-                // console.log('helloooooooo',tagifyTo.settings.whitelist)
-                //console.log('helloooooooo', tagifyTo)
-
-
-                tagifyTo.on('input', onInput).on('remove', onRemoveTag).on('dropdown:select', onSelectSuggestion)
-
-                function onInput(e){
-                    console.log("onInput: ", e.detail);
-                    // tagifyTo.loading(true).dropdown.hide.call(tagifyTo) // show the loader animation
-
-
-                    // get new whitelist from a delayed mocked request (Promise)
-                    $.ajax({
-                        headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content},
-                        url : '/admin/candidaturesmemmbers', // La ressource ciblée
-                        method:'POST',
-                        data:{'tag':e.detail.value}
-
-                    })
-                        .then(function(result){
-                            tagifyTo.settings.whitelist.length = 0; // reset current whitelist
-                            // replace tagify "whitelist" array values with new values
-                            // and add back the ones already choses as Tags
-                            console.log('---->',result)
-
-                            tagifyTo.settings.whitelist.push(...result[0], ...tagifyTo.value)
-                            // tagify.settings.whitelist.splice(0, result[0].length, ...tagify.value)
-
-                            // render the suggestions dropdown.
-                            tagifyTo.dropdown.show.call(tagifyTo, e.detail.value);
-                            console.log(tagifyTo.settings.whitelist,'whitelist')
+                    $("input#member_id").change( function() {
+                        $.ajax({
+                            context: this,
+                            headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content},
+                            url: '/admin/members/' + $(this).val(),
                         })
-                }
-                // tag remvoed callback
-                function onRemoveTag(e){
-                    todelet.push(e.detail.data)
-                    console.log("onRemoveTag:", e.detail.data)
-                }
-                function onSelectSuggestion(e){
-                    // todelet.push(e.detail.data)
-                    console.log("select:", e.detail)
-                }
+                        .then(function(result) {
+                            $(this).next().html(result.first_name ? (result.first_name.charAt(0).toUpperCase() + result.first_name.slice(1) + " " + result.last_name.charAt(0).toUpperCase() + result.last_name.slice(1)) : 'Aucun membre trouvé');
+                        })
+                    });
 
-
-            }
-
-            return {
-                // public functions
-                init: function() {
-                    demo1();
-
-                }
-            };
+                    $("input#member_id").trigger("change");
+        
         }();
        
 

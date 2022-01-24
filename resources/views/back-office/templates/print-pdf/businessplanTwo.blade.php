@@ -205,7 +205,7 @@ if(isset($data ->financial_data->financial_plan_loans))
 {
     foreach ($data ->financial_data->financial_plan_loans as $item) {
     $bp_loan_amount = $item->value;
-    $bp_loan_periodic_rate = $item->rate / 12;
+    $bp_loan_periodic_rate = $item->rate/ 12;
     $bp_loan_interest_fee = $bp_loan_amount * $bp_loan_periodic_rate / 100;
     $bp_loan_monthly_payments_count = 12 * $item->duration;
     if ((((1 + ($bp_loan_periodic_rate / 100)) ** $bp_loan_monthly_payments_count) - 1)!=0){

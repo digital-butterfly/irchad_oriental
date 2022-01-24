@@ -2,6 +2,8 @@
  $total_overheads_fixed=0;
 $files[]='';
 $critères[]='';
+$strategie[]='';
+$strategie_d[]='';
 $total_taxes =0;
 $m=0;
  $total_overheads_scalablee=0;
@@ -2155,9 +2157,18 @@ elseif($cumul_four_year>0) {
           </div>
 
           <div class="bg-gray-100 text-gray-700 mt-6 p-8 space-y-3 text-sm">
-            <p>
+          <?php  isset($data->business_model->advertising)?$strategie=explode('-',$data->business_model->advertising):" "; //dd($files);?>
+           @if (isset($strategie))
+                @foreach($strategie as $item)
+                <p>
+                 -{{$item}}
+                </p>
+              @endforeach
+              @else
+                <p>
               {{isset($data->business_model->advertising)?$data->business_model->advertising: " "}}
             </p>
+           @endif
           </div>
         </div>
       </div>
@@ -2251,9 +2262,18 @@ elseif($cumul_four_year>0) {
           </div>
 
           <div class="bg-gray-100 text-gray-700 mt-6 p-8 space-y-3 text-sm">
-            <p>
+                 <?php  isset($data->business_model->distribution_strategy)?$strategie_d=explode('-',$data->business_model->distribution_strategy):" "; //dd($files);?>
+           @if (isset($strategie_d))
+                @foreach($strategie_d as $item)
+                <p>
+                 -{{$item}}
+                </p>
+              @endforeach
+              @else
+                <p>
               {{isset($data->business_model->distribution_strategy)?$data->business_model->distribution_strategy: " "}}
             </p>
+           @endif
           </div>
         </div>
       </div>

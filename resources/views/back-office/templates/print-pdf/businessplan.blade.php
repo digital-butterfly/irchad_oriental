@@ -2,6 +2,8 @@
  $total_overheads_fixed=0;
 $files[]='';
 $critères[]='';
+$strategie[]='';
+$strategie_d[]='';
 $total_taxes =0;
 $m=0;
  $total_overheads_scalablee=0;
@@ -2132,12 +2134,19 @@ elseif($cumul_four_year>0) {
           </div>
 
           <div class="bg-gray-100 text-gray-700 mt-6 p-8 space-y-3 text-sm">
-              <?php  isset($data->business_model->avg_competi)?$critères=explode('-',$data->business_model->avg_competi):" "; //dd($files);?>
-              @foreach($critères as $item)
+              <?php  isset($data->business_model->avg_competi)?$critères=explode('-',$data->business_model->avg_competi):" "; //dd($critères);?>
+                 @if (isset($critères))
+                    @foreach($critères as $item)
                 <p>
                  -{{$item}}
                 </p>
-              @endforeach
+                 @endforeach
+                 @else
+                  <p>
+                  {{isset($data->business_model->avg_competi)?$data->business_model->avg_competi: " "}}
+                 </p>
+                @endif
+         
            
           </div>
         </div>
@@ -2153,9 +2162,20 @@ elseif($cumul_four_year>0) {
           </div>
 
           <div class="bg-gray-100 text-gray-700 mt-6 p-8 space-y-3 text-sm">
-            <p>
+           <?php  isset($data->business_model->advertising)?$strategie=explode('-',$data->business_model->advertising):" "; //dd($files);?>
+           @if (isset($strategie))
+                @foreach($strategie as $item)
+                <p>
+                 -{{$item}}
+                </p>
+              @endforeach
+              @else
+                <p>
               {{isset($data->business_model->advertising)?$data->business_model->advertising: " "}}
             </p>
+           @endif
+             
+          
           </div>
         </div>
       </div>
@@ -2249,9 +2269,18 @@ elseif($cumul_four_year>0) {
           </div>
 
           <div class="bg-gray-100 text-gray-700 mt-6 p-8 space-y-3 text-sm">
-            <p>
+            <?php  isset($data->business_model->distribution_strategy)?$strategie_d=explode('-',$data->business_model->distribution_strategy):" "; //dd($files);?>
+           @if (isset($strategie_d))
+                @foreach($strategie_d as $item)
+                <p>
+                 -{{$item}}
+                </p>
+              @endforeach
+              @else
+                <p>
               {{isset($data->business_model->distribution_strategy)?$data->business_model->distribution_strategy: " "}}
             </p>
+           @endif
           </div>
         </div>
       </div>
@@ -2335,7 +2364,7 @@ elseif($cumul_four_year>0) {
               <ul class="list-inside list-disc space-y-2">
                 @if(isset($data->business_model->distribution_strategy_force_p))
                 @foreach ($data->business_model->distribution_strategy_force_p as $key =>  $field)
-                <li class=" p-2 text-xs ">{{$field->distribution_strategy_force_p ?? " "}}</li>  
+                <li class="p-2" style="font-size:14px;">{{$field->distribution_strategy_force_p ?? " "}}</li>  
                 @endforeach 
                 @endif
               </ul>
@@ -2365,7 +2394,7 @@ elseif($cumul_four_year>0) {
               <ul class="list-inside list-disc space-y-2">
                 @if(isset($data->business_model->distribution_strategy_faiblesse_p))
                 @foreach ($data->business_model->distribution_strategy_faiblesse_p as $key =>  $field)
-                <li class=" p-2 text-xs ">{{$field->distribution_strategy_faiblesse_p ?? " "}}</li>  
+                <li class="p-2" style="font-size:14px;">{{$field->distribution_strategy_faiblesse_p ?? " "}}</li>  
                 @endforeach 
                 @endif
               </ul>
@@ -2396,7 +2425,7 @@ elseif($cumul_four_year>0) {
               <ul class="list-inside list-disc space-y-2">
                 @if(isset($data->business_model->distribution_strategy_force_p))
                 @foreach ($data->business_model->distribution_strategy_force_p as $key =>  $field)
-                <li class="p-3" style="font-size:14px;">{{$field->distribution_strategy_force_p ?? " "}}</li>  
+                <li class="p-2" style="font-size:14px;">{{$field->distribution_strategy_force_p ?? " "}}</li>  
                 @endforeach 
                 @endif
               </ul>
@@ -2426,7 +2455,7 @@ elseif($cumul_four_year>0) {
               <ul class="list-inside list-disc space-y-4">
                 @if(isset($data->business_model->distribution_strategy_menace_p))
                 @foreach ($data->business_model->distribution_strategy_menace_p as $key =>  $field)
-                <li class=" p-2 text-xs ">{{$field->distribution_strategy_menace_p ?? " "}}</li>  
+                <li class="p-2" style="font-size:14px;">{{$field->distribution_strategy_menace_p ?? " "}}</li>  
                 @endforeach 
                 @endif
               </ul>
