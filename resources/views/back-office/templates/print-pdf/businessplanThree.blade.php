@@ -1499,17 +1499,18 @@ elseif($cumul_four_year>0) {
             </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
-
           <div class="space-y-3 text-sm font-normal">
-            <div class="flex justify-between  bg-gray-100  p-2  right-0">
-              <p>Noms sous Adhérent:</p> 
-              <p class="font-medium right-0">
-              @foreach ($members as $member )
-               {{ucfirst( $member->first_name)}} {{ ucfirst($member->last_name)}}  @endforeach</p>
-            </div>
-            <div class="flex justify-between p-2">
+        
+            <div class="flex justify-between bg-gray-100 p-2">
               <p>Nom Prénom :</p>
               <p class="font-medium">{{ ucfirst($owner->first_name)}} {{ ucfirst($owner->last_name)}}</p>
+            </div>   
+             <div class="flex justify-between    p-2  right-0">
+              <p>Noms sous Adhérent:</p> 
+              <p class="font-medium right-0">
+              {{-- @foreach ($members as $member )
+               {{ucfirst( $member->first_name)}} {{ ucfirst($member->last_name)}}  @endforeach</p> --}}
+                   <p>{{isset($data->sous_adh)?$data->sous_adh:" "}}</p> 
             </div>
             <div class="flex justify-between bg-gray-100 p-2">
               <p>Adresse :</p>

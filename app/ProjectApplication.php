@@ -18,7 +18,7 @@ class ProjectApplication extends Model
     const LEGALFORM=['S.A.R.L','S.A.R.L A.U','S.N.C','Coopérative','A.E'];
     const AIDEETAT=['INDH','DPA','Collectivités territoriales', 'Autre'];
     const Etat=['Demande','Non demande','Delivre', 'Non delivre'];
-    const Rubr=['Capital','Apport Personnel/des associés' ,'Subvention INDH','Apport en Numéraire', 'Apport en Nature','S A T'];
+    const Rubr=['Capital','Apport Personnel/des associés' ,'Subvention INDH','Apport en Numéraire', 'Apport en Nature','Souk At-Tanmia/S A T'];
 
     /**
      * The attributes that are mass assignable.
@@ -30,6 +30,7 @@ class ProjectApplication extends Model
         'category_id',
         'township_id',
         'sheet_id',
+        'sous_adh',
         'title',
         'description',
         'montant_est',
@@ -204,15 +205,21 @@ class ProjectApplication extends Model
                 'label' => 'ID Adhérent',
                 'group' => 'Données Générales'
             ],
-        [
-                'name' => 'members',
-                'type' => 'taggify',
-                'id'=>'kt_tagify_1',
-                'class' => 'kt-callout--dark',
+               [
+                'name' => 'sous_adh',
+                'type' => 'text',
                 'label' => 'noms sous Adhérent',
-                'group' => 'Données Générales',
-                'value'=> $projectApplicationMembers
+                'group' => 'Données Générales'
             ],
+        // [
+        //         'name' => 'members',
+        //         'type' => 'taggify',
+        //         'id'=>'kt_tagify_1',
+        //         'class' => 'kt-callout--dark',
+        //         'label' => 'noms sous Adhérent',
+        //         'group' => 'Données Générales',
+        //         'value'=> $projectApplicationMembers
+        //     ],
             [
                 'name' => 'category_id',
                 'type' => 'select',
