@@ -12,7 +12,7 @@ class ProjectApplication extends Model
 {
     protected $table = 'projects_applications';
     protected $guard = 'user';
-    const fix = ['Assurances', 'Frais financiers', 'Téléphone, internet', 'Carburant, transports', 'Frais de déplacement', 'Eau, électricité', 'Fournitures divers', 'Entretien matériel', 'Nettoyage des locaux', 'Publicité et communication', 'Loyer et charges locatives', 'Transport','Salaire employé (Brut)','Rémunération dirigeante (Brut)', 'Autre à préciser'];
+    const fix =['Mensuel','Annuel'];
     const TAXES=['Taxe professionnelle','Taxe speciale sur véhicules','Taxe de promotion touristique'];
     const INVEST=[ 'Frais preliminaires', 'Immobilisations Incorporelle','Terrain','Construction et / ou Aménagement', 'Mobilier et Matériel de bureau', 'Matériel et Outillage','Matériel informatique', 'Matériel de transport', 'Matériel de manutention',  'Fonds de roulement de démarrage','Autre à préciser'];
     const LEGALFORM=['S.A.R.L','S.A.R.L A.U','S.N.C','Coopérative','A.E'];
@@ -710,7 +710,7 @@ class ProjectApplication extends Model
                         'name' => 'overheads_scalable',
                         'type' => 'repeater',
                         'label' => 'Charges variables',
-                      'config' => ['AddDoubleRepeater' => true, 'attributes' => [['Nature de la charge',4], ['Montant',4],[' Mensuel/Annuel',3]],'Select'=>false]
+                      'config' => ['AddDoubleRepeater' => true, 'attributes' => [['Nature de la charge',4], ['Montant',4],[' Mensuel/Annuel',3]],'Select'=>true,'options'=>self::fix]
                     ],
                     [
                         'name' => 'human_ressources',

@@ -720,8 +720,9 @@
                                             <input name="deteletags" type="hidden" id="deteletags" value=""/>
 
                                             @csrf
-                                             @csrf
-                                        </form> </form>
+                                         @csrf
+                                        </form> 
+                                </form>
                                         <!--end: Form Actions -->
                                     </div>
                                     <!--end: Form Wizard Form-->

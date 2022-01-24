@@ -2360,7 +2360,7 @@ elseif($cumul_four_year>0) {
               class="pl-6 py-4 bg-gray-100 font-medium space-y-4 relative"
               style="font-size: 12px"
               >
-              <h3 style="color: var(--main-dark-green)" class="text-sm">Forces</h3>
+              <h3 style="color: var(--main-dark-green)" class="text-sm font-bold ">Forces</h3>
               <ul class="list-inside list-disc space-y-2">
                 @if(isset($data->business_model->distribution_strategy_force_p))
                 @foreach ($data->business_model->distribution_strategy_force_p as $key =>  $field)
@@ -2390,7 +2390,7 @@ elseif($cumul_four_year>0) {
               class="pl-16 py-4 bg-gray-100 font-medium space-y-4 relative"
               style="font-size: 12px"
             >
-              <h3 style="color: var(--main-dark-green)" class="text-sm">Faiblesses</h3>
+              <h3 style="color: var(--main-dark-green)" class="text-sm font-bold">Faiblesses</h3>
               <ul class="list-inside list-disc space-y-2">
                 @if(isset($data->business_model->distribution_strategy_faiblesse_p))
                 @foreach ($data->business_model->distribution_strategy_faiblesse_p as $key =>  $field)
@@ -2421,11 +2421,11 @@ elseif($cumul_four_year>0) {
               class="pl-6 py-4 bg-gray-100 font-medium space-y-4 relative"
               style="font-size: 12px"
               >
-              <h3 style="color: var(--main-dark-green)" class="text-sm">Forces</h3>
+              <h3 style="color: var(--main-dark-green)" class="text-sm font-bold">Opportunité</h3>
               <ul class="list-inside list-disc space-y-2">
-                @if(isset($data->business_model->distribution_strategy_force_p))
-                @foreach ($data->business_model->distribution_strategy_force_p as $key =>  $field)
-                <li class="p-2" style="font-size:14px;">{{$field->distribution_strategy_force_p ?? " "}}</li>  
+                @if(isset($data->business_model->distribution_strategy_Opportunité_p))
+                @foreach ($data->business_model->distribution_strategy_Opportunité_p as $key =>  $field)
+                <li class="p-2" style="font-size:14px;">{{$field->distribution_strategy_Opportunité_p?? " "}}</li>  
                 @endforeach 
                 @endif
               </ul>
@@ -2444,14 +2444,14 @@ elseif($cumul_four_year>0) {
                 "
                 style="background-color: var(--main-green)"
               >
-                <span>S</span>
+                <span>O</span>
               </div>
             </div>
             <div
               class="pl-16 py-4 bg-gray-100 font-medium space-y-3 relative"
               style="font-size: 12px"
             >
-              <h3 style="color: var(--main-dark-green)" class="text-sm">Menaces</h3>
+              <h3 style="color: var(--main-dark-green)" class="text-sm font-bold">Menaces</h3>
               <ul class="list-inside list-disc space-y-4">
                 @if(isset($data->business_model->distribution_strategy_menace_p))
                 @foreach ($data->business_model->distribution_strategy_menace_p as $key =>  $field)
@@ -3068,8 +3068,8 @@ elseif($cumul_four_year>0) {
                     <tr>
                   @if(isset($item->otherValue))
                        <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
-                     <td class="border-2 border-gray-500 text-center">{{ number_format(0, 0, ',', ' ') }} </td>
-                     <td class="border-2 border-gray-500 text-center">{{ number_format(0,0, ',', ' ')}}</td>
+                     <td class="border-2 border-gray-500 text-center">--</td>
+                     <td class="border-2 border-gray-500 text-center">--</td>
                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->otherValue, 0, ',', ' ') }}</td>
                      @if(isset($item->organisme))
                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->otherValue*$item->organisme,0, ',', ' ')}}</td>
@@ -3105,8 +3105,8 @@ elseif($cumul_four_year>0) {
                    <tr>
                   @if(isset($item->otherValue))
                        <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
-                     <td class="border-2 border-gray-500 text-center">{{ number_format(0, 0, ',', ' ') }} </td>
-                     <td class="border-2 border-gray-500 text-center">{{ number_format(0,0, ',', ' ')}}</td>
+                     <td class="border-2 border-gray-500 text-center">--</td>
+                     <td class="border-2 border-gray-500 text-center">--</td>
                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->otherValue, 0, ',', ' ') }}</td>
                      @if(isset($item->organisme))
                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->otherValue*$item->organisme,0, ',', ' ')}}</td>
@@ -3269,8 +3269,8 @@ elseif($cumul_four_year>0) {
                 @else
                 <tr>
                   <td class="border-2 border-gray-500 "> Achat <span class="bg-red-200">{{$item->label}}</span> ({{ number_format( $achat*100, 0, ',', ' ') }}% du Chiffres d’affaires) </td>
-                  <td class="border-2 border-gray-500 text-center">{{ number_format($item->rate, 0, ',', ' ') }} </td>
-                  <td class="border-2 border-gray-500 text-center">{{ number_format($item->value,0, ',', ' ')}}</td>
+                  <td class="border-2 border-gray-500 text-center">--</td>
+                  <td class="border-2 border-gray-500 text-center">--</td>
                @if(isset($item->organisme))
                     <td class="border-2 border-gray-500 text-center">{{ number_format(isset($item->rate)?($item->rate * $item->value*$item->organisme)* $achat:0, 0, ',', ' ') }} </td>
                 </tr> 
@@ -3295,7 +3295,7 @@ elseif($cumul_four_year>0) {
                 @if(isset($item->otherValue))
                   <tr>
                     <td class="border-2 border-gray-500 "> Achat <span class="bg-red-200">{{$item->label}}</span> ({{ number_format( $achat*100 , 0, ',', ' ') }}% du Chiffres d’affaires) </td>
-                    <td class="border-2 border-gray-500 text-center">-- </td>
+                    <td class="border-2 border-gray-500 text-center">--</td>
                     <td class="border-2 border-gray-500 text-center">--</td>
                  @if(isset($item->organisme))
                       <td class="border-2 border-gray-500 text-center">{{ number_format(($item->otherValue*$item->organisme)* $achat, 0, ',', ' ') }} </td>
@@ -3309,8 +3309,8 @@ elseif($cumul_four_year>0) {
                 @else
                 <tr>
                   <td class="border-2 border-gray-500 "> Achat <span class="bg-red-200">{{$item->label}}</span> ({{ number_format( $achat*100, 0, ',', ' ') }}% du Chiffres d’affaires) </td>
-                  <td class="border-2 border-gray-500 text-center">{{ number_format(isset($item->rate)?$item->rate:0, 0, ',', ' ') }} </td>
-                  <td class="border-2 border-gray-500 text-center">{{ number_format($item->value,0, ',', ' ')}}</td>
+                  <td class="border-2 border-gray-500 text-center">-- </td>
+                  <td class="border-2 border-gray-500 text-center">--</td>
                @if(isset($item->organisme))
                     <td class="border-2 border-gray-500 text-center">{{ number_format(isset($item->rate)?($item->rate * $item->value*$item->organisme)* $achat:0, 0, ',', ' ') }} </td>
                 </tr> 
@@ -4540,7 +4540,7 @@ elseif($cumul_four_year>0) {
                       text-left
                     "
                   >
-                  Période
+                 Mensualité N°
                   </th>
                   <th class="border-2 border-gray-500  text-center">Mensualité
                   </th>
@@ -4554,7 +4554,7 @@ elseif($cumul_four_year>0) {
               <tbody class="font-medium">
                 @foreach ($yearsCalcul as  $key => $item)
                  <tr>
-                   <td class="border-2 border-gray-500 py-1 pl-4">{{$key +1}} <sup>ère</sup> année</td>
+                   <td class="border-2 border-gray-500 py-1 pl-4">{{$key +1}}</td>
                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->mensualite, 0, ',', ' ') }} </td>
                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->interets, 0, ',', ' ') }} </td>
                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->capital_rem, 0, ',', ' ') }} </td>
@@ -5141,8 +5141,8 @@ elseif($cumul_four_year>0) {
           for ($i=1; $i<1000 ; $i++) { 
              $total_cash+=$bp_cash_flow_first_year*(pow(1.1,-$i));
              $total_van_verify+= (-$bp_investment_program_total)+$total_cash;
-            if($total_van_verify >0){
-              $tri=pow(1.1,-$i);
+            if($total_van_verify==0){
+              $tri=$i;
               break;
             }
           }
@@ -5237,13 +5237,7 @@ elseif($cumul_four_year>0) {
       <div class="space-y-9">
         <div class="space-y-4">
           <div class="space-y-1">
-            <h5
-              class="uppercase font-bold text-sm"
-              style="color: var(--second-blue)"
-            >
-            Conclusion
-
-            </h5>
+        
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
         </div>
