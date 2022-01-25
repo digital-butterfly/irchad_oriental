@@ -2857,7 +2857,11 @@ elseif($cumul_four_year>0) {
                  
                     <tr> 
                       @if(isset($item->label))
-                      <td class="border-2 border-gray-500 w-6/12 py-1 pl-4">{{$item->label}}</td> 
+                      @if($item->label=='Autre à préciser')
+                      <td class="border-2 border-gray-500 w-6/12 py-1 pl-4">{{$item->labelOther}}</td> 
+                      @else
+                       <td class="border-2 border-gray-500 w-6/12 py-1 pl-4">{{$item->label}}</td> 
+                      @endif
                       <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
                       <td class="border-2 border-gray-500 text-center">{{ number_format( $bp_investment_program_total!=0? $item->value /$bp_investment_program_total*100:0,0, ',', ' ')}}%</td>   
                        @endif
@@ -4093,7 +4097,7 @@ elseif($cumul_four_year>0) {
                  @if (isset($item->label))
                      
                 
-                 @if($item->label !='Frais preliminaires' && $item->label !='Matériel de transport' )
+                 @if($item->label !='Frais preliminaires' && $item->label !='Matériel de transport'  && $item->label !='Fonds de roulement de démarrage'  )
                    <tr>
                      <td class="border-2 border-gray-500 py-1 pl-4">{{isset($item->label)?$item->label:''}}</td>
                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->value/(1+($item->duration/100)), 0, ',', ' ') }} </td>
@@ -4153,8 +4157,8 @@ elseif($cumul_four_year>0) {
                   @if(isset($data->financial_data->taxes))
                   @foreach ($data->financial_data->taxes as $item)              
                     <tr>
-                      <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
-                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
+                      <td class="border-2 border-gray-500 py-1 pl-4">{{isset($item->label)?$item->label:''}}</td>
+                      <td class="border-2 border-gray-500 text-center">{{ number_format(isset($item->value)?$item->value:0, 0, ',', ' ') }} </td>
                       <?php   $total_taxes +=$item->value; ?>
                   </tr> 
                   @endforeach
@@ -4542,7 +4546,7 @@ elseif($cumul_four_year>0) {
                       text-left
                     "
                   >
-                 Mensualité N°
+              Période
                   </th>
                   <th class="border-2 border-gray-500  text-center">Mensualité
                   </th>
@@ -4555,8 +4559,13 @@ elseif($cumul_four_year>0) {
               </thead>
               <tbody class="font-medium">
                 @foreach ($yearsCalcul as  $key => $item)
-                 <tr>
-                   <td class="border-2 border-gray-500 py-1 pl-4">{{$key +1}}</td>
+                 <tr> @if($key==0)
+                   <td class="border-2 border-gray-500 py-1 pl-4">    
+                  {{$key +1}} <sup>ère</sup> année</td>
+                  @else
+                     <td class="border-2 border-gray-500 py-1 pl-4">    
+                  {{$key +1}} <sup>ème</sup> année</td>
+                   @endif
                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->mensualite, 0, ',', ' ') }} </td>
                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->interets, 0, ',', ' ') }} </td>
                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->capital_rem, 0, ',', ' ') }} </td>
@@ -5139,15 +5148,28 @@ elseif($cumul_four_year>0) {
           </div> 
           <?php
          
-          $total_van=-$bp_investment_program_total+($bp_cash_flow_first_year*(pow(1+0.1,-1)))+($bp_cash_flow_second_year*pow(1+0.1,-2))+($bp_cash_flow_third_year*pow(1+0.1,-3))+($bp_cash_flow_four_year*pow(1+0.1,-4))+($bp_cash_flow_five_year*pow(1+0.1,-5)) ;
-          for ($i=1; $i<1000 ; $i++) { 
-             $total_cash+=$bp_cash_flow_first_year*(pow(1.1,-$i));
-             $total_van_verify+= (-$bp_investment_program_total)+$total_cash;
-            if($total_van_verify==0){
-              $tri=$i;
-              break;
+          $total_van= -$bp_investment_program_total+($bp_cash_flow_first_year*(pow(1+0.1,-1)))+($bp_cash_flow_second_year*pow(1+0.1,-2))+($bp_cash_flow_third_year*pow(1+0.1,-3))+($bp_cash_flow_four_year*pow(1+0.1,-4))+($bp_cash_flow_five_year*pow(1+0.1,-5)) ;
+         
+           function IRR($investment, $flow, $precision = 0.1) {
+            $min = 0;
+            $max = 1;
+            $net_present_value = 1;
+            while(abs($net_present_value - $investment) > $precision) {
+                $net_present_value = 0;
+                $guess = ($min + $max) / 2;
+                foreach ($flow as $period => $cashflow) {
+                    $net_present_value += $cashflow / (1 + $guess) ** ($period + 1);
+                }
+                if ($net_present_value - $investment > 0) {
+                    $min = $guess;
+                } else {
+                    $max = $guess;
+                }
             }
-          }
+            return $guess * 100;
+        }
+        
+        // dd( IRR($bp_investment_program_total,$bp_cash_flow_first_year));
         // dd($total_van_verify);
           ?>
 

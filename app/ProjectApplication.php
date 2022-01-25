@@ -18,7 +18,7 @@ class ProjectApplication extends Model
     const LEGALFORM=['S.A.R.L','S.A.R.L A.U','S.N.C','Coopérative','A.E'];
     const AIDEETAT=['INDH','DPA','Collectivités territoriales', 'Autre'];
     const Etat=['Demande','Non demande','Delivre', 'Non delivre'];
-    const Rubr=['Capital','Apport Personnel/des associés' ,'Subvention INDH','Apport en Numéraire', 'Apport en Nature','Souk At-Tanmia/S A T'];
+    const Rubr=['Capital','Apport Personnel/des associés' ,'Subvention INDH','Apport en Numéraire', 'Apport en Nature','Souk At-Tanmia (S A T)'];
 
     /**
      * The attributes that are mass assignable.

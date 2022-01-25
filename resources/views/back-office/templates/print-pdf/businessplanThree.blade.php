@@ -2849,8 +2849,12 @@ elseif($cumul_four_year>0) {
                   @foreach ($data->financial_data->startup_needs as $item)
                  
                     <tr> 
-                      @if(isset($item->label))
-                      <td class="border-2 border-gray-500 w-6/12 py-1 pl-4">{{$item->label}}</td> 
+                         @if(isset($item->label))
+                      @if($item->label=='Autre à préciser')
+                      <td class="border-2 border-gray-500 w-6/12 py-1 pl-4">{{$item->labelOther}}</td> 
+                      @else
+                       <td class="border-2 border-gray-500 w-6/12 py-1 pl-4">{{$item->label}}</td> 
+                      @endif
                       <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
                       <td class="border-2 border-gray-500 text-center">{{ number_format( $bp_investment_program_total!=0? $item->value /$bp_investment_program_total*100:0,0, ',', ' ')}}%</td>   
                        @endif
@@ -4531,7 +4535,7 @@ elseif($cumul_four_year>0) {
                       text-left
                     "
                   >
-                  Période
+                     Mensualité N°
                   </th>
                   <th class="border-2 border-gray-500  text-center">Mensualité
                   </th>
@@ -4545,7 +4549,7 @@ elseif($cumul_four_year>0) {
               <tbody class="font-medium">
                 @foreach ($yearsCalcul as  $key => $item)
                  <tr>
-                   <td class="border-2 border-gray-500 py-1 pl-4">{{$key +1}} <sup>ère</sup> année</td>
+                   <td class="border-2 border-gray-500 py-1 pl-4">{{$key +1}}</td>
                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->mensualite, 0, ',', ' ') }} </td>
                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->interets, 0, ',', ' ') }} </td>
                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->capital_rem, 0, ',', ' ') }} </td>
