@@ -1134,8 +1134,7 @@ elseif($cumul_four_year>0) {
       margin: 20px auto 20px;
       padding: 90px 50px 90px;
       width: 842px;
-      min-height: 595px;
-        
+      min-height: 595px;    
       background-color: white;
       page-break-after: always;
     }
@@ -1161,7 +1160,7 @@ elseif($cumul_four_year>0) {
       }
      .print-full-width{
       width: 100%;
-      height:100%;
+      height:21.5cm;
       margin-top:0;
       margin-bottom:0;
      }
@@ -1173,6 +1172,15 @@ elseif($cumul_four_year>0) {
         margin-top:0;
       margin-bottom:0; 
      }
+      .testt{
+       top:50% ;
+      bottom:0px; 
+     }
+     .testtt{
+        top:50%;
+       width: 100%;
+    
+     }
      .display_full{
          display:block;
      }
@@ -1180,7 +1188,7 @@ elseif($cumul_four_year>0) {
        display:none; 
      }
      .img_full{
-       height:100%
+       height:100%;
      }
      .bottom_print{
        bottom:20%;
@@ -1234,7 +1242,7 @@ elseif($cumul_four_year>0) {
         srcset=""
       />
 
-      <div class="absolute right-0 top-60 space-y-5" style="width: 500px">
+      <div class="absolute right-0 top-60 space-y-5 testt" style="width: 500px">
         <h3
           class="text-2xl font-bold "
           style="color: var(--main-green);"
@@ -1262,7 +1270,7 @@ elseif($cumul_four_year>0) {
         <div
           class="flex justify-between mr-10 items-end"
           style="color: var(--main-blue)"
-        >
+          >
           <h3 class="font-semibold text">{{ ucfirst($owner->first_name)}} {{ ucfirst($owner->last_name)}}</h3>
           <p class=" print:bg-blue-800 ">
             Secteur d’activité :
@@ -1300,7 +1308,7 @@ elseif($cumul_four_year>0) {
         </div>
         <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
       </div>
-      <div class="mx-auto space-y-5" style="width: 520px">
+      <div class="mx-auto space-y-5 testtt" style="width: 520px">
         <div class="space-y-3">
           <div class="flex space-x-5 font-bold text-2xl items-center " id="print">
             <h3 class="tracking-wide text-4xl" style="color: var(--main-green)">
@@ -1488,7 +1496,7 @@ elseif($cumul_four_year>0) {
         <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
       </div>
 
-      <div class="space-y-9 print-add-break">
+      <div class="space-y-9 ">
         <div class="space-y-4">
           <div class="space-y-1">
             <h5
@@ -1535,7 +1543,7 @@ elseif($cumul_four_year>0) {
             </div>
           </div>
         </div>
-        <div class="space-y-4 ">
+        <div class="space-y-4">
           <div class="space-y-1">
             <h5
               class="uppercase font-bold text-sm"
@@ -1621,17 +1629,9 @@ elseif($cumul_four_year>0) {
                 <p>{{$experience->rate}}</p>
                @else
               <p>--</p>
-              @endif
-             
+              @endif      
             </div>
             @endforeach
-            {{-- <div class="flex justify-between p-2">
-              <p>Le nom complet :</p>
-              <p>Lorem, ipsum.</p>
-              <p>Lorem, ipsum.</p>
-              <p>Lorem, ipsum.</p>
-              <p>Lorem, ipsum.</p>
-            </div> --}}
           </div>
         </div>
       </div>
@@ -5150,7 +5150,7 @@ elseif($cumul_four_year>0) {
          
           $total_van= -$bp_investment_program_total+($bp_cash_flow_first_year*(pow(1+0.1,-1)))+($bp_cash_flow_second_year*pow(1+0.1,-2))+($bp_cash_flow_third_year*pow(1+0.1,-3))+($bp_cash_flow_four_year*pow(1+0.1,-4))+($bp_cash_flow_five_year*pow(1+0.1,-5)) ;
          
-           function IRR($investment, $flow, $precision = 0.1) {
+                function IRR($investment, $flow, $precision = 0.1) {
             $min = 0;
             $max = 1;
             $net_present_value = 1;

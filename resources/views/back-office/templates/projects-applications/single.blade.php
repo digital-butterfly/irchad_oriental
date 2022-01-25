@@ -3153,8 +3153,8 @@ console.log(test);
          $("#applied_taxSelect").append($("<option></option>")
          .attr("value", value).text(key)); 
         });
-    }else{
-        var newOptions = {"IR(entrepreneur)": "IR(entrepreneur)"};
+    }else if(document.querySelector('#legal_formSelect').value=='A.E'){
+    var newOptions = {'Auto-entrepreneur activité commerciale, industrielle ou artisanale':'Auto-entrepreneur activité commerciale, industrielle ou artisanale', 'Auto-entrepreneur prestataire de services':'Auto-entrepreneur prestataire de services'};
         $("#applied_taxSelect").empty();
          $.each(newOptions, function(key,value) {
          $("#applied_taxSelect").append($("<option></option>")
