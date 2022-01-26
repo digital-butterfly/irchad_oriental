@@ -37,6 +37,10 @@
 						@endphp
 						@foreach($fields as $parent)
 							@if (isset($parent['group']))
+							  @if ($parent['group']!='donne_general_arab')
+                                                                    @if ($parent['group']!='entreprise_arab')
+                                                                    @if ($parent['group']!='etude_marche_arab')
+                                                                     @if ($parent['group']!='etude_technique_arab')
 								@if (!(in_array($parent['group'], $done_groups)))
 									@php
 										$done_groups[] = $parent['group'];
@@ -68,6 +72,10 @@
 											@endif
 										@endforeach
 									</div>
+								@endif
+								@endif
+								@endif
+								@endif
 								@endif
 							@endif
                         @endforeach
