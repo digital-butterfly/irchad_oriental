@@ -1695,11 +1695,10 @@ elseif($cumul_four_year>0) {
         </div>
         <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
       </div>
-
-      <div class="space-y-9 ">
-        <div class="space-y-4">
+      <div class="space-y-9 " >
+        <div class="space-y-4"style="margin-top:0px;">
         </div>
-        <div class="space-y-4">
+        <div class="space-y-4"  style="margin-top:0px;">
           <div class="space-y-1">
             <h5
               class="uppercase font-bold text-xs"
@@ -1740,7 +1739,7 @@ elseif($cumul_four_year>0) {
             @endif
           </div>
         </div>
-        <div class="space-y-4 ">
+        <div class="space-y-4 "  style="margin-top:5px;">
           <div class="space-y-1">
             <h5
               class="uppercase font-bold text-xs"
@@ -5980,27 +5979,23 @@ elseif($cumul_four_year>0) {
          
           $total_van= -$bp_investment_program_total+($bp_cash_flow_first_year*(pow(1+0.1,-1)))+($bp_cash_flow_second_year*pow(1+0.1,-2))+($bp_cash_flow_third_year*pow(1+0.1,-3))+($bp_cash_flow_four_year*pow(1+0.1,-4))+($bp_cash_flow_five_year*pow(1+0.1,-5)) ;
          
-                function IRR($investment, $flow, $precision = 0.1) {
-            $min = 0;
-            $max = 1;
-            $net_present_value = 1;
-            while(abs($net_present_value - $investment) > $precision) {
-                $net_present_value = 0;
-                $guess = ($min + $max) / 2;
-                foreach ($flow as $period => $cashflow) {
-                    $net_present_value += $cashflow / (1 + $guess) ** ($period + 1);
+         $flow_cash = array($bp_cash_flow_first_year, $bp_cash_flow_second_year, $bp_cash_flow_third_year, $bp_cash_flow_four_year, $bp_cash_flow_five_year);
+         function irr ($investment, $flow) {
+            for ($n = 0; $n < 100; $n += 0.0001) {
+
+                $pv = 0;
+                for ($i = 0; $i < count($flow); $i++) {
+                    $pv = $pv + $flow[$i] / pow(1 + $n, $i + 1);
                 }
-                if ($net_present_value - $investment > 0) {
-                    $min = $guess;
-                } else {
-                    $max = $guess;
+
+                if ($pv <= $investment) {
+                    return round($n * 10000) / 100;
                 }
             }
-            return $guess * 100;
-        }
+          }
         
-        // dd( IRR($bp_investment_program_total,$bp_cash_flow_first_year));
-        // dd($total_van_verify);
+      //dd( IRR($bp_investment_program_total, $flow_cash ));
+         //dd($total_van_verify);
           ?>
 
           <div class="inline-block rounded-lg border w-full ">
@@ -6010,7 +6005,7 @@ elseif($cumul_four_year>0) {
                  <tr>
                    <td class="border-2 border-gray-500   bg-green-200 ">TAUX DE RENTABILITÉ INTERNE (TRI)
                    </td>
-                   <td class="border-2 border-gray-500 text-center ">{{ number_format($tri*100, 0, ',', ' ') }}% </td>
+                   <td class="border-2 border-gray-500 text-center ">{{ number_format( IRR($bp_investment_program_total, $flow_cash ), 0, ',', ' ') }}% </td>
                   
                </tr> 
                 <tr>
