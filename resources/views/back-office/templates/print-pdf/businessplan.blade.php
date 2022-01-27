@@ -5917,7 +5917,7 @@ elseif($cumul_four_year>0) {
                     Annexes
                     </h3>
                 </div>
-                <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset=""  style="max-height:200px;"/>
+                <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="">
             </div>
               <div class="space-y-2">
                   <div class="space-y-4">
@@ -5929,11 +5929,11 @@ elseif($cumul_four_year>0) {
                       <hr class="bg-gray-300" style="height: 2px" />
                     </div>
                 </div>
-                <div class="space-y-2" style="margin-top:0px; padding-top:0px;">
-                    <div class="pace-y-3  relative">
+                <div class="space-y-1" style="margin-top:0px; padding-top:0px;">
+                    <div class="pace-y-2  relative">
                       
                       <img
-                        class="relative w-60 div_file "
+                        class="relative w-60"
                         src="{{asset('storage/'.$item)}}"
                         alt="" 
                       srcset=""
