@@ -1141,9 +1141,6 @@ elseif($cumul_four_year>0) {
       background-color: white;
       page-break-after: always;
     }
-
-
-
 .canvasjs-chart-credit{
   display:none;
 }
@@ -1227,11 +1224,11 @@ elseif($cumul_four_year>0) {
         hover:bg-green-700
       "
        onclick="window.print()"
-  type="button"
+        type="button"
       >
       <span type="button" class="btn btn-brand btn-bold p-1" ><i class="fas fa-download"></i></span>
     </button>
-    <div  class="page printsection print-add-break print-full-width">
+    <div  class="page  print-add-break print-full-width">
       <img
         class="absolute top-0 left-0 img_full"
         src="{{asset('images/back-office/svg/exen-with-image.svg')}}"
