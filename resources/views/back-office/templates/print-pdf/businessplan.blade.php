@@ -2034,16 +2034,16 @@ elseif($cumul_four_year>0) {
             >
            evolution du  marché
             </h5>
-            <hr class="bg-gray-300" style="height: 2px" />
+            <hr class="bg-gray-300" style="height: 2px"/>
           </div>
 
-          <div class="bg-gray-100 text-gray-700 mt-6 p-8 space-y-3 text-xs">
+          <div class="bg-gray-100 text-gray-700 p-3 space-y-3 text-xs">
             <p  class="text-justify">
               {{isset($data->business_model->evolution_m)?$data->business_model->evolution_m: " "}}
             </p>
           </div>
         </div>
-        <div class="space-y-4">
+        <div class="space-y-4" style="margin-top:5px;">
           <div class="space-y-1">
             <h5
               class="uppercase font-bold text-xs"
@@ -2097,7 +2097,7 @@ elseif($cumul_four_year>0) {
             </div>
           </div> --}}
         </div>
-        <div class="space-y-4">
+        <div class="space-y-4" style="margin-top:5px;">
           <div class="space-y-1">
             <h5
               class="uppercase font-bold text-xs"
