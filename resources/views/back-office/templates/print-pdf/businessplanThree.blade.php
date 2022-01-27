@@ -1,7 +1,7 @@
 @php
  $total_overheads_fixed=0;
 $files[]='';
-$critères[]='';
+$critères[]=[];
 $strategie[]='';
 $strategie_d[]='';
 $total_taxes =0;
@@ -20,20 +20,21 @@ $total_van_verify=0;
 // Financial Plan
 $bp_financial_plan_totals = 0;
 $bp_financial_plan_total = 0;
+///dd(count($data->financial_data->financial_plan));
 if(isset($data->financial_data->financial_plan)){
     foreach ($data ->financial_data->financial_plan as $item) {
     $bp_financial_plan_totals += $item->value; 
     }}
 if(isset($data->financial_data->financial_plan_loans)){
     foreach ($data ->financial_data->financial_plan_loans as $item) {
-        $arrytwer['name']=$item->label;
+       isset($item->label)?$arrytwer['name']=$item->label:$arrytwer['name']='';
         $arrytwer['value']= number_format($bp_financial_plan_totals !=0?$item->value/$bp_financial_plan_totals *100:0,0, ',', ' ');
         array_push($dataPlan, $arrytwer);
     $bp_financial_plan_totals += $item->value; 
     }}
 if(isset($data->financial_data->financial_plan)){
     foreach ($data ->financial_data->financial_plan as $item) {
-        $arrytwer['name']=$item->label;
+         isset($item->label)?$arrytwer['name']=$item->label:$arrytwer['name']='';
         $arrytwer['value']= number_format($bp_financial_plan_totals !=0?$item->value/$bp_financial_plan_totals *100:0,0, ',', ' ');
         array_push($dataPlan, $arrytwer);
     }
@@ -1130,18 +1131,16 @@ elseif($cumul_four_year>0) {
     }
 
     .page {
+      display: block;
       position: relative;
       margin: 20px auto 20px;
       padding: 90px 50px 90px;
       width: 842px;
-      min-height: 595px;
-        
+      max-height: 595px;   
+      overflow: hidden; 
       background-color: white;
       page-break-after: always;
     }
-
-
-
 .canvasjs-chart-credit{
   display:none;
 }
@@ -1150,7 +1149,7 @@ elseif($cumul_four_year>0) {
 }
     @media print {
       @page {
-        size: landscape;
+        size: 842px 596px ;
         margin: 0mm;
       }
       #download-button{
@@ -1161,7 +1160,7 @@ elseif($cumul_four_year>0) {
       }
      .print-full-width{
       width: 100%;
-      height:100%;
+      height:21.5cm;
       margin-top:0;
       margin-bottom:0;
      }
@@ -1173,6 +1172,15 @@ elseif($cumul_four_year>0) {
         margin-top:0;
       margin-bottom:0; 
      }
+      .testt{
+       top:50% ;
+      bottom:0px; 
+     }
+     .testtt{
+        top:50%;
+       width: 100%;
+    
+     }
      .display_full{
          display:block;
      }
@@ -1180,7 +1188,7 @@ elseif($cumul_four_year>0) {
        display:none; 
      }
      .img_full{
-       height:100%
+       height:100%;
      }
      .bottom_print{
        bottom:20%;
@@ -1216,11 +1224,11 @@ elseif($cumul_four_year>0) {
         hover:bg-green-700
       "
        onclick="window.print()"
-  type="button"
+        type="button"
       >
       <span type="button" class="btn btn-brand btn-bold p-1" ><i class="fas fa-download"></i></span>
     </button>
-    <div  class="page printsection print-add-break print-full-width">
+    <div  class="page  print-add-break print-full-width">
       <img
         class="absolute top-0 left-0 img_full"
         src="{{asset('images/back-office/svg/exen-with-image.svg')}}"
@@ -1234,7 +1242,7 @@ elseif($cumul_four_year>0) {
         srcset=""
       /> --}}
 
-      <div class="absolute right-0 top-60 space-y-5" style="width: 500px">
+      <div class="absolute right-0 top-60 space-y-5 testt" >
         <h3
           class="text-2xl font-bold "
           style="color: var(--main-green);"
@@ -1262,8 +1270,8 @@ elseif($cumul_four_year>0) {
         <div
           class="flex justify-between mr-10 items-end"
           style="color: var(--main-blue)"
-        >
-          <h3 class="font-semibold text">{{ ucfirst($owner->first_name)}} {{ ucfirst($owner->last_name)}}</h3>
+          >
+          <h3 class="font-semibold text-xs">{{ ucfirst($owner->first_name)}} {{ ucfirst($owner->last_name)}}</h3>
           <p class=" print:bg-blue-800 ">
             Secteur d’activité :
             <span class="font-semibold" style="color: var(--main-green)"
@@ -1300,7 +1308,7 @@ elseif($cumul_four_year>0) {
         </div>
         <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
       </div>
-      <div class="mx-auto space-y-5" style="width: 520px">
+      <div class="mx-auto space-y-5 testtt" style="width: 520px">
         <div class="space-y-3">
           <div class="flex space-x-5 font-bold text-2xl items-center " id="print">
             <h3 class="tracking-wide text-4xl" style="color: var(--main-green)">
@@ -1488,29 +1496,30 @@ elseif($cumul_four_year>0) {
         <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
       </div>
 
-      <div class="space-y-9 print-add-break">
+      <div class="space-y-6">
         <div class="space-y-4">
-          <div class="space-y-1">
+          <div class="space-y-2">
             <h5
-              class="uppercase font-bold text-sm"
+              class="uppercase font-bold text-xs"
               style="color: var(--second-blue)"
             >
               Profil de l’entrepreneur
             </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
-          <div class="space-y-3 text-sm font-normal">
-        
+
+          <div class="space-y-1 text-xs font-normal">
+       
             <div class="flex justify-between bg-gray-100 p-2">
               <p>Nom Prénom :</p>
               <p class="font-medium">{{ ucfirst($owner->first_name)}} {{ ucfirst($owner->last_name)}}</p>
             </div>   
-             <div class="flex justify-between    p-2  right-0">
+              <div class="flex justify-between    p-2  right-0">
               <p>Noms sous Adhérent:</p> 
-              <p class="font-medium right-0">
-              {{-- @foreach ($members as $member )
+              {{-- <p class="font-medium right-0">
+              @foreach ($members as $member )
                {{ucfirst( $member->first_name)}} {{ ucfirst($member->last_name)}}  @endforeach</p> --}}
-                   <p>{{isset($data->sous_adh)?$data->sous_adh:" "}}</p> 
+                <p>{{isset($data->sous_adh)?$data->sous_adh:" "}}</p> 
             </div>
             <div class="flex justify-between bg-gray-100 p-2">
               <p>Adresse :</p>
@@ -1534,10 +1543,10 @@ elseif($cumul_four_year>0) {
             </div>
           </div>
         </div>
-        <div class="space-y-4 ">
+        {{-- <div class="space-y-1">
           <div class="space-y-1">
             <h5
-              class="uppercase font-bold text-sm"
+              class="uppercase font-bold text-xs"
               style="color: var(--second-blue)"
             >
               Formations
@@ -1545,7 +1554,7 @@ elseif($cumul_four_year>0) {
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
 
-          <div class="space-y-3 text-sm font-normal">
+          <div class="space-y-3 text-xs font-normal">
             <div class="grid grid-cols-3 justify-between p-2 font-semibold">
               <p>Diplôme ou niveau d'étude:</p>
               <p>Etablissement</p>
@@ -1575,10 +1584,10 @@ elseif($cumul_four_year>0) {
             @endif
           </div>
         </div>
-        <div class="space-y-4 ">
+        <div class="space-y-2">
           <div class="space-y-1">
             <h5
-              class="uppercase font-bold text-sm"
+              class="uppercase font-bold text-xs"
               style="color: var(--second-blue)"
             >
               Expériences professionnelles
@@ -1586,7 +1595,7 @@ elseif($cumul_four_year>0) {
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
 
-          <div class="space-y-3 text-sm font-normal">
+          <div class="space-y-3 text-xs font-normal">
             <div class="grid grid-cols-5 justify-between p-2 font-semibold">
               <p>Fonction</p>
               <p>Etablissement</p>
@@ -1620,17 +1629,164 @@ elseif($cumul_four_year>0) {
                 <p>{{$experience->rate}}</p>
                @else
               <p>--</p>
-              @endif
-             
+              @endif      
             </div>
             @endforeach
-            {{-- <div class="flex justify-between p-2">
-              <p>Le nom complet :</p>
-              <p>Lorem, ipsum.</p>
-              <p>Lorem, ipsum.</p>
-              <p>Lorem, ipsum.</p>
-              <p>Lorem, ipsum.</p>
-            </div> --}}
+          </div>
+        </div> --}}
+      </div>
+      <div class="absolute bottom-0 right-0 left-0">
+        <img
+        class="absolute bottom-0 right-0 left-0 img_full_width"
+        src="{{asset('images/back-office/svg/footer.svg')}}"
+        alt="" 
+        srcset=""
+        />
+
+        <div
+          class="
+            py-2
+            flex
+            justify-between
+            items-center
+            pl-16
+            pr-36
+            text-white text-xs
+            font-medium
+            relative
+            z-10
+          "
+        >
+          <span>{{$owner->first_name}} {{$owner->last_name}}</span>
+          <span>{{$data->title}}</span>
+          <span>Business Plan</span>
+        </div>
+      </div>
+      
+    </div>
+     <div id="3" class="page printsection print-add-break print-full-width">
+      <div class="flex justify-between absolute right-0 top-0 w-full">
+        <div class="flex h-14 items-end justify-end space-x-3">
+          <span
+            id="print"
+            class="
+              w-10
+              h-full
+              border-0
+              flex
+              items-end
+              justify-end
+              font-semibold
+              text-white
+              pr-1
+              tracking-wider
+              print_h
+            "
+            style="background-color:#1bbc9b"
+          >
+            01
+          </span>
+          <h3
+            class="font-semibold text-lg"
+            style="color: var(--main-blue); line-height: 16px"
+          >
+            Profil de l’entrepreneur
+          </h3>
+        </div>
+        <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
+      </div>
+      <div class="space-y-9 " >
+        <div class="space-y-4"style="margin-top:0px;">
+        </div>
+        <div class="space-y-4"  style="margin-top:0px;">
+          <div class="space-y-1">
+            <h5
+              class="uppercase font-bold text-xs"
+              style="color: var(--second-blue)"
+            >
+              Formations
+            </h5>
+            <hr class="bg-gray-300" style="height: 2px" />
+          </div>
+
+          <div class="space-y-3 text-xs font-normal">
+            <div class="grid grid-cols-3 justify-between p-2 font-semibold">
+              <p>Diplôme ou niveau d'étude:</p>
+              <p>Etablissement</p>
+              <p>Année d'obtention</p>
+            </div>
+            @if(isset($owner->degrees))
+            @foreach ($owner->degrees as $key => $degree)
+            <div class="grid  grid-cols-3 justify-between bg-gray-100 p-2">
+              @if(isset($degree->label))
+              <p>{{$degree->label}}</p>
+              @else
+              <p>--</p>
+               @endif 
+                @if (isset($degree->value))
+              <p id="testt"> {{$degree->value}}</p>
+               @else
+              <p>--</p>
+              @endif
+              @if (isset($degree->count))
+              <p>{{$degree->count}}</p>
+               @else
+              <p>--</p>
+              @endif
+            
+            </div>
+            @endforeach
+            @endif
+          </div>
+        </div>
+        <div class="space-y-4 "  style="margin-top:5px;">
+          <div class="space-y-1">
+            <h5
+              class="uppercase font-bold text-xs"
+              style="color: var(--second-blue)"
+            >
+              Expériences professionnelles
+            </h5>
+            <hr class="bg-gray-300" style="height: 2px" />
+          </div>
+
+          <div class="space-y-3 text-xs font-normal">
+            <div class="grid grid-cols-5 justify-between p-2 font-semibold">
+              <p>Fonction</p>
+              <p>Etablissement</p>
+              <p>Tâches effectuées</p>
+              <p>Du</p>
+              <p>Au</p>
+            </div>
+            @foreach ($owner->professional_experience as $key => $experience)
+            <div class="grid grid-cols-5  justify-between p-2 bg-gray-100">
+             @if(isset($experience->label))
+              <p>{{$experience->label}}</p>
+              @else
+              <p>--</p>
+               @endif 
+                @if (isset($experience->duration))
+              <p id="testt"> {{$experience->duration}}</p>
+               @else
+              <p>--</p>
+              @endif
+              @if (isset($experience->organisme))
+                <p>{{$experience->organisme}}</p>
+               @else
+              <p>--</p>
+              @endif
+              @if (isset($experience->value))
+                <p>{{$experience->value}}</p>
+               @else
+              <p>--</p>
+              @endif
+              @if (isset($experience->rate))
+                <p>{{$experience->rate}}</p>
+               @else
+              <p>--</p>
+              @endif      
+            </div>
+            @endforeach
           </div>
         </div>
       </div>
@@ -1697,7 +1853,7 @@ elseif($cumul_four_year>0) {
         <div class="space-y-4">
           <div class="space-y-1">
             <h5
-              class="uppercase font-bold text-sm"
+              class="uppercase font-bold text-xs"
               style="color: var(--second-blue)"
             >
               Projet
@@ -1705,7 +1861,7 @@ elseif($cumul_four_year>0) {
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
 
-          <div class="space-y-3 text-sm font-normal">
+          <div class="space-y-3 text-xs font-normal">
             <div class="flex justify-between p-2">
               <p> raison sociale :</p>
               <p class="font-medium">{{ $data->company->corporate_name ?? ''}}</p>
@@ -1724,10 +1880,10 @@ elseif($cumul_four_year>0) {
             </div>
           </div>
         </div>
-        <div class="space-y-4">
+        {{-- <div class="space-y-2" style="margin-top:12px;">
           <div class="space-y-1">
             <h5
-              class="uppercase font-bold text-sm"
+              class="uppercase font-bold text-xs"
               style="color: var(--second-blue)"
             >
               Produits et Services
@@ -1735,12 +1891,184 @@ elseif($cumul_four_year>0) {
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
          
-          <div class="space-y-4  text-sm font-normal">
+          <div class="space-y-2  text-xs font-normal">
             <div class="grid grid-cols-2 gap-2  ">
              
-              <div class="p-4 bg-gray-100">
+              <div class="p-2 bg-gray-100">
                       <h6
-                class="uppercase font-bold text-sm"
+                class="uppercase font-bold text-xs"
+                style="color: var(--second-blue)"
+              >
+          Produits/ Services
+          </h6>
+              @if(isset($data->business_model->core_business_p))
+              @foreach ($data->business_model->core_business_p  as $key =>  $field)
+                <ul class="list-inside list-disc space-y-2">  
+                  <li class="py-2 px-2 text-xs">{{ $field->label}} </li>
+                </ul>
+                @endforeach
+              @endif 
+              @if(isset($data->business_model->core_services))
+              @foreach ($data->business_model->core_services  as $key =>  $field)
+                <ul class="list-inside list-disc space-y-2">  
+                  <li class="py-2 px-2 text-xs">{{ $field->label}} </li>
+                </ul>
+               @endforeach
+              @endif 
+              </div>  
+              <div class="p-2 bg-gray-100"> 
+                <h6
+            class="uppercase font-bold text-xs"
+            style="color: var(--second-blue)"
+           >
+            description
+           </h6>
+            @if(isset($data->business_model->core_business_p))
+              @foreach ($data->business_model->core_business_p as $key =>  $field)
+                <ul class="list-inside list-disc space-y-2">  
+                  <li class="py-2 px-2 text-xs">{{ $field->count}} </li>
+                </ul>
+               @endforeach
+              @endif 
+              @if(isset($data->business_model->core_services))
+              @foreach ($data->business_model->core_services  as $key =>  $field)
+                <ul class="list-inside list-disc space-y-2">  
+                  <li class="py-2 px-2 text-xs">{{ $field->count}} </li>
+                </ul>
+               @endforeach
+              @endif 
+              </div>  
+            </div>
+          </div>
+        
+          {{-- <div class="space-y-4  text-sm font-normal">
+            <div class="grid grid-cols-2 gap-4  ">
+              @if(isset($data->business_model->core_services))
+              @foreach ($data->business_model->core_services  as $key =>  $field)
+              <div class="p-4 bg-gray-100">
+                <p><span class="font-semibold" style="color: var(--main-green)">{{$field->label ?? " "}} </span></p>
+                <div class="flex justify-between bg-gray-100 p-2">       
+                  <p>Quantité prévue par mois  :</p>
+                  <p class="font-medium">{{$field->count ?? " "}}</p>
+                </div>
+                <div class="flex justify-between bg-gray-100 p-2">
+                  <p>Prix de vente   :</p>
+                  <p class="font-medium">{{$field->value ?? " "}}</p>
+                </div>
+              </div>  
+              @endforeach
+              @endif
+            </div>
+          </div> --}}
+        {{-- </div> --}}
+      </div>
+      <div class="absolute bottom-0 right-0 left-0">
+        <img
+        class="absolute bottom-0 right-0 left-0 img_full_width"
+        src="{{asset('images/back-office/svg/footer.svg')}}"
+        alt="" 
+        srcset=""
+        />
+
+        <div
+          class="
+            py-2
+            flex
+            justify-between
+            items-center
+            pl-16
+            pr-36
+            text-white text-xs
+            font-medium
+            relative
+            z-10
+          "
+        >
+          <span>{{$owner->first_name}} {{$owner->last_name}}</span>
+          <span>{{$data->title}}</span>
+          <span>Business Plan</span>
+        </div>
+      </div>
+      
+    </div>
+     <div id="4" class="page printsection print-add-break print-full-width">
+      <div class="flex justify-between absolute right-0 top-0 w-full">
+        <div class="flex h-14 items-end justify-end space-x-3">
+          <span
+            class="
+              w-10
+              h-full
+              border-0
+              flex
+              items-end
+              justify-end
+              font-semibold
+              text-white
+              pr-1
+              tracking-wider
+            "
+            style="background-color: var(--main-green)"
+          >
+            02
+          </span>
+          <h3
+            class="font-semibold text-lg"
+            style="color: var(--main-blue); line-height: 16px"
+          >
+            Présentation du projet 
+          </h3>
+        </div>
+        <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
+      </div>
+
+      <div class="space-y-9">
+        {{-- <div class="space-y-4">
+          <div class="space-y-1">
+            <h5
+              class="uppercase font-bold text-xs"
+              style="color: var(--second-blue)"
+            >
+              Projet
+            </h5>
+            <hr class="bg-gray-300" style="height: 2px" />
+          </div>
+
+          <div class="space-y-3 text-xs font-normal">
+            <div class="flex justify-between p-2">
+              <p> raison sociale :</p>
+              <p class="font-medium">{{ $data->company->corporate_name ?? ''}}</p>
+            </div>
+            <div class="flex justify-between bg-gray-100 p-2">
+              <p> forme juridique:</p>
+              <p class="font-medium"> {{ $data->company->legal_form ?? ''}}</p>
+            </div>
+            <div class="flex justify-between p-2">
+              <p>Lieu du projet :</p>
+              <p class="font-medium">{{$township->title}}</p>
+            </div>
+            <div class="flex justify-between bg-gray-100 p-2">
+              <p>marché cible:</p>
+              <p class="font-medium">{{$data->market_type ?? ''}}</p>
+            </div>
+          </div>
+        </div> --}}
+        <div class="space-y-2" style="margin-top:12px;">
+          <div class="space-y-1">
+            <h5
+              class="uppercase font-bold text-xs"
+              style="color: var(--second-blue)"
+            >
+              Produits et Services
+            </h5>
+            <hr class="bg-gray-300" style="height: 2px" />
+          </div>
+         
+          <div class="space-y-2  text-xs font-normal">
+            <div class="grid grid-cols-2 gap-2  ">
+             
+              <div class="p-2 bg-gray-100">
+                      <h6
+                class="uppercase font-bold text-xs"
                 style="color: var(--second-blue)"
               >
           Produits/ Services
@@ -1748,22 +2076,21 @@ elseif($cumul_four_year>0) {
               @if(isset($data->business_model->core_business_p))
               @foreach ($data->business_model->core_business_p  as $key =>  $field)
                 <ul class="list-inside list-disc space-y-2">  
-                  <li class="py-2 px-3">{{ $field->label}} </li>
+                  <li class="py-2 px-2 text-xs">{{ $field->label}} </li>
                 </ul>
                 @endforeach
               @endif 
               @if(isset($data->business_model->core_services))
               @foreach ($data->business_model->core_services  as $key =>  $field)
                 <ul class="list-inside list-disc space-y-2">  
-                  <li class="py-2 px-3">{{ $field->label}} </li>
+                  <li class="py-2 px-2 text-xs">{{ $field->label}} </li>
                 </ul>
                @endforeach
               @endif 
-              
               </div>  
-              <div class="p-4 bg-gray-100"> 
+              <div class="p-2 bg-gray-100"> 
                 <h6
-          class="uppercase font-bold text-sm"
+          class="uppercase font-bold text-xs"
           style="color: var(--second-blue)"
         >
           description
@@ -1771,19 +2098,18 @@ elseif($cumul_four_year>0) {
          @if(isset($data->business_model->core_business_p))
               @foreach ($data->business_model->core_business_p as $key =>  $field)
                 <ul class="list-inside list-disc space-y-2">  
-                  <li class="py-2 px-4">{{ $field->count}} </li>
+                  <li class="py-2 px-2 text-xs">{{ $field->count}} </li>
                 </ul>
                @endforeach
               @endif 
               @if(isset($data->business_model->core_services))
               @foreach ($data->business_model->core_services  as $key =>  $field)
                 <ul class="list-inside list-disc space-y-2">  
-                  <li class="py-2 px-3">{{ $field->count}} </li>
+                  <li class="py-2 px-2 text-xs">{{ $field->count}} </li>
                 </ul>
                @endforeach
               @endif 
-              </div>
-              
+              </div>  
             </div>
           </div>
         
@@ -1871,24 +2197,24 @@ elseif($cumul_four_year>0) {
         <div class="space-y-4">
           <div class="space-y-1">
             <h5
-              class="uppercase font-bold text-sm"
+              class="uppercase font-bold text-xs"
               style="color: var(--second-blue)"
             >
            evolution du  marché
             </h5>
-            <hr class="bg-gray-300" style="height: 2px" />
+            <hr class="bg-gray-300" style="height: 2px"/>
           </div>
 
-          <div class="bg-gray-100 text-gray-700 mt-6 p-8 space-y-3 text-sm">
+          <div class="bg-gray-100 text-gray-700 p-3 space-y-3 text-xs">
             <p  class="text-justify">
               {{isset($data->business_model->evolution_m)?$data->business_model->evolution_m: " "}}
             </p>
           </div>
         </div>
-        <div class="space-y-4">
+        <div class="space-y-4" style="margin-top:5px;">
           <div class="space-y-1">
             <h5
-              class="uppercase font-bold text-sm"
+              class="uppercase font-bold text-xs"
               style="color: var(--second-blue)"
             >
               Principaux Clients
@@ -1896,7 +2222,7 @@ elseif($cumul_four_year>0) {
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
           <div class="inline-block rounded-lg border mt-5">
-            <table class="table-fixed border border-gray-900 w-full text-sm">
+            <table class="table-fixed border border-gray-900 w-full text-xs">
               <thead>
                 <tr class="bg-gray-100">
                   <th
@@ -1939,10 +2265,71 @@ elseif($cumul_four_year>0) {
             </div>
           </div> --}}
         </div>
-        <div class="space-y-4">
+      </div>
+      <div class="absolute bottom-0 right-0 left-0">
+        <img
+        class="absolute bottom-0 right-0 left-0 img_full_width"
+        src="{{asset('images/back-office/svg/footer.svg')}}"
+        alt="" 
+        srcset=""
+        />
+
+        <div
+          class="
+            py-2
+            flex
+            justify-between
+            items-center
+            pl-16
+            pr-36
+            text-white text-xs
+            font-medium
+            relative
+            z-10
+          "
+        >
+          <span>{{$owner->first_name}} {{$owner->last_name}}</span>
+          <span>{{$data->title}}</span>
+          <span>Business Plan</span>
+        </div>
+      </div>
+      
+    </div>
+      <div id="5" class="page printsection print-add-break print-full-width">
+      <div class="flex justify-between absolute right-0 top-0 w-full">
+        <div class="flex h-14 items-end justify-end space-x-3">
+          <span
+            class="
+              w-10
+              h-full
+              border-0
+              flex
+              items-end
+              justify-end
+              font-semibold
+              text-white
+              pr-1
+              tracking-wider
+            "
+            style="background-color: var(--main-green)"
+          >
+            03
+          </span>
+          <h3
+            class="font-semibold text-lg"
+            style="color: var(--main-blue); line-height: 16px"
+          >
+           Etude de marché
+          </h3>
+        </div>
+        <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
+      </div>
+
+      <div class="space-y-9">
+        <div class="space-y-4" style="margin-top:5px;">
           <div class="space-y-1">
             <h5
-              class="uppercase font-bold text-sm"
+              class="uppercase font-bold text-xs"
               style="color: var(--second-blue)"
             >
               Principaux Fournisseurs
@@ -1969,7 +2356,7 @@ elseif($cumul_four_year>0) {
             </div>
           </div> --}}
            <div class="inline-block rounded-lg border mt-5">
-            <table class="table-fixed border border-gray-900 w-full text-sm">
+            <table class="table-fixed border border-gray-900 w-full text-xs">
               <thead>
                 <tr class="bg-gray-100">
                   <th
@@ -2061,12 +2448,12 @@ elseif($cumul_four_year>0) {
         <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
       </div>
 
-      <div class="space-y-9">
+      <div class="space-y-4">
         
         <div class="space-y-4">
           <div class="space-y-1">
             <h5
-              class="uppercase font-bold text-sm"
+              class="uppercase font-bold text-xs"
               style="color: var(--second-blue)"
             >
               Principaux Concurrents
@@ -2093,7 +2480,7 @@ elseif($cumul_four_year>0) {
             </div>
           </div> --}}
            <div class="inline-block rounded-lg border mt-5">
-            <table class="table-fixed border border-gray-900 w-full text-sm">
+            <table class="table-fixed border border-gray-900 w-full text-xs">
               <thead>
                 <tr class="bg-gray-100">
                   <th
@@ -2128,28 +2515,34 @@ elseif($cumul_four_year>0) {
         <div class="space-y-4">
           <div class="space-y-1">
             <h5
-              class="uppercase font-bold text-sm"
+              class="uppercase font-bold text-xs"
               style="color: var(--second-blue)"
             >
             critères de différenciation 
             </h5>
-            <hr class="bg-gray-300" style="height: 2px" />
+            <hr class="bg-gray-300 " style="height: 2px" />
           </div>
 
-          <div class="bg-gray-100 text-gray-700 mt-6 p-8 space-y-3 text-sm">
-              <?php  isset($data->business_model->avg_competi)?$critères=explode('-',$data->business_model->avg_competi):" "; //dd($files);?>
-              @foreach($critères as $item)
-                <p>
+          <div class=" flex flex-col  flex-wrap bg-gray-100 text-gray-700  space-y-3 p-2 text-xs" style="max-height:128px; ">
+              <?php  isset($data->business_model->avg_competi)?$critères=explode('-',$data->business_model->avg_competi):" ";// dd($critères);?>
+                 @if (isset($critères))
+                    @foreach($critères as $item)
+                    @if ($item)
+                         <p style="margin:0px; margin-bottom:4px;">
                  -{{$item}}
-                </p>
-              @endforeach
+                   </p>  
+                    @endif
+             
+                 @endforeach
+                @endif
+         
            
           </div>
         </div>
         <div class="space-y-4">
           <div class="space-y-1">
             <h5
-              class="uppercase font-bold text-sm"
+              class="uppercase font-bold text-xs"
               style="color: var(--second-blue)"
             >
             Stratégie marketing et Comerciale
@@ -2157,19 +2550,22 @@ elseif($cumul_four_year>0) {
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
 
-          <div class="bg-gray-100 text-gray-700 mt-6 p-8 space-y-3 text-sm">
-          <?php  isset($data->business_model->advertising)?$strategie=explode('-',$data->business_model->advertising):" "; //dd($files);?>
-           @if (isset($strategie))
+          <div class=" flex flex-col  flex-wrap bg-gray-100 text-gray-700  space-y-3 p-2 text-xs" style="max-height:128px; ">
+           <?php  isset($data->business_model->advertising)?$strategie=explode('-',$data->business_model->advertising):" "; //dd($files);?>
+               @if (isset($critères))
                 @foreach($strategie as $item)
-                <p>
+                @if($item)
+                 <p style="margin:0px; margin-bottom:4px;">
                  -{{$item}}
-                </p>
-              @endforeach
-              @else
-                <p>
+                </p>    
+           @endif
+          @endforeach   
+           @else
+             <p style="margin:0px; margin-bottom:4px;">
               {{isset($data->business_model->advertising)?$data->business_model->advertising: " "}}
             </p>
-           @endif
+          @endif
+          
           </div>
         </div>
       </div>
@@ -2236,7 +2632,7 @@ elseif($cumul_four_year>0) {
         <div class="space-y-4">
           <div class="space-y-1">
             <h5
-              class="uppercase font-bold text-sm"
+              class="uppercase font-bold text-xs"
               style="color: var(--second-blue)"
             >
              Stratégie De Prix
@@ -2244,7 +2640,7 @@ elseif($cumul_four_year>0) {
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
 
-          <div class="bg-gray-100 text-gray-700 mt-6 p-8 space-y-3 text-sm">
+          <div class="bg-gray-100 text-gray-700 mt-6 p-8 space-y-3 text-xs">
             <p>
              {{isset($data->business_model->pricing_strategy)?$data->business_model->pricing_strategy: " "}}
             </p>
@@ -2254,7 +2650,7 @@ elseif($cumul_four_year>0) {
         <div class="space-y-4">
           <div class="space-y-1">
             <h5
-              class="uppercase font-bold text-sm"
+              class="uppercase font-bold text-xs"
               style="color: var(--second-blue)"
             >
             Stratégie de Distribution
@@ -2262,13 +2658,15 @@ elseif($cumul_four_year>0) {
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
 
-          <div class="bg-gray-100 text-gray-700 mt-6 p-8 space-y-3 text-sm">
-                 <?php  isset($data->business_model->distribution_strategy)?$strategie_d=explode('-',$data->business_model->distribution_strategy):" "; //dd($files);?>
+          <div class=" flex flex-col  flex-wrap bg-gray-100 text-gray-700  space-y-3 p-2 text-xs" style="max-height:128px; ">
+            <?php  isset($data->business_model->distribution_strategy)?$strategie_d=explode('-',$data->business_model->distribution_strategy):" "; //dd($files);?>
            @if (isset($strategie_d))
                 @foreach($strategie_d as $item)
-                <p>
+                     @if($item)
+                 <p style="margin:0px; margin-bottom:4px;">
                  -{{$item}}
                 </p>
+                     @endif
               @endforeach
               @else
                 <p>
@@ -2328,7 +2726,7 @@ elseif($cumul_four_year>0) {
             03
           </span>
           <h3
-            class="font-semibold text-lg"
+            class="font-semibold text-lg m-0 p-0"
             style="color: var(--main-blue); line-height: 16px"
           >
            Etude de marché
@@ -2341,24 +2739,24 @@ elseif($cumul_four_year>0) {
         <div class="space-y-4">
           <div class="space-y-1">
             <h5
-              class="uppercase font-bold text-sm"
+              class="uppercase font-bold text-xs m-0"
               style="color: var(--second-blue)"
             >
             Analyse swot 
             </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
-        <div class="space-y-4  text-sm font-normal">
-          <div class="grid grid-cols-2 gap-y-5 gap-x-24 mt-5">
+        <div class="space-y-4  text-xs font-normal">
+          <div class="grid grid-cols-2 gap-y-4 gap-x-24 mt-4">
             <div
-              class="pl-6 py-4 bg-gray-100 font-medium space-y-3 relative"
-              style="font-size: 12px"
-            >
-              <h3 style="color: var(--main-dark-green)" class="text-sm">Forces</h3>
+              class="pl-6 py-4 pr-6 bg-gray-100 font-medium space-y-4 relative"
+              style="font-size: 12px ;  max-height:215px;"
+              >
+              <h3 style="color: var(--main-dark-green)" class="text-xs font-bold ">Forces</h3>
               <ul class="list-inside list-disc space-y-2">
                 @if(isset($data->business_model->distribution_strategy_force_p))
                 @foreach ($data->business_model->distribution_strategy_force_p as $key =>  $field)
-                <li class="p-2"  style="font-size: 14px">{{$field->distribution_strategy_force_p ?? " "}}</li>  
+                <li class="text-xs">{{$field->distribution_strategy_force_p ?? " "}}</li>  
                 @endforeach 
                 @endif
               </ul>
@@ -2381,14 +2779,14 @@ elseif($cumul_four_year>0) {
               </div>
             </div>
             <div
-              class="pl-16 py-4 bg-gray-100 font-medium space-y-3 relative"
-              style="font-size: 12px"
-            >
-              <h3 style="color: var(--main-dark-green)" class="text-sm">Faiblesses</h3>
+              class="pl-10 py-4 pr-6 bg-gray-100 font-medium space-y-4 relative"
+              style="font-size: 12px;   max-height:215px;"
+             >
+              <h3 style="color: var(--main-dark-green)" class="text-xs font-bold">Faiblesses</h3>
               <ul class="list-inside list-disc space-y-2">
                 @if(isset($data->business_model->distribution_strategy_faiblesse_p))
                 @foreach ($data->business_model->distribution_strategy_faiblesse_p as $key =>  $field)
-                <li class="p-2" style="font-size: 14px" >{{$field->distribution_strategy_faiblesse_p ?? " "}}</li>  
+                <li class="text-xs">{{$field->distribution_strategy_faiblesse_p ?? " "}}</li>  
                 @endforeach 
                 @endif
               </ul>
@@ -2411,20 +2809,19 @@ elseif($cumul_four_year>0) {
                 <span>W</span>
               </div>
             </div>
-            <div
-              class="pl-6 py-4 bg-gray-100 font-medium space-y-3 relative"
-              style="font-size: 12px"
-            >
-              <h3 style="color: var(--main-dark-green)" class="text-sm">Opportunités</h3>
+          <div
+              class="pl-6 py-4 pr-6 bg-gray-100 font-medium space-y-4 relative"
+              style="font-size: 12px;  max-height:215px;"
+              >
+              <h3 style="color: var(--main-dark-green)" class="text-xs font-bold">Opportunité</h3>
               <ul class="list-inside list-disc space-y-2">
                 @if(isset($data->business_model->distribution_strategy_Opportunité_p))
-                    @foreach ($data->business_model->distribution_strategy_Opportunité_p as $key =>  $field)
-                    <li class="p-2"  style="font-size: 14px">{{$field->distribution_strategy_Opportunité_p ?? " "}}</li>  
-                    @endforeach 
-                    @endif
+                @foreach ($data->business_model->distribution_strategy_Opportunité_p as $key =>  $field)
+                <li class="text-xs">{{$field->distribution_strategy_Opportunité_p?? " "}}</li>  
+                @endforeach 
+                @endif
               </ul>
-    
-              <div
+            <div
                 class="
                   absolute
                   -right-8
@@ -2443,19 +2840,18 @@ elseif($cumul_four_year>0) {
               </div>
             </div>
             <div
-              class="pl-16 py-4 bg-gray-100 font-medium space-y-3 relative"
-              style="font-size: 12px"
+              class="pl-10 py-4 pr-6 bg-gray-100 font-medium space-y-4 relative"
+              style="font-size: 12px; max-height:215px;"
             >
-              <h3 style="color: var(--main-dark-green)" class="text-sm">Menaces</h3>
+              <h3 style="color: var(--main-dark-green)" class="text-xs font-bold">Menaces</h3>
               <ul class="list-inside list-disc space-y-2">
                 @if(isset($data->business_model->distribution_strategy_menace_p))
                 @foreach ($data->business_model->distribution_strategy_menace_p as $key =>  $field)
-                <li class="p-2"  style="font-size: 14px"s>{{$field->distribution_strategy_menace_p ?? " "}}</li>  
+                <li class="text-xs">{{$field->distribution_strategy_menace_p ?? " "}}</li>  
                 @endforeach 
                 @endif
               </ul>
-    
-              <div
+             <div
                 class="
                   absolute
                   -left-8
@@ -2540,7 +2936,7 @@ elseif($cumul_four_year>0) {
         <div class="space-y-4">
           <div class="space-y-1">
             <h5
-              class="uppercase font-bold text-sm"
+              class="uppercase font-bold text-xs"
               style="color: var(--second-blue)"
             >
          Autorisation nécessaires
@@ -2550,7 +2946,7 @@ elseif($cumul_four_year>0) {
 
           <div >
             {{-- <p><span class="font-semibold" style="color: var(--main-green)">L'ensemble des documents juridiques: </span></p> --}}
-              <table class="table-fixed border border-gray-900 w-full text-sm">
+              <table class="table-fixed border border-gray-900 w-full text-xs" style="margin-top:0px;">
               <thead>
                 <tr class="bg-gray-100">
                   <th
@@ -2582,35 +2978,35 @@ elseif($cumul_four_year>0) {
             </table>
           </div>
         </div>
-        <div class="space-y-4">
+        <div class="space-y-4 " style="margin-top:6px; max-height:223px;">
           <div class="space-y-1">
             <h5
-              class="uppercase font-bold text-sm"
+              class="uppercase font-bold text-xs"
               style="color: var(--second-blue)"
             >
               local
             </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
-          <div class="space-y-5  text-sm font-normal">
+          <div class="space-y-2  text-xs font-normal">
         
               @if(isset($data->business_model->local))
               @foreach ($data->business_model->local  as $key =>  $field)
-              <div class="bg-gray-100 text-gray-700 mt-6 p-4 space-y-3 text-sm">
+              <div class="bg-gray-100 text-gray-700 mt-3 p-4 space-y-3 text-xs">
                 <p><span class="font-semibold" style="color: var(--main-green)">local </span></p>
-                <div class="flex justify-between bg-gray-100 p-2">       
+                <div class="flex justify-between bg-gray-100 p-2" style="margin-top:0px;">       
                   <p>Mode d'occupation:</p>
-                  <p class="font-medium ">{{$field->label ?? " "}}</p>
+                  <p class="font-medium">{{$field->label ?? " "}}</p>
                 </div>
-                <div class="flex justify-between bg-gray-100 p-2">
+                <div class="flex justify-between bg-gray-100 p-2"style="margin-top:0px;">
                   <p>Adresse:</p>
                   <p class="font-medium">{{$field->value ?? " "}}</p>
                 </div>
-                <div class="flex justify-between bg-gray-100 p-2">
+                <div class="flex justify-between bg-gray-100 p-2"style="margin-top:0px;">
                   <p>Superficie:</p>
                   <p class="font-medium">{{$field->rate?? " "}}</p>
                 </div>
-                <div class="flex justify-between bg-gray-100 p-2">
+                <div class="flex justify-between bg-gray-100 p-2"style="margin-top:0px;">
                   <p>loyer mensuel (en cas de location):</p>
                   <p class="font-medium">{{$field->duration ?? " "}}</p>
                 </div>
@@ -2685,7 +3081,7 @@ elseif($cumul_four_year>0) {
         <div class="space-y-4">
           <div class="space-y-1">
             <h5
-              class="uppercase font-bold text-sm"
+              class="uppercase font-bold text-xs"
               style="color: var(--second-blue)"
             >
             liste du matériel
@@ -2694,12 +3090,12 @@ elseif($cumul_four_year>0) {
           </div>
            <p class="text-gray-500 font-normal"> L’activité nécessitera les moyens d’équipements suivants :
            </p>
-          <div class="bg-gray-100 text-gray-700 mt-6 p-8 space-y-3 text-sm">
+          <div class="bg-gray-100 text-gray-700 mt-6 p-4 space-y-3 text-xs">
             <p><span class="font-semibold" style="color: var(--main-green)">Liste du matériel: </span></p>
             <ul class="list-inside list-disc space-y-2">  
               @if(isset($data->business_model->list_mat))
               @foreach ($data->business_model->list_mat as $key =>  $field)
-              <li class="py-2 px-3"> {{$field->list_mat ?? " "}}</li>  
+              <li style="margin-top:0px;"> {{$field->list_mat ?? " "}}</li>  
               @endforeach 
               @endif
             </ul>
@@ -2708,17 +3104,17 @@ elseif($cumul_four_year>0) {
         <div class="space-y-4">
           <div class="space-y-1">
             <h5
-              class="uppercase font-bold text-sm"
+              class="uppercase font-bold text-xs"
               style="color: var(--second-blue)"
             >
             RESSOURCES HUMAINES
           </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
-          <p class="text-gray-500 font-normal"> Les ressources humaines ont pour objectif d’apporter à l’entreprise le personnel nécessaire à son bon fonctionnement. Dans notre cas, le PDP a besoin des ressources humaines suivantes:
+          <p class="text-gray-500 font-normal text-xs"> Les ressources humaines ont pour objectif d’apporter à l’entreprise le personnel nécessaire à son bon fonctionnement. Dans notre cas, le PDP a besoin des ressources humaines suivantes:
           </p>
           <div class="inline-block rounded-lg border mt-5">
-            <table class="table-fixed border border-gray-900 w-full text-sm">
+            <table class="table-fixed border border-gray-900 w-full text-xs">
               <thead>
                 <tr class="bg-gray-100">
                   <th
@@ -2797,7 +3193,7 @@ elseif($cumul_four_year>0) {
             "
             style="background-color: var(--main-green)"
           >
-            04
+            05
           </span>
           <h3
             class="font-semibold text-lg"
@@ -2809,11 +3205,11 @@ elseif($cumul_four_year>0) {
         <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
       </div>
 
-      <div class="space-y-9">
-        <div class="space-y-4">
+     <div class="space-y-2">
+        <div class="space-y-2">
           <div class="space-y-1">
             <h5
-              class="uppercase font-bold text-sm"
+              class="uppercase font-bold text-xs"
               style="color: var(--second-blue)"
             >
             PROGRAMME D’INVESTISSEMENT
@@ -2821,27 +3217,28 @@ elseif($cumul_four_year>0) {
           </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
-           <p class="text-gray-500 font-normal"> Synthèse du programme d’investissement:
+           <p class="text-gray-500 font-normal text-xs"> Synthèse du programme d’investissement:
            </p>
-        <div class="grid grid-cols-2 gap-4 ">
+        <div class="grid grid-cols-2 gap-2">
           <div class=" bg-white"> 
               <div class="inline-block rounded-lg border ">
-              <table class="table-fixed border border-gray-900 w-90 text-sm">
+              <table class="table-fixed border border-gray-900 w-full text-xs">
                 <thead>
                   <tr class="bg-gray-100">
                     <th
                       class="
                         py-2
-                        pl-4
+                        pl-2
                         border-2 border-gray-500
                         self-start
                         text-left
+                        text-xs
                       "
                     >
                     DESIGNATION
                     </th>
-                    <th class="border-2 border-gray-500 text-center">MONTANT</th>
-                    <th class="border-2 border-gray-500  text-center">POIDS</th>
+                    <th class="border-2 border-gray-500 text-center text-xs">MONTANT</th>
+                    <th class="border-2 border-gray-500  text-center text-xs">POIDS</th>
                   </tr>
                 </thead>
                 <tbody class="font-medium">
@@ -2849,14 +3246,14 @@ elseif($cumul_four_year>0) {
                   @foreach ($data->financial_data->startup_needs as $item)
                  
                     <tr> 
-                         @if(isset($item->label))
+                      @if(isset($item->label))
                       @if($item->label=='Autre à préciser')
-                      <td class="border-2 border-gray-500 w-6/12 py-1 pl-4">{{$item->labelOther}}</td> 
+                      <td class="border-2 border-gray-500 w-6/12 py-1 pl-2 text-xs">{{$item->labelOther}}</td> 
                       @else
-                       <td class="border-2 border-gray-500 w-6/12 py-1 pl-4">{{$item->label}}</td> 
+                       <td class="border-2 border-gray-500 w-6/12 py-1 pl-2 text-xs">{{$item->label}}</td> 
                       @endif
-                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
-                      <td class="border-2 border-gray-500 text-center">{{ number_format( $bp_investment_program_total!=0? $item->value /$bp_investment_program_total*100:0,0, ',', ' ')}}%</td>   
+                      <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value, 0, ',', ' ') }} </td>
+                      <td class="border-2 border-gray-500 text-center text-xs">{{ number_format( $bp_investment_program_total!=0? $item->value /$bp_investment_program_total*100:0,0, ',', ' ')}}%</td>   
                        @endif
                   </tr> 
                   @endforeach
@@ -2864,77 +3261,79 @@ elseif($cumul_four_year>0) {
                   <tr class="bg-green-200">
                     <td
                       class="
-                      py-1 pl-4
+                      py-1 pl-2
                         border-2 border-gray-600
                         font-semibold
                         text-green-700
+                        text-xs
                       "
                     >
                       TOTAL
                     </td>
                     <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
-                    <td class="border-2 border-gray-600 text-center bg-green-200">{{number_format($bp_investment_program_total, 0, ',', ' ')}}</td>
-                    <td class="border-2 border-gray-600 text-center bg-green-200">100 %</td>
+                    <td class="border-2 border-gray-600 text-center bg-green-200 text-xs">{{number_format($bp_investment_program_total, 0, ',', ' ')}}</td>
+                    <td class="border-2 border-gray-600 text-center bg-green-200 text-xs">100 %</td>
                   </tr>
                 </tbody>
               </table>
             </div>
           </div>
-          <div class="pl-4">
-          <div class="bg-gray-100 top-0" id="chart1" style="height: 200px; width: 100%; "></div>
+          <div class="pl-2">
+          <div class="bg-gray-100 top-0" id="chart1" style="height: 169px; width: 100%; "></div>
           </div>
         </div>   
       </div>
-      <div class="space-y-9">
-        <div class="space-y-4">
-          <div class="space-y-1">
+      {{-- <div class="space-y-1">
+        <div class="space-y-2">
+          <div class="space-y-1 mt-0">
             <h5
-              class="uppercase font-bold text-sm"
+              class="uppercase font-bold text-xs mt-0"
               style="color: var(--second-blue)"
             >
             Plan de financement
           </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
-           <p class="text-gray-500 font-normal"> Plan de financement :
+           <p class="text-gray-500 font-normal  text-xs"> Plan de financement :
            </p>
         <div class="grid grid-cols-2 gap-4 ">
           <div class=" bg-white"> 
               <div class="inline-block rounded-lg border ">
-              <table class="table-fixed border border-gray-900 w-full text-sm">
+              <table class="table-fixed border border-gray-900 w-full text-xs  mt-0">
                 <thead>
                   <tr class="bg-gray-100">
                     <th
                       class="
                         py-2
-                        pl-4
+                        pl-1
                         border-2 border-gray-500
                         self-start
                         text-left
+                        text-xs
                       "
                     >
                     DESIGNATION
                     </th>
-                    <th class="border-2 border-gray-500 text-center">MONTANT</th>
-                    <th class="border-2 border-gray-500  text-center">POIDS</th>
+                    <th class="border-2 border-gray-500 text-center text-xs">MONTANT</th>
+                    <th class="border-2 border-gray-500  text-center text-xs">POIDS</th>
                   </tr>
                 </thead>
                 <tbody class="font-medium">
                   @if(isset($data->financial_data->financial_plan))
                   @foreach ($data->financial_data->financial_plan as $item)
                     <tr>
-                    <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_financial_plan_totals!=0?$item->value /$bp_financial_plan_totals*100:0,0, ',', ' ')}}%</td>
+                    <td class="border-2 border-gray-500 text-xs py-1 pl-2 ">{{$item->label}}</td>
+                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_financial_plan_totals!=0?$item->value /$bp_financial_plan_totals*100:0,0, ',', ' ')}}%</td>
                   </tr> 
                   @endforeach
                  @endif
                     @if(isset($data->financial_data->financial_plan_loans))
                   @foreach ($data->financial_data->financial_plan_loans as $item)
                     <tr>
-                    <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_financial_plan_totals!=0?$item->value /$bp_financial_plan_totals*100:0,0, ',', ' ')}}%</td>
+                    <td class="border-2 border-gray-500 py-1 pl-2 text-xs">{{$item->label}}</td>
+                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_financial_plan_totals!=0?$item->value /$bp_financial_plan_totals*100:0,0, ',', ' ')}}%</td>
                   </tr> 
                   @endforeach
                  @endif
@@ -2950,15 +3349,233 @@ elseif($cumul_four_year>0) {
                       TOTAL
                     </td>
                     <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
-                    <td class="border-2 border-gray-600 text-center bg-green-200">{{ number_format($bp_financial_plan_totals, 0, ',', ' ') }} </td>
-                    <td class="border-2 border-gray-600 text-center bg-green-200">100 %</td>
+                    <td class="border-2 border-gray-600 text-center bg-green-200 text-xs">{{ number_format($bp_financial_plan_totals, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-600 text-center bg-green-200 text-xs">100 %</td>
                   </tr>
                 </tbody>
               </table>
             </div>
           </div>
-          <div class="pl-4">
-           <div class="bg-gray-100" id="chart2" style="height: 200px; width: 100%;"></div>
+          <div class="pl-2">
+           <div class="bg-gray-100" id="chart2" style="height: 169px; width: 100%;"></div>
+          </div>
+        </div>   
+      </div> --}}
+      </div>
+      <div class="absolute bottom-0 right-0 left-0 ">
+        <img
+        class="absolute bottom-0 right-0 left-0 img_full_width"
+        src="{{asset('images/back-office/svg/footer.svg')}}"
+        alt="" 
+        srcset=""
+        />
+
+        <div
+          class="
+            py-2
+            flex
+            justify-between
+            items-center
+            pl-16
+            pr-36
+            text-white text-xs
+            font-medium
+            relative
+            z-10
+          "
+        >
+          <span>{{$owner->first_name}} {{$owner->last_name}}</span>
+          <span>{{$data->title}}</span>
+          <span>Business Plan</span>
+        </div>
+      </div>
+      
+    </div>
+     </div>
+
+   <div id="11" class="page printsection print-add-break print-full-width">
+      <div class="flex justify-between absolute right-0 top-0 w-full">
+        <div class="flex h-14 items-end justify-end space-x-3">
+          <span
+            class="
+              w-10
+              h-full
+              border-0
+              flex
+              items-end
+              justify-end
+              font-semibold
+              text-white
+              pr-1
+              tracking-wider
+            "
+            style="background-color: var(--main-green)"
+          >
+            05
+          </span>
+          <h3
+            class="font-semibold text-lg"
+            style="color: var(--main-blue); line-height: 16px"
+          >
+       Étude Financière
+          </h3>
+        </div>
+        <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
+      </div>
+
+     {{-- <div class="space-y-2">
+        <div class="space-y-2">
+          <div class="space-y-1">
+            <h5
+              class="uppercase font-bold text-xs"
+              style="color: var(--second-blue)"
+            >
+            PROGRAMME D’INVESTISSEMENT
+
+          </h5>
+            <hr class="bg-gray-300" style="height: 2px" />
+          </div>
+           <p class="text-gray-500 font-normal text-xs"> Synthèse du programme d’investissement:
+           </p>
+        <div class="grid grid-cols-2 gap-2">
+          <div class=" bg-white"> 
+              <div class="inline-block rounded-lg border ">
+              <table class="table-fixed border border-gray-900 w-full text-xs">
+                <thead>
+                  <tr class="bg-gray-100">
+                    <th
+                      class="
+                        py-2
+                        pl-2
+                        border-2 border-gray-500
+                        self-start
+                        text-left
+                        text-xs
+                      "
+                    >
+                    DESIGNATION
+                    </th>
+                    <th class="border-2 border-gray-500 text-center text-xs">MONTANT</th>
+                    <th class="border-2 border-gray-500  text-center text-xs">POIDS</th>
+                  </tr>
+                </thead>
+                <tbody class="font-medium">
+                  @if(isset($data->financial_data->startup_needs))
+                  @foreach ($data->financial_data->startup_needs as $item)
+                 
+                    <tr> 
+                      @if(isset($item->label))
+                      @if($item->label=='Autre à préciser')
+                      <td class="border-2 border-gray-500 w-6/12 py-1 pl-2 text-xs">{{$item->labelOther}}</td> 
+                      @else
+                       <td class="border-2 border-gray-500 w-6/12 py-1 pl-2 text-xs">{{$item->label}}</td> 
+                      @endif
+                      <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value, 0, ',', ' ') }} </td>
+                      <td class="border-2 border-gray-500 text-center text-xs">{{ number_format( $bp_investment_program_total!=0? $item->value /$bp_investment_program_total*100:0,0, ',', ' ')}}%</td>   
+                       @endif
+                  </tr> 
+                  @endforeach
+                 @endif
+                  <tr class="bg-green-200">
+                    <td
+                      class="
+                      py-1 pl-2
+                        border-2 border-gray-600
+                        font-semibold
+                        text-green-700
+                        text-xs
+                      "
+                    >
+                      TOTAL
+                    </td>
+                    <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
+                    <td class="border-2 border-gray-600 text-center bg-green-200 text-xs">{{number_format($bp_investment_program_total, 0, ',', ' ')}}</td>
+                    <td class="border-2 border-gray-600 text-center bg-green-200 text-xs">100 %</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="pl-2">
+          <div class="bg-gray-100 top-0" id="chart1" style="height: 169px; width: 100%; "></div>
+          </div>
+        </div>   
+      </div> --}}
+      <div class="space-y-1">
+        <div class="space-y-2">
+          <div class="space-y-1 mt-0">
+            <h5
+              class="uppercase font-bold text-xs mt-0"
+              style="color: var(--second-blue)"
+            >
+            Plan de financement
+          </h5>
+            <hr class="bg-gray-300" style="height: 2px" />
+          </div>
+           <p class="text-gray-500 font-normal  text-xs"> Plan de financement :
+           </p>
+        <div class="grid grid-cols-2 gap-4 ">
+          <div class=" bg-white"> 
+              <div class="inline-block rounded-lg border ">
+              <table class="table-fixed border border-gray-900 w-full text-xs  mt-0">
+                <thead>
+                  <tr class="bg-gray-100">
+                    <th
+                      class="
+                        py-2
+                        pl-1
+                        border-2 border-gray-500
+                        self-start
+                        text-left
+                        text-xs
+                      "
+                    >
+                    DESIGNATION
+                    </th>
+                    <th class="border-2 border-gray-500 text-center text-xs">MONTANT</th>
+                    <th class="border-2 border-gray-500  text-center text-xs">POIDS</th>
+                  </tr>
+                </thead>
+                <tbody class="font-medium">
+                  @if(isset($data->financial_data->financial_plan))
+                  @foreach ($data->financial_data->financial_plan as $item)
+                    <tr>
+                    <td class="border-2 border-gray-500 text-xs py-1 pl-2 ">{{$item->label}}</td>
+                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_financial_plan_totals!=0?$item->value /$bp_financial_plan_totals*100:0,0, ',', ' ')}}%</td>
+                  </tr> 
+                  @endforeach
+                 @endif
+                    @if(isset($data->financial_data->financial_plan_loans))
+                  @foreach ($data->financial_data->financial_plan_loans as $item)
+                    <tr>
+                    <td class="border-2 border-gray-500 py-1 pl-2 text-xs">{{$item->label}}</td>
+                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_financial_plan_totals!=0?$item->value /$bp_financial_plan_totals*100:0,0, ',', ' ')}}%</td>
+                  </tr> 
+                  @endforeach
+                 @endif
+                  <tr class="bg-green-200">
+                    <td
+                      class="
+                      py-1 pl-4
+                        border-2 border-gray-600
+                        font-semibold
+                        text-green-700
+                      "
+                    >
+                      TOTAL
+                    </td>
+                    <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
+                    <td class="border-2 border-gray-600 text-center bg-green-200 text-xs">{{ number_format($bp_financial_plan_totals, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-600 text-center bg-green-200 text-xs">100 %</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="pl-2">
+           <div class="bg-gray-100" id="chart2" style="height: 169px; width: 100%;"></div>
           </div>
         </div>   
       </div>
@@ -2991,8 +3608,9 @@ elseif($cumul_four_year>0) {
         </div>
       </div>
       
-    </div>
-    </div>
+   </div>
+  </div>
+
     <div id="12" class="page printsection print-add-break print-full-width">
       <div class="flex justify-between absolute right-0 top-0 w-full">
         <div class="flex h-14 items-end justify-end space-x-3">
@@ -3027,7 +3645,7 @@ elseif($cumul_four_year>0) {
         <div class="space-y-4">
           <div class="space-y-1">
             <h5
-              class="uppercase font-bold text-sm"
+              class="uppercase font-bold text-xs"
               style="color: var(--second-blue)"
             >
             CHIFFRE D’AFFAIRES PRÉVISIONNEL
@@ -3035,12 +3653,12 @@ elseif($cumul_four_year>0) {
           </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
-           <p class="text-gray-500 font-normal"> 
+           <p class="text-gray-500 font-normal text-xs"> 
             Le chiffre d’affaires prévisionnel regroupe le montant  des ventes prévues par l’entreprise (ventes de biens et / ou prestations de services).
            </p>
           </div>
-            <div class="inline-block rounded-lg border w-full ">
-              <table class="table-fixed border border-gray-900 w-90 text-sm">
+            <div class="inline-block rounded-lg border w-full " style="margin-top:2px;">
+              <table class="table-fixed border border-gray-900 w-full text-xs">
                 <thead>
                   <tr class="bg-gray-100">
                     <th
@@ -3048,17 +3666,17 @@ elseif($cumul_four_year>0) {
                         py-2
                         pl-4
                         border-2 border-gray-500
-                        w-9/12
                         self-start
                         text-left
+                        text-xs
                       "
                     >
                      produit et /ou  service 
                     </th>
-                    <th class="border-2 border-gray-500 w-6/12 text-center">PRIX </th>
-                    <th class="border-2 border-gray-500  text-center">Quantité /Nombre (mois)</th>
-                    <th class="border-2 border-gray-500 w-6/12 text-center  px-12">Chiffre d'affaires mensuel</th>
-                    <th class="border-2 border-gray-500 w-6/12 text-center w-9/12 px-12">Chiffre d'affaires annuel</th>
+                    <th class="border-2 border-gray-500  text-center text-xs">PRIX </th>
+                    <th class="border-2 border-gray-500  text-center  text-xs">Quantité /Nombre (mois)</th>
+                    <th class="border-2 border-gray-500 text-center  text-xs">Chiffre d'affaires mensuel</th>
+                    <th class="border-2 border-gray-500 text-center  text-xs">Chiffre d'affaires annuel</th>
                   </tr>
                 </thead>
                 <tbody class="font-medium">
@@ -3066,31 +3684,31 @@ elseif($cumul_four_year>0) {
                   @foreach ($data->financial_data->services_turnover_forecast_c as $item)
                     <tr>
                   @if(isset($item->otherValue))
-                       <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
-                     <td class="border-2 border-gray-500 text-center">{{ number_format(0, 0, ',', ' ') }} </td>
-                     <td class="border-2 border-gray-500 text-center">{{ number_format(0,0, ',', ' ')}}</td>
-                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->otherValue, 0, ',', ' ') }}</td>
+                       <td class="border-2 border-gray-500 py-1 pl-4  text-xs">{{$item->label}}</td>
+                     <td class="border-2 border-gray-500 text-center text-xs">--</td>
+                     <td class="border-2 border-gray-500 text-center text-xs">--</td>
+                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->otherValue, 0, ',', ' ') }}</td>
                      @if(isset($item->organisme))
-                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->otherValue*$item->organisme,0, ',', ' ')}}</td>
+                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->otherValue*$item->organisme,0, ',', ' ')}}</td>
                      <?php $total=0; $total+= $item->value*$item->rate*$item->organisme; ?>
                     
                     @else
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->otherValue*$saisonalite,0, ',', ' ')}}</td>
+                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->otherValue*$saisonalite,0, ',', ' ')}}</td>
                      <?php $total=0; $total+=  $item->value*$item->rate*$saisonalite; ?>
                      @endif
                     </tr> 
                    @else
-                     <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
+                     <td class="border-2 border-gray-500 py-1 pl-4 text-xs">{{$item->label}}</td>
                      @if(isset($item->rate))
-                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->rate, 0, ',', ' ') }} </td>
-                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->value,0, ',', ' ')}}</td>
-                       <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*$item->rate, 0, ',', ' ') }}</td>
+                      <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->rate, 0, ',', ' ') }} </td>
+                      <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value,0, ',', ' ')}}</td>
+                       <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value*$item->rate, 0, ',', ' ') }}</td>
                         @if(isset($item->organisme))
-                        <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*$item->rate*$item->organisme,0, ',', ' ')}}</td>
+                        <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value*$item->rate*$item->organisme,0, ',', ' ')}}</td>
                         <?php $total=0; $total+= isset($item->rate)?$item->value*$item->rate*$item->organisme:0; ?>
                         
                         @else
-                        <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*$item->rate*$saisonalite,0, ',', ' ')}}</td>
+                        <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value*$item->rate*$saisonalite,0, ',', ' ')}}</td>
                         <?php $total=0; $total+= isset($item->rate)? $item->value*$item->rate*$saisonalite:0; ?>
                         @endif
                         @endif
@@ -3103,30 +3721,30 @@ elseif($cumul_four_year>0) {
                  @foreach ($data->financial_data->products_turnover_forecast as $item)
                    <tr>
                   @if(isset($item->otherValue))
-                       <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
-                     <td class="border-2 border-gray-500 text-center">{{ number_format(0, 0, ',', ' ') }} </td>
-                     <td class="border-2 border-gray-500 text-center">{{ number_format(0,0, ',', ' ')}}</td>
-                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->otherValue, 0, ',', ' ') }}</td>
-                     @if(isset($item->organisme))
-                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->otherValue*$item->organisme,0, ',', ' ')}}</td>
+                       <td class="border-2 border-gray-500 py-1 pl-4 text-xs">{{$item->label}}</td>
+                     <td class="border-2 border-gray-500 text-center text-xs">--</td>
+                     <td class="border-2 border-gray-500 text-center text-xs">--</td>
+                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->otherValue, 0, ',', ' ') }}</td>
+                     @if(isset($item->organisme)) 
+                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->otherValue*$item->organisme,0, ',', ' ')}}</td>
                      <?php $total=0; $total+=isset($item->rate)? $item->value*$item->rate*$item->organisme:0; ?>
                     
                     @else
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->otherValue*$saisonalite,0, ',', ' ')}}</td>
+                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->otherValue*$saisonalite,0, ',', ' ')}}</td>
                      <?php $total=0; $total+= isset($item->rate) ?$item->value*$item->rate*$saisonalite:0; ?>
                      @endif
                     </tr> 
                    @else
-                          <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
-                                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->rate, 0, ',', ' ') }} </td>
-                                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->value,0, ',', ' ')}}</td>
-                                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*$item->rate, 0, ',', ' ') }}</td>
+                          <td class="border-2 border-gray-500 py-1 pl-4 text-xs">{{$item->label}}</td>
+                                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->rate, 0, ',', ' ') }} </td>
+                                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value,0, ',', ' ')}}</td>
+                                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value*$item->rate, 0, ',', ' ') }}</td>
                                     @if(isset($item->organisme))
-                                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*$item->rate*$item->organisme,0, ',', ' ')}}</td>
+                                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value*$item->rate*$item->organisme,0, ',', ' ')}}</td>
                                     <?php $total=0; $total+= isset($item->rate)?$item->value*$item->rate*$item->organisme:0; ?>
                                     
                                     @else
-                                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*$item->rate*$saisonalite,0, ',', ' ')}}</td>
+                                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value*$item->rate*$saisonalite,0, ',', ' ')}}</td>
                                     <?php $total=0; $total+=isset($item->rate)?$item->value*$item->rate*$saisonalite:0; ?>
                                     @endif
                                     </tr> 
@@ -3143,24 +3761,88 @@ elseif($cumul_four_year>0) {
                         border-2 border-gray-600
                         font-semibold
                         text-green-700
+                        text-xs
                       "
                     >
                       TOTAL
                     </td>
                     <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
-                    <td class="border-2 border-gray-600 text-center bg-green-200">{{ number_format($total_mensuel,0, ',', ' ')}}</td>
-                    <td class="border-2 border-gray-600 text-center bg-green-200">{{ number_format($bp_turnover_products_totals,0, ',', ' ')}}</td>
+                    <td class="border-2 border-gray-600 text-center bg-green-200 text-xs">{{ number_format($total_mensuel,0, ',', ' ')}}</td>
+                    <td class="border-2 border-gray-600 text-center bg-green-200 text-xs">{{ number_format($bp_turnover_products_totals,0, ',', ' ')}}</td>
                   </tr>
                 </tbody>
               </table>
             </div> 
       </div>
       <br>
+      <div class="absolute bottom-0 right-0 left-0 ">
+        <img
+        class="absolute bottom-0 right-0 left-0 img_full_width"
+        src="{{asset('images/back-office/svg/footer.svg')}}"
+        alt="" 
+        srcset=""
+        />
+
+        <div
+          class="
+            py-2
+            flex
+            justify-between
+            items-center
+            pl-16
+            pr-36
+            text-white text-xs
+            font-medium
+            relative
+            z-10
+          "
+        >
+          <span>{{$owner->first_name}} {{$owner->last_name}}</span>
+          <span>{{$data->title}}</span>
+          <span>Business Plan</span>
+        </div>
+      </div>
+      
+     </div>
+    </div> 
+
+
+    
+  <div id="12" class="page printsection print-add-break print-full-width">
+      <div class="flex justify-between absolute right-0 top-0 w-full">
+        <div class="flex h-14 items-end justify-end space-x-3">
+          <span
+            class="
+              w-10
+              h-full
+              border-0
+              flex
+              items-end
+              justify-end
+              font-semibold
+              text-white
+              pr-1
+              tracking-wider
+            "
+            style="background-color: var(--main-green)"
+          >
+            05
+          </span>
+          <h3
+            class="font-semibold text-lg"
+            style="color: var(--main-blue); line-height: 16px"
+          >
+          Étude Financière
+          </h3>
+        </div>
+        <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
+      </div>
+      <br>
       <div class="space-y-9">
         <div class="space-y-4 ">
           <div class="space-y-1">
             <h5
-              class="uppercase font-bold text-sm"
+              class="uppercase font-bold text-xs"
               style="color: var(--second-blue)"
             >
             ÉVOLUTION DU CHIFFRE D'AFFAIRES HT  (<span class="text-green-500">{{isset($data ->financial_data->evolution_rate)?$data ->financial_data->evolution_rate:0}}</span>%)  SUR 5 ANS
@@ -3168,7 +3850,7 @@ elseif($cumul_four_year>0) {
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
           <div class="inline-block rounded-lg border  w-full  ">
-            <table class="table-fixed border border-gray-900 w-full text-sm ">
+            <table class="table-fixed border border-gray-900 w-full text-xs ">
               <thead>
                 <tr class="bg-gray-100">
                   <th
@@ -3178,211 +3860,30 @@ elseif($cumul_four_year>0) {
                       border-2 border-gray-500
                       self-start
                       text-left
+                      text-xs
                     "
                   >
                   Année
                   </th>
-                  <th class="border-2 border-gray-500 text-center pl-2 py-2 ">1 <sup>ère</sup> année
+                  <th class="border-2 border-gray-500 text-center pl-2 py-2 text-xs ">1 <sup>ère</sup> année
                   </th>
-                  <th class="border-2 border-gray-500  text-center pl-2 py-2 ">2 <sup>ème</sup> année
+                  <th class="border-2 border-gray-500  text-center pl-2 py-2 text-xs ">2 <sup>ème</sup> année
                   </th>
-                  <th class="border-2 border-gray-500  text-center pl-2 py-2 ">3 <sup>ème</sup> année
-                  <th class="border-2 border-gray-500  text-center pl-2 py-2 ">4 <sup>ème</sup> année
+                  <th class="border-2 border-gray-500  text-center pl-2 py-2 text-xs ">3 <sup>ème</sup> année
+                  <th class="border-2 border-gray-500  text-center pl-2 py-2  text-xs">4 <sup>ème</sup> année
                   </th>
-                  <th class="border-2 border-gray-500  text-center pl-2 py-2 ">5 <sup>ème</sup> année
-                  </th>
-                </tr>
-              </thead>
-              <tbody class="font-medium">
-                  <tr>
-                    <td class="border-2 border-gray-500 "> chiffre d'affaires annuel</td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_turnover_first_year, 0, ',', ' ') }} </td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_turnover_second_year,0, ',', ' ')}}</td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_turnover_third_year, 0, ',', ' ') }} </td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_turnover_four_year,0, ',', ' ')}}</td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_turnover_five_year,0, ',', ' ')}}</td>
-
-                </tr> 
-              </tbody>
-            </table>
-          </div>
-      </div>
-      <div class="space-y-9  print_full_witdh display_none">
-        <div class="space-y-4">
-          <div class="space-y-1">
-            <h5
-              class="uppercase font-bold text-sm"
-              style="color: var(--second-blue)"
-            >
-   ACHATS
-          </h5>
-            <hr class="bg-gray-300" style="height: 2px" />
-          </div>
-          <div class="inline-block rounded-lg border w-full ">
-            <table class="table-fixed border border-gray-900 w-full text-sm">
-              <thead>
-                <tr class="bg-gray-100">
-                  <th
-                    class="
-                      py-2
-                      pl-2
-                      border-2 border-gra y-500
-                      self-start
-                      text-left
-                    "
-                  >
-                  Achats
-                  </th>
-                  <th class="border-2 border-gray-500 text-center">PRIX 
-                  </th>
-                  <th class="border-2 border-gray-500  text-center">Quantité/ Nombre(mois) 
-                  </th>
-                  <th class="border-2 border-gray-500  text-center">Montant annuel</th>
-                </tr>
-              </thead>
-              <tbody class="font-medium">
-                @if(isset($data->financial_data->products_turnover_forecast))
-                @foreach ($data->financial_data->products_turnover_forecast as $item)
-                <?php 
-                if(isset($item->duration)){
-                  $achat=(1-$item->duration/100);
-                }else{
-                   $achat=0;
-                }
-                ?>
-                @if(isset($item->otherValue))
-
-                  <tr>
-                    <td class="border-2 border-gray-500 "> Achat <span class="bg-red-200">{{$item->label}}</span> ({{ number_format( $achat*100, 0, ',', ' ') }}% du Chiffres d’affaires) </td>
-                    <td class="border-2 border-gray-500 text-center">--</td>
-                    <td class="border-2 border-gray-500 text-center">--</td>
-                 @if(isset($item->organisme))
-                      <td class="border-2 border-gray-500 text-center">{{ number_format(($item->otherValue*$item->organisme)*$achat, 0, ',', ' ') }} </td>
-                  </tr> 
-                  <?php   $total_achat+=(($item->otherValue*$item->organisme)* $achat); ?>
-                  @else
-                  <td class="border-2 border-gray-500 text-center">{{ number_format(($item->otherValue*$saisonalite)*$achat, 0, ',', ' ') }} </td>
-                    </tr> 
-                  <?php   $total_achat+=(($item->otherValue*$saisonalite)* $achat); ?>
-                @endif
-                @else
-                <tr>
-                  <td class="border-2 border-gray-500 "> Achat <span class="bg-red-200">{{$item->label}}</span> ({{ number_format( $achat*100, 0, ',', ' ') }}% du Chiffres d’affaires) </td>
-                  <td class="border-2 border-gray-500 text-center">{{ number_format($item->rate, 0, ',', ' ') }} </td>
-                  <td class="border-2 border-gray-500 text-center">{{ number_format($item->value,0, ',', ' ')}}</td>
-               @if(isset($item->organisme))
-                    <td class="border-2 border-gray-500 text-center">{{ number_format(isset($item->rate)?($item->rate * $item->value*$item->organisme)* $achat:0, 0, ',', ' ') }} </td>
-                </tr> 
-                <?php   $total_achat+=isset($item->rate)?(($item->rate * $item->value*$item->organisme)* $achat):0; ?>
-                @else
-                <td class="border-2 border-gray-500 text-center">{{ number_format(isset($item->rate)?($item->rate * $item->value*$saisonalite)* $achat:0, 0, ',', ' ') }} </td>
-                  </tr> 
-                <?php   $total_achat+=isset($item->rate)?(($item->rate * $item->value*$saisonalite)* $achat):0; ?>
-              @endif
-              @endif
-                @endforeach
-                @endif
-               @if(isset($data->financial_data->services_turnover_forecast_c))
-                @foreach ($data->financial_data->services_turnover_forecast_c as $item)
-                <?php 
-                if(isset($item->duration)){
-                  $achat=(1-$item->duration/100);
-                }else{
-                   $achat=0;
-                }
-                ?>
-                @if(isset($item->otherValue))
-                  <tr>
-                    <td class="border-2 border-gray-500 "> Achat <span class="bg-red-200">{{$item->label}}</span> ({{ number_format( $achat*100 , 0, ',', ' ') }}% du Chiffres d’affaires) </td>
-                    <td class="border-2 border-gray-500 text-center">-- </td>
-                    <td class="border-2 border-gray-500 text-center">--</td>
-                 @if(isset($item->organisme))
-                      <td class="border-2 border-gray-500 text-center">{{ number_format(($item->otherValue*$item->organisme)* $achat, 0, ',', ' ') }} </td>
-                  </tr> 
-                  <?php   $total_achat+=(($item->otherValue*$item->organisme)* $achat); ?>
-                  @else
-                  <td class="border-2 border-gray-500 text-center">{{ number_format(($item->otherValue*$saisonalite)* $achat, 0, ',', ' ') }} </td>
-                    </tr> 
-                  <?php   $total_achat+=(( $item->otherValue*$saisonalite)* $achat); ?>
-                @endif
-                @else
-                <tr>
-                  <td class="border-2 border-gray-500 "> Achat <span class="bg-red-200">{{$item->label}}</span> ({{ number_format( $achat*100, 0, ',', ' ') }}% du Chiffres d’affaires) </td>
-                  <td class="border-2 border-gray-500 text-center">{{ number_format(isset($item->rate)?$item->rate:0, 0, ',', ' ') }} </td>
-                  <td class="border-2 border-gray-500 text-center">{{ number_format($item->value,0, ',', ' ')}}</td>
-               @if(isset($item->organisme))
-                    <td class="border-2 border-gray-500 text-center">{{ number_format(isset($item->rate)?($item->rate * $item->value*$item->organisme)* $achat:0, 0, ',', ' ') }} </td>
-                </tr> 
-                <?php   $total_achat+=isset($item->rate)?(($item->rate * $item->value*$item->organisme)* $achat):0; ?>
-                @else
-                <td class="border-2 border-gray-500 text-center">{{ number_format(isset($item->rate)?($item->rate * $item->value*$saisonalite)* $achat:0, 0, ',', ' ') }} </td>
-                  </tr> 
-                <?php   $total_achat+=isset($item->rate)?(($item->rate * $item->value*$saisonalite)* $achat):0; ?>
-              @endif
-              @endif
-                @endforeach
-                @endif
-                <tr class="bg-green-200">
-                  <td
-                  colspan="3"
-                    class="
-                      py-1 pl-4
-                      border-2 border-gray-600
-                      font-semibold
-                      text-green-700
-                    "
-                  >
-                    TOTAL
-                  </td>
-                  <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
-                  <td class="border-2 border-gray-600 text-center bg-green-200">{{number_format($total_achat,0,',',' ')}}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="space-y-1">
-            <h5
-              class="uppercase font-bold text-sm"
-              style="color: var(--second-blue)"
-            >
-            ÉVOLUTION DES ACHATS HT (<span class="text-green-500">{{isset($data ->financial_data->evolution_rate)?$data ->financial_data->evolution_rate:0}}</span>%) SUR 5 ANS
-          </h5>
-            <hr class="bg-gray-300" style="height: 2px" />
-          </div>
-          <div class="inline-block rounded-lg border w-full">
-            <table class="table-fixed border border-gray-900 w-full text-sm print-add-break">
-              <thead>
-                <tr class="bg-gray-100">
-                  <th
-                    class="
-                      py-2
-                      pl-2
-                      border-2 border-gray-500
-                      self-start
-                      text-left
-                    "
-                  >
-                  Année
-                  </th>
-                  <th class="border-2 border-gray-500 text-center">1 <sup>ère</sup> année
-                  </th>
-                  <th class="border-2 border-gray-500  text-center">2 <sup>ème</sup> année
-                  </th>
-                  <th class="border-2 border-gray-500  text-center">3 <sup>ème</sup> année
-                  <th class="border-2 border-gray-500  text-center">4 <sup>ème</sup> année
-                  </th>
-                  <th class="border-2 border-gray-500  text-center">5 <sup>ème</sup> année
+                  <th class="border-2 border-gray-500  text-center pl-2 py-2 text-xs">5 <sup>ème</sup> année
                   </th>
                 </tr>
               </thead>
               <tbody class="font-medium">
                   <tr>
-                    <td class="border-2 border-gray-500"> Evolution des achats </td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_purchase_first_year, 0, ',', ' ') }} </td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_purchase_second_year,0, ',', ' ')}}</td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_purchase_third_year, 0, ',', ' ') }} </td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_purchase_four_year,0, ',', ' ')}}</td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_purchase_five_year,0, ',', ' ')}}</td>
+                    <td class="border-2 border-gray-500 text-xs "> chiffre d'affaires annuel</td>
+                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_turnover_first_year, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_turnover_second_year,0, ',', ' ')}}</td>
+                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_turnover_third_year, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_turnover_four_year,0, ',', ' ')}}</td>
+                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_turnover_five_year,0, ',', ' ')}}</td>
 
                 </tr> 
               </tbody>
@@ -3420,15 +3921,43 @@ elseif($cumul_four_year>0) {
       
      </div>
     </div> 
-   <div id="13" class="page printsection print-add-break hidden print-full-width display_full">
-      <div class="space-y-9  print_full_witdh ">
+   <div id="13" class="page printsection print-add-break  print-full-width">
+      <div class="flex justify-between absolute right-0 top-0 w-full">
+        <div class="flex h-14 items-end justify-end space-x-3">
+          <span
+            class="
+              w-10
+              h-full
+              border-0
+              flex
+              items-end
+              justify-end
+              font-semibold
+              text-white
+              pr-1
+              tracking-wider
+            "
+            style="background-color: var(--main-green)"
+          >
+            05
+          </span>
+          <h3
+            class="font-semibold text-lg"
+            style="color: var(--main-blue); line-height: 16px"
+          >
+          Étude Financière
+          </h3>
+        </div>
+        <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
+      </div>
+        <div class="space-y-9  print_full_witdh">
         <div class="space-y-4">
           <div class="space-y-1">
             <h5
-              class="uppercase font-bold text-sm"
+              class="uppercase font-bold text-xs"
               style="color: var(--second-blue)"
             >
-            L’ÉVOLUTION DES ACHATS HT est de<span class="text-green-500">{{isset($data ->financial_data->evolution_rate)?$data ->financial_data->evolution_rate:0}}</span>% SUR 5 ANS
+            ACHATS
           </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
@@ -3438,6 +3967,7 @@ elseif($cumul_four_year>0) {
                 <tr class="bg-gray-100">
                   <th
                     class="
+                    text-xs
                       py-2
                       pl-2
                       border-2 border-gray-500
@@ -3447,28 +3977,95 @@ elseif($cumul_four_year>0) {
                   >
                   Achats
                   </th>
-                  <th class="border-2 border-gray-500 text-center">PRIX UNITAIRE(en Mad)
+                  <th class="border-2 border-gray-500 text-center text-xs">PRIX 
                   </th>
-                  <th class="border-2 border-gray-500  text-center">Quantité(mois) 
+                  <th class="border-2 border-gray-500  text-center text-xs">Quantité/ Nombre(mois) 
                   </th>
-                  <th class="border-2 border-gray-500  text-center">Chiffre d'affaires annuel</th>
+                  <th class="border-2 border-gray-500  text-center text-xs">Montant annuel</th>
                 </tr>
               </thead>
               <tbody class="font-medium">
                 @if(isset($data->financial_data->products_turnover_forecast))
                 @foreach ($data->financial_data->products_turnover_forecast as $item)
+                <?php 
+                if(isset($item->duration)){
+                  $achat=(1-$item->duration/100);
+                }else{
+                   $achat=0;
+                }
+                ?>
+                @if(isset($item->otherValue))
+
                   <tr>
-                    <td class="border-2 border-gray-500 "> Achats {{$item->label}} {{ number_format((1-$item->duration/100)*100, 0, ',', ' ') }} % du Chiffres d’affaires</td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->rate,0, ',', ' ')}}</td>
-
-                    <td class="border-2 border-gray-500 text-center">{{ number_format(($item->rate * $item->value*$saisonalite)*(1-($item->duration/100)), 0, ',', ' ') }} </td>
-
+                    <td class="border-2 border-gray-500  text-xs"> Achat <span class="bg-red-200">{{$item->label}}</span> ({{ number_format( $achat*100, 0, ',', ' ') }}% du Chiffres d’affaires) </td>
+                    <td class="border-2 border-gray-500 text-center text-xs">--</td>
+                    <td class="border-2 border-gray-500 text-center text-xs">--</td>
+                 @if(isset($item->organisme))
+                      <td class="border-2 border-gray-500 text-center text-xs">{{ number_format(($item->otherValue*$item->organisme)*$achat, 0, ',', ' ') }} </td>
+                  </tr> 
+                  <?php   $total_achat+=(($item->otherValue*$item->organisme)* $achat); ?>
+                  @else
+                  <td class="border-2 border-gray-500 text-center text-xs">{{ number_format(($item->otherValue*$saisonalite)*$achat, 0, ',', ' ') }} </td>
+                    </tr> 
+                  <?php   $total_achat+=(($item->otherValue*$saisonalite)* $achat); ?>
+                @endif
+                @else
+                <tr>
+                  <td class="border-2 border-gray-500 text-xs"> Achat <span class="bg-red-200">{{$item->label}}</span> ({{ number_format( $achat*100, 0, ',', ' ') }}% du Chiffres d’affaires) </td>
+                  <td class="border-2 border-gray-500 text-center text-xs">--</td>
+                  <td class="border-2 border-gray-500 text-center text-xs">--</td>
+               @if(isset($item->organisme))
+                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format(isset($item->rate)?($item->rate * $item->value*$item->organisme)* $achat:0, 0, ',', ' ') }} </td>
                 </tr> 
-                <?php   $total_achat= $total_achat+(($item->rate * $item->value*$saisonalite)*(1-($item->duration/100))); ?>
+                <?php   $total_achat+=isset($item->rate)?(($item->rate * $item->value*$item->organisme)* $achat):0; ?>
+                @else
+                <td class="border-2 border-gray-500 text-center text-xs">{{ number_format(isset($item->rate)?($item->rate * $item->value*$saisonalite)* $achat:0, 0, ',', ' ') }} </td>
+                  </tr> 
+                <?php   $total_achat+=isset($item->rate)?(($item->rate * $item->value*$saisonalite)* $achat):0; ?>
+              @endif
+              @endif
                 @endforeach
                 @endif
-               
+               @if(isset($data->financial_data->services_turnover_forecast_c))
+                @foreach ($data->financial_data->services_turnover_forecast_c as $item)
+                <?php 
+                if(isset($item->duration)){
+                  $achat=(1-$item->duration/100);
+                }else{
+                   $achat=0;
+                }
+                ?>
+                @if(isset($item->otherValue))
+                  <tr>
+                    <td class="border-2 border-gray-500 text-xs "> Achat <span class="bg-red-200">{{$item->label}}</span> ({{ number_format( $achat*100 , 0, ',', ' ') }}% du Chiffres d’affaires) </td>
+                    <td class="border-2 border-gray-500 text-center text-xs">--</td>
+                    <td class="border-2 border-gray-500 text-center text-xs">--</td>
+                 @if(isset($item->organisme))
+                      <td class="border-2 border-gray-500 text-center text-xs">{{ number_format(($item->otherValue*$item->organisme)* $achat, 0, ',', ' ') }} </td>
+                  </tr> 
+                  <?php   $total_achat+=(($item->otherValue*$item->organisme)* $achat); ?>
+                  @else
+                  <td class="border-2 border-gray-500 text-center text-xs">{{ number_format(($item->otherValue*$saisonalite)* $achat, 0, ',', ' ') }} </td>
+                    </tr> 
+                  <?php   $total_achat+=(( $item->otherValue*$saisonalite)* $achat); ?>
+                @endif
+                @else
+                <tr>
+                  <td class="border-2 border-gray-500  text-xs"> Achat <span class="bg-red-200">{{$item->label}}</span> ({{ number_format( $achat*100, 0, ',', ' ') }}% du Chiffres d’affaires) </td>
+                  <td class="border-2 border-gray-500 text-center text-xs">-- </td>
+                  <td class="border-2 border-gray-500 text-center text-xs">--</td>
+               @if(isset($item->organisme))
+                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format(isset($item->rate)?($item->rate * $item->value*$item->organisme)* $achat:0, 0, ',', ' ') }} </td>
+                </tr> 
+                <?php   $total_achat+=isset($item->rate)?(($item->rate * $item->value*$item->organisme)* $achat):0; ?>
+                @else
+                <td class="border-2 border-gray-500 text-center text-xs">{{ number_format(isset($item->rate)?($item->rate * $item->value*$saisonalite)* $achat:0, 0, ',', ' ') }} </td>
+                  </tr> 
+                <?php   $total_achat+=isset($item->rate)?(($item->rate * $item->value*$saisonalite)* $achat):0; ?>
+              @endif
+              @endif
+                @endforeach
+                @endif
                 <tr class="bg-green-200">
                   <td
                   colspan="3"
@@ -3477,56 +4074,17 @@ elseif($cumul_four_year>0) {
                       border-2 border-gray-600
                       font-semibold
                       text-green-700
+                      text-xs
                     "
                   >
                     TOTAL
                   </td>
                   <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
-                  <td class="border-2 border-gray-600 text-center bg-green-200">{{number_format($total_achat,0,',',' ')}}</td>
+                  <td class="border-2 border-gray-600 text-center bg-green-200 text-xs">{{number_format($total_achat,0,',',' ')}}</td>
                 </tr>
               </tbody>
             </table>
           </div>
-          <div class="inline-block rounded-lg border w-full">
-            <table class="table-fixed border border-gray-900 w-full text-sm print-add-break">
-              <thead>
-                <tr class="bg-gray-100">
-                  <th
-                    class="
-                      py-2
-                      pl-2
-                      border-2 border-gray-500
-                      self-start
-                      text-left
-                    "
-                  >
-                  Année
-                  </th>
-                  <th class="border-2 border-gray-500 text-center">1 <sup>ère</sup> année
-                  </th>
-                  <th class="border-2 border-gray-500  text-center">2 <sup>ème</sup> année
-                  </th>
-                  <th class="border-2 border-gray-500  text-center">3 <sup>ème</sup> année
-                  <th class="border-2 border-gray-500  text-center">4 <sup>ème</sup> année
-                  </th>
-                  <th class="border-2 border-gray-500  text-center">5 <sup>ème</sup> année
-                  </th>
-                </tr>
-              </thead>
-              <tbody class="font-medium">
-                  <tr>
-                    <td class="border-2 border-gray-500"> Achats 50% du Chiffres d’affaires</td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_purchase_first_year, 0, ',', ' ') }} </td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_purchase_second_year,0, ',', ' ')}}</td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_purchase_third_year, 0, ',', ' ') }} </td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_purchase_four_year,0, ',', ' ')}}</td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_purchase_five_year,0, ',', ' ')}}</td>
-
-                </tr> 
-              </tbody>
-            </table>
-          </div>
-      </div>
       </div>
       <div class="absolute bottom-0 right-0 left-0 ">
         <img
@@ -3556,8 +4114,118 @@ elseif($cumul_four_year>0) {
         </div>
       </div>
      </div>
-    
-    <div id="13" class="page printsection print-add-break print-full-width">
+   </div>
+    <div id="13" class="page printsection print-add-break  print-full-width">
+      <div class="flex justify-between absolute right-0 top-0 w-full">
+        <div class="flex h-14 items-end justify-end space-x-3">
+          <span
+            class="
+              w-10
+              h-full
+              border-0
+              flex
+              items-end
+              justify-end
+              font-semibold
+              text-white
+              pr-1
+              tracking-wider
+            "
+            style="background-color: var(--main-green)"
+          >
+            05
+          </span>
+          <h3
+            class="font-semibold text-lg"
+            style="color: var(--main-blue); line-height: 16px"
+          >
+          Étude Financière
+          </h3>
+        </div>
+        <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
+      </div>
+      <div class="space-y-9  print_full_witdh">
+        <div class="space-y-4">
+          <div class="space-y-1">
+            <h5
+              class="uppercase font-bold text-xs"
+              style="color: var(--second-blue)"
+            >
+            ÉVOLUTION DES ACHATS HT (<span class="text-green-500">{{isset($data ->financial_data->evolution_rate)?$data ->financial_data->evolution_rate:0}}</span>%) SUR 5 ANS
+          </h5>
+            <hr class="bg-gray-300" style="height: 2px" />
+          </div>
+          <div class="inline-block rounded-lg border w-full">
+            <table class="table-fixed border border-gray-900 w-full text-sm print-add-break">
+              <thead>
+                <tr class="bg-gray-100">
+                  <th
+                    class="
+                      py-2
+                      pl-2
+                      border-2 border-gray-500
+                      self-start
+                      text-left
+                      text-xs
+                    "
+                  >
+                  Année
+                  </th>
+                  <th class="border-2 border-gray-500 text-center text-xs">1 <sup>ère</sup> année
+                  </th>
+                  <th class="border-2 border-gray-500  text-center text-xs">2 <sup>ème</sup> année
+                  </th>
+                  <th class="border-2 border-gray-500  text-center text-xs">3 <sup>ème</sup> année
+                  <th class="border-2 border-gray-500  text-center text-xs">4 <sup>ème</sup> année
+                  </th>
+                  <th class="border-2 border-gray-500  text-center text-xs">5 <sup>ème</sup> année
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="font-medium">
+                  <tr>
+                    <td class="border-2 border-gray-500 text-xs"> Evolution des achats </td>
+                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_purchase_first_year, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_purchase_second_year,0, ',', ' ')}}</td>
+                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_purchase_third_year, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_purchase_four_year,0, ',', ' ')}}</td>
+                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_purchase_five_year,0, ',', ' ')}}</td>
+
+                </tr> 
+              </tbody>
+            </table>
+          </div>
+      </div>
+      <div class="absolute bottom-0 right-0 left-0 ">
+        <img
+        class="absolute bottom-0 right-0 left-0 img_full_width"
+        src="{{asset('images/back-office/svg/footer.svg')}}"
+        alt="" 
+        srcset=""
+        />
+
+        <div
+          class="
+            py-2
+            flex
+            justify-between
+            items-center
+            pl-16
+            pr-36
+            text-white text-xs
+            font-medium
+            relative
+            z-10
+          "
+        >
+          <span>{{$owner->first_name}} {{$owner->last_name}}</span>
+          <span>{{$data->title}}</span>
+          <span>Business Plan</span>
+        </div>
+      </div>
+     </div>
+   </div>
+  <div id="13" class="page printsection print-add-break print-full-width">
       <div class="flex justify-between absolute right-0 top-0 w-full">
         <div class="flex h-14 items-end justify-end space-x-3">
           <span
@@ -3588,10 +4256,10 @@ elseif($cumul_four_year>0) {
       </div>
 
       <div class="space-y-9">
-        <div class="space-y-4">
+        <div class="space-y-4" style="margin-top:5px;">
           <div class="space-y-1">
             <h5
-              class="uppercase font-bold text-sm"
+              class="uppercase font-bold text-xs"
               style="color: var(--second-blue)"
             >
              CHARGES PRÉVISIONNELLES
@@ -3599,21 +4267,21 @@ elseif($cumul_four_year>0) {
           </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
-           <p class="text-gray-500 font-normal"> 
+           <p class="text-gray-500 font-normal text-xs" style="margin-top:5px;"> 
             Les charges que l'entreprise devra supporter au cours de ses 5 premières années d'activité sont très variées et dépendent de la nature de l'activité, mais aussi du lieu d'implantation, de la structure juridique choisie ou d'autres paramètres externes au projet.           </p>
             <div class="space-y-9">
         <div class="space-y-4">
           <div class="space-y-1">
             <h5
-              class="uppercase font-bold text-sm"
+              class="uppercase font-bold text-xs"
               style="color: var(--second-blue)"
             >
             Charges fixes
           </h5>
-            <hr class="bg-gray-300" style="height: 2px" />
+            <hr class="bg-gray-300" style="height: 2px"/>
           </div>
           <div class="inline-block rounded-lg border w-full ">
-            <table class="table-fixed border border-gray-900 w-full text-sm">
+            <table class="table-fixed border border-gray-900 w-full text-xs">
               <thead>
                 <tr class="bg-gray-100">
                   <th
@@ -3623,33 +4291,34 @@ elseif($cumul_four_year>0) {
                       border-2 border-gray-500
                       self-start
                       text-left
+                      text-xs
                     "
                   >
                   DESIGNATION
                   </th>
-                  <th class="border-2 border-gray-500  text-center">MONTANT MENSUEL</th>
-                  <th class="border-2 border-gray-500  text-center">MONTANT ANNUEL</th>
+                  <th class="border-2 border-gray-500  text-center text-xs">MONTANT MENSUEL</th>
+                  <th class="border-2 border-gray-500  text-center text-xs">MONTANT ANNUEL</th>
                 </tr>
               </thead>
               <tbody class="font-medium">
                 @if(isset($data->financial_data->overheads_fixed))
                 @foreach ($data->financial_data->overheads_fixed as $item)
                   <tr>
-                    <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
+                    <td class="border-2 border-gray-500 py-1 pl-4 text-xs">{{$item->label}}</td>
                     <?php  //dd($total_overheads_fixed);?>
                    @if(isset($item->otherValue))
                      @if($item->otherValue=='Mensuel')
-                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*12, 0, ',', ' ') }} </td>
+                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value*12, 0, ',', ' ') }} </td>
                       <?php   $total_overheads_fixed+=$item->value*12;?>
                     @elseif($item->otherValue=='Annuel')
-                    <td class="border-2 border-gray-500 text-center">--</td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 text-center text-xs">--</td>
+                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value, 0, ',', ' ') }} </td>
                       <?php   $total_overheads_fixed+=$item->value; ?>
                     @endif
                    @else
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value, 0, ',', ' ') }} </td>
                     <?php   $total_overheads_fixed+=$item->value; ?>
                   @endif
                     
@@ -3664,90 +4333,92 @@ elseif($cumul_four_year>0) {
                       border-2 border-gray-600
                       font-semibold
                       text-green-700
+                      text-xs
                     "
                   >
                     TOTAL
                   </td>
                   <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
-                  <td class="border-2 border-gray-600 text-center bg-green-200">{{ number_format($total_overheads_fixed, 0, ',', ' ')}}</td>
+                  <td class="border-2 border-gray-600 text-center bg-green-200 text-xs">{{ number_format($total_overheads_fixed, 0, ',', ' ')}}</td>
                 </tr>
               </tbody>
             </table>
           </div> 
-      </div>
-           
-            <div class="space-y-1">
-              <h5
-                class="uppercase font-bold text-sm"
-                style="color: var(--second-blue)"
-              >
-              Charges variables
-               </h5>
-              <hr class="bg-gray-300" style="height: 2px" />
-            </div>
-          </div>
-            <div class="inline-block rounded-lg border w-full ">
-              <table class="table-fixed border border-gray-900 w-full text-sm">
-                <thead>
-                  <tr class="bg-gray-100">
-                    <th
-                      class="
-                        py-2
-                        pl-4
-                        border-2 border-gray-500
-                        self-start
-                        text-left
-                      "
+        </div>        
+            {{-- <div class="space-y-1">
+                    <h5
+                      class="uppercase font-bold text-xs"
+                      style="color: var(--second-blue)"
                     >
-                    DESIGNATION
-                    </th>
-                    <th class="border-2 border-gray-500  text-center">MONTANT MENSUEL </th>
-                    <th class="border-2 border-gray-500  text-center">MONTANT ANNUEL</th>
-                  </tr>
-                </thead>
-                <tbody class="font-medium">
-                  <?php $total_overheads_scalable =0; $total_overheads_fixed =0;  $total_overheads_scalable =0;  ?>
-                  @if(isset($data->financial_data->overheads_scalable))
-                  @foreach ($data->financial_data->overheads_scalable as $item)
-                    <tr>
-                      <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
-                         @if(isset($item->otherValue))
-                     @if($item->otherValue=='Mensuel')
-                  <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*$saisonalite, 0, ',', ' ') }} </td>
-                          <?php  $total_overheads_scalable+=$item->value*$saisonalite; ?>
-                    @elseif($item->otherValue=='Annuel')
-                    <td class="border-2 border-gray-500 text-center">-- </td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
-                      <?php   $total_overheads_scalable+=$item->value; ?>
-                    @endif
-                   @else
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
-                    <?php    $total_overheads_scalable+=$item->value; ?>
-                  @endif
-                     
-                  </tr> 
-                  @endforeach
-                 @endif
-                  <tr class="bg-green-200">
-                    <td
-                    colspan="2"
-                      class="
-                        py-1 pl-4
-                        border-2 border-gray-600
-                        font-semibold
-                        text-green-700
-                      "
-                    >
-                      TOTAL
-                    </td>
-                    <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
-                    <td class="border-2 border-gray-600 text-center bg-green-200">{{ number_format($total_overheads_scalable, 0, ',', ' ')}}</td>
-                  </tr>
-                </tbody>
-              </table>
-           </div> 
+                    Charges variables
+                    </h5>
+                    <hr class="bg-gray-300" style="height: 2px" />
+                  </div>
+                </div>
+                  <div class="inline-block rounded-lg border w-full ">
+                    <table class="table-fixed border border-gray-900 w-full text-xs">
+                      <thead>
+                        <tr class="bg-gray-100">
+                          <th
+                            class="
+                              py-2
+                              pl-4
+                              border-2 border-gray-500
+                              self-start
+                              text-left
+                              text-xs
+                            "
+                          >
+                          DESIGNATION
+                          </th>
+                          <th class="border-2 border-gray-500  text-center text-xs">MONTANT MENSUEL </th>
+                          <th class="border-2 border-gray-500  text-center text-xs">MONTANT ANNUEL</th>
+                        </tr>
+                      </thead>
+                      <tbody class="font-medium">
+                        <?php $total_overheads_scalable =0; $total_overheads_fixed =0;  $total_overheads_scalable =0;  ?>
+                        @if(isset($data->financial_data->overheads_scalable))
+                        @foreach ($data->financial_data->overheads_scalable as $item)
+                          <tr>
+                            <td class="border-2 border-gray-500 py-1 pl-4 text-xs">{{$item->label}}</td>
+                              @if(isset($item->otherValue))
+                          @if($item->otherValue=='Mensuel')
+                        <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value, 0, ',', ' ') }} </td>
+                          <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value*$saisonalite, 0, ',', ' ') }} </td>
+                                <?php  $total_overheads_scalable+=$item->value*$saisonalite; ?>
+                          @elseif($item->otherValue=='Annuel')
+                          <td class="border-2 border-gray-500 text-center text-xs">-- </td>
+                          <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value, 0, ',', ' ') }} </td>
+                            <?php   $total_overheads_scalable+=$item->value; ?>
+                          @endif
+                        @else
+                          <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value, 0, ',', ' ') }} </td>
+                          <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value, 0, ',', ' ') }} </td>
+                          <?php    $total_overheads_scalable+=$item->value; ?>
+                        @endif
+                          
+                        </tr> 
+                        @endforeach
+                      @endif
+                        <tr class="bg-green-200">
+                          <td
+                          colspan="2"
+                            class="
+                              py-1 pl-4
+                              border-2 border-gray-600
+                              font-semibold
+                              text-green-700
+                              text-xs
+                            "
+                          >
+                            TOTAL
+                          </td>
+                          <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
+                          <td class="border-2 border-gray-600 text-center bg-green-200 text-xs">{{ number_format($total_overheads_scalable, 0, ',', ' ')}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+           </div>  --}}
       </div>
       <br>
       <div class="absolute bottom-0 right-0 left-0 ">
@@ -3779,6 +4450,157 @@ elseif($cumul_four_year>0) {
       </div>
       
      </div>
+    </div>
+    </div>
+     <div id="13" class="page printsection print-add-break print-full-width">
+      <div class="flex justify-between absolute right-0 top-0 w-full">
+        <div class="flex h-14 items-end justify-end space-x-3">
+          <span
+            class="
+              w-10
+              h-full
+              border-0
+              flex
+              items-end
+              justify-end
+              font-semibold
+              text-white
+              pr-1
+              tracking-wider
+            "
+            style="background-color: var(--main-green)"
+          >
+            04
+          </span>
+          <h3
+            class="font-semibold text-lg"
+            style="color: var(--main-blue); line-height: 16px"
+          >
+          Étude Financière
+          </h3>
+        </div>
+        <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
+      </div>
+
+      <div class="space-y-9">
+        <div class="space-y-4">
+          {{-- <div class="space-y-1">
+            <h5
+              class="uppercase font-bold text-xs"
+              style="color: var(--second-blue)"
+            >
+             CHARGES PRÉVISIONNELLES
+
+             </h5>
+            <hr class="bg-gray-300" style="height: 2px" />
+          </div> --}}
+           {{-- <p class="text-gray-500 font-normal text-xs"> 
+            Les charges que l'entreprise devra supporter au cours de ses 5 premières années d'activité sont très variées et dépendent de la nature de l'activité, mais aussi du lieu d'implantation, de la structure juridique choisie ou d'autres paramètres externes au projet.           </p> --}}
+      
+      <br>
+      <div class="absolute bottom-0 right-0 left-0 ">
+        <img
+        class="absolute bottom-0 right-0 left-0 img_full_width"
+        src="{{asset('images/back-office/svg/footer.svg')}}"
+        alt="" 
+        srcset=""
+        />
+
+        <div
+          class="
+            py-2
+            flex
+            justify-between
+            items-center
+            pl-16
+            pr-36
+            text-white text-xs
+            font-medium
+            relative
+            z-10
+          "
+        >
+          <span>{{$owner->first_name}} {{$owner->last_name}}</span>
+          <span>{{$data->title}}</span>
+          <span>Business Plan</span>
+        </div>
+      </div>
+         <div class="space-y-1">
+                    <h5
+                      class="uppercase font-bold text-xs"
+                      style="color: var(--second-blue)"
+                    >
+                    Charges variables
+                    </h5>
+                    <hr class="bg-gray-300" style="height: 2px" />
+                  </div>
+                </div>
+                  <div class="inline-block rounded-lg border w-full ">
+                    <table class="table-fixed border border-gray-900 w-full text-xs">
+                      <thead>
+                        <tr class="bg-gray-100">
+                          <th
+                            class="
+                              py-2
+                              pl-4
+                              border-2 border-gray-500
+                              self-start
+                              text-left
+                              text-xs
+                            "
+                          >
+                          DESIGNATION
+                          </th>
+                          <th class="border-2 border-gray-500  text-center text-xs">MONTANT MENSUEL </th>
+                          <th class="border-2 border-gray-500  text-center text-xs">MONTANT ANNUEL</th>
+                        </tr>
+                      </thead>
+                      <tbody class="font-medium">
+                        <?php $total_overheads_scalable =0; $total_overheads_fixed =0;  $total_overheads_scalable =0;  ?>
+                        @if(isset($data->financial_data->overheads_scalable))
+                        @foreach ($data->financial_data->overheads_scalable as $item)
+                          <tr>
+                            <td class="border-2 border-gray-500 py-1 pl-4 text-xs">{{$item->label}}</td>
+                              @if(isset($item->otherValue))
+                          @if($item->otherValue=='Mensuel')
+                        <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value, 0, ',', ' ') }} </td>
+                          <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value*$saisonalite, 0, ',', ' ') }} </td>
+                                <?php  $total_overheads_scalable+=$item->value*$saisonalite; ?>
+                          @elseif($item->otherValue=='Annuel')
+                          <td class="border-2 border-gray-500 text-center text-xs">-- </td>
+                          <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value, 0, ',', ' ') }} </td>
+                            <?php   $total_overheads_scalable+=$item->value; ?>
+                          @endif
+                        @else
+                          <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value, 0, ',', ' ') }} </td>
+                          <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value, 0, ',', ' ') }} </td>
+                          <?php    $total_overheads_scalable+=$item->value; ?>
+                        @endif
+                          
+                        </tr> 
+                        @endforeach
+                      @endif
+                        <tr class="bg-green-200">
+                          <td
+                          colspan="2"
+                            class="
+                              py-1 pl-4
+                              border-2 border-gray-600
+                              font-semibold
+                              text-green-700
+                              text-xs
+                            "
+                          >
+                            TOTAL
+                          </td>
+                          <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
+                          <td class="border-2 border-gray-600 text-center bg-green-200 text-xs">{{ number_format($total_overheads_scalable, 0, ',', ' ')}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+           </div> 
+     </div>
+    </div>
     </div>
     <div id="14" class="page printsection print-add-break print-full-width">
       <div class="flex justify-between absolute right-0 top-0 w-full">
@@ -3814,7 +4636,7 @@ elseif($cumul_four_year>0) {
         <div class="space-y-4">
           <div class="space-y-1">
             <h5
-              class="uppercase font-bold text-sm"
+              class="uppercase font-bold text-xs"
               style="color: var(--second-blue)"
             >
             Remunération du personnel
@@ -3822,13 +4644,13 @@ elseif($cumul_four_year>0) {
           </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
-           <p class="text-gray-500 font-normal"> 
+           <p class="text-gray-500 font-normal text-xs" style="margin-top:5px;"> 
             Une part importante des charges d’exploitation. Elles comprennent non seulement les rémunérations du personnel représentées par les salaires bruts, mais également les différentes charges sociales calculées sur les salaires, dites « charges patronales ».
           </p>
 
           </div>
-            <div class="inline-block rounded-lg border w-full ">
-              <table class="table-fixed border border-gray-900 w-full text-sm">
+            <div class="inline-block rounded-lg border w-full " style="margin-top:2px;">
+              <table class="table-fixed border border-gray-900 w-full text-xs">
                 <thead>
                   <tr class="bg-gray-100">
                     <th
@@ -3839,13 +4661,14 @@ elseif($cumul_four_year>0) {
                     
                         self-start
                         text-left
+                        text-xs
                       "
                     >
                     DESIGNATION
                     </th>
-                    <th class="border-2 border-gray-500 text-center">Effectif</th>
-                    <th class="border-2 border-gray-500 text-center">SALAIRE</th>
-                    <th class="border-2 border-gray-500  text-center">MONTANT ANNUEL</th>
+                    <th class="border-2 border-gray-500 text-center   text-xs">Effectif</th>
+                    <th class="border-2 border-gray-500 text-center  text-xs">SALAIRE</th>
+                    <th class="border-2 border-gray-500  text-center  text-xs ">MONTANT ANNUEL</th>
                   </tr>
                 </thead>
                 <tbody class="font-medium">
@@ -3853,10 +4676,10 @@ elseif($cumul_four_year>0) {
                   @if(isset($data->financial_data->human_ressources))
                   @foreach ($data->financial_data->human_ressources as $item) 
                     <tr>
-                      <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
-                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
+                      <td class="border-2 border-gray-500 py-1 pl-4 text-xs">{{$item->label}}</td>
+                      <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value, 0, ',', ' ') }} </td>
                       @if(isset($item->rate))
-                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->rate, 0, ',', ' ') }} </td>
+                      <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->rate, 0, ',', ' ') }} </td>
                        <?php 
                      
                        if($item->duration==0){
@@ -3866,7 +4689,7 @@ elseif($cumul_four_year>0) {
                        }
                       
                       ?>
-                      <td class="border-2 border-gray-500 text-center">{{ number_format(isset($item->duration)?$item->value*$item->rate*$item->duration:$item->value*$item->rate*12, 0, ',', ' ') }} </td>
+                      <td class="border-2 border-gray-500 text-center text-xs">{{ number_format(isset($item->duration)?$item->value*$item->rate*$item->duration:$item->value*$item->rate*12, 0, ',', ' ') }} </td>
                       <?php $total_overheads_scalablee+=$m; 
                       //dd($total_overheads_scalablee);
                       
@@ -3891,7 +4714,7 @@ elseif($cumul_four_year>0) {
                  
                     <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
                     {{-- <td class="border-2 border-gray-600 text-center bg-white"></td> --}}
-                    <td class="border-2 border-gray-600 text-center bg-green-100">{{ number_format($total_overheads_scalablee, 0, ',', ' ') }}</td>
+                    <td class="border-2 border-gray-600 text-center bg-green-100  text-xs ">{{ number_format($total_overheads_scalablee, 0, ',', ' ') }}</td>
 
 
                   </tr>
@@ -3903,6 +4726,7 @@ elseif($cumul_four_year>0) {
                         border-2 border-gray-600
                         font-semibold
                         text-green-700
+                        text-xs
                       "
                     >
                      CHARGES SOCIALES (21,09%)
@@ -3911,7 +4735,7 @@ elseif($cumul_four_year>0) {
                     
                     <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
                     {{-- <td class="border-2 border-gray-600 text-center bg-white"> </td> --}}
-                    <td class="border-2 border-gray-600 text-center bg-green-100">{{ number_format($total_overheads_scalablee*0.2109, 0, ',', ' ') }}</td>
+                    <td class="border-2 border-gray-600 text-center bg-green-100 text-xs">{{ number_format($total_overheads_scalablee*0.2109, 0, ',', ' ') }}</td>
 
 
                   </tr>
@@ -3924,6 +4748,7 @@ elseif($cumul_four_year>0) {
                         border-2 border-gray-600
                         font-semibold
                         text-green-700
+                        text-xs
                       "
                     >
                     ASSURANCE ACCIDENT DE TRAVAIL (3% de la masse salariale)
@@ -3931,7 +4756,7 @@ elseif($cumul_four_year>0) {
                     </td>
                     <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
 
-                    <td class="border-2 border-gray-600 text-center bg-green-100">{{ number_format($total_overheads_scalablee*0.03, 0, ',', ' ') }}</td>
+                    <td class="border-2 border-gray-600 text-center bg-green-100 text-xs">{{ number_format($total_overheads_scalablee*0.03, 0, ',', ' ') }}</td>
                   
 
 
@@ -3944,6 +4769,7 @@ elseif($cumul_four_year>0) {
                         border-2 border-gray-600
                         font-semibold
                         text-green-700
+                        text-xs
                       "
                     >
                     TOTAL 
@@ -3953,7 +4779,7 @@ elseif($cumul_four_year>0) {
                     <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
   
                     
-                    <td class="border-2 border-gray-600 text-center bg-green-100"> {{ number_format($total_overheads_scalablee+($total_overheads_scalablee*0.2109)+($total_overheads_scalablee*0.03), 0, ',', ' ') }}</td>
+                    <td class="border-2 border-gray-600 text-center bg-green-100 text-xs"> {{ number_format($total_overheads_scalablee+($total_overheads_scalablee*0.2109)+($total_overheads_scalablee*0.03), 0, ',', ' ') }}</td>
 
 
                   </tr>
@@ -4027,7 +4853,7 @@ elseif($cumul_four_year>0) {
         <div class="space-y-4">
           <div class="space-y-1">
             <h5
-              class="uppercase font-bold text-sm"
+              class="uppercase font-bold text-xs"
               style="color: var(--second-blue)"
             >
             TAXE DEs SERVICES COMMUNAUX
@@ -4035,11 +4861,11 @@ elseif($cumul_four_year>0) {
           </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
-           <p class="text-gray-500 font-normal"> 
+           <p class="text-gray-500 font-normal text-xs"> 
             Le porteur de projet va payer la taxe de services communaux annuellement comme suit :
           </div>
-            <div class="inline-block rounded-lg border w-full ">
-              <table class="table-auto border border-gray-900 w-full text-sm">
+            <div class="inline-block rounded-lg border w-full " style="margin-top:5px;">
+              <table class="table-auto border border-gray-900 w-full text-xs">
                 <thead>
                   <tr class="bg-gray-100">
                     <th
@@ -4049,13 +4875,14 @@ elseif($cumul_four_year>0) {
                         border-2 border-gray-500
                         self-start
                         text-left
+                         text-xs
                       "
                     >
                     DESIGNATION
                     </th>
-                    <th class="border-2 border-gray-500  text-center">MONTANT HT</th>
-                    <th class="border-2 border-gray-500 text-center">VALEUR LOCATIVE</th>
-                    <th class="border-2 border-gray-500  text-center"> TAXES</th>
+                    <th class="border-2 border-gray-500  text-center  text-xs">MONTANT HT</th>
+                    <th class="border-2 border-gray-500 text-center  text-xs">VALEUR LOCATIVE</th>
+                    <th class="border-2 border-gray-500  text-center  text-xs"> TAXES</th>
                   </tr>
                 </thead>
                 <tbody class="font-medium">
@@ -4076,10 +4903,10 @@ elseif($cumul_four_year>0) {
                   @if($item->label=='loyer'|| $item->label=='loyers'|| $item->label=='Loyer')               
          
                     <tr>
-                      <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
-                      <td class="border-2 border-gray-500 text-center">{{ number_format(0, 0, ',', ' ') }} </td>
-                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*12, 0, ',', ' ') }} </td>
-                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->value*12*$taxe, 0, ',', ' ') }} </td>
+                      <td class="border-2 border-gray-500 py-1 pl-4  text-xs">{{$item->label}}</td>
+                      <td class="border-2 border-gray-500 text-center  text-xs">{{ number_format(0, 0, ',', ' ') }} </td>
+                      <td class="border-2 border-gray-500 text-center  text-xs">{{ number_format($item->value*12, 0, ',', ' ') }} </td>
+                      <td class="border-2 border-gray-500 text-center  text-xs">{{ number_format($item->value*12*$taxe, 0, ',', ' ') }} </td>
                       <?php   $total_taxe1 +=$item->value*12*$taxe; ?>
                   </tr> 
                    @endif   
@@ -4087,14 +4914,18 @@ elseif($cumul_four_year>0) {
                  @endif
                  @if(isset($data->financial_data->startup_needs))
                  @foreach ($data->financial_data->startup_needs as $item)
-                 @if($item->label !='Frais preliminaires' && $item->label !='Matériel de transport' )
+                 @if (isset($item->label))
+                     
+                
+                 @if($item->label !='Frais preliminaires' && $item->label !='Matériel de transport'  && $item->label !='Fonds de roulement de démarrage'  )
                    <tr>
-                     <td class="border-2 border-gray-500 py-1 pl-4">{{isset($item->label)?$item->label:''}}</td>
-                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->value/(1+($item->duration/100)), 0, ',', ' ') }} </td>
-                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->value/(1+($item->duration/100))*0.03, 0, ',', ' ') }} </td>
-                     <td class="border-2 border-gray-500 text-center">{{ number_format(($item->value/(1+($item->duration/100))*0.03)*$taxe, 0, ',', ' ') }} </td>
+                     <td class="border-2 border-gray-500 py-1 pl-4  text-xs">{{isset($item->label)?$item->label:''}}</td>
+                     <td class="border-2 border-gray-500 text-center  text-xs">{{ number_format($item->value/(1+($item->duration/100)), 0, ',', ' ') }} </td>
+                     <td class="border-2 border-gray-500 text-center  text-xs">{{ number_format($item->value/(1+($item->duration/100))*0.03, 0, ',', ' ') }} </td>
+                     <td class="border-2 border-gray-500 text-center  text-xs">{{ number_format(($item->value/(1+($item->duration/100))*0.03)*$taxe, 0, ',', ' ') }} </td>
                      <?php $total_taxe2+=($item->value/(1+($item->duration/100))*0.03)*$taxe;  ?>
-                 </tr> 
+                 </tr>
+                  @endif
                  @endif
                  @endforeach
                 @endif
@@ -4106,6 +4937,7 @@ elseif($cumul_four_year>0) {
                         border-2 border-gray-600
                         font-semibold
                         text-green-700
+                         text-xs
                       "
                     >
                       TOTAL
@@ -4113,7 +4945,7 @@ elseif($cumul_four_year>0) {
                  
                     <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
       
-                    <td class="border-2 border-gray-600 text-center bg-green-100">{{number_format($total_taxe1 + $total_taxe2,0,',','')}}</td>
+                    <td class="border-2 border-gray-600 text-center bg-green-100 text-xs">{{number_format($total_taxe1 + $total_taxe2,0,',','')}}</td>
 
 
                   </tr>
@@ -4131,23 +4963,24 @@ elseif($cumul_four_year>0) {
                         border-2 border-gray-500
                         self-start
                         text-left
+                        text-xs
                       "
                     >
                     IMPOTS & TAXES
                     </th>
-                    <th class="border-2 border-gray-500 text-center">MONTANT</th>
+                    <th class="border-2 border-gray-500 text-center text-xs">MONTANT</th>
                   </tr>
                 </thead>
                 <tbody class="font-medium">
                  <tr>
-                      <td class="border-2 border-gray-500 py-1 pl-4">Taxe des services communaux</td>
-                      <td class="border-2 border-gray-500 text-center">{{ number_format($total_taxe1 + $total_taxe2, 0, ',', ' ') }} </td>
+                      <td class="border-2 border-gray-500 py-1 pl-4 text-xs ">Taxe des services communaux</td>
+                      <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($total_taxe1 + $total_taxe2, 0, ',', ' ') }} </td>
                   </tr> 
                   @if(isset($data->financial_data->taxes))
                   @foreach ($data->financial_data->taxes as $item)              
                     <tr>
-                      <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
-                      <td class="border-2 border-gray-500 text-center">{{ number_format($item->value, 0, ',', ' ') }} </td>
+                      <td class="border-2 border-gray-500 py-1 pl-4 text-xs">{{isset($item->label)?$item->label:''}}</td>
+                      <td class="border-2 border-gray-500 text-center text-xs">{{ number_format(isset($item->value)?$item->value:0, 0, ',', ' ') }} </td>
                       <?php   $total_taxes +=$item->value; ?>
                   </tr> 
                   @endforeach
@@ -4160,6 +4993,7 @@ elseif($cumul_four_year>0) {
                         border-2 border-gray-600
                         font-semibold
                         text-green-700
+                        text-xs
                       "
                     >
                       TOTAL
@@ -4167,22 +5001,22 @@ elseif($cumul_four_year>0) {
                  
                     <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
       
-                    <td class="border-2 border-gray-600 text-center bg-green-100">{{number_format($total_taxes+$total_taxe1 + $total_taxe2,0,',',' ')}}</td>
+                    <td class="border-2 border-gray-600 text-center bg-green-100 text-xs">{{number_format($total_taxes+$total_taxe1 + $total_taxe2,0,',',' ')}}</td>
 
 
                   </tr>
                 </tbody>
               </table>
             </div> 
-            <p class="text-gray-500">* Les projets dans le cadre de ce programme sont exonéré de la taxe professionnelle
+            <p class="text-gray-500 text-xs" style="margin-top:5px;">* Les projets dans le cadre de ce programme sont exonéré de la taxe professionnelle
             </p>
       </div>
       <br>
-      <div class="space-y-9 display_none" >
+      {{-- <div class="space-y-9 " >
         <div class="space-y-4">
           <div class="space-y-1">
             <h5
-              class="uppercase font-bold text-sm"
+              class="uppercase font-bold text-xs"
               style="color: var(--second-blue)"
             >
             TABLEAU D'AMORTISSEMENT
@@ -4190,27 +5024,28 @@ elseif($cumul_four_year>0) {
           </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
-           <p class="text-gray-500 font-normal"> 
+           <p class="text-gray-500 font-normal text-xs"> 
             L'amortissement est la constatation comptable qui définit la perte de valeur d'un bien immobilisé de l'entreprise, du fait de l'usure du temps ou de l'obsolescence.
           </div>
-            <div class="inline-block rounded-lg border w-full ">
-              <table class="table-fixed border border-gray-900 w-full text-sm">
+            <div class="inline-block rounded-lg border w-full">
+              <table class="table-fixed border border-gray-900 w-99 text-xs">
                 <thead>
                   <tr class="bg-gray-100">
                     <th
                       class="
                         py-2
-                        pl-4
+                        pl-2
                         border-2 border-gray-500
                         self-start
                         text-left
+                        text-xs
                       "
                     >
                     DESIGNATION
                     </th>
-                    <th class="border-2 border-gray-500  text-center">MONTANT HT</th>
-                    <th class="border-2 border-gray-500  text-center">TAUX</th>
-                    <th class="border-2 border-gray-500  text-center">AMORTISSEMENT</th>
+                    <th class="border-2 border-gray-500  text-center text-xs">MONTANT HT</th>
+                    <th class="border-2 border-gray-500  text-center text-xs">TAUX</th>
+                    <th class="border-2 border-gray-500  text-center text-xs">AMORTISSEMENT</th>
                   </tr>
                 </thead>
                 <tbody class="font-medium">
@@ -4218,15 +5053,15 @@ elseif($cumul_four_year>0) {
                  @if(isset($data->financial_data->startup_needs))
                  @foreach ($data->financial_data->startup_needs as $item)
                    <tr>
-                     <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
-                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->value/(1+$item->duration/100), 0, ',', ' ') }} </td>
-                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->rate ,0, ',', ' ')}} % </td>
+                     <td class="border-2 border-gray-500 py-1 pl-4 text-xs">{{$item->label}}</td>
+                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value/(1+$item->duration/100), 0, ',', ' ') }} </td>
+                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->rate ,0, ',', ' ')}} % </td>
                      @if($item->value!=0 && $item->rate!=0)
-                     <td class="border-2 border-gray-500 text-center">{{ number_format(($item->value/(1+$item->duration/100))*$item->rate/100, 0, ',', ' ') }} </td>      
+                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format(($item->value/(1+$item->duration/100))*$item->rate/100, 0, ',', ' ') }} </td>      
                      
                       <?php $total_taxe_amortisement+=($item->value/(1+$item->duration/100))*$item->rate/100;?>
                      @else
-                     <td class="border-2 border-gray-500 text-center">{{ number_format(0, 0, ',', ' ') }} </td>
+                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format(0, 0, ',', ' ') }} </td>
                      @endif
                      
                     
@@ -4241,6 +5076,7 @@ elseif($cumul_four_year>0) {
                         border-2 border-gray-600
                         font-semibold
                         text-green-700
+                        text-xs
                       "
                     >
                       TOTAL 
@@ -4248,7 +5084,7 @@ elseif($cumul_four_year>0) {
                  
                     <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
       
-                    <td class="border-2 border-gray-600 text-center bg-green-100">{{number_format($total_taxe_amortisement,0,',',' ')}}</td>
+                    <td class="border-2 border-gray-600 text-center bg-green-100 text-xs">{{number_format($total_taxe_amortisement,0,',',' ')}}</td>
 
 
                   </tr>
@@ -4256,7 +5092,7 @@ elseif($cumul_four_year>0) {
               </table>
             </div> 
            
-      </div>
+      </div> --}}
       <br>
       <div class="absolute bottom-0 right-0 left-0 ">
         <img
@@ -4323,7 +5159,7 @@ elseif($cumul_four_year>0) {
         <div class="space-y-4">
           <div class="space-y-1">
             <h5
-              class="uppercase font-bold text-sm"
+              class="uppercase font-bold text-xs"
               style="color: var(--second-blue)"
             >
             TABLEAU D'AMORTISSEMENT
@@ -4331,11 +5167,11 @@ elseif($cumul_four_year>0) {
           </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
-           <p class="text-gray-500 font-normal"> 
+           <p class="text-gray-500 font-normal text-xs"> 
             L'amortissement est la constatation comptable qui définit la perte de valeur d'un bien immobilisé de l'entreprise, du fait de l'usure du temps ou de l'obsolescence.
           </div>
-            <div class="inline-block rounded-lg border w-full ">
-              <table class="table-fixed border border-gray-900 w-90 text-sm">
+            <div class="inline-block rounded-lg border w-full " style="margin-top:6px;">
+              <table class="table-fixed border border-gray-900 w-full text-sm">
                 <thead>
                   <tr class="bg-gray-100">
                     <th
@@ -4346,13 +5182,14 @@ elseif($cumul_four_year>0) {
                         border-2 border-gray-500
                         self-start
                         text-left
+                        text-xs
                       "
                     >
                     DESIGNATION
                     </th>
-                    <th class="border-2 border-gray-500  text-center">MONTANT HT</th>
-                    <th class="border-2 border-gray-500  text-center">TAUX</th>
-                    <th class="border-2 border-gray-500  text-center">AMORTISSEMENT</th>
+                    <th class="border-2 border-gray-500  text-center text-xs">MONTANT HT</th>
+                    <th class="border-2 border-gray-500  text-center text-xs">TAUX</th>
+                    <th class="border-2 border-gray-500  text-center text-xs">AMORTISSEMENT</th>
                   </tr>
                 </thead>
                 <tbody class="font-medium">
@@ -4360,15 +5197,15 @@ elseif($cumul_four_year>0) {
                  @if(isset($data->financial_data->startup_needs))
                  @foreach ($data->financial_data->startup_needs as $item)
                    <tr>
-                     <td class="border-2 border-gray-500 py-1 pl-4">{{$item->label}}</td>
-                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->value/(1+$item->duration/100), 0, ',', ' ') }} </td>
-                     <td class="border-2 border-gray-500 text-center">{{ number_format($item->rate ,0, ',', ' ')}} % </td>
+                     <td class="border-2 border-gray-500 py-1 pl-4 text-xs">{{$item->label}}</td>
+                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value/(1+$item->duration/100), 0, ',', ' ') }} </td>
+                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->rate ,0, ',', ' ')}} % </td>
                      @if($item->value!=0 && $item->rate!=0)
-                     <td class="border-2 border-gray-500 text-center">{{ number_format(($item->value/(1+$item->duration/100))*$item->rate/100, 0, ',', ' ') }} </td>      
+                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format(($item->value/(1+$item->duration/100))*$item->rate/100, 0, ',', ' ') }} </td>      
                      
                       <?php $total_taxe_amortisement+=($item->value/(1+$item->rate/100))*$item->rate/100;?>
                      @else
-                     <td class="border-2 border-gray-500 text-center">{{ number_format(0, 0, ',', ' ') }} </td>
+                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format(0, 0, ',', ' ') }} </td>
                      @endif
                      
                     
@@ -4383,14 +5220,14 @@ elseif($cumul_four_year>0) {
                         border-2 border-gray-600
                         font-semibold
                         text-green-700
+                        text-xs
                       "
                     >
                       TOTAL 
                     </td>
                  
                     <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
-      
-                    <td class="border-2 border-gray-600 text-center bg-green-100">{{number_format($total_taxe_amortisement,0,',',' ')}}</td>
+                    <td class="border-2 border-gray-600 text-center bg-green-100 text-xs">{{number_format($total_taxe_amortisement,0,',',' ')}}</td>
 
 
                   </tr>
@@ -4463,14 +5300,14 @@ elseif($cumul_four_year>0) {
         <div class="space-y-4">
           <div class="space-y-1">
             <h5
-              class="uppercase font-bold text-sm"
+              class="uppercase font-bold text-xs"
               style="color: var(--second-blue)"
             >
             tableau d'amortissement de crédit
             </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
-          <div class="space-y-4  text-sm font-normal">
+          <div class="space-y-4  font-normal text-xs">
             <div class="grid grid-cols-2 gap-4  ">
               @if(isset($data->financial_data->financial_plan_loans))
               @foreach ($data->financial_data->financial_plan_loans  as $key =>  $field)
@@ -4521,9 +5358,9 @@ elseif($cumul_four_year>0) {
             </div>
           </div>
         </div>
-        <div class="space-y-4">
-          <div class="inline-block rounded-lg border w-full ">
-            <table class="table-fixed border border-gray-900 w-full text-sm">
+        <div class="space-y-4" style="margin-top:8px;">
+          <div class="inline-block rounded-lg border w-full " >
+            <table class="table-fixed border border-gray-900 w-full text-xs">
               <thead>
                 <tr class="bg-gray-100">
                   <th
@@ -4535,25 +5372,30 @@ elseif($cumul_four_year>0) {
                       text-left
                     "
                   >
-                     Mensualité N°
+              Période
                   </th>
-                  <th class="border-2 border-gray-500  text-center">Mensualité
+                  <th class="border-2 border-gray-500  text-center text-xs">Mensualité
                   </th>
-                  <th class="border-2 border-gray-500 text-center">Intérêts
+                  <th class="border-2 border-gray-500 text-center text-xs">Intérêts
                   </th>
-                  <th class="border-2 border-gray-500  text-center">Capital remboursé
+                  <th class="border-2 border-gray-500  text-center text-xs">Capital remboursé
                   </th>
-                  <th class="border-2 border-gray-500    text-center">Capital restant dû
+                  <th class="border-2 border-gray-500    text-center text-xs">Capital restant dû
                 </tr>
               </thead>
               <tbody class="font-medium">
                 @foreach ($yearsCalcul as  $key => $item)
-                 <tr>
-                   <td class="border-2 border-gray-500 py-1 pl-4">{{$key +1}}</td>
-                   <td class="border-2 border-gray-500 text-center">{{ number_format($item->mensualite, 0, ',', ' ') }} </td>
-                   <td class="border-2 border-gray-500 text-center">{{ number_format($item->interets, 0, ',', ' ') }} </td>
-                   <td class="border-2 border-gray-500 text-center">{{ number_format($item->capital_rem, 0, ',', ' ') }} </td>
-                   <td class="border-2 border-gray-500 text-center">{{ number_format($item->capital_rest, 0, ',', ' ') }} </td>
+                 <tr> @if($key==0)
+                   <td class="border-2 border-gray-500 py-1 pl-4 text-xs">    
+                  {{$key +1}} <sup>ère</sup> année</td>
+                  @else
+                     <td class="border-2 border-gray-500 py-1 pl-4 text-xs">    
+                  {{$key +1}} <sup>ème</sup> année</td>
+                   @endif
+                   <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->mensualite, 0, ',', ' ') }} </td>
+                   <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->interets, 0, ',', ' ') }} </td>
+                   <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->capital_rem, 0, ',', ' ') }} </td>
+                   <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->capital_rest, 0, ',', ' ') }} </td>
                    <?php $total_mensualite+= $item->mensualite; 
                          $total_interets+= $item->interets; 
                          $total_rem+= $item->capital_rem; 
@@ -4568,6 +5410,7 @@ elseif($cumul_four_year>0) {
                       border-2 border-gray-600
                       font-semibold
                       text-green-700
+                      text-xs
                     "
                   >
                     TOTAL 
@@ -4575,10 +5418,10 @@ elseif($cumul_four_year>0) {
                
                   <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
     
-                  <td class="border-2 border-gray-600 text-center bg-green-100">{{number_format($total_mensualite,0,',',' ')}}</td>
-                  <td class="border-2 border-gray-600 text-center bg-green-100">{{number_format($total_interets,0,',',' ')}}</td>
-                  <td class="border-2 border-gray-600 text-center bg-green-100">{{number_format($total_rem,0,',',' ')}}</td>
-                  <td class="border-2 border-gray-600 text-center bg-green-100">{{number_format(0,0,',',' ')}}</td>
+                  <td class="border-2 border-gray-600 text-center bg-green-100 text=xs">{{number_format($total_mensualite,0,',',' ')}}</td>
+                  <td class="border-2 border-gray-600 text-center bg-green-100 text-xs">{{number_format($total_interets,0,',',' ')}}</td>
+                  <td class="border-2 border-gray-600 text-center bg-green-100 text-xs">{{number_format($total_rem,0,',',' ')}}</td>
+                  <td class="border-2 border-gray-600 text-center bg-green-100 text-xs">{{number_format(0,0,',',' ')}}</td>
                 </tr>
               </tbody>
             </table>
@@ -4650,19 +5493,19 @@ elseif($cumul_four_year>0) {
           <div class="space-y-4">
             <div class="space-y-1">
               <h5
-                class="uppercase font-bold text-sm"
+                class="uppercase font-bold text-xs"
                 style="color: var(--second-blue)"
               >
               IMPÔT SUR LES SOCIÉTÉS
               </h5>
               <hr class="bg-gray-300" style="height: 2px" />
             </div>
-            <p class="text-gray-500 font-normal">C’est un impôt qui s'applique sur les bénéfices réalisés par les sociétés
+            <p class="text-gray-500 font-normal text-xs">C’est un impôt qui s'applique sur les bénéfices réalisés par les sociétés
             </p>
           </div>
           <div class="space-y-4">
             <div class="inline-block rounded-lg border w-full ">
-              <table class="table-fixed border border-gray-900 w-full text-sm">
+              <table class="table-fixed border border-gray-900 w-full text-xs">
                 <thead>
                   <tr class="bg-gray-100">
                     <th
@@ -4673,38 +5516,39 @@ elseif($cumul_four_year>0) {
                         pl-2
                         py-4
                         w-5/12
+                        text-xs
                       "
                     >
                     Année
                     </th>
-                    <th class="border-2 border-gray-500 text-center">1 <sup>ère</sup> année
+                    <th class="border-2 border-gray-500 text-center text-xs">1 <sup>ère</sup> année
                     </th>
-                    <th class="border-2 border-gray-500  text-center">2 <sup>ème</sup> année
+                    <th class="border-2 border-gray-500  text-center text-xs">2 <sup>ème</sup> année
                     </th>
-                    <th class="border-2 border-gray-500  text-center">3 <sup>ème</sup> année
-                    <th class="border-2 border-gray-500  text-center">4 <sup>ème</sup> année
+                    <th class="border-2 border-gray-500  text-center text-xs">3 <sup>ème</sup> année
+                    <th class="border-2 border-gray-500  text-center text-xs">4 <sup>ème</sup> année
                     </th>
-                    <th class="border-2 border-gray-500  text-center">5 <sup>ème</sup> année
+                    <th class="border-2 border-gray-500  text-center text-xs">5 <sup>ème</sup> année
                     </th>
                   </tr>
                 </thead>
                 <tbody class="font-medium">
                   <tr>
-                    <td class="border-2 border-gray-500 py-1 pl-4">RÉSULTAT BRUT </td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_income_before_taxes_first_year, 0, ',', ' ') }} </td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_income_before_taxes_second_year, 0, ',', ' ') }} </td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_income_before_taxes_third_year, 0, ',', ' ') }} </td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_income_before_taxes_four_year, 0, ',', ' ') }} </td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_income_before_taxes_five_year, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 py-1 pl-4 text-xs">RÉSULTAT BRUT </td>
+                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_income_before_taxes_first_year, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_income_before_taxes_second_year, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_income_before_taxes_third_year, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_income_before_taxes_four_year, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_income_before_taxes_five_year, 0, ',', ' ') }} </td>
                 </tr> 
                   <tr>
-                    <td class="border-2 border-gray-500 py-1 pl-4"> IMPÔT SUR LES SOCIÉTÉS
+                    <td class="border-2 border-gray-500 py-1 pl-4 text-xs"> IMPÔT SUR LES SOCIÉTÉS
                     </td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_corporate_tax_first_year, 0, ',', ' ') }} </td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_corporate_tax_second_year, 0, ',', ' ') }} </td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_corporate_tax_third_year, 0, ',', ' ') }} </td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_corporate_tax_four_year, 0, ',', ' ') }} </td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_corporate_tax_five_year, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_corporate_tax_first_year, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_corporate_tax_second_year, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_corporate_tax_third_year, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_corporate_tax_four_year, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_corporate_tax_five_year, 0, ',', ' ') }} </td>
 
                   </tr> 
                 </tbody>
@@ -4763,7 +5607,7 @@ elseif($cumul_four_year>0) {
           </span>
           <h3
             class="font-semibold text-lg"
-            style="color: var(--main-blue); line-height: 16px"
+            style="color: var(--main-blue); line-height: 16px;"
           >
           Étude Financière
 
@@ -4772,21 +5616,21 @@ elseif($cumul_four_year>0) {
         <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
       </div>
 
-      <div class="space-y-9">
+      <div class="space-y-2" >
         <div class="space-y-4">
           <div class="space-y-1">
             <h5
-              class="uppercase font-bold text-sm"
-              style="color: var(--second-blue)"
+              class="uppercase font-bold text-xs"
+              style="color: var(--second-blue) ;"
             >
             compte PRÉVISIONNEL des produits et charges 
             </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
         </div>
-        <div class="space-y-4">
-          <div class="inline-block rounded-lg border w-full ">
-            <table class="table-fixed border border-gray-900 w-full text-sm" id="tableId">
+        <div class="space-y-4" style="margin-top:5px;">
+          <div class="inline-block rounded-lg border w-full " >
+            <table class="table-fixed border border-gray-900 w-full " style=" font-size:10px;" id="tableId" style="max-height:100px;">
               <thead>
                 <tr class="bg-gray-100">
                   <th
@@ -4794,201 +5638,201 @@ elseif($cumul_four_year>0) {
                       border-2 border-gray-500
                       self-start
                       text-left
-                      pl-2
-                      py-4
-                      w-4/12
-                    "
+                      w-4/12 
+                       pl-2
+                      py-2"
+                      style=" font-size:10px;"                    
                   >
                   Elements
                   </th>
-                        <th class="border-2 border-gray-500 text-center">1 <sup>ère</sup> année
+                        <th class="border-2 border-gray-500 text-center " style=" font-size:10px;">1 <sup>ère</sup> année
                         </th>
-                        <th class="border-2 border-gray-500  text-center">2 <sup>ème</sup> année
+                        <th class="border-2 border-gray-500  text-center " style=" font-size:10px;">2 <sup>ème</sup> année
                         </th>
-                        <th class="border-2 border-gray-500  text-center">3 <sup>ème</sup> année
-                        <th class="border-2 border-gray-500  text-center">4 <sup>ème</sup> année
+                        <th class="border-2 border-gray-500  text-center " style=" font-size:10px;">3 <sup>ème</sup> année
+                        <th class="border-2 border-gray-500  text-center " style=" font-size:10px;">4 <sup>ème</sup> année
                         </th>
-                        <th class="border-2 border-gray-500  text-center">5 <sup>ème</sup> année
+                        <th class="border-2 border-gray-500  text-center " style=" font-size:10px;">5 <sup>ème</sup> année
                         </th>
                 </tr>
               </thead>
               <tbody class="font-medium">
                         <tr>
-                          <td class="border-2 border-gray-500 py-1 pl-4 bg-green-200">CHIFFRE D'AFFAIRES</td>
-                          <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_turnover_first_year, 0, ',', ' ') }} </td>
-                          <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_turnover_second_year, 0, ',', ' ') }} </td>
-                          <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_turnover_third_year, 0, ',', ' ') }} </td>
-                          <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_turnover_four_year, 0, ',', ' ') }} </td>
-                          <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_turnover_five_year, 0, ',', ' ') }} </td>
+                          <td class="border-2 border-gray-500 py-1 pl-4 bg-green-200 " style=" font-size:10px;">CHIFFRE D'AFFAIRES</td>
+                          <td class="border-2 border-gray-500 text-center bg-green-200 " style=" font-size:10px;">{{ number_format($bp_turnover_first_year, 0, ',', ' ') }} </td>
+                          <td class="border-2 border-gray-500 text-center bg-green-200 " style=" font-size:10px;">{{ number_format($bp_turnover_second_year, 0, ',', ' ') }} </td>
+                          <td class="border-2 border-gray-500 text-center bg-green-200 " style=" font-size:10px;">{{ number_format($bp_turnover_third_year, 0, ',', ' ') }} </td>
+                          <td class="border-2 border-gray-500 text-center bg-green-200 " style=" font-size:10px;">{{ number_format($bp_turnover_four_year, 0, ',', ' ') }} </td>
+                          <td class="border-2 border-gray-500 text-center bg-green-200 " style=" font-size:10px;">{{ number_format($bp_turnover_five_year, 0, ',', ' ') }} </td>
                       </tr> 
                         <tr>
-                          <td class="border-2 border-gray-500 py-1 pl-4"> Achats de matières premières
+                          <td class="border-2 border-gray-500 py-1 pl-4 " style=" font-size:10px;"> Achats de matières premières
 
                           </td>
-                          <td class="border-2 border-gray-500 text-center">{{ number_format($bp_purchase_first_year, 0, ',', ' ') }} </td>
-                          <td class="border-2 border-gray-500 text-center">{{ number_format($bp_purchase_second_year, 0, ',', ' ') }} </td>
-                          <td class="border-2 border-gray-500 text-center">{{ number_format($bp_purchase_third_year, 0, ',', ' ') }} </td>
-                          <td class="border-2 border-gray-500 text-center">{{ number_format($bp_purchase_four_year, 0, ',', ' ') }} </td>
-                          <td class="border-2 border-gray-500 text-center">{{ number_format($bp_purchase_five_year, 0, ',', ' ') }} </td>
+                          <td class="border-2 border-gray-500 text-center " style=" font-size:10px;">{{ number_format($bp_purchase_first_year, 0, ',', ' ') }} </td>
+                          <td class="border-2 border-gray-500 text-center " style=" font-size:10px;">{{ number_format($bp_purchase_second_year, 0, ',', ' ') }} </td>
+                          <td class="border-2 border-gray-500 text-center " style=" font-size:10px;">{{ number_format($bp_purchase_third_year, 0, ',', ' ') }} </td>
+                          <td class="border-2 border-gray-500 text-center " style=" font-size:10px;">{{ number_format($bp_purchase_four_year, 0, ',', ' ') }} </td>
+                          <td class="border-2 border-gray-500 text-center " style=" font-size:10px;">{{ number_format($bp_purchase_five_year, 0, ',', ' ') }} </td>
 
                         </tr> 
                         <tr>
-                          <td class="border-2 border-gray-500 py-1 pl-4 bg-green-200"> MARGE BRUTE
+                          <td class="border-2 border-gray-500 py-1 pl-4 bg-green-200   " style=" font-size:10px;"> MARGE BRUTE
 
                         </td>
-                          <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_gross_margin_first_year, 0, ',', ' ') }} </td>
-                          <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_gross_margin_second_year, 0, ',', ' ') }} </td>
-                          <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_gross_margin_third_year, 0, ',', ' ') }} </td>
-                          <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_gross_margin_four_year, 0, ',', ' ') }} </td>
-                          <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_gross_margin_five_year, 0, ',', ' ') }} </td>
+                          <td class="border-2 border-gray-500 text-center bg-green-200   style=" font-size:10px;"">{{ number_format($bp_gross_margin_first_year, 0, ',', ' ') }} </td>
+                          <td class="border-2 border-gray-500 text-center bg-green-200 " style=" font-size:10px;">{{ number_format($bp_gross_margin_second_year, 0, ',', ' ') }} </td>
+                          <td class="border-2 border-gray-500 text-center bg-green-200 " style=" font-size:10px;">{{ number_format($bp_gross_margin_third_year, 0, ',', ' ') }} </td>
+                          <td class="border-2 border-gray-500 text-center bg-green-200 " style=" font-size:10px;">{{ number_format($bp_gross_margin_four_year, 0, ',', ' ') }} </td>
+                          <td class="border-2 border-gray-500 text-center bg-green-200 " style=" font-size:10px;">{{ number_format($bp_gross_margin_five_year, 0, ',', ' ') }} </td>
 
                       </tr>
                       <tr>
-                        <td class="border-2 border-gray-500 py-1 pl-4"> Autre charges externes
+                        <td class="border-2 border-gray-500 py-1 pl-4  " style=" font-size:10px;"> Autre charges externes
 
                       </td>
-                        <td class="border-2 border-gray-500 text-center">{{ number_format($autre_charge_externe_first_year, 0, ',', ' ') }} </td>
-                        <td class="border-2 border-gray-500 text-center">{{ number_format($autre_charge_externe_second_year, 0, ',', ' ') }} </td>
-                        <td class="border-2 border-gray-500 text-center">{{ number_format($autre_charge_externe_third_year, 0, ',', ' ') }} </td>
-                        <td class="border-2 border-gray-500 text-center">{{ number_format($autre_charge_externe_four_year, 0, ',', ' ') }} </td>
-                        <td class="border-2 border-gray-500 text-center">{{ number_format($autre_charge_externe_five_year, 0, ',', ' ') }} </td>
+                        <td class="border-2 border-gray-500 text-center " style=" font-size:10px;">{{ number_format($autre_charge_externe_first_year, 0, ',', ' ') }} </td>
+                        <td class="border-2 border-gray-500 text-center " style=" font-size:10px;">{{ number_format($autre_charge_externe_second_year, 0, ',', ' ') }} </td>
+                        <td class="border-2 border-gray-500 text-center " style=" font-size:10px;">{{ number_format($autre_charge_externe_third_year, 0, ',', ' ') }} </td>
+                        <td class="border-2 border-gray-500 text-center " style=" font-size:10px;">{{ number_format($autre_charge_externe_four_year, 0, ',', ' ') }} </td>
+                        <td class="border-2 border-gray-500 text-center " style=" font-size:10px;">{{ number_format($autre_charge_externe_five_year, 0, ',', ' ') }} </td>
 
                     </tr>
                       <tr>
-                        <td class="border-2 border-gray-500 py-1 pl-4 bg-green-200"> VALEUR AJOUTÉE
+                        <td class="border-2 border-gray-500 py-1 pl-4 bg-green-200  " style=" font-size:10px;"> VALEUR AJOUTÉE
                       </td>
-                        <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_added_value_first_year, 0, ',', ' ') }} </td>
-                        <td class="border-2 border-gray-500 text-center  bg-green-200">{{ number_format($bp_added_value_second_year, 0, ',', ' ') }} </td>
-                        <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_added_value_third_year, 0, ',', ' ') }} </td>
-                        <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_added_value_four_year, 0, ',', ' ') }} </td>
-                        <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_added_value_five_year, 0, ',', ' ') }} </td>
+                        <td class="border-2 border-gray-500 text-center bg-green-200 " style=" font-size:10px;">{{ number_format($bp_added_value_first_year, 0, ',', ' ') }} </td>
+                        <td class="border-2 border-gray-500 text-center  bg-green-200 " style=" font-size:10px;">{{ number_format($bp_added_value_second_year, 0, ',', ' ') }} </td>
+                        <td class="border-2 border-gray-500 text-center bg-green-200 " style=" font-size:10px;">{{ number_format($bp_added_value_third_year, 0, ',', ' ') }} </td>
+                        <td class="border-2 border-gray-500 text-center bg-green-200 " style=" font-size:10px;">{{ number_format($bp_added_value_four_year, 0, ',', ' ') }} </td>
+                        <td class="border-2 border-gray-500 text-center bg-green-200 " style=" font-size:10px;">{{ number_format($bp_added_value_five_year, 0, ',', ' ') }} </td>
 
                     </tr>
                     <tr>
-                      <td class="border-2 border-gray-500 py-1 pl-4"> Charges du personnel
+                      <td class="border-2 border-gray-500 py-1 pl-4 " style=" font-size:10px;"> Charges du personnel
                     </td>
-                      <td class="border-2 border-gray-500 text-center">{{ number_format($total_frais_personnel, 0, ',', ' ') }} </td>
-                      <td class="border-2 border-gray-500 text-center">{{ number_format($total_frais_personnel, 0, ',', ' ') }} </td>
-                      <td class="border-2 border-gray-500 text-center">{{ number_format($total_frais_personnel*(1+0.05), 0, ',', ' ') }} </td>
-                      <td class="border-2 border-gray-500 text-center">{{ number_format($total_frais_personnel*(1+0.05), 0, ',', ' ') }} </td>
-                      <td class="border-2 border-gray-500 text-center">{{ number_format($total_frais_personnel*(1+0.05), 0, ',', ' ') }} </td>
+                      <td class="border-2 border-gray-500 text-center " style=" font-size:10px;">{{ number_format($total_frais_personnel, 0, ',', ' ') }} </td>
+                      <td class="border-2 border-gray-500 text-center " style=" font-size:10px;">{{ number_format($total_frais_personnel, 0, ',', ' ') }} </td>
+                      <td class="border-2 border-gray-500 text-center " style=" font-size:10px;">{{ number_format($total_frais_personnel*(1+0.05), 0, ',', ' ') }} </td>
+                      <td class="border-2 border-gray-500 text-center   style=" font-size:10px;"">{{ number_format($total_frais_personnel*(1+0.05), 0, ',', ' ') }} </td>
+                      <td class="border-2 border-gray-500 text-center " style=" font-size:10px;">{{ number_format($total_frais_personnel*(1+0.05), 0, ',', ' ') }} </td>
 
                   </tr>
                   <tr>
-                    <td class="border-2 border-gray-500 py-1 pl-4"> Impôts et Taxes
+                    <td class="border-2 border-gray-500 py-1 pl-4  " style=" font-size:10px;"> Impôts et Taxes
                   </td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($taxe_impot_first_year, 0, ',', ' ') }} </td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($taxe_impot_second_year, 0, ',', ' ') }} </td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($taxe_impot_third_year, 0, ',', ' ') }} </td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($taxe_impot_four_year, 0, ',', ' ') }} </td>
-                    <td class="border-2 border-gray-500 text-center">{{ number_format($taxe_impot_five_year, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 text-center " style=" font-size:10px;">{{ number_format($taxe_impot_first_year, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 text-center " style=" font-size:10px;">{{ number_format($taxe_impot_second_year, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 text-center " style=" font-size:10px;">{{ number_format($taxe_impot_third_year, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 text-center " style=" font-size:10px;">{{ number_format($taxe_impot_four_year, 0, ',', ' ') }} </td>
+                    <td class="border-2 border-gray-500 text-center " style=" font-size:10px;">{{ number_format($taxe_impot_five_year, 0, ',', ' ') }} </td>
 
                 </tr>
                 <tr>
-                  <td class="border-2 border-gray-500 py-1 pl-4  bg-green-200"> EXCÉDENT BRUT D'EXPLOITATION
+                  <td class="border-2 border-gray-500 py-1 pl-4  bg-green-200   " style=" font-size:10px;"> EXCÉDENT BRUT D'EXPLOITATION
                 </td>
-                  <td class="border-2 border-gray-500 text-center  bg-green-200">{{ number_format($gross_surplus_first_year, 0, ',', ' ') }} </td>
-                  <td class="border-2 border-gray-500 text-center  bg-green-200">{{ number_format($gross_surplus_second_year, 0, ',', ' ') }} </td>
-                  <td class="border-2 border-gray-500 text-center  bg-green-200">{{ number_format($gross_surplus_third_year, 0, ',', ' ') }} </td>
-                  <td class="border-2 border-gray-500 text-center  bg-green-200">{{ number_format($gross_surplus_four_year, 0, ',', ' ') }} </td>
-                  <td class="border-2 border-gray-500 text-center  bg-green-200">{{ number_format($gross_surplus_five_year, 0, ',', ' ') }} </td>
+                  <td class="border-2 border-gray-500 text-center  bg-green-200 " style=" font-size:10px;">{{ number_format($gross_surplus_first_year, 0, ',', ' ') }} </td>
+                  <td class="border-2 border-gray-500 text-center  bg-green-200 " style=" font-size:10px;">{{ number_format($gross_surplus_second_year, 0, ',', ' ') }} </td>
+                  <td class="border-2 border-gray-500 text-center  bg-green-200 " style=" font-size:10px;">{{ number_format($gross_surplus_third_year, 0, ',', ' ') }} </td>
+                  <td class="border-2 border-gray-500 text-center  bg-green-200 " style=" font-size:10px;">{{ number_format($gross_surplus_four_year, 0, ',', ' ') }} </td>
+                  <td class="border-2 border-gray-500 text-center  bg-green-200 " style=" font-size:10px;">{{ number_format($gross_surplus_five_year, 0, ',', ' ') }} </td>
 
               </tr>
               <tr>
-                <td class="border-2 border-gray-500 py-1 pl-4"> Dotation aux amortissements
+                <td class="border-2 border-gray-500 py-1 pl-4  " style=" font-size:10px;"> Dotation aux amortissements
               </td>
-                <td class="border-2 border-gray-500 text-center">{{ number_format($bp_amortization_yearly, 0, ',', ' ') }} </td>
-                <td class="border-2 border-gray-500 text-center">{{ number_format($bp_amortization_yearly, 0, ',', ' ') }} </td>
-                <td class="border-2 border-gray-500 text-center">{{ number_format($bp_amortization_yearly, 0, ',', ' ') }} </td>
-                <td class="border-2 border-gray-500 text-center">{{ number_format($bp_amortization_yearly, 0, ',', ' ') }} </td>
-                <td class="border-2 border-gray-500 text-center">{{ number_format($bp_amortization_yearly, 0, ',', ' ') }} </td>
+                <td class="border-2 border-gray-500 text-center " style=" font-size:10px;">{{ number_format($bp_amortization_yearly, 0, ',', ' ') }} </td>
+                <td class="border-2 border-gray-500 text-center " style=" font-size:10px;">{{ number_format($bp_amortization_yearly, 0, ',', ' ') }} </td>
+                <td class="border-2 border-gray-500 text-center " style=" font-size:10px;">{{ number_format($bp_amortization_yearly, 0, ',', ' ') }} </td>
+                <td class="border-2 border-gray-500 text-center " style=" font-size:10px;">{{ number_format($bp_amortization_yearly, 0, ',', ' ') }} </td>
+                <td class="border-2 border-gray-500 text-center " style=" font-size:10px;">{{ number_format($bp_amortization_yearly, 0, ',', ' ') }} </td>
 
             </tr>
               <tr>
-                <td class="border-2 border-gray-500 py-1 pl-4 bg-green-200"> RÉSULTAT BRUT D'EXPLOITATION
+                <td class="border-2 border-gray-500 py-1 pl-4 bg-green-200   " style=" font-size:10px;"> RÉSULTAT BRUT D'EXPLOITATION
 
               </td>
-                <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_gross_income_first_year , 0, ',', ' ') }} </td>
-                <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_gross_income_second_year, 0, ',', ' ') }} </td>
-                <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_gross_income_third_year , 0, ',', ' ') }} </td>
-                <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_gross_income_four_year, 0, ',', ' ') }} </td>
-                <td class="border-2 border-gray-500 text-center  bg-green-200">{{ number_format($bp_gross_income_five_year , 0, ',', ' ') }} </td>
+                <td class="border-2 border-gray-500 text-center bg-green-200 " style=" font-size:10px;">{{ number_format($bp_gross_income_first_year , 0, ',', ' ') }} </td>
+                <td class="border-2 border-gray-500 text-center bg-green-200 " style=" font-size:10px;">{{ number_format($bp_gross_income_second_year, 0, ',', ' ') }} </td>
+                <td class="border-2 border-gray-500 text-center bg-green-200 " style=" font-size:10px;">{{ number_format($bp_gross_income_third_year , 0, ',', ' ') }} </td>
+                <td class="border-2 border-gray-500 text-center bg-green-200 " style=" font-size:10px;">{{ number_format($bp_gross_income_four_year, 0, ',', ' ') }} </td>
+                <td class="border-2 border-gray-500 text-center  bg-green-200 " style=" font-size:10px;">{{ number_format($bp_gross_income_five_year , 0, ',', ' ') }} </td>
 
             </tr>
             <tr>
-              <td class="border-2 border-gray-500 py-1 pl-4 bg-green-200"> RÉSULTAT FINANCIER 
+              <td class="border-2 border-gray-500 py-1 pl-4 bg-green-200  " style=" font-size:10px;"> RÉSULTAT FINANCIER 
 
             </td>
-              <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_financial_result_first_year, 0, ',', ' ') }} </td>
-              <td class="border-2 border-gray-500 text-center  bg-green-200">{{ number_format($bp_financial_result_second_year, 0, ',', ' ') }} </td>
-              <td class="border-2 border-gray-500 text-center  bg-green-200">{{ number_format($bp_financial_result_third_year, 0, ',', ' ') }} </td>
-              <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_financial_result_four_year, 0, ',', ' ') }} </td>
-              <td class="border-2 border-gray-500 text-center  bg-green-200">{{ number_format($bp_financial_result_five_year, 0, ',', ' ') }} </td>
+              <td class="border-2 border-gray-500 text-center bg-green-200 " style=" font-size:10px;">{{ number_format($bp_financial_result_first_year, 0, ',', ' ') }} </td>
+              <td class="border-2 border-gray-500 text-center  bg-green-200 " style=" font-size:10px;">{{ number_format($bp_financial_result_second_year, 0, ',', ' ') }} </td>
+              <td class="border-2 border-gray-500 text-center  bg-green-200 " style=" font-size:10px;">{{ number_format($bp_financial_result_third_year, 0, ',', ' ') }} </td>
+              <td class="border-2 border-gray-500 text-center bg-green-200 " style=" font-size:10px;">{{ number_format($bp_financial_result_four_year, 0, ',', ' ') }} </td>
+              <td class="border-2 border-gray-500 text-center  bg-green-200 " style=" font-size:10px;">{{ number_format($bp_financial_result_five_year, 0, ',', ' ') }} </td>
 
           </tr>
             <tr>
-                <td class="border-2 border-gray-500 py-1 pl-4   bg-green-200"> RÉSULTAT COURANT
+                <td class="border-2 border-gray-500 py-1 pl-4   bg-green-200 " style=" font-size:10px;"> RÉSULTAT COURANT
 
               </td>
-                <td class="border-2 border-gray-500 text-center  bg-green-200">{{ number_format($bp_current_result_first_year, 0, ',', ' ') }} </td>
-                <td class="border-2 border-gray-500 text-center  bg-green-200">{{ number_format($bp_current_result_second_year, 0, ',', ' ') }} </td>
-                <td class="border-2 border-gray-500 text-center  bg-green-200">{{ number_format($bp_current_result_third_year, 0, ',', ' ') }} </td>
-                <td class="border-2 border-gray-500 text-center  bg-green-200">{{ number_format($bp_current_result_four_year, 0, ',', ' ') }} </td>
-                <td class="border-2 border-gray-500 text-center   bg-green-200" >{{ number_format($bp_current_result_five_year, 0, ',', ' ') }} </td>
+                <td class="border-2 border-gray-500 text-center  bg-green-200 " style=" font-size:10px;">{{ number_format($bp_current_result_first_year, 0, ',', ' ') }} </td>
+                <td class="border-2 border-gray-500 text-center  bg-green-200 " style=" font-size:10px;">{{ number_format($bp_current_result_second_year, 0, ',', ' ') }} </td>
+                <td class="border-2 border-gray-500 text-center  bg-green-200 " style=" font-size:10px;">{{ number_format($bp_current_result_third_year, 0, ',', ' ') }} </td>
+                <td class="border-2 border-gray-500 text-center  bg-green-200 " style=" font-size:10px;">{{ number_format($bp_current_result_four_year, 0, ',', ' ') }} </td>
+                <td class="border-2 border-gray-500 text-center   bg-green-200 " style=" font-size:10px;" >{{ number_format($bp_current_result_five_year, 0, ',', ' ') }} </td>
 
               </tr>
                         <tr>
-                        <td class="border-2 border-gray-500 py-1 pl-4  bg-green-200"> RÉSULTAT NON COURANT
+                        <td class="border-2 border-gray-500 py-1 pl-4  bg-green-200 " style=" font-size:10px;"> RÉSULTAT NON COURANT
 
                           </td>
-                            <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format(0, 0, ',', ' ') }} </td>
-                            <td class="border-2 border-gray-500 text-center  bg-green-200">{{ number_format(0, 0, ',', ' ') }} </td>
-                            <td class="border-2 border-gray-500 text-center bg-green-200" >{{ number_format(0, 0, ',', ' ') }} </td>
-                            <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format(0, 0, ',', ' ') }} </td>
-                            <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format(0, 0, ',', ' ') }} </td>
+                            <td class="border-2 border-gray-500 text-center bg-green-200 " style=" font-size:10px;">{{ number_format(0, 0, ',', ' ') }} </td>
+                            <td class="border-2 border-gray-500 text-center  bg-green-200 " style=" font-size:10px;">{{ number_format(0, 0, ',', ' ') }} </td>
+                            <td class="border-2 border-gray-500 text-center bg-green-200 " style=" font-size:10px;" >{{ number_format(0, 0, ',', ' ') }} </td>
+                            <td class="border-2 border-gray-500 text-center bg-green-200 " style=" font-size:10px;">{{ number_format(0, 0, ',', ' ') }} </td>
+                            <td class="border-2 border-gray-500 text-center bg-green-200 " style=" font-size:10px;">{{ number_format(0, 0, ',', ' ') }} </td>
 
                           </tr>
                                   <tr>
-                                    <td class="border-2 border-gray-500 py-1 pl-4 bg-green-200"> RÉSULTAT BRUT
+                                    <td class="border-2 border-gray-500 py-1 pl-4 bg-green-200 " style=" font-size:10px;"> RÉSULTAT BRUT
 
                                     </td>
-                                    <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_income_before_taxes_first_year, 0, ',', ' ') }} </td>
-                                    <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_income_before_taxes_second_year, 0, ',', ' ') }} </td>
-                                    <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_income_before_taxes_third_year, 0, ',', ' ') }} </td>
-                                    <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_income_before_taxes_four_year, 0, ',', ' ') }} </td>
-                                    <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_income_before_taxes_five_year, 0, ',', ' ') }} </td>
+                                    <td class="border-2 border-gray-500 text-center bg-green-200 " style=" font-size:10px;">{{ number_format($bp_income_before_taxes_first_year, 0, ',', ' ') }} </td>
+                                    <td class="border-2 border-gray-500 text-center bg-green-200 " style=" font-size:10px;">{{ number_format($bp_income_before_taxes_second_year, 0, ',', ' ') }} </td>
+                                    <td class="border-2 border-gray-500 text-center bg-green-200 " style=" font-size:10px;">{{ number_format($bp_income_before_taxes_third_year, 0, ',', ' ') }} </td>
+                                    <td class="border-2 border-gray-500 text-center bg-green-200 " style=" font-size:10px;">{{ number_format($bp_income_before_taxes_four_year, 0, ',', ' ') }} </td>
+                                    <td class="border-2 border-gray-500 text-center bg-green-200 " style=" font-size:10px;">{{ number_format($bp_income_before_taxes_five_year, 0, ',', ' ') }} </td>
 
                                   </tr>
                                   <tr>
-                                    <td class="border-2 border-gray-500 py-1 pl-4"> {{isset($data ->company->applied_tax)?$data ->company->applied_tax :""}}
+                                    <td class="border-2 border-gray-500 py-1 pl-4 " style=" font-size:10px;"> {{isset($data ->company->applied_tax)?$data ->company->applied_tax :""}}
 
                                     </td>
-                                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_corporate_tax_first_year, 0, ',', ' ') }} </td>
-                                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_corporate_tax_second_year, 0, ',', ' ') }} </td>
-                                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_corporate_tax_third_year, 0, ',', ' ') }} </td>
-                                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_corporate_tax_four_year, 0, ',', ' ') }} </td>
-                                    <td class="border-2 border-gray-500 text-center">{{ number_format($bp_corporate_tax_five_year, 0, ',', ' ') }} </td>
+                                    <td class="border-2 border-gray-500 text-center " style=" font-size:10px;">{{ number_format($bp_corporate_tax_first_year, 0, ',', ' ') }} </td>
+                                    <td class="border-2 border-gray-500 text-center " style=" font-size:10px;">{{ number_format($bp_corporate_tax_second_year, 0, ',', ' ') }} </td>
+                                    <td class="border-2 border-gray-500 text-center " style=" font-size:10px;">{{ number_format($bp_corporate_tax_third_year, 0, ',', ' ') }} </td>
+                                    <td class="border-2 border-gray-500 text-center " style=" font-size:10px;">{{ number_format($bp_corporate_tax_four_year, 0, ',', ' ') }} </td>
+                                    <td class="border-2 border-gray-500 text-center " style=" font-size:10px;">{{ number_format($bp_corporate_tax_five_year, 0, ',', ' ') }} </td>
 
                                   </tr>
                                   <tr>
-                                    <td class="border-2 border-gray-500 py-1 pl-4 bg-green-200"> RÉSULTAT NET
+                                    <td class="border-2 border-gray-500 py-1 pl-4 bg-green-200 " style=" font-size:10px;"> RÉSULTAT NET
 
                                     </td>
-                                    <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_net_profit_first_year , 0, ',', ' ') }} </td>
-                                    <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_net_profit_second_year, 0, ',', ' ') }} </td>
-                                    <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_net_profit_third_year, 0, ',', ' ') }} </td>
-                                    <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_net_profit_four_year, 0, ',', ' ') }} </td>
-                                    <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_net_profit_five_year, 0, ',', ' ') }} </td>
+                                    <td class="border-2 border-gray-500 text-center bg-green-200 " style=" font-size:10px;">{{ number_format($bp_net_profit_first_year , 0, ',', ' ') }} </td>
+                                    <td class="border-2 border-gray-500 text-center bg-green-200 " style=" font-size:10px;">{{ number_format($bp_net_profit_second_year, 0, ',', ' ') }} </td>
+                                    <td class="border-2 border-gray-500 text-center bg-green-200 " style=" font-size:10px;">{{ number_format($bp_net_profit_third_year, 0, ',', ' ') }} </td>
+                                    <td class="border-2 border-gray-500 text-center bg-green-200 " style=" font-size:10px;">{{ number_format($bp_net_profit_four_year, 0, ',', ' ') }} </td>
+                                    <td class="border-2 border-gray-500 text-center bg-green-200 " style=" font-size:10px;">{{ number_format($bp_net_profit_five_year, 0, ',', ' ') }} </td>
 
                                   </tr><tr>
-                                    <td class="border-2 border-gray-500 py-1 pl-4 bg-green-200"> CASH-FLOW
+                                    <td class="border-2 border-gray-500 py-1 pl-4 bg-green-200 " style=" font-size:10px;"> CASH-FLOW
 
                                   </td>
-                                    <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_cash_flow_first_year, 0, ',', ' ') }} </td>
-                                    <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_cash_flow_second_year, 0, ',', ' ') }} </td>
-                                    <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_cash_flow_third_year, 0, ',', ' ') }} </td>
-                                    <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_cash_flow_four_year, 0, ',', ' ') }} </td>
-                                    <td class="border-2 border-gray-500 text-center bg-green-200">{{ number_format($bp_cash_flow_five_year, 0, ',', ' ') }} </td>
+                                    <td class="border-2 border-gray-500 text-center bg-green-200 " style=" font-size:10px;">{{ number_format($bp_cash_flow_first_year, 0, ',', ' ') }} </td>
+                                    <td class="border-2 border-gray-500 text-center bg-green-200 " style=" font-size:10px;">{{ number_format($bp_cash_flow_second_year, 0, ',', ' ') }} </td>
+                                    <td class="border-2 border-gray-500 text-center bg-green-200 " style=" font-size:10px;">{{ number_format($bp_cash_flow_third_year, 0, ',', ' ') }} </td>
+                                    <td class="border-2 border-gray-500 text-center bg-green-200 " style=" font-size:10px;">{{ number_format($bp_cash_flow_four_year, 0, ',', ' ') }} </td>
+                                    <td class="border-2 border-gray-500 text-center bg-green-200 " style=" font-size:10px;">{{ number_format($bp_cash_flow_five_year, 0, ',', ' ') }} </td>
                                  </tr>
               </tbody>
             </table>
@@ -5066,13 +5910,13 @@ elseif($cumul_four_year>0) {
             </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
-          <p class="text-gray-500 font-normal">La rentabilité financière mesure la capacité des capitaux investis par les actionnaires et associés (capitaux propres) à dégager un certain niveau de profit.
+          <p class="text-gray-500 font-normal text-xs">La rentabilité financière mesure la capacité des capitaux investis par les actionnaires et associés (capitaux propres) à dégager un certain niveau de profit.
 
           </p>
         </div>
         <div class="space-y-4">
           <div class="inline-block rounded-lg border w-full ">
-            <table class="table-fixed border border-gray-900 w-full text-sm">
+            <table class="table-fixed border border-gray-900 w-full text-xs">
               <thead>
                 <tr class="bg-gray-100">
                   <th
@@ -5090,41 +5934,42 @@ elseif($cumul_four_year>0) {
                     class="
                       border-2 border-gray-500
                      text-center
-                     pl-2
-                     py-1
+                    
+                     text-xs
                     "
+                    style="font-size: 10px;"
                   >
                   INVISTISSEMENT INITIAL
                   </th>
-                  <th class="border-2 border-gray-500 text-center">1 <sup>ère</sup> année
+                  <th class="border-2 border-gray-500 text-center text-xs">1 <sup>ère</sup> année
                   </th>
-                  <th class="border-2 border-gray-500  text-center">2 <sup>ème</sup> année
+                  <th class="border-2 border-gray-500  text-center text-xs">2 <sup>ème</sup> année
                   </th>
-                  <th class="border-2 border-gray-500  text-center">3 <sup>ème</sup> année
-                  <th class="border-2 border-gray-500  text-center">4 <sup>ème</sup> année
+                  <th class="border-2 border-gray-500  text-center text-xs">3 <sup>ème</sup> année
+                  <th class="border-2 border-gray-500  text-center text-xs">4 <sup>ème</sup> année
                   </th>
-                  <th class="border-2 border-gray-500  text-center">5 <sup>ème</sup> année
+                  <th class="border-2 border-gray-500  text-center text-xs">5 <sup>ème</sup> année
                   </th>
                 </tr>
               </thead>
               <tbody class="font-medium">
                  <tr>
-                   <td class="border-2 border-gray-500   bg-green-200">CASH-FLOW </td>
-                   <td class="border-2 border-gray-500 pl-2 text-center">{{ number_format(-$bp_investment_program_total, 0, ',', ' ') }} </td>
-                   <td class="border-2 border-gray-500 text-center">{{ number_format($bp_cash_flow_first_year, 0, ',', ' ') }} </td>
-                   <td class="border-2 border-gray-500 text-center">{{ number_format($bp_cash_flow_second_year, 0, ',', ' ') }} </td>
-                   <td class="border-2 border-gray-500 text-center">{{ number_format($bp_cash_flow_third_year, 0, ',', ' ') }} </td>
-                   <td class="border-2 border-gray-500 text-center">{{ number_format($bp_cash_flow_four_year, 0, ',', ' ') }} </td>   
-                   <td class="border-2 border-gray-500 text-center">{{ number_format($bp_cash_flow_five_year, 0, ',', ' ') }} </td>       
+                   <td class="border-2 border-gray-500   bg-green-200   text-xs" >CASH-FLOW </td>
+                   <td class="border-2 border-gray-500 pl-2 text-center text-xs">{{ number_format(-$bp_investment_program_total, 0, ',', ' ') }} </td>
+                   <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_cash_flow_first_year, 0, ',', ' ') }} </td>
+                   <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_cash_flow_second_year, 0, ',', ' ') }} </td>
+                   <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_cash_flow_third_year, 0, ',', ' ') }} </td>
+                   <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_cash_flow_four_year, 0, ',', ' ') }} </td>   
+                   <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_cash_flow_five_year, 0, ',', ' ') }} </td>       
                  <tr>
-                   <td colspan="2" class="border-2 border-gray-500 py-1 pl-4 bg-green-200"> CUMUL
+                   <td colspan="2" class="border-2 border-gray-500 py-1 pl-4 bg-green-200  text-xs"> CUMUL
 
                   </td>
-                   <td class="border-2 border-gray-500 text-center">{{ number_format($cumul_first_year, 0, ',', ' ') }} </td>
-                   <td class="border-2 border-gray-500 text-center">{{ number_format($cumul_second_year, 0, ',', ' ') }} </td>
-                   <td class="border-2 border-gray-500 text-center">{{ number_format($cumul_third_year, 0, ',', ' ') }} </td>
-                   <td class="border-2 border-gray-500 text-center">{{ number_format($cumul_four_year, 0, ',', ' ') }} </td>
-                   <td class="border-2 border-gray-500 text-center">{{ number_format($cumul_five_year, 0, ',', ' ') }} </td>
+                   <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($cumul_first_year, 0, ',', ' ') }} </td>
+                   <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($cumul_second_year, 0, ',', ' ') }} </td>
+                   <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($cumul_third_year, 0, ',', ' ') }} </td>
+                   <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($cumul_four_year, 0, ',', ' ') }} </td>
+                   <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($cumul_five_year, 0, ',', ' ') }} </td>
 
                 </tr> 
               </tbody>
@@ -5132,26 +5977,35 @@ elseif($cumul_four_year>0) {
           </div> 
           <?php
          
-          $total_van=-$bp_investment_program_total+($bp_cash_flow_first_year*(pow(1+0.1,-1)))+($bp_cash_flow_second_year*pow(1+0.1,-2))+($bp_cash_flow_third_year*pow(1+0.1,-3))+($bp_cash_flow_four_year*pow(1+0.1,-4))+($bp_cash_flow_five_year*pow(1+0.1,-5)) ;
-          for ($i=1; $i<1000 ; $i++) { 
-             $total_cash+=$bp_cash_flow_first_year*(pow(1.1,-$i));
-             $total_van_verify+= (-$bp_investment_program_total)+$total_cash;
-            if($total_van_verify >0){
-              $tri=pow(1.1,-$i);
-              break;
+          $total_van= -$bp_investment_program_total+($bp_cash_flow_first_year*(pow(1+0.1,-1)))+($bp_cash_flow_second_year*pow(1+0.1,-2))+($bp_cash_flow_third_year*pow(1+0.1,-3))+($bp_cash_flow_four_year*pow(1+0.1,-4))+($bp_cash_flow_five_year*pow(1+0.1,-5)) ;
+         
+         $flow_cash = array($bp_cash_flow_first_year, $bp_cash_flow_second_year, $bp_cash_flow_third_year, $bp_cash_flow_four_year, $bp_cash_flow_five_year);
+         function irr ($investment, $flow) {
+            for ($n = 0; $n < 100; $n += 0.0001) {
+
+                $pv = 0;
+                for ($i = 0; $i < count($flow); $i++) {
+                    $pv = $pv + $flow[$i] / pow(1 + $n, $i + 1);
+                }
+
+                if ($pv <= $investment) {
+                    return round($n * 10000) / 100;
+                }
             }
           }
-        // dd($total_van_verify);
+        
+      //dd( IRR($bp_investment_program_total, $flow_cash ));
+         //dd($total_van_verify);
           ?>
 
           <div class="inline-block rounded-lg border w-full ">
-            <table class="table-fixed border border-gray-900 w-full text-sm">
+            <table class="table-fixed border border-gray-900 w-full text-xs">
               <tbody class="font-medium">
                 
                  <tr>
                    <td class="border-2 border-gray-500   bg-green-200 ">TAUX DE RENTABILITÉ INTERNE (TRI)
                    </td>
-                   <td class="border-2 border-gray-500 text-center ">{{ number_format($tri*100, 0, ',', ' ') }}% </td>
+                   <td class="border-2 border-gray-500 text-center ">{{ number_format( IRR($bp_investment_program_total, $flow_cash ), 0, ',', ' ') }}% </td>
                   
                </tr> 
                 <tr>
@@ -5232,18 +6086,12 @@ elseif($cumul_four_year>0) {
       <div class="space-y-9">
         <div class="space-y-4">
           <div class="space-y-1">
-            <h5
-              class="uppercase font-bold text-sm"
-              style="color: var(--second-blue)"
-            >
-            Conclusion
-
-            </h5>
+        
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
         </div>
         <div class="space-y-4">
-          <div class="bg-gray-100 text-gray-700 mt-6 p-8 space-y-3 text-sm  relative">
+          <div class="bg-gray-100 text-gray-700 mt-6 p-8 space-y-3 text-xs  relative">
             <img
                 class="absolute left-2 top-0"
                 src="{{asset('images/back-office/svg/Group.svg')}}"
@@ -5260,12 +6108,12 @@ elseif($cumul_four_year>0) {
             }
         }
          ?>
-            {{-- <p class="align-middle  text-justify">
-              Le projet que se propose {{$gender}} {{$owner->first_name}} {{$owner->last_name}} de mettre en œuvre s’inscrit dans les objectifs stratégiques du programme de l’INDH. </p> --}}
-             <p class="align-middle  text-justify">
+            {{-- <p class="align-middle  text-justify text-xs">
+              Le projet que se propose {{$gender}} {{ ucfirst($owner->first_name)}} {{ ucfirst($owner->last_name)}}de mettre en œuvre s’inscrit dans les objectifs stratégiques du programme de l’INDH. </p> --}}
+             <p class="align-middle  text-justify text-xs">
              La réalisation de ce projet lui permettra d’intégrer le monde de l’entrepreneuriat en exploitant les opportunités offertes ainsi que son relationnel avec les clients et d’améliorer son revenu .
             </p>
-            <p class="align-middle  text-justify">
+            <p class="align-middle  text-justify text-xs">
              Les prévisions d’activités ont été construites sur des hypothèses réalistes qui ont montré des résultats assurant la rémunération de l’investisseur .
             </p>
 
@@ -5339,9 +6187,9 @@ elseif($cumul_four_year>0) {
                     Annexes
                     </h3>
                 </div>
-                <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
+                <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="">
             </div>
-              <div class="space-y-9">
+              <div class="space-y-2">
                   <div class="space-y-4">
                     <div class="space-y-1">
                       <h5
@@ -5351,11 +6199,11 @@ elseif($cumul_four_year>0) {
                       <hr class="bg-gray-300" style="height: 2px" />
                     </div>
                 </div>
-                <div class="space-y-4">
-                    <div class=" mt-6 p-8 space-y-3 text-sm  relative">
+                <div class="space-y-1" style="margin-top:0px; padding-top:0px;">
+                    <div class="pace-y-2  relative">
                       
                       <img
-                        class="relative w-100 div_file "
+                        class="relative w-60"
                         src="{{asset('storage/'.$item)}}"
                         alt="" 
                       srcset=""
