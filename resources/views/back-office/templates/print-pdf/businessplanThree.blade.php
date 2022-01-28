@@ -1228,9 +1228,11 @@ elseif($cumul_four_year>0) {
       >
       <span type="button" class="btn btn-brand btn-bold p-1" ><i class="fas fa-download"></i></span>
     </button>
-    <div  class="page  print-add-break print-full-width">
+    <div  class="page  print-add-break print-full-width" style="
+      height:21.5cm;
+     ">
       <img
-        class="absolute top-0 left-0 img_full"
+        class="absolute top-0 left-0 h-full img_full"
         src="{{asset('images/back-office/svg/exen-with-image.svg')}}"
         alt=""
         srcset=""
