@@ -4921,7 +4921,13 @@ elseif($cumul_four_year>0) {
                 
                  @if($item->label !='Frais preliminaires' && $item->label !='Matériel de transport'  && $item->label !='Fonds de roulement de démarrage'  )
                    <tr>
-                     <td class="border-2 border-gray-500 py-1 pl-4  text-xs">{{isset($item->label)?$item->label:''}}</td>
+                      @if(isset($item->label))
+                    @if($item->label=='Autre à préciser')
+                     <td class="border-2 border-gray-500 py-1 pl-4  text-xs">{{$item->labelOther}}</td>
+                    @else
+                       <td class="border-2 border-gray-500 py-1 pl-4  text-xs">{{$item->label}}</td>
+                    @endif
+                   @endif
                      <td class="border-2 border-gray-500 text-center  text-xs">{{ number_format($item->value/(1+($item->duration/100)), 0, ',', ' ') }} </td>
                      <td class="border-2 border-gray-500 text-center  text-xs">{{ number_format($item->value/(1+($item->duration/100))*0.03, 0, ',', ' ') }} </td>
                      <td class="border-2 border-gray-500 text-center  text-xs">{{ number_format(($item->value/(1+($item->duration/100))*0.03)*$taxe, 0, ',', ' ') }} </td>
@@ -5199,7 +5205,13 @@ elseif($cumul_four_year>0) {
                  @if(isset($data->financial_data->startup_needs))
                  @foreach ($data->financial_data->startup_needs as $item)
                    <tr>
-                     <td class="border-2 border-gray-500 py-1 pl-4 text-xs">{{$item->label}}</td>
+                   @if(isset($item->label))
+                    @if($item->label=='Autre à préciser')
+                     <td class="border-2 border-gray-500 py-1 pl-4  text-xs">{{$item->labelOther}}</td>
+                    @else
+                       <td class="border-2 border-gray-500 py-1 pl-4  text-xs">{{$item->label}}</td>
+                    @endif
+                   @endif
                      <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value/(1+$item->duration/100), 0, ',', ' ') }} </td>
                      <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->rate ,0, ',', ' ')}} % </td>
                      @if($item->value!=0 && $item->rate!=0)
