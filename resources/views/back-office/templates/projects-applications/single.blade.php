@@ -258,17 +258,17 @@
                     <div class="kt-portlet">
 
                         <ul class="kt-sticky-toolbar" style="top: 40%; height: 200px; align-self: flex-end;">
+                           <li class="kt-sticky-toolbar__item kt-sticky-toolbar__item--dark" id="kt_demo_panel_toggle" data-toggle="kt-tooltip" title="" data-placement="right" data-original-title="Données Générales">
+                                <a href="{{ url(Request::url().'#member_id') }}"><i class="flaticon-interface-3"></i></a>
+                            </li>
                             <li class="kt-sticky-toolbar__item kt-sticky-toolbar__item--brand" id="kt_demo_panel_toggle" data-toggle="kt-tooltip" title="" data-placement="right" data-original-title="Données Entreprise">
                                 <a href="{{ url(Request::url().'#company') }}"><i class="flaticon-profile-1"></i></a>
                             </li>
-                            <li class="kt-sticky-toolbar__item kt-sticky-toolbar__item--dark" id="kt_demo_panel_toggle" data-toggle="kt-tooltip" title="" data-placement="right" data-original-title="Données Générales">
-                                <a href="{{ url(Request::url().'#member_id') }}"><i class="flaticon-interface-3"></i></a>
-                            </li>
-                            <li class="kt-sticky-toolbar__item kt-sticky-toolbar__item--success" data-toggle="kt-tooltip" title="" data-placement="left" data-original-title="Business Model">
+                            
+                            <li class="kt-sticky-toolbar__item kt-sticky-toolbar__item--success" data-toggle="kt-tooltip" title="" data-placement="left" data-original-title="Étude du marché">
                                 <a href="{{ url(Request::url().'#business_model') }}"><i class="flaticon-suitcase"></i></a>
                             </li>
-                            <li class="kt-sticky-toolbar__item kt-sticky-toolbar__item--danger" data-toggle="kt-tooltip" title="" data-placement="left" data-original-title="Données Financières
-">
+                            <li class="kt-sticky-toolbar__item kt-sticky-toolbar__item--danger" data-toggle="kt-tooltip" title="" data-placement="left" data-original-title="Étude Technique">
                                 <a href="{{ url(Request::url().'#financial_data') }}"><i class="flaticon-graphic"></i></a>
                             </li>
                             <li class="kt-sticky-toolbar__item kt-sticky-toolbar__item--warning" id="kt_sticky_toolbar_chat_toggler" data-toggle="kt-tooltip" title="" data-placement="left" data-original-title="Besoins en Formation
