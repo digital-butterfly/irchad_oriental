@@ -5022,9 +5022,16 @@ $impot="impôts sur le revenu";
                     <tr>
                       <td class="border-2 border-gray-500 py-1 pl-4  text-xs">{{$item->label}}</td>
                       <td class="border-2 border-gray-500 text-center  text-xs">{{ number_format(0, 0, ',', ' ') }} </td>
+                      @if($item->otherValue=='Annuel')
+                      <td class="border-2 border-gray-500 text-center  text-xs">{{ number_format($item->value, 0, ',', ' ') }} </td>
+                      <td class="border-2 border-gray-500 text-center  text-xs">{{ number_format($item->value*$taxe, 0, ',', ' ') }} </td>
+                      <?php   $total_taxe1 +=$item->value*$taxe; ?>
+                      @elseif($item->otherValue=='Mensuel')
                       <td class="border-2 border-gray-500 text-center  text-xs">{{ number_format($item->value*12, 0, ',', ' ') }} </td>
                       <td class="border-2 border-gray-500 text-center  text-xs">{{ number_format($item->value*12*$taxe, 0, ',', ' ') }} </td>
                       <?php   $total_taxe1 +=$item->value*12*$taxe; ?>
+                      @endif
+                      
                   </tr> 
                    @endif   
                   @endforeach
@@ -6069,7 +6076,7 @@ $impot="impôts sur le revenu";
                       py-4
                     "
                   >
-                  PERIODES
+                  PERIODE
                   </th>
                   <th
                     class="
@@ -6250,7 +6257,7 @@ $impot="impôts sur le revenu";
         }
          ?>
             <p class="align-middle  text-justify text-xs">
-              Le projet que se propose {{$gender}} {{ ucfirst($owner->first_name)}} {{ ucfirst($owner->last_name)}}de mettre en œuvre s’inscrit dans les objectifs stratégiques du programme de l’INDH. </p>
+              Le projet que se propose {{$gender}} {{ ucfirst($owner->first_name)}} {{ ucfirst($owner->last_name)}} de mettre en œuvre s’inscrit dans les objectifs stratégiques du programme de l’INDH. </p>
              <p class="align-middle  text-justify text-xs">
              La réalisation de ce projet lui permettra d’intégrer le monde de l’entrepreneuriat en exploitant les opportunités offertes ainsi que son relationnel avec les clients et d’améliorer son revenu .
             </p>
