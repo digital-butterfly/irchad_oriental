@@ -2715,7 +2715,7 @@ $impot="impôts sur le revenu";
       </div>
       
     </div>
-    <div id="7" class="page printsection print-add-break print-full-width">
+    {{-- <div id="7" class="page printsection print-add-break print-full-width">
       <div class="flex justify-between absolute right-0 top-0 w-full">
         <div class="flex h-14 items-end justify-end space-x-3">
           <span
@@ -2791,7 +2791,7 @@ $impot="impôts sur le revenu";
             </p>
            @endif
           </div>
-        </div> --}}
+        </div> 
       </div>
       <div class="absolute bottom-0 right-0 left-0">
         <img
@@ -2821,7 +2821,7 @@ $impot="impôts sur le revenu";
         </div>
       </div>
       
-    </div>
+    </div> --}}
     <div id="8" class="page printsection print-add-break print-full-width">
       <div class="flex justify-between absolute right-0 top-0 w-full">
         <div class="flex h-14 items-end justify-end space-x-3">
@@ -3334,7 +3334,7 @@ $impot="impôts sur le revenu";
           </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
-           <p class="text-gray-500 font-normal text-xs"> Synthèse du programme d’investissement:
+           <p class="text-gray-500 font-normal text-xs" style="margin-top:20px;"> Synthèse du programme d’investissement:
            </p>
         <div class="grid grid-cols-2 gap-2">
           <div class=" bg-white"> 
@@ -3349,7 +3349,8 @@ $impot="impôts sur le revenu";
                         border-2 border-gray-500
                         self-start
                         text-left
-                        text-xs
+                        text-xs  
+                        w-6/12       
                       "
                     >
                     DESIGNATION
@@ -3396,7 +3397,7 @@ $impot="impôts sur le revenu";
             </div>
           </div>
           <div class="pl-2">
-          <div class="bg-gray-100 top-0" id="chart1" style="height: 169px; width: 100%; "></div>
+          <div class="bg-gray-100 top-0" id="chart1" style="height: 231px; width: 100%; "></div>
           </div>
         </div>   
       </div>
@@ -3629,7 +3630,7 @@ $impot="impôts sur le revenu";
           </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
-           <p class="text-gray-500 font-normal  text-xs"> Plan de financement :
+           <p class="text-gray-500 font-normal  text-xs" style="margin-top:25px;"> Plan de financement :
            </p>
         <div class="grid grid-cols-2 gap-4 ">
           <div class=" bg-white"> 
@@ -3645,6 +3646,7 @@ $impot="impôts sur le revenu";
                         self-start
                         text-left
                         text-xs
+                        w-6/12
                       "
                     >
                     DESIGNATION
@@ -3692,7 +3694,7 @@ $impot="impôts sur le revenu";
             </div>
           </div>
           <div class="pl-2">
-           <div class="bg-gray-100" id="chart2" style="height: 169px; width: 100%;"></div>
+           <div class="bg-gray-100" id="chart2" style="height: 231px; width: 100%;"></div>
           </div>
         </div>   
       </div>
@@ -4409,6 +4411,7 @@ $impot="impôts sur le revenu";
                       self-start
                       text-left
                       text-xs
+                      w-6/12
                     "
                   >
                   DESIGNATION
@@ -4664,6 +4667,7 @@ $impot="impôts sur le revenu";
                               self-start
                               text-left
                               text-xs
+                              w-6/12
                             "
                           >
                           DESIGNATION
@@ -4779,6 +4783,7 @@ $impot="impôts sur le revenu";
                         self-start
                         text-left
                         text-xs
+                        w-6/12
                       "
                     >
                     DESIGNATION
@@ -5306,7 +5311,7 @@ $impot="impôts sur le revenu";
                   <tr class="bg-gray-100">
                     <th
                       class="
-                        6/12-w 
+                        w-6/12
                         py-2
                         pl-4
                         border-2 border-gray-500
@@ -6348,8 +6353,7 @@ $impot="impôts sur le revenu";
                     </div>
                 </div>
                 <div class="space-y-1" >
-                    <div class="pace-y-2  relative">
-                      
+                    <div class="pace-y-2 flex justify-center items-center w"> 
                       <img
                         class="relative w-80"
                         src="{{asset('storage/'.$item)}}"
