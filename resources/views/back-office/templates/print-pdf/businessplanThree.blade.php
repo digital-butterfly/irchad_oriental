@@ -643,9 +643,13 @@ if (($data ->company->applied_tax ?? '') == 'IS') {
             }
             break;
         case ($bp_income_before_taxes_first_year > 300000 && $bp_income_before_taxes_first_year <= 1000000):
+
             //  $firstTranche = 300000 - 300000 * 0.1;
             //$secondTranche = $bp_income_before_taxes_first_year  * 0.2;
              $bp_corporate_tax_first_year  =  $bp_income_before_taxes_first_year  * 0.2;
+                    if($bp_corporate_tax_first_year <3000){
+              $bp_corporate_tax_first_year =3000;
+            }
             //$bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 17.5 / 100;
             break;
         case ($bp_income_before_taxes_first_year > 1000000):
@@ -659,6 +663,9 @@ if (($data ->company->applied_tax ?? '') == 'IS') {
               //           }
               // $thirdTranche = $rest - $rest * 0.31;
               $bp_corporate_tax_first_year  = $bp_income_before_taxes_first_year* 0.31;
+              if($bp_corporate_tax_first_year <3000){
+              $bp_corporate_tax_first_year =3000;
+            }
             
             break;
     }
@@ -1228,9 +1235,7 @@ elseif($cumul_four_year>0) {
       >
       <span type="button" class="btn btn-brand btn-bold p-1" ><i class="fas fa-download"></i></span>
     </button>
-    <div  class="page  print-add-break print-full-width" style="
-      height:21.5cm;
-     ">
+    <div  class="page  print-add-break print-full-width" style="height:21.5cm;">
       <img
         class="absolute top-0 left-0 h-full img_full"
         src="{{asset('images/back-office/svg/exen-with-image.svg')}}"
@@ -1246,7 +1251,7 @@ elseif($cumul_four_year>0) {
 
       <div class="absolute right-0 top-60 space-y-5 testt" >
         <h3
-          class="text-2xl font-bold "
+          class="text-xl font-bold "
           style="color: var(--main-green);"
         >
         {{$data->title}}
@@ -1273,12 +1278,10 @@ elseif($cumul_four_year>0) {
           class="flex justify-between mr-10 items-end"
           style="color: var(--main-blue)"
           >
-          <h3 class="font-semibold text-xs">{{ ucfirst($owner->first_name)}} {{ ucfirst($owner->last_name)}}</h3>
-          <p class=" print:bg-blue-800 ">
+          <h3 class="font-semibold text-xs pr-5">{{ ucfirst($owner->first_name)}} {{ ucfirst($owner->last_name)}}</h3>
+          <p class="text-xs print:bg-blue-800 ">
             Secteur d’activité :
-            <span class="font-semibold" style="color: var(--main-green)"
-              >{{$categories->title}}</span
-            >
+            <span class="font-semibold text-xs" style="color: var(--main-green)">{{$categories->title}}</span>
           </p>
         </div>
       </div>
@@ -5510,7 +5513,7 @@ elseif($cumul_four_year>0) {
                 class="uppercase font-bold text-xs"
                 style="color: var(--second-blue)"
               >
-              IMPÔT SUR LES SOCIÉTÉS
+             {{isset($data->company->applied_tax) ? $data ->company->applied_tax :" " }}
               </h5>
               <hr class="bg-gray-300" style="height: 2px" />
             </div>
@@ -5556,7 +5559,7 @@ elseif($cumul_four_year>0) {
                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_income_before_taxes_five_year, 0, ',', ' ') }} </td>
                 </tr> 
                   <tr>
-                    <td class="border-2 border-gray-500 py-1 pl-4 text-xs"> IMPÔT SUR LES SOCIÉTÉS
+                    <td class="border-2 border-gray-500 py-1 pl-4 text-xs">{{isset($data->company->applied_tax) ? $data ->company->applied_tax :" " }}
                     </td>
                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_corporate_tax_first_year, 0, ',', ' ') }} </td>
                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_corporate_tax_second_year, 0, ',', ' ') }} </td>
