@@ -1252,12 +1252,12 @@ $impot="impôts sur le revenu";
       />
 
       <div class="absolute right-0 top-60 space-y-5 p-5" >
-        <h4
+        <h6
           class="font-bold"
-          style="color: var(--main-green); font-size:15px;"
+          style="color: var(--main-green); font-size:12px;"
         >
         {{$data->title}}
-        </h4>
+        </h6>
         <div
           class="w-full h-5 relative"
           style="background-color: var(--main-green)"
