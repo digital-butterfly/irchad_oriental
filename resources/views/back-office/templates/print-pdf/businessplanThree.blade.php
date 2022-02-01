@@ -48,16 +48,14 @@ if (isset($data->financial_data->financial_plan_loans)) {
 // Investment Program
 $bp_investment_program_total = 0;
 $total_taxe_amortisement=0;
-if (isset($data  ->financial_data->startup_needs)) {
-    foreach ($data  ->financial_data->startup_needs as $item) {
-      if($item!='Fonds de roulement de démarrage'){
+if (isset($data->financial_data->startup_needs)) {
+    foreach ($data->financial_data->startup_needs as $item) {
+      if($item->label!='Fonds de roulement de démarrage'){
           $bp_investment_program_total += $item->value ?? 0;
         if($item->value!=0 && $item->rate!=0){
-           $total_taxe_amortisement+=($item->value/($item->rate/100))/(1+$item->duration/100);
+           $total_taxe_amortisement+=($item->value/(1+$item->duration/100))*$item->rate/100;
         } 
-      }
-     
-       
+      }       
     }
 }
 //dd( $total_taxe_amortisement);
@@ -5198,7 +5196,7 @@ $impot="impôts sur le revenu";
                      @if($item->value!=0 && $item->rate!=0)
                      <td class="border-2 border-gray-500 text-center text-xs">{{ number_format(($item->value/(1+$item->duration/100))*$item->rate/100, 0, ',', ' ') }} </td>      
                      
-                      <?php $total_taxe_amortisement+=($item->value/(1+$item->duration/100))*$item->rate/100;?>
+                    
                      @else
                      <td class="border-2 border-gray-500 text-center text-xs">{{ number_format(0, 0, ',', ' ') }} </td>
                      @endif
@@ -5332,7 +5330,6 @@ $impot="impôts sur le revenu";
                   </tr>
                 </thead>
                 <tbody class="font-medium">
-                  <?php $total_taxe_amortisement=0; ?>
                  @if(isset($data->financial_data->startup_needs))
                  @foreach ($data->financial_data->startup_needs as $item)
                    <tr>
@@ -5347,8 +5344,6 @@ $impot="impôts sur le revenu";
                      <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->rate ,0, ',', ' ')}} % </td>
                      @if($item->value!=0 && $item->rate!=0)
                      <td class="border-2 border-gray-500 text-center text-xs">{{ number_format(($item->value/(1+$item->duration/100))*$item->rate/100, 0, ',', ' ') }} </td>      
-                     
-                      <?php $total_taxe_amortisement+=($item->value/(1+$item->rate/100))*$item->rate/100;?>
                      @else
                      <td class="border-2 border-gray-500 text-center text-xs">{{ number_format(0, 0, ',', ' ') }} </td>
                      @endif
