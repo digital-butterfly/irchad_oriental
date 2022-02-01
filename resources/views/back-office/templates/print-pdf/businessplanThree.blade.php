@@ -50,10 +50,13 @@ $bp_investment_program_total = 0;
 $total_taxe_amortisement=0;
 if (isset($data  ->financial_data->startup_needs)) {
     foreach ($data  ->financial_data->startup_needs as $item) {
-        $bp_investment_program_total += $item->value ?? 0;
+      if($item!='Fonds de roulement de démarrage'){
+          $bp_investment_program_total += $item->value ?? 0;
         if($item->value!=0 && $item->rate!=0){
            $total_taxe_amortisement+=($item->value/($item->rate/100))/(1+$item->duration/100);
-        }
+        } 
+      }
+     
        
     }
 }
@@ -344,7 +347,7 @@ $imp_project=isset($data->company->implantation_project)?$data->company->implant
  if(isset($data->financial_data->startup_needs)){
   foreach ($data->financial_data->startup_needs as $item) {
     if(isset($item->label)){
-      if($item->label !='Frais preliminaires' && $item->label !='Matériel de transport' ){
+      if($item->label !='Frais preliminaires' && $item->label !='Matériel de transport' && $item->label !='Fonds de roulement de démarrage' ){
       $total_impot_taxe2+=($item->value/(1+($item->duration/100))*0.03)*$taxe;
     }}  
     }  

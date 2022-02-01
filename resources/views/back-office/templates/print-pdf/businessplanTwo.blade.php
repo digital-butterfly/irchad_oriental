@@ -1331,7 +1331,7 @@ elseif($cumul_four_year>0) {
              
             </div>
              <div class="grid grid-cols-8 bg-gray-100 p-2" dir="rtl">
-              <p class="font-bold  col-span-3 text-xs "style="color: var(--main-green)">الزبناء </p> 
+              <p class="font-bold  cctext-xs "style="color: var(--main-green)">الزبناء </p> 
                  <ul class=" col-span-5 list-inside list-disc space-y-2 text-right text-xs" >
                   @if (isset($data->business_model_arab->client_arabe))
                   @foreach ($data->business_model_arab->client_arabe as $item)
@@ -1341,7 +1341,7 @@ elseif($cumul_four_year>0) {
               </ul>
              
             </div>
-             <div class=" flex justify-between bg-gray-100 p-2" dir="rtl">
+             <div class=" grid grid-cols-8 bg-gray-100 p-2" dir="rtl">
               <p class="font-bold text-xs"style="color: var(--main-green)">المنافسون </p>
                  <ul class="list-inside list-disc space-y-2 text-right text-xs" >
                   @if (isset($data->business_model_arab->concurent_arabe))
