@@ -1251,13 +1251,13 @@ $impot="impôts sur le revenu";
         srcset=""
       /> --}}
 
-      <div class="absolute right-0 top-60 space-y-5" >
-        <h3
-          class=" font-bold "
+      <div class="absolute right-0 top-60 space-y-5 p-5" >
+        <h6
+          class="font-bold"
           style="color: var(--main-green); font-size:12px;"
         >
         {{$data->title}}
-        </h3>
+        </h6>
         <div
           class="w-full h-5 relative"
           style="background-color: var(--main-green)"
@@ -1407,9 +1407,9 @@ $impot="impôts sur le revenu";
             z-10
           "
         >
-          <span>{{$owner->first_name}} {{$owner->last_name}}</span>
-          <span>{{$data->title}}</span>
-          <span>Business Plan</span>
+         <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
+          <span   style="font-size: 10px;">{{$data->title}}</span>
+          <span   style="font-size: 10px;">Business Plan</span>
         </div>
       </div>
     </div>
@@ -1461,15 +1461,16 @@ $impot="impôts sur le revenu";
             items-center
             pl-16
             pr-36
-            text-white text-xs
+            text-white
             font-medium
             relative
             z-10
           "
+          style="font-size: 10px;"
         >
-          <span>{{$owner->first_name}} {{$owner->last_name}}</span>
-          <span>{{$data->title}}</span>
-          <span>Business Plan</span>
+          <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
+          <span   style="font-size: 10px;">{{$data->title}}</span>
+          <span   style="font-size: 10px;">Business Plan</span>
         </div>
       </div>
     </div>
@@ -1666,9 +1667,9 @@ $impot="impôts sur le revenu";
             z-10
           "
         >
-          <span>{{$owner->first_name}} {{$owner->last_name}}</span>
-          <span>{{$data->title}}</span>
-          <span>Business Plan</span>
+         <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
+          <span   style="font-size: 10px;">{{$data->title}}</span>
+          <span   style="font-size: 10px;">Business Plan</span>
         </div>
       </div>
       
@@ -1821,9 +1822,9 @@ $impot="impôts sur le revenu";
             z-10
           "
         >
-          <span>{{$owner->first_name}} {{$owner->last_name}}</span>
-          <span>{{$data->title}}</span>
-          <span>Business Plan</span>
+          <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
+          <span   style="font-size: 10px;">{{$data->title}}</span>
+          <span   style="font-size: 10px;">Business Plan</span>
         </div>
       </div>
       
@@ -2165,9 +2166,9 @@ $impot="impôts sur le revenu";
             z-10
           "
         >
-          <span>{{$owner->first_name}} {{$owner->last_name}}</span>
-          <span>{{$data->title}}</span>
-          <span>Business Plan</span>
+          <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
+          <span   style="font-size: 10px;">{{$data->title}}</span>
+          <span   style="font-size: 10px;">Business Plan</span>
         </div>
       </div>
       
@@ -2297,9 +2298,9 @@ $impot="impôts sur le revenu";
             z-10
           "
         >
-          <span>{{$owner->first_name}} {{$owner->last_name}}</span>
-          <span>{{$data->title}}</span>
-          <span>Business Plan</span>
+            <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
+          <span   style="font-size: 10px;">{{$data->title}}</span>
+          <span   style="font-size: 10px;">Business Plan</span>
         </div>
       </div>
       
@@ -2482,9 +2483,9 @@ $impot="impôts sur le revenu";
             z-10
           "
         >
-          <span>{{$owner->first_name}} {{$owner->last_name}}</span>
-          <span>{{$data->title}}</span>
-          <span>Business Plan</span>
+           <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
+          <span   style="font-size: 10px;">{{$data->title}}</span>
+          <span   style="font-size: 10px;">Business Plan</span>
         </div>
       </div>
       
@@ -2708,9 +2709,9 @@ $impot="impôts sur le revenu";
             z-10
           "
         >
-          <span>{{$owner->first_name}} {{$owner->last_name}}</span>
-          <span>{{$data->title}}</span>
-          <span>Business Plan</span>
+         <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
+          <span   style="font-size: 10px;">{{$data->title}}</span>
+          <span   style="font-size: 10px;">Business Plan</span>
         </div>
       </div>
       
@@ -3012,9 +3013,9 @@ $impot="impôts sur le revenu";
             z-10
           "
         >
-          <span>{{$owner->first_name}} {{$owner->last_name}}</span>
-          <span>{{$data->title}}</span>
-          <span>Business Plan</span>
+       <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
+          <span   style="font-size: 10px;">{{$data->title}}</span>
+          <span   style="font-size: 10px;">Business Plan</span>
         </div>
       </div>
       
@@ -3157,9 +3158,9 @@ $impot="impôts sur le revenu";
             z-10
           "
         >
-          <span>{{$owner->first_name}} {{$owner->last_name}}</span>
-          <span>{{$data->title}}</span>
-          <span>Business Plan</span>
+          <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
+          <span   style="font-size: 10px;">{{$data->title}}</span>
+          <span   style="font-size: 10px;">Business Plan</span>
         </div>
       </div>
       
@@ -3285,9 +3286,9 @@ $impot="impôts sur le revenu";
             z-10
           "
         >
-          <span>{{$owner->first_name}} {{$owner->last_name}}</span>
-          <span>{{$data->title}}</span>
-          <span>Business Plan</span>
+        <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
+          <span   style="font-size: 10px;">{{$data->title}}</span>
+          <span   style="font-size: 10px;">Business Plan</span>
         </div>
       </div>
       
@@ -3502,9 +3503,9 @@ $impot="impôts sur le revenu";
             z-10
           "
         >
-          <span>{{$owner->first_name}} {{$owner->last_name}}</span>
-          <span>{{$data->title}}</span>
-          <span>Business Plan</span>
+           <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
+          <span   style="font-size: 10px;">{{$data->title}}</span>
+          <span   style="font-size: 10px;">Business Plan</span>
         </div>
       </div>
       
@@ -3721,9 +3722,9 @@ $impot="impôts sur le revenu";
             z-10
           "
         >
-          <span>{{$owner->first_name}} {{$owner->last_name}}</span>
-          <span>{{$data->title}}</span>
-          <span>Business Plan</span>
+        <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
+          <span   style="font-size: 10px;">{{$data->title}}</span>
+          <span   style="font-size: 10px;">Business Plan</span>
         </div>
       </div>
       
@@ -3916,9 +3917,9 @@ $impot="impôts sur le revenu";
             z-10
           "
         >
-          <span>{{$owner->first_name}} {{$owner->last_name}}</span>
-          <span>{{$data->title}}</span>
-          <span>Business Plan</span>
+            <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
+          <span   style="font-size: 10px;">{{$data->title}}</span>
+          <span   style="font-size: 10px;">Business Plan</span>
         </div>
       </div>
       
@@ -4032,9 +4033,9 @@ $impot="impôts sur le revenu";
             z-10
           "
         >
-          <span>{{$owner->first_name}} {{$owner->last_name}}</span>
-          <span>{{$data->title}}</span>
-          <span>Business Plan</span>
+            <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
+          <span   style="font-size: 10px;">{{$data->title}}</span>
+          <span   style="font-size: 10px;">Business Plan</span>
         </div>
       </div>
       
@@ -4227,9 +4228,9 @@ $impot="impôts sur le revenu";
             z-10
           "
         >
-          <span>{{$owner->first_name}} {{$owner->last_name}}</span>
-          <span>{{$data->title}}</span>
-          <span>Business Plan</span>
+         <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
+          <span   style="font-size: 10px;">{{$data->title}}</span>
+          <span   style="font-size: 10px;">Business Plan</span>
         </div>
       </div>
      </div>
@@ -4337,9 +4338,9 @@ $impot="impôts sur le revenu";
             z-10
           "
         >
-          <span>{{$owner->first_name}} {{$owner->last_name}}</span>
-          <span>{{$data->title}}</span>
-          <span>Business Plan</span>
+         <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
+          <span   style="font-size: 10px;">{{$data->title}}</span>
+          <span   style="font-size: 10px;">Business Plan</span>
         </div>
       </div>
      </div>
@@ -4563,9 +4564,9 @@ $impot="impôts sur le revenu";
             z-10
           "
         >
-          <span>{{$owner->first_name}} {{$owner->last_name}}</span>
-          <span>{{$data->title}}</span>
-          <span>Business Plan</span>
+           <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
+          <span   style="font-size: 10px;">{{$data->title}}</span>
+          <span   style="font-size: 10px;">Business Plan</span>
         </div>
       </div>
       
@@ -4640,9 +4641,9 @@ $impot="impôts sur le revenu";
             z-10
           "
         >
-          <span>{{$owner->first_name}} {{$owner->last_name}}</span>
-          <span>{{$data->title}}</span>
-          <span>Business Plan</span>
+           <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
+          <span   style="font-size: 10px;">{{$data->title}}</span>
+          <span   style="font-size: 10px;">Business Plan</span>
         </div>
       </div>
          <div class="space-y-1">
@@ -4932,9 +4933,9 @@ $impot="impôts sur le revenu";
             z-10
           "
         >
-          <span>{{$owner->first_name}} {{$owner->last_name}}</span>
-          <span>{{$data->title}}</span>
-          <span>Business Plan</span>
+            <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
+          <span   style="font-size: 10px;">{{$data->title}}</span>
+          <span   style="font-size: 10px;">Business Plan</span>
         </div>
       </div>
       
@@ -5251,9 +5252,9 @@ $impot="impôts sur le revenu";
             z-10
           "
         >
-          <span>{{$owner->first_name}} {{$owner->last_name}}</span>
-          <span>{{$data->title}}</span>
-          <span>Business Plan</span>
+       <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
+          <span   style="font-size: 10px;">{{$data->title}}</span>
+          <span   style="font-size: 10px;">Business Plan</span>
         </div>
       </div>
       
@@ -5399,9 +5400,9 @@ $impot="impôts sur le revenu";
             z-10
           "
         >
-          <span>{{$owner->first_name}} {{$owner->last_name}}</span>
-          <span>{{$data->title}}</span>
-          <span>Business Plan</span>
+            <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
+          <span   style="font-size: 10px;">{{$data->title}}</span>
+          <span   style="font-size: 10px;">Business Plan</span>
         </div>
       </div>
       
@@ -5591,9 +5592,9 @@ $impot="impôts sur le revenu";
             z-10
           "
         >
-          <span>{{$owner->first_name}} {{$owner->last_name}}</span>
-          <span>{{$data->title}}</span>
-          <span>Business Plan</span>
+          <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
+          <span   style="font-size: 10px;">{{$data->title}}</span>
+          <span   style="font-size: 10px;">Business Plan</span>
         </div>
       </div>
       
@@ -5731,9 +5732,9 @@ $impot="impôts sur le revenu";
               z-10
             "
           >
-            <span>{{$owner->first_name}} {{$owner->last_name}}</span>
-            <span>{{$data->title}}</span>
-            <span>Business Plan</span>
+             <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
+          <span   style="font-size: 10px;">{{$data->title}}</span>
+          <span   style="font-size: 10px;">Business Plan</span>
           </div>
         </div>
       
@@ -6014,9 +6015,9 @@ $impot="impôts sur le revenu";
             z-10
           "
         >
-          <span>{{$owner->first_name}} {{$owner->last_name}}</span>
-          <span>{{$data->title}}</span>
-          <span>Business Plan</span>
+            <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
+          <span   style="font-size: 10px;">{{$data->title}}</span>
+          <span   style="font-size: 10px;">Business Plan</span>
         </div>
       </div>
       
@@ -6199,9 +6200,9 @@ $impot="impôts sur le revenu";
             z-10
           "
         >
-          <span>{{$owner->first_name}} {{$owner->last_name}}</span>
-          <span>{{$data->title}}</span>
-          <span>Business Plan</span>
+           <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
+          <span   style="font-size: 10px;">{{$data->title}}</span>
+          <span   style="font-size: 10px;">Business Plan</span>
         </div>
       </div>
       
@@ -6302,9 +6303,9 @@ $impot="impôts sur le revenu";
                 z-10
               "
             >
-              <span>{{$owner->first_name}} {{$owner->last_name}}</span>
-              <span>{{$data->title}}</span>
-              <span>Business Plan</span>
+                <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
+               <span   style="font-size: 10px;">{{$data->title}}</span>
+               <span   style="font-size: 10px;">Business Plan</span>
             </div>
           </div>
       
@@ -6384,9 +6385,9 @@ $impot="impôts sur le revenu";
                       relative
                       z-10"
                   >
-                    <span>{{$owner->first_name}} {{$owner->last_name}}</span>
-                    <span>{{$data->title}}</span>
-                    <span>Business Plan</span>
+                     <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
+                     <span   style="font-size: 10px;">{{$data->title}}</span>
+                     <span   style="font-size: 10px;">Business Plan</span>
               </div>
             </div>  
     </div>
@@ -6397,7 +6398,7 @@ $impot="impôts sur le revenu";
   </body>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.0/html2pdf.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/echarts@5.2.2/dist/echarts.min.js"></script>
-  <script>
+<script>
 var chartDom = document.getElementById('chart1');
 var chartDomOne = document.getElementById('chart2');
 var myChart = echarts.init(chartDom);
