@@ -5,6 +5,7 @@ $critères[]=[];
 $strategie[]='';
 $strategie_d[]='';
 $total_taxes =0;
+$pageTableOne[]='';
 $m=0;
  $total_overheads_scalablee=0;
 $dataPlan =[];
@@ -163,6 +164,15 @@ if (isset($data ->financial_data->products_turnover_forecast)){
          
         //$bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration;  
     }
+}
+$perPage=8;
+$tablepage=[];
+$result=[];
+if (isset($data ->financial_data->products_turnover_forecast)&&  isset($data ->financial_data->services_turnover_forecast_c)){
+$result = array_merge((array)$data ->financial_data->services_turnover_forecast_c, (array)$data ->financial_data->products_turnover_forecast);
+for($i=0; $i<count($result)/$perPage;$i++){
+  $tablepage[($i+1)]=array_slice($result,$i*$perPage,$perPage);
+}
 }
 if (isset($data ->financial_data->products_turnover_forecast)){
     foreach ($data ->financial_data->products_turnover_forecast as $total){
@@ -3801,8 +3811,10 @@ $impot="impôts sur le revenu";
                   </tr>
                 </thead>
                 <tbody class="font-medium">
-                  @if(isset($data->financial_data->services_turnover_forecast_c))
-                  @foreach ($data->financial_data->services_turnover_forecast_c as $item)
+                  @if(isset($tablepage))
+                  @foreach ($tablepage as $key =>$page)
+                  @if($key==1)
+                  @foreach ($page as $item)
                     <tr>
                   @if(isset($item->otherValue))
                        <td class="border-2 border-gray-500 py-1 pl-4  text-xs">{{$item->label}}</td>
@@ -3837,43 +3849,10 @@ $impot="impôts sur le revenu";
                  @endif
                   </tr> 
                   @endforeach
-                 @endif
-                 @if(isset($data->financial_data->products_turnover_forecast))
-                 @foreach ($data->financial_data->products_turnover_forecast as $item)
-                   <tr>
-                  @if(isset($item->otherValue))
-                       <td class="border-2 border-gray-500 py-1 pl-4 text-xs">{{$item->label}}</td>
-                     <td class="border-2 border-gray-500 text-center text-xs">--</td>
-                     <td class="border-2 border-gray-500 text-center text-xs">--</td>
-                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->otherValue, 0, ',', ' ') }}</td>
-                     @if(isset($item->organisme)) 
-                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->otherValue*$item->organisme,0, ',', ' ')}}</td>
-                     <?php $total=0; $total+=isset($item->rate)? $item->value*$item->rate*$item->organisme:0; ?>
-                    
-                    @else
-                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->otherValue*$saisonalite,0, ',', ' ')}}</td>
-                     <?php $total=0; $total+= isset($item->rate) ?$item->value*$item->rate*$saisonalite:0; ?>
-                     @endif
-                    </tr> 
-                   @else
-                          <td class="border-2 border-gray-500 py-1 pl-4 text-xs">{{$item->label}}</td>
-                                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->rate, 0, ',', ' ') }} </td>
-                                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value,0, ',', ' ')}}</td>
-                                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value*$item->rate, 0, ',', ' ') }}</td>
-                                    @if(isset($item->organisme))
-                                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value*$item->rate*$item->organisme,0, ',', ' ')}}</td>
-                                    <?php $total=0; $total+= isset($item->rate)?$item->value*$item->rate*$item->organisme:0; ?>
-                                    
-                                    @else
-                                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value*$item->rate*$saisonalite,0, ',', ' ')}}</td>
-                                    <?php $total=0; $total+=isset($item->rate)?$item->value*$item->rate*$saisonalite:0; ?>
-                                    @endif
-                                    </tr> 
-                                
-                               
                    @endif 
-                 @endforeach
-                @endif
+                  @endforeach
+                 @endif
+                 @if(count($tablepage)==1)
                   <tr class="bg-green-200">
                     <td
                     colspan="3"
@@ -3891,6 +3870,7 @@ $impot="impôts sur le revenu";
                     <td class="border-2 border-gray-600 text-center bg-green-200 text-xs">{{ number_format($total_mensuel,0, ',', ' ')}}</td>
                     <td class="border-2 border-gray-600 text-center bg-green-200 text-xs">{{ number_format($bp_turnover_products_totals,0, ',', ' ')}}</td>
                   </tr>
+                  @endif
                 </tbody>
               </table>
             </div> 
@@ -3957,9 +3937,80 @@ $impot="impôts sur le revenu";
           </h3>
         </div>
         <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
-      </div>
-      <br>
+      </div>  
+      @if(isset($tablepage))
+      @foreach ($tablepage as $key => $page)
+      @if($key!=1)
       <div class="space-y-9">
+        <div class="space-y-4">
+          <div class="space-y-1">
+          </div>
+          </div>
+            <div class="inline-block rounded-lg border w-full " style="margin-top:2px;">
+              <table class="table-fixed border border-gray-900 w-full text-xs">
+                <tbody class="font-medium">
+                
+                  @foreach ($page as $item)
+                    <tr>
+                  @if(isset($item->otherValue))
+                       <td class="border-2 border-gray-500 py-1 pl-4  text-xs">{{$item->label}}</td>
+                     <td class="border-2 border-gray-500 text-center text-xs">--</td>
+                     <td class="border-2 border-gray-500 text-center text-xs">--</td>
+                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->otherValue, 0, ',', ' ') }}</td>
+                     @if(isset($item->organisme))
+                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->otherValue*$item->organisme,0, ',', ' ')}}</td>
+                     <?php $total=0; $total+= $item->value*$item->rate*$item->organisme; ?>
+                    
+                    @else
+                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->otherValue*$saisonalite,0, ',', ' ')}}</td>
+                     <?php $total=0; $total+=  $item->value*$item->rate*$saisonalite; ?>
+                     @endif
+                    </tr> 
+                   @else
+                     <td class="border-2 border-gray-500 py-1 pl-4 text-xs">{{$item->label}}</td>
+                     @if(isset($item->rate))
+                      <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->rate, 0, ',', ' ') }} </td>
+                      <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value,0, ',', ' ')}}</td>
+                       <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value*$item->rate, 0, ',', ' ') }}</td>
+                        @if(isset($item->organisme))
+                        <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value*$item->rate*$item->organisme,0, ',', ' ')}}</td>
+                        <?php $total=0; $total+= isset($item->rate)?$item->value*$item->rate*$item->organisme:0; ?>
+                        
+                        @else
+                        <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value*$item->rate*$saisonalite,0, ',', ' ')}}</td>
+                        <?php $total=0; $total+= isset($item->rate)? $item->value*$item->rate*$saisonalite:0; ?>
+                        @endif
+                        @endif
+                        </tr>  
+                 @endif
+                  </tr> 
+                  @endforeach
+                 
+                  <tr class="bg-green-200">
+                    <td
+                    colspan="3"
+                      class="
+                        py-1 pl-4
+                        border-2 border-gray-600
+                        font-semibold
+                        text-green-700
+                        text-xs
+                      "
+                    >
+                      TOTAL
+                    </td>
+                    <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
+                    <td class="border-2 border-gray-600 text-center bg-green-200 text-xs">{{ number_format($total_mensuel,0, ',', ' ')}}</td>
+                    <td class="border-2 border-gray-600 text-center bg-green-200 text-xs">{{ number_format($bp_turnover_products_totals,0, ',', ' ')}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div> 
+      </div> 
+      @endif
+      @endforeach
+     @endif  
+      <div class="space-y-9" style="margin-top:10px;">
         <div class="space-y-4 ">
           <div class="space-y-1">
             <h5
@@ -4010,7 +4061,7 @@ $impot="impôts sur le revenu";
               </tbody>
             </table>
           </div>
-      </div>
+       </div>
       </div>
       <div class="absolute bottom-0 right-0 left-0 ">
         <img
@@ -4071,7 +4122,7 @@ $impot="impôts sur le revenu";
         </div>
         <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
       </div>
-        <div class="space-y-9  print_full_witdh">
+      <div class="space-y-9  print_full_witdh">
         <div class="space-y-4">
           <div class="space-y-1">
             <h5
@@ -4094,6 +4145,7 @@ $impot="impôts sur le revenu";
                       border-2 border-gray-500
                       self-start
                       text-left
+                      w-6/12
                     "
                   >
                   Achats
@@ -4106,8 +4158,10 @@ $impot="impôts sur le revenu";
                 </tr>
               </thead>
               <tbody class="font-medium">
-                @if(isset($data->financial_data->products_turnover_forecast))
-                @foreach ($data->financial_data->products_turnover_forecast as $item)
+                @if(isset($tablepage))
+                @foreach ($tablepage as $key => $page)
+                @if($key==1)
+                @foreach ($page as $item)  
                 <?php 
                 if(isset($item->duration)){
                   $achat=(1-$item->duration/100);
@@ -4143,50 +4197,13 @@ $impot="impôts sur le revenu";
                 <td class="border-2 border-gray-500 text-center text-xs">{{ number_format(isset($item->rate)?($item->rate * $item->value*$saisonalite)* $achat:0, 0, ',', ' ') }} </td>
                   </tr> 
                 <?php   $total_achat+=isset($item->rate)?(($item->rate * $item->value*$saisonalite)* $achat):0; ?>
-              @endif
-              @endif
+                @endif
+                @endif
+                 @endforeach
+                 @endif
                 @endforeach
-                @endif
-               @if(isset($data->financial_data->services_turnover_forecast_c))
-                @foreach ($data->financial_data->services_turnover_forecast_c as $item)
-                <?php 
-                if(isset($item->duration)){
-                  $achat=(1-$item->duration/100);
-                }else{
-                   $achat=0;
-                }
-                ?>
-                @if(isset($item->otherValue))
-                  <tr>
-                    <td class="border-2 border-gray-500 text-xs "> Achat <span class="bg-red-200">{{$item->label}}</span> ({{ number_format( $achat*100 , 0, ',', ' ') }}% du Chiffres d’affaires) </td>
-                    <td class="border-2 border-gray-500 text-center text-xs">--</td>
-                    <td class="border-2 border-gray-500 text-center text-xs">--</td>
-                 @if(isset($item->organisme))
-                      <td class="border-2 border-gray-500 text-center text-xs">{{ number_format(($item->otherValue*$item->organisme)* $achat, 0, ',', ' ') }} </td>
-                  </tr> 
-                  <?php   $total_achat+=(($item->otherValue*$item->organisme)* $achat); ?>
-                  @else
-                  <td class="border-2 border-gray-500 text-center text-xs">{{ number_format(($item->otherValue*$saisonalite)* $achat, 0, ',', ' ') }} </td>
-                    </tr> 
-                  <?php   $total_achat+=(( $item->otherValue*$saisonalite)* $achat); ?>
-                @endif
-                @else
-                <tr>
-                  <td class="border-2 border-gray-500  text-xs"> Achat <span class="bg-red-200">{{$item->label}}</span> ({{ number_format( $achat*100, 0, ',', ' ') }}% du Chiffres d’affaires) </td>
-                  <td class="border-2 border-gray-500 text-center text-xs">-- </td>
-                  <td class="border-2 border-gray-500 text-center text-xs">--</td>
-               @if(isset($item->organisme))
-                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format(isset($item->rate)?($item->rate * $item->value*$item->organisme)* $achat:0, 0, ',', ' ') }} </td>
-                </tr> 
-                <?php   $total_achat+=isset($item->rate)?(($item->rate * $item->value*$item->organisme)* $achat):0; ?>
-                @else
-                <td class="border-2 border-gray-500 text-center text-xs">{{ number_format(isset($item->rate)?($item->rate * $item->value*$saisonalite)* $achat:0, 0, ',', ' ') }} </td>
-                  </tr> 
-                <?php   $total_achat+=isset($item->rate)?(($item->rate * $item->value*$saisonalite)* $achat):0; ?>
-              @endif
-              @endif
-                @endforeach
-                @endif
+             @endif
+             @if(count($tablepage)==1)
                 <tr class="bg-green-200">
                   <td
                   colspan="3"
@@ -4203,6 +4220,7 @@ $impot="impôts sur le revenu";
                   <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
                   <td class="border-2 border-gray-600 text-center bg-green-200 text-xs">{{number_format($total_achat,0,',',' ')}}</td>
                 </tr>
+                 @endif 
               </tbody>
             </table>
           </div>
@@ -4264,8 +4282,82 @@ $impot="impôts sur le revenu";
           </h3>
         </div>
         <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
+      </div> 
+       @if(isset($tablepage))
+        @foreach ($tablepage as $key => $page)
+        @if($key!=1)
+        <div class="space-y-9  print_full_witdh">
+        <div class="space-y-4">
+          <div class="space-y-1">
+          </div>
+          <div class="inline-block rounded-lg border w-full ">
+            <table class="table-fixed border border-gray-900 w-full text-sm">
+              <tbody class="font-medium">
+              
+                @foreach ($page as $item)  
+                <?php 
+                if(isset($item->duration)){
+                  $achat=(1-$item->duration/100);
+                }else{
+                   $achat=0;
+                }
+                ?>
+                @if(isset($item->otherValue))
+
+                  <tr>
+                    <td class="border-2 border-gray-500  text-xs   w-6/12"> Achat <span class="bg-red-200">{{$item->label}}</span> ({{ number_format( $achat*100, 0, ',', ' ') }}% du Chiffres d’affaires) </td>
+                    <td class="border-2 border-gray-500 text-center text-xs">--</td>
+                    <td class="border-2 border-gray-500 text-center text-xs">--</td>
+                 @if(isset($item->organisme))
+                      <td class="border-2 border-gray-500 text-center text-xs">{{ number_format(($item->otherValue*$item->organisme)*$achat, 0, ',', ' ') }} </td>
+                  </tr> 
+                  <?php   $total_achat+=(($item->otherValue*$item->organisme)* $achat); ?>
+                  @else
+                  <td class="border-2 border-gray-500 text-center text-xs">{{ number_format(($item->otherValue*$saisonalite)*$achat, 0, ',', ' ') }} </td>
+                    </tr> 
+                  <?php   $total_achat+=(($item->otherValue*$saisonalite)* $achat); ?>
+                @endif
+                @else
+                <tr>
+                  <td class="border-2 border-gray-500 text-xs   w-6/12"> Achat <span class="bg-red-200">{{$item->label}}</span> ({{ number_format( $achat*100, 0, ',', ' ') }}% du Chiffres d’affaires) </td>
+                  <td class="border-2 border-gray-500 text-center text-xs">--</td>
+                  <td class="border-2 border-gray-500 text-center text-xs">--</td>
+               @if(isset($item->organisme))
+                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format(isset($item->rate)?($item->rate * $item->value*$item->organisme)* $achat:0, 0, ',', ' ') }} </td>
+                </tr> 
+                <?php   $total_achat+=isset($item->rate)?(($item->rate * $item->value*$item->organisme)* $achat):0; ?>
+                @else
+                <td class="border-2 border-gray-500 text-center text-xs">{{ number_format(isset($item->rate)?($item->rate * $item->value*$saisonalite)* $achat:0, 0, ',', ' ') }} </td>
+                  </tr> 
+                <?php   $total_achat+=isset($item->rate)?(($item->rate * $item->value*$saisonalite)* $achat):0; ?>
+                @endif
+                @endif
+                 @endforeach
+                <tr class="bg-green-200">
+                  <td
+                  colspan="3"
+                    class="
+                      py-1 pl-4
+                      border-2 border-gray-600
+                      font-semibold
+                      text-green-700
+                      text-xs
+                    "
+                  >
+                    TOTAL
+                  </td>
+                  <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
+                  <td class="border-2 border-gray-600 text-center bg-green-200 text-xs">{{number_format($total_achat,0,',',' ')}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
       </div>
-      <div class="space-y-9  print_full_witdh">
+      </div>
+       @endif
+     @endforeach
+    @endif
+      <div class="space-y-9  print_full_witdh" style="margin-top:10px;">
         <div class="space-y-4">
           <div class="space-y-1">
             <h5

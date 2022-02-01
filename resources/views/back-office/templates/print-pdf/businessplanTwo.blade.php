@@ -1307,7 +1307,7 @@ elseif($cumul_four_year>0) {
       <div class="space-y-4">
       <div class="grid grid-cols-2 gap-2">
        <div class="">
-       <div class="space-y-2 ">
+       <div class="space-y-2 " style="margin-top:5px;">
           <div class="space-y-1">
             <h5
               class="uppercase font-bold text-xs text-right m-1"
@@ -1331,7 +1331,7 @@ elseif($cumul_four_year>0) {
              
             </div>
              <div class="grid grid-cols-8 bg-gray-100 p-2" dir="rtl">
-              <p class="font-bold  cctext-xs "style="color: var(--main-green)">الزبناء </p> 
+              <p class="font-bold  cctext-xs col-span-3"style="color: var(--main-green)">الزبناء </p> 
                  <ul class=" col-span-5 list-inside list-disc space-y-2 text-right text-xs" >
                   @if (isset($data->business_model_arab->client_arabe))
                   @foreach ($data->business_model_arab->client_arabe as $item)
@@ -1342,8 +1342,8 @@ elseif($cumul_four_year>0) {
              
             </div>
              <div class=" grid grid-cols-8 bg-gray-100 p-2" dir="rtl">
-              <p class="font-bold text-xs"style="color: var(--main-green)">المنافسون </p>
-                 <ul class="list-inside list-disc space-y-2 text-right text-xs" >
+              <p class="font-bold text-xs col-span-3"style="color: var(--main-green)">المنافسون </p>
+                 <ul class="col-span-5 list-inside list-disc space-y-2 text-right text-xs" >
                   @if (isset($data->business_model_arab->concurent_arabe))
                   @foreach ($data->business_model_arab->concurent_arabe as $item)
                    <li class="text-xs" style="margin-top:0px;"> {{$item->concurent_arabe }}</li>
@@ -1354,7 +1354,7 @@ elseif($cumul_four_year>0) {
           </div>
         </div>
        
-         <div class="space-y-2 ">
+         <div class="space-y-2 " style="margin-top:5px;">
           <div class="space-y-1">
             <h5
               class="uppercase font-bold text-xs text-right m-1"
@@ -1380,26 +1380,26 @@ elseif($cumul_four_year>0) {
            </div>
             <div class="space-y-3 text-xs font-normal bg-gray-100">
             <p class="font-bold  text-right text-xs"style="color: var(--main-green)"> كراء مقر المشروع</p>
-            <div class="flex justify-between p-2" dir="rtl"   style="margin-top:0px;"> 
+            <div class="grid grid-cols-8 p-2" dir="rtl"   style="margin-top:0px;"> 
               @if (isset($data->business_model_arab->local_arabe))
               @foreach ($data->business_model_arab->local_arabe as $item)
-             <p class="font-bold  text-xs"style="color: var(--second-blue) ; margin-top: 0px;"> الموقع : </p>
-             <p class="font-medium text-xs ">{{$item->label}}</p>
+             <p class="font-bold  text-xs col-span-3"style="color: var(--second-blue) ; margin-top: 0px;"> الموقع : </p>
+             <p class="font-medium text-xs col-span-5 ">{{$item->label}}</p>
             </div>
-             <div class="flex justify-between p-2" dir="rtl"  style="margin-top:0px;"> 
-             <p class="font-bold text-xs "style="color: var(--second-blue)  margin-top: 0px;"> 
+             <div class="grid grid-cols-8 p-2" dir="rtl"  style="margin-top:0px;"> 
+             <p class="font-bold text-xs col-span-3"style="color: var(--second-blue);  margin-top: 0px;"> 
               المساحة : </p>
-             <p class="font-medium text-xs"> {{$item->count}}</p>
+             <p class="font-medium text-xs col-span-5"> {{$item->count}}</p>
             </div>
-             <div class="flex justify-between p-2" dir="rtl"  style="margin-top:0px;"> 
-             <p class="font-bold  text-xs"style="color: var(--second-blue)">سومة الكراء : </p>
-             <p class="font-medium text-xs"> {{$item->value}}  </p> 
+             <div class="grid grid-cols-8 p-2" dir="rtl"  style="margin-top:0px;"> 
+             <p class="font-bold  text-xs col-span-3"style="color: var(--second-blue)">سومة الكراء : </p>
+             <p class="font-medium text-xs col-span-5"> {{$item->value}}  </p> 
               @endforeach   
            @endif
             </div>
            </div>
          </div>  
-         <div class="space-y-2 ">
+         <div class="space-y-2 " style="margin-top:10px;">
           <div class="space-y-1">
             <h5
               class="uppercase font-bold text-xs text-right m-1"
@@ -1420,7 +1420,7 @@ elseif($cumul_four_year>0) {
         </div>
        <div>
        
-        <div class="space-y-2 " dir="rtl">
+        <div class="space-y-2 " dir="rtl" style="margin-top:5px;">
           <div class="space-y-1" dir="rtl">
             <h5
               class="uppercase font-bold text-xs  text-right m-1"
@@ -1435,7 +1435,7 @@ elseif($cumul_four_year>0) {
           </p></div>
           </div>
         </div>
-       <div class="space-y-4 " dir="rtl">
+       <div class="space-y-4 " dir="rtl" style="margin-top:5px;">
           <div class="space-y-1" dir="rtl">
             <h5
               class="uppercase font-bold text-xs text-right m-1"
