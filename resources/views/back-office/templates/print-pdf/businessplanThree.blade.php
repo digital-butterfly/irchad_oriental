@@ -1100,11 +1100,11 @@ elseif($cumul_four_year>0) {
 
 $impot="";
 if(($data ->company->applied_tax ?? '') == 'IS'){
-$impot="impôts sur les sociétés";
+$impot="impôt sur les sociétés";
 }elseif(($data ->company->applied_tax ?? '') == 'Auto-entrepreneur activité commerciale, industrielle ou artisanale'){
-$impot="impôts sur le revenu";
+$impot="impôt sur le revenu";
 }elseif(($data ->company->applied_tax ?? '') == 'Auto-entrepreneur prestataire de services'){ 
-$impot="impôts sur le revenu";
+$impot="impôt sur le revenu";
 }
 @endphp
 
@@ -1883,20 +1883,20 @@ $impot="impôts sur le revenu";
           </div>
 
           <div class="space-y-3 text-xs font-normal">
-            <div class="flex justify-between p-2">
-              <p> raison sociale :</p>
+            <div class="flex justify-between p-2" style="margin-top:0px;">
+              <p> Raison sociale :</p>
               <p class="font-medium">{{ $data->company->corporate_name ?? ''}}</p>
             </div>
-            <div class="flex justify-between bg-gray-100 p-2">
-              <p> forme juridique:</p>
+            <div class="flex justify-between bg-gray-100 p-2" style="margin-top:0px;">
+              <p> Forme juridique:</p>
               <p class="font-medium"> {{ $data->company->legal_form ?? ''}}</p>
             </div>
-            <div class="flex justify-between p-2">
+            <div class="flex justify-between p-2" style="margin-top:0px;">
               <p>Lieu du projet :</p>
               <p class="font-medium">{{$township->title}}</p>
             </div>
-            <div class="flex justify-between bg-gray-100 p-2">
-              <p>marché cible:</p>
+            <div class="flex justify-between bg-gray-100 p-2" style="margin-top:0px;">
+              <p>Marché cible:</p>
               <p class="font-medium">{{$data->market_type ?? ''}}</p>
             </div>
           </div>
@@ -1925,14 +1925,14 @@ $impot="impôts sur le revenu";
               @if(isset($data->business_model->core_business_p))
               @foreach ($data->business_model->core_business_p  as $key =>  $field)
                 <ul class="list-inside list-disc space-y-2">  
-                  <li class="py-2 px-2 text-xs">{{ $field->label}} </li>
+                  <li class=" text-xs">{{ $field->label}} </li>
                 </ul>
                 @endforeach
               @endif 
               @if(isset($data->business_model->core_services))
               @foreach ($data->business_model->core_services  as $key =>  $field)
                 <ul class="list-inside list-disc space-y-2">  
-                  <li class="py-2 px-2 text-xs">{{ $field->label}} </li>
+                  <li class="text-xs">{{ $field->label}} </li>
                 </ul>
                @endforeach
               @endif 
@@ -1947,14 +1947,14 @@ $impot="impôts sur le revenu";
             @if(isset($data->business_model->core_business_p))
               @foreach ($data->business_model->core_business_p as $key =>  $field)
                 <ul class="list-inside list-disc space-y-2">  
-                  <li class="py-2 px-2 text-xs">{{ $field->count}} </li>
+                  <li class=" text-xs">{{ $field->count}} </li>
                 </ul>
                @endforeach
               @endif 
               @if(isset($data->business_model->core_services))
               @foreach ($data->business_model->core_services  as $key =>  $field)
                 <ul class="list-inside list-disc space-y-2">  
-                  <li class="py-2 px-2 text-xs">{{ $field->count}} </li>
+                  <li class="text-xs">{{ $field->count}} </li>
                 </ul>
                @endforeach
               @endif 
@@ -3795,11 +3795,12 @@ $impot="impôts sur le revenu";
                     <th
                       class="
                         py-2
-                        pl-4
+                        pl-2
                         border-2 border-gray-500
                         self-start
                         text-left
                         text-xs
+                        w-4/12
                       "
                     >
                      produit et /ou  service 
@@ -3953,7 +3954,7 @@ $impot="impôts sur le revenu";
                   @foreach ($page as $item)
                     <tr>
                   @if(isset($item->otherValue))
-                       <td class="border-2 border-gray-500 py-1 pl-4  text-xs">{{$item->label}}</td>
+                       <td class="border-2 border-gray-500 py-1 pl-4  text-xs w-4/12">{{$item->label}}</td>
                      <td class="border-2 border-gray-500 text-center text-xs">--</td>
                      <td class="border-2 border-gray-500 text-center text-xs">--</td>
                      <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->otherValue, 0, ',', ' ') }}</td>
@@ -3967,7 +3968,7 @@ $impot="impôts sur le revenu";
                      @endif
                     </tr> 
                    @else
-                     <td class="border-2 border-gray-500 py-1 pl-4 text-xs">{{$item->label}}</td>
+                     <td class="border-2 border-gray-500 py-1 pl-4 text-xs w-4/12">{{$item->label}}</td>
                      @if(isset($item->rate))
                       <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->rate, 0, ',', ' ') }} </td>
                       <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value,0, ',', ' ')}}</td>
@@ -5765,7 +5766,7 @@ $impot="impôts sur le revenu";
                   </tr>
                 </thead>
                 <tbody class="font-medium">
-                @if($impot=='impôts sur les sociétés')
+                @if($impot=='impôt sur les sociétés')
                   <tr>
                     <td class="border-2 border-gray-500 py-1 pl-4 text-xs">RÉSULTAT BRUT</td>
                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_income_before_taxes_first_year, 0, ',', ' ') }} </td>
@@ -5775,7 +5776,7 @@ $impot="impôts sur le revenu";
                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_income_before_taxes_five_year, 0, ',', ' ') }} </td>
                 </tr> 
                 @endif
-                 @if($impot=='impôts sur le revenu')
+                 @if($impot=='impôt sur le revenu')
                   <tr>
                     <td class="border-2 border-gray-500 py-1 pl-4 text-xs">CHIFFRE D'AFFAIRES</td>
                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_turnover_first_year, 0, ',', ' ') }} </td>
@@ -6048,7 +6049,7 @@ $impot="impôts sur le revenu";
 
                                   </tr>
                                   <tr>
-                                    <td class="border-2 border-gray-500 py-1 pl-4 " style=" font-size:10px;"> {{isset($data ->company->applied_tax)?$data ->company->applied_tax :""}}
+                                    <td class="border-2 border-gray-500 py-1 pl-4 " style=" font-size:10px;"> {{$impot}}
 
                                     </td>
                                     <td class="border-2 border-gray-500 text-center " style=" font-size:10px;">{{ number_format($bp_corporate_tax_first_year, 0, ',', ' ') }} </td>

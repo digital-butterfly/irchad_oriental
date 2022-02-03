@@ -158,7 +158,18 @@ if (isset($data ->financial_data->products_turnover_forecast)){
          
         //$bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration;  
     }
+
 }
+$perPage=5;
+$tablepage=[];
+$result=[];
+if (isset($data ->financial_data->products_turnover_forecast)&&  isset($data ->financial_data->services_turnover_forecast_c)){
+$result = array_merge((array)$data ->financial_data->services_turnover_forecast_c, (array)$data ->financial_data->products_turnover_forecast);
+for($i=0; $i<count($result)/$perPage;$i++){
+  $tablepage[($i+1)]=array_slice($result,$i*$perPage,$perPage);
+}
+}
+//dd(count($tablepage));
 if (isset($data ->financial_data->products_turnover_forecast)){
     foreach ($data ->financial_data->products_turnover_forecast as $total){
       if(isset($total->otherValue)){
@@ -1267,9 +1278,9 @@ elseif($cumul_four_year>0) {
         >
           <h3 class="font-semibold text-xs text-right"> اسم الكامل : {{ isset($data->company_arab->nom_arabe)?$data->company_arab->nom_arabe:''}}</h3><br>
           <h3 class="font-semibold text-xs text-right">  القطاع : {{ isset($data->company_arab->activite_arabe)?$data->company_arab->activite_arabe:''}}</h3><br>
-          <p class=" text-gray-500 text-xs text-right" style="font-size: 10px">
+          {{-- <p class=" text-gray-500 text-xs text-right" style="font-size: 10px">
             {{isset($data->company_arab->desc_projet_arabe)?$data->company_arab->desc_projet_arabe:""}}
-          </p>
+          </p> --}}
         </div>
       </div>
 
@@ -1507,9 +1518,9 @@ elseif($cumul_four_year>0) {
             z-10
           "
         >
-          <span>{{$owner->first_name}} {{$owner->last_name}}</span>
-          <span>{{$data->title}}</span>
-          <span>Business Plan</span>
+          <span style="font-size: 10px;">{{isset($data->company_arab->nom_projet)?$data->company_arab->nom_projet:" "}}</span>
+          <span style="font-size: 10px;">{{ isset($data->company_arab->nom_arabe)?$data->company_arab->nom_arabe:''}}</span>
+          <span style="font-size: 10px;">fiche synthètique</span>
         </div>
       </div>
       
@@ -1643,9 +1654,9 @@ elseif($cumul_four_year>0) {
             z-10
           "
         >
-          <span>{{$owner->first_name}} {{$owner->last_name}}</span>
-          <span>{{$data->title}}</span>
-          <span>Business Plan</span>
+         <span style="font-size: 10px;">{{isset($data->company_arab->nom_projet)?$data->company_arab->nom_projet:" "}}</span>
+          <span style="font-size: 10px;">{{ isset($data->company_arab->nom_arabe)?$data->company_arab->nom_arabe:''}}</span>
+          <span style="font-size: 10px;">fiche synthètique</span>
         </div>
       </div>
       
@@ -1867,9 +1878,9 @@ elseif($cumul_four_year>0) {
             z-10
           "
         >
-          <span>{{$owner->first_name}} {{$owner->last_name}}</span>
-          <span>{{$data->title}}</span>
-          <span>Business Plan</span>
+          <span style="font-size: 10px;">{{isset($data->company_arab->nom_projet)?$data->company_arab->nom_projet:" "}}</span>
+          <span style="font-size: 10px;">{{ isset($data->company_arab->nom_arabe)?$data->company_arab->nom_arabe:''}}</span>
+          <span style="font-size: 10px;">fiche synthètique</span>
         </div>
       </div>
       
@@ -1899,9 +1910,8 @@ elseif($cumul_four_year>0) {
         </div>
         <img src="{{asset('images/back-office/svg/quote-arab.svg')}}" alt="" srcset="" />
       </div>
-
-      <div class="space-y-9" >
-        <div class="space-y-4">
+      <div class="space-y-9">
+        <div class="space-y-4"  >
           <div class="space-y-1">
             <h5
               class="uppercase font-bold text-sm"
@@ -1913,7 +1923,7 @@ elseif($cumul_four_year>0) {
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
           </div>
-            <div class="inline-block rounded-lg border w-full ">
+            <div class="inline-block rounded-lg border w-full "style="margin-top:0px;">
               <table class="table-fixed border border-gray-900 w-full text-xs">
                 <thead>
                   <tr class="bg-gray-100">
@@ -1926,7 +1936,7 @@ elseif($cumul_four_year>0) {
                       <th
                       class="
                         border-2 border-gray-500
-                        w-3/12
+                        w-4/12
                         self-start
                         text-center
                         text-xs
@@ -1937,8 +1947,10 @@ elseif($cumul_four_year>0) {
                   </tr>
                 </thead>
                 <tbody class="font-medium" >
-                  @if(isset($data->financial_data->services_turnover_forecast_c))
-                  @foreach ($data->financial_data->services_turnover_forecast_c as $item)
+                 @if(isset($tablepage))
+                  @foreach ($tablepage as $key =>$page)
+                  @if($key==1)
+                  @foreach ($page as $item)
                     <tr>
                   @if(isset($item->otherValue))
                      @if(isset($item->organisme))
@@ -1972,53 +1984,12 @@ elseif($cumul_four_year>0) {
                         <td class="border-2 border-gray-500 py-1 pl-4 text-xs">{{$item->label}}</td> 
                  @endif
                   </tr> 
+                   @endforeach
+                   @endif
                   @endforeach
                  @endif
-                 @if(isset($data->financial_data->products_turnover_forecast))
-                 @foreach ($data->financial_data->products_turnover_forecast as $item)
-                   <tr>
-                  @if(isset($item->otherValue))
-                      
-                   
-                   
-                     @if(isset($item->organisme))
-                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->otherValue*$item->organisme,0, ',', ' ')}}</td>
-                     <?php $total=0; $total+=isset($item->rate)? $item->value*$item->rate*$item->organisme:0; ?>
-                    
-                    @else
-                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->otherValue*$saisonalite,0, ',', ' ')}}</td>
-                     <?php $total=0; $total+= isset($item->rate) ?$item->value*$item->rate*$saisonalite:0; ?>
-                     @endif  
-                      <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->otherValue, 0, ',', ' ') }}</td>
-                       <td class="border-2 border-gray-500 text-center text-xs">{{ number_format(0,0, ',', ' ')}}</td>
-                       <td class="border-2 border-gray-500 text-center text-xs">{{ number_format(0, 0, ',', ' ') }} </td>
-                      <td class="border-2 border-gray-500 py-1 pl-4 text-xs">{{$item->label}}</td>
-
-                   @else
-                         
-                                   
-                                  
-                                   
-                                    @if(isset($item->organisme))
-                                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value*$item->rate*$item->organisme,0, ',', ' ')}}</td>
-                                    <?php $total=0; $total+= isset($item->rate)?$item->value*$item->rate*$item->organisme:0; ?>
-                                    
-                                    @else
-                                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value*$item->rate*$saisonalite,0, ',', ' ')}}</td>
-                                    <?php $total=0; $total+=isset($item->rate)?$item->value*$item->rate*$saisonalite:0; ?>
-                                    @endif
-                         <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value*$item->rate, 0, ',', ' ') }}</td>            
-                        <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value,0, ',', ' ')}}</td>            
-                        <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->rate, 0, ',', ' ') }} </td>         
-                      <td class="border-2 border-gray-500 py-1 pl-4  text-xs">{{$item->label}}</td>
-                   @endif   
-                   </tr> 
-                 @endforeach
-                @endif
+                @if(count($tablepage)==1)
                   <tr class="bg-green-200">
-               
-                    <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
-                   
                     <td class="border-2 border-gray-600 text-center bg-green-200 text-xs">{{ number_format($bp_turnover_products_totals,0, ',', ' ')}}</td>  
                      <td class="border-2 border-gray-600 text-center bg-green-200 text-xs">{{ number_format($total_mensuel,0, ',', ' ')}}</td>
                        <td
@@ -2034,6 +2005,213 @@ elseif($cumul_four_year>0) {
                   المجموع
                     </td>
                   </tr>
+                 @endif
+                </tbody>
+              </table>
+            </div> 
+      </div>
+      <br>
+     @if(count($tablepage)==1)
+      <div class="space-y-9">
+        <div class=" grid grid-cols-2 gap-10  ">
+            <div class="">
+              <div class="space-y-1">
+                <h5
+                  class="uppercase font-bold text-xs"
+                  style="color: var(--second-blue)"
+                   dir="rtl"
+                >
+                  تطور قيمة المداخيل على مدى خمس سنوات    </h5>
+                <hr class="bg-gray-300" style="height: 2px" />
+              </div>
+              <br>
+              <div class=" bg-gray-100 p-6 ">
+                <div class="relative " style="font-size: 10px;">
+                <img src="{{asset('images/back-office/svg/evolution.svg')}}" class="">
+                <div class="flex pt-8 font-semibold whitespace-nowrap">
+                  <p class=" ml-4 -mt-2 transform rotate-45 text-xs"  style="font-size: 10px;">{{number_format($bp_turnover_first_year,0, ',', ' ')}}</p>
+                  <p class="  ml-4 -mt-2 transform rotate-45 text-xs"   style="font-size: 10px;">{{number_format($bp_turnover_second_year,0, ',', ' ')}}</p>
+                  <p class=" ml-4 -mt-2 transform rotate-45 text-xs"  style="font-size: 10px;">{{number_format($bp_turnover_third_year,0, ',', ' ')}}</p>
+                  <p class=" ml-4 -mt-2 transform rotate-45 text-xs"  style="font-size: 10px;">{{number_format($bp_turnover_four_year,0, ',', ' ')}}</p>
+                  <p class=" ml-4 -mt-2 transform rotate-45 text-xs"  style="font-size: 10px;">{{number_format($bp_turnover_five_year,0, ',', ' ')}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        <div class="">
+              <div class="space-y-1">
+                <h5
+                  class="uppercase font-bold text-xs"
+                  style="color: var(--second-blue)"
+                  dir="rtl"
+                >
+                  تطور صافي العائد على مدى خمس سنوات  </h5>
+                <hr class="bg-gray-300" style="height: 2px" />
+              </div>
+              <br>
+              <div class=" bg-gray-100 p-6 ">
+                <div class="relative " style="font-size: 10px;">
+                <img src="{{asset('images/back-office/svg/evolution.svg')}}" class="">
+                <div class="flex pt-8 font-semibold whitespace-nowrap">
+                  <p class=" ml-4 -mt-2 transform rotate-45 text-xs"  style="font-size: 10px;">{{number_format($bp_net_profit_first_year,0, ',', ' ')}}</p>
+                  <p class="ml-4 -mt-2 transform rotate-45 text-xs"  style="font-size: 10px;">{{number_format($bp_net_profit_second_year,0, ',', ' ')}}</p>
+                  <p class="ml-4 -mt-2 transform rotate-45 text-xs"  style="font-size: 10px;">{{number_format($bp_net_profit_third_year,0, ',', ' ')}}</p>
+                  <p class="ml-4 -mt-2 transform rotate-45 text-xs"  style="font-size: 10px;">{{number_format($bp_net_profit_four_year,0, ',', ' ')}}</p>
+                  <p class="ml-4 -mt-2 transform rotate-45 text-xs"  style="font-size: 10px;">{{number_format($bp_net_profit_five_year,0, ',', ' ')}}</p>
+                </div>
+              </div>
+            </div>
+            </div>
+      </div>
+    @endif
+      <div class="absolute bottom-0 right-0 left-0 ">
+        <img
+        class="absolute bottom-0 right-0 left-0 img_full_width"
+        src="{{asset('images/back-office/svg/footer.svg')}}"
+        alt="" 
+        srcset=""
+        />
+
+        <div
+          class="
+            py-2
+            flex
+            justify-between
+            items-center
+            pl-16
+            pr-36
+            text-white text-xs
+            font-medium
+            relative
+            z-10
+          "
+        >
+         <span style="font-size: 10px;">{{isset($data->company_arab->nom_projet)?$data->company_arab->nom_projet:" "}}</span>
+          <span style="font-size: 10px;">{{ isset($data->company_arab->nom_arabe)?$data->company_arab->nom_arabe:''}}</span>
+          <span style="font-size: 10px;">fiche synthètique</span>
+        </div>
+      </div>
+      
+     </div>
+    </div>  
+     @if(isset($tablepage))
+     @foreach ($tablepage as $key =>$page)
+      @if($key!=1)
+      <div id="3" class="page printsection print-add-break print-full-width">
+      <div class="flex justify-between absolute right-0 top-0 w-full" dir="rtl">
+        <div class="flex h-14 items-end justify-end space-x-3">
+          <span
+            class="
+              w-10
+              h-full
+              border-0
+              flex
+              items-end
+              justify-end
+              font-semibold
+              text-white
+              pr-1
+              tracking-wider
+            "
+            style="background-color: var(--main-green)"
+          >
+            03
+          </span>
+        </div>
+        <img src="{{asset('images/back-office/svg/quote-arab.svg')}}" alt="" srcset="" />
+      </div>
+      <div class="space-y-9">
+        <div class="space-y-4"  >
+          <div class="space-y-1">
+            <h5
+              class="uppercase font-bold text-sm"
+              style="color: var(--second-blue)"
+           dir="rtl" >
+           رقم المعاملات
+
+          </h5>
+            <hr class="bg-gray-300" style="height: 2px" />
+          </div>
+          </div>
+            <div class="inline-block rounded-lg border w-full "style="margin-top:0px;">
+              <table class="table-fixed border border-gray-900 w-full text-xs">
+                <thead>
+                  <tr class="bg-gray-100">
+                  
+                    <th class="border-2 border-gray-500 text-center  px-12 text-xs">الدخل السنوي بالدرهم</th>
+                                      <th class="border-2 border-gray-500 text-center  px-12 text-xs"  >الدخل الشهري بالدرهم</th>
+
+                   <th class="border-2 border-gray-500  text-center text-xs">الكمية / الرقم شهريا</th>
+                    <th class="border-2 border-gray-500 text-center text-xs" >الثمن بالدرهم</th>
+                      <th
+                      class="
+                        border-2 border-gray-500
+                        w-4/12
+                        self-start
+                        text-center
+                        text-xs
+                      "
+                    >
+                    المنتوج اوالخدمة
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="font-medium" >
+               
+                  @foreach ($page as $item)
+                    <tr>
+                  @if(isset($item->otherValue))
+                     @if(isset($item->organisme))
+                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->otherValue*$item->organisme,0, ',', ' ')}}</td>
+                     <?php $total=0; $total+= $item->otherValue*$item->organisme; ?>
+                    
+                    @else
+                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->otherValue*$saisonalite,0, ',', ' ')}}</td>
+                     <?php $total=0; $total+= $item->otherValue*$saisonalite; ?>
+                     @endif
+                       <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->otherValue, 0, ',', ' ') }}</td>
+                       <td class="border-2 border-gray-500 text-center text-xs" dir="ltr"> <p dir="ltr">{{ number_format(0, 0, ',', ' ') }} </p></td>
+                       <td class="border-2 border-gray-500 text-center text-xs">{{ number_format(0,0, ',', ' ')}}</td>
+                       <td class="border-2 border-gray-500 py-1 pl-4 text-xs">{{$item->label}}</td>
+                   @else
+                   
+                     @if(isset($item->rate))
+                  
+                        @if(isset($item->organisme))
+                        <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value*$item->rate*$item->organisme,0, ',', ' ')}}</td>
+                        <?php $total=0; $total+= isset($item->rate)?$item->value*$item->rate*$item->organisme:0; ?>
+                        
+                        @else
+                        <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value*$item->rate*$saisonalite,0, ',', ' ')}}</td>
+                        <?php $total=0; $total+= isset($item->rate)? $item->value*$item->rate*$saisonalite:0; ?>
+                        @endif
+                        @endif
+                         <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value*$item->rate, 0, ',', ' ') }}</td>
+                         <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->rate, 0, ',', ' ') }} </td>
+                         <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value,0, ',', ' ')}}</td>
+                        <td class="border-2 border-gray-500 py-1 pl-4 text-xs">{{$item->label}}</td> 
+                 @endif
+                  </tr> 
+                   @endforeach
+                
+
+                  <tr class="bg-green-200">
+                    <td class="border-2 border-gray-600 text-center bg-green-200 text-xs">{{ number_format($bp_turnover_products_totals,0, ',', ' ')}}</td>  
+                     <td class="border-2 border-gray-600 text-center bg-green-200 text-xs">{{ number_format($total_mensuel,0, ',', ' ')}}</td>
+                       <td
+                    colspan="3"
+                      class="
+                        py-1 pl-4
+                        border-2 border-gray-600
+                        font-semibold
+                        text-green-700
+                      "
+                      dir="rtl"
+                    >
+                  المجموع
+                    </td>
+                  </tr>
+           
                 </tbody>
               </table>
             </div> 
@@ -2053,14 +2231,14 @@ elseif($cumul_four_year>0) {
               </div>
               <br>
               <div class=" bg-gray-100 p-6 ">
-                <div class="relative " style="font-size: 12px;">
+                <div class="relative " style="font-size: 10px;">
                 <img src="{{asset('images/back-office/svg/evolution.svg')}}" class="">
                 <div class="flex pt-8 font-semibold whitespace-nowrap">
-                  <p class=" ml-4 -mt-2 transform rotate-45">{{number_format($bp_turnover_first_year,0, ',', ' ')}}</p>
-                  <p class="  ml-4 -mt-2 transform rotate-45">{{number_format($bp_turnover_second_year,0, ',', ' ')}}</p>
-                  <p class=" ml-4 -mt-2 transform rotate-45">{{number_format($bp_turnover_third_year,0, ',', ' ')}}</p>
-                  <p class=" ml-4 -mt-2 transform rotate-45">{{number_format($bp_turnover_four_year,0, ',', ' ')}}</p>
-                  <p class=" ml-4 -mt-2 transform rotate-45">{{number_format($bp_turnover_five_year,0, ',', ' ')}}</p>
+                  <p class=" ml-4 -mt-2 transform rotate-45 text-xs"  style="font-size: 10px;">{{number_format($bp_turnover_first_year,0, ',', ' ')}}</p>
+                  <p class="  ml-4 -mt-2 transform rotate-45 text-xs"   style="font-size: 10px;">{{number_format($bp_turnover_second_year,0, ',', ' ')}}</p>
+                  <p class=" ml-4 -mt-2 transform rotate-45 text-xs"  style="font-size: 10px;">{{number_format($bp_turnover_third_year,0, ',', ' ')}}</p>
+                  <p class=" ml-4 -mt-2 transform rotate-45 text-xs"  style="font-size: 10px;">{{number_format($bp_turnover_four_year,0, ',', ' ')}}</p>
+                  <p class=" ml-4 -mt-2 transform rotate-45 text-xs"  style="font-size: 10px;">{{number_format($bp_turnover_five_year,0, ',', ' ')}}</p>
                 </div>
               </div>
             </div>
@@ -2077,14 +2255,14 @@ elseif($cumul_four_year>0) {
               </div>
               <br>
               <div class=" bg-gray-100 p-6 ">
-                <div class="relative " style="font-size: 12px;">
+                <div class="relative " style="font-size: 10px;">
                 <img src="{{asset('images/back-office/svg/evolution.svg')}}" class="">
                 <div class="flex pt-8 font-semibold whitespace-nowrap">
-                  <p class=" ml-4 -mt-2 transform rotate-45 text-xs">{{number_format($bp_net_profit_first_year,0, ',', ' ')}}</p>
-                  <p class="ml-4 -mt-2 transform rotate-45 text-xs">{{number_format($bp_net_profit_second_year,0, ',', ' ')}}</p>
-                  <p class="ml-4 -mt-2 transform rotate-45 text-xs">{{number_format($bp_net_profit_third_year,0, ',', ' ')}}</p>
-                  <p class="ml-4 -mt-2 transform rotate-45 text-xs">{{number_format($bp_net_profit_four_year,0, ',', ' ')}}</p>
-                  <p class="ml-4 -mt-2 transform rotate-45 text-xs">{{number_format($bp_net_profit_five_year,0, ',', ' ')}}</p>
+                  <p class=" ml-4 -mt-2 transform rotate-45 text-xs"  style="font-size: 10px;">{{number_format($bp_net_profit_first_year,0, ',', ' ')}}</p>
+                  <p class="ml-4 -mt-2 transform rotate-45 text-xs"  style="font-size: 10px;">{{number_format($bp_net_profit_second_year,0, ',', ' ')}}</p>
+                  <p class="ml-4 -mt-2 transform rotate-45 text-xs"  style="font-size: 10px;">{{number_format($bp_net_profit_third_year,0, ',', ' ')}}</p>
+                  <p class="ml-4 -mt-2 transform rotate-45 text-xs"  style="font-size: 10px;">{{number_format($bp_net_profit_four_year,0, ',', ' ')}}</p>
+                  <p class="ml-4 -mt-2 transform rotate-45 text-xs"  style="font-size: 10px;">{{number_format($bp_net_profit_five_year,0, ',', ' ')}}</p>
                 </div>
               </div>
             </div>
@@ -2112,14 +2290,17 @@ elseif($cumul_four_year>0) {
             z-10
           "
         >
-          <span>{{$owner->first_name}} {{$owner->last_name}}</span>
-          <span>{{$data->title}}</span>
-          <span>Business Plan</span>
+         <span style="font-size: 10px;">{{isset($data->company_arab->nom_projet)?$data->company_arab->nom_projet:" "}}</span>
+          <span style="font-size: 10px;">{{ isset($data->company_arab->nom_arabe)?$data->company_arab->nom_arabe:''}}</span>
+          <span style="font-size: 10px;">fiche synthètique</span>
         </div>
       </div>
       
      </div>
-    </div> 
+    </div>    
+    @endif
+    @endforeach
+    @endif
     @if(isset($data->business_model_arab->fiche_syn))
     <?php  $files=explode(',',$data->business_model_arab->fiche_syn);?>
     @foreach ($files as $item) 
@@ -2190,9 +2371,9 @@ elseif($cumul_four_year>0) {
                       relative
                       z-10"
                   >
-                    <span>{{$owner->first_name}} {{$owner->last_name}}</span>
-                    <span>{{$data->title}}</span>
-                    <span>Business Plan</span>
+                 <span style="font-size: 10px;">{{isset($data->company_arab->nom_projet)?$data->company_arab->nom_projet:" "}}</span>
+          <span style="font-size: 10px;">{{ isset($data->company_arab->nom_arabe)?$data->company_arab->nom_arabe:''}}</span>
+          <span style="font-size: 10px;">fiche synthètique</span>
               </div>
             </div>  
     </div>
