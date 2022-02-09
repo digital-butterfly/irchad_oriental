@@ -174,6 +174,22 @@ for($i=0; $i<count($result)/$perPage;$i++){
   $tablepage[($i+1)]=array_slice($result,$i*$perPage,$perPage);
 }
 }
+$perPageOne=3;
+$tablepageOne=[];
+$resultOne=[];
+$perPageTwo=3;
+$tablepageTwo=[];
+$resultTwo=[];
+if (isset($owner->professional_experience) && isset($owner->degrees)){
+//$result = array_merge((array)$owner->professional_experience);
+for($i=0; $i<count($owner->professional_experience)/$perPageOne;$i++){
+  $tablepageOne[($i+1)]=array_slice($owner->professional_experience,$i*$perPageOne,$perPageOne);
+}
+for($i=0; $i<count($owner->degrees)/$perPageTwo;$i++){
+  $tablepageTwo[($i+1)]=array_slice($owner->degrees,$i*$perPageTwo,$perPageTwo);
+}
+}
+//dd($tablepageTwo);
 if (isset($data ->financial_data->products_turnover_forecast)){
     foreach ($data ->financial_data->products_turnover_forecast as $total){
       if(isset($total->otherValue)){
@@ -1153,13 +1169,24 @@ $impot="impôt sur le revenu";
       display: block;
       position: relative;
       margin: 20px auto 20px;
-      padding: 90px 50px 90px;
+      padding: 70px 50px 90px;
       width: 842px;
       max-height: 595px;   
       overflow: hidden; 
       background-color: white;
       page-break-after: always;
     }
+    {{-- .pageAnnex {
+      display: block;
+      position: relative;
+      margin: 10px auto 10px;
+      padding: 20px 40px 50px;
+      width: 842px;
+      max-height: 595px;   
+      overflow: hidden; 
+      background-color: white;
+      page-break-after: always;
+    } --}}
 .canvasjs-chart-credit{
   display:none;
 }
@@ -1685,6 +1712,171 @@ $impot="impôt sur le revenu";
       </div>
       
     </div>
+    
+   <div id="3" class="page printsection print-add-break print-full-width">
+          <div class="flex justify-between absolute right-0 top-0 w-full">
+            <div class="flex h-14 items-end justify-end space-x-3">
+              <span
+                id="print"
+                class="
+                  w-10
+                  h-full
+                  border-0
+                  flex
+                  items-end
+                  justify-end
+                  font-semibold
+                  text-white
+                  pr-1
+                  tracking-wider
+                  print_h
+                "
+                style="background-color:#1bbc9b"
+              >
+                01
+              </span>
+              <h3
+                class="font-semibold text-lg"
+                style="color: var(--main-blue); line-height: 16px"
+              >
+                Profil de l’entrepreneur
+              </h3>
+            </div>
+            <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
+          </div>
+          <div class="space-y-9 " >
+            <div class="space-y-4"style="margin-top:0px;">
+            </div>
+            <div class="space-y-4"  style="margin-top:0px;">
+              <div class="space-y-1">
+                <h5
+                  class="uppercase font-bold text-xs"
+                  style="color: var(--second-blue)"
+                >
+                  Formations
+                </h5>
+                <hr class="bg-gray-300" style="height: 2px" />
+              </div>
+
+              <div class="space-y-3 text-xs font-normal">
+                <div class="grid grid-cols-3 justify-between p-2 font-semibold">
+                  <p>Diplôme ou niveau d'étude:</p>
+                  <p>Etablissement</p>
+                  <p>Année d'obtention</p>
+                </div>
+                @if(isset($tablepageTwo))
+                @foreach ($tablepageTwo as  $page)
+                @foreach ($page as $key => $degree)
+                <div class="grid  grid-cols-3 justify-between bg-gray-100 p-2">
+                  @if(isset($degree->label))
+                  <p>{{$degree->label}}</p>
+                  @else
+                  <p>--</p>
+                  @endif 
+                    @if (isset($degree->value))
+                  <p id="testt"> {{$degree->value}}</p>
+                  @else
+                  <p>--</p>
+                  @endif
+                  @if (isset($degree->count))
+                  <p>{{$degree->count}}</p>
+                  @else
+                  <p>--</p>
+                  @endif
+                
+                </div>
+                @endforeach
+                @endforeach
+                @endif
+              </div>
+            </div>
+            <div class="space-y-4 "  style="margin-top:20px;">
+              <div class="space-y-1">
+                <h5
+                  class="uppercase font-bold text-xs"
+                  style="color: var(--second-blue)"
+                >
+                  Expériences professionnelles
+                </h5>
+                <hr class="bg-gray-300" style="height: 2px" />
+              </div>
+
+              <div class="space-y-3 text-xs font-normal">
+                <div class="grid grid-cols-5 justify-between p-2 font-semibold">
+                  <p>Fonction</p>
+                  <p>Etablissement</p>
+                  <p>Tâches effectuées</p>
+                  <p>Du</p>
+                  <p>Au</p>
+                </div>
+                @if(isset ($tablepageOne))
+                @foreach ( $tablepageOne as $key => $page)
+                @if($key==1)
+                @foreach ($page as $key => $experience)
+                <div class="grid grid-cols-5  justify-between p-2 bg-gray-100">
+                @if(isset($experience->label))
+                  <p>{{$experience->label}}</p>
+                  @else
+                  <p>--</p>
+                  @endif 
+                    @if (isset($experience->duration))
+                  <p id="testt"> {{$experience->duration}}</p>
+                  @else
+                  <p>--</p>
+                  @endif
+                  @if (isset($experience->organisme))
+                    <p>{{$experience->organisme}}</p>
+                  @else
+                  <p>--</p>
+                  @endif
+                  @if (isset($experience->value))
+                    <p>{{$experience->value}}</p>
+                  @else
+                  <p>--</p>
+                  @endif
+                  @if (isset($experience->rate))
+                    <p>{{$experience->rate}}</p>
+                  @else
+                  <p>--</p>
+                  @endif      
+                </div>
+                @endforeach
+                    @endif
+                @endforeach
+                  @endif
+              </div>
+            </div>
+          </div>
+          <div class="absolute bottom-0 right-0 left-0">
+            <img
+            class="absolute bottom-0 right-0 left-0 img_full_width"
+            src="{{asset('images/back-office/svg/footer.svg')}}"
+            alt="" 
+            srcset=""
+            />
+
+            <div
+              class="
+                py-2
+                flex
+                justify-between
+                items-center
+                pl-16
+                pr-36
+                text-white text-xs
+                font-medium
+                relative
+                z-10
+              "
+            >
+              <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
+              <span   style="font-size: 10px;">{{$data->title}}</span>
+              <span   style="font-size: 10px;">Business Plan</span>
+            </div>
+          </div>
+          
+   </div>
+@if(count($tablepageTwo)>1 || count($tablepageOne)>1 )
      <div id="3" class="page printsection print-add-break print-full-width">
       <div class="flex justify-between absolute right-0 top-0 w-full">
         <div class="flex h-14 items-end justify-end space-x-3">
@@ -1736,8 +1928,10 @@ $impot="impôt sur le revenu";
               <p>Etablissement</p>
               <p>Année d'obtention</p>
             </div>
-            @if(isset($owner->degrees))
-            @foreach ($owner->degrees as $key => $degree)
+            @if(isset($tablepageTwo))
+            @foreach ($tablepageTwo as $key => $page)
+             @if($key!=1)
+            @foreach ($page as $key => $degree)
             <div class="grid  grid-cols-3 justify-between bg-gray-100 p-2">
               @if(isset($degree->label))
               <p>{{$degree->label}}</p>
@@ -1756,6 +1950,8 @@ $impot="impôt sur le revenu";
               @endif
             
             </div>
+            @endforeach
+             @endif
             @endforeach
             @endif
           </div>
@@ -1779,7 +1975,10 @@ $impot="impôt sur le revenu";
               <p>Du</p>
               <p>Au</p>
             </div>
-            @foreach ($owner->professional_experience as $key => $experience)
+            @if(isset ($tablepageOne))
+            @foreach ( $tablepageOne as $key => $page)
+            @if($key!=1)
+            @foreach ($page as $key => $experience)
             <div class="grid grid-cols-5  justify-between p-2 bg-gray-100">
              @if(isset($experience->label))
               <p>{{$experience->label}}</p>
@@ -1807,7 +2006,10 @@ $impot="impôt sur le revenu";
               <p>--</p>
               @endif      
             </div>
+             @endforeach
+                @endif
             @endforeach
+              @endif
           </div>
         </div>
       </div>
@@ -1840,6 +2042,270 @@ $impot="impôt sur le revenu";
       </div>
       
     </div>
+@endif
+@foreach ($members as $membre )
+  <div id="3" class="page printsection print-add-break print-full-width">
+      <div class="flex justify-between absolute right-0 top-0 w-full">
+        <div class="flex h-14 items-end justify-end space-x-3">
+          <span
+            id="print"
+            class="
+              w-10
+              h-full
+              border-0
+              flex
+              items-end
+              justify-end
+              font-semibold
+              text-white
+              pr-1
+              tracking-wider
+              print_h
+            "
+            style="background-color:#1bbc9b"
+          >
+            01
+          </span>
+          <h3
+            class="font-semibold text-lg"
+            style="color: var(--main-blue); line-height: 16px"
+          >
+            Profil l'associé
+          </h3>
+        </div>
+        <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
+      </div>
+
+      <div class="space-y-6">
+        <div class="space-y-4">
+          <div class="space-y-2">
+            <h5
+              class="uppercase font-bold text-xs"
+              style="color: var(--second-blue)"
+            >
+              Profil l'associé
+            </h5>
+            <hr class="bg-gray-300" style="height: 2px" />
+          </div>
+
+          <div class="space-y-1 text-xs font-normal">
+       
+            <div class="flex justify-between bg-gray-100 p-2">
+              <p>Nom Prénom :</p>
+              <p class="font-medium">{{ ucfirst($membre->first_name)}} {{ ucfirst($membre->last_name)}}</p>
+            </div>   
+            <div class="flex justify-between  p-2">
+              <p>Adresse :</p>
+              <p class="font-medium"> {{$membre->address}}</p>
+            </div>
+            <div class="flex justify-between bg-gray-100 p-2">
+              <p>Date et lieu de naissance :</p>
+              <p class="font-medium">{{date_format($membre->birth_date, 'd/m/Y')}}</p>
+            </div>
+            <div class="flex justify-between  p-2">
+              <p>CIN:</p>
+              <p class="font-medium">{{$membre->identity_number}}</p>
+            </div>
+            <div class="flex justify-between bg-gray-100 p-2">
+              <p>Numéro de telephone :</p>
+              <p class="font-medium">{{$membre->phone}}</p>
+            </div>
+            <div class="flex justify-between bg-gray-100 p-2 print-add-break">
+              <p>E-mail :</p>
+              <p class="font-medium">{{  strpos($membre->email, '@noemail') !== false?'':$membre->email}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="absolute bottom-0 right-0 left-0">
+        <img
+        class="absolute bottom-0 right-0 left-0 img_full_width"
+        src="{{asset('images/back-office/svg/footer.svg')}}"
+        alt="" 
+        srcset=""
+        />
+
+        <div
+          class="
+            py-2
+            flex
+            justify-between
+            items-center
+            pl-16
+            pr-36
+            text-white text-xs
+            font-medium
+            relative
+            z-10
+          "
+        >
+         <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
+          <span   style="font-size: 10px;">{{$data->title}}</span>
+          <span   style="font-size: 10px;">Business Plan</span>
+        </div>
+      </div>
+      
+  </div> 
+  <div id="3" class="page printsection print-add-break print-full-width">
+          <div class="flex justify-between absolute right-0 top-0 w-full">
+            <div class="flex h-14 items-end justify-end space-x-3">
+              <span
+                id="print"
+                class="
+                  w-10
+                  h-full
+                  border-0
+                  flex
+                  items-end
+                  justify-end
+                  font-semibold
+                  text-white
+                  pr-1
+                  tracking-wider
+                  print_h
+                "
+                style="background-color:#1bbc9b"
+              >
+                01
+              </span>
+              <h3
+                class="font-semibold text-lg"
+                style="color: var(--main-blue); line-height: 16px"
+              >
+                Profil l'associé
+              </h3>
+            </div>
+            <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
+          </div>
+          <div class="space-y-9 " >
+            <div class="space-y-4"style="margin-top:0px;">
+            </div>
+            <div class="space-y-4"  style="margin-top:0px;">
+              <div class="space-y-1">
+                <h5
+                  class="uppercase font-bold text-xs"
+                  style="color: var(--second-blue)"
+                >
+                  Formations
+                </h5>
+                <hr class="bg-gray-300" style="height: 2px" />
+              </div>
+
+              <div class="space-y-3 text-xs font-normal">
+                <div class="grid grid-cols-3 justify-between p-2 font-semibold">
+                  <p>Diplôme ou niveau d'étude:</p>
+                  <p>Etablissement</p>
+                  <p>Année d'obtention</p>
+                </div>
+                @if(isset($membre->degrees))
+                @foreach ($membre->degrees as $key => $degree)
+                <div class="grid  grid-cols-3 justify-between bg-gray-100 p-2">
+                  @if(isset($degree->label))
+                  <p>{{$degree->label}}</p>
+                  @else
+                  <p>--</p>
+                  @endif 
+                    @if (isset($degree->value))
+                  <p id="testt"> {{$degree->value}}</p>
+                  @else
+                  <p>--</p>
+                  @endif
+                  @if (isset($degree->count))
+                  <p>{{$degree->count}}</p>
+                  @else
+                  <p>--</p>
+                  @endif
+                
+                </div>
+                @endforeach
+                @endif
+              </div>
+            </div>
+            <div class="space-y-4 "  style="margin-top:20px;">
+              <div class="space-y-1">
+                <h5
+                  class="uppercase font-bold text-xs"
+                  style="color: var(--second-blue)"
+                >
+                  Expériences professionnelles
+                </h5>
+                <hr class="bg-gray-300" style="height: 2px" />
+              </div>
+
+              <div class="space-y-3 text-xs font-normal">
+                <div class="grid grid-cols-5 justify-between p-2 font-semibold">
+                  <p>Fonction</p>
+                  <p>Etablissement</p>
+                  <p>Tâches effectuées</p>
+                  <p>Du</p>
+                  <p>Au</p>
+                </div>
+                @if(isset ($membre->professional_experience))
+                @foreach ($membre->professional_experience as $key => $experience)
+                <div class="grid grid-cols-5  justify-between p-2 bg-gray-100">
+                @if(isset($experience->label))
+                  <p>{{$experience->label}}</p>
+                  @else
+                  <p>--</p>
+                  @endif 
+                    @if (isset($experience->duration))
+                  <p id="testt"> {{$experience->duration}}</p>
+                  @else
+                  <p>--</p>
+                  @endif
+                  @if (isset($experience->organisme))
+                    <p>{{$experience->organisme}}</p>
+                  @else
+                  <p>--</p>
+                  @endif
+                  @if (isset($experience->value))
+                    <p>{{$experience->value}}</p>
+                  @else
+                  <p>--</p>
+                  @endif
+                  @if (isset($experience->rate))
+                    <p>{{$experience->rate}}</p>
+                  @else
+                  <p>--</p>
+                  @endif      
+                </div>
+                @endforeach
+                  @endif
+              </div>
+            </div>
+          </div>
+          <div class="absolute bottom-0 right-0 left-0">
+            <img
+            class="absolute bottom-0 right-0 left-0 img_full_width"
+            src="{{asset('images/back-office/svg/footer.svg')}}"
+            alt="" 
+            srcset=""
+            />
+
+            <div
+              class="
+                py-2
+                flex
+                justify-between
+                items-center
+                pl-16
+                pr-36
+                text-white text-xs
+                font-medium
+                relative
+                z-10
+              "
+            >
+              <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
+              <span   style="font-size: 10px;">{{$data->title}}</span>
+              <span   style="font-size: 10px;">Business Plan</span>
+            </div>
+          </div>
+          
+   </div>
+@endforeach  
+  
+    
     <div id="4" class="page printsection print-add-break print-full-width">
       <div class="flex justify-between absolute right-0 top-0 w-full">
         <div class="flex h-14 items-end justify-end space-x-3">
@@ -2893,7 +3359,7 @@ $impot="impôt sur le revenu";
                 class="
                   absolute
                   -right-8
-                  top-2
+                  -top-2
                   h-16
                   w-16
                   flex
@@ -2924,7 +3390,7 @@ $impot="impôt sur le revenu";
                 class="
                   absolute
                   -left-8
-                  top-2
+                  -top-2
                   h-16
                   w-16
                   flex
@@ -6407,7 +6873,7 @@ $impot="impôt sur le revenu";
     @if($item!='')
     <div id="20" class="page printsection print-full-width ">
             <div class="flex justify-between absolute right-0 top-0 w-full">
-                  <div class="flex h-14 items-end justify-end space-x-3">
+                  <div class="flex h-10 items-end justify-end space-x-3">
                     <span
                       class="
                         w-10
@@ -6434,53 +6900,17 @@ $impot="impôt sur le revenu";
                 </div>
                 <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="">
             </div>
-              <div class="space-y-2">
-                  <div class="space-y-4">
-                    <div class="space-y-1">
-                      <h5
-                        class="uppercase font-bold text-sm"
-                        style="color: var(--second-blue)">
-                      </h5>
-                      <hr class="bg-gray-300" style="height: 2px" />
-                    </div>
-                </div>
-                <div class="space-y-1" >
-                    <div class="pace-y-2 flex justify-center items-center w"> 
                       <img
-                        class="relative w-80"
+                        class=""
+                        style="
+                          display: block;
+                            width: 800px;
+                            max-height: 500px; 
+                             "
                         src="{{asset('storage/'.$item)}}"
                         alt="" 
                       srcset=""
                       />
-                    </div>           
-          
-                  </div>
-            </div>
-            <div class="absolute bottom-1 right-0 left-0 ">
-                  <img
-                  class="absolute bottom-0 right-0 left-0 img_full_width"
-                  src="{{asset('images/back-office/svg/footer.svg')}}"
-                  alt="" 
-                  srcset=""
-                  />
-                  <div
-                    class="
-                      py-2
-                      flex
-                      justify-between
-                      items-center
-                      pl-16
-                      pr-36
-                      text-white text-xs
-                      font-medium
-                      relative
-                      z-10"
-                  >
-                     <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
-                     <span   style="font-size: 10px;">{{$data->title}}</span>
-                     <span   style="font-size: 10px;">Business Plan</span>
-              </div>
-            </div>  
     </div>
 
     @endif
@@ -6576,7 +7006,7 @@ window.addEventListener('load',function(){
     var d=document.querySelectorAll('p');
     var l=document.querySelectorAll('li');
      var tailwind=document.querySelectorAll('td');
-    //console.log("===================>",d);
+    console.log("===================>",l);
     d.forEach(el=> {
         el.value = el.value.replace("&#039;","'")
      });

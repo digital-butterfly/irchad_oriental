@@ -795,7 +795,7 @@ class FicheSynthetique extends Controller
                 'desc_projet_arabe' => $request['desc_projet_arabe'],
                 'legal_form_arabe' => $request['legal_form_arabe'],
                 'implantation_arabe' => $request['implantation_arabe'],
-                'produit_service_arabe' => $request['produit_service_arabe']
+                'produit_service_arabee' => $request['produit_service_arabee']
             ],
                 'business_model_arab' => [
                 'fournisseur_arabe' => $request['fournisseur_arabe'],

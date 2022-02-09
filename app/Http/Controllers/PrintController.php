@@ -18,6 +18,7 @@ class PrintController extends Controller
          $categories = ProjectCategory::all();
          $data = ProjectApplication::findOrFail($id);
          $members =$data->subMembers;
+         //dd( $members);
          $owner =$data->getAdhname;
          $startup_needs=ProjectApplication::select('financial_data',ProjectApplication::raw('count(*) as total'))->groupBy('financial_data')->where('id', $id)->get();
          $startup_needarray=[];

@@ -4,6 +4,7 @@
 @section('specific_css')
     <link href="css/back-office/pages/wizard/wizard-4.css" rel="stylesheet" type="text/css" />
     <link href="css/back-office/pages/invoices/invoice-5.css" rel="stylesheet" type="text/css" />
+    <meta charset="UTF-8">
 
     <style>
         html {
@@ -448,6 +449,8 @@
                                                 <div class="kt-portlet__foot sticky-save">
                                                 <div class="kt-form__actions">
                                                     <button type="submit" class="btn btn-primary kt-align-center">Enregistrer les modifications</button>
+                                                     <input name="deteletags" type="hidden" id="deteletags" value=""/>
+
                                                 </div>
 
 
@@ -717,7 +720,7 @@
                                                 </button>
 
                                             </div>
-                                            <input name="deteletags" type="hidden" id="deteletags" value=""/>
+                                            {{-- <input name="deteletags" type="hidden" id="deteletags" value=""/> --}}
 
                                             @csrf
                                          @csrf
@@ -1680,19 +1683,18 @@
                 }
             };
         }();
-        var KTTagify = function() {
+    var KTTagify = function() {
 
             // Private functions
             var demo1 = function() {
                 var todelet =[];
                 var toEl = document.getElementById('kt_tagify_1');
-                var toEl2 = document.getElementById('kt_tagify_2');
                 var myFunction = function(){
                     console.log(todelet)
                     $("#deteletags").val(JSON.stringify(todelet))
                 }
                 document.getElementById("candidaturesform").addEventListener("submit", myFunction);
-                var tagifyTo2 = new Tagify(toEl2)
+
                 var tagifyTo = new Tagify(toEl, {
                     delimiters: ", ", // add new tags when a comma or a space character is entered
                     maxTags: 5,
@@ -1702,6 +1704,7 @@
                     whitelist: toEl.value ? JSON.parse(toEl.value) : [],
                     templates: {
                         tag : function(tagData){
+                            console.log('conx',tagData)
                             try{
                                 return `<tag title='${tagData.member_id}' contenteditable='false' spellcheck="false" class='tagify__tag tagify__tag--brand tagify--noAnim ${tagData.class ? tagData.class : ""}' ${this.getAttributes(tagData)}>
                                         <x title='remove tag' class='tagify__tag__removeBtn'></x>
@@ -1744,7 +1747,7 @@
                 });
                 // tagifyTo.settings.whitelist.push(...toEl.value)
                 // console.log('helloooooooo',tagifyTo.settings.whitelist)
-
+                console.log('helloooooooo', tagifyTo)
 
 
                 tagifyTo.on('input', onInput).on('remove', onRemoveTag).on('dropdown:select', onSelectSuggestion)
@@ -1759,11 +1762,7 @@
                         headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content},
                         url : '/admin/candidaturesmemmbers', // La ressource ciblée
                         method:'POST',
-                        data:{
-                            'tag':e.detail.value,
-                            'project_id': {{$data->id}}
-                        }
-
+                        data:{'tag':e.detail.value}
 
                     })
                         .then(function(result){

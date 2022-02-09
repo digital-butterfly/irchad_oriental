@@ -205,21 +205,21 @@ class ProjectApplication extends Model
                 'label' => 'ID Adhérent',
                 'group' => 'Données Générales'
             ],
-               [
-                'name' => 'sous_adh',
-                'type' => 'text',
+            //    [
+            //     'name' => 'sous_adh',
+            //     'type' => 'text',
+            //     'label' => 'noms sous Adhérent',
+            //     'group' => 'Données Générales'
+            // ],
+             [
+                'name' => 'members',
+                'type' => 'taggify',
+                'id'=>'kt_tagify_1',
+                'class' => 'kt-callout--dark',
                 'label' => 'noms sous Adhérent',
-                'group' => 'Données Générales'
+                'group' => 'Données Générales',
+                'value'=> $projectApplicationMembers
             ],
-        // [
-        //         'name' => 'members',
-        //         'type' => 'taggify',
-        //         'id'=>'kt_tagify_1',
-        //         'class' => 'kt-callout--dark',
-        //         'label' => 'noms sous Adhérent',
-        //         'group' => 'Données Générales',
-        //         'value'=> $projectApplicationMembers
-        //     ],
             [
                 'name' => 'category_id',
                 'type' => 'select',
