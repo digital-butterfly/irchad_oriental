@@ -1,4 +1,7 @@
 @php
+$str="This is some l&amp;#039;elomm"; 
+//dd(htmlspecialchars($str, ENT_COMPAT,'UTF-8'));
+
  $total_overheads_fixed=0;
 $files[]='';
 $critères[]=[];
@@ -51,8 +54,9 @@ $bp_investment_program_total = 0;
 $total_taxe_amortisement=0;
 if (isset($data->financial_data->startup_needs)) {
     foreach ($data->financial_data->startup_needs as $item) {
-      if($item->label!='Fonds de roulement de démarrage'){
+     
           $bp_investment_program_total += $item->value ?? 0;
+           if($item->label!='Fonds de roulement de démarrage'){
         if($item->value!=0 && $item->rate!=0){
            $total_taxe_amortisement+=($item->value/(1+$item->duration/100))*$item->rate/100;
         } 
@@ -1128,7 +1132,6 @@ $impot="impôt sur le revenu";
 <head>
 
     <head>
-        <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Business Plan</title>
@@ -1769,7 +1772,7 @@ $impot="impôt sur le revenu";
                 @foreach ($page as $key => $degree)
                 <div class="grid  grid-cols-3 justify-between bg-gray-100 p-2">
                   @if(isset($degree->label))
-                  <p>{{$degree->label}}</p>
+                  <p> {{ htmlspecialchars_decode($degree->label, ENT_QUOTES)}}</p>
                   @else
                   <p>--</p>
                   @endif 
@@ -6917,9 +6920,10 @@ $impot="impôt sur le revenu";
     @endforeach
     @endif
   </body>
+  </html>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.0/html2pdf.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/echarts@5.2.2/dist/echarts.min.js"></script>
-<script>
+<script> 
 var chartDom = document.getElementById('chart1');
 var chartDomOne = document.getElementById('chart2');
 var myChart = echarts.init(chartDom);
@@ -6928,7 +6932,7 @@ var optionTwo;
 var option;
 option = {
 color:[
-                "#0E6251",
+               "#0E6251",
                "#148B73",
                "#1BBC9B",              
       ],
@@ -6953,7 +6957,7 @@ color:[
       data:<?php echo json_encode(  $startup_needarray, JSON_NUMERIC_CHECK); ?>, 
     }
   ]
-};
+}
 optionTwo = {
 color:[
                 "#0E6251",
@@ -6985,8 +6989,10 @@ color:[
 
 option && myChart.setOption(option);
 optionTwo && chartDomOne.setOption(optionTwo);
+</script>
 
-    function download() {
+
+/*    function download() {
       var element = document.getElementById("test");
       var opt = {
         margin: [10, 0, 10, 0],
@@ -6999,32 +7005,7 @@ optionTwo && chartDomOne.setOption(optionTwo);
       html2pdf().from(element).save("myfile.pdf");
     }
 
-window.addEventListener('load',function(){
-    let stop = false 
-    const interval = setInterval(function(){
-    if(!stop){
-    var d=document.querySelectorAll('p');
-    var l=document.querySelectorAll('li');
-     var tailwind=document.querySelectorAll('td');
-    console.log("===================>",l);
-    d.forEach(el=> {
-        el.value = el.value.replace("&#039;","'")
-     });
-      l.forEach(el=> {
-        el.value = el.value.replace("&#039;","'")
-     });
-     l.forEach(el=> {
-        el.value = el.value.replace("&amp;amp;#039;","'")
-     });
-        }
-    },100)
-    setTimeout(function(){
-        stop =true
-    clearInterval(interval)
-    },3000)
- 
-})
+*/
 
-</script>
-</html>
+
 

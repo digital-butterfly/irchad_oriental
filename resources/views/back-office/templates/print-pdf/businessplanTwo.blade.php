@@ -1105,7 +1105,6 @@ elseif($cumul_four_year>0) {
 <head>
 
     <head>
-        <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>fiche synthètique</title>
@@ -1493,11 +1492,11 @@ elseif($cumul_four_year>0) {
               </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
-           <div class="space-y-3 text-sm font-normal text-xs text-right bg-gray-100" dir="rtl">
+           <div class="space-y-3 text-sm font-normal text-xs text-right bg-gray-100 p-2" dir="rtl">
                            <ul class="list-inside list-disc space-y-2 text-right">
                               @if (isset($data->business_model_arab->autorisation_arabe))
                                  @foreach ($data->business_model_arab->autorisation_arabe as $item)
-                                  <li class="text-xs"> {{$item->autorisation_arabe }} </ul> 
+                                  <li class="text-xs" style="margin-top:0px;"> {{$item->autorisation_arabe }} </ul> 
                               @endforeach   
                               @endif
                             

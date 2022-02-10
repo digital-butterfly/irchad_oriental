@@ -51,8 +51,9 @@ $bp_investment_program_total = 0;
 $total_taxe_amortisement=0;
 if (isset($data->financial_data->startup_needs)) {
     foreach ($data->financial_data->startup_needs as $item) {
-      if($item->label!='Fonds de roulement de démarrage'){
-          $bp_investment_program_total += $item->value ?? 0;
+     
+          $bp_investment_program_total += $item->value ?? 0; 
+          if($item->label!='Fonds de roulement de démarrage'){
         if($item->value!=0 && $item->rate!=0){
            $total_taxe_amortisement+=($item->value/(1+$item->duration/100))*$item->rate/100;
         } 
@@ -1127,7 +1128,6 @@ $impot="impôt sur le revenu";
 <head>
 
     <head>
-        <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Business Plan</title>

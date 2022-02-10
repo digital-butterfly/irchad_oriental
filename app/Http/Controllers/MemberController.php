@@ -206,7 +206,7 @@ class MemberController extends Controller
        //dd($data->informal_activity_nat);
         $data->entre_activity_nat=isset(json_decode($data->otherquestions)[0]->entre_activity_nat)== false ? "" :json_decode($data->otherquestions)[0]->entre_activity_nat;
         }
-//        dd($data->toArray());
+ //dd($data->toArray());
 //       dd ($data->otherquestions=json_decode($data->otherquestions)[0]);
 
 //        dd($data->toArray());
@@ -252,7 +252,7 @@ class MemberController extends Controller
             'birth_date' => $request['birth_date'],
             'address' => $request['address'],
             'township_id' => $request['township_id'],
-              'gender' => $request['gender'],
+            'gender' => $request['gender'],
             'degrees' => json_decode(json_encode($request['degrees'])),
             'professional_experience' => json_decode(json_encode($request['professional_experience'])),
             'state_help' => json_decode(json_encode($request['state_help'])),

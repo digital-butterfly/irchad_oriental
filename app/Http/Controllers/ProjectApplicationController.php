@@ -349,7 +349,7 @@ class ProjectApplicationController extends Controller
             }
         }
     $data = (object)$data;
-
+ //dd($data);
     $saisonalite=0;
     $saisonalite=isset($data ->financial_data->saisonnalite)? $data ->financial_data->saisonnalite:0;
       $tota_ca=0;

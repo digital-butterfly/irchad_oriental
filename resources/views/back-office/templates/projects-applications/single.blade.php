@@ -4,7 +4,6 @@
 @section('specific_css')
     <link href="css/back-office/pages/wizard/wizard-4.css" rel="stylesheet" type="text/css" />
     <link href="css/back-office/pages/invoices/invoice-5.css" rel="stylesheet" type="text/css" />
-    <meta charset="UTF-8">
 
     <style>
         html {
