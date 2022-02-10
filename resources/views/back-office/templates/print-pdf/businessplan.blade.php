@@ -1772,7 +1772,7 @@ $impot="impôt sur le revenu";
                 @foreach ($page as $key => $degree)
                 <div class="grid  grid-cols-3 justify-between bg-gray-100 p-2">
                   @if(isset($degree->label))
-                  <p> {{ htmlspecialchars_decode($degree->label, ENT_QUOTES)}}</p>
+                  <p> {{ htmlspecialchars($degree->label, ENT_COMPAT,'ISO-8859-1', true)}}</p>
                   @else
                   <p>--</p>
                   @endif 
@@ -1818,7 +1818,7 @@ $impot="impôt sur le revenu";
                 @foreach ($page as $key => $experience)
                 <div class="grid grid-cols-5  justify-between p-2 bg-gray-100">
                 @if(isset($experience->label))
-                  <p>{{$experience->label}}</p>
+                  <p>{{  htmlspecialchars($experience->label, ENT_COMPAT,'ISO-8859-1', true)}}</p>
                   @else
                   <p>--</p>
                   @endif 
@@ -1937,7 +1937,7 @@ $impot="impôt sur le revenu";
             @foreach ($page as $key => $degree)
             <div class="grid  grid-cols-3 justify-between bg-gray-100 p-2">
               @if(isset($degree->label))
-              <p>{{$degree->label}}</p>
+              <p>{{ htmlspecialchars($degree->label, ENT_COMPAT,'ISO-8859-1', true)}}</p>
               @else
               <p>--</p>
                @endif 
@@ -1984,7 +1984,7 @@ $impot="impôt sur le revenu";
             @foreach ($page as $key => $experience)
             <div class="grid grid-cols-5  justify-between p-2 bg-gray-100">
              @if(isset($experience->label))
-              <p>{{$experience->label}}</p>
+              <p>{{   htmlspecialchars($experience->label, ENT_COMPAT,'ISO-8859-1', true)}}</p>
               @else
               <p>--</p>
                @endif 
@@ -2204,7 +2204,7 @@ $impot="impôt sur le revenu";
                 @foreach ($membre->degrees as $key => $degree)
                 <div class="grid  grid-cols-3 justify-between bg-gray-100 p-2">
                   @if(isset($degree->label))
-                  <p>{{$degree->label}}</p>
+                  <p>{{ htmlspecialchars($degree->label, ENT_COMPAT,'ISO-8859-1', true)}}</p>
                   @else
                   <p>--</p>
                   @endif 
@@ -2247,7 +2247,7 @@ $impot="impôt sur le revenu";
                 @foreach ($membre->professional_experience as $key => $experience)
                 <div class="grid grid-cols-5  justify-between p-2 bg-gray-100">
                 @if(isset($experience->label))
-                  <p>{{$experience->label}}</p>
+                  <p>{{  htmlspecialchars($experience->label, ENT_COMPAT,'ISO-8859-1', true) }}</p>
                   @else
                   <p>--</p>
                   @endif 
@@ -2394,14 +2394,14 @@ $impot="impôt sur le revenu";
               @if(isset($data->business_model->core_business_p))
               @foreach ($data->business_model->core_business_p  as $key =>  $field)
                 <ul class="list-inside list-disc space-y-2">  
-                  <li class=" text-xs">{{ $field->label}} </li>
+                  <li class=" text-xs">{{  htmlspecialchars($field->label, ENT_COMPAT,'ISO-8859-1', true)}} </li>
                 </ul>
                 @endforeach
               @endif 
               @if(isset($data->business_model->core_services))
               @foreach ($data->business_model->core_services  as $key =>  $field)
                 <ul class="list-inside list-disc space-y-2">  
-                  <li class=" text-xs">{{ $field->label}} </li>
+                  <li class=" text-xs">{{ htmlspecialchars($field->label, ENT_COMPAT,'ISO-8859-1', true)}} </li>
                 </ul>
                @endforeach
               @endif 
@@ -2416,14 +2416,14 @@ $impot="impôt sur le revenu";
             @if(isset($data->business_model->core_business_p))
               @foreach ($data->business_model->core_business_p as $key =>  $field)
                 <ul class="list-inside list-disc space-y-2">  
-                  <li class="text-xs">{{ $field->count}} </li>
+                  <li class="text-xs">{{ htmlspecialchars($field->count, ENT_COMPAT,'ISO-8859-1', true)}} </li>
                 </ul>
                @endforeach
               @endif 
               @if(isset($data->business_model->core_services))
               @foreach ($data->business_model->core_services  as $key =>  $field)
                 <ul class="list-inside list-disc space-y-2">  
-                  <li class="text-xs">{{ $field->count}} </li>
+                  <li class="text-xs">{{ htmlspecialchars($field->count, ENT_COMPAT,'ISO-8859-1', true)}} </li>
                 </ul>
                @endforeach
               @endif 
@@ -2697,7 +2697,7 @@ $impot="impôt sur le revenu";
 
           <div class="bg-gray-100 text-gray-700 p-3 space-y-3 text-xs">
             <p  class="text-justify">
-              {{isset($data->business_model->evolution_m)?$data->business_model->evolution_m: " "}}
+              {{isset($data->business_model->evolution_m)?htmlspecialchars($data->business_model->evolution_m, ENT_COMPAT,'ISO-8859-1', true): " "}}
             </p>
           </div>
         </div>
@@ -2734,7 +2734,7 @@ $impot="impôt sur le revenu";
                 @if(isset($data->business_model->primary_target_client_d))
                 @foreach ($data->business_model->primary_target_client_d as $item)
                 <tr>
-                  <td class="border-2 border-gray-600 ">{{isset($item->label)?$item->label:""}}</td>
+                  <td class="border-2 border-gray-600 ">{{isset($item->label)?htmlspecialchars($item->label, ENT_COMPAT,'ISO-8859-1', true):""}}</td>
                   <td class="border-2 border-gray-600 text-center">{{isset($item->count)?$item->count:""}}</td>
                    <td class="border-2 border-gray-600 text-center">{{isset($item->value)?$item->value:""}}</td>
                 </tr>
@@ -2868,7 +2868,7 @@ $impot="impôt sur le revenu";
                 @if(isset($data->business_model->suppliers_f))
                 @foreach ($data->business_model->suppliers_f as $item)
                 <tr>
-                  <td class="border-2 border-gray-600 ">{{isset($item->label)?$item->label:""}}</td>
+                  <td class="border-2 border-gray-600 ">{{isset($item->label)?htmlspecialchars($item->label, ENT_COMPAT,'ISO-8859-1', true):""}}</td>
                   <td class="border-2 border-gray-600 text-center">{{isset($item->count)?$item->count:""}}</td>
                    <td class="border-2 border-gray-600 text-center">{{isset($item->value)?$item->value:""}}</td>
                 </tr>
@@ -2930,7 +2930,7 @@ $impot="impôt sur le revenu";
                 @if(isset($data->business_model->competition_c))
                 @foreach ($data->business_model->competition_c as $item)
                 <tr>
-                  <td class="border-2 border-gray-600 ">{{isset($item->label)?$item->label:""}}</td>
+                  <td class="border-2 border-gray-600 ">{{isset($item->label)?htmlspecialchars($item->label, ENT_COMPAT,'ISO-8859-1', true):""}}</td>
                   <td class="border-2 border-gray-600 text-center">{{isset($item->count)?$item->count:""}}</td>
                    <td class="border-2 border-gray-600 text-center">{{isset($item->value)?$item->value:""}}</td>
                 </tr>
@@ -3081,7 +3081,7 @@ $impot="impôt sur le revenu";
                     @foreach($critères as $item)
                     @if ($item)
                          <p style="margin-top:0px; margin-bottom:1px;">
-                 -{{$item}}
+                 -{{htmlspecialchars($item, ENT_COMPAT,'ISO-8859-1', true)}}
                    </p>  
                     @endif
              
@@ -3108,7 +3108,7 @@ $impot="impôt sur le revenu";
                 @foreach($strategie as $item)
                 @if($item)
                  <p style="margin:0px; margin-bottom:4px;">
-                 -{{$item}}
+                 -{{htmlspecialchars($item, ENT_COMPAT,'ISO-8859-1', true)}}
                 </p>    
            @endif
           @endforeach   
@@ -3155,7 +3155,7 @@ $impot="impôt sur le revenu";
                 @foreach($strategie_d as $item)
                      @if($item)
                  <p style="margin:0px; margin-bottom:4px;">
-                 -{{$item}}
+                 -{{htmlspecialchars($item, ENT_COMPAT,'ISO-8859-1', true)}}
                 </p>
                      @endif
               @endforeach
@@ -3354,7 +3354,7 @@ $impot="impôt sur le revenu";
               <ul class="list-inside list-disc space-y-2">
                 @if(isset($data->business_model->distribution_strategy_force_p))
                 @foreach ($data->business_model->distribution_strategy_force_p as $key =>  $field)
-                <li class="text-xs">{{$field->distribution_strategy_force_p ?? " "}}</li>  
+                <li class="text-xs">{{htmlspecialchars($field->distribution_strategy_force_p , ENT_COMPAT,'ISO-8859-1', true)?? " "}}</li>  
                 @endforeach 
                 @endif
               </ul>
@@ -3384,7 +3384,7 @@ $impot="impôt sur le revenu";
               <ul class="list-inside list-disc space-y-2">
                 @if(isset($data->business_model->distribution_strategy_faiblesse_p))
                 @foreach ($data->business_model->distribution_strategy_faiblesse_p as $key =>  $field)
-                <li class="text-xs">{{$field->distribution_strategy_faiblesse_p ?? " "}}</li>  
+                <li class="text-xs">{{htmlspecialchars($field->distribution_strategy_faiblesse_p , ENT_COMPAT,'ISO-8859-1', true)?? " "}}</li>  
                 @endforeach 
                 @endif
               </ul>
@@ -3415,7 +3415,7 @@ $impot="impôt sur le revenu";
               <ul class="list-inside list-disc space-y-2">
                 @if(isset($data->business_model->distribution_strategy_Opportunité_p))
                 @foreach ($data->business_model->distribution_strategy_Opportunité_p as $key =>  $field)
-                <li class="text-xs">{{$field->distribution_strategy_Opportunité_p?? " "}}</li>  
+                <li class="text-xs">{{htmlspecialchars($field->distribution_strategy_Opportunité_p, ENT_COMPAT,'ISO-8859-1', true)?? " "}}</li>  
                 @endforeach 
                 @endif
               </ul>
@@ -3445,7 +3445,7 @@ $impot="impôt sur le revenu";
               <ul class="list-inside list-disc space-y-2">
                 @if(isset($data->business_model->distribution_strategy_menace_p))
                 @foreach ($data->business_model->distribution_strategy_menace_p as $key =>  $field)
-                <li class="text-xs">{{$field->distribution_strategy_menace_p ?? " "}}</li>  
+                <li class="text-xs">{{htmlspecialchars($field->distribution_strategy_menace_p, ENT_COMPAT,'ISO-8859-1', true) ?? " "}}</li>  
                 @endforeach 
                 @endif
               </ul>
@@ -3566,9 +3566,9 @@ $impot="impôt sur le revenu";
                 @if(isset($data->business_model->autorisations_nécessaire_c))
                 @foreach ($data->business_model->autorisations_nécessaire_c as $item)
                 <tr>
-                  <td class="border-2 border-gray-600 ">{{isset($item->label)?$item->label:""}}</td>
-                  <td class="border-2 border-gray-600 text-center">{{isset($item->count)?$item->count:""}}</td>
-                   <td class="border-2 border-gray-600 text-center">{{isset($item->value)?$item->value:""}}</td>
+                  <td class="border-2 border-gray-600 ">{{isset($item->label)?htmlspecialchars($item->label, ENT_COMPAT,'ISO-8859-1', true):""}}</td>
+                  <td class="border-2 border-gray-600 text-center">{{isset($item->count)?htmlspecialchars($item->count, ENT_COMPAT,'ISO-8859-1', true):""}}</td>
+                   <td class="border-2 border-gray-600 text-center">{{isset($item->value)?htmlspecialchars($item->value, ENT_COMPAT,'ISO-8859-1', true):""}}</td>
                 </tr>
                 @endforeach
                 @endif
@@ -3594,11 +3594,11 @@ $impot="impôt sur le revenu";
                 <p><span class="font-semibold" style="color: var(--main-green)">local </span></p>
                 <div class="flex justify-between bg-gray-100 p-2" style="margin-top:0px;">       
                   <p>Mode d'occupation:</p>
-                  <p class="font-medium">{{$field->label ?? " "}}</p>
+                  <p class="font-medium">{{htmlspecialchars($field->label, ENT_COMPAT,'ISO-8859-1', true)?? " "}}</p>
                 </div>
                 <div class="flex justify-between bg-gray-100 p-2"style="margin-top:0px;">
                   <p>Adresse:</p>
-                  <p class="font-medium">{{$field->value ?? " "}}</p>
+                  <p class="font-medium">{{htmlspecialchars($field->value, ENT_COMPAT,'ISO-8859-1', true) ?? " "}}</p>
                 </div>
                 <div class="flex justify-between bg-gray-100 p-2"style="margin-top:0px;">
                   <p>Superficie:</p>
@@ -3693,7 +3693,7 @@ $impot="impôt sur le revenu";
             <ul class="list-inside list-disc space-y-2">  
               @if(isset($data->business_model->list_mat))
               @foreach ($data->business_model->list_mat as $key =>  $field)
-              <li style="margin-top:0px;"> {{$field->list_mat ?? " "}}</li>  
+              <li style="margin-top:0px;"> {{htmlspecialchars($field->list_mat, ENT_COMPAT,'ISO-8859-1', true) ?? " "}}</li>  
               @endforeach 
               @endif
             </ul>
@@ -3734,7 +3734,7 @@ $impot="impôt sur le revenu";
                 @if(isset($data->financial_data->human_ressources))
                 @foreach ($data->financial_data->human_ressources as $item)
                 <tr>
-                  <td class="border-2 border-gray-600 py-1 pl-4">{{isset($item->label)?$item->label:""}}</td>
+                  <td class="border-2 border-gray-600 py-1 pl-4">{{isset($item->label)?htmlspecialchars($item->label, ENT_COMPAT,'ISO-8859-1', true):""}}</td>
                   <td class="border-2 border-gray-600 text-center">{{isset($item->value)?$item->value:""}}</td>
                 </tr>
                 @endforeach
@@ -4287,7 +4287,7 @@ $impot="impôt sur le revenu";
                   @foreach ($page as $item)
                     <tr>
                   @if(isset($item->otherValue))
-                       <td class="border-2 border-gray-500 py-1 pl-4  text-xs">{{$item->label}}</td>
+                       <td class="border-2 border-gray-500 py-1 pl-4  text-xs">{{ htmlspecialchars($item->label, ENT_COMPAT,'ISO-8859-1', true)}}</td>
                      <td class="border-2 border-gray-500 text-center text-xs">--</td>
                      <td class="border-2 border-gray-500 text-center text-xs">--</td>
                      <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->otherValue, 0, ',', ' ') }}</td>
@@ -4301,7 +4301,7 @@ $impot="impôt sur le revenu";
                      @endif
                     </tr> 
                    @else
-                     <td class="border-2 border-gray-500 py-1 pl-4 text-xs">{{$item->label}}</td>
+                     <td class="border-2 border-gray-500 py-1 pl-4 text-xs">{{htmlspecialchars($item->label, ENT_COMPAT,'ISO-8859-1', true)}}</td>
                      @if(isset($item->rate))
                       <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->rate, 0, ',', ' ') }} </td>
                       <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value,0, ',', ' ')}}</td>
@@ -4423,7 +4423,7 @@ $impot="impôt sur le revenu";
                   @foreach ($page as $item)
                     <tr>
                   @if(isset($item->otherValue))
-                       <td class="border-2 border-gray-500 py-1 pl-4  text-xs w-4/12">{{$item->label}}</td>
+                       <td class="border-2 border-gray-500 py-1 pl-4  text-xs w-4/12">{{htmlspecialchars($item->label, ENT_COMPAT,'ISO-8859-1', true)}}</td>
                      <td class="border-2 border-gray-500 text-center text-xs">--</td>
                      <td class="border-2 border-gray-500 text-center text-xs">--</td>
                      <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->otherValue, 0, ',', ' ') }}</td>
@@ -4437,7 +4437,7 @@ $impot="impôt sur le revenu";
                      @endif
                     </tr> 
                    @else
-                     <td class="border-2 border-gray-500 py-1 pl-4 text-xs w-4/12">{{$item->label}}</td>
+                     <td class="border-2 border-gray-500 py-1 pl-4 text-xs w-4/12">{{htmlspecialchars($item->label, ENT_COMPAT,'ISO-8859-1', true)}}</td>
                      @if(isset($item->rate))
                       <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->rate, 0, ',', ' ') }} </td>
                       <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value,0, ',', ' ')}}</td>
@@ -4642,7 +4642,7 @@ $impot="impôt sur le revenu";
                 @if(isset($item->otherValue))
 
                   <tr>
-                    <td class="border-2 border-gray-500  text-xs"> Achat <span class="bg-red-200">{{$item->label}}</span> ({{ number_format( $achat*100, 0, ',', ' ') }}% du Chiffres d’affaires) </td>
+                    <td class="border-2 border-gray-500  text-xs"> Achat <span class="bg-red-200">{{htmlspecialchars($item->label, ENT_COMPAT,'ISO-8859-1', true)}}</span> ({{ number_format( $achat*100, 0, ',', ' ') }}% du Chiffres d’affaires) </td>
                     <td class="border-2 border-gray-500 text-center text-xs">--</td>
                     <td class="border-2 border-gray-500 text-center text-xs">--</td>
                  @if(isset($item->organisme))
@@ -4656,7 +4656,7 @@ $impot="impôt sur le revenu";
                 @endif
                 @else
                 <tr>
-                  <td class="border-2 border-gray-500 text-xs"> Achat <span class="bg-red-200">{{$item->label}}</span> ({{ number_format( $achat*100, 0, ',', ' ') }}% du Chiffres d’affaires) </td>
+                  <td class="border-2 border-gray-500 text-xs"> Achat <span class="bg-red-200">{{htmlspecialchars($item->label, ENT_COMPAT,'ISO-8859-1', true)}}</span> ({{ number_format( $achat*100, 0, ',', ' ') }}% du Chiffres d’affaires) </td>
                   <td class="border-2 border-gray-500 text-center text-xs">--</td>
                   <td class="border-2 border-gray-500 text-center text-xs">--</td>
                @if(isset($item->organisme))
@@ -4775,7 +4775,7 @@ $impot="impôt sur le revenu";
                 @if(isset($item->otherValue))
 
                   <tr>
-                    <td class="border-2 border-gray-500  text-xs   w-6/12"> Achat <span class="bg-red-200">{{$item->label}}</span> ({{ number_format( $achat*100, 0, ',', ' ') }}% du Chiffres d’affaires) </td>
+                    <td class="border-2 border-gray-500  text-xs   w-6/12"> Achat <span class="bg-red-200">{{htmlspecialchars($item->label, ENT_COMPAT,'ISO-8859-1', true)}}</span> ({{ number_format( $achat*100, 0, ',', ' ') }}% du Chiffres d’affaires) </td>
                     <td class="border-2 border-gray-500 text-center text-xs">--</td>
                     <td class="border-2 border-gray-500 text-center text-xs">--</td>
                  @if(isset($item->organisme))
@@ -4789,7 +4789,7 @@ $impot="impôt sur le revenu";
                 @endif
                 @else
                 <tr>
-                  <td class="border-2 border-gray-500 text-xs   w-6/12"> Achat <span class="bg-red-200">{{$item->label}}</span> ({{ number_format( $achat*100, 0, ',', ' ') }}% du Chiffres d’affaires) </td>
+                  <td class="border-2 border-gray-500 text-xs   w-6/12"> Achat <span class="bg-red-200">{{htmlspecialchars($item->label, ENT_COMPAT,'ISO-8859-1', true)}}</span> ({{ number_format( $achat*100, 0, ',', ' ') }}% du Chiffres d’affaires) </td>
                   <td class="border-2 border-gray-500 text-center text-xs">--</td>
                   <td class="border-2 border-gray-500 text-center text-xs">--</td>
                @if(isset($item->organisme))
@@ -4988,7 +4988,7 @@ $impot="impôt sur le revenu";
                 @if(isset($data->financial_data->overheads_fixed))
                 @foreach ($data->financial_data->overheads_fixed as $item)
                   <tr>
-                    <td class="border-2 border-gray-500 py-1 pl-4 text-xs">{{$item->label}}</td>
+                    <td class="border-2 border-gray-500 py-1 pl-4 text-xs">{{htmlspecialchars($item->label, ENT_COMPAT,'ISO-8859-1', true)}}</td>
                     <?php  //dd($total_overheads_fixed);?>
                    @if(isset($item->otherValue))
                      @if($item->otherValue=='Mensuel')
@@ -5245,7 +5245,7 @@ $impot="impôt sur le revenu";
                         @if(isset($data->financial_data->overheads_scalable))
                         @foreach ($data->financial_data->overheads_scalable as $item)
                           <tr>
-                            <td class="border-2 border-gray-500 py-1 pl-4 text-xs">{{$item->label}}</td>
+                            <td class="border-2 border-gray-500 py-1 pl-4 text-xs">{{htmlspecialchars($item->label, ENT_COMPAT,'ISO-8859-1', true)}}</td>
                               @if(isset($item->otherValue))
                           @if($item->otherValue=='Mensuel')
                         <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value, 0, ',', ' ') }} </td>
@@ -5362,7 +5362,7 @@ $impot="impôt sur le revenu";
                   @if(isset($data->financial_data->human_ressources))
                   @foreach ($data->financial_data->human_ressources as $item) 
                     <tr>
-                      <td class="border-2 border-gray-500 py-1 pl-4 text-xs">{{$item->label}}</td>
+                      <td class="border-2 border-gray-500 py-1 pl-4 text-xs">{{htmlspecialchars($item->label, ENT_COMPAT,'ISO-8859-1', true)}}</td>
                       <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value, 0, ',', ' ') }} </td>
                       @if(isset($item->rate))
                       <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->rate, 0, ',', ' ') }} </td>
@@ -5589,7 +5589,7 @@ $impot="impôt sur le revenu";
                   @if($item->label=='loyer'|| $item->label=='loyers'|| $item->label=='Loyer')               
          
                     <tr>
-                      <td class="border-2 border-gray-500 py-1 pl-4  text-xs">{{$item->label}}</td>
+                      <td class="border-2 border-gray-500 py-1 pl-4  text-xs">{{htmlspecialchars($item->label, ENT_COMPAT,'ISO-8859-1', true)}}</td>
                       <td class="border-2 border-gray-500 text-center  text-xs">{{ number_format(0, 0, ',', ' ') }} </td>
                       @if($item->otherValue=='Annuel')
                       <td class="border-2 border-gray-500 text-center  text-xs">{{ number_format($item->value, 0, ',', ' ') }} </td>
@@ -5899,7 +5899,7 @@ $impot="impôt sur le revenu";
                     @if($item->label=='Autre à préciser')
                      <td class="border-2 border-gray-500 py-1 pl-4  text-xs">{{$item->labelOther}}</td>
                     @else
-                       <td class="border-2 border-gray-500 py-1 pl-4  text-xs">{{$item->label}}</td>
+                       <td class="border-2 border-gray-500 py-1 pl-4  text-xs">{{htmlspecialchars($item->label, ENT_COMPAT,'ISO-8859-1', true)}}</td>
                     @endif
                    @endif
                      <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value/(1+$item->duration/100), 0, ',', ' ') }} </td>
