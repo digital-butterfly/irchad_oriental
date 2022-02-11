@@ -37,7 +37,7 @@ class CandidatureController extends Controller
                 return Validator::make($data, [
                     'first_name.*' => ['required', 'string', 'max:255'],
                     'last_name.*' => ['required', 'string', 'max:255'],
-                    'email' => ['required', 'string', 'email', 'max:255', 'unique:members,email'],
+                    //'email' => [ 'string', 'email', 'max:255', 'unique:members,email'],
                     'identity_number' => ['required', 'string', 'max:255', 'unique:members,identity_number']
                 ]);
 

@@ -1319,7 +1319,7 @@ $impot="impôt sur le revenu";
           />
         </div>
         <div
-          class="flex justify-between mr-10 items-end"
+          class="flex justify-between flex-col mr-10 items-start"
           style="color: var(--main-blue)"
           >
           <h3 class="font-semibold text-xs pr-5">{{ ucfirst($owner->first_name)}} {{ ucfirst($owner->last_name)}}</h3>
@@ -1366,8 +1366,8 @@ $impot="impôt sur le revenu";
               01
             </h3>
             <h5 style="color: var(--main-blue)" class="font-semibold">
-              Profil de l'entrepreneur
-            </h5>
+              Présentation  du promoteur 
+              </h5>
           </div>
           <hr class="bg-gray-200" style="height: 2px" />
         </div>
@@ -1466,7 +1466,7 @@ $impot="impôt sur le revenu";
             class="font-semibold text-lg"
             style="color: var(--main-blue); line-height: 16px"
           >
-            CONTEXTE GÉNÉRAL
+            Context général
           </h3>
         </div>
         <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
@@ -1542,8 +1542,7 @@ $impot="impôt sur le revenu";
             class="font-semibold text-lg"
             style="color: var(--main-blue); line-height: 16px"
           >
-            Profil de l’entrepreneur
-          </h3>
+Présentation du promoteur          </h3>
         </div>
         <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
       </div>
@@ -1555,8 +1554,7 @@ $impot="impôt sur le revenu";
               class="uppercase font-bold text-xs"
               style="color: var(--second-blue)"
             >
-              Profil de l’entrepreneur
-            </h5>
+  Présentation du promoteur            </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
 
@@ -1743,8 +1741,7 @@ $impot="impôt sur le revenu";
                 class="font-semibold text-lg"
                 style="color: var(--main-blue); line-height: 16px"
               >
-                Profil de l’entrepreneur
-              </h3>
+    Présentation du promoteur              </h3>
             </div>
             <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
           </div>
@@ -1763,27 +1760,27 @@ $impot="impôt sur le revenu";
               </div>
 
               <div class="space-y-3 text-xs font-normal">
-                <div class="grid grid-cols-3 justify-between p-2 font-semibold">
-                  <p>Diplôme ou niveau d'étude:</p>
-                  <p>Etablissement</p>
-                  <p>Année d'obtention</p>
+                <div class="grid grid-cols-5 justify-between p-2 font-semibold">
+                  <p class="col-span-3">Diplôme ou niveau d'étude:</p>
+                  <p class="col-span-1">Etablissement</p>
+                  <p class="col-span-1">Année d'obtention</p>
                 </div>
                 @if(isset($tablepageTwo))
                 @foreach ($tablepageTwo as  $page)
                 @foreach ($page as $key => $degree)
-                <div class="grid  grid-cols-3 justify-between bg-gray-100 p-2">
+                <div class="grid  grid-cols-5 justify-between bg-gray-100 p-2">
                   @if(isset($degree->label))
-                  <p> {{ htmlspecialchars($degree->label, ENT_COMPAT,'ISO-8859-1', true)}}</p>
+                  <p class="col-span-3"> {{ htmlspecialchars($degree->label, ENT_COMPAT,'ISO-8859-1', true)}}</p>
                   @else
                   <p>--</p>
                   @endif 
                     @if (isset($degree->value))
-                  <p id="testt"> {{$degree->value}}</p>
+                  <p class="col-span-1" id="testt"> {{$degree->value}}</p>
                   @else
                   <p>--</p>
                   @endif
                   @if (isset($degree->count))
-                  <p>{{$degree->count}}</p>
+                  <p class="col-span-1" >{{$degree->count}}</p>
                   @else
                   <p>--</p>
                   @endif
@@ -1806,40 +1803,40 @@ $impot="impôt sur le revenu";
               </div>
 
               <div class="space-y-3 text-xs font-normal">
-                <div class="grid grid-cols-5 justify-between p-2 font-semibold">
-                  <p>Fonction</p>
-                  <p>Etablissement</p>
-                  <p>Tâches effectuées</p>
-                  <p>Du</p>
-                  <p>Au</p>
+                <div class="grid grid-cols-9 justify-between p-2 font-semibold">
+                  <p class="col-span-3">Fonction</p>
+                  <p class="col-span-2">Etablissement</p>
+                  <p class="col-span-2">Tâches effectuées</p>
+                  <p class="col-span-1">Du</p>
+                  <p class="col-span-1">Au</p>
                 </div>
                 @if(isset ($tablepageOne))
                 @foreach ( $tablepageOne as $key => $page)
                 @if($key==1)
                 @foreach ($page as $key => $experience)
-                <div class="grid grid-cols-5  justify-between p-2 bg-gray-100">
+                <div class="grid grid-cols-9  justify-between p-2 bg-gray-100">
                 @if(isset($experience->label))
-                  <p>{{  htmlspecialchars($experience->label, ENT_COMPAT,'ISO-8859-1', true)}}</p>
+                  <p class="col-span-3">{{  htmlspecialchars($experience->label, ENT_COMPAT,'ISO-8859-1', true)}}</p>
                   @else
                   <p>--</p>
                   @endif 
                     @if (isset($experience->duration))
-                  <p id="testt"> {{$experience->duration}}</p>
+                  <p id="testt" class="col-span-2"> {{$experience->duration}}</p>
                   @else
                   <p>--</p>
                   @endif
                   @if (isset($experience->organisme))
-                    <p>{{$experience->organisme}}</p>
+                    <p class="col-span-2">{{$experience->organisme}}</p>
                   @else
                   <p>--</p>
                   @endif
                   @if (isset($experience->value))
-                    <p>{{$experience->value}}</p>
+                    <p class="col-span-1">{{$experience->value}}</p>
                   @else
                   <p>--</p>
                   @endif
                   @if (isset($experience->rate))
-                    <p>{{$experience->rate}}</p>
+                    <p class="col-span-1">{{$experience->rate}}</p>
                   @else
                   <p>--</p>
                   @endif      
@@ -1907,8 +1904,7 @@ $impot="impôt sur le revenu";
             class="font-semibold text-lg"
             style="color: var(--main-blue); line-height: 16px"
           >
-            Profil de l’entrepreneur
-          </h3>
+Présentation du promoteur          </h3>
         </div>
         <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
       </div>
@@ -2721,21 +2717,23 @@ $impot="impôt sur le revenu";
                       py-2
                       pl-4
                       border-2 border-gray-600
-                      self-start
-                      text-left
+                      
+                      text-center
+                      w-2/6
+                      
                     "
                   >
                      Client
                   </th>
-                  <th class="border-2 border-gray-600 w-1/4 text-center">Produit/Service</th>
-                    <th class="border-2 border-gray-600 w-1/4 text-center">Marché </th>
+                  <th class="border-2 border-gray-600 w-2/6 text-center">Produit/Service</th>
+                    <th class="border-2 border-gray-600 w-1/6 text-center">Marché </th>
                 </tr>
               </thead>
               <tbody class="font-medium">
                 @if(isset($data->business_model->primary_target_client_d))
                 @foreach ($data->business_model->primary_target_client_d as $item)
                 <tr>
-                  <td class="border-2 border-gray-600 ">{{isset($item->label)?$item->label:""}}</td>
+                  <td class="border-2 border-gray-600 text-center">{{isset($item->label)?$item->label:""}}</td>
                   <td class="border-2 border-gray-600 text-center">{{isset($item->count)?$item->count:""}}</td>
                    <td class="border-2 border-gray-600 text-center">{{isset($item->value)?$item->value:""}}</td>
                 </tr>
@@ -2861,8 +2859,8 @@ $impot="impôt sur le revenu";
                   >
                     Fournisseur
                   </th>
-                  <th class="border-2 border-gray-600 w-1/4 text-center">Nature des intrants</th>
-                    <th class="border-2 border-gray-600 w-1/4 text-center">ville/pays</th>
+                  <th class="border-2 border-gray-600 w-2/5 text-center">Nature des intrants</th>
+                    <th class="border-2 border-gray-600 w-1/5 text-center">ville/pays</th>
                 </tr>
               </thead>
               <tbody class="font-medium">
@@ -2923,8 +2921,8 @@ $impot="impôt sur le revenu";
                   >
                      Concurrent
                   </th>
-                  <th class="border-2 border-gray-600 w-1/4 text-center">Produit/Service</th>
-                    <th class="border-2 border-gray-600 w-1/4 text-center">ville/pays</th>
+                  <th class="border-2 border-gray-600 w-2/5 text-center">Produit/Service</th>
+                    <th class="border-2 border-gray-600 w-1/5 text-center">ville/pays</th>
                 </tr>
               </thead>
               <tbody class="font-medium">
@@ -4504,18 +4502,19 @@ $impot="impôt sur le revenu";
                       self-start
                       text-left
                       text-xs
+                       w-3/6
                     "
                   >
                   Année
                   </th>
-                  <th class="border-2 border-gray-500 text-center pl-2 py-2 text-xs ">1 <sup>ère</sup> année
+                  <th class="border-2 border-gray-500 text-center py-2 text-xs w-1/6">1 <sup>ère</sup> année
                   </th>
-                  <th class="border-2 border-gray-500  text-center pl-2 py-2 text-xs ">2 <sup>ème</sup> année
+                  <th class="border-2 border-gray-500  text-center py-2 text-xs w-1/6">2 <sup>ème</sup> année
                   </th>
-                  <th class="border-2 border-gray-500  text-center pl-2 py-2 text-xs ">3 <sup>ème</sup> année
-                  <th class="border-2 border-gray-500  text-center pl-2 py-2  text-xs">4 <sup>ème</sup> année
+                  <th class="border-2 border-gray-500  text-center py-2 text-xs w-1/6">3 <sup>ème</sup> année
+                  <th class="border-2 border-gray-500  text-center py-2  text-xs w-1/6">4 <sup>ème</sup> année
                   </th>
-                  <th class="border-2 border-gray-500  text-center pl-2 py-2 text-xs">5 <sup>ème</sup> année
+                  <th class="border-2 border-gray-500  text-center py-2 text-xs w-1/6">5 <sup>ème</sup> année
                   </th>
                 </tr>
               </thead>
@@ -4851,18 +4850,19 @@ $impot="impôt sur le revenu";
                       self-start
                       text-left
                       text-xs
+                       w-3/6
                     "
                   >
                   Année
                   </th>
-                  <th class="border-2 border-gray-500 text-center text-xs">1 <sup>ère</sup> année
+                  <th class="border-2 border-gray-500 text-center text-xs  w-1/6">1 <sup>ère</sup> année
                   </th>
-                  <th class="border-2 border-gray-500  text-center text-xs">2 <sup>ème</sup> année
+                  <th class="border-2 border-gray-500  text-center text-xs w-1/6">2 <sup>ème</sup> année
                   </th>
-                  <th class="border-2 border-gray-500  text-center text-xs">3 <sup>ème</sup> année
-                  <th class="border-2 border-gray-500  text-center text-xs">4 <sup>ème</sup> année
+                  <th class="border-2 border-gray-500  text-center text-xs w-1/6">3 <sup>ème</sup> année
+                  <th class="border-2 border-gray-500  text-center text-xs w-1/6">4 <sup>ème</sup> année
                   </th>
-                  <th class="border-2 border-gray-500  text-center text-xs">5 <sup>ème</sup> année
+                  <th class="border-2 border-gray-500  text-center text-xs w-1/6">5 <sup>ème</sup> année
                   </th>
                 </tr>
               </thead>
@@ -6629,7 +6629,7 @@ $impot="impôt sur le revenu";
 
           </p>
         </div>
-        <div class="space-y-4">
+        <div class="space-y-6">
           <div class="inline-block rounded-lg border w-full ">
             <table class="table-fixed border border-gray-900 w-full text-xs">
               <thead>
@@ -6669,7 +6669,7 @@ $impot="impôt sur le revenu";
               </thead>
               <tbody class="font-medium">
                  <tr>
-                   <td class="border-2 border-gray-500   bg-green-200   text-xs" >CASH-FLOW </td>
+                   <td class="border-2 border-gray-500   bg-green-200 py-1 pl-4 text-xs" >CASH-FLOW </td>
                    <td class="border-2 border-gray-500 pl-2 text-center text-xs">{{ number_format(-$bp_investment_program_total, 0, ',', ' ') }} </td>
                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_cash_flow_first_year, 0, ',', ' ') }} </td>
                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_cash_flow_second_year, 0, ',', ' ') }} </td>
@@ -6718,7 +6718,7 @@ $impot="impôt sur le revenu";
               <tbody class="font-medium">
                 
                  <tr>
-                   <td class="border-2 border-gray-500   bg-green-200 ">TAUX DE RENTABILITÉ INTERNE (TRI)
+                   <td class="border-2 border-gray-500  py-1 pl-4 bg-green-200 ">TAUX DE RENTABILITÉ INTERNE (TRI)
                    </td>
                    <td class="border-2 border-gray-500 text-center ">{{ number_format( IRR($bp_investment_program_total, $flow_cash ), 0, ',', ' ') }}% </td>
                   

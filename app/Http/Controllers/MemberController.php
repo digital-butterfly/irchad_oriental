@@ -29,7 +29,7 @@ class MemberController extends Controller
         return Validator::make($data, [
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:members'],
+            //'email' => [ 'string', 'email', 'max:255', 'unique:members'],
             'phone' => ['required', 'string', 'max:255'],
             'birth_date'=>['required', 'date', 'max:255'],
             'identity_number' => ['required', 'string', 'max:255'],
