@@ -67,7 +67,7 @@
                     <!--end::Section-->
                 </div>
             </div>
-            <form class="kt-form" method="POST" action="{{ route('members.update', $data->id) }}">
+            <form charset="UTF-8" class="kt-form" method="POST" action="{{ route('members.update', $data->id) }}">
                 {{ method_field('PUT') }}
 				<div class="kt-portlet__body">
 					<div class="kt-section kt-section--first">
@@ -76,6 +76,7 @@
 								$field['config']['hotizontalRows'] = true;
 							@endphp
                             @include(sprintf('back-office.components.form.fields.%s', $field['type']), [$field, $data])
+                       
 							@if ($field['type'] == 'password')
 								@include(sprintf('back-office.components.form.fields.password'),
 								$field = [
@@ -312,7 +313,28 @@
 			KTFormRepeater.init();
 		});
 
+window.addEventListener('load',function(){
+    let stop = false 
 
+    const interval = setInterval(function(){
+        if(!stop){
+    var d=document.querySelectorAll('input');
+    var t=document.querySelectorAll('textarea');
+    console.log(t);
+    d.forEach(el=> {
+        el.value = el.value.replace("&#039;","'")
+     });
+    t.forEach(el=> {
+        el.value = el.value.replace("&#039;","'")
+     });
+        }
+    },100)
+    setTimeout(function(){
+        stop =true
+    clearInterval(interval)
+    },3000)
+
+})
 
        
 	</script>

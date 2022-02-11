@@ -702,6 +702,27 @@ $("#applied_taxSelect").empty();
 });
   });
 
+window.addEventListener('load',function(){
+    let stop = false 
 
+    const interval = setInterval(function(){
+        if(!stop){
+    var d=document.querySelectorAll('input');
+    var t=document.querySelectorAll('textarea');
+    console.log(t);
+    d.forEach(el=> {
+        el.value = el.value.replace("&#039;","'")
+     });
+    t.forEach(el=> {
+        el.value = el.value.replace("&#039;","'")
+     });
+        }
+    },100)
+    setTimeout(function(){
+        stop =true
+    clearInterval(interval)
+    },3000)
+
+})
 	</script>
 @endsection

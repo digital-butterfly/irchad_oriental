@@ -1,5 +1,6 @@
 <head>
     <base href="/">
+     <meta charset="UTF-8">
     <title>IRCHAD | Incubation Al HOCEIMA</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 

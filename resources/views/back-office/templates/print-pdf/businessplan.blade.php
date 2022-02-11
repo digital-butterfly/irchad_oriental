@@ -1,6 +1,6 @@
 @php
-$str="This is some l&amp;#039;elomm"; 
-//dd(htmlspecialchars($str, ENT_COMPAT,'UTF-8'));
+//$str="This is some l&#039;elomm"; 
+
 
  $total_overheads_fixed=0;
 $files[]='';
@@ -1133,6 +1133,7 @@ $impot="impôt sur le revenu";
 
     <head>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Business Plan</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -2697,7 +2698,7 @@ $impot="impôt sur le revenu";
 
           <div class="bg-gray-100 text-gray-700 p-3 space-y-3 text-xs">
             <p  class="text-justify">
-              {{isset($data->business_model->evolution_m)?htmlspecialchars($data->business_model->evolution_m, ENT_COMPAT,'ISO-8859-1', true): " "}}
+              {{isset($data->business_model->evolution_m)?$data->business_model->evolution_m: " "}}
             </p>
           </div>
         </div>
@@ -2734,7 +2735,7 @@ $impot="impôt sur le revenu";
                 @if(isset($data->business_model->primary_target_client_d))
                 @foreach ($data->business_model->primary_target_client_d as $item)
                 <tr>
-                  <td class="border-2 border-gray-600 ">{{isset($item->label)?htmlspecialchars($item->label, ENT_COMPAT,'ISO-8859-1', true):""}}</td>
+                  <td class="border-2 border-gray-600 ">{{isset($item->label)?$item->label:""}}</td>
                   <td class="border-2 border-gray-600 text-center">{{isset($item->count)?$item->count:""}}</td>
                    <td class="border-2 border-gray-600 text-center">{{isset($item->value)?$item->value:""}}</td>
                 </tr>
