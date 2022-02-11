@@ -33,7 +33,7 @@ class AdherentController extends Controller
         });
         $project[0]['history'] = $history;
 
-        $user->township_name=Township::find($user->township_id)->only('title')['title'];
+       $user->township_name=Township::find($user->township_id)->only('title')['title'];
 
         $creator = User::find($project[0]->created_by);
         $project[0]['creator'] = is_object($creator) == null ? "" : $creator->first_name . ' ' . $creator->last_name;
@@ -46,3 +46,4 @@ class AdherentController extends Controller
         return view('back-office/templates/adherent/adherent', compact('user','project'));
     }
 }
+

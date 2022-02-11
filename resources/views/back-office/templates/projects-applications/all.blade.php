@@ -10,8 +10,8 @@
 
 
 @section('page_content')
-    <div class="kt-container  kt-grid__item kt-grid__item--fluid">
-        @component('back-office.components.portlets.table', ['types' => ['Nouveau', 'Accepté', 'Rejeté','Business plan achevé','En attente de formation','En attente de financement', 'Incubé'], 'progresses' => ['Envoyé au Comité Technique', 'Accepté par le Comité Technique', 'Refusé par le Comité Technique','Envoyé au CPDH','Accepté par le CPDH','Refusé par le CPDH'], 'trainings' => ['Envoyé vers formation', 'Formé'], 'incorporations' => ['Entreprise en cours de création', 'Entreprise créee'], 'fundings' => ['Envoyé au financement', 'Financement accepté','Financement refusé','Financé'], 'add_link' => 'admin/candidatures/create'])
+    <div class="kt-container kt-grid__item kt-grid__item--fluid">
+        @component('back-office.components.portlets.table', ['types' => ['Nouveau', 'Accepté', 'Réorienté','Business plan achevé','En attente de formation','En attente de financement', 'Incubé'], 'progresses' => ['Envoyé au Comité Technique', 'Accepté par le Comité Technique', 'Refusé par le Comité Technique','Envoyé au CPDH','Accepté par le CPDH','Refusé par le CPDH'], 'trainings' => ['Envoyé vers formation', 'Formé'], 'incorporations' => ['Entreprise en cours de création', 'Entreprise créee'], 'fundings' => ['Envoyé au financement', 'Financement accepté','Financement refusé','Financé'], 'add_link' => 'admin/candidatures/create'])
             @slot('title')
                 Candidatures
             @endslot
@@ -57,8 +57,8 @@
                         serverPaging: true,
                         serverFiltering: true,
                         serverSorting: true,
-                       // webstorage: false,
-   //                     saveState:false,
+                        webstorage: false,
+                        saveState:false,
                     },
 
                     // layout definition
@@ -111,7 +111,7 @@
                                     'Accepté': {'title': 'Direct', 'state': 'success'},
                                     'Business plan achevé':{'title': 'Direct', 'state': 'success'},
                                     'En cours':{'title': 'Direct', 'state': 'warning'},
-                                    'Rejeté':{'title': 'Direct', 'state': 'danger'},
+                                    'Réorienté':{'title': 'Direct', 'state': 'danger'},
                                     'En attente de formation':{'title': 'Direct', 'state': 'warning'},
                                     'En attente de financement':{'title': 'Direct', 'state': 'warning'},
                                     'Incubé': {'title': 'Online', 'state': 'primary'}
@@ -208,14 +208,16 @@
             $('.export').on('click', function () {
                 var Status = $("#kt_form_type").children("option:selected"). val();
                 let Type='Candidatures'
+                let hasApplication = false
                 $.ajax({
                     url: 'admin/exportExcel',
                     data: {
                         Status: Status,
-                        Type:Type
+                        Type:Type,
+                        hasApplication:hasApplication
+
 
                     },
-
                     xhrFields: {
                         responseType: 'blob'
                     },

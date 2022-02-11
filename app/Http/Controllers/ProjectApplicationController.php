@@ -349,7 +349,7 @@ class ProjectApplicationController extends Controller
             }
         }
     $data = (object)$data;
- //dd($data);
+
     $saisonalite=0;
     $saisonalite=isset($data ->financial_data->saisonnalite)? $data ->financial_data->saisonnalite:0;
       $tota_ca=0;
@@ -636,7 +636,7 @@ class ProjectApplicationController extends Controller
         } 
 }
   // if(old())  
-//dd($request);
+// dd($request);
         $application->update([
             'member_id' => $request['member_id'],
             'category_id' => $request['category_id'],
