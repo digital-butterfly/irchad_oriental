@@ -1322,7 +1322,7 @@ $impot="impôt sur le revenu";
           class="flex justify-between flex-col mr-10 items-start"
           style="color: var(--main-blue)"
           >
-          <h3 class="font-semibold text-xs pr-5">{{ ucfirst($owner->first_name)}} {{ ucfirst($owner->last_name)}}</h3>
+          <h3 class="font-semibold text-xs pr-5 mb-1">{{ ucfirst($owner->first_name)}} {{ ucfirst($owner->last_name)}}</h3>
           <p class="text-xs print:bg-blue-800 ">
             Secteur d’activité :
             <span class="text-xs font-semibold" style="color: var(--main-green)"
@@ -2693,7 +2693,10 @@ Présentation du promoteur          </h3>
           </div>
 
           <div class="bg-gray-100 text-gray-700 p-3 space-y-3 text-xs">
-            <p  class="text-justify">
+            <p  class="text-justify" style="white-space: pre-line; margin-top : -60px">
+
+              {{-- {{str_replace(".",". \n" ,$data->business_model->evolution_m)?$data->business_model->evolution_m: ""}} --}}
+             
               {{isset($data->business_model->evolution_m)?$data->business_model->evolution_m: " "}}
             </p>
           </div>
@@ -2715,7 +2718,7 @@ Présentation du promoteur          </h3>
                   <th
                     class="
                       py-2
-                      pl-4
+                      
                       border-2 border-gray-600
                       
                       text-center
@@ -2854,7 +2857,7 @@ Présentation du promoteur          </h3>
                       pl-4
                       border-2 border-gray-600
                       self-start
-                      text-left
+                      text-center
                     "
                   >
                     Fournisseur
@@ -2916,7 +2919,7 @@ Présentation du promoteur          </h3>
                       pl-4
                       border-2 border-gray-600
                       self-start
-                      text-left
+                      text-center
                     "
                   >
                      Concurrent
@@ -5662,7 +5665,7 @@ Présentation du promoteur          </h3>
                         pl-4
                         border-2 border-gray-500
                         self-start
-                        text-left
+                        text-center
                         text-xs
                       "
                     >
