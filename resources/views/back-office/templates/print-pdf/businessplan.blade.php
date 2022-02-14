@@ -1,7 +1,7 @@
 @php
 //$str="This is some l&#039;elomm"; 
 
-
+$cnt=0;
  $total_overheads_fixed=0;
 $files[]='';
 $critères[]=[];
@@ -3647,6 +3647,11 @@ Présentation du promoteur          </h3>
       </div>
       
     </div>
+    @if ($cnt=count($data->business_model->list_mat)<=5 or $cnt=count($data->business_model->list_mat)==0)
+        
+   
+       
+     
     <div id="10" class="page printsection print-add-break print-full-width">
       <div class="flex justify-between absolute right-0 top-0 w-full">
         <div class="flex h-14 items-end justify-end space-x-3">
@@ -3775,6 +3780,198 @@ Présentation du promoteur          </h3>
       </div>
       
     </div> 
+    @else
+     <div id="10" class="page printsection print-add-break print-full-width">
+      <div class="flex justify-between absolute right-0 top-0 w-full">
+        <div class="flex h-14 items-end justify-end space-x-3">
+          <span
+            class="
+              w-10
+              h-full
+              border-0
+              flex
+              items-end
+              justify-end
+              font-semibold
+              text-white
+              pr-1
+              tracking-wider
+            "
+            style="background-color: var(--main-green)"
+          >
+            04
+          </span>
+          <h3
+            class="font-semibold text-lg"
+            style="color: var(--main-blue); line-height: 16px"
+          >
+           Etude Technique
+          </h3>
+        </div>
+        <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
+      </div>
+
+      <div class="space-y-9">
+        <div class="space-y-4">
+          <div class="space-y-1">
+            <h5
+              class="uppercase font-bold text-xs"
+              style="color: var(--second-blue)"
+            >
+            liste du matériel
+          </h5>
+            <hr class="bg-gray-300" style="height: 2px" />
+          </div>
+           <p class="text-gray-500 font-normal"> L’activité nécessitera les moyens d’équipements suivants :
+           </p>
+          <div class="bg-gray-100 text-gray-700 mt-6 p-4 space-y-3 text-xs">
+            <p><span class="font-semibold" style="color: var(--main-green)">Liste du matériel: </span></p>
+            <ul class="list-inside list-disc space-y-2">  
+              @if(isset($data->business_model->list_mat))
+              @foreach ($data->business_model->list_mat as $key =>  $field)
+              <li style="margin-top:0px;"> {{htmlspecialchars($field->list_mat, ENT_COMPAT,'ISO-8859-1', true) ?? " "}}</li>  
+              @endforeach 
+              @endif
+            </ul>
+          </div>
+        </div>
+       
+      </div>
+      <div class="absolute bottom-0 right-0 left-0">
+        <img
+        class="absolute bottom-0 right-0 left-0 img_full_width"
+        src="{{asset('images/back-office/svg/footer.svg')}}"
+        alt="" 
+        srcset=""
+        />
+
+        <div
+          class="
+            py-2
+            flex
+            justify-between
+            items-center
+            pl-16
+            pr-36
+            text-white text-xs
+            font-medium
+            relative
+            z-10
+          "
+        >
+        <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
+          <span   style="font-size: 10px;">{{$data->title}}</span>
+          <span   style="font-size: 10px;">Business Plan</span>
+        </div>
+      </div>
+      
+    </div> 
+     <div id="10" class="page printsection print-add-break print-full-width">
+      <div class="flex justify-between absolute right-0 top-0 w-full">
+        <div class="flex h-14 items-end justify-end space-x-3">
+          <span
+            class="
+              w-10
+              h-full
+              border-0
+              flex
+              items-end
+              justify-end
+              font-semibold
+              text-white
+              pr-1
+              tracking-wider
+            "
+            style="background-color: var(--main-green)"
+          >
+            04
+          </span>
+          <h3
+            class="font-semibold text-lg"
+            style="color: var(--main-blue); line-height: 16px"
+          >
+           Etude Technique
+          </h3>
+        </div>
+        <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
+      </div>
+
+     
+        <div class="space-y-4">
+          <div class="space-y-1">
+            <h5
+              class="uppercase font-bold text-xs"
+              style="color: var(--second-blue)"
+            >
+            RESSOURCES HUMAINES
+          </h5>
+            <hr class="bg-gray-300" style="height: 2px" />
+          </div>
+          <p class="text-gray-500 font-normal text-xs"> Les ressources humaines ont pour objectif d’apporter à l’entreprise le personnel nécessaire à son bon fonctionnement. Dans notre cas, le PDP a besoin des ressources humaines suivantes:
+          </p>
+          <div class="inline-block rounded-lg border mt-5">
+            <table class="table-fixed border border-gray-900 w-full text-xs">
+              <thead>
+                <tr class="bg-gray-100">
+                  <th
+                    class="
+                      py-2
+                      pl-4
+                      border-2 border-gray-600
+                      w-3/4
+                      self-start
+                      text-left
+                    "
+                  >
+                     Fonction
+                  </th>
+                  <th class="border-2 border-gray-600 w-1/4 text-center">Effectif</th>
+                </tr>
+              </thead>
+              <tbody class="font-medium">
+                @if(isset($data->financial_data->human_ressources))
+                @foreach ($data->financial_data->human_ressources as $item)
+                <tr>
+                  <td class="border-2 border-gray-600 py-1 pl-4">{{isset($item->label)?htmlspecialchars($item->label, ENT_COMPAT,'ISO-8859-1', true):""}}</td>
+                  <td class="border-2 border-gray-600 text-center">{{isset($item->value)?$item->value:""}}</td>
+                </tr>
+                @endforeach
+                @endif
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="absolute bottom-0 right-0 left-0">
+        <img
+        class="absolute bottom-0 right-0 left-0 img_full_width"
+        src="{{asset('images/back-office/svg/footer.svg')}}"
+        alt="" 
+        srcset=""
+        />
+
+        <div
+          class="
+            py-2
+            flex
+            justify-between
+            items-center
+            pl-16
+            pr-36
+            text-white text-xs
+            font-medium
+            relative
+            z-10
+          "
+        >
+        <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
+          <span   style="font-size: 10px;">{{$data->title}}</span>
+          <span   style="font-size: 10px;">Business Plan</span>
+        </div>
+      </div>
+      
+    </div> 
+    @endif
     <div id="11" class="page printsection print-add-break print-full-width">
       <div class="flex justify-between absolute right-0 top-0 w-full">
         <div class="flex h-14 items-end justify-end space-x-3">
@@ -3799,7 +3996,7 @@ Présentation du promoteur          </h3>
             class="font-semibold text-lg"
             style="color: var(--main-blue); line-height: 16px"
           >
-       Étude Financière
+       Étude Financière 
           </h3>
         </div>
         <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
@@ -6832,7 +7029,7 @@ Présentation du promoteur          </h3>
              La réalisation de ce projet lui permettra d’intégrer le monde de l’entrepreneuriat en exploitant les opportunités offertes ainsi que son relationnel avec les clients et d’améliorer son revenu .
             </p>
             <p class="align-middle  text-justify text-xs">
-             Les prévisions d’activités ont été construites sur des hypothèses réalistes qui ont montré des résultats assurant la rémunération de l’investisseur .
+             Les prévisions d’activité ont été construites sur des hypothèses réalistes qui ont montré des résultats assurant la rémunération de l’investisseur .
             </p>
 
             <img
