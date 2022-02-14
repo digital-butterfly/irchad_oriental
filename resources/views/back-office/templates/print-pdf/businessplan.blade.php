@@ -1803,10 +1803,10 @@ Présentation du promoteur          </h3>
               </div>
 
               <div class="space-y-3 text-xs font-normal">
-                <div class="grid grid-cols-9 justify-between p-2 font-semibold">
+                <div class="grid grid-cols-10 justify-between p-2 font-semibold">
                   <p class="col-span-3">Fonction</p>
                   <p class="col-span-2">Etablissement</p>
-                  <p class="col-span-2">Tâches effectuées</p>
+                  <p class="col-span-3">Tâches effectuées</p>
                   <p class="col-span-1">Du</p>
                   <p class="col-span-1">Au</p>
                 </div>
@@ -1814,31 +1814,31 @@ Présentation du promoteur          </h3>
                 @foreach ( $tablepageOne as $key => $page)
                 @if($key==1)
                 @foreach ($page as $key => $experience)
-                <div class="grid grid-cols-9  justify-between p-2 bg-gray-100">
+                <div class="grid grid-cols-10  justify-between p-2 bg-gray-100">
                 @if(isset($experience->label))
                   <p class="col-span-3">{{  htmlspecialchars($experience->label, ENT_COMPAT,'ISO-8859-1', true)}}</p>
                   @else
-                  <p>--</p>
+                  <p class="col-span-3">--</p>
                   @endif 
                     @if (isset($experience->duration))
                   <p id="testt" class="col-span-2"> {{$experience->duration}}</p>
                   @else
-                  <p>--</p>
+                  <p class="col-span-2">--</p>
                   @endif
                   @if (isset($experience->organisme))
-                    <p class="col-span-2">{{$experience->organisme}}</p>
+                    <p class="col-span-3">{{$experience->organisme}}</p>
                   @else
-                  <p>--</p>
+                  <p class="col-span-3">--</p>
                   @endif
                   @if (isset($experience->value))
                     <p class="col-span-1">{{$experience->value}}</p>
                   @else
-                  <p>--</p>
+                  <p class="col-span-1">--</p>
                   @endif
                   @if (isset($experience->rate))
                     <p class="col-span-1">{{$experience->rate}}</p>
                   @else
-                  <p>--</p>
+                  <p class="col-span-1">--</p>
                   @endif      
                 </div>
                 @endforeach
@@ -2867,7 +2867,7 @@ Présentation du promoteur          </h3>
                 @if(isset($data->business_model->suppliers_f))
                 @foreach ($data->business_model->suppliers_f as $item)
                 <tr>
-                  <td class="border-2 border-gray-600 ">{{isset($item->label)?htmlspecialchars($item->label, ENT_COMPAT,'ISO-8859-1', true):""}}</td>
+                  <td class="border-2 border-gray-600 text-center">{{isset($item->label)?htmlspecialchars($item->label, ENT_COMPAT,'ISO-8859-1', true):""}}</td>
                   <td class="border-2 border-gray-600 text-center">{{isset($item->count)?$item->count:""}}</td>
                    <td class="border-2 border-gray-600 text-center">{{isset($item->value)?$item->value:""}}</td>
                 </tr>
@@ -2929,7 +2929,7 @@ Présentation du promoteur          </h3>
                 @if(isset($data->business_model->competition_c))
                 @foreach ($data->business_model->competition_c as $item)
                 <tr>
-                  <td class="border-2 border-gray-600 ">{{isset($item->label)?htmlspecialchars($item->label, ENT_COMPAT,'ISO-8859-1', true):""}}</td>
+                  <td class="border-2 border-gray-600 text-center">{{isset($item->label)?htmlspecialchars($item->label, ENT_COMPAT,'ISO-8859-1', true):""}}</td>
                   <td class="border-2 border-gray-600 text-center">{{isset($item->count)?$item->count:""}}</td>
                    <td class="border-2 border-gray-600 text-center">{{isset($item->value)?$item->value:""}}</td>
                 </tr>
@@ -6077,7 +6077,7 @@ Présentation du promoteur          </h3>
                   >
               Période
                   </th>
-                  <th class="border-2 border-gray-500  text-center text-xs">Mensualité
+                  <th class="border-2 border-gray-500  text-center text-xs">Annuité
                   </th>
                   <th class="border-2 border-gray-500 text-center text-xs">Intérêts
                   </th>
