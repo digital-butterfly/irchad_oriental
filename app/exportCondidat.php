@@ -41,7 +41,7 @@ class exportCondidat implements FromArray, WithHeadings,WithMapping,ShouldAutoSi
             'H' => 20,
             'I' => 25,
             'J' => 20,
-            'K' => 30,
+            'K' => 35,
             'M' => 45,
             'N' => 45,
             'O' => 45,
@@ -120,7 +120,7 @@ public function styles(Worksheet $sheet)
                'Date de naissance',
                'Age',
                'Addresse',
-               'Commune',
+              // 'Commune',
                'Diplômes',
                'Experience professionnelle',
                'Mobilité réduite',
@@ -203,7 +203,7 @@ public function styles(Worksheet $sheet)
                 $data['birth_date'],
                 (date('Y') - date('Y',strtotime($data['birth_date']))),
                 $data['address'],
-                Township::findOrFail($data['township_id'])->title ?? '',
+                //Township::findOrFail($data['township_id'])->title ?? '',
                 implode(",",array_map(function($el){
                     return $el->label;
                 },array_values((array)$data['degrees']))),
