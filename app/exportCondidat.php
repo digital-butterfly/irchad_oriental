@@ -110,6 +110,7 @@ public function styles(Worksheet $sheet)
 
            return [
                '#',
+               'numéro identité',
                'Prénom',
                'Nom de famille',
                'Email',
@@ -193,6 +194,7 @@ public function styles(Worksheet $sheet)
             return [
 
                 $data['id'],
+                $data['identity_number'],
                 $data['first_name'],
                 $data['last_name'],
                 $data['email'],
