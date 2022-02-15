@@ -1366,7 +1366,7 @@ $impot="impôt sur le revenu";
               01
             </h3>
             <h5 style="color: var(--main-blue)" class="font-semibold">
-              Présentation  du promoteur 
+              Profil de l'entrepreneur   
               </h5>
           </div>
           <hr class="bg-gray-200" style="height: 2px" />
@@ -1542,7 +1542,7 @@ $impot="impôt sur le revenu";
             class="font-semibold text-lg"
             style="color: var(--main-blue); line-height: 16px"
           >
-Présentation du promoteur          </h3>
+Profil de l'entrepreneur         </h3>
         </div>
         <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
       </div>
@@ -1741,7 +1741,7 @@ Présentation du promoteur          </h3>
                 class="font-semibold text-lg"
                 style="color: var(--main-blue); line-height: 16px"
               >
-    Présentation du promoteur              </h3>
+    Profil de l'entrepreneur                </h3>
             </div>
             <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
           </div>
@@ -1760,29 +1760,29 @@ Présentation du promoteur          </h3>
               </div>
 
               <div class="space-y-3 text-xs font-normal">
-                <div class="grid grid-cols-5 justify-between p-2 font-semibold">
+                <div class="grid grid-cols-7 justify-between p-2 font-semibold">
                   <p class="col-span-3">Diplôme ou niveau d'étude:</p>
-                  <p class="col-span-1">Etablissement</p>
+                  <p class="col-span-3">Etablissement</p>
                   <p class="col-span-1">Année d'obtention</p>
                 </div>
                 @if(isset($tablepageTwo))
                 @foreach ($tablepageTwo as  $page)
                 @foreach ($page as $key => $degree)
-                <div class="grid  grid-cols-5 justify-between bg-gray-100 p-2">
+                <div class="grid  grid-cols-7 justify-between bg-gray-100 p-2">
                   @if(isset($degree->label))
                   <p class="col-span-3"> {{ htmlspecialchars($degree->label, ENT_COMPAT,'ISO-8859-1', true)}}</p>
                   @else
-                  <p>--</p>
+                  <p class="col-span-3">--</p>
                   @endif 
                     @if (isset($degree->value))
-                  <p class="col-span-1" id="testt"> {{$degree->value}}</p>
+                  <p class="col-span-3" id="testt"> {{$degree->value}}</p>
                   @else
-                  <p>--</p>
+                  <p class="col-span-3">--</p>
                   @endif
                   @if (isset($degree->count))
                   <p class="col-span-1" >{{$degree->count}}</p>
                   @else
-                  <p>--</p>
+                  <p class="col-span-1">--</p>
                   @endif
                 
                 </div>
