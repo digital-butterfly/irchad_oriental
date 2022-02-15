@@ -8,12 +8,14 @@ use App\ProjectApplication;
 use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use Maatwebsite\Excel\Concerns\WithStyles;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\WithColumnWidths;
 
 
 
-
-
-class exportCondidat implements FromArray, WithHeadings,WithMapping
+class exportCondidat implements FromArray, WithHeadings,WithMapping,ShouldAutoSize,WithStyles,WithColumnWidths
 {
     /**
      * @return \Illuminate\Support\Collection
@@ -25,8 +27,52 @@ class exportCondidat implements FromArray, WithHeadings,WithMapping
         $this->type = $type;
 //        dd($this->type);
     }
+ public function columnWidths(): array
+    {
+        return [
+            'A' => 10,
+            'B' => 10,
+            'C' => 30,
+            'D' => 30,
+            'E' => 30,
+            'F' => 25,
+            'L' => 45,
+            'G' => 20,
+            'H' => 20,
+            'I' => 25,
+            'J' => 20,
+            'K' => 30,
+            'M' => 45,
+            'N' => 45,
+            'O' => 45,
+            'P' => 45,
 
+        ];
+    }
+public function styles(Worksheet $sheet)
+    {
+        return [
+        // Style the first row as bold text.
+        1    => ['font' => ['bold' => true]],
+        'A' => ['alignment' => ['wrapText' => true]],
+        'B' => ['alignment' => ['wrapText' => true]],
+        'C' => ['alignment' => ['wrapText' => true]],
+        'D' => ['alignment' => ['wrapText' => true]],
+        'E' => ['alignment' => ['wrapText' => true]],
+        'F' => ['alignment' => ['wrapText' => true]],
+        'g' => ['alignment' => ['wrapText' => true]],
+        'H' => ['alignment' => ['wrapText' => true]],
+        'I' => ['alignment' => ['wrapText' => true]],
+        'J' => ['alignment' => ['wrapText' => true]],
+        'K' => ['alignment' => ['wrapText' => true]],
+        'L' => ['alignment' => ['wrapText' => true]],
+        'M' => ['alignment' => ['wrapText' => true]],
+        'N' => ['alignment' => ['wrapText' => true]],
+        'O' => ['alignment' => ['wrapText' => true]],
+        'P' => ['alignment' => ['wrapText' => true]],
 
+        ];
+    }
 
     public function headings(): array
     {
@@ -64,22 +110,23 @@ class exportCondidat implements FromArray, WithHeadings,WithMapping
 
            return [
                '#',
-               'identity_number',
-               'first_name',
-               'last_name',
-               'email',
-               'phone',
-               'status',
-               'gender',
-               'birth_date',
-               'address',
-               'township_id',
-               'degrees',
-               'professional_experience',
-               'reduced_mobility',
+               '',
+               'Prénom',
+               'Nom de famille',
+               'Email',
+               'Téléphone', 
+               'Sexe',
+               'Statut du compte',
+               'Date de naissance',
+               'Age',
+               'Addresse',
+               'Commune',
+               'Diplômes',
+               'Experience professionnelle',
+               'Mobilité réduite',
                'created_at',
-               'updated_at',
-               'deleted_at'
+               'Créé par'
+             
 
 
            ];
@@ -152,16 +199,21 @@ class exportCondidat implements FromArray, WithHeadings,WithMapping
                 $data['last_name'],
                 $data['email'],
                 $data['phone'],
+                $data['gender'],
                 $data['status'],
                 $data['birth_date'],
+                (date('Y') - date('Y',strtotime($data['birth_date']))),
                 $data['address'],
-                $data['township_id'],
-                $data['degrees'],
-                $data['professional_experience'],
+                Township::findOrFail($data['township_id'])->title,
+                implode(",",array_map(function($el){
+                    return $el->label;
+                },array_values((array)$data['degrees']))),
+                 implode(",",array_map(function($el){
+                    return $el->label;
+                },array_values((array)$data['professional_experience']))),
                 $data['reduced_mobility'],
                 $data['created_at'],
-                $data['updated_at'],
-                $data['deleted_at'],
+                $data['cree_par'],
             ];
         }
     }
