@@ -85,7 +85,7 @@ public function styles(Worksheet $sheet)
                'Communes',
                'Titre',
                'Genre',
-               'CIN',
+              // 'CIN',
                'Tél',
                'description',
                'market_type',
@@ -110,7 +110,6 @@ public function styles(Worksheet $sheet)
 
            return [
                '#',
-               'Numéro identité',
                'Prénom',
                'Nom de famille',
                'Email',
@@ -170,7 +169,7 @@ public function styles(Worksheet $sheet)
                 Township::findOrFail($data->township_id)->title,
                 $data->title,
                 Member::where('id', $data->member_id)->pluck('gender')->first(),
-                Member::where('id', $data->member_id)->pluck('identity_number')->first(),
+               // Member::where('id', $data->member_id)->pluck('identity_number')->first(),
                 Member::where('id', $data->member_id)->pluck('phone')->first(),
                 $data->description,
                 $data->market_type,
@@ -194,7 +193,6 @@ public function styles(Worksheet $sheet)
             return [
 
                 $data['id'],
-                $data['identity_number'],
                 $data['first_name'],
                 $data['last_name'],
                 $data['email'],

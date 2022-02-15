@@ -243,11 +243,12 @@ class MemberController extends Controller
         );
 
 
-        $member->update([
+        $member->update([  
+            
+            'identity_number' => $request['identity_number'],
             'first_name' => strtolower($request['first_name']),
             'last_name' => strtolower($request['last_name']),
             'email' => $request['email'],
-            'identity_number' => $request['identity_number'],
             'phone' => $request['phone'],
             'birth_date' => $request['birth_date'],
             'address' => $request['address'],
@@ -301,12 +302,8 @@ class MemberController extends Controller
 
     public function exportExcel(Request $request)
     {
-//        dd($request->toArray());
 
-//        $projectApplicatoin=   Member::all()->where('status',$request['status']);
-//        $arrays = new exportCondidat((array) json_decode(ProjectApplication::all()->where('status', $request['Status'])));
-//        dd($request['Status']);
-        return Excel::download(new exportCondidat($request['Status'],$request['Type']), Carbon::now().'-back-up.xlsx');
+         return Excel::download(new exportCondidat($request['Status'], $request['Type']), Carbon::now() . '-back-up.xlsx');
 
     }
 }
