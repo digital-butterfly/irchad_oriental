@@ -31,7 +31,7 @@ class exportCondidat implements FromArray, WithHeadings,WithMapping,ShouldAutoSi
     {
         return [
             'A' => 10,
-            'B' => 10,
+            'B' => 30,
             'C' => 30,
             'D' => 30,
             'E' => 30,
