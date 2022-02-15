@@ -85,7 +85,7 @@ public function styles(Worksheet $sheet)
                'Communes',
                'Titre',
                'Genre',
-              // 'CIN',
+              'CIN',
                'Tél',
                'description',
                'market_type',
@@ -169,7 +169,7 @@ public function styles(Worksheet $sheet)
                 Township::findOrFail($data->township_id)->title,
                 $data->title,
                 Member::where('id', $data->member_id)->pluck('gender')->first(),
-               // Member::where('id', $data->member_id)->pluck('identity_number')->first(),
+                Member::where('id', $data->member_id)->pluck('identity_number')->first(),
                 Member::where('id', $data->member_id)->pluck('phone')->first(),
                 $data->description,
                 $data->market_type,
@@ -191,7 +191,6 @@ public function styles(Worksheet $sheet)
     }
         elseif ($this->type==="Member"){
             return [
-
                 $data['id'],
                 $data['first_name'],
                 $data['last_name'],
@@ -202,7 +201,7 @@ public function styles(Worksheet $sheet)
                 $data['birth_date'],
                 (date('Y') - date('Y',strtotime($data['birth_date']))),
                 $data['address'],
-                Township::findOrFail($data['township_id'])->title,
+                Township::findOrFail($data['township_id'])->title ?? '',
                 implode(",",array_map(function($el){
                     return $el->label;
                 },array_values((array)$data['degrees']))),
@@ -213,6 +212,7 @@ public function styles(Worksheet $sheet)
                 $data['created_at'],
                 $data['cree_par'],
             ];
+
         }
     }
 }
