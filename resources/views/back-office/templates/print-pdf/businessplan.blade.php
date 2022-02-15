@@ -3647,6 +3647,9 @@ Présentation du promoteur          </h3>
       </div>
       
     </div>
+    @if (isset($data->business_model->list_mat))
+      
+   
     @if ($cnt=count($data->business_model->list_mat)<=5 or $cnt=count($data->business_model->list_mat)==0)
         
    
@@ -3972,6 +3975,7 @@ Présentation du promoteur          </h3>
       
     </div> 
     @endif
+     @endif
     <div id="11" class="page printsection print-add-break print-full-width">
       <div class="flex justify-between absolute right-0 top-0 w-full">
         <div class="flex h-14 items-end justify-end space-x-3">
@@ -7042,7 +7046,7 @@ Présentation du promoteur          </h3>
               
             </div>
           </div>
-          <div class="absolute bottom-1 right-0 left-0 ">
+          <div class="absolute bottom-0 right-0 left-0 ">
             <img
             class="absolute bottom-0 right-0 left-0 img_full_width"
             src="{{asset('images/back-office/svg/footer.svg')}}"
