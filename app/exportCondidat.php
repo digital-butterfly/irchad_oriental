@@ -119,7 +119,7 @@ public function styles(Worksheet $sheet)
                'Date de naissance',
                'Age',
                'Addresse',
-               'Commune',
+              // 'Commune',
                'Diplômes',
                'Experience professionnelle',
                'Mobilité réduite',
@@ -201,7 +201,7 @@ public function styles(Worksheet $sheet)
                 $data['birth_date'],
                 (date('Y') - date('Y',strtotime($data['birth_date']))),
                 $data['address'],
-                Township::findOrFail($data['township_id'])->title ?? '',
+                ///Township::findOrFail($data['township_id'])->title ?? '',
                 implode(",",array_map(function($el){
                     return $el->label;
                 },array_values((array)$data['degrees']))),
