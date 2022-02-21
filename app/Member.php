@@ -25,7 +25,7 @@ class Member extends Authenticatable
         'identity_number',
         'first_name',
         'last_name',
-        'email',
+         'email',
         'phone',
         'status',
         'gender',

@@ -45,7 +45,9 @@
 									'label' => 'Retapez mot de passe',
 									'config' =>['hotizontalRows' => true]
 								])
+							
 							@endif
+							
                         @endforeach
 		            </div>
 	            </div>
