@@ -805,7 +805,7 @@ class FicheSynthetique extends Controller
                 'list_mat_arabe' => $request['list_mat_arabe'],
                 'local_arabe' => $request['local_arabe'],
                 'nombre_ress' => $request['nombre_ress'],
-                'fiche_syn' => $fille_db!=''? $fille_db: ($application->business_model_arab->fiche_syn),
+                'fiche_syn' => $fille_db!=''? $fille_db: ($application->business_model_arab?$application->business_model_arab->fiche_syn:''),
 
             ]
         ]);
