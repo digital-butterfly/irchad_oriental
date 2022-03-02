@@ -696,6 +696,9 @@ if (($data ->company->applied_tax ?? '') == 'IS') {
     switch (true) {
         case ($bp_income_before_taxes_second_year > 0 && $bp_income_before_taxes_second_year<= 300000):
           $bp_corporate_tax_second_year = $bp_income_before_taxes_second_year * 10 / 100;
+           if($bp_corporate_tax_second_year <3000){
+             $bp_corporate_tax_second_year=3000;
+           }
             break;
         case ($bp_income_before_taxes_second_year > 300000 && $bp_income_before_taxes_second_year <= 1000000):
         $bp_corporate_tax_second_year = $bp_income_before_taxes_second_year *0.2;
@@ -708,6 +711,9 @@ if (($data ->company->applied_tax ?? '') == 'IS') {
         case ($bp_income_before_taxes_third_year> 0 && $bp_income_before_taxes_third_year <= 300000):
           // $is=$bp_income_before_taxes_first_year * 10 / 100;
            $bp_corporate_tax_third_year  = $bp_income_before_taxes_third_year * 10 / 100;
+           if($bp_corporate_tax_third_year <3000){
+             $bp_corporate_tax_third_year=3000;
+           }
             break;
         case ($bp_income_before_taxes_third_year > 300000 && $bp_income_before_taxes_third_year <= 1000000):
               //  $firstTranche = 300000 - 300000 * 0.1;
@@ -731,7 +737,11 @@ if (($data ->company->applied_tax ?? '') == 'IS') {
     switch (true) {
         case ($bp_income_before_taxes_four_year> 0 && $bp_income_before_taxes_four_year <= 300000):
            $is=$bp_income_before_taxes_four_year * 10 / 100;
+           
            $bp_corporate_tax_four_year  = $bp_income_before_taxes_four_year * 10 / 100;
+           if($bp_corporate_tax_four_year <3000){
+            $bp_corporate_tax_four_year=3000;
+           }
            // $bp_corporate_tax_third_year = $bp_income_before_taxes_third_year * 10 / 100;
             break;
         case ($bp_income_before_taxes_four_year > 300000 && $bp_income_before_taxes_four_year <= 1000000):
@@ -756,7 +766,11 @@ if (($data ->company->applied_tax ?? '') == 'IS') {
     switch (true) {
         case ($bp_income_before_taxes_five_year> 0 && $bp_income_before_taxes_five_year <= 300000):
            $is=$bp_income_before_taxes_five_year * 10 / 100;
+
            $bp_corporate_tax_five_year  = $bp_income_before_taxes_five_year * 10 / 100;
+           if($bp_corporate_tax_five_year <3000){
+             $bp_corporate_tax_five_year=3000;
+           }
            // $bp_corporate_tax_third_year = $bp_income_before_taxes_third_year * 10 / 100;
             break;
         case ($bp_income_before_taxes_five_year > 300000 && $bp_income_before_taxes_five_year <= 1000000):
