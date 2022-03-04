@@ -16,6 +16,7 @@ class PrintController extends Controller
         
          $townships = Township::all();
          $categories = ProjectCategory::all();
+         $parent_category = ProjectCategory::all();
          $data = ProjectApplication::findOrFail($id);
          $members =$data->subMembers;
          //dd( $members);
@@ -59,7 +60,12 @@ class PrintController extends Controller
             
     return $value->id == $data->category_id;
 })->first();
-
+// $parent_category = $categories->filter(function ($value, $key) use( $data ) {
+            
+//     $cat=ProjectCategory::find($data->category_id);
+//     return $value->id == $cat->parent_id;
+// })->first();
+$parent_category =ProjectCategory::find( ProjectCategory::find($data->category_id)->parent_id);
         foreach ($data as $key => $item) {
             json_decode($item) ? $data[$key] = json_decode($item) : NULL;
             if (is_object($data[$key])) {
@@ -74,7 +80,7 @@ class PrintController extends Controller
         
         
 
-                return view('back-office/templates/print-pdf/businessplan',compact('data','township','categories','owner','members','startup_needarray'));
+                return view('back-office/templates/print-pdf/businessplan',compact('data','township','categories','parent_category','owner','members','startup_needarray'));
 
     }
     public function BusinessplanTwo(Request $request,$id)

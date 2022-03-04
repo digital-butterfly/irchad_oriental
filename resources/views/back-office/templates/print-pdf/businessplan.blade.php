@@ -1169,6 +1169,7 @@ $impot="impôt sur le revenu";
 
      
     </head>
+    {{-- {{dd($parent_category)}} --}}
 </head>
 <style>
  
@@ -1270,6 +1271,7 @@ $impot="impôt sur le revenu";
    
   </style>
   <body class="bg-gray-300 relative">
+  
     <button
       id="download-button"
       class="
@@ -1339,6 +1341,12 @@ $impot="impôt sur le revenu";
           <h3 class="font-semibold text-xs pr-5 mb-1">{{ ucfirst($owner->first_name)}} {{ ucfirst($owner->last_name)}}</h3>
           <p class="text-xs print:bg-blue-800 ">
             Secteur d’activité :
+            <span class="text-xs font-semibold" style="color: var(--main-green)"
+              >{{$parent_category->title}}</span
+            >
+          </p>
+          <p class="text-xs print:bg-blue-800 ">
+            Branche :
             <span class="text-xs font-semibold" style="color: var(--main-green)"
               >{{$categories->title}}</span
             >
