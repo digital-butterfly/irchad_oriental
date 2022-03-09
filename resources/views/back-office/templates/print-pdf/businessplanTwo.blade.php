@@ -1240,12 +1240,12 @@ elseif($cumul_four_year>0) {
         alt=""
         srcset=""
       />
-      {{-- <img
+      <img
         src="{{asset('images/back-office/svg/mobadara-logo.png')}}"
-        class="absolute right-5 top-4"
+        class="absolute left-5 top-4"
         alt=""
         srcset=""
-      /> --}}
+      />
 
       <div class="absolute left-4 top-60 space-y-5" style="width: 500px">
         <h3
