@@ -92,7 +92,9 @@ $parent_category =ProjectCategory::find( ProjectCategory::find($data->category_i
          $data = ProjectApplication::findOrFail($id);
          $members =$data->subMembers;
          $owner =$data->getAdhname;
+         
          $startup_needs=ProjectApplication::select('financial_data',ProjectApplication::raw('count(*) as total'))->groupBy('financial_data')->where('id', $id)->get();
+         $financial_data_arabic = [ 'Frais preliminaires'=>'النفقات الأولية', 'Immobilisations Incorporelle'=>"Immobilisations Incorporelle",'Terrain'=>'Terrain','Construction et / ou Aménagement'=>'الإصلاح و/أو البناء ', 'Mobilier et Matériel de bureau'=>'معدات مكتبية', 'Matériel et Outillage'=>'المعدات و الأدوات','Matériel informatique'=>'معدات معلوماتية', 'Matériel de transport'=>'معدات النقل', 'Matériel de manutention'=>'معدات المناولة',  'Fonds de roulement de démarrage'=>'Fonds de roulement de démarrage','Autre à préciser'=>'Autre à préciser'];
          $startup_needarray=[];
          $total_startupneeds=0;
          if(isset($startup_needs)){
@@ -145,7 +147,7 @@ $parent_category =ProjectCategory::find( ProjectCategory::find($data->category_i
         
         
 
-                return view('back-office/templates/print-pdf/businessplanTwo',compact('data','township','categories','owner','members','startup_needarray'));
+                return view('back-office/templates/print-pdf/businessplanTwo',compact('data','township','categories','financial_data_arabic','owner','members','startup_needarray'));
 
     }
      public function BusinessplanThree(Request $request,$id)
@@ -210,7 +212,7 @@ $parent_category =ProjectCategory::find( ProjectCategory::find($data->category_i
         
         
 
-                return view('back-office/templates/print-pdf/businessplanThree',compact('data','township','categories','owner','members','startup_needarray'));
+                return view('back-office/templates/print-pdf/businessplanThree',compact('data','township','categories','financial_data_arabic','owner','members','startup_needarray'));
 
     }
 }
