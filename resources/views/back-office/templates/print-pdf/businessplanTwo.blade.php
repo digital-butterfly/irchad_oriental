@@ -1394,7 +1394,7 @@ elseif($cumul_four_year>0) {
             <div class="grid grid-cols-8 p-2" dir="rtl"   style="margin-top:0px;"> 
               @if (isset($data->business_model_arab->local_arabe))
               @foreach ($data->business_model_arab->local_arabe as $key=>$item)
-             <p class="font-bold  text-xs col-span-3"style="color: var(--second-blue) ; margin-top: 0px;"> الموقع {{$key+1}} : </p>
+             <p class="font-bold  text-xs col-span-3"style="color: var(--second-blue) ; margin-top: 0px;"> الموقع {{count($data->business_model_arab->local_arabe)>1?$key+1:""}} : </p>
              <p class="font-medium text-xs col-span-5 ">{{$item->label}}</p>
             </div>
              <div class="grid grid-cols-8 p-2" dir="rtl"  style="margin-top:0px;"> 
