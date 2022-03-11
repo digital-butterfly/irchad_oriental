@@ -1241,8 +1241,8 @@ elseif($cumul_four_year>0) {
         srcset=""
       />
       <img
-        src="{{asset('images/back-office/svg/mobadara-logo.png')}}"
-        class="absolute left-5 top-4"
+        src="{{asset('images/back-office/svg/mobadara-logo.jpeg')}}"
+        class="absolute left-5 top-4 w-40"
         alt=""
         srcset=""
       />

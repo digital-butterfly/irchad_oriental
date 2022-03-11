@@ -1303,8 +1303,8 @@ $impot="impôt sur le revenu";
         srcset=""
       />
       <img
-        src="{{asset('images/back-office/svg/mobadara-logo.png')}}"
-        class="absolute right-5 top-4"
+        src="{{asset('images/back-office/svg/mobadara-logo.jpeg')}}"
+        class="absolute right-5 top-4 w-40"
         alt=""
         srcset=""
       />

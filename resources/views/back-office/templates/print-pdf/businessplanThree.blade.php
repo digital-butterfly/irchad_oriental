@@ -6812,7 +6812,12 @@ $impot="impôt sur le revenu";
             <p class="align-middle  text-justify text-xs">
              Les prévisions d’activités ont été construites sur des hypothèses réalistes qui ont montré des résultats assurant la rémunération de l’investisseur .
             </p>
-
+            {{-- <p>
+              Le projet que se propos
+            </p> --}}
+            {{-- <p class="align-middle  text-justify text-xs">
+              Les prévisions d’activités, basées sur des hypothèses prudentes, permettent d'escompter des résultats appréciables assurant le remboursement normal du crédit et la rémunération du promoteur.
+            </p> --}}
             <img
             class="absolute bottom-0 right-2"
             src="{{asset('images/back-office/svg/quote-down.svg')}}"

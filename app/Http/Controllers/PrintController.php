@@ -159,6 +159,8 @@ $parent_category =ProjectCategory::find( ProjectCategory::find($data->category_i
          $data = ProjectApplication::findOrFail($id);
          $members =$data->subMembers;
          $owner =$data->getAdhname;
+         $financial_data_arabic = [ 'Frais preliminaires'=>'النفقات الأولية', 'Immobilisations Incorporelle'=>"Immobilisations Incorporelle",'Terrain'=>'Terrain','Construction et / ou Aménagement'=>'الإصلاح و/أو البناء ', 'Mobilier et Matériel de bureau'=>'معدات مكتبية', 'Matériel et Outillage'=>'المعدات و الأدوات','Matériel informatique'=>'معدات معلوماتية', 'Matériel de transport'=>'معدات النقل', 'Matériel de manutention'=>'معدات المناولة',  'Fonds de roulement de démarrage'=>'Fonds de roulement de démarrage','Autre à préciser'=>'Autre à préciser'];
+
          $startup_needs=ProjectApplication::select('financial_data',ProjectApplication::raw('count(*) as total'))->groupBy('financial_data')->where('id', $id)->get();
          $startup_needarray=[];
          $total_startupneeds=0;
