@@ -6804,14 +6804,17 @@ $impot="impôt sur le revenu";
             }
         }
          ?>
-            {{-- <p class="align-middle  text-justify text-xs">
-              Le projet que se propose {{$gender}} {{ ucfirst($owner->first_name)}} {{ ucfirst($owner->last_name)}} de mettre en œuvre s’inscrit dans les objectifs stratégiques du programme de l’INDH. </p> --}}
-             <p class="align-middle  text-justify text-xs">
+         
+            <p class="align-middle  text-justify text-xs">
+              Le projet que se propose{{count($members)!=0?'nt':''}} {{$gender}} {{ ucfirst($owner->first_name)}} {{ ucfirst($owner->last_name)}},@foreach ($members as $member)
+                {{$member->full_name}},
+              @endforeach  de concrétiser est réalisable. Les prévisions d’activité ont été établies sur des hypothèses prudentes. La rentabilité du projet permet le remboursement normal du crédit et la rénumeration de {{count($members)!=0?'ses porteurs':'son porteur'}}.</p>
+             {{-- <p class="align-middle  text-justify text-xs">
              La réalisation de ce projet lui permettra d’intégrer le monde de l’entrepreneuriat en exploitant les opportunités offertes ainsi que son relationnel avec les clients et d’améliorer son revenu .
             </p>
             <p class="align-middle  text-justify text-xs">
              Les prévisions d’activités ont été construites sur des hypothèses réalistes qui ont montré des résultats assurant la rémunération de l’investisseur .
-            </p>
+            </p> --}}
             {{-- <p>
               Le projet que se propos
             </p> --}}

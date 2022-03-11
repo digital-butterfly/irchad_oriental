@@ -1947,7 +1947,7 @@ elseif($cumul_four_year>0) {
                                       <th class="border-2 border-gray-500 text-center  px-12 text-xs"  >الدخل الشهري بالدرهم</th>
 
                    <th class="border-2 border-gray-500  text-center text-xs">الثمن بالدرهم</th>
-                    <th class="border-2 border-gray-500 text-center text-xs" >الكمية / الرقم شهريا</th>
+                    <th class="border-2 border-gray-500 text-center text-xs" >الكمية / العـدد شهريا</th>
                       <th
                       class="
                         border-2 border-gray-500
@@ -2159,7 +2159,7 @@ elseif($cumul_four_year>0) {
                                       <th class="border-2 border-gray-500 text-center  px-12 text-xs"  >الدخل الشهري بالدرهم</th>
 
                    <th class="border-2 border-gray-500  text-center text-xs">الثمن بالدرهم</th>
-                    <th class="border-2 border-gray-500 text-center text-xs" > الكمية / الرقم شهريا</th>
+                    <th class="border-2 border-gray-500 text-center text-xs" > الكمية / العـدد شهريا</th>
                       <th
                       class="
                         border-2 border-gray-500
