@@ -374,8 +374,10 @@ class ProjectApplicationController extends Controller
          if(isset($total->organisme)){
         $total_p +=$total->otherValue*$total->organisme;
         }else{
+        $bp_turnover_products_total1 = 0;
         $bp_turnover_products_total1 = $bp_turnover_products_total1 +(( $total->otherValue*$saisonalite)* $achat_t) ;
         $total_p += ( $total->otherValue *$saisonalite) ;
+        $bp_profit_margin_rate=0;
         $bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration; 
         }
       }else{
