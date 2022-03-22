@@ -5998,7 +5998,7 @@ Profil de l'entrepreneur         </h3>
               class="uppercase font-bold text-xs"
               style="color: var(--second-blue)"
             >
-            TAXE DEs SERVICES COMMUNAUX
+            TAXE LOCALE
 
           </h5>
             <hr class="bg-gray-300" style="height: 2px" />
@@ -6128,7 +6128,7 @@ Profil de l'entrepreneur         </h3>
                 </thead>
                 <tbody class="font-medium">
                  <tr>
-                      <td class="border-2 border-gray-500 py-1 pl-4 text-xs ">Taxe des services communaux</td>
+                      <td class="border-2 border-gray-500 py-1 pl-4 text-xs ">Taxe locale</td>
                       <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($total_taxe1 + $total_taxe2, 0, ',', ' ') }} </td>
                   </tr> 
                   @if(isset($data->financial_data->taxes))
