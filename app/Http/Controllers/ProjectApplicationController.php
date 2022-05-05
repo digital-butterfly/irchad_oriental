@@ -304,6 +304,7 @@ class ProjectApplicationController extends Controller
     {
        $messageError='';
         $application = ProjectApplication::find($id);
+       
        $applications = ProjectApplicationMember::find($id);
         $member = Member::find($application->member_id);
         /// dd($applications );

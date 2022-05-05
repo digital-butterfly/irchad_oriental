@@ -2937,6 +2937,7 @@
 	</script>
 @endsection
 @php
+$applied_tax=0;
 $total=0;
 $total1=0;
 $total2=0;
@@ -2945,10 +2946,17 @@ $messageError='';
 if(isset($application->financial_data->startup_needs)){
     foreach($application->financial_data->startup_needs as $data){
    $total+=$data->value;
+   
     }
     
    //sdd($total);
 }
+
+if(isset($application->company->applied_tax))
+{
+    $applied_tax=$application->company->applied_tax;
+}
+
 if(isset($application->financial_data->financial_plan)){
     foreach($application->financial_data->financial_plan as $data){
    $total1+=$data->value;
@@ -3009,6 +3017,7 @@ var element= '<?php echo $total ?>';
 var total= '<?php echo  $total_ca ?>';
 var test= '<?php echo $some_total ?>';
 var nombre= '<?php echo $nombre ?>';
+
 console.log(test);
 // var total=0;
  //element.forEach(element=> {
@@ -3037,35 +3046,38 @@ console.log(test);
   })
 
  window.addEventListener('load',function(){
+     var applied_tax = '<?php echo $applied_tax ?>';
     //alert("hani")
     if(document.querySelector('#legal_formSelect').value=='S.A.R.L' || document.querySelector('#legal_formSelect').value=='S.A.R.L A.U'){
-        console.log("hello me");
+        console.log('ififyfoyglygilgo_gp')
+        console.log(applied_tax);
+
         var newOptions = {"IS": "IS"};
         $("#applied_taxSelect").empty();
             $.each(newOptions, function(key,value) {
             $("#applied_taxSelect").append($("<option></option>") 
-            .attr("value", value).text(key));
+            .attr("value", value).text(key)).val(applied_tax).change();
         });
     }else if(document.querySelector('#legal_formSelect').value=='S.N.C'){
         var newOptions = {"IS": "IS","IR(personne physique)":"IR(personne physique)"};
         $("#applied_taxSelect").empty();
          $.each(newOptions, function(key,value) {
          $("#applied_taxSelect").append($("<option></option>")
-         .attr("value", value).text(key));
+         .attr("value", value).text(key)).val(applied_tax).change();
         });
     }else if(document.querySelector('#legal_formSelect').value=='Coopérative'){
         var newOptions = {"IS": "IS","IR(personne physique)":"IR(personne physique)","Exonéré":"Exonéré"};
         $("#applied_taxSelect").empty();
          $.each(newOptions, function(key,value) {
          $("#applied_taxSelect").append($("<option></option>")
-         .attr("value", value).text(key)); 
+         .attr("value", value).text(key)).val(applied_tax).change(); 
         });
     }else if(document.querySelector('#legal_formSelect').value=='A.E'){
     var newOptions = {'Auto-entrepreneur activité commerciale, industrielle ou artisanale':'Auto-entrepreneur activité commerciale, industrielle ou artisanale', 'Auto-entrepreneur prestataire de services':'Auto-entrepreneur prestataire de services'};
         $("#applied_taxSelect").empty();
          $.each(newOptions, function(key,value) {
          $("#applied_taxSelect").append($("<option></option>")
-         .attr("value", value).text(key)); 
+         .attr("value", value).text(key)).val(applied_tax).change();
         });
     }
  

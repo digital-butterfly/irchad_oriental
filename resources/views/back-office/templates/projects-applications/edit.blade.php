@@ -636,14 +636,17 @@
  window.addEventListener('load',function(){
     //alert("hani")
     if(document.querySelector('#legal_formSelect').value=='S.A.R.L' || document.querySelector('#legal_formSelect').value=='S.A.R.L A.U'){
+		console.log('HELOOOOOOOOOOOOOOPPPPPPP'+$("#applied_taxSelect").value)
         console.log("hello me");
         var newOptions = {"IS": "IS"};
+		
         $("#applied_taxSelect").empty();
             $.each(newOptions, function(key,value) {
             $("#applied_taxSelect").append($("<option></option>") 
             .attr("value", value).text(key));
         });
     }else if(document.querySelector('#legal_formSelect').value=='S.N.C'){
+
         var newOptions = {"IS": "IS","IR(personne physique)":"IR(personne physique)"};
         $("#applied_taxSelect").empty();
          $.each(newOptions, function(key,value) {
@@ -670,6 +673,7 @@
 $('#legal_formSelect').on('change',function () {
 if(document.querySelector('#legal_formSelect').value=='S.A.R.L' || document.querySelector('#legal_formSelect').value=='S.A.R.L A.U')
 {console.log("hello me");
+console.log('HELOOOOOOOOOOOOOOPPPPPPP'+$("#applied_taxSelect").value)
 var newOptions = {"IS": "IS"};
 $("#applied_taxSelect").empty();
      $.each(newOptions, function(key,value) {

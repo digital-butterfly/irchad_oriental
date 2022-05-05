@@ -608,6 +608,7 @@
     if(document.querySelector('#legal_formSelect').value=='S.A.R.L' || document.querySelector('#legal_formSelect').value=='S.A.R.L A.U'){
         console.log("hello me");
         var newOptions = {"IS": "IS"};
+		
         $("#applied_taxSelect").empty();
             $.each(newOptions, function(key,value) {
             $("#applied_taxSelect").append($("<option></option>") 
@@ -640,6 +641,7 @@
 $('#legal_formSelect').on('change',function () {
 if(document.querySelector('#legal_formSelect').value=='S.A.R.L' || document.querySelector('#legal_formSelect').value=='S.A.R.L A.U')
 {console.log("hello me");
+
 var newOptions = {"IS": "IS"};
 $("#applied_taxSelect").empty();
      $.each(newOptions, function(key,value) {
