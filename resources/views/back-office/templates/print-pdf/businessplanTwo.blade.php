@@ -1939,19 +1939,19 @@ elseif($cumul_four_year>0) {
           </div>
           </div>
             <div class="inline-block rounded-lg border w-full ">
-              <table class="table-fixed border border-gray-900 w-full text-xs">
+              <table class="table-auto border border-gray-900 w-full text-xs">
                 <thead>
                   <tr class="bg-gray-100">
                   
-                    <th class="border-2 border-gray-500 text-center  px-12 text-xs">الدخل السنوي بالدرهم</th>
-                                      <th class="border-2 border-gray-500 text-center  px-12 text-xs"  >الدخل الشهري بالدرهم</th>
+                    <th class="border-2 border-gray-500 text-center py-1  text-xs">الدخل السنوي بالدرهم</th>
+                                      <th class="border-2 border-gray-500 text-center py-1  text-xs"  >الدخل الشهري بالدرهم</th>
 
                    <th class="border-2 border-gray-500  text-center text-xs">الثمن بالدرهم</th>
                     <th class="border-2 border-gray-500 text-center text-xs" >الكمية / العـدد شهريا</th>
                       <th
                       class="
                         border-2 border-gray-500
-                        w-4/12
+                        w-1/2
                         self-start
                         text-center
                         text-xs
@@ -1980,7 +1980,7 @@ elseif($cumul_four_year>0) {
                        <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->otherValue, 0, ',', ' ') }}</td>
                        <td class="border-2 border-gray-500 text-center text-xs" dir="ltr"> <p dir="ltr">{{ number_format(0, 0, ',', ' ') }} </p></td>
                        <td class="border-2 border-gray-500 text-center text-xs">{{ number_format(0,0, ',', ' ')}}</td>
-                       <td class="border-2 border-gray-500 py-1 pl-4 text-xs">{{$item->label}}</td>
+                       <td class="border-2 border-gray-500 py-1 pl-4 text-xs ">{{$item->label}}</td>
                    @else
                    
                      @if(isset($item->rate))
