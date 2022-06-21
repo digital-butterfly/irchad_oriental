@@ -1557,6 +1557,7 @@ $impot="impôt sur le revenu";
                {{ucfirst( $member->first_name)}} {{ ucfirst($member->last_name)}}  @endforeach</p> --}}
                 <p>{{isset($data->sous_adh)?$data->sous_adh:" "}}</p> 
             </div>
+            
             <div class="flex justify-between bg-gray-100 p-2">
               <p>Adresse :</p>
               <p class="font-medium"> {{$owner->address}}</p>
@@ -6863,6 +6864,7 @@ $impot="impôt sur le revenu";
     @if(isset($data->list_mat_file))
     <?php  $files=explode(',',$data->list_mat_file);?>
     @foreach ($files as $item) 
+    
     @if($item!='')
     <div id="20" class="page printsection print-full-width ">
             <div class="flex justify-between absolute right-0 top-0 w-full">

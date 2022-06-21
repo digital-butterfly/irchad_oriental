@@ -1468,7 +1468,7 @@ $impot="impôt sur le revenu";
             text-white text-xs
             font-medium
             relative
-            z-10
+            z-10 footer-div
           "
         >
          <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
@@ -1528,7 +1528,7 @@ $impot="impôt sur le revenu";
             text-white
             font-medium
             relative
-            z-10
+            z-10 footer-div
           "
           style="font-size: 10px;"
         >
@@ -1584,6 +1584,7 @@ Profil de l'entrepreneur         </h3>
        
             <div class="flex justify-between bg-gray-100 p-2">
               <p>Nom Prénom :</p>
+              
               <p class="font-medium">{{ ucfirst($owner->first_name)}} {{ ucfirst($owner->last_name)}}</p>
             </div>   
               <div class="flex justify-between    p-2  right-0">
@@ -1726,7 +1727,7 @@ Profil de l'entrepreneur         </h3>
             text-white text-xs
             font-medium
             relative
-            z-10
+            z-10 footer-div
           "
         >
          <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
@@ -1889,7 +1890,7 @@ Profil de l'entrepreneur         </h3>
                 text-white text-xs
                 font-medium
                 relative
-                z-10
+                z-10 footer-div
               "
             >
               <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
@@ -1929,6 +1930,7 @@ Profil de l'entrepreneur         </h3>
     Profil de l'entrepreneur                </h3>
             </div>
             <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
+            
           </div>
           <div class="space-y-9 " >
             <div class="space-y-4"style="margin-top:0px;">
@@ -1952,6 +1954,7 @@ Profil de l'entrepreneur         </h3>
                 </div>
                 @if(isset($tablepageTwo))
                 @foreach ($tablepageTwo as  $page)
+                 
                 @foreach ($page as $key => $degree)
                 <div class="grid  grid-cols-7 justify-between bg-gray-100 p-2">
                   @if(isset($degree->label))
@@ -1985,6 +1988,7 @@ Profil de l'entrepreneur         </h3>
             alt="" 
             srcset=""
             />
+            
 
             <div
               class="
@@ -1997,7 +2001,7 @@ Profil de l'entrepreneur         </h3>
                 text-white text-xs
                 font-medium
                 relative
-                z-10
+                z-10 footer-div
               "
             >
               <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
@@ -2105,7 +2109,7 @@ Profil de l'entrepreneur         </h3>
             alt="" 
             srcset=""
             />
-
+            
             <div
               class="
                 py-2
@@ -2117,7 +2121,7 @@ Profil de l'entrepreneur         </h3>
                 text-white text-xs
                 font-medium
                 relative
-                z-10
+                z-10 footer-div
               "
             >
               <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
@@ -2225,6 +2229,7 @@ Profil de l'entrepreneur         </h3>
                 </div>
                 @if(isset ($tablepageOne))
                 @foreach ( $tablepageOne as $key => $page)
+                  
                 @if($key==1)
                 @foreach ($page as $key => $experience)
                 <div class="grid grid-cols-10  justify-between p-2 bg-gray-100">
@@ -2268,7 +2273,7 @@ Profil de l'entrepreneur         </h3>
             alt="" 
             srcset=""
             />
-
+            
             <div
               class="
                 py-2
@@ -2280,7 +2285,7 @@ Profil de l'entrepreneur         </h3>
                 text-white text-xs
                 font-medium
                 relative
-                z-10
+                z-10 footer-div
               "
             >
               <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
@@ -2387,7 +2392,7 @@ Profil de l'entrepreneur         </h3>
             text-white text-xs
             font-medium
             relative
-            z-10
+            z-10 footer-div
           "
         >
          <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
@@ -2544,7 +2549,7 @@ Profil de l'entrepreneur         </h3>
                 text-white text-xs
                 font-medium
                 relative
-                z-10
+                z-10 footer-div
               "
             >
               <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
@@ -2719,7 +2724,7 @@ Profil de l'entrepreneur         </h3>
             text-white text-xs
             font-medium
             relative
-            z-10
+            z-10 footer-div
           "
         >
           <span>{{$owner->first_name}} {{$owner->last_name}}</span>
@@ -2891,7 +2896,7 @@ Profil de l'entrepreneur         </h3>
             text-white text-xs
             font-medium
             relative
-            z-10
+            z-10 footer-div
           "
         >
           <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
@@ -3028,7 +3033,7 @@ Profil de l'entrepreneur         </h3>
             text-white text-xs
             font-medium
             relative
-            z-10
+            z-10 footer-div
           "
         >
             <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
@@ -3213,7 +3218,7 @@ Profil de l'entrepreneur         </h3>
             text-white text-xs
             font-medium
             relative
-            z-10
+            z-10 footer-div
           "
         >
            <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
@@ -3439,7 +3444,7 @@ Profil de l'entrepreneur         </h3>
             text-white text-xs
             font-medium
             relative
-            z-10
+            z-10 footer-div
           "
         >
          <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
@@ -3546,7 +3551,7 @@ Profil de l'entrepreneur         </h3>
             text-white text-xs
             font-medium
             relative
-            z-10
+            z-10 footer-div
           "
         >
           <span>{{$owner->first_name}} {{$owner->last_name}}</span>
@@ -3743,7 +3748,7 @@ Profil de l'entrepreneur         </h3>
             text-white text-xs
             font-medium
             relative
-            z-10
+            z-10 footer-div
           "
         >
        <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
@@ -3888,7 +3893,7 @@ Profil de l'entrepreneur         </h3>
             text-white text-xs
             font-medium
             relative
-            z-10
+            z-10 footer-div
           "
         >
           <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
@@ -4024,7 +4029,7 @@ Profil de l'entrepreneur         </h3>
             text-white text-xs
             font-medium
             relative
-            z-10
+            z-10 footer-div
           "
         >
         <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
@@ -4110,7 +4115,7 @@ Profil de l'entrepreneur         </h3>
             text-white text-xs
             font-medium
             relative
-            z-10
+            z-10 footer-div
           "
         >
         <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
@@ -4215,7 +4220,7 @@ Profil de l'entrepreneur         </h3>
             text-white text-xs
             font-medium
             relative
-            z-10
+            z-10 footer-div
           "
         >
         <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
@@ -4434,7 +4439,7 @@ Profil de l'entrepreneur         </h3>
             text-white text-xs
             font-medium
             relative
-            z-10
+            z-10 footer-div
           "
         >
            <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
@@ -4653,7 +4658,7 @@ Profil de l'entrepreneur         </h3>
             text-white text-xs
             font-medium
             relative
-            z-10
+            z-10 footer-div
           "
         >
         <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
@@ -4819,7 +4824,7 @@ Profil de l'entrepreneur         </h3>
             text-white text-xs
             font-medium
             relative
-            z-10
+            z-10 footer-div
           "
         >
             <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
@@ -5007,7 +5012,7 @@ Profil de l'entrepreneur         </h3>
             text-white text-xs
             font-medium
             relative
-            z-10
+            z-10 footer-div
           "
         >
             <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
@@ -5169,7 +5174,7 @@ Profil de l'entrepreneur         </h3>
             text-white text-xs
             font-medium
             relative
-            z-10
+            z-10 footer-div
           "
         >
          <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
@@ -5354,7 +5359,7 @@ Profil de l'entrepreneur         </h3>
             text-white text-xs
             font-medium
             relative
-            z-10
+            z-10 footer-div
           "
         >
          <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
@@ -5580,7 +5585,7 @@ Profil de l'entrepreneur         </h3>
             text-white text-xs
             font-medium
             relative
-            z-10
+            z-10 footer-div
           "
         >
            <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
@@ -5657,7 +5662,7 @@ Profil de l'entrepreneur         </h3>
             text-white text-xs
             font-medium
             relative
-            z-10
+            z-10 footer-div
           "
         >
            <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
@@ -5949,7 +5954,7 @@ Profil de l'entrepreneur         </h3>
             text-white text-xs
             font-medium
             relative
-            z-10
+            z-10 footer-div
           "
         >
             <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
@@ -6268,7 +6273,7 @@ Profil de l'entrepreneur         </h3>
             text-white text-xs
             font-medium
             relative
-            z-10
+            z-10 footer-div
           "
         >
        <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
@@ -6413,7 +6418,7 @@ Profil de l'entrepreneur         </h3>
             text-white text-xs
             font-medium
             relative
-            z-10
+            z-10 footer-div
           "
         >
             <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
@@ -6605,7 +6610,7 @@ Profil de l'entrepreneur         </h3>
             text-white text-xs
             font-medium
             relative
-            z-10
+            z-10 footer-div
           "
         >
           <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
@@ -6745,7 +6750,7 @@ Profil de l'entrepreneur         </h3>
               text-white text-xs
               font-medium
               relative
-              z-10
+              z-10 footer-div
             "
           >
              <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
@@ -7028,7 +7033,7 @@ Profil de l'entrepreneur         </h3>
             text-white text-xs
             font-medium
             relative
-            z-10
+            z-10 footer-div
           "
         >
             <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
@@ -7213,7 +7218,7 @@ Profil de l'entrepreneur         </h3>
             text-white text-xs
             font-medium
             relative
-            z-10
+            z-10 footer-div
           "
         >
            <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
@@ -7316,7 +7321,7 @@ Profil de l'entrepreneur         </h3>
                 text-white text-xs
                 font-medium
                 relative
-                z-10
+                z-10 footer-div
               "
             >
                 <span   style="font-size: 10px;">{{$owner->first_name}} {{$owner->last_name}}</span>
@@ -7380,6 +7385,16 @@ Profil de l'entrepreneur         </h3>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.0/html2pdf.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/echarts@5.2.2/dist/echarts.min.js"></script>
 <script> 
+var footer_div= document.getElementsByClassName('footer-div');
+console.log(footer_div);
+Array.from(footer_div).forEach((el,index)=>{
+  var innerDiv = document.createElement('div');
+  innerDiv.className = 'absolute right-8 text-black'
+  var newContent = document.createTextNode(index +1); 
+  innerDiv.appendChild(newContent);  
+  el.appendChild(innerDiv); 
+
+});
 var chartDom = document.getElementById('chart1');
 var chartDomOne = document.getElementById('chart2');
 var myChart = echarts.init(chartDom);
