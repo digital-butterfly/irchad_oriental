@@ -288,6 +288,7 @@ if(isset($data ->financial_data->financial_plan_loans))
       $duree_pret=$item->duration;
     }}
     //dd($montant);
+
     $months=$duree_pret*12;
      //$mensualite=($montant*$Taux_interet)/(12*(1-pow(1+$Taux_interet/12,-$months+$differe)));
      $capital_rest_fee=0;
@@ -299,11 +300,22 @@ if(isset($data ->financial_data->financial_plan_loans))
      
      //dd($mensualite);
       if($i>=$differe){
-        $mensualite=round(($capital_rest_fee*($Taux_interet/12))/(1-pow(1+$Taux_interet/12,-$months+$differe)),2);  
-        $i==0 ? $capital_rest=$montant : $capital_rest=$capital_rest;
-        $interets=round(($capital_rest*$Taux_interet)/12,2);
-        $capital_rem= round($mensualite-$interets,2);
-        $capital_rest= round($capital_rest,2)-($mensualite-$interets) ;
+       // dd((1-pow(1+$Taux_interet/12,-$months+$differe)));
+        if((1-pow(1+$Taux_interet/12,-$months+$differe)) == 0){
+          $mensualite=round(($capital_rest_fee*($Taux_interet/12))/1,2);  
+          $i==0 ? $capital_rest=$montant : $capital_rest=$capital_rest;
+          $interets=round(($capital_rest*$Taux_interet)/12,2);
+          $capital_rem= round($mensualite-$interets,2);
+          $capital_rest= round($capital_rest,2)-($mensualite-$interets) ;
+        }
+        else{
+          $mensualite=round(($capital_rest_fee*($Taux_interet/12))/(1-pow(1+$Taux_interet/12,-$months+$differe)),2);  
+          $i==0 ? $capital_rest=$montant : $capital_rest=$capital_rest;
+          $interets=round(($capital_rest*$Taux_interet)/12,2);
+          $capital_rem= round($mensualite-$interets,2);
+          $capital_rest= round($capital_rest,2)-($mensualite-$interets) ;
+        }
+        
       }else{
        $i==0 ? $capital_rest= $capital_rest_zero+round(($capital_rest_zero*$Taux_interet*1/12),2) : $capital_rest=0;
         $mensualite=0;
@@ -6485,7 +6497,7 @@ Profil de l'entrepreneur         </h3>
                 </div>
                 <div class="flex justify-between bg-gray-100 p-2">
                   <p>Taux d’intérêts ( % ):</p>
-                  <p class="font-medium">{{$field->rate ?? " "}}</p>
+                  <p class="font-medium">{{$field->rate ?? "0"}}</p>
                 </div>
                 <div class="flex justify-between bg-gray-100 p-2">
                   <p>Durée de différé ( mois ):
