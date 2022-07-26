@@ -117,7 +117,9 @@
                                     'Incubé': {'title': 'Online', 'state': 'primary'}
                                 };
                                 console.log(states[row.status]);
-                                return '<span class="kt-badge kt-badge--' + states[row.status].state + ' kt-badge--dot"></span>&nbsp;<span class="kt-font-bold kt-font-' + states[row.status].state + '">' +
+                                // return '<span class="kt-badge kt-badge--' + states[row.status].state + ' kt-badge--dot"></span>&nbsp;<span class="kt-font-bold kt-font-' + states[row.status].state + '">' +
+                                //     row.status + '</span>';
+                                return '<span class="kt-badge kt-badge--' + row.status + ' kt-badge--dot"></span>&nbsp;<span class="kt-font-bold kt-font-' + row.status + '">' +
                                     row.status + '</span>';
                             },
                         }, {
