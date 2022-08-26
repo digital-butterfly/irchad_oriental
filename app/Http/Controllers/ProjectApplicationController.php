@@ -751,6 +751,7 @@ class ProjectApplicationController extends Controller
                 );
             }
         }
+        // dd($application->financial_data);
         return redirect()->intended('admin/candidatures/'.$id);
     }
         /**

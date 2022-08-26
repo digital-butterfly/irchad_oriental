@@ -96,6 +96,7 @@ $total_s=0;
 $bp_profit_margin_rate =  0;
 $achat_t=0;
 $saisonalite=isset($data ->financial_data->saisonnalite)? $data ->financial_data->saisonnalite:0;
+// dd($data->financial_data);
 if (isset($data ->financial_data->products_turnover_forecast)){
     foreach ($data ->financial_data->products_turnover_forecast as $total){
       if(isset($total->duration)){
@@ -381,7 +382,7 @@ $imp_project=isset($data->company->implantation_project)?$data->company->implant
   if(isset($data->financial_data->overheads_fixed)){
   foreach ($data->financial_data->overheads_fixed as $item) {
     if($item->label=='loyer'|| $item->label=='loyers'|| $item->label=='Loyer'){
-      $total_impot_loyer= $item->value*12;
+      $total_impot_loyer= 0; //impot loyer changé de 12 a 1
     }}  
  } 
  if(isset($data->financial_data->startup_needs)){
@@ -483,7 +484,7 @@ if(isset($data ->financial_data->overheads_fixed))
      
 }
 }
-//dd($bp_overheads_fixed_first_year);
+// dd($bp_overheads_fixed_first_year);
 
 // Overheads Scalable
 $total_charge_var=0;
@@ -538,6 +539,7 @@ $autre_charge_externe_four_year=0;
 $autre_charge_externe_five_year=0;
 
 $autre_charge_externe_first_year=$bp_overheads_scalable_first_year+$bp_overheads_fixed_first_year+$total_impot_loyer;
+// dd($autre_charge_externe_first_year);
 $autre_charge_externe_second_year=$bp_overheads_scalable_second_year+$bp_overheads_fixed_second_year+$total_impot_loyer ;
 $autre_charge_externe_third_year=$bp_overheads_scalable_third_year+$bp_overheads_fixed_third_year+$total_impot_loyer ;
 $autre_charge_externe_four_year=$bp_overheads_scalable_four_year+$bp_overheads_fixed_four_year+$total_impot_loyer*1.1 ;
@@ -5723,7 +5725,7 @@ Profil de l'entrepreneur         </h3>
                           @if($item->otherValue=='Mensuel')
                         <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value, 0, ',', ' ') }} </td>
                           <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value*$saisonalite, 0, ',', ' ') }} </td>
-                                <?php  $total_overheads_scalable+=$item->value*$saisonalite; ?>
+                                <?php   $total_overheads_scalable+=$item->value*$saisonalite; ?>
                           @elseif($item->otherValue=='Annuel')
                           <td class="border-2 border-gray-500 text-center text-xs">-- </td>
                           <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value, 0, ',', ' ') }} </td>
