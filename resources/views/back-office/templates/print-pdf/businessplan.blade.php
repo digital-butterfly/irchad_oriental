@@ -95,7 +95,7 @@ $total_p=0;
 $total_s=0;
 $bp_profit_margin_rate =  0;
 $achat_t=0;
-$saisonalite=isset($data ->financial_data->saisonnalite)? $data ->financial_data->saisonnalite:0;
+$saisonalite=isset($data ->financial_data->saisonnalite)? $data ->financial_data->saisonnalite:12;
 // dd($data->financial_data);
 if (isset($data ->financial_data->products_turnover_forecast)){
     foreach ($data ->financial_data->products_turnover_forecast as $total){
