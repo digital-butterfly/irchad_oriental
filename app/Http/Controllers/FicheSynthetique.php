@@ -782,7 +782,7 @@ class FicheSynthetique extends Controller
                         } 
                 } 
         } 
-    
+   
      
   // if(old())  
  //dd($request);

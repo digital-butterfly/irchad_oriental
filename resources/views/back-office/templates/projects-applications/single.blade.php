@@ -2937,6 +2937,7 @@
 	</script>
 @endsection
 @php
+$nombre=0;
 $applied_tax=0;
 $total=0;
 $total1=0;
@@ -2950,6 +2951,9 @@ if(isset($application->financial_data->startup_needs)){
     }
     
    //sdd($total);
+}
+if(isset($application->business_model_arab->nombre_ress)){
+    $nombre = $application->business_model_arab->nombre_ress;
 }
 
 if(isset($application->company->applied_tax))

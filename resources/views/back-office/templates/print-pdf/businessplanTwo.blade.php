@@ -520,12 +520,15 @@ $bp_added_value_five_year = $bp_gross_margin_five_year - $autre_charge_externe_f
 $bp_human_ressources_total = 0;
 $bp_human_ressources_rows = 0;
 $nombre_salary=0;
+
+
 if(isset($data ->financial_data->human_ressources))
 {
     foreach ($data ->financial_data->human_ressources as $item) {
       if(isset($item->duration)){
          if($item->duration==0){
            $nombre_salary+=$item->value;
+           
        $bp_human_ressources_total += ($item->value * $item->rate*12);
      }else{
        $bp_human_ressources_total += ($item->value * $item->rate*$item->duration);
@@ -537,6 +540,9 @@ if(isset($data ->financial_data->human_ressources))
       }
     
     }
+}
+if(isset($data->business_model_arab->nombre_ress)){
+  $nombre_salary = $data->business_model_arab->nombre_ress;
 }
 
 $bp_human_ressources_social_fees_total = $bp_human_ressources_total * 0.2109;
