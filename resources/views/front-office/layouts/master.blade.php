@@ -89,15 +89,15 @@
     height: 100%;
     overflow: auto;
     background-color: rgba(0,0,0,0.4);
-   
+
 }
 
 .img{
     position:relative;
    width:100%
-   
 
-   
+
+
 
 }
     </style>
@@ -110,17 +110,17 @@
       <!-- Modal content -->
       <div class="modal-content">
         <span class="close">&times;</span>
-       <a href="{{ route('getfile','progammeEss.pdf') }}"><img src="images/front-office/popup03.jpg" class="img"></a>
+       <a href="{{ route('getfile','Concours2023S1.pdf') }}"><img src="images/front-office/Concours2023S1.jpg" class="img"></a>
             <div class="card text-center flex flex-col " style="background:white; margin:3px; padding:4px;  border-radius : 5px;">
               <div class="flex news-body">
                 <a style=" margin:4px; padding:10px;"
-                href="{{ route('getfile','doc1.docx') }}" download   
+                href="{{ route('getfile','doc1.docx') }}" download
                 >
                  <b class="font-19-700 text-left " style="padding:10px;" >إستمارة الترشح خاصة بالتعاونيات</b>
                   <img src="images/front-office/telechargement.svg" alt="" class="ml3" />
                 </a>
-                 
-                 
+
+
               </div>
             </div>
        <div class="card text-center flex flex-col "style="background:white; margin:3px; padding:4px;  border-radius : 5px;">
@@ -132,16 +132,16 @@
                  <b class="font-19-700 text-left"  style="padding:10px;">إستمارة الترشح خاصة بالشركات</b>
                   <img src="images/front-office/telechargement.svg" alt="" class="ml3" />
                 </a>
-                 
-                 
+
+
               </div>
             </div>
             <div class="card text-center flex flex-col " style="background:white; margin:3px; padding:4px;  border-radius : 5px;">
               <div class="flex news-body ">
-               
-               
-               
-               
+
+
+
+
                 <a style=" margin:4px;"
                 href="{{ route('getfile','doc3.docx') }}" download
                   class="primary-title font-13-500 flex flex-row align-center"
@@ -149,14 +149,14 @@
                  <b class="font-19-700 text-left"  style="padding:10px;">استمارة الترشخ خاصة بالمقاول الذاتي والشباب</b>
                   <img src="images/front-office/telechargement.svg" alt="" class="ml3" />
                 </a>
-                 
-                 
+
+
               </div>
             </div>
       </div>
-    
+
     </div>
- 
+
 
     @include('front-office.partials.header')
 <div class="container">
@@ -208,8 +208,8 @@
 
       // Get the <span> element that closes the modal
       var span = document.getElementsByClassName("close")[0];
-      // When the user clicks the button, open the modal 
-   
+      // When the user clicks the button, open the modal
+
         modal.style.display = "flex";
 
       // When the user clicks on <span> (x), close the modal
