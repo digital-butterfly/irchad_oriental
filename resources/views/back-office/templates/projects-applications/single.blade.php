@@ -3095,7 +3095,7 @@ $("#applied_taxSelect").empty();
      $("#applied_taxSelect").append($("<option></option>")
      .attr("value", value).text(key));
 });
-}else if(document.querySelector('#legal_formSelect').value=='S.N.C'){
+}else if(document.querySelector('#legal_formSelect').value=='S.N.C' || document.querySelector('#legal_formSelect').value=='Personne Physique' || document.querySelector('#legal_formSelect').value=='Société en cours de formation'){
     var newOptions = {"IS": "IS","IR":"IR"};
     $("#applied_taxSelect").empty();
      $.each(newOptions, function(key,value) {
