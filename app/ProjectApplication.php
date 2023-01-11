@@ -15,7 +15,7 @@ class ProjectApplication extends Model
     const fix =['Mensuel','Annuel'];
     const TAXES=['Taxe professionnelle','Taxe speciale sur véhicules','Taxe de promotion touristique'];
     const INVEST=[ 'Frais preliminaires', 'Immobilisations Incorporelle','Terrain','Construction et / ou Aménagement', 'Mobilier et Matériel de bureau', 'Matériel et Outillage','Matériel informatique', 'Matériel de transport', 'Matériel de manutention',  'Fonds de roulement de démarrage','Autre à préciser'];
-    const LEGALFORM=['S.A.R.L','S.A.R.L A.U','S.N.C','Coopérative','A.E'];
+    const LEGALFORM=['S.A.R.L','S.A.R.L A.U','S.N.C','Coopérative','A.E','Personne Physique','Société en cours de formation'];
     const AIDEETAT=['INDH','DPA','Collectivités territoriales', 'Autre'];
     const Etat=['Demande','Non demande','Delivre', 'Non delivre'];
     const Rubr=['Capital','Apport Personnel/des associés' ,'Subvention INDH','Apport en Numéraire', 'Apport en Nature','Souk At-Tanmia (S A T)'];
@@ -51,8 +51,8 @@ class ProjectApplication extends Model
         'credit_banc',
         'list_mat_file',
         'business_model_arab'
-        
-       
+
+
     ];
 
     /**
@@ -197,7 +197,7 @@ class ProjectApplication extends Model
             $diff =$allmembers->values();
         }
 
-        return [          
+        return [
             [
                 'name' => 'member_id',
                 'type' => 'text',
@@ -251,7 +251,7 @@ class ProjectApplication extends Model
                 'type' => 'number',
                 'label' => 'Montant estimatif de l\'investissement',
                 'group' => 'Données Générales'
-            ], 
+            ],
             [
                 'name' => 'credit_banc',
                 'type' => 'select',
@@ -360,7 +360,7 @@ class ProjectApplication extends Model
                     ],
                 ],
                 'group' => 'Données Entreprise'
-            ],  
+            ],
             [
               'name' => 'company_arab',
                 'type' => 'section',
@@ -561,7 +561,7 @@ class ProjectApplication extends Model
                         'name' => 'pricing_strategy_disc',
                         'type' => 'textarea',
                         'label' => 'Description  de la stratégie de prix',
-                       
+
                     ],
                     [
                         'name' => 'distribution_strategy',
@@ -573,35 +573,35 @@ class ProjectApplication extends Model
                         'type' => 'repeater',
                         'label' => 'Forces'
                     ],
-                   
+
                     [
                         'name' => 'distribution_strategy_faiblesse_p',
                         'type' => 'repeater',
                         'label' => 'Faiblesses'
-                    ], 
+                    ],
                     [
                         'name' => 'distribution_strategy_Opportunité_p',
                         'type' => 'repeater',
                         'label' => 'Opportunités'
-                    ], 
+                    ],
                      [
                         'name' => 'distribution_strategy_menace_p',
                         'type' => 'repeater',
                         'label' => 'Menaces'
-                    ], 
-                   
-                   
+                    ],
+
+
                 ],
                 'group' => 'Étude du marché',
             ],
-            
+
             [
                 'name' => 'business_model',
                 'type' => 'section',
                 'class' => 'kt-callout--success',
                 'label' => 'Business Model',
                 'sub_fields' => [
-                   
+
                      [
                         'name' => 'autorisations_nécessaire_c',
                         'type' => 'repeater',
@@ -634,7 +634,7 @@ class ProjectApplication extends Model
                 'type' => 'section',
                 'class' => 'kt-callout--danger',
                 'sub_fields' => [
-                     
+
                     [
                         'name' => 'startup_needs',
                         'type' => 'repeater',
@@ -657,7 +657,7 @@ class ProjectApplication extends Model
                         'type' => 'repeater',
                         'label' => 'Prêts',
                         'config' => ['quadrupleRepeater' => true, 'attributes' => [['Organisme de crédit',3], ['Montant',3], ['Taux d\'intérêts',3], ['Durée  du prêt en année',3]],'Select'=>false]
-                    ], 
+                    ],
                      [
                         'name' => 'duration_différe',
                         'type' => 'number',
@@ -668,8 +668,8 @@ class ProjectApplication extends Model
                         'type' => 'text',
                         'label' => 'Total  Plan de financement '
                     ],
-                    
-                      
+
+
                 ],
             'group' => 'Étude Technique'
           ],
@@ -700,13 +700,13 @@ class ProjectApplication extends Model
                         'name' => 'ca_produit-service',
                         'type' => 'text',
                         'label' => 'Chiffre d\'affaires annuel'
-                    ],    
+                    ],
                       [
                         'name' => 'saisonnalite',
                         'type' => 'number',
                         'label' => 'Durée d\'activite '
-                    ], 
-                    
+                    ],
+
                     [
                         'name' => 'overheads_fixed',
                         'type' => 'repeater',

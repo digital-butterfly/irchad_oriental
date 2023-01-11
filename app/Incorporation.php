@@ -26,7 +26,7 @@ class Incorporation extends Model
 
     ];
 
-    const LEGALFORM=['S.A.R.L','S.A.R.L A.U','S.N.C','Coopérative','A.E'];
+    const LEGALFORM=['S.A.R.L','S.A.R.L A.U','S.N.C','Coopérative','A.E','Personne Physique','Société en cours de formation'];
 
 
     public static function formFields() {

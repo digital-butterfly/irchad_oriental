@@ -524,25 +524,25 @@
             .attr("value", value).text(key));
         });
     }else if(document.querySelector('#legal_formSelect').value=='S.N.C'){
-        var newOptions = {"IS": "IS","IR(personne physique)":"IR(personne physique)"};
+        var newOptions = {"IS": "IS","IR":"IR"};
         $("#applied_taxSelect").empty();
          $.each(newOptions, function(key,value) {
          $("#applied_taxSelect").append($("<option></option>")
          .attr("value", value).text(key));
         });
     }else if(document.querySelector('#legal_formSelect').value=='Coopérative'){
-        var newOptions = {"IS": "IS","IR(personne physique)":"IR(personne physique)","Exonéré":"Exonéré"};
+        var newOptions = {"IS": "IS","IR":"IR","Exonéré":"Exonéré"};
         $("#applied_taxSelect").empty();
          $.each(newOptions, function(key,value) {
          $("#applied_taxSelect").append($("<option></option>")
-         .attr("value", value).text(key)); 
+         .attr("value", value).text(key));
         });
     }else{
         var newOptions = {"IR(entrepreneur)": "IR(entrepreneur)"};
         $("#applied_taxSelect").empty();
          $.each(newOptions, function(key,value) {
          $("#applied_taxSelect").append($("<option></option>")
-         .attr("value", value).text(key)); 
+         .attr("value", value).text(key));
         });
     }
    });
@@ -556,25 +556,25 @@ $("#applied_taxSelect").empty();
      .attr("value", value).text(key));
 });
 }else if(this.value=='S.N.C'){
-    var newOptions = {"IS": "IS","IR(personne physique)":"IR(personne physique)"};
+    var newOptions = {"IS": "IS","IR":"IR"};
     $("#applied_taxSelect").empty();
      $.each(newOptions, function(key,value) {
      $("#applied_taxSelect").append($("<option></option>")
      .attr("value", value).text(key));
 });
 }else if(this.value=='Coopérative'){
-    var newOptions = {"IS": "IS","IR(personne physique)":"IR(personne physique)","Exonéré":"Exonéré"};
+    var newOptions = {"IS": "IS","IR":"IR","Exonéré":"Exonéré"};
     $("#applied_taxSelect").empty();
      $.each(newOptions, function(key,value) {
      $("#applied_taxSelect").append($("<option></option>")
-     .attr("value", value).text(key)); 
+     .attr("value", value).text(key));
     });
 }else{
     var newOptions = {"IR(entrepreneur)": "IR(entrepreneur)"};
     $("#applied_taxSelect").empty();
      $.each(newOptions, function(key,value) {
      $("#applied_taxSelect").append($("<option></option>")
-     .attr("value", value).text(key)); 
+     .attr("value", value).text(key));
     });
 }
 

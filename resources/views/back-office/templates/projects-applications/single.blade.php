@@ -98,7 +98,7 @@
                                     <div class="kt-widget__subhead">
                                         <a href="#"><i class="flaticon2-calendar-3"></i>{{ $application->created_at->format('d/m/Y') }}</a>
                                         <a ><i class="flaticon2-new-email"></i>{{ $application->category_title }}
-                                       
+
                                     </a>
                                         <a href="#"><i class="flaticon2-placeholder"></i> Al Hoceima - {{ $application->township_name }}</a>
                                     </div>
@@ -264,7 +264,7 @@
                             <li class="kt-sticky-toolbar__item kt-sticky-toolbar__item--brand" id="kt_demo_panel_toggle" data-toggle="kt-tooltip" title="" data-placement="right" data-original-title="Données Entreprise">
                                 <a href="{{ url(Request::url().'#company') }}"><i class="flaticon-profile-1"></i></a>
                             </li>
-                            
+
                             <li class="kt-sticky-toolbar__item kt-sticky-toolbar__item--success" data-toggle="kt-tooltip" title="" data-placement="left" data-original-title="Étude du marché">
                                 <a href="{{ url(Request::url().'#business_model') }}"><i class="flaticon-suitcase"></i></a>
                             </li>
@@ -299,7 +299,7 @@
                                                         </ul>
                                                     </div><br />
                                                 @endif
-                                             
+
                                               <div class="alert alert-danger" id="alert_id" style="display:none;">
                                                         <ul>
                                                          <li>le programme d'investissement n'est pas égal a le plan financement!</li>
@@ -444,7 +444,7 @@
                                                         <button type="submit" class="btn btn-primary kt-align-center">Enregistrer les modifications</button>
                                                     </div>
                                                 </div> --}}
-                                                
+
                                                 <div class="kt-portlet__foot sticky-save">
                                                 <div class="kt-form__actions">
                                                     <button type="submit" class="btn btn-primary kt-align-center">Enregistrer les modifications</button>
@@ -455,7 +455,7 @@
 
 
 
-                                                
+
                                             </div>
                                             @csrf
 
@@ -469,15 +469,15 @@
                                                <a href="/admin/print-business-plan-arabe/{{Route::current()->parameters['candidature']}}"class="kt-widget__title">
                                                  <span type="button" class="btn btn-brand btn-bold" ><i class="flaticon2-printer"></i></span>
                                                </a>
-                                                </div> 
+                                                </div>
                                                  <form id="candidaturesform"method="POST"  class="" action="{{ route('candidature.update', $data->id) }}" enctype="multipart/form-data">
                                                  @method('PUT')
                                                 <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid printable-bp">
                                                     <div class="kt-section kt-section--second">
 
                                                     {{-- @include('back-office.components.portlets.business-plan') --}}
-                                                                 @php $done_groups = []; 
-                                                    //dd($fields); 
+                                                                 @php $done_groups = [];
+                                                    //dd($fields);
                                                     @endphp
                                                     @foreach ($fields as $parent)
                                                     @php   @endphp
@@ -487,7 +487,7 @@
                                                                 @php
                                                                     $done_groups[] = $parent['group'];
                                                                     $done_fields[] = [];
-                                                                   // 
+                                                                   //
                                                                 @endphp
                                                                 <div class="kt-portlet kt-portlet--mobile  text-right  {{ $parent['class'] }}" id="{{ $parent['name'] === 'member_id' ? 'member' : $parent['name'] }}" >
                                                                     <div class="kt-portlet__head"dir="rtl">
@@ -503,7 +503,7 @@
                                                                                 @if (!isset($child['sub_fields']))
                                                                                     @if (!in_array($child['name'], $done_fields))
                                                                                     @php
-                                                                                   
+
                                                                                         $done_fields[] = $child['name'];
                                                                                         $child['config']['hotizontalRows'] = true;
                                                                                     @endphp
@@ -529,24 +529,24 @@
                                                               @endif
                                                         @endif
                                                     @endforeach
-                                                </div>   
+                                                </div>
                                                   <div class="kt-portlet__foot sticky-save">
                                                 <div class="kt-form__actions">
                                                     <button type="submit" class="btn btn-primary kt-align-center">Enregistrer les modifications</button>
-                                              @csrf  
+                                              @csrf
                                                    </div>
 
-                                                
+
                                                         </div>
-                                             
-                                              
-                                               </form>  
-                                              </div> 
-                                               
-                                            
+
+
+                                               </form>
+                                              </div>
+
+
                                             </div>
-                                           
-                                       
+
+
 
 
                                             <!--end: Form Wizard Step 2-->
@@ -723,7 +723,7 @@
 
                                             @csrf
                                          @csrf
-                                        </form> 
+                                        </form>
                                 </form>
                                         <!--end: Form Actions -->
                                     </div>
@@ -1222,7 +1222,7 @@
 
 
 
-                                     
+
 
 
                 </div>
@@ -2925,8 +2925,8 @@
 				}
 			};
 		}();
-       
-       
+
+
 
 		jQuery(document).ready(function() {
 			KTFormRepeater.init();
@@ -2947,9 +2947,9 @@ $messageError='';
 if(isset($application->financial_data->startup_needs)){
     foreach($application->financial_data->startup_needs as $data){
    $total+=$data->value;
-   
+
     }
-    
+
    //sdd($total);
 }
 if(isset($application->business_model_arab->nombre_ress)){
@@ -2965,24 +2965,24 @@ if(isset($application->financial_data->financial_plan)){
     foreach($application->financial_data->financial_plan as $data){
    $total1+=$data->value;
    //dd($data->value);
-   }  
+   }
 }
 if(isset($application->financial_data->financial_plan_loans)){
    foreach($application->financial_data->financial_plan_loans as $data){
    $total2+=$data->value;
-    }  
+    }
 }
  $some_total=$total2+$total1;
 if($some_total>$total){
     $messageError=' le programme d\'investissement  n\'est pas egual a le plan financement!';
-} 
+}
 //dd($some_total);
 @endphp
 @section('page_content')
                                                         <div class="alert alert-danger">
                                                         <p> {{$messageError}}</p>
                                                     </div><br />
-                                               
+
 @endsection
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js"></script>
 <script
@@ -2993,7 +2993,7 @@ if($some_total>$total){
 
 
 window.addEventListener('load',function(){
-    let stop = false 
+    let stop = false
 
     const interval = setInterval(function(){
         if(!stop){
@@ -3016,7 +3016,7 @@ window.addEventListener('load',function(){
 })
 
 window.addEventListener('load',function(){
-     
+
 var element= '<?php echo $total ?>';
 var total= '<?php echo  $total_ca ?>';
 var test= '<?php echo $some_total ?>';
@@ -3031,11 +3031,11 @@ console.log(test);
  //});
    // var value1 = $( this ).val()0.4;
    // var value2 = $( this ).val()0.6;
-   
+
    if(element!=test){
-     $('#alert_id').show();  
+     $('#alert_id').show();
    }else{
-        $('#alert_id').hide();  
+        $('#alert_id').hide();
         console.log(test);
    }
    // console.log($('#overheads_fixed').val());
@@ -3059,22 +3059,22 @@ console.log(test);
         var newOptions = {"IS": "IS"};
         $("#applied_taxSelect").empty();
             $.each(newOptions, function(key,value) {
-            $("#applied_taxSelect").append($("<option></option>") 
+            $("#applied_taxSelect").append($("<option></option>")
             .attr("value", value).text(key)).val(applied_tax).change();
         });
     }else if(document.querySelector('#legal_formSelect').value=='S.N.C'){
-        var newOptions = {"IS": "IS","IR(personne physique)":"IR(personne physique)"};
+        var newOptions = {"IS": "IS","IR":"IR"};
         $("#applied_taxSelect").empty();
          $.each(newOptions, function(key,value) {
          $("#applied_taxSelect").append($("<option></option>")
          .attr("value", value).text(key)).val(applied_tax).change();
         });
     }else if(document.querySelector('#legal_formSelect').value=='Coopérative'){
-        var newOptions = {"IS": "IS","IR(personne physique)":"IR(personne physique)","Exonéré":"Exonéré"};
+        var newOptions = {"IS": "IS","IR":"IR","Exonéré":"Exonéré"};
         $("#applied_taxSelect").empty();
          $.each(newOptions, function(key,value) {
          $("#applied_taxSelect").append($("<option></option>")
-         .attr("value", value).text(key)).val(applied_tax).change(); 
+         .attr("value", value).text(key)).val(applied_tax).change();
         });
     }else if(document.querySelector('#legal_formSelect').value=='A.E'){
     var newOptions = {'Auto-entrepreneur activité commerciale, industrielle ou artisanale':'Auto-entrepreneur activité commerciale, industrielle ou artisanale', 'Auto-entrepreneur prestataire de services':'Auto-entrepreneur prestataire de services'};
@@ -3084,7 +3084,7 @@ console.log(test);
          .attr("value", value).text(key)).val(applied_tax).change();
         });
     }
- 
+
 
 $('#legal_formSelect').on('change',function () {
 if(document.querySelector('#legal_formSelect').value=='S.A.R.L' || document.querySelector('#legal_formSelect').value=='S.A.R.L A.U')
@@ -3096,25 +3096,25 @@ $("#applied_taxSelect").empty();
      .attr("value", value).text(key));
 });
 }else if(document.querySelector('#legal_formSelect').value=='S.N.C'){
-    var newOptions = {"IS": "IS","IR(personne physique)":"IR(personne physique)"};
+    var newOptions = {"IS": "IS","IR":"IR"};
     $("#applied_taxSelect").empty();
      $.each(newOptions, function(key,value) {
      $("#applied_taxSelect").append($("<option></option>")
      .attr("value", value).text(key));
 });
 }else if(document.querySelector('#legal_formSelect').value=='Coopérative'){
-    var newOptions = {"IS": "IS","IR(personne physique)":"IR(personne physique)","Exonéré":"Exonéré"};
+    var newOptions = {"IS": "IS","IR":"IR","Exonéré":"Exonéré"};
     $("#applied_taxSelect").empty();
      $.each(newOptions, function(key,value) {
      $("#applied_taxSelect").append($("<option></option>")
-     .attr("value", value).text(key)); 
+     .attr("value", value).text(key));
     });
 }else if(document.querySelector('#legal_formSelect').value=='A.E'){
     var newOptions = {'Auto-entrepreneur activité commerciale, industrielle ou artisanale':'Auto-entrepreneur activité commerciale, industrielle ou artisanale', 'Auto-entrepreneur prestataire de services':'Auto-entrepreneur prestataire de services'};
     $("#applied_taxSelect").empty();
      $.each(newOptions, function(key,value) {
      $("#applied_taxSelect").append($("<option></option>")
-     .attr("value", value).text(key)); 
+     .attr("value", value).text(key));
     });
 }
 

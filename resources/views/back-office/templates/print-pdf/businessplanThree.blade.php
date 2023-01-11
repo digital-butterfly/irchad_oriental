@@ -1,4 +1,5 @@
 @php
+
  $total_overheads_fixed=0;
 $files[]='';
 $critères[]=[];
@@ -15,7 +16,7 @@ $total_rem=0;
 $total_interets=0;
 $total_van=0;
 $total_van_verify=0;
-          $total_cash=0; 
+          $total_cash=0;
           $tri=0;
  $bp_evolution_rate = isset($data ->financial_data->evolution_rate) ? $data ->financial_data->evolution_rate : 0;
 // Financial Plan
@@ -24,14 +25,14 @@ $bp_financial_plan_total = 0;
 ///dd(count($data->financial_data->financial_plan));
 if(isset($data->financial_data->financial_plan)){
     foreach ($data ->financial_data->financial_plan as $item) {
-    $bp_financial_plan_totals += $item->value; 
+    $bp_financial_plan_totals += $item->value;
     }}
 if(isset($data->financial_data->financial_plan_loans)){
     foreach ($data ->financial_data->financial_plan_loans as $item) {
        isset($item->label)?$arrytwer['name']=$item->label:$arrytwer['name']='';
         $arrytwer['value']= number_format($bp_financial_plan_totals !=0?$item->value/$bp_financial_plan_totals *100:0,0, ',', ' ');
         array_push($dataPlan, $arrytwer);
-    $bp_financial_plan_totals += $item->value; 
+    $bp_financial_plan_totals += $item->value;
     }}
 if(isset($data->financial_data->financial_plan)){
     foreach ($data ->financial_data->financial_plan as $item) {
@@ -40,10 +41,10 @@ if(isset($data->financial_data->financial_plan)){
         array_push($dataPlan, $arrytwer);
     }
 }
-//$coount=0; 
+//$coount=0;
 if (isset($data->financial_data->financial_plan_loans)) {
     foreach ($data->financial_data->financial_plan_loans as $item) {
-        $bp_financial_plan_total += $item->value;    
+        $bp_financial_plan_total += $item->value;
     }
 }
 // Investment Program
@@ -51,17 +52,17 @@ $bp_investment_program_total = 0;
 $total_taxe_amortisement=0;
 if (isset($data->financial_data->startup_needs)) {
     foreach ($data->financial_data->startup_needs as $item) {
-     
-          $bp_investment_program_total += $item->value ?? 0; 
+
+          $bp_investment_program_total += $item->value ?? 0;
           if($item->label!='Fonds de roulement de démarrage'){
         if($item->value!=0 && $item->rate!=0){
            $total_taxe_amortisement+=($item->value/(1+$item->duration/100))*$item->rate/100;
-        } 
-      }       
+        }
+      }
     }
 }
 //dd( $total_taxe_amortisement);
-  //total charge 
+  //total charge
    $total1=0;
    $total2=0;
    $total3=0;
@@ -72,14 +73,14 @@ if (isset($data->financial_data->startup_needs)) {
           if ($item->label != NULL) {
              $total1=$total1+ $item->value;
              $total2+= $item->value + ($item->value * $bp_evolution_rate / 100);
-             $total3+= ($item->value+  ($item->value * $bp_evolution_rate / 100)) + ($item->value + ($item->value * $bp_evolution_rate / 100)) * $bp_evolution_rate / 100;  
+             $total3+= ($item->value+  ($item->value * $bp_evolution_rate / 100)) + ($item->value + ($item->value * $bp_evolution_rate / 100)) * $bp_evolution_rate / 100;
              $total4+=$total3+ ($item->value + ($item->value * $bp_evolution_rate / 100)) * $bp_evolution_rate / 100;
              $total5+=$total4+ ($item->value + ($item->value * $bp_evolution_rate / 100)) * $bp_evolution_rate / 10;
-          }                                          
-        }                                     
+          }
+        }
  }
-                                
-                                
+
+
 // Parameters
 $bp_turnover_products_total =  0;
 $bp_turnover_products_total1 =  0;
@@ -98,31 +99,31 @@ if (isset($data ->financial_data->products_turnover_forecast)){
       if(isset($total->duration)){
         $achat_t=(1-($total->duration/100));
       }else{
-       $achat_t=0; 
+       $achat_t=0;
       }
       if(isset($total->otherValue)){
          if(isset($total->organisme)){
         $bp_turnover_products_total1 = $bp_turnover_products_total1 +(($total->otherValue *$total->organisme)*$achat_t) ;
         $total_p +=$total->otherValue*$total->organisme;
-        $bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration;  
+        $bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration;
         }else{
         $bp_turnover_products_total1 = $bp_turnover_products_total1 +(( $total->otherValue*$saisonalite)* $achat_t) ;
         $total_p += ( $total->otherValue *$saisonalite) ;
-        $bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration; 
+        $bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration;
         }
       }else{
         if(isset($total->organisme)){
         $bp_turnover_products_total1 = $bp_turnover_products_total1 +(( $total->rate * $total->value*$total->organisme)*$achat_t) ;
         $total_p += $total->rate * $total->value*$total->organisme;
-        $bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration;  
+        $bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration;
         }else{
         $bp_turnover_products_total1 = $bp_turnover_products_total1 +(( $total->rate * $total->value*$saisonalite)* $achat_t) ;
         $total_p += ( $total->rate * $total->value*$saisonalite) ;
-        $bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration; 
+        $bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration;
         }
       }
-    
-    }      
+
+    }
   }
   //dd($total_p);
     if (isset($data ->financial_data->services_turnover_forecast_c)){
@@ -130,40 +131,40 @@ if (isset($data ->financial_data->products_turnover_forecast)){
         if(isset($total->duration)){
         $achat_t=(1-($total->duration/100));
       }else{
-       $achat_t=0; 
+       $achat_t=0;
       }
          if(isset($total->otherValue)){
          if(isset($total->organisme)){
         $bp_turnover_products_total2 = $bp_turnover_products_total2 +(($total->otherValue *$total->organisme)* $achat_t) ;
         $total_s +=$total->otherValue*$total->organisme;
-        $bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration;  
+        $bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration;
         }else{
         $bp_turnover_products_total2 = $bp_turnover_products_total2 +(( $total->otherValue*$saisonalite)*  $achat_t) ;
         $total_s += ( $total->otherValue *$saisonalite) ;
-        $bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration; 
+        $bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration;
         }
       }else{
         if(isset($total->organisme)){
           if(isset($total->rate)){
           $bp_turnover_products_total2 = $bp_turnover_products_total2+(( $total->rate * $total->value*$total->organisme)* $achat_t) ;
-          $total_s += $total->rate * $total->value*$total->organisme;  
-           $bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration;   
+          $total_s += $total->rate * $total->value*$total->organisme;
+           $bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration;
           }
-        
-      
+
+
         }else{
           if(isset($total->rate)){
          $bp_turnover_products_total2 = $bp_turnover_products_total2 +(( $total->rate * $total->value*$saisonalite)* $achat_t) ;
          $total_s += ( $total->rate * $total->value*$saisonalite) ;
-          $bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration; 
+          $bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration;
           }
 
-       
+
         }
       }
-    
-         
-        //$bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration;  
+
+
+        //$bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration;
     }
 }
 $perPage=8;
@@ -213,7 +214,7 @@ if (isset($data ->financial_data->services_turnover_forecast_c)){
          $total_mensuel_s = $total_mensuel_s +( $total->rate * $total->value) ;
       }
       }
-      
+
     }
 }
 //dd($total_s);
@@ -221,7 +222,7 @@ $bp_turnover_products_total= $bp_turnover_products_total2+ $bp_turnover_products
 $bp_turnover_products_totals=$total_s+$total_p;
 $total_mensuel=$total_mensuel_p+$total_mensuel_s;
 //dd($total_s);
-$bp_turnover_services_total = isset($data ->financial_data->services_turnover_forecast) ? $data ->financial_data->services_turnover_forecast : 0 ;                                                                                                                                                           
+$bp_turnover_services_total = isset($data ->financial_data->services_turnover_forecast) ? $data ->financial_data->services_turnover_forecast : 0 ;
 // Loans Amortization
 $bp_loan_periodic_rate = 0;
 $bp_loan_monthly_payment = 0;
@@ -275,7 +276,7 @@ if(isset($data ->financial_data->financial_plan_loans))
     $monthsCalcul=[];
     $yearsCalcul=[];
     $duree_pret=0;
-    
+
     if(isset($data ->financial_data->financial_plan_loans))
     {
     foreach ($data ->financial_data->financial_plan_loans as $item) {
@@ -290,37 +291,37 @@ if(isset($data ->financial_data->financial_plan_loans))
      $capital_rest_fee=$montant*(1+$Taux_interet*$differe/12);
      $capital_rest_zero=round($montant,2);
      //dd($capital_rest);
-    for ($i=0; $i < $months ; $i++) { 
-      
-     
+    for ($i=0; $i < $months ; $i++) {
+
+
      //dd($mensualite);
       if($i>=$differe){
         if((1-pow(1+$Taux_interet/12,-$months+$differe))==0){
-          $mensualite=round(($capital_rest_fee*($Taux_interet/12))/1,2);  
+          $mensualite=round(($capital_rest_fee*($Taux_interet/12))/1,2);
           $i==0 ? $capital_rest=$montant : $capital_rest=$capital_rest;
           $interets=round(($capital_rest*$Taux_interet)/12,2);
           $capital_rem= round($mensualite-$interets,2);
           $capital_rest= round($capital_rest,2)-($mensualite-$interets) ;
         }else{
-          $mensualite=round(($capital_rest_fee*($Taux_interet/12))/(1-pow(1+$Taux_interet/12,-$months+$differe)),2);  
+          $mensualite=round(($capital_rest_fee*($Taux_interet/12))/(1-pow(1+$Taux_interet/12,-$months+$differe)),2);
           $i==0 ? $capital_rest=$montant : $capital_rest=$capital_rest;
           $interets=round(($capital_rest*$Taux_interet)/12,2);
           $capital_rem= round($mensualite-$interets,2);
           $capital_rest= round($capital_rest,2)-($mensualite-$interets) ;
         }
-        
+
       }else{
        $i==0 ? $capital_rest= $capital_rest_zero+round(($capital_rest_zero*$Taux_interet*1/12),2) : $capital_rest=0;
         $mensualite=0;
         $interets=0;
         $capital_rem= 0;
-        $capital_rest=$capital_rest_zero+round(($capital_rest_zero*(($Taux_interet)*($i+1)/12)),2);  
+        $capital_rest=$capital_rest_zero+round(($capital_rest_zero*(($Taux_interet)*($i+1)/12)),2);
       }
       array_push($monthsCalcul,(object) ["mensualite"=>$mensualite,"interets"=>$interets,"capital_rem"=>$capital_rem,"capital_rest"=>$capital_rest]);
     }
 
 
-    for ($i=1; $i <= $duree_pret; $i++) { 
+    for ($i=1; $i <= $duree_pret; $i++) {
         $mensualiteYear=0;
         $interetsYear=0;
         $capital_remYear=0;
@@ -346,7 +347,7 @@ if(isset($data ->financial_data->financial_plan_loans))
 // foreach ($yearsCalcul as $key => $yearData) {
 //         dd( number_format($yearData->mensualite,10,'',''));
 // }
-//Turnover 
+//Turnover
 $taxe_impot_first_year=0;
 $taxe_impot_second_year=0;
 $taxe_impot_third_year=0;
@@ -358,8 +359,8 @@ $total_impot_loyer=0;
 $imp_project=isset($data->company->implantation_project)?$data->company->implantation_project:'';
                                       //dd($data->company->implantation_project);
                                       $taxe=0;
-                                       $total_taxe1 =0; 
-                                       $total_taxe2 =0; 
+                                       $total_taxe1 =0;
+                                       $total_taxe2 =0;
                                          if($imp_project=='Urbain'){
                                         $taxe=0.105 ;
                                         }elseif($imp_project=='Rural'){
@@ -369,36 +370,36 @@ $imp_project=isset($data->company->implantation_project)?$data->company->implant
   foreach ($data->financial_data->overheads_fixed as $item) {
     if($item->label=='loyer'|| $item->label=='loyers'|| $item->label=='Loyer'){
       $total_impot_taxe1= $item->value*12*$taxe;
-    }}  
- } 
+    }}
+ }
   if(isset($data->financial_data->overheads_fixed)){
   foreach ($data->financial_data->overheads_fixed as $item) {
     if($item->label=='loyer'|| $item->label=='loyers'|| $item->label=='Loyer'){
       $total_impot_loyer= $item->value*12;
-    }}  
- } 
+    }}
+ }
  if(isset($data->financial_data->startup_needs)){
   foreach ($data->financial_data->startup_needs as $item) {
     if(isset($item->label)){
       if($item->label !='Frais preliminaires' && $item->label !='Matériel de transport' && $item->label !='Fonds de roulement de démarrage' ){
       $total_impot_taxe2+=($item->value/(1+($item->duration/100))*0.03)*$taxe;
-    }}  
-    }  
- }  
+    }}
+    }
+ }
  $total_autre_taxe=0;
  if(isset($data->financial_data->taxes)){
    foreach ($data->financial_data->taxes as $item) {
      $total_autre_taxe+= $item->value;
    }
  }
-                  
+
 
 $taxe_impot_first_year=$total_impot_taxe1+$total_impot_taxe2+ $total_autre_taxe;
 $taxe_impot_second_year=$total_impot_taxe1+$total_impot_taxe2+ $total_autre_taxe;
 $taxe_impot_third_year=$total_impot_taxe1+$total_impot_taxe2 + $total_autre_taxe;
 $taxe_impot_four_year=($total_impot_taxe1*1.1)+$total_impot_taxe2 + $total_autre_taxe;
 $taxe_impot_five_year=($total_impot_taxe1*1.1)+$total_impot_taxe2+  $total_autre_taxe;
-                                                     
+
 ///////////
 
 
@@ -438,14 +439,14 @@ $bp_purchase_five_year =  $bp_purchase_four_year  *(1+$bp_evolution_rate/100);
 }
 
 
-  
+
 // Gross Margin
 $bp_gross_margin_first_year = $bp_turnover_first_year - $bp_purchase_first_year;
 //dd($bp_purchase_first_year);
 $bp_gross_margin_second_year = $bp_turnover_second_year - $bp_purchase_second_year;
 $bp_gross_margin_third_year = $bp_turnover_third_year - $bp_purchase_third_year;
 $bp_gross_margin_four_year = $bp_turnover_four_year - $bp_purchase_four_year;
-$bp_gross_margin_five_year = $bp_turnover_five_year - $bp_purchase_five_year; 
+$bp_gross_margin_five_year = $bp_turnover_five_year - $bp_purchase_five_year;
 
 $bp_overheads_fixed_first_year =  0;
 $bp_overheads_fixed_second_year =  0;
@@ -470,10 +471,10 @@ if(isset($data ->financial_data->overheads_fixed))
     $bp_overheads_fixed_four_year += $item->value *12;
     $bp_overheads_fixed_five_year += $item->value*12;
     }
-       } 
+       }
       }
-  
-     
+
+
 }
 }
 //dd($bp_overheads_fixed_first_year);
@@ -489,7 +490,7 @@ if(isset($data ->financial_data->overheads_scalable)){
         $total_charge_var += $item->value*12;
       }
       }
-    
+
 }}
 $bp_overheads_scalable_first_year =  0;
 $bp_overheads_scalable_second_year =  0;
@@ -510,10 +511,10 @@ if($bp_evolution_rate>0){
     $bp_overheads_scalable_four_year =  $bp_overheads_scalable_third_year *(1+$bp_evolution_rate / 100);
     $bp_overheads_scalable_five_year =  $bp_overheads_scalable_four_year* (1+$bp_evolution_rate / 100);
       }
-   
+
     }
 }
-}else{   
+}else{
 $bp_overheads_scalable_first_year =  $total_charge_var;
 $bp_overheads_scalable_second_year =  $total_charge_var;
 $bp_overheads_scalable_third_year =  $total_charge_var;
@@ -556,10 +557,10 @@ if(isset($data ->financial_data->human_ressources))
      }else{
        $bp_human_ressources_total += ($item->value * $item->rate*$item->duration);
      }
-    
+
     $bp_human_ressources_rows++;
       }
-    
+
     }
 }
 
@@ -631,7 +632,7 @@ if($key==0){
   $bp_financial_expenses_four_year = $yearData->interets;
 } elseif($key==4) {
   $bp_financial_expenses_five_year = $yearData->interets;
-} 
+}
 
 }
 // Financial Expenses
@@ -651,7 +652,7 @@ $bp_current_result_third_year = $bp_gross_income_third_year + $bp_financial_resu
 $bp_current_result_four_year = $bp_gross_income_four_year + $bp_financial_result_four_year;
 $bp_current_result_five_year = $bp_gross_income_five_year + $bp_financial_result_five_year;
 // dd(  $bp_current_result_five_year);
-//dd($bp_financial_result_third_year);  
+//dd($bp_financial_result_third_year);
 // Income Before Taxes
 $bp_income_before_taxes_first_year = $bp_current_result_first_year;
 $bp_income_before_taxes_second_year = $bp_current_result_second_year;
@@ -695,7 +696,7 @@ if (($data ->company->applied_tax ?? '') == 'IS') {
               //           }
               // $thirdTranche = $rest - $rest * 0.31;
               $bp_corporate_tax_first_year  = $bp_income_before_taxes_first_year* 0.2825;
-            
+
             break;
     }
     switch (true) {
@@ -786,286 +787,295 @@ if (($data ->company->applied_tax ?? '') == 'IS') {
 }
 elseif (($data ->company->applied_tax ?? '') == 'IR') {
   //  dd($bp_income_before_taxes_second_year);
-    switch (true) {
-        case ($bp_income_before_taxes_first_year > 0 && $bp_income_before_taxes_first_year <= 30000):
-            $bp_corporate_tax_first_year = $bp_income_before_taxes_first_year;
-            break;
-        case ($bp_income_before_taxes_first_year > 30000 && $bp_income_before_taxes_first_year <= 50000):
-             $is = $bp_income_before_taxes_first_year * 10 / 100;
-             $bp_corporate_tax_first_year = $is-$bp_income_before_taxes_first_year * 10 / 100;               
-            break;
-        case ($bp_income_before_taxes_first_year > 50000 && $bp_income_before_taxes_first_year <= 60000):
-             $firstTranche = 50000 - 50000 * 0.1;
-             $secondTranche = $bp_income_before_taxes_first_year - 50000 - ($bp_income_before_taxes_first_year - 50000) * 0.2;
-             $bp_corporate_tax_first_year  = $firstTranche + $secondTranche;
-            break;
-        case ($bp_income_before_taxes_first_year > 60000 && $bp_income_before_taxes_first_year <= 80000):
-                 $rest = $bp_income_before_taxes_first_year - 50000;
-                 $firstTranche = 50000 - 50000 * 0.1;
-                 $rest = $rest - 60000;
-                 $secondTranche = 60000 - 60000 * 0.2;
-                        if ($rest < 0) {
-                            $rest = 0;
-                        }
-                 $thirdTranche = $rest - $rest * 0.31;
-                 $bp_corporate_tax_first_year  = $firstTranche + $secondTranche + $thirdTranche;
-            break;
-        case ($bp_income_before_taxes_first_year > 80000 && $bp_income_before_taxes_first_year <= 180000):
-                  $rest = $bp_income_before_taxes_first_year - 50000;
-                  $firstTranche = 50000 - 50000 * 0.1;
-                  $rest = $rest - 60000;
-                  $secondTranche = 60000 - 60000 * 0.2;
-                  $rest = $rest - 80000;
-                  $thirdTranche = 80000 - 80000 * 0.3;
-                   if ($rest < 0) {
-                    $rest = 0;
-                           }
-                   $fourTranche = $rest - $rest * 0.34;
-                   $bp_corporate_tax_first_year = $firstTranche + $secondTranche + $thirdTranche + $fourTranche;
-           // $bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 34 / 100;
-            break;
-        case ($bp_income_before_taxes_first_year > 180000):
-         $rest = $bp_income_before_taxes_first_year - 50000;
-         $firstTranche = 50000 - 50000 * 0.1;
-         $rest = $rest - 60000;
-         $secondTranche = 60000 - 60000 * 0.2;
-         $rest = $rest - 80000;
-         $thirdTranche = 80000 - 80000 * 0.3;
-         $rest = $rest - 180000;
-         $fourTranche = 180000 - 180000 * 0.34;
-         if ($rest < 0) {
-             $rest = 0;
-              }
-          $fiveTranche = $rest - $rest * 0.38;
-          $bp_corporate_tax_first_year = $firstTranche + $secondTranche + $thirdTranche + $fourTranche + $fiveTranche;
-          //$bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 38 / 100;
-            break;
-    }
-    switch (true) {
-        case ($bp_income_before_taxes_second_year > 0 && $bp_income_before_taxes_second_year <= 30000):
-            $bp_corporate_tax_second_year = $bp_income_before_taxes_second_year;
-            break;
-        case ($bp_income_before_taxes_second_year > 30000 && $bp_income_before_taxes_second_year <= 50000):
-             $is = $bp_income_before_taxes_second_year * 10 / 100;
-             $bp_corporate_tax_second_year = $is-$bp_income_before_taxes_second_year * 10 / 100;               
-            break;
-        case ($bp_income_before_taxes_second_year > 50000 && $bp_income_before_taxes_second_year <= 60000):
-             $firstTranche = 50000 - 50000 * 0.1;
-             $secondTranche = $bp_income_before_taxes_second_year - 50000 - ($bp_income_before_taxes_second_year - 50000) * 0.2;
-             $bp_corporate_tax_second_year  = $firstTranche + $secondTranche;
-            break;
-        case ($bp_income_before_taxes_second_year > 60000 && $bp_income_before_taxes_second_year <= 80000):
-                 $rest = $bp_income_before_taxes_second_year - 50000;
-                 $firstTranche = 50000 - 50000 * 0.1;
-                 $rest = $rest - 60000;
-                 $secondTranche = 60000 - 60000 * 0.2;
-                        if ($rest < 0) {
-                            $rest = 0;
-                        }
-                 $thirdTranche = $rest - $rest * 0.31;
-                 $bp_corporate_tax_second_year  = $firstTranche + $secondTranche + $thirdTranche;
-            break;
-        case ($bp_income_before_taxes_second_year > 80000 && $bp_income_before_taxes_second_year <= 180000):
-                  $rest = $bp_income_before_taxes_second_year - 50000;
-                  $firstTranche = 50000 - 50000 * 0.1;
-                  $rest = $rest - 60000;
-                  $secondTranche = 60000 - 60000 * 0.2;
-                  $rest = $rest - 80000;
-                  $thirdTranche = 80000 - 80000 * 0.3;
-                   if ($rest < 0) {
-                    $rest = 0;
-                           }
-                   $fourTranche = $rest - $rest * 0.34;
-                   $bp_corporate_tax_second_year = $firstTranche + $secondTranche + $thirdTranche + $fourTranche;
-           // $bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 34 / 100;
-            break;
-        case ($bp_income_before_taxes_second_year > 180000):
-         $rest = $bp_income_before_taxes_second_year - 50000;
-         $firstTranche = 50000 - 50000 * 0.1;
-         $rest = $rest - 60000;
-         $secondTranche = 60000 - 60000 * 0.2;
-         $rest = $rest - 80000;
-         $thirdTranche = 80000 - 80000 * 0.3;
-         $rest = $rest - 180000;
-         $fourTranche = 180000 - 180000 * 0.34;
-         if ($rest < 0) {
-             $rest = 0;
-              }
-          $fiveTranche = $rest - $rest * 0.38;
-          $bp_corporate_tax_second_year = $firstTranche + $secondTranche + $thirdTranche + $fourTranche + $fiveTranche;
-          //$bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 38 / 100;
-            break;
-    }
-    switch (true) {
-        case ($bp_income_before_taxes_third_year > 0 && $bp_income_before_taxes_third_year <= 30000):
-            $bp_corporate_tax_third_year = $bp_income_before_taxes_third_year;
-            break;
-        case ($bp_income_before_taxes_third_year > 30000 && $bp_income_before_taxes_third_year <= 50000):
-             $is = $bp_income_before_taxes_third_year * 10 / 100;
-             $bp_corporate_tax_third_year = $is-$bp_income_before_taxes_third_year * 10 / 100;               
-            break;
-        case ($bp_income_before_taxes_third_year > 50000 && $bp_income_before_taxes_third_year <= 60000):
-             $firstTranche = 50000 - 50000 * 0.1;
-             $secondTranche = $bp_income_before_taxes_third_year - 50000 - ($bp_income_before_taxes_third_year - 50000) * 0.2;
-             $bp_corporate_tax_third_year  = $firstTranche + $secondTranche;
-            break;
-        case ($bp_income_before_taxes_third_year > 60000 && $bp_income_before_taxes_third_year <= 80000):
-                 $rest = $bp_income_before_taxes_third_year - 50000;
-                 $firstTranche = 50000 - 50000 * 0.1;
-                 $rest = $rest - 60000;
-                 $secondTranche = 60000 - 60000 * 0.2;
-                        if ($rest < 0) {
-                            $rest = 0;
-                        }
-                 $thirdTranche = $rest - $rest * 0.31;
-                 $bp_corporate_tax_third_year  = $firstTranche + $secondTranche + $thirdTranche;
-            break;
-        case ($bp_income_before_taxes_third_year > 80000 && $bp_income_before_taxes_third_year <= 180000):
-                  $rest = $bp_income_before_taxes_third_year - 50000;
-                  $firstTranche = 50000 - 50000 * 0.1;
-                  $rest = $rest - 60000;
-                  $secondTranche = 60000 - 60000 * 0.2;
-                  $rest = $rest - 80000;
-                  $thirdTranche = 80000 - 80000 * 0.3;
-                   if ($rest < 0) {
-                    $rest = 0;
-                           }
-                   $fourTranche = $rest - $rest * 0.34;
-                   $bp_corporate_tax_third_year = $firstTranche + $secondTranche + $thirdTranche + $fourTranche;
-           // $bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 34 / 100;
-            break;
-        case ($bp_income_before_taxes_third_year > 180000):
-         $rest = $bp_income_before_taxes_third_year - 50000;
-         $firstTranche = 50000 - 50000 * 0.1;
-         $rest = $rest - 60000;
-         $secondTranche = 60000 - 60000 * 0.2;
-         $rest = $rest - 80000;
-         $thirdTranche = 80000 - 80000 * 0.3;
-         $rest = $rest - 180000;
-         $fourTranche = 180000 - 180000 * 0.34;
-         if ($rest < 0) {
-             $rest = 0;
-              }
-          $fiveTranche = $rest - $rest * 0.38;
-          $bp_corporate_tax_third_year = $firstTranche + $secondTranche + $thirdTranche + $fourTranche + $fiveTranche;
-          //$bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 38 / 100;
-            break;
-    }
-    switch (true) {
-        case ($bp_income_before_taxes_four_year > 0 && $bp_income_before_taxes_four_year <= 30000):
-       
-            $bp_corporate_tax_four_year = $bp_income_before_taxes_four_year;
-            break;
-        case ($bp_income_before_taxes_four_year > 30000 && $bp_income_before_taxes_four_year <= 50000):
-             $is = $bp_income_before_taxes_four_year * 10 / 100;
-             $bp_corporate_tax_four_year = $is-$bp_income_before_taxes_four_year * 10 / 100;               
-            break;
-        case ($bp_income_before_taxes_four_year > 50000 && $bp_income_before_taxes_four_year <= 60000):
-             $firstTranche = 50000 - 50000 * 0.1;
-             $secondTranche = $bp_income_before_taxes_four_year - 50000 - ($bp_income_before_taxes_four_year - 50000) * 0.2;
-             $bp_corporate_tax_four_year  = $firstTranche + $secondTranche;
-            break;
-        case ($bp_income_before_taxes_four_year > 60000 && $bp_income_before_taxes_four_year <= 80000):
-                 $rest = $bp_income_before_taxes_four_year - 50000;
-                 $firstTranche = 50000 - 50000 * 0.1;
-                 $rest = $rest - 60000;
-                 $secondTranche = 60000 - 60000 * 0.2;
-                        if ($rest < 0) {
-                            $rest = 0;
-                        }
-                 $thirdTranche = $rest - $rest * 0.31;
-                 $bp_corporate_tax_four_year  = $firstTranche + $secondTranche + $thirdTranche;
-            break;
-        case ($bp_income_before_taxes_four_year > 80000 && $bp_income_before_taxes_four_year <= 180000):
-                  $rest = $bp_income_before_taxes_four_year - 50000;
-                  $firstTranche = 50000 - 50000 * 0.1;
-                  $rest = $rest - 60000;
-                  $secondTranche = 60000 - 60000 * 0.2;
-                  $rest = $rest - 80000;
-                  $thirdTranche = 80000 - 80000 * 0.3;
-                   if ($rest < 0) {
-                    $rest = 0;
-                           }
-                   $fourTranche = $rest - $rest * 0.34;
-                   $bp_corporate_tax_four_year = $firstTranche + $secondTranche + $thirdTranche + $fourTranche;
-           // $bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 34 / 100;
-            break;
-        case ($bp_income_before_taxes_four_year > 180000): 
-       
-         $rest = $bp_income_before_taxes_four_year - 50000;
-         $firstTranche = 50000 - 50000 * 0.1;
-         $rest = $rest - 60000;
-         $secondTranche = 60000 - 60000 * 0.2;
-         $rest = $rest - 80000;
-         $thirdTranche = 80000 - 80000 * 0.3;
-         $rest = $rest - 180000;
-         $fourTranche = 180000 - 180000 * 0.34;
-         if ($rest < 0) {
-             $rest = 0;
-              }
-        $fiveTranche = $rest - $rest * 0.38;
-        $bp_corporate_tax_four_year = $firstTranche + $secondTranche + $thirdTranche + $fourTranche + $fiveTranche; 
-         //dd($bp_income_before_taxes_four_year);
-          //dd($bp_corporate_tax_four_year);
-          //$bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 38 / 100;
-            break;
-    }
-    switch (true) {
-        case ($bp_income_before_taxes_five_year > 0 && $bp_income_before_taxes_five_year <= 30000):
-            $bp_corporate_tax_five_year = $bp_income_before_taxes_five_year;
-            break;
-        case ($bp_income_before_taxes_five_year > 30000 && $bp_income_before_taxes_five_year <= 50000):
-             $is = $bp_income_before_taxes_five_year * 10 / 100;
-             $bp_corporate_tax_five_year = $is-$bp_income_before_taxes_five_year * 10 / 100;               
-            break;
-        case ($bp_income_before_taxes_five_year > 50000 && $bp_income_before_taxes_five_year <= 60000):
-             $firstTranche = 50000 - 50000 * 0.1;
-             $secondTranche = $bp_income_before_taxes_five_year - 50000 - ($bp_income_before_taxes_five_year - 50000) * 0.2;
-             $bp_corporate_tax_five_year  = $firstTranche + $secondTranche;
-            break;
-        case ($bp_income_before_taxes_five_year > 60000 && $bp_income_before_taxes_five_year <= 80000):
-                 $rest = $bp_income_before_taxes_third_year - 50000;
-                 $firstTranche = 50000 - 50000 * 0.1;
-                 $rest = $rest - 60000;
-                 $secondTranche = 60000 - 60000 * 0.2;
-                        if ($rest < 0) {
-                            $rest = 0;
-                        }
-                 $thirdTranche = $rest - $rest * 0.31;
-                 $bp_corporate_tax_five_year  = $firstTranche + $secondTranche + $thirdTranche;
-            break;
-        case ($bp_income_before_taxes_five_year > 80000 && $bp_income_before_taxes_five_year <= 180000):
-                  $rest = $bp_income_before_taxes_third_year - 50000;
-                  $firstTranche = 50000 - 50000 * 0.1;
-                  $rest = $rest - 60000;
-                  $secondTranche = 60000 - 60000 * 0.2;
-                  $rest = $rest - 80000;
-                  $thirdTranche = 80000 - 80000 * 0.3;
-                   if ($rest < 0) {
-                    $rest = 0;
-                           }
-                   $fourTranche = $rest - $rest * 0.34;
-                   $bp_corporate_tax_five_year = $firstTranche + $secondTranche + $thirdTranche + $fourTranche;
-           // $bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 34 / 100;
-            break;
-        case ($bp_income_before_taxes_five_year > 180000):
-         $rest = $bp_income_before_taxes_five_year - 50000;
-         $firstTranche = 50000 - 50000 * 0.1;
-         $rest = $rest - 60000;
-         $secondTranche = 60000 - 60000 * 0.2;
-         $rest = $rest - 80000;
-         $thirdTranche = 80000 - 80000 * 0.3;
-         $rest = $rest - 180000;
-         $fourTranche = 180000 - 180000 * 0.34;
-         if ($rest < 0) {
-             $rest = 0;
-              }
-          $fiveTranche = $rest - $rest * 0.38;
-          $bp_corporate_tax_five_year = $firstTranche + $secondTranche + $thirdTranche + $fourTranche + $fiveTranche;
-          //$bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 38 / 100;
-            break;
-    }
+  // switch (true) {
+//     case ($bp_income_before_taxes_first_year >= 0 && $bp_income_before_taxes_first_year <= 30000):
+//         $bp_corporate_tax_first_year = $bp_income_before_taxes_first_year;
+//         break;
+//     case ($bp_income_before_taxes_first_year > 30000 && $bp_income_before_taxes_first_year <= 50000):
+//          $is = $bp_income_before_taxes_first_year * 10 / 100;
+//          $bp_corporate_tax_first_year = $is-$bp_income_before_taxes_first_year * 10 / 100;
+//         break;
+//     case ($bp_income_before_taxes_first_year > 50000 && $bp_income_before_taxes_first_year <= 60000):
+//          $firstTranche = 50000 - 50000 * 0.1;
+//          $secondTranche = $bp_income_before_taxes_first_year - 50000 - ($bp_income_before_taxes_first_year - 50000) * 0.2;
+//          $bp_corporate_tax_first_year  = $firstTranche + $secondTranche;
+//         break;
+//     case ($bp_income_before_taxes_first_year > 60000 && $bp_income_before_taxes_first_year <= 80000):
+//              $rest = $bp_income_before_taxes_first_year - 50000;
+//              $firstTranche = 50000 - 50000 * 0.1;
+//              $rest = $rest - 60000;
+//              $secondTranche = 60000 - 60000 * 0.2;
+//                     if ($rest < 0) {
+//                         $rest = 0;
+//                     }
+//              $thirdTranche = $rest - $rest * 0.31;
+//              $bp_corporate_tax_first_year  = $firstTranche + $secondTranche + $thirdTranche;
+//         break;
+//     case ($bp_income_before_taxes_first_year > 80000 && $bp_income_before_taxes_first_year <= 180000):
+//               $rest = $bp_income_before_taxes_first_year - 50000;
+//               $firstTranche = 50000 - 50000 * 0.1;
+//               $rest = $rest - 60000;
+//               $secondTranche = 60000 - 60000 * 0.2;
+//               $rest = $rest - 80000;
+//               $thirdTranche = 80000 - 80000 * 0.3;
+//                if ($rest < 0) {
+//                 $rest = 0;
+//                        }
+//                $fourTranche = $rest - $rest * 0.34;
+//                $bp_corporate_tax_first_year = $firstTranche + $secondTranche + $thirdTranche + $fourTranche;
+//        // $bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 34 / 100;
+//         break;
+//     case ($bp_income_before_taxes_first_year > 180000):
+//      $rest = $bp_income_before_taxes_first_year - 50000;
+//      $firstTranche = 50000 - 50000 * 0.1;
+//      $rest = $rest - 60000;
+//      $secondTranche = 60000 - 60000 * 0.2;
+//      $rest = $rest - 80000;
+//      $thirdTranche = 80000 - 80000 * 0.3;
+//      $rest = $rest - 180000;
+//      $fourTranche = 180000 - 180000 * 0.34;
+//      if ($rest < 0) {
+//          $rest = 0;
+//           }
+//       $fiveTranche = $rest - $rest * 0.38;
+//       $bp_corporate_tax_first_year = $firstTranche + $secondTranche + $thirdTranche + $fourTranche + $fiveTranche;
+//       //$bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 38 / 100;
+//         break;
+// }
+// switch (true) {
+//     case ($bp_income_before_taxes_second_year > 0 && $bp_income_before_taxes_second_year <= 30000):
+//         $bp_corporate_tax_second_year = $bp_income_before_taxes_second_year;
+//         break;
+//     case ($bp_income_before_taxes_second_year > 30000 && $bp_income_before_taxes_second_year <= 50000):
+//          $is = $bp_income_before_taxes_second_year * 10 / 100;
+//          $bp_corporate_tax_second_year = $is-$bp_income_before_taxes_second_year * 10 / 100;
+//         break;
+//     case ($bp_income_before_taxes_second_year > 50000 && $bp_income_before_taxes_second_year <= 60000):
+//          $firstTranche = 50000 - 50000 * 0.1;
+//          $secondTranche = $bp_income_before_taxes_second_year - 50000 - ($bp_income_before_taxes_second_year - 50000) * 0.2;
+//          $bp_corporate_tax_second_year  = $firstTranche + $secondTranche;
+//         break;
+//     case ($bp_income_before_taxes_second_year > 60000 && $bp_income_before_taxes_second_year <= 80000):
+//              $rest = $bp_income_before_taxes_second_year - 50000;
+//              $firstTranche = 50000 - 50000 * 0.1;
+//              $rest = $rest - 60000;
+//              $secondTranche = 60000 - 60000 * 0.2;
+//                     if ($rest < 0) {
+//                         $rest = 0;
+//                     }
+//              $thirdTranche = $rest - $rest * 0.31;
+//              $bp_corporate_tax_second_year  = $firstTranche + $secondTranche + $thirdTranche;
+//         break;
+//     case ($bp_income_before_taxes_second_year > 80000 && $bp_income_before_taxes_second_year <= 180000):
+//               $rest = $bp_income_before_taxes_second_year - 50000;
+//               $firstTranche = 50000 - 50000 * 0.1;
+//               $rest = $rest - 60000;
+//               $secondTranche = 60000 - 60000 * 0.2;
+//               $rest = $rest - 80000;
+//               $thirdTranche = 80000 - 80000 * 0.3;
+//                if ($rest < 0) {
+//                 $rest = 0;
+//                        }
+//                $fourTranche = $rest - $rest * 0.34;
+//                $bp_corporate_tax_second_year = $firstTranche + $secondTranche + $thirdTranche + $fourTranche;
+//        // $bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 34 / 100;
+//         break;
+//     case ($bp_income_before_taxes_second_year > 180000):
+//      $rest = $bp_income_before_taxes_second_year - 50000;
+//      $firstTranche = 50000 - 50000 * 0.1;
+//      $rest = $rest - 60000;
+//      $secondTranche = 60000 - 60000 * 0.2;
+//      $rest = $rest - 80000;
+//      $thirdTranche = 80000 - 80000 * 0.3;
+//      $rest = $rest - 180000;
+//      $fourTranche = 180000 - 180000 * 0.34;
+//      if ($rest < 0) {
+//          $rest = 0;
+//           }
+//       $fiveTranche = $rest - $rest * 0.38;
+//       $bp_corporate_tax_second_year = $firstTranche + $secondTranche + $thirdTranche + $fourTranche + $fiveTranche;
+//       //$bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 38 / 100;
+//         break;
+// }
+// switch (true) {
+//     case ($bp_income_before_taxes_third_year > 0 && $bp_income_before_taxes_third_year <= 30000):
+//         $bp_corporate_tax_third_year = $bp_income_before_taxes_third_year;
+//         break;
+//     case ($bp_income_before_taxes_third_year > 30000 && $bp_income_before_taxes_third_year <= 50000):
+//          $is = $bp_income_before_taxes_third_year * 10 / 100;
+//          $bp_corporate_tax_third_year = $is-$bp_income_before_taxes_third_year * 10 / 100;
+//         break;
+//     case ($bp_income_before_taxes_third_year > 50000 && $bp_income_before_taxes_third_year <= 60000):
+//          $firstTranche = 50000 - 50000 * 0.1;
+//          $secondTranche = $bp_income_before_taxes_third_year - 50000 - ($bp_income_before_taxes_third_year - 50000) * 0.2;
+//          $bp_corporate_tax_third_year  = $firstTranche + $secondTranche;
+//         break;
+//     case ($bp_income_before_taxes_third_year > 60000 && $bp_income_before_taxes_third_year <= 80000):
+//              $rest = $bp_income_before_taxes_third_year - 50000;
+//              $firstTranche = 50000 - 50000 * 0.1;
+//              $rest = $rest - 60000;
+//              $secondTranche = 60000 - 60000 * 0.2;
+//                     if ($rest < 0) {
+//                         $rest = 0;
+//                     }
+//              $thirdTranche = $rest - $rest * 0.31;
+//              $bp_corporate_tax_third_year  = $firstTranche + $secondTranche + $thirdTranche;
+//         break;
+//     case ($bp_income_before_taxes_third_year > 80000 && $bp_income_before_taxes_third_year <= 180000):
+//               $rest = $bp_income_before_taxes_third_year - 50000;
+//               $firstTranche = 50000 - 50000 * 0.1;
+//               $rest = $rest - 60000;
+//               $secondTranche = 60000 - 60000 * 0.2;
+//               $rest = $rest - 80000;
+//               $thirdTranche = 80000 - 80000 * 0.3;
+//                if ($rest < 0) {
+//                 $rest = 0;
+//                        }
+//                $fourTranche = $rest - $rest * 0.34;
+//                $bp_corporate_tax_third_year = $firstTranche + $secondTranche + $thirdTranche + $fourTranche;
+//        // $bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 34 / 100;
+//         break;
+//     case ($bp_income_before_taxes_third_year > 180000):
+//      $rest = $bp_income_before_taxes_third_year - 50000;
+//      $firstTranche = 50000 - 50000 * 0.1;
+//      $rest = $rest - 60000;
+//      $secondTranche = 60000 - 60000 * 0.2;
+//      $rest = $rest - 80000;
+//      $thirdTranche = 80000 - 80000 * 0.3;
+//      $rest = $rest - 180000;
+//      $fourTranche = 180000 - 180000 * 0.34;
+//      if ($rest < 0) {
+//          $rest = 0;
+//           }
+//       $fiveTranche = $rest - $rest * 0.38;
+//       $bp_corporate_tax_third_year = $firstTranche + $secondTranche + $thirdTranche + $fourTranche + $fiveTranche;
+//       //$bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 38 / 100;
+//         break;
+// }
+// switch (true) {
+//     case ($bp_income_before_taxes_four_year > 0 && $bp_income_before_taxes_four_year <= 30000):
+
+//         $bp_corporate_tax_four_year = $bp_income_before_taxes_four_year;
+//         break;
+//     case ($bp_income_before_taxes_four_year > 30000 && $bp_income_before_taxes_four_year <= 50000):
+//          $is = $bp_income_before_taxes_four_year * 10 / 100;
+//          $bp_corporate_tax_four_year = $is-$bp_income_before_taxes_four_year * 10 / 100;
+//         break;
+//     case ($bp_income_before_taxes_four_year > 50000 && $bp_income_before_taxes_four_year <= 60000):
+//          $firstTranche = 50000 - 50000 * 0.1;
+//          $secondTranche = $bp_income_before_taxes_four_year - 50000 - ($bp_income_before_taxes_four_year - 50000) * 0.2;
+//          $bp_corporate_tax_four_year  = $firstTranche + $secondTranche;
+//         break;
+//     case ($bp_income_before_taxes_four_year > 60000 && $bp_income_before_taxes_four_year <= 80000):
+//              $rest = $bp_income_before_taxes_four_year - 50000;
+//              $firstTranche = 50000 - 50000 * 0.1;
+//              $rest = $rest - 60000;
+//              $secondTranche = 60000 - 60000 * 0.2;
+//                     if ($rest < 0) {
+//                         $rest = 0;
+//                     }
+//              $thirdTranche = $rest - $rest * 0.31;
+//              $bp_corporate_tax_four_year  = $firstTranche + $secondTranche + $thirdTranche;
+//         break;
+//     case ($bp_income_before_taxes_four_year > 80000 && $bp_income_before_taxes_four_year <= 180000):
+//               $rest = $bp_income_before_taxes_four_year - 50000;
+//               $firstTranche = 50000 - 50000 * 0.1;
+//               $rest = $rest - 60000;
+//               $secondTranche = 60000 - 60000 * 0.2;
+//               $rest = $rest - 80000;
+//               $thirdTranche = 80000 - 80000 * 0.3;
+//                if ($rest < 0) {
+//                 $rest = 0;
+//                        }
+//                $fourTranche = $rest - $rest * 0.34;
+//                $bp_corporate_tax_four_year = $firstTranche + $secondTranche + $thirdTranche + $fourTranche;
+//        // $bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 34 / 100;
+//         break;
+//     case ($bp_income_before_taxes_four_year > 180000):
+
+//      $rest = $bp_income_before_taxes_four_year - 50000;
+//      $firstTranche = 50000 - 50000 * 0.1;
+//      $rest = $rest - 60000;
+//      $secondTranche = 60000 - 60000 * 0.2;
+//      $rest = $rest - 80000;
+//      $thirdTranche = 80000 - 80000 * 0.3;
+//      $rest = $rest - 180000;
+//      $fourTranche = 180000 - 180000 * 0.34;
+//      if ($rest < 0) {
+//          $rest = 0;
+//           }
+//     $fiveTranche = $rest - $rest * 0.38;
+//     $bp_corporate_tax_four_year = $firstTranche + $secondTranche + $thirdTranche + $fourTranche + $fiveTranche;
+//      //dd($bp_income_before_taxes_four_year);
+//       //dd($bp_corporate_tax_four_year);
+//       //$bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 38 / 100;
+//         break;
+// }
+// switch (true) {
+//     case ($bp_income_before_taxes_five_year > 0 && $bp_income_before_taxes_five_year <= 30000):
+//         $bp_corporate_tax_five_year = $bp_income_before_taxes_five_year;
+//         break;
+//     case ($bp_income_before_taxes_five_year > 30000 && $bp_income_before_taxes_five_year <= 50000):
+//          $is = $bp_income_before_taxes_five_year * 10 / 100;
+//          $bp_corporate_tax_five_year = $is-$bp_income_before_taxes_five_year * 10 / 100;
+//         break;
+//     case ($bp_income_before_taxes_five_year > 50000 && $bp_income_before_taxes_five_year <= 60000):
+//          $firstTranche = 50000 - 50000 * 0.1;
+//          $secondTranche = $bp_income_before_taxes_five_year - 50000 - ($bp_income_before_taxes_five_year - 50000) * 0.2;
+//          $bp_corporate_tax_five_year  = $firstTranche + $secondTranche;
+//         break;
+//     case ($bp_income_before_taxes_five_year > 60000 && $bp_income_before_taxes_five_year <= 80000):
+//              $rest = $bp_income_before_taxes_third_year - 50000;
+//              $firstTranche = 50000 - 50000 * 0.1;
+//              $rest = $rest - 60000;
+//              $secondTranche = 60000 - 60000 * 0.2;
+//                     if ($rest < 0) {
+//                         $rest = 0;
+//                     }
+//              $thirdTranche = $rest - $rest * 0.31;
+//              $bp_corporate_tax_five_year  = $firstTranche + $secondTranche + $thirdTranche;
+//         break;
+//     case ($bp_income_before_taxes_five_year > 80000 && $bp_income_before_taxes_five_year <= 180000):
+//               $rest = $bp_income_before_taxes_third_year - 50000;
+//               $firstTranche = 50000 - 50000 * 0.1;
+//               $rest = $rest - 60000;
+//               $secondTranche = 60000 - 60000 * 0.2;
+//               $rest = $rest - 80000;
+//               $thirdTranche = 80000 - 80000 * 0.3;
+//                if ($rest < 0) {
+//                 $rest = 0;
+//                        }
+//                $fourTranche = $rest - $rest * 0.34;
+//                $bp_corporate_tax_five_year = $firstTranche + $secondTranche + $thirdTranche + $fourTranche;
+//        // $bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 34 / 100;
+//         break;
+//     case ($bp_income_before_taxes_five_year > 180000):
+//      $rest = $bp_income_before_taxes_five_year - 50000;
+//      $firstTranche = 50000 - 50000 * 0.1;
+//      $rest = $rest - 60000;
+//      $secondTranche = 60000 - 60000 * 0.2;
+//      $rest = $rest - 80000;
+//      $thirdTranche = 80000 - 80000 * 0.3;
+//      $rest = $rest - 180000;
+//      $fourTranche = 180000 - 180000 * 0.34;
+//      if ($rest < 0) {
+//          $rest = 0;
+//           }
+//       $fiveTranche = $rest - $rest * 0.38;
+//       $bp_corporate_tax_five_year = $firstTranche + $secondTranche + $thirdTranche + $fourTranche + $fiveTranche;
+//       //$bp_corporate_tax_first_year = $bp_income_before_taxes_first_year * 38 / 100;
+//         break;
+// }
+
+    // New update for calculate Income Tax : 'IR'
+    $bp_corporate_tax_first_year = calculateIncomeTax($bp_income_before_taxes_first_year);
+    $bp_corporate_tax_second_year = calculateIncomeTax($bp_income_before_taxes_second_year);
+    $bp_corporate_tax_third_year = calculateIncomeTax($bp_income_before_taxes_third_year);
+    $bp_corporate_tax_four_year = calculateIncomeTax($bp_income_before_taxes_four_year);
+    $bp_corporate_tax_five_year = calculateIncomeTax($bp_income_before_taxes_five_year);
+
 }
+
 elseif (($data ->company->applied_tax ?? '') == 'Auto-entrepreneur activité commerciale, industrielle ou artisanale') {
     $bp_corporate_tax_first_year =$bp_turnover_first_year  * 0.5 / 100;
     $bp_corporate_tax_second_year =$bp_turnover_second_year* 0.5 / 100;
@@ -1109,7 +1119,7 @@ if ( $cumul_first_year>0) {
 }
 elseif ($cumul_second_year > 0) {
     $bp_profitability_status = 'Rentable';
-    $bp_roi_delay = 'Dans 2 ans';                                              
+    $bp_roi_delay = 'Dans 2 ans';
 }
 elseif ($cumul_third_year > 0) {
     $bp_profitability_status = 'Rentable';
@@ -1128,8 +1138,10 @@ if(($data ->company->applied_tax ?? '') == 'IS'){
 $impot="impôt sur les sociétés";
 }elseif(($data ->company->applied_tax ?? '') == 'Auto-entrepreneur activité commerciale, industrielle ou artisanale'){
 $impot="impôt sur le revenu";
-}elseif(($data ->company->applied_tax ?? '') == 'Auto-entrepreneur prestataire de services'){ 
+}elseif(($data ->company->applied_tax ?? '') == 'Auto-entrepreneur prestataire de services'){
 $impot="impôt sur le revenu";
+}elseif(($data ->company->applied_tax ?? '') == 'IR'){
+    $impot="impôt sur le revenu";
 }
 @endphp
 
@@ -1157,15 +1169,15 @@ $impot="impôt sur le revenu";
      <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.js"></script>
 
-     
+
     </head>
 </head>
 <style>
- 
+
     body {
       font-family: "Montserrat", sans-serif;
     }
-  
+
 
     :root {
       --main-green: #1bbc9b;
@@ -1179,8 +1191,8 @@ $impot="impôt sur le revenu";
       margin: 20px auto 20px;
       padding: 90px 50px 90px;
       width: 842px;
-      max-height: 595px;   
-      overflow: hidden; 
+      max-height: 595px;
+      overflow: hidden;
       background-color: white;
       page-break-after: always;
     }
@@ -1197,7 +1209,7 @@ $impot="impôt sur le revenu";
       }
       #download-button{
        display:none;
-      }   
+      }
       body{
         background-color: white !important ;
       }
@@ -1211,24 +1223,24 @@ $impot="impôt sur le revenu";
        page-break-after: always;
      }
      .img_full_width{
-       width:100%;  
+       width:100%;
         margin-top:0;
-      margin-bottom:0; 
+      margin-bottom:0;
      }
       .testt{
        top:50% ;
-      bottom:0px; 
+      bottom:0px;
      }
      .testtt{
         top:50%;
        width: 100%;
-    
+
      }
      .display_full{
          display:block;
      }
      .display_none{
-       display:none; 
+       display:none;
      }
      .img_full{
        height:100%;
@@ -1241,12 +1253,12 @@ $impot="impôt sur le revenu";
      }
      .div_file{
       width:500px;
-      height: 500px; 
+      height: 500px;
       object-fit: cover;
 
      }
     }
-   
+
   </style>
   <body class="bg-gray-300 relative">
     <button
@@ -1326,17 +1338,17 @@ $impot="impôt sur le revenu";
                 </span>
               @endif
             <br>
-              
+
             Secteur d’activité :
             <span class="text-xs font-semibold" style="color: var(--main-green)"
               >{{$categories->title}}
             </span>
 
 
-            
+
           </p>
 
-          
+
         </div>
       </div>
 
@@ -1350,7 +1362,7 @@ $impot="impôt sur le revenu";
         </p>
       </div>
     </div>
-   
+
     <div id="1" class="page printsection print-add-break print-full-width">
       <div class="flex justify-between absolute right-0 top-0 w-full">
         <div class="flex h-14 items-end justify-end space-x-3">
@@ -1439,7 +1451,7 @@ $impot="impôt sur le revenu";
         <img
         class="absolute bottom-0 right-0 left-0  img_full_width"
         src="{{asset('images/back-office/svg/footer.svg')}}"
-        alt="" 
+        alt=""
         srcset=""
         />
 
@@ -1492,14 +1504,14 @@ $impot="impôt sur le revenu";
 
       <div class="bg-gray-100 text-gray-700 mt-6 p-8 space-y-3 text-sm">
         <p class="text-justify text-xs">
-         {{isset($data->business_model->context_g)?$data->business_model->context_g:""}} 
+         {{isset($data->business_model->context_g)?$data->business_model->context_g:""}}
         </p>
       </div>
       <div class="absolute bottom-0 right-0 left-0">
         <img
         class="absolute bottom-0 right-0 left-0 img_full_width"
         src="{{asset('images/back-office/svg/footer.svg')}}"
-        alt="" 
+        alt=""
         srcset=""
         />
 
@@ -1569,19 +1581,19 @@ $impot="impôt sur le revenu";
           </div>
 
           <div class="space-y-1 text-xs font-normal">
-       
+
             <div class="flex justify-between bg-gray-100 p-2">
               <p>Nom Prénom :</p>
               <p class="font-medium">{{ ucfirst($owner->first_name)}} {{ ucfirst($owner->last_name)}}</p>
-            </div>   
+            </div>
               <div class="flex justify-between    p-2  right-0">
-              <p>Noms sous Adhérent:</p> 
+              <p>Noms sous Adhérent:</p>
               {{-- <p class="font-medium right-0">
               @foreach ($members as $member )
                {{ucfirst( $member->first_name)}} {{ ucfirst($member->last_name)}}  @endforeach</p> --}}
-                <p>{{isset($data->sous_adh)?$data->sous_adh:" "}}</p> 
+                <p>{{isset($data->sous_adh)?$data->sous_adh:" "}}</p>
             </div>
-            
+
             <div class="flex justify-between bg-gray-100 p-2">
               <p>Adresse :</p>
               <p class="font-medium"> {{$owner->address}}</p>
@@ -1628,7 +1640,7 @@ $impot="impôt sur le revenu";
               <p>{{$degree->label}}</p>
               @else
               <p>--</p>
-               @endif 
+               @endif
                 @if (isset($degree->value))
               <p id="testt"> {{$degree->value}}</p>
                @else
@@ -1639,7 +1651,7 @@ $impot="impôt sur le revenu";
                @else
               <p>--</p>
               @endif
-            
+
             </div>
             @endforeach
             @endif
@@ -1670,7 +1682,7 @@ $impot="impôt sur le revenu";
               <p>{{$experience->label}}</p>
               @else
               <p>--</p>
-               @endif 
+               @endif
                 @if (isset($experience->duration))
               <p id="testt"> {{$experience->duration}}</p>
                @else
@@ -1690,7 +1702,7 @@ $impot="impôt sur le revenu";
                 <p>{{$experience->rate}}</p>
                @else
               <p>--</p>
-              @endif      
+              @endif
             </div>
             @endforeach
           </div>
@@ -1700,7 +1712,7 @@ $impot="impôt sur le revenu";
         <img
         class="absolute bottom-0 right-0 left-0 img_full_width"
         src="{{asset('images/back-office/svg/footer.svg')}}"
-        alt="" 
+        alt=""
         srcset=""
         />
 
@@ -1723,7 +1735,7 @@ $impot="impôt sur le revenu";
           <span   style="font-size: 10px;">Business Plan</span>
         </div>
       </div>
-      
+
     </div>
    <div id="3" class="page printsection print-add-break print-full-width">
           <div class="flex justify-between absolute right-0 top-0 w-full">
@@ -1784,7 +1796,7 @@ $impot="impôt sur le revenu";
                   <p>{{$degree->label}}</p>
                   @else
                   <p>--</p>
-                  @endif 
+                  @endif
                     @if (isset($degree->value))
                   <p id="testt"> {{$degree->value}}</p>
                   @else
@@ -1795,7 +1807,7 @@ $impot="impôt sur le revenu";
                   @else
                   <p>--</p>
                   @endif
-                
+
                 </div>
                 @endforeach
                 @endforeach
@@ -1830,7 +1842,7 @@ $impot="impôt sur le revenu";
                   <p>{{$experience->label}}</p>
                   @else
                   <p>--</p>
-                  @endif 
+                  @endif
                     @if (isset($experience->duration))
                   <p id="testt"> {{$experience->duration}}</p>
                   @else
@@ -1850,7 +1862,7 @@ $impot="impôt sur le revenu";
                     <p>{{$experience->rate}}</p>
                   @else
                   <p>--</p>
-                  @endif      
+                  @endif
                 </div>
                 @endforeach
                     @endif
@@ -1863,7 +1875,7 @@ $impot="impôt sur le revenu";
             <img
             class="absolute bottom-0 right-0 left-0 img_full_width"
             src="{{asset('images/back-office/svg/footer.svg')}}"
-            alt="" 
+            alt=""
             srcset=""
             />
 
@@ -1886,7 +1898,7 @@ $impot="impôt sur le revenu";
               <span   style="font-size: 10px;">Business Plan</span>
             </div>
           </div>
-          
+
    </div>
 @if(count($tablepageTwo)>1 || count($tablepageOne)>1 )
      <div id="3" class="page printsection print-add-break print-full-width">
@@ -1949,7 +1961,7 @@ $impot="impôt sur le revenu";
               <p>{{$degree->label}}</p>
               @else
               <p>--</p>
-               @endif 
+               @endif
                 @if (isset($degree->value))
               <p id="testt"> {{$degree->value}}</p>
                @else
@@ -1960,7 +1972,7 @@ $impot="impôt sur le revenu";
                @else
               <p>--</p>
               @endif
-            
+
             </div>
             @endforeach
              @endif
@@ -1996,7 +2008,7 @@ $impot="impôt sur le revenu";
               <p>{{$experience->label}}</p>
               @else
               <p>--</p>
-               @endif 
+               @endif
                 @if (isset($experience->duration))
               <p id="testt"> {{$experience->duration}}</p>
                @else
@@ -2016,7 +2028,7 @@ $impot="impôt sur le revenu";
                 <p>{{$experience->rate}}</p>
                @else
               <p>--</p>
-              @endif      
+              @endif
             </div>
              @endforeach
                 @endif
@@ -2029,7 +2041,7 @@ $impot="impôt sur le revenu";
         <img
         class="absolute bottom-0 right-0 left-0 img_full_width"
         src="{{asset('images/back-office/svg/footer.svg')}}"
-        alt="" 
+        alt=""
         srcset=""
         />
 
@@ -2052,7 +2064,7 @@ $impot="impôt sur le revenu";
           <span   style="font-size: 10px;">Business Plan</span>
         </div>
       </div>
-      
+
     </div>
 @endif
 @foreach ($members as $membre )
@@ -2101,11 +2113,11 @@ $impot="impôt sur le revenu";
           </div>
 
           <div class="space-y-1 text-xs font-normal">
-       
+
             <div class="flex justify-between bg-gray-100 p-2">
               <p>Nom Prénom :</p>
               <p class="font-medium">{{ ucfirst($membre->first_name)}} {{ ucfirst($membre->last_name)}}</p>
-            </div>   
+            </div>
             <div class="flex justify-between p-2">
               <p>Adresse :</p>
               <p class="font-medium"> {{$membre->address}}</p>
@@ -2133,7 +2145,7 @@ $impot="impôt sur le revenu";
         <img
         class="absolute bottom-0 right-0 left-0 img_full_width"
         src="{{asset('images/back-office/svg/footer.svg')}}"
-        alt="" 
+        alt=""
         srcset=""
         />
 
@@ -2156,8 +2168,8 @@ $impot="impôt sur le revenu";
           <span   style="font-size: 10px;">Business Plan</span>
         </div>
       </div>
-      
-  </div> 
+
+  </div>
   <div id="3" class="page printsection print-add-break print-full-width">
           <div class="flex justify-between absolute right-0 top-0 w-full">
             <div class="flex h-14 items-end justify-end space-x-3">
@@ -2216,7 +2228,7 @@ $impot="impôt sur le revenu";
                   <p>{{$degree->label}}</p>
                   @else
                   <p>--</p>
-                  @endif 
+                  @endif
                     @if (isset($degree->value))
                   <p id="testt"> {{$degree->value}}</p>
                   @else
@@ -2227,7 +2239,7 @@ $impot="impôt sur le revenu";
                   @else
                   <p>--</p>
                   @endif
-                
+
                 </div>
                 @endforeach
                 @endif
@@ -2259,7 +2271,7 @@ $impot="impôt sur le revenu";
                   <p>{{$experience->label}}</p>
                   @else
                   <p>--</p>
-                  @endif 
+                  @endif
                     @if (isset($experience->duration))
                   <p id="testt"> {{$experience->duration}}</p>
                   @else
@@ -2279,7 +2291,7 @@ $impot="impôt sur le revenu";
                     <p>{{$experience->rate}}</p>
                   @else
                   <p>--</p>
-                  @endif      
+                  @endif
                 </div>
                 @endforeach
                   @endif
@@ -2290,7 +2302,7 @@ $impot="impôt sur le revenu";
             <img
             class="absolute bottom-0 right-0 left-0 img_full_width"
             src="{{asset('images/back-office/svg/footer.svg')}}"
-            alt="" 
+            alt=""
             srcset=""
             />
 
@@ -2313,9 +2325,9 @@ $impot="impôt sur le revenu";
               <span   style="font-size: 10px;">Business Plan</span>
             </div>
           </div>
-          
+
    </div>
-@endforeach  
+@endforeach
     <div id="4" class="page printsection print-add-break print-full-width">
       <div class="flex justify-between absolute right-0 top-0 w-full">
         <div class="flex h-14 items-end justify-end space-x-3">
@@ -2340,7 +2352,7 @@ $impot="impôt sur le revenu";
             class="font-semibold text-lg"
             style="color: var(--main-blue); line-height: 16px"
           >
-            Présentation du projet 
+            Présentation du projet
           </h3>
         </div>
         <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
@@ -2387,10 +2399,10 @@ $impot="impôt sur le revenu";
             </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
-         
+
           <div class="space-y-2  text-xs font-normal">
             <div class="grid grid-cols-2 gap-2  ">
-             
+
               <div class="p-2 bg-gray-100">
                       <h6
                 class="uppercase font-bold text-xs"
@@ -2400,20 +2412,20 @@ $impot="impôt sur le revenu";
           </h6>
               @if(isset($data->business_model->core_business_p))
               @foreach ($data->business_model->core_business_p  as $key =>  $field)
-                <ul class="list-inside list-disc space-y-2">  
+                <ul class="list-inside list-disc space-y-2">
                   <li class=" text-xs">{{ $field->label}} </li>
                 </ul>
                 @endforeach
-              @endif 
+              @endif
               @if(isset($data->business_model->core_services))
               @foreach ($data->business_model->core_services  as $key =>  $field)
-                <ul class="list-inside list-disc space-y-2">  
+                <ul class="list-inside list-disc space-y-2">
                   <li class="text-xs">{{ $field->label}} </li>
                 </ul>
                @endforeach
-              @endif 
-              </div>  
-              <div class="p-2 bg-gray-100"> 
+              @endif
+              </div>
+              <div class="p-2 bg-gray-100">
                 <h6
             class="uppercase font-bold text-xs"
             style="color: var(--second-blue)"
@@ -2422,29 +2434,29 @@ $impot="impôt sur le revenu";
            </h6>
             @if(isset($data->business_model->core_business_p))
               @foreach ($data->business_model->core_business_p as $key =>  $field)
-                <ul class="list-inside list-disc space-y-2">  
+                <ul class="list-inside list-disc space-y-2">
                   <li class=" text-xs">{{ $field->count}} </li>
                 </ul>
                @endforeach
-              @endif 
+              @endif
               @if(isset($data->business_model->core_services))
               @foreach ($data->business_model->core_services  as $key =>  $field)
-                <ul class="list-inside list-disc space-y-2">  
+                <ul class="list-inside list-disc space-y-2">
                   <li class="text-xs">{{ $field->count}} </li>
                 </ul>
                @endforeach
-              @endif 
-              </div>  
+              @endif
+              </div>
             </div>
           </div>
-        
+
           {{-- <div class="space-y-4  text-sm font-normal">
             <div class="grid grid-cols-2 gap-4  ">
               @if(isset($data->business_model->core_services))
               @foreach ($data->business_model->core_services  as $key =>  $field)
               <div class="p-4 bg-gray-100">
                 <p><span class="font-semibold" style="color: var(--main-green)">{{$field->label ?? " "}} </span></p>
-                <div class="flex justify-between bg-gray-100 p-2">       
+                <div class="flex justify-between bg-gray-100 p-2">
                   <p>Quantité prévue par mois  :</p>
                   <p class="font-medium">{{$field->count ?? " "}}</p>
                 </div>
@@ -2452,7 +2464,7 @@ $impot="impôt sur le revenu";
                   <p>Prix de vente   :</p>
                   <p class="font-medium">{{$field->value ?? " "}}</p>
                 </div>
-              </div>  
+              </div>
               @endforeach
               @endif
             </div>
@@ -2463,7 +2475,7 @@ $impot="impôt sur le revenu";
         <img
         class="absolute bottom-0 right-0 left-0 img_full_width"
         src="{{asset('images/back-office/svg/footer.svg')}}"
-        alt="" 
+        alt=""
         srcset=""
         />
 
@@ -2486,7 +2498,7 @@ $impot="impôt sur le revenu";
           <span>Business Plan</span>
         </div>
       </div>
-      
+
     </div>
      <div id="4" class="page printsection print-add-break print-full-width">
       <div class="flex justify-between absolute right-0 top-0 w-full">
@@ -2512,7 +2524,7 @@ $impot="impôt sur le revenu";
             class="font-semibold text-lg"
             style="color: var(--main-blue); line-height: 16px"
           >
-            Présentation du projet 
+            Présentation du projet
           </h3>
         </div>
         <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
@@ -2559,10 +2571,10 @@ $impot="impôt sur le revenu";
             </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
-         
+
           <div class="space-y-2  text-xs font-normal">
             <div class="grid grid-cols-2 gap-2  ">
-             
+
               <div class="p-2 bg-gray-100">
                       <h6
                 class="uppercase font-bold text-xs"
@@ -2572,20 +2584,20 @@ $impot="impôt sur le revenu";
         </h6>
               @if(isset($data->business_model->core_business_p))
               @foreach ($data->business_model->core_business_p  as $key =>  $field)
-                <ul class="list-inside list-disc space-y-2">  
+                <ul class="list-inside list-disc space-y-2">
                   <li class="py-2 px-2 text-xs">{{ $field->label}} </li>
                 </ul>
                 @endforeach
-              @endif 
+              @endif
               @if(isset($data->business_model->core_services))
               @foreach ($data->business_model->core_services  as $key =>  $field)
-                <ul class="list-inside list-disc space-y-2">  
+                <ul class="list-inside list-disc space-y-2">
                   <li class="py-2 px-2 text-xs">{{ $field->label}} </li>
                 </ul>
                @endforeach
-              @endif 
-              </div>  
-              <div class="p-2 bg-gray-100"> 
+              @endif
+              </div>
+              <div class="p-2 bg-gray-100">
                 <h6
           class="uppercase font-bold text-xs"
           style="color: var(--second-blue)"
@@ -2594,29 +2606,29 @@ $impot="impôt sur le revenu";
         </h6>
          @if(isset($data->business_model->core_business_p))
               @foreach ($data->business_model->core_business_p as $key =>  $field)
-                <ul class="list-inside list-disc space-y-2">  
+                <ul class="list-inside list-disc space-y-2">
                   <li class="py-2 px-2 text-xs">{{ $field->count}} </li>
                 </ul>
                @endforeach
-              @endif 
+              @endif
               @if(isset($data->business_model->core_services))
               @foreach ($data->business_model->core_services  as $key =>  $field)
-                <ul class="list-inside list-disc space-y-2">  
+                <ul class="list-inside list-disc space-y-2">
                   <li class="py-2 px-2 text-xs">{{ $field->count}} </li>
                 </ul>
                @endforeach
-              @endif 
-              </div>  
+              @endif
+              </div>
             </div>
           </div> --}}
-        
+
           {{-- <div class="space-y-4  text-sm font-normal">
             <div class="grid grid-cols-2 gap-4  ">
               @if(isset($data->business_model->core_services))
               @foreach ($data->business_model->core_services  as $key =>  $field)
               <div class="p-4 bg-gray-100">
                 <p><span class="font-semibold" style="color: var(--main-green)">{{$field->label ?? " "}} </span></p>
-                <div class="flex justify-between bg-gray-100 p-2">       
+                <div class="flex justify-between bg-gray-100 p-2">
                   <p>Quantité prévue par mois  :</p>
                   <p class="font-medium">{{$field->count ?? " "}}</p>
                 </div>
@@ -2624,7 +2636,7 @@ $impot="impôt sur le revenu";
                   <p>Prix de vente   :</p>
                   <p class="font-medium">{{$field->value ?? " "}}</p>
                 </div>
-              </div>  
+              </div>
               @endforeach
               @endif
             </div>
@@ -2635,7 +2647,7 @@ $impot="impôt sur le revenu";
         <img
         class="absolute bottom-0 right-0 left-0 img_full_width"
         src="{{asset('images/back-office/svg/footer.svg')}}"
-        alt="" 
+        alt=""
         srcset=""
         />
 
@@ -2658,7 +2670,7 @@ $impot="impôt sur le revenu";
           <span   style="font-size: 10px;">Business Plan</span>
         </div>
       </div>
-      
+
     </div>
     <div id="5" class="page printsection print-add-break print-full-width">
       <div class="flex justify-between absolute right-0 top-0 w-full">
@@ -2756,7 +2768,7 @@ $impot="impôt sur le revenu";
               @foreach ($data->business_model->primary_target_c  as $key =>  $field)
               <div class="p-4 bg-gray-100">
                 <p><span class="font-semibold" style="color: var(--main-green)">{{$field->primary_target_c ?? " "}} </span></p>
-              </div>  
+              </div>
               @endforeach
               @endif
             </div>
@@ -2767,7 +2779,7 @@ $impot="impôt sur le revenu";
         <img
         class="absolute bottom-0 right-0 left-0 img_full_width"
         src="{{asset('images/back-office/svg/footer.svg')}}"
-        alt="" 
+        alt=""
         srcset=""
         />
 
@@ -2790,7 +2802,7 @@ $impot="impôt sur le revenu";
           <span   style="font-size: 10px;">Business Plan</span>
         </div>
       </div>
-      
+
     </div>
       <div id="5" class="page printsection print-add-break print-full-width">
       <div class="flex justify-between absolute right-0 top-0 w-full">
@@ -2839,7 +2851,7 @@ $impot="impôt sur le revenu";
               @foreach ($data->business_model->suppliers_f  as $key =>  $field)
               <div class="p-4 bg-gray-100">
                 <p><span class="font-semibold" style="color: var(--main-green)">{{$field->label?? " "}} </span></p>
-                <div class="flex justify-between bg-gray-100 p-2">       
+                <div class="flex justify-between bg-gray-100 p-2">
                   <p>Nature des intrants:</p>
                   <p class="font-medium">{{$field->count ?? " "}}</p>
                 </div>
@@ -2847,7 +2859,7 @@ $impot="impôt sur le revenu";
                   <p>ville:</p>
                   <p class="font-medium">{{$field->value ?? " "}}</p>
                 </div>
-              </div>  
+              </div>
               @endforeach
               @endif
             </div>
@@ -2901,7 +2913,7 @@ $impot="impôt sur le revenu";
               @foreach ($data->business_model->competition_c  as $key =>  $field)
               <div class="p-4 bg-gray-100">
                 <p><span class="font-semibold" style="color: var(--main-green)">{{$field->label?? " "}} </span></p>
-                <div class="flex justify-between bg-gray-100 p-2">       
+                <div class="flex justify-between bg-gray-100 p-2">
                   <p>Nature des intrants:</p>
                   <p class="font-medium">{{$field->count ?? " "}}</p>
                 </div>
@@ -2909,7 +2921,7 @@ $impot="impôt sur le revenu";
                   <p>localité:</p>
                   <p class="font-medium">{{$field->value ?? " "}}</p>
                 </div>
-              </div>  
+              </div>
               @endforeach
               @endif
             </div>
@@ -2952,7 +2964,7 @@ $impot="impôt sur le revenu";
         <img
         class="absolute bottom-0 right-0 left-0 img_full_width"
         src="{{asset('images/back-office/svg/footer.svg')}}"
-        alt="" 
+        alt=""
         srcset=""
         />
 
@@ -2975,7 +2987,7 @@ $impot="impôt sur le revenu";
           <span   style="font-size: 10px;">Business Plan</span>
         </div>
       </div>
-      
+
     </div>
     <div id="6" class="page printsection print-add-break print-full-width">
       <div class="flex justify-between absolute right-0 top-0 w-full">
@@ -3008,7 +3020,7 @@ $impot="impôt sur le revenu";
       </div>
 
       <div class="space-y-4">
-        
+
         {{-- <div class="space-y-4">
           <div class="space-y-1">
             <h5
@@ -3025,7 +3037,7 @@ $impot="impôt sur le revenu";
               @foreach ($data->business_model->competition_c  as $key =>  $field)
               <div class="p-4 bg-gray-100">
                 <p><span class="font-semibold" style="color: var(--main-green)">{{$field->label?? " "}} </span></p>
-                <div class="flex justify-between bg-gray-100 p-2">       
+                <div class="flex justify-between bg-gray-100 p-2">
                   <p>Nature des intrants:</p>
                   <p class="font-medium">{{$field->count ?? " "}}</p>
                 </div>
@@ -3033,7 +3045,7 @@ $impot="impôt sur le revenu";
                   <p>localité:</p>
                   <p class="font-medium">{{$field->value ?? " "}}</p>
                 </div>
-              </div>  
+              </div>
               @endforeach
               @endif
             </div>
@@ -3077,7 +3089,7 @@ $impot="impôt sur le revenu";
               class="uppercase font-bold text-xs"
               style="color: var(--second-blue)"
             >
-            critères de différenciation 
+            critères de différenciation
             </h5>
             <hr class="bg-gray-300 " style="height: 2px" />
           </div>
@@ -3089,13 +3101,13 @@ $impot="impôt sur le revenu";
                     @if ($item)
                          <p style="margin-top:0px; margin-bottom:1px;">
                  -{{$item}}
-                   </p>  
+                   </p>
                     @endif
-             
+
                  @endforeach
                 @endif
-         
-           
+
+
           </div>
         </div>
         <div class="space-y-4">
@@ -3116,15 +3128,15 @@ $impot="impôt sur le revenu";
                 @if($item)
                  <p style="margin:0px; margin-bottom:4px;">
                  -{{$item}}
-                </p>    
+                </p>
            @endif
-          @endforeach   
+          @endforeach
            @else
              <p style="margin:0px; margin-bottom:4px;">
               {{isset($data->business_model->advertising)?$data->business_model->advertising: " "}}
             </p>
           @endif
-          
+
           </div>
         </div>
           <div class="space-y-4">
@@ -3178,7 +3190,7 @@ $impot="impôt sur le revenu";
         <img
         class="absolute bottom-0 right-0 left-0 img_full_width"
         src="{{asset('images/back-office/svg/footer.svg')}}"
-        alt="" 
+        alt=""
         srcset=""
         />
 
@@ -3201,7 +3213,7 @@ $impot="impôt sur le revenu";
           <span   style="font-size: 10px;">Business Plan</span>
         </div>
       </div>
-      
+
     </div>
     {{-- <div id="7" class="page printsection print-add-break print-full-width">
       <div class="flex justify-between absolute right-0 top-0 w-full">
@@ -3279,13 +3291,13 @@ $impot="impôt sur le revenu";
             </p>
            @endif
           </div>
-        </div> 
+        </div>
       </div>
       <div class="absolute bottom-0 right-0 left-0">
         <img
         class="absolute bottom-0 right-0 left-0 img_full_width"
         src="{{asset('images/back-office/svg/footer.svg')}}"
-        alt="" 
+        alt=""
         srcset=""
         />
 
@@ -3308,7 +3320,7 @@ $impot="impôt sur le revenu";
           <span>Business Plan</span>
         </div>
       </div>
-      
+
     </div> --}}
     <div id="8" class="page printsection print-add-break print-full-width">
       <div class="flex justify-between absolute right-0 top-0 w-full">
@@ -3347,7 +3359,7 @@ $impot="impôt sur le revenu";
               class="uppercase font-bold text-xs m-0"
               style="color: var(--second-blue)"
             >
-            Analyse swot 
+            Analyse swot
             </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
@@ -3361,8 +3373,8 @@ $impot="impôt sur le revenu";
               <ul class="list-inside list-disc space-y-2">
                 @if(isset($data->business_model->distribution_strategy_force_p))
                 @foreach ($data->business_model->distribution_strategy_force_p as $key =>  $field)
-                <li class="text-xs">{{$field->distribution_strategy_force_p ?? " "}}</li>  
-                @endforeach 
+                <li class="text-xs">{{$field->distribution_strategy_force_p ?? " "}}</li>
+                @endforeach
                 @endif
               </ul>
               <div
@@ -3391,11 +3403,11 @@ $impot="impôt sur le revenu";
               <ul class="list-inside list-disc space-y-2">
                 @if(isset($data->business_model->distribution_strategy_faiblesse_p))
                 @foreach ($data->business_model->distribution_strategy_faiblesse_p as $key =>  $field)
-                <li class="text-xs">{{$field->distribution_strategy_faiblesse_p ?? " "}}</li>  
-                @endforeach 
+                <li class="text-xs">{{$field->distribution_strategy_faiblesse_p ?? " "}}</li>
+                @endforeach
                 @endif
               </ul>
-    
+
               <div
                 class="
                   absolute
@@ -3422,8 +3434,8 @@ $impot="impôt sur le revenu";
               <ul class="list-inside list-disc space-y-2">
                 @if(isset($data->business_model->distribution_strategy_Opportunité_p))
                 @foreach ($data->business_model->distribution_strategy_Opportunité_p as $key =>  $field)
-                <li class="text-xs">{{$field->distribution_strategy_Opportunité_p?? " "}}</li>  
-                @endforeach 
+                <li class="text-xs">{{$field->distribution_strategy_Opportunité_p?? " "}}</li>
+                @endforeach
                 @endif
               </ul>
             <div
@@ -3452,8 +3464,8 @@ $impot="impôt sur le revenu";
               <ul class="list-inside list-disc space-y-2">
                 @if(isset($data->business_model->distribution_strategy_menace_p))
                 @foreach ($data->business_model->distribution_strategy_menace_p as $key =>  $field)
-                <li class="text-xs">{{$field->distribution_strategy_menace_p ?? " "}}</li>  
-                @endforeach 
+                <li class="text-xs">{{$field->distribution_strategy_menace_p ?? " "}}</li>
+                @endforeach
                 @endif
               </ul>
              <div
@@ -3482,7 +3494,7 @@ $impot="impôt sur le revenu";
         <img
         class="absolute bottom-0 right-0 left-0 img_full_width"
         src="{{asset('images/back-office/svg/footer.svg')}}"
-        alt="" 
+        alt=""
         srcset=""
         />
 
@@ -3505,7 +3517,7 @@ $impot="impôt sur le revenu";
           <span   style="font-size: 10px;">Business Plan</span>
         </div>
       </div>
-      
+
     </div>
     <div id="9" class="page printsection print-add-break print-full-width">
       <div class="flex justify-between absolute right-0 top-0 w-full">
@@ -3594,12 +3606,12 @@ $impot="impôt sur le revenu";
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
           <div class="space-y-2  text-xs font-normal">
-        
+
               @if(isset($data->business_model->local))
               @foreach ($data->business_model->local  as $key =>  $field)
               <div class="bg-gray-100 text-gray-700 mt-3 p-4 space-y-3 text-xs">
                 <p><span class="font-semibold" style="color: var(--main-green)">local </span></p>
-                <div class="flex justify-between bg-gray-100 p-2" style="margin-top:0px;">       
+                <div class="flex justify-between bg-gray-100 p-2" style="margin-top:0px;">
                   <p>Mode d'occupation:</p>
                   <p class="font-medium">{{$field->label ?? " "}}</p>
                 </div>
@@ -3615,11 +3627,11 @@ $impot="impôt sur le revenu";
                   <p>loyer mensuel (en cas de location):</p>
                   <p class="font-medium">{{$field->duration ?? " "}}</p>
                 </div>
-                
-              </div>  
+
+              </div>
               @endforeach
               @endif
-           
+
           </div>
         </div>
       </div>
@@ -3627,7 +3639,7 @@ $impot="impôt sur le revenu";
         <img
         class="absolute bottom-0 right-0 left-0 img_full_width"
         src="{{asset('images/back-office/svg/footer.svg')}}"
-        alt="" 
+        alt=""
         srcset=""
         />
 
@@ -3650,7 +3662,7 @@ $impot="impôt sur le revenu";
           <span   style="font-size: 10px;">Business Plan</span>
         </div>
       </div>
-      
+
     </div>
     <div id="10" class="page printsection print-add-break print-full-width">
       <div class="flex justify-between absolute right-0 top-0 w-full">
@@ -3697,11 +3709,11 @@ $impot="impôt sur le revenu";
            </p>
           <div class="bg-gray-100 text-gray-700 mt-6 p-4 space-y-3 text-xs">
             <p><span class="font-semibold" style="color: var(--main-green)">Liste du matériel: </span></p>
-            <ul class="list-inside list-disc space-y-2">  
+            <ul class="list-inside list-disc space-y-2">
               @if(isset($data->business_model->list_mat))
               @foreach ($data->business_model->list_mat as $key =>  $field)
-              <li style="margin-top:0px;"> {{$field->list_mat ?? " "}}</li>  
-              @endforeach 
+              <li style="margin-top:0px;"> {{$field->list_mat ?? " "}}</li>
+              @endforeach
               @endif
             </ul>
           </div>
@@ -3755,7 +3767,7 @@ $impot="impôt sur le revenu";
         <img
         class="absolute bottom-0 right-0 left-0 img_full_width"
         src="{{asset('images/back-office/svg/footer.svg')}}"
-        alt="" 
+        alt=""
         srcset=""
         />
 
@@ -3778,8 +3790,8 @@ $impot="impôt sur le revenu";
           <span   style="font-size: 10px;">Business Plan</span>
         </div>
       </div>
-      
-    </div> 
+
+    </div>
     <div id="11" class="page printsection print-add-break print-full-width">
       <div class="flex justify-between absolute right-0 top-0 w-full">
         <div class="flex h-14 items-end justify-end space-x-3">
@@ -3825,7 +3837,7 @@ $impot="impôt sur le revenu";
            <p class="text-gray-500 font-normal text-xs" style="margin-top:20px;"> Synthèse du programme d’investissement:
            </p>
         <div class="grid grid-cols-2 gap-2">
-          <div class=" bg-white"> 
+          <div class=" bg-white">
               <div class="inline-block rounded-lg border ">
               <table class="table-fixed border border-gray-900 w-full text-xs">
                 <thead>
@@ -3837,8 +3849,8 @@ $impot="impôt sur le revenu";
                         border-2 border-gray-500
                         self-start
                         text-left
-                        text-xs  
-                        w-6/12       
+                        text-xs
+                        w-6/12
                       "
                     >
                     DESIGNATION
@@ -3850,18 +3862,18 @@ $impot="impôt sur le revenu";
                 <tbody class="font-medium">
                   @if(isset($data->financial_data->startup_needs))
                   @foreach ($data->financial_data->startup_needs as $item)
-                 
-                    <tr> 
+
+                    <tr>
                       @if(isset($item->label))
                       @if($item->label=='Autre à préciser')
-                      <td class="border-2 border-gray-500 w-6/12 py-1 pl-2 text-xs">{{$item->labelOther}}</td> 
+                      <td class="border-2 border-gray-500 w-6/12 py-1 pl-2 text-xs">{{$item->labelOther}}</td>
                       @else
-                       <td class="border-2 border-gray-500 w-6/12 py-1 pl-2 text-xs">{{$item->label}}</td> 
+                       <td class="border-2 border-gray-500 w-6/12 py-1 pl-2 text-xs">{{$item->label}}</td>
                       @endif
                       <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value, 0, ',', ' ') }} </td>
-                      <td class="border-2 border-gray-500 text-center text-xs">{{ number_format( $bp_investment_program_total!=0? $item->value /$bp_investment_program_total*100:0,0, ',', ' ')}}%</td>   
+                      <td class="border-2 border-gray-500 text-center text-xs">{{ number_format( $bp_investment_program_total!=0? $item->value /$bp_investment_program_total*100:0,0, ',', ' ')}}%</td>
                        @endif
-                  </tr> 
+                  </tr>
                   @endforeach
                  @endif
                   <tr class="bg-green-200">
@@ -3887,7 +3899,7 @@ $impot="impôt sur le revenu";
           <div class="pl-2">
           <div class="bg-gray-100 top-0" id="chart1" style="height: 231px; width: 100%; "></div>
           </div>
-        </div>   
+        </div>
       </div>
       {{-- <div class="space-y-1">
         <div class="space-y-2">
@@ -3903,7 +3915,7 @@ $impot="impôt sur le revenu";
            <p class="text-gray-500 font-normal  text-xs"> Plan de financement :
            </p>
         <div class="grid grid-cols-2 gap-4 ">
-          <div class=" bg-white"> 
+          <div class=" bg-white">
               <div class="inline-block rounded-lg border ">
               <table class="table-fixed border border-gray-900 w-full text-xs  mt-0">
                 <thead>
@@ -3931,7 +3943,7 @@ $impot="impôt sur le revenu";
                     <td class="border-2 border-gray-500 text-xs py-1 pl-2 ">{{$item->label}}</td>
                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value, 0, ',', ' ') }} </td>
                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_financial_plan_totals!=0?$item->value /$bp_financial_plan_totals*100:0,0, ',', ' ')}}%</td>
-                  </tr> 
+                  </tr>
                   @endforeach
                  @endif
                     @if(isset($data->financial_data->financial_plan_loans))
@@ -3940,7 +3952,7 @@ $impot="impôt sur le revenu";
                     <td class="border-2 border-gray-500 py-1 pl-2 text-xs">{{$item->label}}</td>
                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value, 0, ',', ' ') }} </td>
                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_financial_plan_totals!=0?$item->value /$bp_financial_plan_totals*100:0,0, ',', ' ')}}%</td>
-                  </tr> 
+                  </tr>
                   @endforeach
                  @endif
                   <tr class="bg-green-200">
@@ -3965,14 +3977,14 @@ $impot="impôt sur le revenu";
           <div class="pl-2">
            <div class="bg-gray-100" id="chart2" style="height: 169px; width: 100%;"></div>
           </div>
-        </div>   
+        </div>
       </div> --}}
       </div>
       <div class="absolute bottom-0 right-0 left-0 ">
         <img
         class="absolute bottom-0 right-0 left-0 img_full_width"
         src="{{asset('images/back-office/svg/footer.svg')}}"
-        alt="" 
+        alt=""
         srcset=""
         />
 
@@ -3995,7 +4007,7 @@ $impot="impôt sur le revenu";
           <span   style="font-size: 10px;">Business Plan</span>
         </div>
       </div>
-      
+
     </div>
      </div>
 
@@ -4044,7 +4056,7 @@ $impot="impôt sur le revenu";
            <p class="text-gray-500 font-normal text-xs"> Synthèse du programme d’investissement:
            </p>
         <div class="grid grid-cols-2 gap-2">
-          <div class=" bg-white"> 
+          <div class=" bg-white">
               <div class="inline-block rounded-lg border ">
               <table class="table-fixed border border-gray-900 w-full text-xs">
                 <thead>
@@ -4068,18 +4080,18 @@ $impot="impôt sur le revenu";
                 <tbody class="font-medium">
                   @if(isset($data->financial_data->startup_needs))
                   @foreach ($data->financial_data->startup_needs as $item)
-                 
-                    <tr> 
+
+                    <tr>
                       @if(isset($item->label))
                       @if($item->label=='Autre à préciser')
-                      <td class="border-2 border-gray-500 w-6/12 py-1 pl-2 text-xs">{{$item->labelOther}}</td> 
+                      <td class="border-2 border-gray-500 w-6/12 py-1 pl-2 text-xs">{{$item->labelOther}}</td>
                       @else
-                       <td class="border-2 border-gray-500 w-6/12 py-1 pl-2 text-xs">{{$item->label}}</td> 
+                       <td class="border-2 border-gray-500 w-6/12 py-1 pl-2 text-xs">{{$item->label}}</td>
                       @endif
                       <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value, 0, ',', ' ') }} </td>
-                      <td class="border-2 border-gray-500 text-center text-xs">{{ number_format( $bp_investment_program_total!=0? $item->value /$bp_investment_program_total*100:0,0, ',', ' ')}}%</td>   
+                      <td class="border-2 border-gray-500 text-center text-xs">{{ number_format( $bp_investment_program_total!=0? $item->value /$bp_investment_program_total*100:0,0, ',', ' ')}}%</td>
                        @endif
-                  </tr> 
+                  </tr>
                   @endforeach
                  @endif
                   <tr class="bg-green-200">
@@ -4105,7 +4117,7 @@ $impot="impôt sur le revenu";
           <div class="pl-2">
           <div class="bg-gray-100 top-0" id="chart1" style="height: 169px; width: 100%; "></div>
           </div>
-        </div>   
+        </div>
       </div> --}}
       <div class="space-y-1">
         <div class="space-y-2">
@@ -4121,7 +4133,7 @@ $impot="impôt sur le revenu";
            <p class="text-gray-500 font-normal  text-xs" style="margin-top:25px;"> Plan de financement :
            </p>
         <div class="grid grid-cols-2 gap-4 ">
-          <div class=" bg-white"> 
+          <div class=" bg-white">
               <div class="inline-block rounded-lg border ">
               <table class="table-fixed border border-gray-900 w-full text-xs  mt-0">
                 <thead>
@@ -4150,7 +4162,7 @@ $impot="impôt sur le revenu";
                     <td class="border-2 border-gray-500 text-xs py-1 pl-2 ">{{$item->label}}</td>
                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value, 0, ',', ' ') }} </td>
                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_financial_plan_totals!=0?$item->value /$bp_financial_plan_totals*100:0,0, ',', ' ')}}%</td>
-                  </tr> 
+                  </tr>
                   @endforeach
                  @endif
                     @if(isset($data->financial_data->financial_plan_loans))
@@ -4159,7 +4171,7 @@ $impot="impôt sur le revenu";
                     <td class="border-2 border-gray-500 py-1 pl-2 text-xs">{{$item->label}}</td>
                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value, 0, ',', ' ') }} </td>
                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_financial_plan_totals!=0?$item->value /$bp_financial_plan_totals*100:0,0, ',', ' ')}}%</td>
-                  </tr> 
+                  </tr>
                   @endforeach
                  @endif
                   <tr class="bg-green-200">
@@ -4184,14 +4196,14 @@ $impot="impôt sur le revenu";
           <div class="pl-2">
            <div class="bg-gray-100" id="chart2" style="height: 231px; width: 100%;"></div>
           </div>
-        </div>   
+        </div>
       </div>
       </div>
       <div class="absolute bottom-0 right-0 left-0 ">
         <img
         class="absolute bottom-0 right-0 left-0 img_full_width"
         src="{{asset('images/back-office/svg/footer.svg')}}"
-        alt="" 
+        alt=""
         srcset=""
         />
 
@@ -4214,7 +4226,7 @@ $impot="impôt sur le revenu";
           <span   style="font-size: 10px;">Business Plan</span>
         </div>
       </div>
-      
+
    </div>
   </div>
 
@@ -4260,7 +4272,7 @@ $impot="impôt sur le revenu";
           </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
-           <p class="text-gray-500 font-normal text-xs"> 
+           <p class="text-gray-500 font-normal text-xs">
             Le chiffre d’affaires prévisionnel regroupe le montant  des ventes prévues par l’entreprise (ventes de biens et / ou prestations de services).
            </p>
           </div>
@@ -4279,7 +4291,7 @@ $impot="impôt sur le revenu";
                         w-4/12
                       "
                     >
-                     produit et /ou  service 
+                     produit et /ou  service
                     </th>
                     <th class="border-2 border-gray-500  text-center text-xs">PRIX </th>
                     <th class="border-2 border-gray-500  text-center  text-xs">Quantité /Nombre (mois)</th>
@@ -4301,12 +4313,12 @@ $impot="impôt sur le revenu";
                      @if(isset($item->organisme))
                      <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->otherValue*$item->organisme,0, ',', ' ')}}</td>
                      <?php $total=0; $total+= $item->value*$item->rate*$item->organisme; ?>
-                    
+
                     @else
                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->otherValue*$saisonalite,0, ',', ' ')}}</td>
                      <?php $total=0; $total+=  $item->value*$item->rate*$saisonalite; ?>
                      @endif
-                    </tr> 
+                    </tr>
                    @else
                      <td class="border-2 border-gray-500 py-1 pl-4 text-xs">{{$item->label}}</td>
                      @if(isset($item->rate))
@@ -4316,17 +4328,17 @@ $impot="impôt sur le revenu";
                         @if(isset($item->organisme))
                         <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value*$item->rate*$item->organisme,0, ',', ' ')}}</td>
                         <?php $total=0; $total+= isset($item->rate)?$item->value*$item->rate*$item->organisme:0; ?>
-                        
+
                         @else
                         <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value*$item->rate*$saisonalite,0, ',', ' ')}}</td>
                         <?php $total=0; $total+= isset($item->rate)? $item->value*$item->rate*$saisonalite:0; ?>
                         @endif
                         @endif
-                        </tr>  
+                        </tr>
                  @endif
-                  </tr> 
+                  </tr>
                   @endforeach
-                   @endif 
+                   @endif
                   @endforeach
                  @endif
                  @if(count($tablepage)==1)
@@ -4350,14 +4362,14 @@ $impot="impôt sur le revenu";
                   @endif
                 </tbody>
               </table>
-            </div> 
+            </div>
       </div>
       <br>
       <div class="absolute bottom-0 right-0 left-0 ">
         <img
         class="absolute bottom-0 right-0 left-0 img_full_width"
         src="{{asset('images/back-office/svg/footer.svg')}}"
-        alt="" 
+        alt=""
         srcset=""
         />
 
@@ -4380,12 +4392,12 @@ $impot="impôt sur le revenu";
           <span   style="font-size: 10px;">Business Plan</span>
         </div>
       </div>
-      
+
      </div>
-    </div> 
+    </div>
 
 
-    
+
   <div id="12" class="page printsection print-add-break print-full-width">
       <div class="flex justify-between absolute right-0 top-0 w-full">
         <div class="flex h-14 items-end justify-end space-x-3">
@@ -4414,7 +4426,7 @@ $impot="impôt sur le revenu";
           </h3>
         </div>
         <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
-      </div>  
+      </div>
       @if(isset($tablepage))
       @foreach ($tablepage as $key => $page)
       @if($key!=1)
@@ -4426,7 +4438,7 @@ $impot="impôt sur le revenu";
             <div class="inline-block rounded-lg border w-full " style="margin-top:2px;">
               <table class="table-fixed border border-gray-900 w-full text-xs">
                 <tbody class="font-medium">
-                
+
                   @foreach ($page as $item)
                     <tr>
                   @if(isset($item->otherValue))
@@ -4437,12 +4449,12 @@ $impot="impôt sur le revenu";
                      @if(isset($item->organisme))
                      <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->otherValue*$item->organisme,0, ',', ' ')}}</td>
                      <?php $total=0; $total+= $item->value*$item->rate*$item->organisme; ?>
-                    
+
                     @else
                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->otherValue*$saisonalite,0, ',', ' ')}}</td>
                      <?php $total=0; $total+=  $item->value*$item->rate*$saisonalite; ?>
                      @endif
-                    </tr> 
+                    </tr>
                    @else
                      <td class="border-2 border-gray-500 py-1 pl-4 text-xs w-4/12">{{$item->label}}</td>
                      @if(isset($item->rate))
@@ -4452,17 +4464,17 @@ $impot="impôt sur le revenu";
                         @if(isset($item->organisme))
                         <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value*$item->rate*$item->organisme,0, ',', ' ')}}</td>
                         <?php $total=0; $total+= isset($item->rate)?$item->value*$item->rate*$item->organisme:0; ?>
-                        
+
                         @else
                         <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value*$item->rate*$saisonalite,0, ',', ' ')}}</td>
                         <?php $total=0; $total+= isset($item->rate)? $item->value*$item->rate*$saisonalite:0; ?>
                         @endif
                         @endif
-                        </tr>  
+                        </tr>
                  @endif
-                  </tr> 
+                  </tr>
                   @endforeach
-                 
+
                   <tr class="bg-green-200">
                     <td
                     colspan="3"
@@ -4482,11 +4494,11 @@ $impot="impôt sur le revenu";
                   </tr>
                 </tbody>
               </table>
-            </div> 
-      </div> 
+            </div>
+      </div>
       @endif
       @endforeach
-     @endif  
+     @endif
       <div class="space-y-9" style="margin-top:10px;">
         <div class="space-y-4 ">
           <div class="space-y-1">
@@ -4504,8 +4516,8 @@ $impot="impôt sur le revenu";
                 <tr class="bg-gray-100">
                   <th
                     class="
-                   
-                  
+
+
                       border-2 border-gray-500
                       self-start
                       text-left
@@ -4534,7 +4546,7 @@ $impot="impôt sur le revenu";
                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_turnover_four_year,0, ',', ' ')}}</td>
                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_turnover_five_year,0, ',', ' ')}}</td>
 
-                </tr> 
+                </tr>
               </tbody>
             </table>
           </div>
@@ -4544,7 +4556,7 @@ $impot="impôt sur le revenu";
         <img
         class="absolute bottom-0 right-0 left-0 img_full_width"
         src="{{asset('images/back-office/svg/footer.svg')}}"
-        alt="" 
+        alt=""
         srcset=""
         />
 
@@ -4567,9 +4579,9 @@ $impot="impôt sur le revenu";
           <span   style="font-size: 10px;">Business Plan</span>
         </div>
       </div>
-      
+
      </div>
-    </div> 
+    </div>
    <div id="13" class="page printsection print-add-break  print-full-width">
       <div class="flex justify-between absolute right-0 top-0 w-full">
         <div class="flex h-14 items-end justify-end space-x-3">
@@ -4627,9 +4639,9 @@ $impot="impôt sur le revenu";
                   >
                   Achats
                   </th>
-                  <th class="border-2 border-gray-500 text-center text-xs">PRIX 
+                  <th class="border-2 border-gray-500 text-center text-xs">PRIX
                   </th>
-                  <th class="border-2 border-gray-500  text-center text-xs">Quantité/ Nombre(mois) 
+                  <th class="border-2 border-gray-500  text-center text-xs">Quantité/ Nombre(mois)
                   </th>
                   <th class="border-2 border-gray-500  text-center text-xs">Montant annuel</th>
                 </tr>
@@ -4638,8 +4650,8 @@ $impot="impôt sur le revenu";
                 @if(isset($tablepage))
                 @foreach ($tablepage as $key => $page)
                 @if($key==1)
-                @foreach ($page as $item)  
-                <?php 
+                @foreach ($page as $item)
+                <?php
                 if(isset($item->duration)){
                   $achat=(1-$item->duration/100);
                 }else{
@@ -4654,11 +4666,11 @@ $impot="impôt sur le revenu";
                     <td class="border-2 border-gray-500 text-center text-xs">--</td>
                  @if(isset($item->organisme))
                       <td class="border-2 border-gray-500 text-center text-xs">{{ number_format(($item->otherValue*$item->organisme)*$achat, 0, ',', ' ') }} </td>
-                  </tr> 
+                  </tr>
                   <?php   $total_achat+=(($item->otherValue*$item->organisme)* $achat); ?>
                   @else
                   <td class="border-2 border-gray-500 text-center text-xs">{{ number_format(($item->otherValue*$saisonalite)*$achat, 0, ',', ' ') }} </td>
-                    </tr> 
+                    </tr>
                   <?php   $total_achat+=(($item->otherValue*$saisonalite)* $achat); ?>
                 @endif
                 @else
@@ -4668,11 +4680,11 @@ $impot="impôt sur le revenu";
                   <td class="border-2 border-gray-500 text-center text-xs">--</td>
                @if(isset($item->organisme))
                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format(isset($item->rate)?($item->rate * $item->value*$item->organisme)* $achat:0, 0, ',', ' ') }} </td>
-                </tr> 
+                </tr>
                 <?php   $total_achat+=isset($item->rate)?(($item->rate * $item->value*$item->organisme)* $achat):0; ?>
                 @else
                 <td class="border-2 border-gray-500 text-center text-xs">{{ number_format(isset($item->rate)?($item->rate * $item->value*$saisonalite)* $achat:0, 0, ',', ' ') }} </td>
-                  </tr> 
+                  </tr>
                 <?php   $total_achat+=isset($item->rate)?(($item->rate * $item->value*$saisonalite)* $achat):0; ?>
                 @endif
                 @endif
@@ -4697,7 +4709,7 @@ $impot="impôt sur le revenu";
                   <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
                   <td class="border-2 border-gray-600 text-center bg-green-200 text-xs">{{number_format($total_achat,0,',',' ')}}</td>
                 </tr>
-                 @endif 
+                 @endif
               </tbody>
             </table>
           </div>
@@ -4706,7 +4718,7 @@ $impot="impôt sur le revenu";
         <img
         class="absolute bottom-0 right-0 left-0 img_full_width"
         src="{{asset('images/back-office/svg/footer.svg')}}"
-        alt="" 
+        alt=""
         srcset=""
         />
 
@@ -4759,7 +4771,7 @@ $impot="impôt sur le revenu";
           </h3>
         </div>
         <img src="{{asset('images/back-office/svg/corners.svg')}}" alt="" srcset="" />
-      </div> 
+      </div>
        @if(isset($tablepage))
         @foreach ($tablepage as $key => $page)
         @if($key!=1)
@@ -4770,9 +4782,9 @@ $impot="impôt sur le revenu";
           <div class="inline-block rounded-lg border w-full ">
             <table class="table-fixed border border-gray-900 w-full text-sm">
               <tbody class="font-medium">
-              
-                @foreach ($page as $item)  
-                <?php 
+
+                @foreach ($page as $item)
+                <?php
                 if(isset($item->duration)){
                   $achat=(1-$item->duration/100);
                 }else{
@@ -4787,11 +4799,11 @@ $impot="impôt sur le revenu";
                     <td class="border-2 border-gray-500 text-center text-xs">--</td>
                  @if(isset($item->organisme))
                       <td class="border-2 border-gray-500 text-center text-xs">{{ number_format(($item->otherValue*$item->organisme)*$achat, 0, ',', ' ') }} </td>
-                  </tr> 
+                  </tr>
                   <?php   $total_achat+=(($item->otherValue*$item->organisme)* $achat); ?>
                   @else
                   <td class="border-2 border-gray-500 text-center text-xs">{{ number_format(($item->otherValue*$saisonalite)*$achat, 0, ',', ' ') }} </td>
-                    </tr> 
+                    </tr>
                   <?php   $total_achat+=(($item->otherValue*$saisonalite)* $achat); ?>
                 @endif
                 @else
@@ -4801,11 +4813,11 @@ $impot="impôt sur le revenu";
                   <td class="border-2 border-gray-500 text-center text-xs">--</td>
                @if(isset($item->organisme))
                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format(isset($item->rate)?($item->rate * $item->value*$item->organisme)* $achat:0, 0, ',', ' ') }} </td>
-                </tr> 
+                </tr>
                 <?php   $total_achat+=isset($item->rate)?(($item->rate * $item->value*$item->organisme)* $achat):0; ?>
                 @else
                 <td class="border-2 border-gray-500 text-center text-xs">{{ number_format(isset($item->rate)?($item->rate * $item->value*$saisonalite)* $achat:0, 0, ',', ' ') }} </td>
-                  </tr> 
+                  </tr>
                 <?php   $total_achat+=isset($item->rate)?(($item->rate * $item->value*$saisonalite)* $achat):0; ?>
                 @endif
                 @endif
@@ -4881,7 +4893,7 @@ $impot="impôt sur le revenu";
                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_purchase_four_year,0, ',', ' ')}}</td>
                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_purchase_five_year,0, ',', ' ')}}</td>
 
-                </tr> 
+                </tr>
               </tbody>
             </table>
           </div>
@@ -4890,7 +4902,7 @@ $impot="impôt sur le revenu";
         <img
         class="absolute bottom-0 right-0 left-0 img_full_width"
         src="{{asset('images/back-office/svg/footer.svg')}}"
-        alt="" 
+        alt=""
         srcset=""
         />
 
@@ -4957,7 +4969,7 @@ $impot="impôt sur le revenu";
           </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
-           <p class="text-gray-500 font-normal text-xs" style="margin-top:5px;"> 
+           <p class="text-gray-500 font-normal text-xs" style="margin-top:5px;">
             Les charges que l'entreprise devra supporter au cours de ses 5 premières années d'activité sont très variées et dépendent de la nature de l'activité, mais aussi du lieu d'implantation, de la structure juridique choisie ou d'autres paramètres externes au projet.           </p>
             <div class="space-y-9">
         <div class="space-y-4">
@@ -5012,8 +5024,8 @@ $impot="impôt sur le revenu";
                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value, 0, ',', ' ') }} </td>
                     <?php   $total_overheads_fixed+=$item->value; ?>
                   @endif
-                    
-                </tr> 
+
+                </tr>
                 @endforeach
                @endif
                 <tr class="bg-green-200">
@@ -5034,8 +5046,8 @@ $impot="impôt sur le revenu";
                 </tr>
               </tbody>
             </table>
-          </div> 
-        </div>        
+          </div>
+        </div>
             {{-- <div class="space-y-1">
                     <h5
                       class="uppercase font-bold text-xs"
@@ -5087,8 +5099,8 @@ $impot="impôt sur le revenu";
                           <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value, 0, ',', ' ') }} </td>
                           <?php    $total_overheads_scalable+=$item->value; ?>
                         @endif
-                          
-                        </tr> 
+
+                        </tr>
                         @endforeach
                       @endif
                         <tr class="bg-green-200">
@@ -5116,7 +5128,7 @@ $impot="impôt sur le revenu";
         <img
         class="absolute bottom-0 right-0 left-0 img_full_width"
         src="{{asset('images/back-office/svg/footer.svg')}}"
-        alt="" 
+        alt=""
         srcset=""
         />
 
@@ -5139,7 +5151,7 @@ $impot="impôt sur le revenu";
           <span   style="font-size: 10px;">Business Plan</span>
         </div>
       </div>
-      
+
      </div>
     </div>
     </div>
@@ -5185,15 +5197,15 @@ $impot="impôt sur le revenu";
              </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div> --}}
-           {{-- <p class="text-gray-500 font-normal text-xs"> 
+           {{-- <p class="text-gray-500 font-normal text-xs">
             Les charges que l'entreprise devra supporter au cours de ses 5 premières années d'activité sont très variées et dépendent de la nature de l'activité, mais aussi du lieu d'implantation, de la structure juridique choisie ou d'autres paramètres externes au projet.           </p> --}}
-      
+
       <br>
       <div class="absolute bottom-0 right-0 left-0 ">
         <img
         class="absolute bottom-0 right-0 left-0 img_full_width"
         src="{{asset('images/back-office/svg/footer.svg')}}"
-        alt="" 
+        alt=""
         srcset=""
         />
 
@@ -5268,8 +5280,8 @@ $impot="impôt sur le revenu";
                           <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value, 0, ',', ' ') }} </td>
                           <?php    $total_overheads_scalable+=$item->value; ?>
                         @endif
-                          
-                        </tr> 
+
+                        </tr>
                         @endforeach
                       @endif
                         <tr class="bg-green-200">
@@ -5290,7 +5302,7 @@ $impot="impôt sur le revenu";
                         </tr>
                       </tbody>
                     </table>
-           </div> 
+           </div>
      </div>
     </div>
     </div>
@@ -5336,7 +5348,7 @@ $impot="impôt sur le revenu";
           </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
-           <p class="text-gray-500 font-normal text-xs" style="margin-top:5px;"> 
+           <p class="text-gray-500 font-normal text-xs" style="margin-top:5px;">
             Une part importante des charges d’exploitation. Elles comprennent non seulement les rémunérations du personnel représentées par les salaires bruts, mais également les différentes charges sociales calculées sur les salaires, dites « charges patronales ».
           </p>
 
@@ -5350,7 +5362,7 @@ $impot="impôt sur le revenu";
                         py-2
                         pl-4
                         border-2 border-gray-500
-                    
+
                         self-start
                         text-left
                         text-xs
@@ -5365,33 +5377,33 @@ $impot="impôt sur le revenu";
                   </tr>
                 </thead>
                 <tbody class="font-medium">
-             
+
                   @if(isset($data->financial_data->human_ressources))
-                  @foreach ($data->financial_data->human_ressources as $item) 
+                  @foreach ($data->financial_data->human_ressources as $item)
                     <tr>
                       <td class="border-2 border-gray-500 py-1 pl-4 text-xs">{{$item->label}}</td>
                       <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value, 0, ',', ' ') }} </td>
                       @if(isset($item->rate))
                       <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->rate, 0, ',', ' ') }} </td>
-                       <?php 
-                     
+                       <?php
+
                        if($item->duration==0){
                          $m=$item->value*$item->rate*12;
                        }else{
                         $m=$item->value*$item->rate*$item->duration;
                        }
-                      
+
                       ?>
                       <td class="border-2 border-gray-500 text-center text-xs">{{ number_format(isset($item->duration)?$item->value*$item->rate*$item->duration:$item->value*$item->rate*12, 0, ',', ' ') }} </td>
-                      <?php $total_overheads_scalablee+=$m; 
+                      <?php $total_overheads_scalablee+=$m;
                       //dd($total_overheads_scalablee);
-                      
+
                       ?>
-                     @endif 
-                  </tr> 
+                     @endif
+                  </tr>
                   @endforeach
                  @endif
-                 
+
                   <tr class="bg-green-100">
                     <td
                     colspan="3"
@@ -5404,7 +5416,7 @@ $impot="impôt sur le revenu";
                     >
                       TOTAL BRUT
                     </td>
-                 
+
                     <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
                     {{-- <td class="border-2 border-gray-600 text-center bg-white"></td> --}}
                     <td class="border-2 border-gray-600 text-center bg-green-100  text-xs ">{{ number_format($total_overheads_scalablee, 0, ',', ' ') }}</td>
@@ -5425,7 +5437,7 @@ $impot="impôt sur le revenu";
                      CHARGES SOCIALES (21,09%)
 
                     </td>
-                    
+
                     <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
                     {{-- <td class="border-2 border-gray-600 text-center bg-white"> </td> --}}
                     <td class="border-2 border-gray-600 text-center bg-green-100 text-xs">{{ number_format($total_overheads_scalablee*0.2109, 0, ',', ' ') }}</td>
@@ -5433,7 +5445,7 @@ $impot="impôt sur le revenu";
 
                   </tr>
                   <tr class="bg-green-100">
-                   
+
                     <td
                     colspan="3"
                       class="
@@ -5450,7 +5462,7 @@ $impot="impôt sur le revenu";
                     <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
 
                     <td class="border-2 border-gray-600 text-center bg-green-100 text-xs">{{ number_format($total_overheads_scalablee*0.03, 0, ',', ' ') }}</td>
-                  
+
 
 
                   </tr>
@@ -5465,27 +5477,27 @@ $impot="impôt sur le revenu";
                         text-xs
                       "
                     >
-                    TOTAL 
+                    TOTAL
 
 
                     </td>
                     <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
-  
-                    
+
+
                     <td class="border-2 border-gray-600 text-center bg-green-100 text-xs"> {{ number_format($total_overheads_scalablee+($total_overheads_scalablee*0.2109)+($total_overheads_scalablee*0.03), 0, ',', ' ') }}</td>
 
 
                   </tr>
                 </tbody>
               </table>
-            </div> 
+            </div>
       </div>
       <br>
       <div class="absolute bottom-0 right-0 left-0">
         <img
         class="absolute bottom-0 right-0 left-0 img_full_width"
         src="{{asset('images/back-office/svg/footer.svg')}}"
-        alt="" 
+        alt=""
         srcset=""
         />
 
@@ -5508,7 +5520,7 @@ $impot="impôt sur le revenu";
           <span   style="font-size: 10px;">Business Plan</span>
         </div>
       </div>
-      
+
      </div>
     </div>
     <div id="15" class="page printsection print-add-break print-full-width">
@@ -5554,7 +5566,7 @@ $impot="impôt sur le revenu";
           </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
-           <p class="text-gray-500 font-normal text-xs"> 
+           <p class="text-gray-500 font-normal text-xs">
             Le porteur de projet va payer la taxe de services communaux annuellement comme suit :
           </div>
             <div class="inline-block rounded-lg border w-full " style="margin-top:5px;">
@@ -5579,22 +5591,22 @@ $impot="impôt sur le revenu";
                   </tr>
                 </thead>
                 <tbody class="font-medium">
-                   <?php 
+                   <?php
                                       $imp_project=isset($data->company->implantation_project)?$data->company->implantation_project:'';
                                       //dd($data->company->implantation_project);
                                       $taxe=0;
-                                       $total_taxe1 =0; 
-                                       $total_taxe2 =0; 
+                                       $total_taxe1 =0;
+                                       $total_taxe2 =0;
                                          if($imp_project=='Urbain'){
                                         $taxe=0.105 ;
                                         }elseif($imp_project=='Rural'){
                                         $taxe=0.065 ;
-                                        }                 
+                                        }
                                        ?>
                   @if(isset($data->financial_data->overheads_fixed ))
                   @foreach ($data->financial_data->overheads_fixed as $item)
-                  @if($item->label=='loyer'|| $item->label=='loyers'|| $item->label=='Loyer')               
-         
+                  @if($item->label=='loyer'|| $item->label=='loyers'|| $item->label=='Loyer')
+
                     <tr>
                       <td class="border-2 border-gray-500 py-1 pl-4  text-xs">{{$item->label}}</td>
                       <td class="border-2 border-gray-500 text-center  text-xs">{{ number_format(0, 0, ',', ' ') }} </td>
@@ -5607,16 +5619,16 @@ $impot="impôt sur le revenu";
                       <td class="border-2 border-gray-500 text-center  text-xs">{{ number_format($item->value*12*$taxe, 0, ',', ' ') }} </td>
                       <?php   $total_taxe1 +=$item->value*12*$taxe; ?>
                       @endif
-                      
-                  </tr> 
-                   @endif   
+
+                  </tr>
+                   @endif
                   @endforeach
                  @endif
                  @if(isset($data->financial_data->startup_needs))
                  @foreach ($data->financial_data->startup_needs as $item)
                  @if (isset($item->label))
-                     
-                
+
+
                  @if($item->label !='Frais preliminaires' && $item->label !='Matériel de transport'  && $item->label !='Fonds de roulement de démarrage'  )
                    <tr>
                    @if(isset($item->label))
@@ -5648,16 +5660,16 @@ $impot="impôt sur le revenu";
                     >
                       TOTAL
                     </td>
-                 
+
                     <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
-      
+
                     <td class="border-2 border-gray-600 text-center bg-green-100 text-xs">{{number_format($total_taxe1 + $total_taxe2,0,',','')}}</td>
 
 
                   </tr>
                 </tbody>
               </table>
-            </div> 
+            </div>
             <div class="inline-block rounded-lg border w-full ">
               <table class="table-fixed border border-gray-900 w-full text-sm">
                 <thead>
@@ -5681,14 +5693,14 @@ $impot="impôt sur le revenu";
                  <tr>
                       <td class="border-2 border-gray-500 py-1 pl-4 text-xs ">Taxe des services communaux</td>
                       <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($total_taxe1 + $total_taxe2, 0, ',', ' ') }} </td>
-                  </tr> 
+                  </tr>
                   @if(isset($data->financial_data->taxes))
-                  @foreach ($data->financial_data->taxes as $item)              
+                  @foreach ($data->financial_data->taxes as $item)
                     <tr>
                       <td class="border-2 border-gray-500 py-1 pl-4 text-xs">{{isset($item->label)?$item->label:''}}</td>
                       <td class="border-2 border-gray-500 text-center text-xs">{{ number_format(isset($item->value)?$item->value:0, 0, ',', ' ') }} </td>
                       <?php   $total_taxes +=$item->value; ?>
-                  </tr> 
+                  </tr>
                   @endforeach
                  @endif
                   <tr class="bg-green-100">
@@ -5704,16 +5716,16 @@ $impot="impôt sur le revenu";
                     >
                       TOTAL
                     </td>
-                 
+
                     <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
-      
+
                     <td class="border-2 border-gray-600 text-center bg-green-100 text-xs">{{number_format($total_taxes+$total_taxe1 + $total_taxe2,0,',',' ')}}</td>
 
 
                   </tr>
                 </tbody>
               </table>
-            </div> 
+            </div>
             <p class="text-gray-500 text-xs" style="margin-top:5px;">* Les projets dans le cadre de ce programme sont exonéré de la taxe professionnelle
             </p>
       </div>
@@ -5730,7 +5742,7 @@ $impot="impôt sur le revenu";
           </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
-           <p class="text-gray-500 font-normal text-xs"> 
+           <p class="text-gray-500 font-normal text-xs">
             L'amortissement est la constatation comptable qui définit la perte de valeur d'un bien immobilisé de l'entreprise, du fait de l'usure du temps ou de l'obsolescence.
           </div>
             <div class="inline-block rounded-lg border w-full">
@@ -5763,15 +5775,15 @@ $impot="impôt sur le revenu";
                      <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value/(1+$item->duration/100), 0, ',', ' ') }} </td>
                      <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->rate ,0, ',', ' ')}} % </td>
                      @if($item->value!=0 && $item->rate!=0)
-                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format(($item->value/(1+$item->duration/100))*$item->rate/100, 0, ',', ' ') }} </td>      
-                     
-                    
+                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format(($item->value/(1+$item->duration/100))*$item->rate/100, 0, ',', ' ') }} </td>
+
+
                      @else
                      <td class="border-2 border-gray-500 text-center text-xs">{{ number_format(0, 0, ',', ' ') }} </td>
                      @endif
-                     
-                    
-                 </tr> 
+
+
+                 </tr>
                  @endforeach
                 @endif
                   <tr class="bg-green-100">
@@ -5785,26 +5797,26 @@ $impot="impôt sur le revenu";
                         text-xs
                       "
                     >
-                      TOTAL 
+                      TOTAL
                     </td>
-                 
+
                     <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
-      
+
                     <td class="border-2 border-gray-600 text-center bg-green-100 text-xs">{{number_format($total_taxe_amortisement,0,',',' ')}}</td>
 
 
                   </tr>
                 </tbody>
               </table>
-            </div> 
-           
+            </div>
+
       </div> --}}
       <br>
       <div class="absolute bottom-0 right-0 left-0 ">
         <img
         class="absolute bottom-0 right-0 left-0 img_full_width"
         src="{{asset('images/back-office/svg/footer.svg')}}"
-        alt="" 
+        alt=""
         srcset=""
         />
 
@@ -5827,7 +5839,7 @@ $impot="impôt sur le revenu";
           <span   style="font-size: 10px;">Business Plan</span>
         </div>
       </div>
-      
+
      </div>
     </div>
      <div id="16" class="page printsection print-add-break print-full-width hidden display_full" >
@@ -5873,7 +5885,7 @@ $impot="impôt sur le revenu";
           </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
-           <p class="text-gray-500 font-normal text-xs"> 
+           <p class="text-gray-500 font-normal text-xs">
             L'amortissement est la constatation comptable qui définit la perte de valeur d'un bien immobilisé de l'entreprise, du fait de l'usure du temps ou de l'obsolescence.
           </div>
             <div class="inline-block rounded-lg border w-full " style="margin-top:6px;">
@@ -5912,13 +5924,13 @@ $impot="impôt sur le revenu";
                      <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->value/(1+$item->duration/100), 0, ',', ' ') }} </td>
                      <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->rate ,0, ',', ' ')}} % </td>
                      @if($item->value!=0 && $item->rate!=0)
-                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format(($item->value/(1+$item->duration/100))*$item->rate/100, 0, ',', ' ') }} </td>      
+                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format(($item->value/(1+$item->duration/100))*$item->rate/100, 0, ',', ' ') }} </td>
                      @else
                      <td class="border-2 border-gray-500 text-center text-xs">{{ number_format(0, 0, ',', ' ') }} </td>
                      @endif
-                     
-                    
-                 </tr> 
+
+
+                 </tr>
                  @endforeach
                 @endif
                   <tr class="bg-green-100">
@@ -5932,9 +5944,9 @@ $impot="impôt sur le revenu";
                         text-xs
                       "
                     >
-                      TOTAL 
+                      TOTAL
                     </td>
-                 
+
                     <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
                     <td class="border-2 border-gray-600 text-center bg-green-100 text-xs">{{number_format($total_taxe_amortisement,0,',',' ')}}</td>
 
@@ -5942,14 +5954,14 @@ $impot="impôt sur le revenu";
                   </tr>
                 </tbody>
               </table>
-            </div> 
-           
+            </div>
+
       </div>
       <div class="absolute bottom-0 right-0 left-0">
         <img
         class="absolute bottom-0 right-0 left-0 img_full_width"
         src="{{asset('images/back-office/svg/footer.svg')}}"
-        alt="" 
+        alt=""
         srcset=""
         />
 
@@ -5972,7 +5984,7 @@ $impot="impôt sur le revenu";
           <span   style="font-size: 10px;">Business Plan</span>
         </div>
       </div>
-      
+
     </div>
     <div id="16" class="page printsection print-add-break print-full-width">
       <div class="flex justify-between absolute right-0 top-0 w-full">
@@ -6021,7 +6033,7 @@ $impot="impôt sur le revenu";
               @if(isset($data->financial_data->financial_plan_loans))
               @foreach ($data->financial_data->financial_plan_loans  as $key =>  $field)
               <div class="p-4 bg-gray-100">
-                <div class="flex justify-between bg-gray-100 p-2">       
+                <div class="flex justify-between bg-gray-100 p-2">
                   <p>Montant du prêt ( MAD ):</p>
                   <p class="font-medium">{{number_format($field->value ?? 0,0, ',', ' ')}}</p>
                 </div>
@@ -6038,13 +6050,13 @@ $impot="impôt sur le revenu";
                   </p>
                   <p class="font-medium">{{$data->financial_data->duration_différe ?? " "}}</p>
                 </div>
-              </div>  
+              </div>
               @endforeach
-                  
+
               @else
-                  
+
               <div class="p-4 bg-gray-100">
-                <div class="flex justify-between bg-gray-100 p-2">       
+                <div class="flex justify-between bg-gray-100 p-2">
                   <p>Montant du prêt ( MAD ):</p>
                   <p class="font-medium"></p>
                 </div>
@@ -6061,9 +6073,9 @@ $impot="impôt sur le revenu";
                   </p>
                   <p class="font-medium"></p>
                 </div>
-              </div> 
+              </div>
               @endif
-              
+
             </div>
           </div>
         </div>
@@ -6095,23 +6107,23 @@ $impot="impôt sur le revenu";
               <tbody class="font-medium">
                 @foreach ($yearsCalcul as  $key => $item)
                  <tr> @if($key==0)
-                   <td class="border-2 border-gray-500 py-1 pl-4 text-xs">    
+                   <td class="border-2 border-gray-500 py-1 pl-4 text-xs">
                   {{$key +1}} <sup>ère</sup> année</td>
                   @else
-                     <td class="border-2 border-gray-500 py-1 pl-4 text-xs">    
+                     <td class="border-2 border-gray-500 py-1 pl-4 text-xs">
                   {{$key +1}} <sup>ème</sup> année</td>
                    @endif
                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->mensualite, 0, ',', ' ') }} </td>
                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->interets, 0, ',', ' ') }} </td>
                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->capital_rem, 0, ',', ' ') }} </td>
                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($item->capital_rest, 0, ',', ' ') }} </td>
-                   <?php $total_mensualite+= $item->mensualite; 
-                         $total_interets+= $item->interets; 
-                         $total_rem+= $item->capital_rem; 
-                         $total_rest+= $item->capital_rest; 
+                   <?php $total_mensualite+= $item->mensualite;
+                         $total_interets+= $item->interets;
+                         $total_rem+= $item->capital_rem;
+                         $total_rest+= $item->capital_rest;
                    ?>
-               </tr> 
-               @endforeach 
+               </tr>
+               @endforeach
                 <tr class="bg-green-100">
                   <td
                     class="
@@ -6122,11 +6134,11 @@ $impot="impôt sur le revenu";
                       text-xs
                     "
                   >
-                    TOTAL 
+                    TOTAL
                   </td>
-               
+
                   <!-- <td class="border-2 border-gray-600 text-center">1</td> -->
-    
+
                   <td class="border-2 border-gray-600 text-center bg-green-100 text=xs">{{number_format($total_mensualite,0,',',' ')}}</td>
                   <td class="border-2 border-gray-600 text-center bg-green-100 text-xs">{{number_format($total_interets,0,',',' ')}}</td>
                   <td class="border-2 border-gray-600 text-center bg-green-100 text-xs">{{number_format($total_rem,0,',',' ')}}</td>
@@ -6134,14 +6146,14 @@ $impot="impôt sur le revenu";
                 </tr>
               </tbody>
             </table>
-          </div> 
+          </div>
         </div>
       </div>
       <div class="absolute bottom-0 right-0 left-0">
         <img
         class="absolute bottom-0 right-0 left-0 img_full_width"
         src="{{asset('images/back-office/svg/footer.svg')}}"
-        alt="" 
+        alt=""
         srcset=""
         />
 
@@ -6164,9 +6176,9 @@ $impot="impôt sur le revenu";
           <span   style="font-size: 10px;">Business Plan</span>
         </div>
       </div>
-      
+
     </div>
-   
+
     <div id="17" class="page printsection print-add-break print-full-width">
         <div class="flex justify-between absolute right-0 top-0 w-full">
           <div class="flex h-14 items-end justify-end space-x-3">
@@ -6250,7 +6262,7 @@ $impot="impôt sur le revenu";
                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_income_before_taxes_third_year, 0, ',', ' ') }} </td>
                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_income_before_taxes_four_year, 0, ',', ' ') }} </td>
                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_income_before_taxes_five_year, 0, ',', ' ') }} </td>
-                </tr> 
+                </tr>
                 @endif
                  @if($impot=='impôt sur le revenu')
                   <tr>
@@ -6260,7 +6272,7 @@ $impot="impôt sur le revenu";
                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_turnover_third_year, 0, ',', ' ') }} </td>
                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_turnover_four_year, 0, ',', ' ') }} </td>
                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_turnover_five_year, 0, ',', ' ') }} </td>
-                </tr> 
+                </tr>
                 @endif
                   <tr>
                     <td class="border-2 border-gray-500 py-1 pl-4 text-xs">{{$impot }}
@@ -6271,17 +6283,17 @@ $impot="impôt sur le revenu";
                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_corporate_tax_four_year, 0, ',', ' ') }} </td>
                     <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_corporate_tax_five_year, 0, ',', ' ') }} </td>
 
-                  </tr> 
+                  </tr>
                 </tbody>
               </table>
-            </div> 
+            </div>
           </div>
         </div>
         <div class="absolute bottom-0 right-0 left-0 ">
           <img
           class="absolute bottom-0 right-0 left-0 img_full_width"
           src="{{asset('images/back-office/svg/footer.svg')}}"
-          alt="" 
+          alt=""
           srcset=""
           />
 
@@ -6304,7 +6316,7 @@ $impot="impôt sur le revenu";
           <span   style="font-size: 10px;">Business Plan</span>
           </div>
         </div>
-      
+
     </div>
     <div id="18" class="page printsection print-add-break print-full-width">
       <div class="flex justify-between absolute right-0 top-0 w-full">
@@ -6344,7 +6356,7 @@ $impot="impôt sur le revenu";
               class="uppercase font-bold text-xs"
               style="color: var(--second-blue) ;"
             >
-            compte PRÉVISIONNEL des produits et charges 
+            compte PRÉVISIONNEL des produits et charges
             </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
@@ -6359,10 +6371,10 @@ $impot="impôt sur le revenu";
                       border-2 border-gray-500
                       self-start
                       text-left
-                      w-4/12 
+                      w-4/12
                        pl-2
                       py-2"
-                      style=" font-size:10px;"                    
+                      style=" font-size:10px;"
                   >
                   Elements
                   </th>
@@ -6385,7 +6397,7 @@ $impot="impôt sur le revenu";
                           <td class="border-2 border-gray-500 text-center bg-green-200 " style=" font-size:10px;">{{ number_format($bp_turnover_third_year, 0, ',', ' ') }} </td>
                           <td class="border-2 border-gray-500 text-center bg-green-200 " style=" font-size:10px;">{{ number_format($bp_turnover_four_year, 0, ',', ' ') }} </td>
                           <td class="border-2 border-gray-500 text-center bg-green-200 " style=" font-size:10px;">{{ number_format($bp_turnover_five_year, 0, ',', ' ') }} </td>
-                      </tr> 
+                      </tr>
                         <tr>
                           <td class="border-2 border-gray-500 py-1 pl-4 " style=" font-size:10px;"> Achats
 
@@ -6396,7 +6408,7 @@ $impot="impôt sur le revenu";
                           <td class="border-2 border-gray-500 text-center " style=" font-size:10px;">{{ number_format($bp_purchase_four_year, 0, ',', ' ') }} </td>
                           <td class="border-2 border-gray-500 text-center " style=" font-size:10px;">{{ number_format($bp_purchase_five_year, 0, ',', ' ') }} </td>
 
-                        </tr> 
+                        </tr>
                         <tr>
                           <td class="border-2 border-gray-500 py-1 pl-4 bg-green-200   " style=" font-size:10px;"> MARGE BRUTE
 
@@ -6481,7 +6493,7 @@ $impot="impôt sur le revenu";
 
             </tr>
             <tr>
-              <td class="border-2 border-gray-500 py-1 pl-4 bg-green-200  " style=" font-size:10px;"> RÉSULTAT FINANCIER 
+              <td class="border-2 border-gray-500 py-1 pl-4 bg-green-200  " style=" font-size:10px;"> RÉSULTAT FINANCIER
 
             </td>
               <td class="border-2 border-gray-500 text-center bg-green-200 " style=" font-size:10px;">{{ number_format($bp_financial_result_first_year, 0, ',', ' ') }} </td>
@@ -6557,14 +6569,14 @@ $impot="impôt sur le revenu";
                                  </tr>
               </tbody>
             </table>
-          </div> 
+          </div>
         </div>
       </div>
       <div class="absolute bottom-0 right-0 left-0 ">
         <img
         class="absolute bottom-0 right-0 left-0 img_full_width"
         src="{{asset('images/back-office/svg/footer.svg')}}"
-        alt="" 
+        alt=""
         srcset=""
         />
 
@@ -6587,7 +6599,7 @@ $impot="impôt sur le revenu";
           <span   style="font-size: 10px;">Business Plan</span>
         </div>
       </div>
-      
+
     </div>
     <div id="19" class="page printsection print-add-break print-full-width">
       <div class="flex justify-between absolute right-0 top-0 w-full">
@@ -6655,7 +6667,7 @@ $impot="impôt sur le revenu";
                     class="
                       border-2 border-gray-500
                      text-center
-                    
+
                      text-xs
                     "
                     style="font-size: 10px;"
@@ -6680,8 +6692,8 @@ $impot="impôt sur le revenu";
                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_cash_flow_first_year, 0, ',', ' ') }} </td>
                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_cash_flow_second_year, 0, ',', ' ') }} </td>
                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_cash_flow_third_year, 0, ',', ' ') }} </td>
-                   <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_cash_flow_four_year, 0, ',', ' ') }} </td>   
-                   <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_cash_flow_five_year, 0, ',', ' ') }} </td>       
+                   <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_cash_flow_four_year, 0, ',', ' ') }} </td>
+                   <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($bp_cash_flow_five_year, 0, ',', ' ') }} </td>
                  <tr>
                    <td colspan="2" class="border-2 border-gray-500 py-1 pl-4 bg-green-200  text-xs"> CUMUL
 
@@ -6692,14 +6704,14 @@ $impot="impôt sur le revenu";
                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($cumul_four_year, 0, ',', ' ') }} </td>
                    <td class="border-2 border-gray-500 text-center text-xs">{{ number_format($cumul_five_year, 0, ',', ' ') }} </td>
 
-                </tr> 
+                </tr>
               </tbody>
             </table>
-          </div> 
+          </div>
           <?php
-         
+
           $total_van= -$bp_investment_program_total+($bp_cash_flow_first_year*(pow(1+0.1,-1)))+($bp_cash_flow_second_year*pow(1+0.1,-2))+($bp_cash_flow_third_year*pow(1+0.1,-3))+($bp_cash_flow_four_year*pow(1+0.1,-4))+($bp_cash_flow_five_year*pow(1+0.1,-5)) ;
-         
+
          $flow_cash = array($bp_cash_flow_first_year, $bp_cash_flow_second_year, $bp_cash_flow_third_year, $bp_cash_flow_four_year, $bp_cash_flow_five_year);
          function irr ($investment, $flow) {
             for ($n = 0; $n < 100; $n += 0.0001) {
@@ -6714,7 +6726,7 @@ $impot="impôt sur le revenu";
                 }
             }
           }
-        
+
       //dd( IRR($bp_investment_program_total, $flow_cash ));
          //dd($total_van_verify);
           ?>
@@ -6722,24 +6734,24 @@ $impot="impôt sur le revenu";
           <div class="inline-block rounded-lg border w-full ">
             <table class="table-fixed border border-gray-900 w-full text-xs">
               <tbody class="font-medium">
-                
+
                  <tr>
                    <td class="border-2 border-gray-500   bg-green-200 ">TAUX DE RENTABILITÉ INTERNE (TRI)
                    </td>
                    <td class="border-2 border-gray-500 text-center ">{{ number_format( IRR($bp_investment_program_total, $flow_cash ), 0, ',', ' ') }}% </td>
-                  
-               </tr> 
+
+               </tr>
                 <tr>
                    <td class="border-2 border-gray-500 py-1 pl-4 bg-green-200"> VALEUR ACTUELLE NETTE (VAN)
                   </td>
                    <td class="border-2 border-gray-500 text-center">{{ number_format($total_van, 0, ',', ' ') }} </td>
-                </tr> 
+                </tr>
                 <tr>
                   <td class="border-2 border-gray-500 py-1 pl-4 bg-green-200"> DÉLAI DE RÉCUPÉRATION (DRCI)
                  </td>
                   <td class="border-2 border-gray-500 text-center">{{ $bp_roi_delay }} </td>
-               
-               </tr> 
+
+               </tr>
               </tbody>
             </table>
           </div>
@@ -6749,7 +6761,7 @@ $impot="impôt sur le revenu";
         <img
         class="absolute bottom-0 right-0 left-0 img_full_width"
         src="{{asset('images/back-office/svg/footer.svg')}}"
-        alt="" 
+        alt=""
         srcset=""
         />
 
@@ -6772,7 +6784,7 @@ $impot="impôt sur le revenu";
           <span   style="font-size: 10px;">Business Plan</span>
         </div>
       </div>
-      
+
     </div>
     <div id="20" class="page printsection print-full-width">
       <div class="flex justify-between absolute right-0 top-0 w-full">
@@ -6807,7 +6819,7 @@ $impot="impôt sur le revenu";
       <div class="space-y-9">
         <div class="space-y-4">
           <div class="space-y-1">
-        
+
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
         </div>
@@ -6816,10 +6828,10 @@ $impot="impôt sur le revenu";
             <img
                 class="absolute left-2 top-0"
                 src="{{asset('images/back-office/svg/Group.svg')}}"
-                alt="" 
+                alt=""
                 srcset=""
         />
-        <?php  
+        <?php
         $gender="";
          if(isset($owner->gender)){
             if($owner->gender=='Homme'){
@@ -6829,7 +6841,7 @@ $impot="impôt sur le revenu";
             }
         }
          ?>
-         
+
             <p class="align-middle  text-justify text-xs">
               Le projet que se propose{{count($members)!=0?'nt':''}} {{$gender}} {{ ucfirst($owner->first_name)}} {{ ucfirst($owner->last_name)}},@foreach ($members as $member)
                 {{$member->full_name}},
@@ -6849,18 +6861,18 @@ $impot="impôt sur le revenu";
             <img
             class="absolute bottom-0 right-2"
             src="{{asset('images/back-office/svg/quote-down.svg')}}"
-            alt="" 
+            alt=""
             srcset=""
         />
               </div>
-              
+
             </div>
           </div>
           <div class="absolute bottom-1 right-0 left-0 ">
             <img
             class="absolute bottom-0 right-0 left-0 img_full_width"
             src="{{asset('images/back-office/svg/footer.svg')}}"
-            alt="" 
+            alt=""
             srcset=""
             />
 
@@ -6883,12 +6895,12 @@ $impot="impôt sur le revenu";
                <span   style="font-size: 10px;">Business Plan</span>
             </div>
           </div>
-      
+
     </div>
     @if(isset($data->list_mat_file))
     <?php  $files=explode(',',$data->list_mat_file);?>
-    @foreach ($files as $item) 
-    
+    @foreach ($files as $item)
+
     @if($item!='')
     <div id="20" class="page printsection print-full-width ">
             <div class="flex justify-between absolute right-0 top-0 w-full">
@@ -6924,17 +6936,17 @@ $impot="impôt sur le revenu";
                         style="
                           display: block;
                             width: 800px;
-                            max-height: 500px; 
+                            max-height: 500px;
                              "
                         src="{{asset('storage/'.$item)}}"
-                        alt="" 
+                        alt=""
                       srcset=""
                       />
             {{-- <div class="absolute bottom-1 right-0 left-0 ">
                   <img
                   class="absolute bottom-0 right-0 left-0 img_full_width"
                   src="{{asset('images/back-office/svg/footer.svg')}}"
-                  alt="" 
+                  alt=""
                   srcset=""
                   />
                   <div
@@ -6974,7 +6986,7 @@ option = {
 color:[
                 "#0E6251",
                "#148B73",
-               "#1BBC9B",              
+               "#1BBC9B",
       ],
   title: {
     text: '',
@@ -6994,7 +7006,7 @@ color:[
       type:'pie',
       radius: '65%',
       selectedMode: 'single',
-      data:<?php echo json_encode(  $startup_needarray, JSON_NUMERIC_CHECK); ?>, 
+      data:<?php echo json_encode(  $startup_needarray, JSON_NUMERIC_CHECK); ?>,
     }
   ]
 };
@@ -7002,7 +7014,7 @@ optionTwo = {
 color:[
                 "#0E6251",
                "#148B73",
-               "#1BBC9B",              
+               "#1BBC9B",
       ],
   title: {
     text: '',
@@ -7022,7 +7034,7 @@ color:[
       type:'pie',
       radius: '65%',
       selectedMode: 'single',
-      data:<?php echo json_encode( $dataPlan , JSON_NUMERIC_CHECK); ?>, 
+      data:<?php echo json_encode( $dataPlan , JSON_NUMERIC_CHECK); ?>,
     }
   ]
 };
@@ -7044,7 +7056,7 @@ optionTwo && chartDomOne.setOption(optionTwo);
     }
 
 window.addEventListener('load',function(){
-    let stop = false 
+    let stop = false
     const interval = setInterval(function(){
     if(!stop){
     var d=document.querySelectorAll('p');
@@ -7066,7 +7078,7 @@ window.addEventListener('load',function(){
         stop =true
     clearInterval(interval)
     },3000)
- 
+
 })
 
 </script>
