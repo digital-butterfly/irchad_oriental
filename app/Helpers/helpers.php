@@ -17,3 +17,5 @@ function calculateIncomeTax($income) {
     }
     return $tax;
 }
+
+
