@@ -677,6 +677,8 @@ if (($data ->company->applied_tax ?? '') == 'IS') {
             $bp_corporate_tax_first_year = $bp_income_before_taxes_first_year *  0.05;
             if($bp_corporate_tax_first_year <= 3000){
               $bp_corporate_tax_first_year =3000;
+            }else {
+                $bp_corporate_tax_first_year = $bp_income_before_taxes_first_year *  0.125;
             }
             break;
         case ($bp_income_before_taxes_first_year > 300000 && $bp_income_before_taxes_first_year <= 1000000):
