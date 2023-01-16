@@ -1291,6 +1291,16 @@ $impot="impôt sur le revenu";
         alt=""
         srcset=""
       />
+
+    @if($logo == 'mobadara')
+      <img
+        src="{{asset('images/back-office/svg/mobadara-logo.jpeg')}}"
+        class="absolute right-5 top-4 w-40"
+        alt=""
+        srcset=""
+      />
+    @endif
+
       {{-- <img
         src="{{asset('images/back-office/svg/mobadara-logo.png')}}"
         class="absolute right-5 top-4"
@@ -3556,7 +3566,7 @@ $impot="impôt sur le revenu";
               class="uppercase font-bold text-xs"
               style="color: var(--second-blue)"
             >
-         Autorisation nécessaires
+         Autorisations nécessaires
             </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
@@ -3728,7 +3738,7 @@ $impot="impôt sur le revenu";
           </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
-          <p class="text-gray-500 font-normal text-xs"> Les ressources humaines ont pour objectif d’apporter à l’entreprise le personnel nécessaire à son bon fonctionnement. Dans notre cas, le PDP a besoin des ressources humaines suivantes:
+          <!-- <p class="text-gray-500 font-normal text-xs"> Les ressources humaines ont pour objectif d’apporter à l’entreprise le personnel nécessaire à son bon fonctionnement. Dans notre cas, le PDP a besoin des ressources humaines suivantes: -->
           </p>
           <div class="inline-block rounded-lg border mt-5">
             <table class="table-fixed border border-gray-900 w-full text-xs">
@@ -4272,9 +4282,9 @@ $impot="impôt sur le revenu";
           </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
-           <p class="text-gray-500 font-normal text-xs">
+           <!-- <p class="text-gray-500 font-normal text-xs">
             Le chiffre d’affaires prévisionnel regroupe le montant  des ventes prévues par l’entreprise (ventes de biens et / ou prestations de services).
-           </p>
+           </p> -->
           </div>
             <div class="inline-block rounded-lg border w-full " style="margin-top:2px;">
               <table class="table-fixed border border-gray-900 w-full text-xs">
@@ -4661,7 +4671,7 @@ $impot="impôt sur le revenu";
                 @if(isset($item->otherValue))
 
                   <tr>
-                    <td class="border-2 border-gray-500  text-xs"> Achat <span class="bg-red-200">{{$item->label}}</span> ({{ number_format( $achat*100, 0, ',', ' ') }}% du Chiffres d’affaires) </td>
+                    <td class="border-2 border-gray-500  text-xs"><span class="bg-red-200">{{$item->label}}</span> ({{ number_format( $achat*100, 0, ',', ' ') }}% du Chiffres d’affaires) </td>
                     <td class="border-2 border-gray-500 text-center text-xs">--</td>
                     <td class="border-2 border-gray-500 text-center text-xs">--</td>
                  @if(isset($item->organisme))
@@ -4675,7 +4685,7 @@ $impot="impôt sur le revenu";
                 @endif
                 @else
                 <tr>
-                  <td class="border-2 border-gray-500 text-xs"> Achat <span class="bg-red-200">{{$item->label}}</span> ({{ number_format( $achat*100, 0, ',', ' ') }}% du Chiffres d’affaires) </td>
+                  <td class="border-2 border-gray-500 text-xs"><span class="bg-red-200">{{$item->label}}</span> ({{ number_format( $achat*100, 0, ',', ' ') }}% du Chiffres d’affaires) </td>
                   <td class="border-2 border-gray-500 text-center text-xs">--</td>
                   <td class="border-2 border-gray-500 text-center text-xs">--</td>
                @if(isset($item->organisme))
@@ -4969,8 +4979,8 @@ $impot="impôt sur le revenu";
           </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
-           <p class="text-gray-500 font-normal text-xs" style="margin-top:5px;">
-            Les charges que l'entreprise devra supporter au cours de ses 5 premières années d'activité sont très variées et dépendent de la nature de l'activité, mais aussi du lieu d'implantation, de la structure juridique choisie ou d'autres paramètres externes au projet.           </p>
+           <!-- <p class="text-gray-500 font-normal text-xs" style="margin-top:5px;">
+            Les charges que l'entreprise devra supporter au cours de ses 5 premières années d'activité sont très variées et dépendent de la nature de l'activité, mais aussi du lieu d'implantation, de la structure juridique choisie ou d'autres paramètres externes au projet.           </p> -->
             <div class="space-y-9">
         <div class="space-y-4">
           <div class="space-y-1">
@@ -5197,8 +5207,8 @@ $impot="impôt sur le revenu";
              </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div> --}}
-           {{-- <p class="text-gray-500 font-normal text-xs">
-            Les charges que l'entreprise devra supporter au cours de ses 5 premières années d'activité sont très variées et dépendent de la nature de l'activité, mais aussi du lieu d'implantation, de la structure juridique choisie ou d'autres paramètres externes au projet.           </p> --}}
+           <!-- <p class="text-gray-500 font-normal text-xs">
+            Les charges que l'entreprise devra supporter au cours de ses 5 premières années d'activité sont très variées et dépendent de la nature de l'activité, mais aussi du lieu d'implantation, de la structure juridique choisie ou d'autres paramètres externes au projet.           </p> -->
 
       <br>
       <div class="absolute bottom-0 right-0 left-0 ">
@@ -5348,9 +5358,9 @@ $impot="impôt sur le revenu";
           </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
-           <p class="text-gray-500 font-normal text-xs" style="margin-top:5px;">
+           <!-- <p class="text-gray-500 font-normal text-xs" style="margin-top:5px;">
             Une part importante des charges d’exploitation. Elles comprennent non seulement les rémunérations du personnel représentées par les salaires bruts, mais également les différentes charges sociales calculées sur les salaires, dites « charges patronales ».
-          </p>
+          </p> -->
 
           </div>
             <div class="inline-block rounded-lg border w-full " style="margin-top:2px;">
@@ -5742,8 +5752,8 @@ $impot="impôt sur le revenu";
           </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
-           <p class="text-gray-500 font-normal text-xs">
-            L'amortissement est la constatation comptable qui définit la perte de valeur d'un bien immobilisé de l'entreprise, du fait de l'usure du temps ou de l'obsolescence.
+           <!-- <p class="text-gray-500 font-normal text-xs">
+            L'amortissement est la constatation comptable qui définit la perte de valeur d'un bien immobilisé de l'entreprise, du fait de l'usure du temps ou de l'obsolescence. -->
           </div>
             <div class="inline-block rounded-lg border w-full">
               <table class="table-fixed border border-gray-900 w-99 text-xs">
@@ -5885,8 +5895,8 @@ $impot="impôt sur le revenu";
           </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
-           <p class="text-gray-500 font-normal text-xs">
-            L'amortissement est la constatation comptable qui définit la perte de valeur d'un bien immobilisé de l'entreprise, du fait de l'usure du temps ou de l'obsolescence.
+           <!-- <p class="text-gray-500 font-normal text-xs">
+            L'amortissement est la constatation comptable qui définit la perte de valeur d'un bien immobilisé de l'entreprise, du fait de l'usure du temps ou de l'obsolescence. -->
           </div>
             <div class="inline-block rounded-lg border w-full " style="margin-top:6px;">
               <table class="table-fixed border border-gray-900 w-full text-sm">
@@ -6221,8 +6231,8 @@ $impot="impôt sur le revenu";
               </h5>
               <hr class="bg-gray-300" style="height: 2px" />
             </div>
-            <p class="text-gray-500 font-normal text-xs">C’est un impôt qui s'applique sur les bénéfices réalisés par les sociétés
-            </p>
+            <!-- <p class="text-gray-500 font-normal text-xs">C’est un impôt qui s'applique sur les bénéfices réalisés par les sociétés
+            </p> -->
           </div>
           <div class="space-y-4">
             <div class="inline-block rounded-lg border w-full ">
@@ -6643,9 +6653,9 @@ $impot="impôt sur le revenu";
             </h5>
             <hr class="bg-gray-300" style="height: 2px" />
           </div>
-          <p class="text-gray-500 font-normal text-xs">La rentabilité financière mesure la capacité des capitaux investis par les actionnaires et associés (capitaux propres) à dégager un certain niveau de profit.
+          <!-- <p class="text-gray-500 font-normal text-xs">La rentabilité financière mesure la capacité des capitaux investis par les actionnaires et associés (capitaux propres) à dégager un certain niveau de profit.
 
-          </p>
+          </p> -->
         </div>
         <div class="space-y-4">
           <div class="inline-block rounded-lg border w-full ">

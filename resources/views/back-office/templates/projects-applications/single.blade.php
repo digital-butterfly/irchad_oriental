@@ -82,7 +82,7 @@
                             <div class="kt-widget__top">
                                 <div class="kt-widget__content">
                                     <div class="kt-widget__head">
-                                        <a href="/admin/print-business-plan/{{Route::current()->parameters['candidature']}}"class="kt-widget__title">
+                                        <a href="/admin/print-business-plan-Two/{{Route::current()->parameters['candidature']}}?logo=mobadara"class="kt-widget__title">
                                             {{ $application->title }}
                                              <span type="button" class="btn btn-brand btn-bold" ><i class="flaticon2-printer"></i></span>
                                         </a>

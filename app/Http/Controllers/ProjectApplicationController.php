@@ -104,8 +104,8 @@ class ProjectApplicationController extends Controller
 
             'taxes.*.value.integer' => 'Taxes : le champ Montant doit être un chiffre',
         ]
-    
-    
+
+
     );
     }
 
@@ -182,7 +182,7 @@ class ProjectApplicationController extends Controller
         return view('back-office/templates/projects-applications/add', compact("fields"));
     }
 
-  
+
     public function store(Request $request)
     {
         //dd("hhh");
@@ -196,15 +196,15 @@ class ProjectApplicationController extends Controller
         $fille_db='';
 //dd($files);
         $filename ='';
-        
+
         if($request->file('file')) {
         foreach ($files as $key=> $file) {
           $img_ext = $file->getClientOriginalExtension();
           $filename = 'annex' . time() . $key.'.' . $img_ext;
           $path = $file->storeAs('public', $filename);//image save public folder
           $fille_db.=','.$filename;
-          } 
-  } 
+          }
+  }
         $application = ProjectApplication::create([
             'member_id' => $request['member_id'],
             'category_id' => $request['category_id'],
@@ -304,7 +304,7 @@ class ProjectApplicationController extends Controller
     {
        $messageError='';
         $application = ProjectApplication::find($id);
-       
+
        $applications = ProjectApplicationMember::find($id);
         $member = Member::find($application->member_id);
         /// dd($applications );
@@ -357,19 +357,19 @@ class ProjectApplicationController extends Controller
       $total_p=0;
       $total_s=0;
       $achat_t=0;
-      $nombre=0; 
+      $nombre=0;
      if(isset($data->financial_data->human_ressources)){
          foreach($data->financial_data->human_ressources as $total) {
-            $nombre+=$total->value; 
+            $nombre+=$total->value;
          }
-       
-     } 
+
+     }
      if (isset($data ->financial_data->products_turnover_forecast)){
     foreach ($data ->financial_data->products_turnover_forecast as $total){
       if(isset($total->duration)){
         $achat_t=(1-($total->duration/100));
       }else{
-       $achat_t=0; 
+       $achat_t=0;
       }
       if(isset($total->otherValue)){
          if(isset($total->organisme)){
@@ -379,26 +379,26 @@ class ProjectApplicationController extends Controller
         $bp_turnover_products_total1 = $bp_turnover_products_total1 +(( $total->otherValue*$saisonalite)* $achat_t) ;
         $total_p += ( $total->otherValue *$saisonalite) ;
         $bp_profit_margin_rate=0;
-        $bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration; 
+        $bp_profit_margin_rate= $bp_profit_margin_rate + $total->duration;
         }
       }else{
         if(isset($total->organisme)){
-        if(isset($total->rate)){       
+        if(isset($total->rate)){
         $total_p += $total->rate * $total->value*$total->organisme;}
         }else{
-           if(isset($total->rate)){   
+           if(isset($total->rate)){
         $total_p += ( $total->rate * $total->value*$saisonalite) ;}
         }
       }
-    
-    }      
+
+    }
   }
     if (isset($data ->financial_data->services_turnover_forecast_c)){
     foreach ($data ->financial_data->services_turnover_forecast_c as $total){
         if(isset($total->duration)){
         $achat_t=(1-($total->duration/100));
       }else{
-       $achat_t=0; 
+       $achat_t=0;
       }
          if(isset($total->otherValue)){
          if(isset($total->organisme)){
@@ -429,24 +429,24 @@ class ProjectApplicationController extends Controller
         //         foreach($application->financial_data->startup_needs as $data){
         //     $total+=$data->value;
         //         }
-                
+
         //     //sdd($total);
         //     }
         //     if(isset($application->financial_data->financial_plan)){
         //         foreach($application->financial_data->financial_plan as $data){
         //     $total1+=$data->value;
         //     //dd($data->value);
-        //     }  
+        //     }
         //     }
         //     if(isset($application->financial_data->financial_plan_loans)){
         //     foreach($application->financial_data->financial_plan_loans as $data){
         //     $total2+=$data->value;
-        //         }  
+        //         }
         //     }
         //     $some_total=$total2+$total1;
         //     if($some_total!=$total){
         //         $messageError=' le programme d\'investissement  n\'est pas egual a le plan financement!';
-        //     } 
+        //     }
 
 //     dd($data->toArray());
         return view('back-office/templates/projects-applications/single', compact('histo','application', 'data', 'fields','messageError','total_ca','nombre'));
@@ -469,9 +469,9 @@ class ProjectApplicationController extends Controller
 //        dd($projectApplicationMembers->toArray());
 //        $data =collect([ProjectApplication::findOrFail($id),$projectApplicationMembers]);
         $data =ProjectApplication::findOrFail($id);
-       
+
 //        dd(array_merge($data->toArray()));
-        $fields = ProjectApplication::formFields($id); 
+        $fields = ProjectApplication::formFields($id);
        // dd($fields);
         return view('back-office/templates/projects-applications/edit', compact('fields', 'data', 'projectApplicationMembers'));
     }
@@ -622,23 +622,23 @@ class ProjectApplicationController extends Controller
 
             ]);
         }
-        
+
  $fille_db='';
  $filename ='';
  // dd($request->file);
-   if($request->file('file')){  
+   if($request->file('file')){
      $files=$request->file('file');
- 
+
         if($request->file('file')) {
                 foreach ($files as $key=> $file) {
                 $img_ext = $file->getClientOriginalExtension();
                 $filename = 'annex' . time() . $key.'.' . $img_ext;
                 $path = $file->storeAs('public', $filename);//image save public folder
                 $fille_db.=','.$filename;
-                } 
-        } 
+                }
+        }
 }
-  // if(old())  
+  // if(old())
 // dd($request);
         $application->update([
             'member_id' => $request['member_id'],
@@ -673,8 +673,8 @@ class ProjectApplicationController extends Controller
                 'autorisations_nécessaire_c' => $request['autorisations_nécessaire_c'],
                 'local' => $request['local'],
                 'list_mat' => $request['list_mat'],
-               
-               
+
+
             ])),
             'financial_data' => json_decode(json_encode([
                 'financial_plan' => $request['financial_plan'],
@@ -783,10 +783,10 @@ class ProjectApplicationController extends Controller
 
             ]);
         }
-        
+
         $fille_db='';
         $filename ='';
-        if($request->file('file')){  
+        if($request->file('file')){
             $files=$request->file('file');
         // dd($request->file('file'));
                 if($request->file('file')) {
@@ -795,10 +795,10 @@ class ProjectApplicationController extends Controller
                         $filename = 'annex' . time() . $key.'.' . $img_ext;
                         $path = $file->storeAs('public', $filename);//image save public folder
                         $fille_db.=','.$filename;
-                        } 
-                } 
+                        }
+                }
         }
-  // if(old())  
+  // if(old())
  // dd($request);
         $application->update([
               'company_arab' => [
