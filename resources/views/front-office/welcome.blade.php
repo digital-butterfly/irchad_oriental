@@ -21,6 +21,9 @@
 <section class="bg-home" id="home">
     <div class="home-bg-overlay"></div>
     <div class="container">
+
+
+        test test 
         <div class="row">
             <div class="col-lg-12 text-center">
                 <h3 class="home-heading mt-5 pt-5">{{__('welcome.Une plateforme dédiée aux jeunes porteurs de projets')}}</h3>
