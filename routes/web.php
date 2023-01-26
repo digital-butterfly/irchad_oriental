@@ -16,9 +16,10 @@ use \Illuminate\Support\Facades\Mail;
 */
 // Route to la page d'accueil
 Route::get('/', function () {
-    dd("test");
     return view('front-office.welcome');
 });
+
+
 //route vers la page programme
 Route::get('/programme', function () {
     return view('front-office.programme');
