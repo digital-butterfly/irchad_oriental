@@ -16,6 +16,7 @@ use \Illuminate\Support\Facades\Mail;
 */
 // Route to la page d'accueil
 Route::get('/', function () {
+    dd("test");
     return view('front-office.welcome');
 });
 //route vers la page programme
@@ -23,28 +24,28 @@ Route::get('/programme', function () {
     return view('front-office.programme');
 });
 //route vers la page soummisions projet
-Route::get('/project-submission','CandidatureController@index');
+Route::get('/project-submission', 'CandidatureController@index');
 //Route::get('/adherent', function () {
 //    return view('adherent');
 //});
 //route vers la page à propos
-Route::get('/a-propos',function(){
+Route::get('/a-propos', function () {
     return view('front-office.about-us');
 });
 //route vers la page formation
-Route::get('/formation',function(){
+Route::get('/formation', function () {
     return view('front-office.formation');
 });
 //route vers la page cantact
-Route::get('/contact',function(){
+Route::get('/contact', function () {
     return view('front-office.contact');
 });
 //route vers la page cantact
-Route::get('/faq',function(){
+Route::get('/faq', function () {
     return view('front-office.faq');
 });
 //route vers ajout de soummision projets
-Route::post("/project-submission",'CandidatureController@create')->name("projectSubmission");
+Route::post("/project-submission", 'CandidatureController@create')->name("projectSubmission");
 Route::post('/', 'Auth\LoginController@userLogin');
 
 Auth::routes();
@@ -62,9 +63,9 @@ Route::post('/login/member', 'Auth\LoginController@memberLogin');
 Route::post('/register/admin', 'Auth\RegisterController@createUser')->name('register.admin');
 Route::post('/register/member', 'Auth\RegisterController@createMember')->name('register.member');
 
-Route::get('/email',function (){
-//   Mail::to('email@email.com')->send(new WelcomeMail());
-   return new WelcomeMail();
+Route::get('/email', function () {
+    //   Mail::to('email@email.com')->send(new WelcomeMail());
+    return new WelcomeMail();
 });
 
 
@@ -91,8 +92,8 @@ Route::group(['middleware' => 'auth:user'], function () {
 
     Route::resource('admin/candidatures', 'ProjectApplicationController');
     Route::resource('admin/candidature', 'FicheSynthetique');
-      Route::post('admin/candidature', 'FicheSynthetique@update');
-   // Route::post('candidature', ['as' => 'candidature.myfunction', 'uses' =>  'App\Http\Controllers\FicheSynthetique@update']);
+    Route::post('admin/candidature', 'FicheSynthetique@update');
+    // Route::post('candidature', ['as' => 'candidature.myfunction', 'uses' =>  'App\Http\Controllers\FicheSynthetique@update']);
     Route::post('/admin/list/candidatures', 'ProjectApplicationController@ajaxList');
 
     Route::resource('admin/create-enterprise', 'IncorporationController');
@@ -111,11 +112,11 @@ Route::group(['middleware' => 'auth:user'], function () {
     route::post('/admin/GroupsList', 'GroupsController@ajaxGroupsList');
 
     Route::resource('admin/session', 'SessionController');
-//    Route::resource('admin/session/all-calendar', 'SessionController@allcalendar');
+    //    Route::resource('admin/session/all-calendar', 'SessionController@allcalendar');
     Route::post('/admin/list/session', 'SessionController@ajaxList');
 
     Route::resource('admin/groups', 'GroupsController');
-//    Route::resource('admin/groups/all-calendar', 'SessionController@allcalendar');
+    //    Route::resource('admin/groups/all-calendar', 'SessionController@allcalendar');
     Route::post('/admin/list/groups', 'GroupsController@ajaxList');
 
     Route::resource('admin/funding', 'FundingController');
@@ -163,33 +164,31 @@ Route::group(['middleware' => 'auth:user'], function () {
     Route::resource('admin/', 'DashboardController');
     Route::get('admin', 'DashboardController@ajaxList');
 
-    Route::get('/admin/exportExl','ExportController@exportExl')->name('exportExl');
+    Route::get('/admin/exportExl', 'ExportController@exportExl')->name('exportExl');
 
 
 
     Route::resource('admin/projects-categories', 'ProjectCategoryController');
-
 });
 
 Route::get('get/{filename}', 'FileController@getFile')->name('getfile');
 
 Route::group(['middleware' => 'auth:member'], function () {
     Route::resource('adherent/', 'AdherentController');
-//    Route::get('adherent', 'AdherentController@index');
+    //    Route::get('adherent', 'AdherentController@index');
 
 });
-Route::get('/admin/exportExcel','ProjectApplicationController@exportExcel')->name('exportExcel');
-Route::get('/admin/exportExcelmembers','MemberController@exportExcel')->name('exportExcel');
+Route::get('/admin/exportExcel', 'ProjectApplicationController@exportExcel')->name('exportExcel');
+Route::get('/admin/exportExcelmembers', 'MemberController@exportExcel')->name('exportExcel');
 
 
 Route::group(['middleware' => 'auth:member'], function () {
     Route::view('/member', 'member-office/home');
 });
-Route::get('locale/{locale}', function ($locale){
+Route::get('locale/{locale}', function ($locale) {
     Session::put('locale', $locale);
     return redirect()->back();
 });
 Route::get('/admin/print-business-plan/{id}', 'PrintController@Businessplan')->name('printbusinessplan');
 Route::get('/admin/print-business-plan-arabe/{id}', 'PrintController@BusinessplanTwo')->name('printbusinessplanTwo');
 Route::get('/admin/print-business-plan-Two/{id}', 'PrintController@BusinessplanThree')->name('printbusinessplanThree');
-
