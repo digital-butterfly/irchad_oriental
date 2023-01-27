@@ -19,7 +19,6 @@ use \Illuminate\Support\Facades\Mail;
 */
 // Route to la page d'accueil
 // Route::get('/', function () {
-
 //     return view('front-office.welcome');
 // });
 Route::get('/', [FrontController::class, 'index'])
@@ -27,6 +26,7 @@ Route::get('/', [FrontController::class, 'index'])
 
 
 Route::get('lang/change', [LangController::class, 'change'])->name('changeLang');
+
 
 
 //route vers la page programme

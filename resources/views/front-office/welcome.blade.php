@@ -1,4 +1,3 @@
-
 @extends('template')
 
 @push('css')
@@ -497,5 +496,4 @@ Aucunement. l’INDH est un organisme à but non lucratif et dont la finalité e
         });
     </script>
 @endpush
-
 
