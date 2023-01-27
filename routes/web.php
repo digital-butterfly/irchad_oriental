@@ -26,6 +26,7 @@ Route::get('/', [FrontController::class, 'index'])
 
 
 Route::get('lang/change', [LangController::class, 'change'])->name('changeLang');
+// Route::get('lang/change', [LangController::class, 'change'])->name('changeLang');
 
 
 
@@ -78,7 +79,6 @@ Route::get('/email', function () {
     return new WelcomeMail();
 });
 
-Route::get('lang/change', [LangController::class, 'change'])->name('changeLang');
 
 Route::view('/home', 'home')->middleware('auth');
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}">
+<html lang="en">
 
 <head>
 
@@ -22,6 +22,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('fontawesome/css/all.css') }}">
+    
     <link rel="stylesheet" href="{{ asset('metronic/css/plugins.bundle.css') }}">
     <link rel="stylesheet" href="{{ asset('metronic/css/style.bundle.css') }}">
     <!-- Bootstrap core CSS -->
