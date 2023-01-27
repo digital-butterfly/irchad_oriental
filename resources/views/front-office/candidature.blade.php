@@ -1,6 +1,130 @@
 @extends('front-office.layouts.master')
 
 @section('content')
+  <link rel="stylesheet" href="{{ asset('metronic/css/style.bundle.css') }}">
+  <link rel="stylesheet" href="css/front-office/bootstrap.min.css" type="text/css">
+   <style>
+            .nav-link{
+    display: block;
+    padding: 0.5rem 1rem;
+    color: var(--bs-main);
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out;}
+
+    .navbar-light .navbar-nav .nav-link {
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 22px;
+}
+
+            .home-bg-overlay {
+                z-index: 0;
+            }
+
+            /*progressbar*/
+            #progressbar {
+                margin-bottom: 30px;
+                overflow: hidden;
+                /*CSS counters to number the steps*/
+                counter-reset: step;
+                text-align: center;
+                width: 800px;
+                margin: 0 auto;
+                position: relative;
+                bottom: -292px;
+            }
+
+
+            #progressbar li {
+                list-style-type: none;
+                color: white;
+                text-transform: uppercase;
+                font-size: 9px;
+                width: 33.33%;
+                float: left;
+                position: relative;
+                letter-spacing: 1px;
+            }
+
+            #progressbar li:before {
+                content: counter(step);
+                counter-increment: step;
+                width: 24px;
+                height: 24px;
+                line-height: 26px;
+                display: block;
+                font-size: 12px;
+                color: #333;
+                background: white;
+                border-radius: 25px;
+                margin: 0 auto 10px auto;
+            }
+
+            /*progressbar connectors*/
+            #progressbar li:after {
+                content: '';
+                width: 100%;
+                height: 2px;
+                background: white;
+                position: absolute;
+                left: -50%;
+                top: 9px;
+                z-index: -1; /*put it behind the numbers*/
+            }
+
+            #progressbar li:first-child:after {
+                /*connector not needed before the first step*/
+                content: none;
+            }
+
+            /*marking active/completed steps green*/
+            /*The number of the step and the connector before it = green*/
+            #progressbar li.active:before, #progressbar li.active:after {
+                background: #1bbc9b;
+                color: white;
+            }
+
+            /*Hide all steps except first step*/
+            #contact-form fieldset:not(:first-of-type) {
+                display: none;
+            }
+
+            .custom-form input::-webkit-calendar-picker-indicator { /* display: none */
+            }
+
+            .custom-form input[type=date]::-webkit-inner-spin-button,
+            .custom-form input[type=date]::-webkit-outer-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+                /* position: relative; */
+                /* top : 7px; */
+            }
+
+            .custom-form .form-control, .custom-form #contact-form select.form-control {
+                border: none;
+                border-bottom: 1px solid #c1c1c1;
+            }
+
+            .contact-details .contact-details-header {
+                text-align: center;
+            }
+
+            .logical-fields {
+                display: none;
+            }
+            @media  (max-width: 768px) {
+                #progressbar {
+                    margin-bottom: 30px;
+                    overflow: hidden;
+                    /*CSS counters to number the steps*/
+                    counter-reset: step;
+                    text-align: center;
+                    width: 100%;
+                    margin: 0 auto;
+                    position: relative;
+                    bottom: -292px;
+                }
+            }
+        </style>
     @if(session()->get('locale') == 'en')
        <link rel="stylesheet" href="{{ asset('metronic/css/style.bundle.css') }}">
                <link rel="stylesheet" href="css/front-office/bootstrap.min.css" type="text/css">

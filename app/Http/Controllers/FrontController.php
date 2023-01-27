@@ -18,6 +18,7 @@ class FrontController extends Controller
     {
 
         if (session()->get('locale') === 'ar') {
+
             return view('front-office.index_ar');
         } else {
             return view('front-office.index');
