@@ -1,8 +1,23 @@
 @extends('front-office.layouts.master')
 
 @section('content')
-    @if(app()->getLocale()=='en')
+    @if(session()->get('locale') == 'en')
+       <link rel="stylesheet" href="{{ asset('metronic/css/style.bundle.css') }}">
+               <link rel="stylesheet" href="css/front-office/bootstrap.min.css" type="text/css">
+
         <style>
+            .nav-link{
+    display: block;
+    padding: 0.5rem 1rem;
+    color: var(--bs-main);
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out;}
+
+    .navbar-light .navbar-nav .nav-link {
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 22px;
+}
+
             .home-bg-overlay {
                 z-index: 0;
             }
@@ -112,7 +127,9 @@
                 }
             }
         </style>
-    @elseif(app()->getLocale()=='ar')
+    @elseif(session()->get('locale') == 'ar')
+       <link rel="stylesheet" href="{{ asset('metronic/css/arabic.css') }}">
+                <link rel="stylesheet" href="css/front-office/rtl/bootstrap.min.css" type="text/css">
         <style>
             form{
                 direction: rtl;

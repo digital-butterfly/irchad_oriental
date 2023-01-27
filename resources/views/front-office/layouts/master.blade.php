@@ -18,13 +18,28 @@
     <!-- Pe-icon-7 icon -->
     <link rel="stylesheet" type="text/css" href="css/front-office/pe-icon-7-stroke.css">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('fontawesome/css/all.css') }}">
+    <link rel="stylesheet" href="{{ asset('metronic/css/plugins.bundle.css') }}">
+    <link rel="stylesheet" href="{{ asset('metronic/css/style.bundle.css') }}">
     <!-- Bootstrap core CSS -->
-        @if(app()->getLocale()=='en')
-        <link rel="stylesheet" href="css/front-office/bootstrap.min.css" type="text/css">
-    @elseif(app()->getLocale()=='ar')
-        <link rel="stylesheet" href="css/front-office/rtl/bootstrap.min.css" type="text/css">
+
+      @stack('css')
+    @if(session()->get('locale') == 'ar')
+        <link rel="stylesheet" href="{{ asset('metronic/css/arabic.css') }}">
+           <link rel="stylesheet" href="css/front-office/rtl/bootstrap.min.css" type="text/css">
+           
+     <link rel="stylesheet" href="css/front-office/bootstrap.min.css" type="text/css">
+     @elseif(session()->get('locale') == 'en')
+         
+       <link rel="stylesheet" href="{{ asset('metronic/css/style.bundle.css') }}">
+           
+     <link rel="stylesheet" href="css/front-office/bootstrap.min.css" type="text/css">
 @endif
 
+   
     <!--Material Icon -->
     <link rel="stylesheet" type="text/css" href="css/front-office/materialdesignicons.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css" integrity="sha512-Cv93isQdFwaKBV+Z4X8kaVBYWHST58Xb/jVOcV9aRsGSArZsgAnFIhMpDoMDcFNoUtday1hdjn0nGp3+KZyyFw==" crossorigin="anonymous" />
@@ -105,61 +120,10 @@
 </head>
 
 <body>
-   <div id="myModal" class="modal">
-
-      <!-- Modal content -->
-      <div class="modal-content">
-        <span class="close">&times;</span>
-       <a href="{{ route('getfile','Concours2023S1.pdf') }}"><img src="images/front-office/Concours2023S1.jpg" class="img"></a>
-            <div class="card text-center flex flex-col " style="background:white; margin:3px; padding:4px;  border-radius : 5px;">
-              <div class="flex news-body">
-                <a style=" margin:4px; padding:10px;"
-                href="{{ route('getfile','doc1.docx') }}" download
-                >
-                 <b class="font-19-700 text-left " style="padding:10px;" >إستمارة الترشح خاصة بالتعاونيات</b>
-                  <img src="images/front-office/telechargement.svg" alt="" class="ml3" />
-                </a>
-
-
-              </div>
-            </div>
-       <div class="card text-center flex flex-col "style="background:white; margin:3px; padding:4px;  border-radius : 5px;">
-              <div class="flex news-body ">
-                <a style=" margin:4px;"
-                href="{{ route('getfile','doc2.docx') }}" download
-                  class="primary-title font-13-500 flex flex-row align-center"
-                >
-                 <b class="font-19-700 text-left"  style="padding:10px;">إستمارة الترشح خاصة بالشركات</b>
-                  <img src="images/front-office/telechargement.svg" alt="" class="ml3" />
-                </a>
-
-
-              </div>
-            </div>
-            <div class="card text-center flex flex-col " style="background:white; margin:3px; padding:4px;  border-radius : 5px;">
-              <div class="flex news-body ">
-
-
-
-
-                <a style=" margin:4px;"
-                href="{{ route('getfile','doc3.docx') }}" download
-                  class="primary-title font-13-500 flex flex-row align-center"
-                >
-                 <b class="font-19-700 text-left"  style="padding:10px;">استمارة الترشخ خاصة بالمقاول الذاتي والشباب</b>
-                  <img src="images/front-office/telechargement.svg" alt="" class="ml3" />
-                </a>
-
-
-              </div>
-            </div>
-      </div>
-
-    </div>
-
+  
 
     @include('front-office.partials.header')
-<div class="container">
+{{-- <div class="container">
 
     <div class="test dropdown show">
         <a class="btn btn-sm btn-login dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -175,7 +139,7 @@
             <a  class="dropdown-item" href="{{ url('locale/ar') }}" ><i class="flag-icon flag-icon-ma"></i> {{__('project-submission.Arabe')}}</a>
         </div>
     </div>
-</div>
+</div> --}}
 
 
     @yield('content')
@@ -223,6 +187,34 @@
         }
       }
  </script>
+
+ <script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    let changeurl = "{{ route('changeLang') }}";
+
+    $(".changeLang").change(function(){
+
+        $.ajax({
+            url: changeurl,
+            type: 'GET',
+            data: {
+                lang:$(this).val()
+            },
+            success: function (){
+                location.reload();
+            }
+        });
+
+        // window.location.href = url + "?lang="+ $(this).val();
+    });
+
+</script>
+@stack('scripts')
 </body>
 
 </html>
