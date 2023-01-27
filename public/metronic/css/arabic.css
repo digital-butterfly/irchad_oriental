@@ -1,0 +1,99 @@
+html,
+body {
+    font-family: "Cairo", sans-serif !important;
+}
+
+body p,
+.btn-wrap,
+h1,
+h2,
+.card-body,
+.main-title,
+.bg-title {
+    direction: rtl !important;
+    text-align: start;
+    background-position: right bottom;
+}
+.card-body h5 {
+    font-weight: bold !important;
+}
+.stepper.stepper-pills .stepper-item .stepper-label .stepper-title {
+    font-weight: bold;
+}
+.stepper [data-kt-stepper-element="content"] h2 {
+    justify-content: flex-start !important;
+    text-align: start;
+}
+.row,
+.stepper.stepper-pills .stepper-nav {
+    flex-direction: row-reverse !important;
+    direction: rtl;
+}
+
+@media screen and (min-width: 991px) {
+    ul.main-menu {
+        flex-direction: row-reverse !important;
+    }
+}
+
+.slick-track {
+    display: inline-flex;
+}
+@media screen and (min-width: 767px) and (max-width: 1330px) {
+    #navbarNav {
+        margin-left: 50px !important;
+    }
+}
+
+.tte {
+    display: inline;
+}
+.stepper.stepper-pills .stepper-item {
+    flex-direction: row-reverse;
+    text-align: end;
+}
+
+.stepper.stepper-pills .stepper-item .stepper-icon {
+    margin-left: 1.5rem;
+}
+
+.fv-row,
+.accordion-body {
+    text-align: end;
+}
+.fv-row .input,
+.fv-row .form-control,
+.card.card-flush > .card-header {
+    text-align: start;
+    justify-content: flex-start;
+    direction: rtl;
+}
+
+.form-group label {
+    text-align: start !important;
+}
+
+form,
+input,
+textarea,
+ul {
+    text-align: end;
+}
+
+select {
+    text-align: start;
+}
+
+.accordion-button::after {
+    margin-right: auto !important;
+    margin-left: 0;
+}
+
+.footer-menu li img {
+    float: right;
+    margin-left: 10px !important;
+}
+
+.form-check.form-check-custom .form-check-label {
+    margin-right: 0.55rem;
+}

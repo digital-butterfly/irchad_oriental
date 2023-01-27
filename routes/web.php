@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use \App\Mail\WelcomeMail;
+use  App\Http\Controllers\LangController;
+use App\Http\Controllers\FrontController;
+
 use \Illuminate\Support\Facades\Mail;
 
 /*
@@ -15,9 +18,15 @@ use \Illuminate\Support\Facades\Mail;
 |
 */
 // Route to la page d'accueil
-Route::get('/', function () {
-    return view('front-office.welcome');
-});
+// Route::get('/', function () {
+//     return view('front-office.welcome');
+// });
+Route::get('/', [FrontController::class, 'index'])
+    ->name('accueil');
+
+
+Route::get('lang/change', [LangController::class, 'change'])->name('changeLang');
+
 
 
 //route vers la page programme
@@ -69,6 +78,7 @@ Route::get('/email', function () {
     return new WelcomeMail();
 });
 
+Route::get('lang/change', [LangController::class, 'change'])->name('changeLang');
 
 Route::view('/home', 'home')->middleware('auth');
 
