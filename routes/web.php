@@ -28,6 +28,7 @@ Route::get('/', [FrontController::class, 'index'])
 Route::get('lang/change', [LangController::class, 'change'])->name('changeLang');
 // Route::get('lang/change', [LangController::class, 'change'])->name('changeLang');
 
+Route::post('admin/login', [AdminController::class, 'AdminLogin'])->name('admin.login');
 
 
 //route vers la page programme

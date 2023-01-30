@@ -80,6 +80,12 @@ ul {
     text-align: end;
 }
 
+.footerul {
+    text-align: start;
+    padding-right: 0;
+    /* margin-right: -8%; */
+}
+
 select {
     text-align: start;
 }

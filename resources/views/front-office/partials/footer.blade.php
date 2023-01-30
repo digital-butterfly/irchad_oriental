@@ -31,7 +31,7 @@
             </div>
             <div class="col-md-2 col-6">
                 <p class="footer-title">{{__('messages.liens_rapides')}}</p>
-                <ul class="list-unstyled footer-menu">
+                <ul class="list-unstyled footer-menu footerul">
                     
                      <li >
                         <a style="color: white" data-id="apropos" aria-current="page" 
@@ -68,7 +68,7 @@
             </div>
             <div class="col-md-2 col-6">
                 <p class="footer-title text-uppercase" >{{__('messages.contacts')}}</p>
-                <ul class="list-unstyled footer-menu">
+                <ul class="list-unstyled footer-menu footerul">
                     <li><img class="align-top me-2" src="{{ asset('images/svg/phone.svg') }}" alt="">+212567676767</li>
                     <li class="text-nowrap"><img class="align-top me-2" src="{{ asset('images/svg/mail.svg') }}" alt="">oriental@irchad.ma</li>
                     <li><img class="align-top me-2" src="{{ asset('images/svg/web.svg') }}" alt=""><a style="color:white;" href="">oriental.irchad.ma</a></li>

@@ -264,18 +264,24 @@
                 {{--                <p class="main-text mt-7">Lorem ipsum dolor sit amet consectetur. <br>Placerat faucibus varius quam suspendisse diam cursus quis.</p>--}}
             </div>
         </div>
-         <div id="faq" class="col-md-6 mb-sm-5 mb-xs-5 ">
+       
+             <div class="col-md-2"></div>
+         <div id="faq" class="col-md-8 mb-sm-5 mb-xs-5 ">
                
                 <div class="accordion accordion-flush mt-17" id="accordionFlushExample">
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="h-one">
                             <button class="accordion-button collapsed text-uppercase" type="button" data-bs-toggle="collapse" data-bs-target="#one" aria-expanded="false" aria-controls="flush-collapseThree">
-                      1. من بإمكانه تقديم مشروع؟                   </button>
+                        1.  لمن موجه هذا البرنامج ؟
+
+                         {{-- Qui peut soumissionner un projet ?      --}}
+                                            </button>
                         </h2>
                         <div id="one" class="accordion-collapse collapse" aria-labelledby="t-one" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
-                             جميع الأشخاص الذين تتراوح أعمارهم بين 18 و 45 سنة، الذين لا يمارسون أي نشاط مهني، أو الذين أطلقوا مشروعهم في مدة لا تقل عن 12 شهرا. ..
-
+                                {{-- {{ __('messages.aqui2') }} --}}
+                                {{-- FAQ.Toute personne majeure âgée entre 18 et 45 ans, en situation d'inactivité ou de sous-emploi, ou exerçant une activité entreprenariale ne dépassant pas les 12 mois. --}}
+الشباب حاملي الشهادات / المؤهلين وحاملي المشاريع – المقاولون الذاتيون المسجلون في السجل الوطني- المقاولون الأفراد من الأشخاص الذاتيين الذين لا يتوفرون على صفة مقاول ذاتي – المقاولات الصغيرة جدا بما في ذلك التجار-الحرفيين-الفلاحين الأفراد و المزارعين- المقاولين الأفراد و المقاولات الصغيرة جدا في العالم القروي- المقاولات الصغيرة جدا المصدرة – المقاولات الناشئة – التعاونيات
 
                             </div>
                         </div>
@@ -284,26 +290,32 @@
                         <h2 class="accordion-header text-uppercase" id="t-two">
                             <button class="accordion-button collapsed text-uppercase" type="button" data-bs-toggle="collapse" data-bs-target="#two" aria-expanded="false"
                                     aria-controls="flush-collapseOne">
-                                 2.كيف يتم اختيار المشاريع؟
+                                  2. ما هي شروط الاستحقاق ؟
+
+                                  {{-- Comment se fait la sélection des projets ? --}}
                             </button>
                         </h2>
                         <div id="two" class="accordion-collapse collapse" aria-labelledby="t-two" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
-                                بعد تقديمك لمشروعك، سيشرع فريق إرشاد في دراسته، و دراسة المعايير الأهلية و لإبتكارية للمشوع، و ذلك من خلال هيئة خاصة سيتم تكوينها داخليا.
-
-
+                                {{-- Après soumission de votre projet, l'équipe IRCHAD procédera à l'étude de votre dossier selon les critères de faisabilité et d'innovation, et ce à travers une comission d'experts constituée en interne. --}}
+                                 {{-- {{ __('messages.saqui') }} <br>
+                                {{ __('messages.saqui2') }}  --}}
+حامل مشروع أو مقاولة قيد الإنشاء مع رقم معاملات توقعي يقل عن 10 مليون درهم مقاولة منشأة منذ أقل من 5 سنوات مع حجم مبيعات يقل عن 10 مليون درهم و يستثنى من هذه الشروط المشاريع الزراعية والشركات المصدرة لإفريقيا
                             </div>
                         </div>
                     </div>
                     <div class="accordion-item">
                         <h2 class="accordion-header text-uppercase" id="t-three">
                             <button class="accordion-button collapsed text-uppercase" type="button" data-bs-toggle="collapse" data-bs-target="#three" aria-expanded="false" aria-controls="flush-collapseTwo">
-                            3.ما هي المعايير المعتمدة في اختيار المشاريع؟
+                             3.  ما هي الضمانات ؟
+                              {{-- Quels sont les critères d'éligibilité fixés pour la sélection de projets ? --}}
                             </button>
                         </h2>
                         <div id="three" class="accordion-collapse collapse" aria-labelledby="t-three" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
-                               يجب على المشاريع أن تستوجب للشروط الإقتصادية ( خلق القيمة المضافة، استقرار الدخل...)، الإجتماعية (خلق فرص الشغل، تحسين ظروف العمل، تحسين وضع المرأة...) و البيئية ( الحفاظ على الموارد الطبيعية و التنوع البيولوجي).
+                                {{-- {{ __('messages.saqui3') }}  --}}
+                                {{-- Les projets doivent répondre à des critères d'éligibilité d'ordre économique (création de valeur ajoutée, stabilité de revenus...), social (création d'emplois, conditions de travail, amélioration du statut de la femme...) et environnemental (conservation des ressources naturelles, maintien de la biodiversité...) --}}
+لا يوجد ضمانات شخصية مرتبطة بالمشروع (مباني ، معدات الخ). لا يتم الالتزام بأي ضمان شخصي في شكل ضمان
 
 
                         </div>
@@ -312,121 +324,55 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header text-uppercase" id="t-four">
                             <button class="accordion-button collapsed text-uppercase" type="button" data-bs-toggle="collapse" data-bs-target="#four" aria-expanded="false" aria-controls="flush-collapseThree">
-4.ما هي المشاريع التي تعتبر غير مؤهلة؟
+                            4.   كيف أستفيد من هذا التمويل   ؟
+                            {{-- Quels projets sont considérés comme non éligibles? --}}
                             </button>
                         </h2>
                         <div id="four" class="accordion-collapse collapse" aria-labelledby="t-four" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
-                              تعتبر غير مؤهلة كل المشاريع التي تضر بالبيئة أو تلك المقدمة من قبل الموظفين والوكلاء بالقطاع العام، أو الموظفين بالقطاع الخاص، أو أي مشروع استفاد حامله من دعم خاص أو دعم مالي عام في إطار أحد البرامج الحكومية.
+                                {{-- Ne sont pas éligibles les projets qui nuisent à l'environnement ou ceux soumis par des fonctionnaires, des agents des établissements publics ou des salariés du secteur privé, ainsi que les projets dont les porteurs ont déjà bénéficié individuellement ou dans le cadre de groupement d'un financement public y compris dans le cadre d'autres programmes gouvernementaux. --}}
+1- التسجيل على موقعنا  irchad.oriental.ma <br>
+2- Rendez-vous dans nos bureaux :<br>
 
-
+                                {{-- {{ __('messages.insc') }} <br> --}}
                                 {{-- <a href="" style="color: grey; font-size:15px">
                                     {{ __('messages.siteweb') }}
                                   </a> --}}
 {{--                                {{ __('messages.rndv') }}--}}
-{{--                                <ul>--}}
-{{--                                    <li> {{ __('messages.rndv1') }}</li>--}}
-{{--                                    <li>{{ __('messages.rndv2') }}</li>--}}
-{{--                                    <li>{{ __('messages.rndv3') }} </li>--}}
-{{--                                </ul>--}}
-{{--                                {{ __('messages.rens') }} <a href="mailto:contact@ofok.ma" class="fw-bold">contact@ofok.ma</a>--}}
+                    <ul>
+                                 <li>. شارع علال بن عبد الله رقم 10 رياض فاس, شارع للا عائشة الطابق 4 المكتب رقم 21 (بجانب مقر الشرطة)
+</li>
+                                 <li>( CTM بجانب) عمارة 4 اقامة صراية ب3 شارع دمشق, مكناس
+</li>
+                                    <li>تازة : سكن شامة ، شارع قاصو مداح الطابق الثالث ، رقم 21, تازة
+ </li>
+                             </ul>
+
+                          لمرجو إيداع طلبكم عبر الرابط التالي أو ملئ استمارة المشروع و إرسالها عبر البريد الإلكتروني -3 <a href="mailto:contact@ofok.ma" class="fw-bold">oriental@irchad.ma</a>
                             </div>
                         </div>
                     </div>
-                      <div class="accordion-item">
+                      {{-- <div class="accordion-item">
                         <h2 class="accordion-header text-uppercase" id="t-fin">
                             <button class="accordion-button collapsed text-uppercase" type="button" data-bs-toggle="collapse" data-bs-target="#fin" aria-expanded="false" aria-controls="flush-collapseThree">
-5.هل يمكن لحامل المشروع أن يستفيد من مواكبة قبل إنشاء مشروعه؟
+                         5. Le porteur de projet pourrait-il bénéficier d'un accompagnement avant la création de son entrepise?
                             </button>
                         </h2>
                         <div id="fin" class="accordion-collapse collapse" aria-labelledby="t-fin" data-bs-parent="#accordionFlushExample">
                             <div id="fin" class="accordion-collapse collapse" aria-labelledby="t-fin" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
-                                "بالتأكيد، بعد اختيار مشروعك، سيقوم فريق إرشاد بتنظيم دورات تكوينية مخصصة لتعزيز المشروع والتوجيه و التنميط لكافة حملة المشاريع. و تخص هذه المواكبة الإستقبال، الإستماع، التوجيه، المساعدة على إجراء الدراسات الأساسية (دراسة السوق، إعداد المشروع، دراسة إمكانية نجاح المشروع، المساعدة على إعداد خطة العمل و جميع الجوانب القانونية و تلك المتعلقة بالميزانية).
+                                Effectivement, après la sélection de votre projet, l'équipe IRCHAD procèdera à l'organisation des sessions à plein temps de renforcement, d'orientation et de profilage des porteurs de projets. Il s'agit principalement de l'accueil, l'écoute, l'orientation, la réalisation des études nécessaires (de marché, de montage de projet, de faisabilité, d'aide à l'établissement du Business plan ainsi que sur les aspects budgétaires et juridiques).
 
 
-                                {{-- {{ __('messages.saqui3') }}  --}}
+                               {{ __('messages.saqui3') }}  
                         </div>
                         </div>
                         </div>
-                    </div>
+                    </div> --}}
 
                 </div>
             </div>
-            <div id="faq" class="col-md-6 mb-sm-5 mb-xs-5">
-               
-                <div class="accordion accordion-flush mt-17" id="accordionFlushExample">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="h-five">
-                            <button class="accordion-button collapsed text-uppercase" type="button" data-bs-toggle="collapse" data-bs-target="#five" aria-expanded="false" aria-controls="flush-collapseThree">
-6.هل يمكن لحامل المشروع أن يستفيد من المواكبة بعد إنشاء مشروعه؟
-                        </h2>
-                        <div id="five" class="accordion-collapse collapse" aria-labelledby="t-one" data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">
-                                نعم، يمكن لحامل المشروع أن يستفيد من المواكبة بعد إنشاء مشروعه. سيتم تنظيم دورات تطبيقية و حصص مواكبة جماعية و فردية. و ستعطى الأسبقية لمؤهلات التسيير الأساسية للمشروع، مثل التدبير المالي و المحاسباتي، التسويق، استطلاع الفرص التجارية، تقنيات البيع، دعم السير الجيد للإجراءات الإدارية و المهارات السلوكية.
-
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header text-uppercase" id="t-six">
-                            <button class="accordion-button collapsed text-uppercase" type="button" data-bs-toggle="collapse" data-bs-target="#six" aria-expanded="false"
-                                    aria-controls="flush-collapseOne">
-7.أنشأت مشروعي قبل 12 شهرا أو أقل. ها يمكنني الإستفادة من المواكبة؟
-                            </button>
-                        </h2>
-                        <div id="six" class="accordion-collapse collapse" aria-labelledby="t-six" data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body"> 
-                               أكيد. إذا كان عمر مشروعك 12 شهرا أو أقل، يمكنكم الإستفادة من برنامج المواكبة بعد الإنشاء. (أنظر السؤال 6)
-
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header text-uppercase" id="t-seven">
-                            <button class="accordion-button collapsed text-uppercase" type="button" data-bs-toggle="collapse" data-bs-target="#seven" aria-expanded="false" aria-controls="flush-collapseTwo">
-8.هل يمكن إحداث تغييرات على مشروع تمت المصادقة عليه مسبقا؟
-                            </button>
-                        </h2>
-                        <div id="seven" class="accordion-collapse collapse" aria-labelledby="t-seven" data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">
-يساهم حامل المشروع فيما يعادل %40 من التكلفة الإجمالية للمشروع (%20 نقدا و %20 عينية). ويرجع التقييم النهائي إلى الهيئة الإقليمية للتنمية البشرية.
-
-                        </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header text-uppercase" id="t-eight">
-                            <button class="accordion-button collapsed text-uppercase" type="button" data-bs-toggle="collapse" data-bs-target="#eight" aria-expanded="false" aria-controls="flush-collapseThree">
-9.ماهو مقدار المساهمة المالية المقدمة من طرف المبادرة الوطنية للتنمية البشرية؟
-                            </button>
-                        </h2>
-                       <div id="eight" class="accordion-collapse collapse" aria-labelledby="t-seven" data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">
-تخصص المبادرة الوطنية للتنمية البشرية مبلغ 100.000 درهم لبدأ تشغيل المشروع، أي ما يعادل %60 من الكلفة الإستثمارية المخطط لها.
-
-                        </div>
-                        </div>
-                    </div>
-                      <div class="accordion-item">
-                        <h2 class="accordion-header text-uppercase" id="t-nine">
-                            <button class="accordion-button collapsed text-uppercase" type="button" data-bs-toggle="collapse" data-bs-target="#nine" aria-expanded="false" aria-controls="flush-collapseThree">
-10.هل يصبح إلزاميا مشاركة حصة من المقاولة مع المبادرة الوطنية للتنمية البشرية عند الإستفادة<br>  من تمويل لمشروعي؟
-                            </button>
-                        </h2>
-                       <div id="nine" class="accordion-collapse collapse" aria-labelledby="t-nine" data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">
-                                لا. بل المبادرة الوطنية للتنمية البشرية منظمة غير ربحية تعمل على تحريك عجلة الإقصاد و مواكبة النمو.
-
-
-                                {{-- {{ __('messages.saqui7') }}  --}}
-                        </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+               <div class="col-md-2"></div>
  <!-- Partenaires section -->
  <div class="container  px-20">
     <div class="row mb-10">

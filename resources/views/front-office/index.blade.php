@@ -155,7 +155,7 @@
                                   <a style="position:absolute;margin-top:20% ;margin-left:4%"
               href="{{ route('projectSubmission') }}" class="btn1 bb btn-xxl   btn-warning2  ">          
                                        <img  class="img-fluid float-start" src="{{ asset('images/data.png') }}"  alt="">
-                                1.200.000 Dh</a>
+                              <p class="secondecriture"> 1.200.000 Dh</p> </a>
                               
                                 
                <img class="img-fluid2 rounded  mx-auto d-block "  src="{{ asset('images/homepic2.png') }}" alt="">
@@ -280,18 +280,23 @@
                 {{--                <p class="main-text mt-7">Lorem ipsum dolor sit amet consectetur. <br>Placerat faucibus varius quam suspendisse diam cursus quis.</p>--}}
             </div>
         </div>
-         <div id="faq" class="col-md-6 mb-sm-5 mb-xs-5 ">
+        <div class="col-md-2"></div>
+         <div id="faq" class="col-md-8 mb-sm-5 mb-xs-5 ">
                
                 <div class="accordion accordion-flush mt-17" id="accordionFlushExample">
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="h-one">
                             <button class="accordion-button collapsed text-uppercase" type="button" data-bs-toggle="collapse" data-bs-target="#one" aria-expanded="false" aria-controls="flush-collapseThree">
-                        1. Qui peut soumissionner un projet ?                         </button>
+                        1.A QUI S'ADRESSE CE PROGRAMME ?
+                         {{-- Qui peut soumissionner un projet ?      --}}
+                                            </button>
                         </h2>
                         <div id="one" class="accordion-collapse collapse" aria-labelledby="t-one" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
                                 {{-- {{ __('messages.aqui2') }} --}}
-                                FAQ.Toute personne majeure âgée entre 18 et 45 ans, en situation d'inactivité ou de sous-emploi, ou exerçant une activité entreprenariale ne dépassant pas les 12 mois.
+                                {{-- FAQ.Toute personne majeure âgée entre 18 et 45 ans, en situation d'inactivité ou de sous-emploi, ou exerçant une activité entreprenariale ne dépassant pas les 12 mois. --}}
+                            Jeunes diplômés / qualifiés porteurs de projet Auto-entrepreneurs inscrits au registre national Entrepreneurs Individuels personnes physiques n’ayant pas le statut d’auto-entrepreneurs Très Petites Entreprises y compris les commerçants  Artisans Agriculteurs Individuels et les Exploitants Agricoles  Entrepreneurs Individuels et TPE dans le monde rural  Très Petites Entreprises exportatrices Start-ups Coopératives
+
                             </div>
                         </div>
                     </div>
@@ -299,29 +304,32 @@
                         <h2 class="accordion-header text-uppercase" id="t-two">
                             <button class="accordion-button collapsed text-uppercase" type="button" data-bs-toggle="collapse" data-bs-target="#two" aria-expanded="false"
                                     aria-controls="flush-collapseOne">
-                                  2. Comment se fait la sélection des projets ?
+                                  2. QUELLES SONT LES CONDITIONS D'ÉLIGIBILITÉ  ?
+                                  {{-- Comment se fait la sélection des projets ? --}}
                             </button>
                         </h2>
                         <div id="two" class="accordion-collapse collapse" aria-labelledby="t-two" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
-                                Après soumission de votre projet, l'équipe IRCHAD procédera à l'étude de votre dossier selon les critères de faisabilité et d'innovation, et ce à travers une comission d'experts constituée en interne.
-
-
+                                {{-- Après soumission de votre projet, l'équipe IRCHAD procédera à l'étude de votre dossier selon les critères de faisabilité et d'innovation, et ce à travers une comission d'experts constituée en interne. --}}
                                  {{-- {{ __('messages.saqui') }} <br>
                                 {{ __('messages.saqui2') }}  --}}
+                                - Porteur d’idée ou entreprise en création avec un chiffre daffaires prévisionnel < 10MDH <br>
+                                - Entreprise existante depuis moins de 5 ans et développant un Chiffre d’affaires < 10MDH. Sont dispensé de la condition d’ancienneté, les projets agricoles et les entreprises exportatrices vers Afrique.
                             </div>
                         </div>
                     </div>
                     <div class="accordion-item">
                         <h2 class="accordion-header text-uppercase" id="t-three">
                             <button class="accordion-button collapsed text-uppercase" type="button" data-bs-toggle="collapse" data-bs-target="#three" aria-expanded="false" aria-controls="flush-collapseTwo">
-                             3. Quels sont les critères d'éligibilité fixés pour la sélection de projets ?
+                             3.QUELLES GARANTIES ?
+                              {{-- Quels sont les critères d'éligibilité fixés pour la sélection de projets ? --}}
                             </button>
                         </h2>
                         <div id="three" class="accordion-collapse collapse" aria-labelledby="t-three" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
                                 {{-- {{ __('messages.saqui3') }}  --}}
-                                Les projets doivent répondre à des critères d'éligibilité d'ordre économique (création de valeur ajoutée, stabilité de revenus...), social (création d'emplois, conditions de travail, amélioration du statut de la femme...) et environnemental (conservation des ressources naturelles, maintien de la biodiversité...)
+                                {{-- Les projets doivent répondre à des critères d'éligibilité d'ordre économique (création de valeur ajoutée, stabilité de revenus...), social (création d'emplois, conditions de travail, amélioration du statut de la femme...) et environnemental (conservation des ressources naturelles, maintien de la biodiversité...) --}}
+Aucune garantie personnelle Garanties liées au projet (local, matériel, fonds de commerce). Aucune garantie personnelle n’est engagée sous forme notamment de caution
 
 
                         </div>
@@ -330,29 +338,31 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header text-uppercase" id="t-four">
                             <button class="accordion-button collapsed text-uppercase" type="button" data-bs-toggle="collapse" data-bs-target="#four" aria-expanded="false" aria-controls="flush-collapseThree">
-                            4. Quels projets sont considérés comme non éligibles?
+                            4. COMMENT FAIRE POUR BÉNÉFICIER DE CE FINANCEMENT ?
+                            {{-- Quels projets sont considérés comme non éligibles? --}}
                             </button>
                         </h2>
                         <div id="four" class="accordion-collapse collapse" aria-labelledby="t-four" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
-                                Ne sont pas éligibles les projets qui nuisent à l'environnement ou ceux soumis par des fonctionnaires, des agents des établissements publics ou des salariés du secteur privé, ainsi que les projets dont les porteurs ont déjà bénéficié individuellement ou dans le cadre de groupement d'un financement public y compris dans le cadre d'autres programmes gouvernementaux.
-
+                                {{-- Ne sont pas éligibles les projets qui nuisent à l'environnement ou ceux soumis par des fonctionnaires, des agents des établissements publics ou des salariés du secteur privé, ainsi que les projets dont les porteurs ont déjà bénéficié individuellement ou dans le cadre de groupement d'un financement public y compris dans le cadre d'autres programmes gouvernementaux. --}}
+1- Inscription sur notre site irchad.oriental.ma <br>
+2- Rendez-vous dans nos bureaux :<br>
 
                                 {{-- {{ __('messages.insc') }} <br> --}}
                                 {{-- <a href="" style="color: grey; font-size:15px">
                                     {{ __('messages.siteweb') }}
                                   </a> --}}
 {{--                                {{ __('messages.rndv') }}--}}
-{{--                                <ul>--}}
-{{--                                    <li> {{ __('messages.rndv1') }}</li>--}}
-{{--                                    <li>{{ __('messages.rndv2') }}</li>--}}
-{{--                                    <li>{{ __('messages.rndv3') }} </li>--}}
-{{--                                </ul>--}}
-{{--                                {{ __('messages.rens') }} <a href="mailto:contact@ofok.ma" class="fw-bold">contact@ofok.ma</a>--}}
+                    <ul>
+                                 <li> {{ __('messages.rndv1') }}</li>
+                                 <li>{{ __('messages.rndv2') }}</li>
+                                    <li>{{ __('messages.rndv3') }} </li>
+                             </ul>
+                            {{ __('messages.rens') }} <a href="mailto:contact@ofok.ma" class="fw-bold">oriental@irchad.ma</a>
                             </div>
                         </div>
                     </div>
-                      <div class="accordion-item">
+                      {{-- <div class="accordion-item">
                         <h2 class="accordion-header text-uppercase" id="t-fin">
                             <button class="accordion-button collapsed text-uppercase" type="button" data-bs-toggle="collapse" data-bs-target="#fin" aria-expanded="false" aria-controls="flush-collapseThree">
                          5. Le porteur de projet pourrait-il bénéficier d'un accompagnement avant la création de son entrepise?
@@ -364,15 +374,16 @@
                                 Effectivement, après la sélection de votre projet, l'équipe IRCHAD procèdera à l'organisation des sessions à plein temps de renforcement, d'orientation et de profilage des porteurs de projets. Il s'agit principalement de l'accueil, l'écoute, l'orientation, la réalisation des études nécessaires (de marché, de montage de projet, de faisabilité, d'aide à l'établissement du Business plan ainsi que sur les aspects budgétaires et juridiques).
 
 
-                                {{-- {{ __('messages.saqui3') }}  --}}
+                               {{ __('messages.saqui3') }}  
                         </div>
                         </div>
                         </div>
-                    </div>
+                    </div> --}}
 
                 </div>
             </div>
-            <div id="faq" class="col-md-6 mb-sm-5 mb-xs-5">
+               <div class="col-md-2"></div>
+            {{-- <div id="faq" class="col-md-6 mb-sm-5 mb-xs-5">
                
                 <div class="accordion accordion-flush mt-17" id="accordionFlushExample">
                     <div class="accordion-item">
@@ -385,7 +396,7 @@
                                 Le porteur de projet bénéficiera d'un accompagnement post-création qui se fera à travers un coaching incluant des formations pratiques et un accompagnement individuel et en groupe. Il couvrira en priorité les compétences de gestion essentielles à la bonne conduite du projet, à savoir la gestion financière, la gestion de trésorerie, le marketing, le démarchage d'opportunités d'affaires, la commercialisation, l'accompagnement à la conduite des formalités administratives, ainsi que les aptitudes comportementales (soft-skills).
 
 
-                                {{-- {{ __('messages.aqui2') }} --}}
+                          
                             </div>
                         </div>
                     </div>
@@ -400,9 +411,6 @@
                             <div class="accordion-body"> 
                                 Tout à fait. Si votre projet est en activité depuis moin de 12 mois, vous pouvez bénéficier d'un accompagnement en post-création (voir Q.6).
 
-
-                                {{-- {{ __('messages.saqui') }} <br>
-                                {{ __('messages.saqui2') }}  --}}
                             </div>
                         </div>
                     </div>
@@ -414,7 +422,7 @@
                         </h2>
                         <div id="seven" class="accordion-collapse collapse" aria-labelledby="t-seven" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
-                                {{-- {{ __('messages.saqui7') }}  --}}
+                            
                                                                 Les contributions du poteur de projet sont de l'ordre de 40% du coût total du projet (20% en numéraire et 20% en nature) et dont l'appréciation est laissée au CPDH.
 
                         </div>
@@ -428,7 +436,7 @@
                         </h2>
                        <div id="eight" class="accordion-collapse collapse" aria-labelledby="t-seven" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
-                                {{-- {{ __('messages.saqui7') }}  --}}
+                        
 Un fond d'amorçage est octroyé l'INDH aux porteurs de projets plafonné à 100.000,00 DH par projet, représentant 60% du montant de l'investissement projeté.
 
 
@@ -448,12 +456,12 @@ Un fond d'amorçage est octroyé l'INDH aux porteurs de projets plafonné à 100
 Aucunement. l’INDH est un organisme à but non lucratif et dont la finalité est le dynamisme de la croissance.
 
 
-                                {{-- {{ __('messages.saqui7') }}  --}}
+                   
                         </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
  <!-- Partenaires section -->
  <div class="container  px-20">
     <div class="row mb-10">

@@ -99,7 +99,7 @@ return [
     'suivant' => 'Suivant',
     'précédent' => 'Précédent',
     'valider' => 'Valider',
-    'moak' => 'Mouwakabat intelaka',
+    'moak' => 'IRCHAD Oriental',
     'Votrenom' => 'Votre Nom',
     'Votreprenom' => 'Votre Prénom',
     'Votreemail' => 'Votre email',

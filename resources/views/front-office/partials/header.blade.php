@@ -45,8 +45,8 @@
                         <option value="ar" {{ session()->get('locale') == 'ar' ? 'selected' : '' }}>Ar</option>
                     </select>
                 </span>
-                  <a href="" class="btn btn-lg btn-warning btn-custom text-light fw-normal me-4">
-                    <span class="me-3"><img  href="{{ route('login.admin') }}" class="align-top" width="14" src="{{ asset('images/svg/profil.svg') }}" alt=""></span>
+                  <a href="login" class="btn btn-lg btn-custom text-light fw-normal me-4">
+                    <span class="me-3"><img  href="login.admin" class="align-top" width="14" src="{{ asset('images/svg/profil.svg') }}" alt=""></span>
                     {{__('messages.seconnecter')}}
                 </a>
              

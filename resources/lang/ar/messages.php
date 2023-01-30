@@ -61,7 +61,7 @@ return [
     'Votreemail' => 'بريدكم الإلكتروني',
     'soumettre_proj' => 'أقدم مشروعي',
     'abonner' => 'اشترك الآن',
-    'moak' => 'مواكبة انطلاقة',
+    'moak' =>  'ارشاد الشرق',
     'Récapitulatif' => 'ملخص الطلب',
     'faq' => 'أسئلة',
     'Financement' => 'التمويل',
