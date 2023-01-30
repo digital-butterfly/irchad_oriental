@@ -354,9 +354,9 @@ Aucune garantie personnelle Garanties liées au projet (local, matériel, fonds 
                                   </a> --}}
 {{--                                {{ __('messages.rndv') }}--}}
                     <ul>
-                                 <li> {{ __('messages.rndv1') }}</li>
+                                 {{-- <li> {{ __('messages.rndv1') }}</li>
                                  <li>{{ __('messages.rndv2') }}</li>
-                                    <li>{{ __('messages.rndv3') }} </li>
+                                    <li>{{ __('messages.rndv3') }} </li> --}}
                              </ul>
                             {{ __('messages.rens') }} <a href="mailto:contact@ofok.ma" class="fw-bold">oriental@irchad.ma</a>
                             </div>
