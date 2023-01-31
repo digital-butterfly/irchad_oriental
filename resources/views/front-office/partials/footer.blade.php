@@ -12,8 +12,7 @@
                         <p class="title fw-bold">{{ __('messages.moak') }}</p>
                         <p class="text-footer">
                             <p class="mt-4" style="text-align: justify;">
-                               Lorem ipsum dolor sit amet consectetur. Aliquam dolor nibh volutpat venenatis ac. Iaculis in semper pellentesque blandit. In amet quam sed eget pharetra.
-                    
+                    {{__('messages.footerdesc')}}
                           
                             </p>    
                                <ul class="socialmedia">

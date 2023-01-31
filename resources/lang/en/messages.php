@@ -12,7 +12,7 @@ return [
     "desc4" => 'libérez votre potentiel entrepreneurial!',
     "ca" => ' et vous',
     "entreprendre" => ' un projet ',
-
+    "footerdesc" => 'Êtes-vous tentés par la création de votre entreprise? Vous êtes à la recherche d’une idée ou d’un accompagnement? IRCHAD est votre nouvelle plateforme digitale qui vous accompagne dans votre réflexion, de l’idée à la mise en marché.',
     "desc6" => 'libérez votre potentiel entrepreneurial',
     "Programme" => 'Programme',
     "point_exclamation" => '!',
